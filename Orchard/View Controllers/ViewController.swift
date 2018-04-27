@@ -7,7 +7,22 @@
 //
 
 import Cocoa
+import Meadow
+import SceneKit
 
 class ViewController: NSViewController {
 
+    @IBOutlet weak var sceneView: SCNView!
+    
+    let meadow = Meadow()
+}
+
+extension ViewController {
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        sceneView.scene = meadow
+    }
 }

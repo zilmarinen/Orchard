@@ -1,3 +1,5 @@
+platform :osx, '10.10'
+
 target 'Orchard' do
   
 	use_frameworks!
