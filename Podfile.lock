@@ -1,0 +1,18 @@
+PODS:
+  - Meadow (0.1):
+    - Meadow/Core (= 0.1)
+  - Meadow/Core (0.1)
+
+DEPENDENCIES:
+  - Meadow (from `../Meadow`)
+
+EXTERNAL SOURCES:
+  Meadow:
+    :path: "../Meadow"
+
+SPEC CHECKSUMS:
+  Meadow: e021469b1a104725dc8e55ec05a86e7550d0f3b9
+
+PODFILE CHECKSUM: 5567a564a5c2b8c8608145961c0bd39876111598
+
+COCOAPODS: 1.5.0
