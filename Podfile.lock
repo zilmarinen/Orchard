@@ -2,17 +2,40 @@ PODS:
   - Meadow (0.1):
     - Meadow/Core (= 0.1)
   - Meadow/Core (0.1)
+  - THROperations (1.4.3):
+    - THROperations/Core (= 1.4.3)
+    - THRResult
+  - THROperations/Core (1.4.3):
+    - THRResult
+  - THRResult (1.0.1):
+    - THRResult/Core (= 1.0.1)
+  - THRResult/Core (1.0.1)
+  - THRUtilities (1.7.5):
+    - THRUtilities/Core (= 1.7.5)
+  - THRUtilities/Core (1.7.5)
 
 DEPENDENCIES:
   - Meadow (from `../Meadow`)
+  - THROperations (from `../THROperations`)
+  - THRResult (from `../THRResult`)
+  - THRUtilities (from `../THRUtilities`)
 
 EXTERNAL SOURCES:
   Meadow:
     :path: "../Meadow"
+  THROperations:
+    :path: "../THROperations"
+  THRResult:
+    :path: "../THRResult"
+  THRUtilities:
+    :path: "../THRUtilities"
 
 SPEC CHECKSUMS:
-  Meadow: d9b1bc90500c9f0d60e06a6d79be6631f768e81f
+  Meadow: d3be92b3425aa1180939b9a6704c16c6bf0bda59
+  THROperations: d179a3685c73a59c27e65d577c79975946051f65
+  THRResult: ae040cc6ad5318d09e1ea6360f779c647f8378d8
+  THRUtilities: 08695fe94b602540cba2c0db60d256320339ae5b
 
-PODFILE CHECKSUM: 24b3c53991e3fca225c8278414613b094924bd39
+PODFILE CHECKSUM: a426b3a7c67f6ad9177833e28a2fc015466ee60b
 
 COCOAPODS: 1.5.0
