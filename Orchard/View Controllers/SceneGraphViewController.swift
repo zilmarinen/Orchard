@@ -29,6 +29,16 @@ class SceneGraphViewController: NSViewController {
     var dataSource: SceneGraphDataSource?
 }
 
+extension SceneGraphViewController {
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        outlineView.register(NSNib(nibNamed: NSNib.Name(SceneGraphCell.cellIdentifier), bundle: nil), forIdentifier: NSUserInterfaceItemIdentifier(SceneGraphCell.cellIdentifier))
+    }
+}
+
 extension SceneGraphViewController: NSOutlineViewDataSource {
     
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {

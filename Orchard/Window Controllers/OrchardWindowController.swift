@@ -10,4 +10,8 @@ import Cocoa
 
 class OrchardWindowController: NSWindowController {
 
+    @IBAction func segmentedControl(_ sender: Any) {
+        
+        //
+    }
 }

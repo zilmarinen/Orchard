@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1837ADEE20ADD0C9006802CA /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1837ADED20ADD0C9006802CA /* SplitViewController.swift */; };
+		1837ADF020ADD14B006802CA /* UtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1837ADEF20ADD14B006802CA /* UtilitiesViewController.swift */; };
+		185E588420A9C6F300139565 /* SceneGraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185E588320A9C6F300139565 /* SceneGraphCell.swift */; };
+		185E588620A9C71300139565 /* SceneGraphCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185E588520A9C71300139565 /* SceneGraphCell.xib */; };
 		1871220720932094002488E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871220620932094002488E0 /* AppDelegate.swift */; };
 		1871220920932094002488E0 /* SceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871220820932094002488E0 /* SceneViewController.swift */; };
 		1871220B20932095002488E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1871220A20932095002488E0 /* Assets.xcassets */; };
@@ -31,6 +35,10 @@
 
 /* Begin PBXFileReference section */
 		0EC9B9EA3D57D1579AF7465E /* Pods-OrchardTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OrchardTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OrchardTests/Pods-OrchardTests.release.xcconfig"; sourceTree = "<group>"; };
+		1837ADED20ADD0C9006802CA /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
+		1837ADEF20ADD14B006802CA /* UtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilitiesViewController.swift; sourceTree = "<group>"; };
+		185E588320A9C6F300139565 /* SceneGraphCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGraphCell.swift; sourceTree = "<group>"; };
+		185E588520A9C71300139565 /* SceneGraphCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SceneGraphCell.xib; sourceTree = "<group>"; };
 		1871220320932094002488E0 /* Orchard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Orchard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1871220620932094002488E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1871220820932094002488E0 /* SceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneViewController.swift; sourceTree = "<group>"; };
@@ -95,8 +103,19 @@
 				1871220820932094002488E0 /* SceneViewController.swift */,
 				18C7732220A72EDA006F3EA8 /* SceneGraphViewController.swift */,
 				18C7732520A738DD006F3EA8 /* OrchardViewController.swift */,
+				1837ADED20ADD0C9006802CA /* SplitViewController.swift */,
+				1837ADEF20ADD14B006802CA /* UtilitiesViewController.swift */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		185E588220A9C6D600139565 /* Scene Graph */ = {
+			isa = PBXGroup;
+			children = (
+				185E588320A9C6F300139565 /* SceneGraphCell.swift */,
+				185E588520A9C71300139565 /* SceneGraphCell.xib */,
+			);
+			path = "Scene Graph";
 			sourceTree = "<group>";
 		};
 		187121FA20932094002488E0 = {
@@ -152,6 +171,7 @@
 		18C7732420A73564006F3EA8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				185E588220A9C6D600139565 /* Scene Graph */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -260,6 +280,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				185E588620A9C71300139565 /* SceneGraphCell.xib in Resources */,
 				1871220B20932095002488E0 /* Assets.xcassets in Resources */,
 				1871220E20932095002488E0 /* Main.storyboard in Resources */,
 			);
@@ -343,6 +364,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				18C7732620A738DD006F3EA8 /* OrchardViewController.swift in Sources */,
+				1837ADEE20ADD0C9006802CA /* SplitViewController.swift in Sources */,
+				185E588420A9C6F300139565 /* SceneGraphCell.swift in Sources */,
+				1837ADF020ADD14B006802CA /* UtilitiesViewController.swift in Sources */,
 				18C7732320A72EDA006F3EA8 /* SceneGraphViewController.swift in Sources */,
 				18C7732120A728D5006F3EA8 /* OrchardWindowController.swift in Sources */,
 				1871220920932094002488E0 /* SceneViewController.swift in Sources */,

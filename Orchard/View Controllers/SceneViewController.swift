@@ -31,8 +31,8 @@ extension SceneViewController {
         super.viewDidLoad()
         
         sceneView.scene = meadow
-        
         sceneView.delegate = meadow
+        sceneView.showsStatistics = true
         
         let node = meadow.terrain.add(node: Coordinate.Zero)
         let _ = meadow.terrain.add(node: Coordinate.One)
