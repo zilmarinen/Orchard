@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,6 +15,10 @@
             <subviews>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EbL-jt-mYn">
                     <rect key="frame" x="4" y="2" width="14" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="EbL-jt-mYn" secondAttribute="height" multiplier="1:1" id="7g9-YS-mFX"/>
+                        <constraint firstAttribute="width" constant="14" id="Tm1-AZ-8ih"/>
+                    </constraints>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="Nne-Gf-FOd"/>
                 </imageView>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cIO-0s-E1K">
@@ -26,12 +31,12 @@
                 </textField>
             </subviews>
             <constraints>
+                <constraint firstItem="cIO-0s-E1K" firstAttribute="centerY" secondItem="gmg-GV-FeU" secondAttribute="centerY" id="EN8-vA-KBg"/>
                 <constraint firstItem="EbL-jt-mYn" firstAttribute="centerY" secondItem="gmg-GV-FeU" secondAttribute="centerY" id="IqF-ke-I8Q"/>
                 <constraint firstItem="EbL-jt-mYn" firstAttribute="top" secondItem="gmg-GV-FeU" secondAttribute="top" constant="2" id="U3g-Oc-Zxc"/>
                 <constraint firstItem="cIO-0s-E1K" firstAttribute="leading" secondItem="EbL-jt-mYn" secondAttribute="trailing" constant="8" id="VKF-Bp-zEg"/>
                 <constraint firstItem="EbL-jt-mYn" firstAttribute="leading" secondItem="gmg-GV-FeU" secondAttribute="leading" constant="4" id="hhi-Km-zCw"/>
                 <constraint firstAttribute="trailing" secondItem="cIO-0s-E1K" secondAttribute="trailing" constant="4" id="nnA-cF-0Ie"/>
-                <constraint firstItem="cIO-0s-E1K" firstAttribute="centerY" secondItem="EbL-jt-mYn" secondAttribute="centerY" id="vt3-M1-AlZ"/>
             </constraints>
             <connections>
                 <outlet property="imageView" destination="EbL-jt-mYn" id="zv2-cj-mdN"/>

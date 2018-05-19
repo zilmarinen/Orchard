@@ -12,6 +12,10 @@ class OrchardWindowController: NSWindowController {
 
     @IBAction func segmentedControl(_ sender: Any) {
         
-        //
+        guard let sender = sender as? NSSegmentedControl, let orchardViewController = contentViewController as? OrchardViewController, let splitViewController = orchardViewController.splitViewController else { return }
+        
+        let panel = (sender.selectedSegment == 0 ? SplitViewController.Panel.sceneGraph : SplitViewController.Panel.utilities)
+        
+        splitViewController.toggle(panel: panel)
     }
 }

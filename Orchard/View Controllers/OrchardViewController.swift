@@ -14,9 +14,6 @@ import THRUtilities
 class OrchardViewController: NSViewController {
     
     var splitViewController: SplitViewController?
-    var sceneGraphViewController: SceneGraphViewController?
-    var sceneViewController: SceneViewController?
-    var utilitiesViewController: UtilitiesViewController?
 }
 
 extension OrchardViewController: SegueHandlerType {
@@ -36,16 +33,16 @@ extension OrchardViewController: SegueHandlerType {
             
             self.splitViewController = splitViewController
             
-            self.sceneGraphViewController = splitViewController.childViewControllers.first { return type(of: $0) == SceneGraphViewController.self } as? SceneGraphViewController
-            self.sceneViewController = splitViewController.childViewControllers.first { return type(of: $0) == SceneViewController.self } as? SceneViewController
-            self.utilitiesViewController = splitViewController.childViewControllers.first { return type(of: $0) == UtilitiesViewController.self } as? UtilitiesViewController
+            if let sceneGraphViewController = splitViewController.sceneGraphViewController {
             
-            guard let sceneGraphViewController = sceneGraphViewController, let sceneViewController = sceneViewController, let utilitiesViewController = utilitiesViewController else { fatalError("Invalid SplitViewController children") }
+                sceneGraphViewController.dataSource = self
+                sceneGraphViewController.delegate = self
+            }
             
-            sceneGraphViewController.dataSource = self
-            sceneGraphViewController.delegate = self
-            
-            sceneViewController.delegate = self
+            if let sceneViewController = splitViewController.sceneViewController {
+             
+                sceneViewController.delegate = self
+            }
         }
     }
 }
@@ -67,14 +64,14 @@ extension OrchardViewController: SceneGraphDataSource {
             return 0
         }
         
-        guard let meadow = sceneViewController?.meadow else { return 0 }
+        guard let sceneViewController = splitViewController?.sceneViewController, let meadow = sceneViewController.meadow else { return 0 }
         
         return meadow.rootNode.childNodes.count
     }
     
     func sceneGraph(childOfItem item: Any?, atIndex index: Int) -> Any {
         
-        guard let meadow = sceneViewController?.meadow else { return item! }
+        guard let sceneViewController = splitViewController?.sceneViewController, let meadow = sceneViewController.meadow else { return item! }
         
         if item == nil {
             
@@ -102,22 +99,22 @@ extension OrchardViewController: SceneGraphDelegate {
         
         guard let view = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(SceneGraphCell.cellIdentifier), owner: self) as? SceneGraphCell else { return nil }
         
-        guard let meadow = sceneViewController?.meadow else { return view }
+        guard let sceneViewController = splitViewController?.sceneViewController, let meadow = sceneViewController.meadow else { return view }
         
         if let item = item as? SCNNode, item == meadow.rootNode {
             
             view.textField?.stringValue = "Meadow"
-            view.imageView?.image = NSImage(named: NSImage.Name("left_panel_toggle"))
+            view.imageView?.image = NSImage(named: NSImage.Name("meadow_icon"))
         }
         if let item = item as? SceneGraphNode {
         
             view.textField?.stringValue = item.nodeName
-            view.imageView?.image = NSImage(named: NSImage.Name("left_panel_toggle"))
+            view.imageView?.image = NSImage(named: NSImage.Name("grid_icon"))
         }
         else if let _ = item as? CameraJib {
             
             view.textField?.stringValue = "Camera"
-            view.imageView?.image = NSImage(named: NSImage.Name("left_panel_toggle"))
+            view.imageView?.image = NSImage(named: NSImage.Name("grid_icon"))
         }
         
         return view
@@ -128,7 +125,7 @@ extension OrchardViewController: GridDelegate {
     
     func didBecomeDirty(node: GridNode) {
         
-        guard let sceneGraphViewController = sceneGraphViewController else { return }
+        guard let sceneGraphViewController = splitViewController?.sceneGraphViewController else { return }
         
         sceneGraphViewController.outlineView.reloadData()
     }
