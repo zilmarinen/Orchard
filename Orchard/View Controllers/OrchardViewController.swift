@@ -24,7 +24,7 @@ extension OrchardViewController: SegueHandlerType {
     }
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-        
+    
         switch segueIdentifier(forSegue: segue) {
             
         case .embedSplitView:
@@ -118,6 +118,11 @@ extension OrchardViewController: SceneGraphDelegate {
         }
         
         return view
+    }
+    
+    func sceneGraph(outlineView: NSOutlineView, didSelectItem item: Any, atIndex index: Int) {
+    
+        print("item: \(item)")
     }
 }
 

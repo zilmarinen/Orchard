@@ -27,23 +27,23 @@ class InspectorViewController: NSViewController {
             
         case area:
             
-            tabViewController.toggle(panel: .area)
+            tabViewController.viewModel.state = .area
             
         case foliage:
             
-            tabViewController.toggle(panel: .foliage)
+            tabViewController.viewModel.state = .foliage
             
         case footpath:
             
-            tabViewController.toggle(panel: .footpath)
+            tabViewController.viewModel.state = .footpath
             
         case terrain:
             
-            tabViewController.toggle(panel: .terrain)
+            tabViewController.viewModel.state = .terrain
             
         case water:
             
-            tabViewController.toggle(panel: .water)
+            tabViewController.viewModel.state = .water
             
         default: break
         }

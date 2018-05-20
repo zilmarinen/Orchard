@@ -13,6 +13,7 @@ import SceneKit
 protocol SceneGraphDelegate {
  
     func sceneGraph(outlineView: NSOutlineView, viewForItem item: Any, inColumn column: NSTableColumn?) -> NSView?
+    func sceneGraph(outlineView: NSOutlineView, didSelectItem item: Any, atIndex index: Int)
 }
 
 protocol SceneGraphDataSource {
@@ -35,7 +36,24 @@ extension SceneGraphViewController {
         
         super.viewDidLoad()
         
+        outlineView.target = self
+        outlineView.action = #selector(didSelectRow(sender:))
+        
         outlineView.register(NSNib(nibNamed: NSNib.Name(SceneGraphCell.cellIdentifier), bundle: nil), forIdentifier: NSUserInterfaceItemIdentifier(SceneGraphCell.cellIdentifier))
+    }
+}
+
+extension SceneGraphViewController {
+    
+    @objc func didSelectRow(sender: Any?) {
+        
+        guard let sender = sender as? NSOutlineView, let delegate = delegate else { return }
+        
+        let index = sender.selectedRow
+        
+        guard let item = sender.item(atRow: index) else { return }
+        
+        delegate.sceneGraph(outlineView: sender, didSelectItem: item, atIndex: index)
     }
 }
 

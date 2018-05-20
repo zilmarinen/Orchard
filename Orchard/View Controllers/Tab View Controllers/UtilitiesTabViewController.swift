@@ -10,46 +10,26 @@ import Cocoa
 
 class UtilitiesTabViewController: NSTabViewController {
 
-    enum Panel: Int {
+    lazy var viewModel = {
         
-        case area
-        case foliage
-        case footpath
-        case terrain
-        case water
-    }
+        return UtilitiesViewModel(initialState: .terrain)
+    }()
+}
+
+extension UtilitiesTabViewController {
     
-    var areaViewController: AreaUtilitiesViewController? {
+    override func viewDidLoad() {
         
-        return childViewControllers[Panel.area.rawValue] as? AreaUtilitiesViewController
-    }
-    
-    var foliageViewController: FoliageUtilitiesViewController? {
+        super.viewDidLoad()
         
-        return childViewControllers[Panel.area.rawValue] as? FoliageUtilitiesViewController
-    }
-    
-    var footpathViewController: FootpathUtilitiesViewController? {
-        
-        return childViewControllers[Panel.area.rawValue] as? FootpathUtilitiesViewController
-    }
-    
-    var terrainViewController: TerrainUtilitiesViewController? {
-        
-        return childViewControllers[Panel.area.rawValue] as? TerrainUtilitiesViewController
-    }
-    
-    var waterViewController: WaterUtilitiesViewController? {
-        
-        return childViewControllers[Panel.area.rawValue] as? WaterUtilitiesViewController
+        viewModel.subscribe(stateDidChange)
     }
 }
 
 extension UtilitiesTabViewController {
     
-    func toggle(panel: Panel) {
+    func stateDidChange(from: ViewState?, to: ViewState) {
         
-        selectedTabViewItemIndex = panel.rawValue
+        selectedTabViewItemIndex = to.rawValue
     }
 }
-

@@ -15,8 +15,8 @@ class UtilitiesViewController: NSViewController {
     
     @IBOutlet weak var areaButton: NSButton!
     @IBOutlet weak var foliageButton: NSButton!
-    @IBOutlet weak var footpathButton: NSLayoutConstraint!
-    @IBOutlet weak var terrainButton: NSButtonCell!
+    @IBOutlet weak var footpathButton: NSButton!
+    @IBOutlet weak var terrainButton: NSButton!
     @IBOutlet weak var waterButton: NSButton!
     
     @IBAction func button(_ sender: Any) {
@@ -27,23 +27,23 @@ class UtilitiesViewController: NSViewController {
             
         case areaButton:
             
-            tabViewController.toggle(panel: .area)
+            tabViewController.viewModel.state = .area
             
         case foliageButton:
             
-            tabViewController.toggle(panel: .foliage)
+            tabViewController.viewModel.state = .foliage
             
         case footpathButton:
             
-            tabViewController.toggle(panel: .footpath)
+            tabViewController.viewModel.state = .footpath
             
         case terrainButton:
             
-            tabViewController.toggle(panel: .terrain)
+            tabViewController.viewModel.state = .terrain
             
         case waterButton:
             
-            tabViewController.toggle(panel: .water)
+            tabViewController.viewModel.state = .water
             
         default: break
         }

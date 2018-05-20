@@ -9,46 +9,27 @@
 import Cocoa
 
 class InspectorTabViewController: NSTabViewController {
+    
+    lazy var viewModel = {
+        
+        return InspectorViewModel(initialState: .area)
+    }()
+}
 
-    enum Panel: Int {
-        
-        case area
-        case foliage
-        case footpath
-        case terrain
-        case water
-    }
+extension InspectorTabViewController {
     
-    var areaViewController: AreaInspectorViewController? {
+    override func viewDidLoad() {
         
-        return childViewControllers[Panel.area.rawValue] as? AreaInspectorViewController
-    }
-    
-    var foliageViewController: FoliageInspectorViewController? {
+        super.viewDidLoad()
         
-        return childViewControllers[Panel.area.rawValue] as? FoliageInspectorViewController
-    }
-    
-    var footpathViewController: FootpathInspectorViewController? {
-        
-        return childViewControllers[Panel.area.rawValue] as? FootpathInspectorViewController
-    }
-    
-    var terrainViewController: TerrainInspectorViewController? {
-        
-        return childViewControllers[Panel.area.rawValue] as? TerrainInspectorViewController
-    }
-    
-    var waterViewController: WaterInspectorViewController? {
-        
-        return childViewControllers[Panel.area.rawValue] as? WaterInspectorViewController
+        viewModel.subscribe(stateDidChange)
     }
 }
 
 extension InspectorTabViewController {
     
-    func toggle(panel: Panel) {
+    func stateDidChange(from: ViewState?, to: ViewState) {
         
-        selectedTabViewItemIndex = panel.rawValue
+       selectedTabViewItemIndex = to.rawValue
     }
 }
