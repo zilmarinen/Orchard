@@ -1,5 +1,5 @@
 //
-//  SplitViewController.swift
+//  WindowSplitViewController.swift
 //  Orchard
 //
 //  Created by Zack Brown on 17/05/2018.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SplitViewController: NSSplitViewController {
+class WindowSplitViewController: NSSplitViewController {
     
     enum Panel: Int {
         
@@ -25,10 +25,10 @@ class SplitViewController: NSSplitViewController {
     
     var sceneGraphViewController: SceneGraphViewController?
     var sceneViewController: SceneViewController?
-    var utilitiesViewController: UtilitiesViewController?
+    var sidebarViewController: SidebarViewController?
 }
 
-extension SplitViewController {
+extension WindowSplitViewController {
     
     override func awakeFromNib() {
         
@@ -38,11 +38,11 @@ extension SplitViewController {
         
         sceneViewController = childViewControllers.first { return type(of: $0) == SceneViewController.self } as? SceneViewController
         
-        utilitiesViewController = childViewControllers.first { return type(of: $0) == UtilitiesViewController.self } as? UtilitiesViewController
+        sidebarViewController = childViewControllers.first { return type(of: $0) == SidebarViewController.self } as? SidebarViewController
     }
 }
 
-extension SplitViewController {
+extension WindowSplitViewController {
     
     func toggle(panel: Panel) {
         

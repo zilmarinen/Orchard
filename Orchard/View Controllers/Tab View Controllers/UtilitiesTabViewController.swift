@@ -1,14 +1,14 @@
 //
-//  TabViewController.swift
+//  UtilitiesTabViewController.swift
 //  Orchard
 //
-//  Created by Zack Brown on 19/05/2018.
+//  Created by Zack Brown on 20/05/2018.
 //  Copyright © 2018 Script Orchard. All rights reserved.
 //
 
 import Cocoa
 
-class TabViewController: NSTabViewController {
+class UtilitiesTabViewController: NSTabViewController {
 
     enum Panel: Int {
         
@@ -45,10 +45,11 @@ class TabViewController: NSTabViewController {
     }
 }
 
-extension TabViewController {
+extension UtilitiesTabViewController {
     
     func toggle(panel: Panel) {
         
         selectedTabViewItemIndex = panel.rawValue
     }
 }
+

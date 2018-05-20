@@ -13,7 +13,7 @@ import THRUtilities
 
 class OrchardViewController: NSViewController {
     
-    var splitViewController: SplitViewController?
+    var splitViewController: WindowSplitViewController?
 }
 
 extension OrchardViewController: SegueHandlerType {
@@ -29,7 +29,7 @@ extension OrchardViewController: SegueHandlerType {
             
         case .embedSplitView:
             
-            guard let splitViewController = segue.destinationController as? SplitViewController else { fatalError("Invalid segue destination") }
+            guard let splitViewController = segue.destinationController as? WindowSplitViewController else { fatalError("Invalid segue destination") }
             
             self.splitViewController = splitViewController
             

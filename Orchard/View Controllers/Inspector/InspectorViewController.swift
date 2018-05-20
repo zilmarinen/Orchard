@@ -1,47 +1,47 @@
 //
-//  UtilitiesViewController.swift
+//  InspectorViewController.swift
 //  Orchard
 //
-//  Created by Zack Brown on 20/05/2018.
+//  Created by Zack Brown on 17/05/2018.
 //  Copyright © 2018 Script Orchard. All rights reserved.
 //
 
 import Cocoa
 import THRUtilities
 
-class UtilitiesViewController: NSViewController {
-
-    var tabViewController: UtilitiesTabViewController?
+class InspectorViewController: NSViewController {
     
-    @IBOutlet weak var areaButton: NSButton!
-    @IBOutlet weak var foliageButton: NSButton!
-    @IBOutlet weak var footpathButton: NSLayoutConstraint!
-    @IBOutlet weak var terrainButton: NSButtonCell!
-    @IBOutlet weak var waterButton: NSButton!
+    @IBOutlet weak var area: NSButton!
+    @IBOutlet weak var foliage: NSButton!
+    @IBOutlet weak var footpath: NSButton!
+    @IBOutlet weak var terrain: NSButton!
+    @IBOutlet weak var water: NSButton!
+    
+    var tabViewController: InspectorTabViewController?
     
     @IBAction func button(_ sender: Any) {
         
-        guard let tabViewController = tabViewController else { return }
+        guard let sender = sender as? NSButton, let tabViewController = tabViewController else { return }
         
-        switch sender as! NSButton {
+        switch sender {
             
-        case areaButton:
+        case area:
             
             tabViewController.toggle(panel: .area)
             
-        case foliageButton:
+        case foliage:
             
             tabViewController.toggle(panel: .foliage)
             
-        case footpathButton:
+        case footpath:
             
             tabViewController.toggle(panel: .footpath)
             
-        case terrainButton:
+        case terrain:
             
             tabViewController.toggle(panel: .terrain)
             
-        case waterButton:
+        case water:
             
             tabViewController.toggle(panel: .water)
             
@@ -50,7 +50,7 @@ class UtilitiesViewController: NSViewController {
     }
 }
 
-extension UtilitiesViewController: SegueHandlerType {
+extension InspectorViewController: SegueHandlerType {
     
     enum SegueIdentifier: String {
         
@@ -63,7 +63,7 @@ extension UtilitiesViewController: SegueHandlerType {
             
         case .embedTabView:
             
-            guard let tabViewController = segue.destinationController as? UtilitiesTabViewController else { fatalError("Invalid segue destination") }
+            guard let tabViewController = segue.destinationController as? InspectorTabViewController else { fatalError("Invalid segue destination") }
             
             self.tabViewController = tabViewController
         }

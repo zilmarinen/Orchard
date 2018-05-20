@@ -14,7 +14,7 @@ class OrchardWindowController: NSWindowController {
         
         guard let sender = sender as? NSSegmentedControl, let orchardViewController = contentViewController as? OrchardViewController, let splitViewController = orchardViewController.splitViewController else { return }
         
-        let panel = (sender.selectedSegment == 0 ? SplitViewController.Panel.sceneGraph : SplitViewController.Panel.utilities)
+        let panel = (sender.selectedSegment == 0 ? WindowSplitViewController.Panel.sceneGraph : WindowSplitViewController.Panel.utilities)
         
         splitViewController.toggle(panel: panel)
     }
