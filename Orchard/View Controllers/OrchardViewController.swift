@@ -103,7 +103,7 @@ extension OrchardViewController: SceneGraphDelegate {
         
         if let item = item as? SCNNode, item == meadow.rootNode {
             
-            view.textField?.stringValue = "Meadow"
+            view.textField?.stringValue = item.name ?? ""
             view.imageView?.image = NSImage(named: NSImage.Name("meadow_icon"))
         }
         if let item = item as? SceneGraphNode {
@@ -122,7 +122,54 @@ extension OrchardViewController: SceneGraphDelegate {
     
     func sceneGraph(outlineView: NSOutlineView, didSelectItem item: Any, atIndex index: Int) {
     
-        print("item: \(item)")
+        switch type(of: item) {
+            
+        case is CameraJib.Type:
+            
+            splitViewController?.sidebarViewController?.splitViewController?.inspectorTabViewController?.viewModel.state = .camera
+            
+        case is Area.Type,
+             is AreaChunk.Type,
+             is AreaTile.Type,
+             is AreaNode.Type:
+            
+            splitViewController?.sidebarViewController?.splitViewController?.inspectorTabViewController?.viewModel.state = .area
+            
+        case is Foliage.Type,
+             is FoliageChunk.Type,
+             is FoliageTile.Type,
+             is FoliageNode.Type:
+            
+            splitViewController?.sidebarViewController?.splitViewController?.inspectorTabViewController?.viewModel.state = .foliage
+            
+        case is Footpath.Type,
+             is FootpathChunk.Type,
+             is FootpathTile.Type,
+             is FootpathNode.Type:
+            
+            splitViewController?.sidebarViewController?.splitViewController?.inspectorTabViewController?.viewModel.state = .footpath
+            
+        case is Terrain.Type,
+             is TerrainChunk.Type,
+             is TerrainTile.Type,
+             is TerrainNode.Type,
+             is TerrainLayer.Type:
+            
+            splitViewController?.sidebarViewController?.splitViewController?.inspectorTabViewController?.viewModel.state = .terrain
+            
+        case is Water.Type,
+             is WaterChunk.Type,
+             is WaterTile.Type,
+             is WaterNode.Type:
+            
+            splitViewController?.sidebarViewController?.splitViewController?.inspectorTabViewController?.viewModel.state = .water
+            
+        default:
+            
+            guard let sceneViewController = splitViewController?.sceneViewController else { break }
+            
+            splitViewController?.sidebarViewController?.splitViewController?.inspectorTabViewController?.viewModel.state = .scene(sceneViewController.meadow)
+        }
     }
 }
 

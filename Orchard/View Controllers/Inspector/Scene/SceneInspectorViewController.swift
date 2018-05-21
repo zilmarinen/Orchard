@@ -1,0 +1,14 @@
+//
+//  SceneInspectorViewController.swift
+//  Orchard
+//
+//  Created by Zack Brown on 21/05/2018.
+//  Copyright © 2018 Script Orchard. All rights reserved.
+//
+
+import Cocoa
+
+class SceneInspectorViewController: NSViewController {
+
+    @IBOutlet weak var nameTextField: NSTextField!
+}

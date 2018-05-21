@@ -11,43 +11,7 @@ import THRUtilities
 
 class InspectorViewController: NSViewController {
     
-    @IBOutlet weak var area: NSButton!
-    @IBOutlet weak var foliage: NSButton!
-    @IBOutlet weak var footpath: NSButton!
-    @IBOutlet weak var terrain: NSButton!
-    @IBOutlet weak var water: NSButton!
-    
     var tabViewController: InspectorTabViewController?
-    
-    @IBAction func button(_ sender: Any) {
-        
-        guard let sender = sender as? NSButton, let tabViewController = tabViewController else { return }
-        
-        switch sender {
-            
-        case area:
-            
-            tabViewController.viewModel.state = .area
-            
-        case foliage:
-            
-            tabViewController.viewModel.state = .foliage
-            
-        case footpath:
-            
-            tabViewController.viewModel.state = .footpath
-            
-        case terrain:
-            
-            tabViewController.viewModel.state = .terrain
-            
-        case water:
-            
-            tabViewController.viewModel.state = .water
-            
-        default: break
-        }
-    }
 }
 
 extension InspectorViewController: SegueHandlerType {
