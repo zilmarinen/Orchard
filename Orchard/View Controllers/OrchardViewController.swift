@@ -6,7 +6,6 @@
 //  Copyright © 2018 Script Orchard. All rights reserved.
 //
 
-import Cocoa
 import Meadow
 import SceneKit
 import THRUtilities
@@ -14,37 +13,6 @@ import THRUtilities
 class OrchardViewController: NSViewController {
     
     var splitViewController: WindowSplitViewController?
-}
-
-extension OrchardViewController: SegueHandlerType {
-    
-    enum SegueIdentifier: String {
-        
-        case embedSplitView
-    }
-    
-    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-    
-        switch segueIdentifier(forSegue: segue) {
-            
-        case .embedSplitView:
-            
-            guard let splitViewController = segue.destinationController as? WindowSplitViewController else { fatalError("Invalid segue destination") }
-            
-            self.splitViewController = splitViewController
-            
-            if let sceneGraphViewController = splitViewController.sceneGraphViewController {
-            
-                sceneGraphViewController.dataSource = self
-                sceneGraphViewController.delegate = self
-            }
-            
-            if let sceneViewController = splitViewController.sceneViewController {
-             
-                sceneViewController.delegate = self
-            }
-        }
-    }
 }
 
 extension OrchardViewController: SceneGraphDataSource {
@@ -122,32 +90,34 @@ extension OrchardViewController: SceneGraphDelegate {
     
     func sceneGraph(outlineView: NSOutlineView, didSelectItem item: Any, atIndex index: Int) {
     
+        guard let sceneViewController = splitViewController?.sceneViewController else { return }
+        
         switch type(of: item) {
             
         case is CameraJib.Type:
             
-            splitViewController?.sidebarViewController?.splitViewController?.inspectorTabViewController?.viewModel.state = .camera
+            toggle(inspector: .camera)
             
         case is Area.Type,
              is AreaChunk.Type,
              is AreaTile.Type,
              is AreaNode.Type:
             
-            splitViewController?.sidebarViewController?.splitViewController?.inspectorTabViewController?.viewModel.state = .area
+            toggle(inspector: .area)
             
         case is Foliage.Type,
              is FoliageChunk.Type,
              is FoliageTile.Type,
              is FoliageNode.Type:
             
-            splitViewController?.sidebarViewController?.splitViewController?.inspectorTabViewController?.viewModel.state = .foliage
+            toggle(inspector: .foliage)
             
         case is Footpath.Type,
              is FootpathChunk.Type,
              is FootpathTile.Type,
              is FootpathNode.Type:
             
-            splitViewController?.sidebarViewController?.splitViewController?.inspectorTabViewController?.viewModel.state = .footpath
+            toggle(inspector: .footpath)
             
         case is Terrain.Type,
              is TerrainChunk.Type,
@@ -155,21 +125,34 @@ extension OrchardViewController: SceneGraphDelegate {
              is TerrainNode.Type,
              is TerrainLayer.Type:
             
-            splitViewController?.sidebarViewController?.splitViewController?.inspectorTabViewController?.viewModel.state = .terrain
+            toggle(inspector: .terrain(sceneViewController.meadow.terrain, item as? TerrainTile, item as? TerrainNode, item as? TerrainLayer))
             
         case is Water.Type,
              is WaterChunk.Type,
              is WaterTile.Type,
              is WaterNode.Type:
             
-            splitViewController?.sidebarViewController?.splitViewController?.inspectorTabViewController?.viewModel.state = .water
+            toggle(inspector: .water)
             
         default:
             
-            guard let sceneViewController = splitViewController?.sceneViewController else { break }
+            if let item = item as? SCNNode, item == sceneViewController.meadow.rootNode {
+                
+                toggle(inspector: .scene(sceneViewController.meadow))
+                
+                break
+            }
             
-            splitViewController?.sidebarViewController?.splitViewController?.inspectorTabViewController?.viewModel.state = .scene(sceneViewController.meadow)
+            toggle(inspector: .empty)
         }
+    }
+}
+
+extension OrchardViewController {
+    
+    func toggle(inspector viewState: InspectorTabViewController.ViewState) {
+        
+        splitViewController?.sidebarViewController?.splitViewController?.inspectorTabViewController?.viewModel.state = viewState
     }
 }
 
@@ -180,5 +163,36 @@ extension OrchardViewController: GridDelegate {
         guard let sceneGraphViewController = splitViewController?.sceneGraphViewController else { return }
         
         sceneGraphViewController.outlineView.reloadData()
+    }
+}
+
+extension OrchardViewController: SegueHandlerType {
+    
+    enum SegueIdentifier: String {
+        
+        case embedSplitView
+    }
+    
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        
+        switch segueIdentifier(forSegue: segue) {
+            
+        case .embedSplitView:
+            
+            guard let splitViewController = segue.destinationController as? WindowSplitViewController else { fatalError("Invalid segue destination") }
+            
+            self.splitViewController = splitViewController
+            
+            if let sceneGraphViewController = splitViewController.sceneGraphViewController {
+                
+                sceneGraphViewController.dataSource = self
+                sceneGraphViewController.delegate = self
+            }
+            
+            if let sceneViewController = splitViewController.sceneViewController {
+                
+                sceneViewController.delegate = self
+            }
+        }
     }
 }

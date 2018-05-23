@@ -62,13 +62,13 @@ extension InspectorTabViewController {
             
             guard let viewController = childViewControllers[to.sortOrder] as? SceneInspectorViewController else { break }
             
-            viewController.nameTextField.stringValue = meadow.rootNode.name ?? ""
+            viewController.meadow = meadow
             
-        case.terrain:
+        case.terrain(let terrain, _, _, let layer):
             
             guard let viewController = childViewControllers[to.sortOrder] as? TerrainInspectorViewController else { break }
             
-            //
+            viewController.inspectable = (terrain, layer)
             
         case .water:
             

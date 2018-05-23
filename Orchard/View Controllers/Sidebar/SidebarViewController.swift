@@ -6,7 +6,6 @@
 //  Copyright © 2018 Script Orchard. All rights reserved.
 //
 
-import Cocoa
 import THRUtilities
 
 class SidebarViewController: NSViewController {

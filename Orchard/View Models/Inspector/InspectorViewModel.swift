@@ -19,7 +19,7 @@ extension InspectorTabViewController {
         case foliage
         case footpath
         case scene(Meadow)
-        case terrain
+        case terrain(Terrain, TerrainTile?, TerrainNode?, TerrainLayer?)
         case water
         
         func shouldTransition(to newState: InspectorTabViewController.ViewState) -> Should<InspectorTabViewController.ViewState> {
@@ -43,7 +43,7 @@ extension InspectorTabViewController {
                 
             case .scene(_): return 5
                 
-            case .terrain: return 6
+            case .terrain(_, _, _, _): return 6
                 
             case .water: return 7
             }
