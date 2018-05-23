@@ -9,6 +9,8 @@
 import Cocoa
 
 class OrchardWindowController: NSWindowController {
+    
+    static let sceneIdentifier = NSStoryboard.SceneIdentifier("OrchardWindowController")
 
     @IBAction func segmentedControl(_ sender: Any) {
         

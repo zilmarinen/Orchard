@@ -22,6 +22,7 @@
 		1871220E20932095002488E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1871220C20932095002488E0 /* Main.storyboard */; };
 		1871221A20932095002488E0 /* OrchardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871221920932095002488E0 /* OrchardTests.swift */; };
 		1884F8A520B0548F0023AA0B /* InspectorTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884F8A420B0548F0023AA0B /* InspectorTabViewController.swift */; };
+		188E38EB20B57CC0001A6C3A /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E38E920B57CC0001A6C3A /* Document.swift */; };
 		18B4885220B1AC880032E832 /* AreaUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4885120B1AC880032E832 /* AreaUtilitiesViewController.swift */; };
 		18B4885420B1AC980032E832 /* FoliageUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4885320B1AC980032E832 /* FoliageUtilitiesViewController.swift */; };
 		18B4885620B1ACA60032E832 /* FootpathUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4885520B1ACA60032E832 /* FootpathUtilitiesViewController.swift */; };
@@ -74,6 +75,7 @@
 		1871221920932095002488E0 /* OrchardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrchardTests.swift; sourceTree = "<group>"; };
 		1871221B20932095002488E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1884F8A420B0548F0023AA0B /* InspectorTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorTabViewController.swift; sourceTree = "<group>"; };
+		188E38E920B57CC0001A6C3A /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		18B4885120B1AC880032E832 /* AreaUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaUtilitiesViewController.swift; sourceTree = "<group>"; };
 		18B4885320B1AC980032E832 /* FoliageUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageUtilitiesViewController.swift; sourceTree = "<group>"; };
 		18B4885520B1ACA60032E832 /* FootpathUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathUtilitiesViewController.swift; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 		1871220520932094002488E0 /* Orchard */ = {
 			isa = PBXGroup;
 			children = (
+				188E38E820B57CAC001A6C3A /* Document */,
 				18B4886420B1BD110032E832 /* View Models */,
 				18C7732420A73564006F3EA8 /* Views */,
 				18C7731F20A728A7006F3EA8 /* Window Controllers */,
@@ -280,6 +283,14 @@
 				1871221B20932095002488E0 /* Info.plist */,
 			);
 			path = OrchardTests;
+			sourceTree = "<group>";
+		};
+		188E38E820B57CAC001A6C3A /* Document */ = {
+			isa = PBXGroup;
+			children = (
+				188E38E920B57CC0001A6C3A /* Document.swift */,
+			);
+			path = Document;
 			sourceTree = "<group>";
 		};
 		18B4884B20B1ABFA0032E832 /* Utilities */ = {
@@ -688,6 +699,7 @@
 				18C7732620A738DD006F3EA8 /* OrchardViewController.swift in Sources */,
 				1837ADEE20ADD0C9006802CA /* WindowSplitViewController.swift in Sources */,
 				18B4886120B1ADC20032E832 /* SidebarViewController.swift in Sources */,
+				188E38EB20B57CC0001A6C3A /* Document.swift in Sources */,
 				1820662F20B05BE600D0356D /* FoliageInspectorViewController.swift in Sources */,
 				1820663420B05C0B00D0356D /* TerrainInspectorViewController.swift in Sources */,
 				1820663220B05C0000D0356D /* FootpathInspectorViewController.swift in Sources */,
