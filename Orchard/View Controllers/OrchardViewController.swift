@@ -15,11 +15,6 @@ class OrchardViewController: NSViewController {
     var splitViewController: WindowSplitViewController?
 }
 
-extension OrchardViewController {
-    
-    
-}
-
 extension OrchardViewController: SceneGraphDataSource {
     
     func sceneGraph(numberOfChildrenOfItem item: Any?) -> Int {

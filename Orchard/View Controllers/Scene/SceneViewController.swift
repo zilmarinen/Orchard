@@ -39,6 +39,7 @@ extension SceneViewController {
         if let terrainType = meadow.terrain.find(terrainType: "Grass") {
         
             let _ = node?.add(layer: terrainType)
+            let _ = node?.add(layer: terrainType)
         }
     }
 }
