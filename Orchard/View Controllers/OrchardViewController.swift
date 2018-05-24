@@ -96,7 +96,7 @@ extension OrchardViewController: SceneGraphDelegate {
             
         case is CameraJib.Type:
             
-            toggle(inspector: .camera)
+            toggle(inspector: .camera(item as! CameraJib))
             
         case is Area.Type,
              is AreaChunk.Type,

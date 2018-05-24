@@ -15,7 +15,7 @@ extension InspectorTabViewController {
         
         case empty
         case area
-        case camera
+        case camera(CameraJib)
         case foliage
         case footpath
         case scene(Meadow)

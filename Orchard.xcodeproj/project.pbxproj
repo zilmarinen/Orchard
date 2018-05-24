@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1803165B20B6F0AE009D367F /* CameraInspectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1803165A20B6F0AE009D367F /* CameraInspectorViewModel.swift */; };
+		1803165D20B6F2DF009D367F /* TerrainInspectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1803165C20B6F2DF009D367F /* TerrainInspectorViewModel.swift */; };
 		1820662C20B05BDB00D0356D /* AreaInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1820662B20B05BDB00D0356D /* AreaInspectorViewController.swift */; };
 		1820662F20B05BE600D0356D /* FoliageInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1820662D20B05BE600D0356D /* FoliageInspectorViewController.swift */; };
 		1820663220B05C0000D0356D /* FootpathInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1820663120B05C0000D0356D /* FootpathInspectorViewController.swift */; };
@@ -55,6 +57,8 @@
 
 /* Begin PBXFileReference section */
 		0EC9B9EA3D57D1579AF7465E /* Pods-OrchardTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OrchardTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OrchardTests/Pods-OrchardTests.release.xcconfig"; sourceTree = "<group>"; };
+		1803165A20B6F0AE009D367F /* CameraInspectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraInspectorViewModel.swift; sourceTree = "<group>"; };
+		1803165C20B6F2DF009D367F /* TerrainInspectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainInspectorViewModel.swift; sourceTree = "<group>"; };
 		1820662B20B05BDB00D0356D /* AreaInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaInspectorViewController.swift; sourceTree = "<group>"; };
 		1820662D20B05BE600D0356D /* FoliageInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageInspectorViewController.swift; sourceTree = "<group>"; };
 		1820663120B05C0000D0356D /* FootpathInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathInspectorViewController.swift; sourceTree = "<group>"; };
@@ -119,6 +123,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1803165920B6F091009D367F /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				1803165A20B6F0AE009D367F /* CameraInspectorViewModel.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
 		1820662220B05B6C00D0356D /* Inspector */ = {
 			isa = PBXGroup;
 			children = (
@@ -366,6 +378,7 @@
 		18B4886520B1BD1C0032E832 /* Inspector */ = {
 			isa = PBXGroup;
 			children = (
+				1803165920B6F091009D367F /* Camera */,
 				18B4886B20B1BD370032E832 /* Area */,
 				18B4886A20B1BD340032E832 /* Foliage */,
 				18B4886920B1BD320032E832 /* Footpath */,
@@ -399,6 +412,7 @@
 		18B4886820B1BD2F0032E832 /* Terrain */ = {
 			isa = PBXGroup;
 			children = (
+				1803165C20B6F2DF009D367F /* TerrainInspectorViewModel.swift */,
 			);
 			path = Terrain;
 			sourceTree = "<group>";
@@ -713,6 +727,8 @@
 				18B4887220B1BD6E0032E832 /* UtilitiesViewModel.swift in Sources */,
 				18C7732120A728D5006F3EA8 /* OrchardWindowController.swift in Sources */,
 				1871220920932094002488E0 /* SceneViewController.swift in Sources */,
+				1803165D20B6F2DF009D367F /* TerrainInspectorViewModel.swift in Sources */,
+				1803165B20B6F0AE009D367F /* CameraInspectorViewModel.swift in Sources */,
 				1884F8A520B0548F0023AA0B /* InspectorTabViewController.swift in Sources */,
 				1871220720932094002488E0 /* AppDelegate.swift in Sources */,
 			);

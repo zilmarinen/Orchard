@@ -42,7 +42,7 @@ class Document: NSDocument {
             return data
         }
         catch {
-         
+            
             throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": error])
         }
     }

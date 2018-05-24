@@ -40,11 +40,11 @@ extension InspectorTabViewController {
             
             //
             
-        case .camera:
+        case .camera(let cameraJib):
             
             guard let viewController = childViewControllers[to.sortOrder] as? CameraInspectorViewController else { break }
             
-            //
+            viewController.viewModel.state = .inspecting(cameraJib)
             
         case .foliage:
             
@@ -68,7 +68,7 @@ extension InspectorTabViewController {
             
             guard let viewController = childViewControllers[to.sortOrder] as? TerrainInspectorViewController else { break }
             
-            viewController.inspectable = (terrain, layer)
+            viewController.viewModel.state = .inspecting(terrain, layer)
             
         case .water:
             
