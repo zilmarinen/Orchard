@@ -1,5 +1,5 @@
 //
-//  InspectorViewModel.swift
+//  InspectorTabViewModel.swift
 //  Orchard
 //
 //  Created by Zack Brown on 20/05/2018.
@@ -41,16 +41,16 @@ extension InspectorTabViewController {
                 
             case .footpath: return 4
                 
-            case .scene(_): return 5
+            case .scene: return 5
                 
-            case .terrain(_, _, _, _): return 6
+            case .terrain: return 6
                 
             case .water: return 7
             }
         }
     }
     
-    class InspectorViewModel: BaseViewModel<InspectorTabViewController.ViewState> {
+    class InspectorTabViewModel: BaseViewModel<InspectorTabViewController.ViewState> {
         
     }
 }

@@ -71,7 +71,7 @@ extension OrchardViewController: SceneGraphDelegate {
         
         if let item = item as? SCNNode, item == meadow.rootNode {
             
-            view.textField?.stringValue = item.name ?? ""
+            view.textField?.stringValue = "Meadow"
             view.imageView?.image = NSImage(named: NSImage.Name("meadow_icon"))
         }
         if let item = item as? SceneGraphNode {
@@ -163,6 +163,10 @@ extension OrchardViewController: GridDelegate {
         guard let sceneGraphViewController = splitViewController?.sceneGraphViewController else { return }
         
         sceneGraphViewController.outlineView.reloadData()
+        
+        guard let sceneViewController = splitViewController?.sceneViewController, let utilitiesViewController = splitViewController?.sidebarViewController?.splitViewController?.utilitiesViewController else { return }
+        
+        utilitiesViewController.viewModel.state = .inspecting(sceneViewController.meadow)
     }
 }
 

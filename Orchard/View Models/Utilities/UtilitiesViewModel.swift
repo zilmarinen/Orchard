@@ -6,25 +6,23 @@
 //  Copyright © 2018 Script Orchard. All rights reserved.
 //
 
+import Meadow
 import THRUtilities
 
-extension UtilitiesTabViewController {
+extension UtilitiesViewController {
     
-    enum ViewState: Int, State {
+    enum ViewState: State {
         
-        case area
-        case foliage
-        case footpath
-        case terrain
-        case water
+        case empty
+        case inspecting(Meadow)
         
-        func shouldTransition(to newState: UtilitiesTabViewController.ViewState) -> Should<UtilitiesTabViewController.ViewState> {
+        func shouldTransition(to newState: UtilitiesViewController.ViewState) -> Should<UtilitiesViewController.ViewState> {
             
             return .continue
         }
     }
 
-    class UtilitiesViewModel: BaseViewModel<UtilitiesTabViewController.ViewState> {
+    class UtilitiesViewModel: BaseViewModel<UtilitiesViewController.ViewState> {
         
     }
 }

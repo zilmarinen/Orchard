@@ -18,34 +18,64 @@ class UtilitiesViewController: NSViewController {
     @IBOutlet weak var terrainButton: NSButton!
     @IBOutlet weak var waterButton: NSButton!
     
-    @IBAction func button(_ sender: Any) {
+    @IBAction func button(_ sender: NSButton) {
         
         guard let tabViewController = tabViewController else { return }
         
-        switch sender as! NSButton {
+        switch viewModel.state {
             
-        case areaButton:
+        case .inspecting(let meadow):
             
-            tabViewController.viewModel.state = .area
-            
-        case foliageButton:
-            
-            tabViewController.viewModel.state = .foliage
-            
-        case footpathButton:
-            
-            tabViewController.viewModel.state = .footpath
-            
-        case terrainButton:
-            
-            tabViewController.viewModel.state = .terrain
-            
-        case waterButton:
-            
-            tabViewController.viewModel.state = .water
+            switch sender {
+                
+            case areaButton:
+                
+                tabViewController.viewModel.state = .area(meadow.areas)
+                
+            case foliageButton:
+                
+                tabViewController.viewModel.state = .foliage(meadow.foliage)
+                
+            case footpathButton:
+                
+                tabViewController.viewModel.state = .footpath(meadow.footpaths)
+                
+            case terrainButton:
+                
+                tabViewController.viewModel.state = .terrain(meadow.terrain)
+                
+            case waterButton:
+                
+                tabViewController.viewModel.state = .water(meadow.water)
+                
+            default: break
+            }
             
         default: break
         }
+    }
+    
+    lazy var viewModel = {
+        
+        return UtilitiesViewModel(initialState: .empty)
+    }()
+}
+
+extension UtilitiesViewController {
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        viewModel.subscribe(stateDidChange)
+    }
+}
+
+extension UtilitiesViewController {
+    
+    func stateDidChange(from: ViewState?, to: ViewState) {
+        
+        //
     }
 }
 

@@ -12,7 +12,7 @@ class UtilitiesTabViewController: NSTabViewController {
 
     lazy var viewModel = {
         
-        return UtilitiesViewModel(initialState: .terrain)
+        return UtilitiesTabViewModel(initialState: .empty)
     }()
 }
 
@@ -30,6 +30,17 @@ extension UtilitiesTabViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        selectedTabViewItemIndex = to.rawValue
+        selectedTabViewItemIndex = to.sortOrder
+        
+        switch to {
+            
+        case .terrain(let terrain):
+            
+            guard let viewController = childViewControllers[to.sortOrder] as? TerrainUtilitiesViewController else { break }
+            
+            viewController.viewModel.state = .inspecting(terrain)
+            
+        default: break
+        }
     }
 }

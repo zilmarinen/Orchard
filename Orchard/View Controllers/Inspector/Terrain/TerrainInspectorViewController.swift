@@ -7,6 +7,7 @@
 //
 
 import Meadow
+import SceneKit
 
 class TerrainInspectorViewController: NSViewController {
     
@@ -30,6 +31,8 @@ class TerrainInspectorViewController: NSViewController {
     
     @IBOutlet weak var nodeBox: NSBox!
     @IBOutlet weak var layerBox: NSBox!
+    
+    @IBOutlet weak var sceneView: SCNView!
     
     @IBAction func popUp(_ sender: NSPopUpButton) {
         
