@@ -34,11 +34,11 @@ extension InspectorTabViewController {
         
         switch to {
         
-        case .area:
+        case .area(let area):
             
             guard let viewController = childViewControllers[to.sortOrder] as? AreaInspectorViewController else { break }
             
-            //
+            viewController.viewModel.state = .inspecting(area)
             
         case .camera(let cameraJib):
             
@@ -46,23 +46,23 @@ extension InspectorTabViewController {
             
             viewController.viewModel.state = .inspecting(cameraJib)
             
-        case .foliage:
+        case .foliage(let foliage):
             
             guard let viewController = childViewControllers[to.sortOrder] as? FoliageInspectorViewController else { break }
             
-            //
+            viewController.viewModel.state = .inspecting(foliage)
             
-        case .footpath:
+        case .footpath(let footpath):
             
             guard let viewController = childViewControllers[to.sortOrder] as? FootpathInspectorViewController else { break }
             
-            //
+            viewController.viewModel.state = .inspecting(footpath)
             
         case.scene(let meadow):
             
             guard let viewController = childViewControllers[to.sortOrder] as? SceneInspectorViewController else { break }
             
-            viewController.meadow = meadow
+            viewController.viewModel.state = .inspecting(meadow)
             
         case.terrain(let terrain, _, _, let layer):
             
@@ -70,11 +70,11 @@ extension InspectorTabViewController {
             
             viewController.viewModel.state = .inspecting(terrain, layer)
             
-        case .water:
+        case .water(let water):
             
             guard let viewController = childViewControllers[to.sortOrder] as? WaterInspectorViewController else { break }
             
-            //
+            viewController.viewModel.state = .inspecting(water)
             
         default: break
         }

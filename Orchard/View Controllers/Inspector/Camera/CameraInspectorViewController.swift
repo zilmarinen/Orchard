@@ -38,6 +38,8 @@ class CameraInspectorViewController: NSViewController {
                 cameraJib.eulerAngles = SCNVector3(x: CGFloat(xRotationLabel.floatValue), y: CGFloat(yRotationLabel.floatValue), z: CGFloat(zRotationLabel.floatValue))
             }
             
+            viewModel.state = .inspecting(cameraJib)
+            
         default: break
         }
     }

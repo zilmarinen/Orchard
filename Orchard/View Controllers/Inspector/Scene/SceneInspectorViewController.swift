@@ -14,23 +14,45 @@ class SceneInspectorViewController: NSViewController {
     
     @IBAction func textField(_ textField: NSTextField) {
         
-        guard let meadow = meadow else { return }
-        
-        meadow.rootNode.name = textField.stringValue
+        switch viewModel.state {
+            
+        case .inspecting(let meadow):
+            
+            meadow.rootNode.name = textField.stringValue
+            
+            viewModel.state = .inspecting(meadow)
+            
+        default: break
+        }
     }
     
-    var meadow: Meadow? {
+    lazy var viewModel = {
+        
+        return SceneInspectorViewModel(initialState: .empty)
+    }()
+}
+
+extension SceneInspectorViewController {
     
-        didSet {
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        viewModel.subscribe(stateDidChange)
+    }
+}
+
+extension SceneInspectorViewController {
+    
+    func stateDidChange(from: ViewState?, to: ViewState) {
+        
+        switch to {
             
-            if let meadow = meadow {
-                
-                nameTextField.stringValue = meadow.rootNode.name ?? ""
-            }
-            else {
-                
-                nameTextField.stringValue = ""
-            }
+        case .inspecting(let meadow):
+            
+            nameTextField.stringValue = meadow.rootNode.name ?? ""
+            
+        default: break
         }
     }
 }

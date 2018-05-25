@@ -32,6 +32,15 @@ extension SceneViewController {
         sceneView.scene = meadow
         sceneView.delegate = meadow
         sceneView.showsStatistics = true
+        
+        /*let node = meadow.terrain.add(node: Coordinate.Zero)
+        let _ = meadow.terrain.add(node: Coordinate.One)
+        
+        if let terrainType = meadow.terrain.find(terrainType: "Grass") {
+            
+            let _ = node?.add(layer: terrainType)
+            let _ = node?.add(layer: terrainType)
+        }*/
     }
 }
 

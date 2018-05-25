@@ -10,4 +10,29 @@ import Meadow
 
 class FoliageInspectorViewController: NSViewController {
 
+    lazy var viewModel = {
+        
+        return FoliageInspectorViewModel(initialState: .empty)
+    }()
+}
+
+extension FoliageInspectorViewController {
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        viewModel.subscribe(stateDidChange)
+    }
+}
+
+extension FoliageInspectorViewController {
+    
+    func stateDidChange(from: ViewState?, to: ViewState) {
+        
+        switch to {
+            
+        default: break
+        }
+    }
 }

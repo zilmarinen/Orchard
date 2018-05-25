@@ -10,4 +10,29 @@ import Meadow
 
 class WaterInspectorViewController: NSViewController {
 
+    lazy var viewModel = {
+        
+        return WaterInspectorViewModel(initialState: .empty)
+    }()
+}
+
+extension WaterInspectorViewController {
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        viewModel.subscribe(stateDidChange)
+    }
+}
+
+extension WaterInspectorViewController {
+    
+    func stateDidChange(from: ViewState?, to: ViewState) {
+        
+        switch to {
+            
+        default: break
+        }
+    }
 }

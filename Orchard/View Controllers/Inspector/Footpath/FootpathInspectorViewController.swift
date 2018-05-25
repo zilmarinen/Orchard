@@ -10,4 +10,29 @@ import Meadow
 
 class FootpathInspectorViewController: NSViewController {
 
+    lazy var viewModel = {
+        
+        return FootpathInspectorViewModel(initialState: .empty)
+    }()
+}
+
+extension FootpathInspectorViewController {
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        viewModel.subscribe(stateDidChange)
+    }
+}
+
+extension FootpathInspectorViewController {
+    
+    func stateDidChange(from: ViewState?, to: ViewState) {
+        
+        switch to {
+            
+        default: break
+        }
+    }
 }

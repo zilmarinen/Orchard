@@ -317,7 +317,6 @@
                                                 <constraint firstAttribute="height" constant="1" id="aTe-3L-JHz"/>
                                             </constraints>
                                             <color key="borderColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                     </subviews>
                                     <constraints>
@@ -334,7 +333,6 @@
                                     <constraint firstAttribute="width" constant="250" id="TIj-Al-0Tt"/>
                                 </constraints>
                                 <color key="fillColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                <font key="titleFont" metaFont="message" size="11"/>
                             </box>
                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" hasHorizontalScroller="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="gCW-qK-aVP">
                                 <rect key="frame" x="0.0" y="0.0" width="250" height="233"/>
@@ -530,7 +528,6 @@
                                                 <constraint firstAttribute="height" constant="1" id="OLM-3C-djI"/>
                                             </constraints>
                                             <color key="borderColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                     </subviews>
                                     <constraints>
@@ -558,7 +555,6 @@
                                     <constraint firstAttribute="height" constant="67" id="Vfi-9g-4Ez"/>
                                 </constraints>
                                 <color key="fillColor" name="highlightColor" catalog="System" colorSpace="catalog"/>
-                                <font key="titleFont" metaFont="message" size="11"/>
                             </box>
                             <sceneView translatesAutoresizingMaskIntoConstraints="NO" id="cwi-RL-2bX">
                                 <rect key="frame" x="0.0" y="0.0" width="448" height="233"/>
@@ -607,7 +603,6 @@
                                                 <constraint firstAttribute="height" constant="1" id="kqz-DF-HO8"/>
                                             </constraints>
                                             <color key="borderColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NsB-Bo-sQK">
                                             <rect key="frame" x="6" y="8" width="238" height="14"/>
@@ -632,7 +627,6 @@
                                     <constraint firstAttribute="height" constant="67" id="jg6-eV-SvO"/>
                                 </constraints>
                                 <color key="fillColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                <font key="titleFont" metaFont="message" size="11"/>
                             </box>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="rOc-h5-9EI">
                                 <rect key="frame" x="0.0" y="0.0" width="250" height="233"/>
@@ -728,7 +722,6 @@
                                                                     <constraint firstAttribute="height" constant="1" id="F96-sV-khX"/>
                                                                 </constraints>
                                                                 <color key="borderColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="titleFont" metaFont="message" size="11"/>
                                                             </box>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MB2-fb-10x">
                                                                 <rect key="frame" x="54" y="46" width="40" height="13"/>
@@ -756,7 +749,6 @@
                                                                     <constraint firstAttribute="height" constant="1" id="D50-GJ-EaS"/>
                                                                 </constraints>
                                                                 <color key="borderColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="titleFont" metaFont="message" size="11"/>
                                                             </box>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Q6G-r3-CZg">
                                                                 <rect key="frame" x="15" y="12" width="79" height="13"/>
@@ -874,7 +866,6 @@
                                                                     <constraint firstAttribute="height" constant="1" id="d9a-rJ-k9V"/>
                                                                 </constraints>
                                                                 <color key="borderColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="titleFont" metaFont="message" size="11"/>
                                                             </box>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Oxe-ul-FMJ">
                                                                 <rect key="frame" x="54" y="9" width="40" height="13"/>
@@ -924,7 +915,6 @@
                                                                     <constraint firstAttribute="height" constant="1" id="IhJ-OK-NSL"/>
                                                                 </constraints>
                                                                 <color key="borderColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="titleFont" metaFont="message" size="11"/>
                                                             </box>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="p48-tO-d8z">
                                                                 <rect key="frame" x="36" y="474" width="58" height="13"/>
@@ -1043,7 +1033,6 @@
                                                                     <constraint firstAttribute="height" constant="1" id="oDJ-8f-a7d"/>
                                                                 </constraints>
                                                                 <color key="borderColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="titleFont" metaFont="message" size="11"/>
                                                             </box>
                                                             <box boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="4Xi-y6-fws">
                                                                 <rect key="frame" x="16" y="8" width="414" height="414"/>
@@ -1067,7 +1056,6 @@
                                                                 </constraints>
                                                                 <color key="borderColor" name="windowFrameColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="fillColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="titleFont" metaFont="message" size="11"/>
                                                             </box>
                                                         </subviews>
                                                         <constraints>
@@ -1112,7 +1100,6 @@
                                                                     <constraint firstAttribute="height" constant="1" id="0SE-M1-aii"/>
                                                                 </constraints>
                                                                 <color key="borderColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="titleFont" metaFont="message" size="11"/>
                                                             </box>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="d7h-oe-VmK">
                                                                 <rect key="frame" x="51" y="216" width="43" height="13"/>
@@ -1136,7 +1123,6 @@
                                                                         </constraints>
                                                                         <color key="borderColor" name="windowFrameColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="fillColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                        <font key="titleFont" metaFont="message" size="11"/>
                                                                     </box>
                                                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dls-rR-86D">
                                                                         <rect key="frame" x="130" y="68" width="24" height="19"/>
@@ -1218,7 +1204,6 @@
                                                                     <constraint firstAttribute="height" constant="1" id="glp-iU-zyX"/>
                                                                 </constraints>
                                                                 <color key="borderColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="titleFont" metaFont="message" size="11"/>
                                                             </box>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WEH-5V-LEL">
                                                                 <rect key="frame" x="62" y="100" width="32" height="13"/>
@@ -1459,7 +1444,6 @@
                                                                     <constraint firstAttribute="height" constant="1" id="mcC-Ah-6ZD"/>
                                                                 </constraints>
                                                                 <color key="borderColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="titleFont" metaFont="message" size="11"/>
                                                             </box>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WBi-Gt-gqq">
                                                                 <rect key="frame" x="54" y="46" width="40" height="13"/>
@@ -1487,7 +1471,6 @@
                                                                     <constraint firstAttribute="height" constant="1" id="Ox8-qU-qRA"/>
                                                                 </constraints>
                                                                 <color key="borderColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="titleFont" metaFont="message" size="11"/>
                                                             </box>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DXc-Yq-zqu">
                                                                 <rect key="frame" x="29" y="12" width="65" height="13"/>
@@ -1618,7 +1601,6 @@
                                                                     <constraint firstAttribute="height" constant="1" id="Z0c-6r-d8d"/>
                                                                 </constraints>
                                                                 <color key="borderColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="titleFont" metaFont="message" size="11"/>
                                                             </box>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VlF-1q-8Gl">
                                                                 <rect key="frame" x="54" y="46" width="40" height="13"/>
@@ -1646,7 +1628,6 @@
                                                                     <constraint firstAttribute="height" constant="1" id="pRN-W7-gNp"/>
                                                                 </constraints>
                                                                 <color key="borderColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="titleFont" metaFont="message" size="11"/>
                                                             </box>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="czq-RU-zKS">
                                                                 <rect key="frame" x="36" y="12" width="58" height="13"/>
@@ -1764,7 +1745,6 @@
                                                                     <constraint firstAttribute="height" constant="1" id="5fk-B5-DUN"/>
                                                                 </constraints>
                                                                 <color key="borderColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="titleFont" metaFont="message" size="11"/>
                                                             </box>
                                                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9MP-BM-qfN">
                                                                 <rect key="frame" x="96" y="8" width="352" height="19"/>
@@ -2061,7 +2041,6 @@
                                                                     <constraint firstAttribute="height" constant="1" id="Hpo-2N-Q8s"/>
                                                                 </constraints>
                                                                 <color key="borderColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="titleFont" metaFont="message" size="11"/>
                                                             </box>
                                                         </subviews>
                                                         <constraints>
@@ -2164,7 +2143,6 @@
                                                                     <constraint firstAttribute="height" constant="1" id="oYN-uB-tuT"/>
                                                                 </constraints>
                                                                 <color key="borderColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="titleFont" metaFont="message" size="11"/>
                                                             </box>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f6e-tr-rIG">
                                                                 <rect key="frame" x="54" y="46" width="40" height="13"/>
@@ -2192,7 +2170,6 @@
                                                                     <constraint firstAttribute="height" constant="1" id="qu0-e4-AX3"/>
                                                                 </constraints>
                                                                 <color key="borderColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="titleFont" metaFont="message" size="11"/>
                                                             </box>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KRS-Jn-7mm">
                                                                 <rect key="frame" x="23" y="12" width="71" height="13"/>
@@ -2355,7 +2332,6 @@
                                                 <constraint firstAttribute="height" constant="1" id="S1g-Wd-Coj"/>
                                             </constraints>
                                             <color key="borderColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                            <font key="titleFont" metaFont="message" size="11"/>
                                         </box>
                                     </subviews>
                                     <constraints>
@@ -2387,7 +2363,6 @@
                                     <constraint firstAttribute="width" constant="250" id="mwu-77-AnL"/>
                                 </constraints>
                                 <color key="fillColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                <font key="titleFont" metaFont="message" size="11"/>
                             </box>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="1El-UB-1o4">
                                 <rect key="frame" x="0.0" y="0.0" width="250" height="270"/>
