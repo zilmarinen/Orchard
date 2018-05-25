@@ -9,6 +9,8 @@
 import Meadow
 
 class FootpathInspectorViewController: NSViewController {
+    
+    @IBOutlet weak var chunkCount: NSTextField!
 
     lazy var viewModel = {
         
@@ -31,6 +33,10 @@ extension FootpathInspectorViewController {
     func stateDidChange(from: ViewState?, to: ViewState) {
         
         switch to {
+            
+        case .inspecting(let footpath):
+            
+            chunkCount.stringValue = "\(footpath.totalChildren)"
             
         default: break
         }

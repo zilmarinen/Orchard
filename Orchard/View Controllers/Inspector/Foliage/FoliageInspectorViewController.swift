@@ -9,6 +9,8 @@
 import Meadow
 
 class FoliageInspectorViewController: NSViewController {
+    
+    @IBOutlet weak var chunkCount: NSTextField!
 
     lazy var viewModel = {
         
@@ -31,6 +33,10 @@ extension FoliageInspectorViewController {
     func stateDidChange(from: ViewState?, to: ViewState) {
         
         switch to {
+            
+        case .inspecting(let foliage):
+            
+            chunkCount.stringValue = "\(foliage.totalChildren)"
             
         default: break
         }

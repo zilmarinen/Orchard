@@ -9,6 +9,8 @@
 import Meadow
 
 class AreaInspectorViewController: NSViewController {
+    
+    @IBOutlet weak var chunkCount: NSTextField!
 
     lazy var viewModel = {
         
@@ -31,6 +33,10 @@ extension AreaInspectorViewController {
     func stateDidChange(from: ViewState?, to: ViewState) {
         
         switch to {
+            
+        case .inspecting(let area):
+            
+            chunkCount.stringValue = "\(area.totalChildren)"
             
         default: break
         }

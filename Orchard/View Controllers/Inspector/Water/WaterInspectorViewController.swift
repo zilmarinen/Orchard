@@ -9,6 +9,8 @@
 import Meadow
 
 class WaterInspectorViewController: NSViewController {
+    
+    @IBOutlet weak var chunkCount: NSTextField!
 
     lazy var viewModel = {
         
@@ -31,6 +33,10 @@ extension WaterInspectorViewController {
     func stateDidChange(from: ViewState?, to: ViewState) {
         
         switch to {
+            
+        case .inspecting(let water):
+            
+            chunkCount.stringValue = "\(water.totalChildren)"
             
         default: break
         }

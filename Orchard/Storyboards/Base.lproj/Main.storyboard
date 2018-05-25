@@ -828,6 +828,9 @@
                             <constraint firstItem="uYg-lI-IWL" firstAttribute="height" secondItem="JQY-Jd-Eeh" secondAttribute="height" id="q0n-eY-hrg"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="chunkCount" destination="W9x-U2-QWy" id="WQe-D5-0of"/>
+                    </connections>
                 </viewController>
                 <customObject id="D9v-gz-HBf" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1550,6 +1553,9 @@
                             <constraint firstItem="aBZ-Rb-76m" firstAttribute="height" secondItem="L9l-gJ-UV1" secondAttribute="height" id="EeP-C9-ANw"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="chunkCount" destination="dUk-1B-CK3" id="efE-3G-uCK"/>
+                    </connections>
                 </viewController>
                 <customObject id="4HV-av-cHO" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1707,6 +1713,9 @@
                             <constraint firstItem="pQT-hx-g04" firstAttribute="centerY" secondItem="jwd-pq-f9e" secondAttribute="centerY" id="vjg-6Q-sdb"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="chunkCount" destination="gef-2g-LLb" id="mZc-Re-wR5"/>
+                    </connections>
                 </viewController>
                 <customObject id="vAc-Wg-Do4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2249,6 +2258,9 @@
                             <constraint firstItem="tAj-HY-UgB" firstAttribute="centerX" secondItem="aO0-oM-CBu" secondAttribute="centerX" id="Y23-ai-U4A"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="chunkCount" destination="P7Q-0p-qbg" id="dGY-Y8-6Ai"/>
+                    </connections>
                 </viewController>
                 <customObject id="r7X-Ns-4De" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
