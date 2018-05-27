@@ -11,10 +11,17 @@ import THRUtilities
 
 extension TerrainTerraformUtilitiesViewController {
     
+    enum ToolType: Int {
+        
+        case corner
+        case edge
+        case tile
+    }
+    
     enum ViewState: State {
         
         case empty
-        case inspecting(Terrain)
+        case inspecting(Terrain, ToolType, Bool)
         
         func shouldTransition(to newState: TerrainTerraformUtilitiesViewController.ViewState) -> Should<TerrainTerraformUtilitiesViewController.ViewState> {
             

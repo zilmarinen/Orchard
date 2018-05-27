@@ -66,7 +66,16 @@ extension TerrainUtilitiesViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        //
+        switch to {
+        
+        case .inspecting(let terrain):
+            
+            guard let tabViewController = tabViewController else { return }
+            
+            tabViewController.viewModel.state = .build(terrain)
+            
+        default: break
+        }
     }
 }
 

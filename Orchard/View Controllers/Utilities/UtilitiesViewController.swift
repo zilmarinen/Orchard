@@ -75,7 +75,16 @@ extension UtilitiesViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        //
+        switch to {
+            
+        case .empty:
+            
+            guard let tabViewController = tabViewController else { return }
+            
+            tabViewController.viewModel.state = .empty
+            
+        default: break
+        }
     }
 }
 
