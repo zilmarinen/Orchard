@@ -145,38 +145,37 @@ extension TerrainInspectorViewController {
             nodeBox.isHidden = true
             layerBox.isHidden = true
             
-            if let layer = layer {
+            guard let layer = layer else { break }
                 
-                nodeBox.isHidden = false
-                layerBox.isHidden = false
+            nodeBox.isHidden = false
+            layerBox.isHidden = false
+            
+            for index in 0..<layer.node.totalChildren {
                 
-                for index in 0..<layer.node.totalChildren {
-                    
-                    selectedLayerPopUp.addItem(withTitle: "Layer \(index)")
-                }
-                
-                terrain.availableTerrainTypes.forEach { terrainType in
-                    
-                    layerNorthEdgeTerrainTypePopUp.addItem(withTitle: terrainType.name)
-                    layerEastEdgeTerrainTypePopUp.addItem(withTitle: terrainType.name)
-                    layerSouthEdgeTerrainTypePopUp.addItem(withTitle: terrainType.name)
-                    layerWestEdgeTerrainTypePopUp.addItem(withTitle: terrainType.name)
-                }
-                
-                selectedLayerPopUp.selectItem(at: layer.node.index(of: layer)!)
-                xNodeCoordinateLabel.stringValue = "\(layer.node.volume.coordinate.x)"
-                yNodeCoordinateLabel.stringValue = "\(layer.node.volume.coordinate.y)"
-                zNodeCoordinateLabel.stringValue = "\(layer.node.volume.coordinate.z)"
-                
-                layerNorthEdgeTerrainTypePopUp.selectItem(at: terrain.availableTerrainTypes.index(of: layer.get(terrainType: .north)!.terrainType)!)
-                layerEastEdgeTerrainTypePopUp.selectItem(at: terrain.availableTerrainTypes.index(of: layer.get(terrainType: .east)!.terrainType)!)
-                layerSouthEdgeTerrainTypePopUp.selectItem(at: terrain.availableTerrainTypes.index(of: layer.get(terrainType: .south)!.terrainType)!)
-                layerWestEdgeTerrainTypePopUp.selectItem(at: terrain.availableTerrainTypes.index(of: layer.get(terrainType: .west)!.terrainType)!)
-                layerNorthWestCornerLabel.stringValue = "\(layer.get(height: .northWest))"
-                layerNorthEastCornerLabel.stringValue = "\(layer.get(height: .northEast))"
-                layerSouthEastCornerLabel.stringValue = "\(layer.get(height: .southEast))"
-                layerSouthWestCornerLabel.stringValue = "\(layer.get(height: .southWest))"
+                selectedLayerPopUp.addItem(withTitle: "Layer \(index)")
             }
+            
+            terrain.availableTerrainTypes.forEach { terrainType in
+                
+                layerNorthEdgeTerrainTypePopUp.addItem(withTitle: terrainType.name)
+                layerEastEdgeTerrainTypePopUp.addItem(withTitle: terrainType.name)
+                layerSouthEdgeTerrainTypePopUp.addItem(withTitle: terrainType.name)
+                layerWestEdgeTerrainTypePopUp.addItem(withTitle: terrainType.name)
+            }
+            
+            selectedLayerPopUp.selectItem(at: layer.node.index(of: layer)!)
+            xNodeCoordinateLabel.stringValue = "\(layer.node.volume.coordinate.x)"
+            yNodeCoordinateLabel.stringValue = "\(layer.node.volume.coordinate.y)"
+            zNodeCoordinateLabel.stringValue = "\(layer.node.volume.coordinate.z)"
+            
+            layerNorthEdgeTerrainTypePopUp.selectItem(at: terrain.availableTerrainTypes.index(of: layer.get(terrainType: .north)!.terrainType)!)
+            layerEastEdgeTerrainTypePopUp.selectItem(at: terrain.availableTerrainTypes.index(of: layer.get(terrainType: .east)!.terrainType)!)
+            layerSouthEdgeTerrainTypePopUp.selectItem(at: terrain.availableTerrainTypes.index(of: layer.get(terrainType: .south)!.terrainType)!)
+            layerWestEdgeTerrainTypePopUp.selectItem(at: terrain.availableTerrainTypes.index(of: layer.get(terrainType: .west)!.terrainType)!)
+            layerNorthWestCornerLabel.stringValue = "\(layer.get(height: .northWest))"
+            layerNorthEastCornerLabel.stringValue = "\(layer.get(height: .northEast))"
+            layerSouthEastCornerLabel.stringValue = "\(layer.get(height: .southEast))"
+            layerSouthWestCornerLabel.stringValue = "\(layer.get(height: .southWest))"
             
         default: break
         }

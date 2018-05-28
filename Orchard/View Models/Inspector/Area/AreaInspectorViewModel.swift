@@ -14,7 +14,7 @@ extension AreaInspectorViewController {
     enum ViewState: State {
         
         case empty
-        case inspecting(Area)
+        case inspecting(Area, AreaTile?, AreaNode?)
         
         func shouldTransition(to newState: AreaInspectorViewController.ViewState) -> Should<AreaInspectorViewController.ViewState> {
             

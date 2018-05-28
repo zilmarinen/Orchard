@@ -34,11 +34,11 @@ extension InspectorTabViewController {
         
         switch to {
         
-        case .area(let area):
+        case .area(let area, let areaTile, let areaNode):
             
             guard let viewController = childViewControllers[to.sortOrder] as? AreaInspectorViewController else { break }
             
-            viewController.viewModel.state = .inspecting(area)
+            viewController.viewModel.state = .inspecting(area, areaTile, areaNode)
             
         case .camera(let cameraJib):
             
@@ -46,17 +46,17 @@ extension InspectorTabViewController {
             
             viewController.viewModel.state = .inspecting(cameraJib)
             
-        case .foliage(let foliage):
+        case .foliage(let foliage, let foliageNode):
             
             guard let viewController = childViewControllers[to.sortOrder] as? FoliageInspectorViewController else { break }
             
-            viewController.viewModel.state = .inspecting(foliage)
+            viewController.viewModel.state = .inspecting(foliage, foliageNode)
             
-        case .footpath(let footpath):
+        case .footpath(let footpath, _, let footpathNode):
             
             guard let viewController = childViewControllers[to.sortOrder] as? FootpathInspectorViewController else { break }
             
-            viewController.viewModel.state = .inspecting(footpath)
+            viewController.viewModel.state = .inspecting(footpath, footpathNode)
             
         case.scene(let meadow):
             
@@ -70,11 +70,11 @@ extension InspectorTabViewController {
             
             viewController.viewModel.state = .inspecting(terrain, layer)
             
-        case .water(let water):
+        case .water(let water, let waterNode):
             
             guard let viewController = childViewControllers[to.sortOrder] as? WaterInspectorViewController else { break }
             
-            viewController.viewModel.state = .inspecting(water)
+            viewController.viewModel.state = .inspecting(water, waterNode)
             
         default: break
         }

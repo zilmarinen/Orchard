@@ -128,21 +128,21 @@ extension OrchardViewController: SceneGraphDelegate {
              is AreaTile.Type,
              is AreaNode.Type:
             
-            toggle(inspector: .area(sceneViewController.meadow.areas))
+            toggle(inspector: .area(sceneViewController.meadow.areas, item as? AreaTile, item as? AreaNode))
             
         case is Foliage.Type,
              is FoliageChunk.Type,
              is FoliageTile.Type,
              is FoliageNode.Type:
             
-            toggle(inspector: .foliage(sceneViewController.meadow.foliage))
+            toggle(inspector: .foliage(sceneViewController.meadow.foliage, item as? FoliageNode))
             
         case is Footpath.Type,
              is FootpathChunk.Type,
              is FootpathTile.Type,
              is FootpathNode.Type:
             
-            toggle(inspector: .footpath(sceneViewController.meadow.footpaths))
+            toggle(inspector: .footpath(sceneViewController.meadow.footpaths, item as? FootpathTile, item as? FootpathNode))
             
         case is Terrain.Type,
              is TerrainChunk.Type,
@@ -157,7 +157,7 @@ extension OrchardViewController: SceneGraphDelegate {
              is WaterTile.Type,
              is WaterNode.Type:
             
-            toggle(inspector: .water(sceneViewController.meadow.water))
+            toggle(inspector: .water(sceneViewController.meadow.water, item as? WaterNode))
             
         default:
             

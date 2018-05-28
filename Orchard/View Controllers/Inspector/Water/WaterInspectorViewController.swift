@@ -34,7 +34,7 @@ extension WaterInspectorViewController {
         
         switch to {
             
-        case .inspecting(let water):
+        case .inspecting(let water, let waterNode):
             
             chunkCount.stringValue = "\(water.totalChildren)"
             

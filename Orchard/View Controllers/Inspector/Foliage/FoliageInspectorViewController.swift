@@ -34,7 +34,7 @@ extension FoliageInspectorViewController {
         
         switch to {
             
-        case .inspecting(let foliage):
+        case .inspecting(let foliage, let foliageNode):
             
             chunkCount.stringValue = "\(foliage.totalChildren)"
             

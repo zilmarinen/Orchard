@@ -14,13 +14,13 @@ extension InspectorTabViewController {
     enum ViewState: State {
         
         case empty
-        case area(Area)
+        case area(Area, AreaTile?, AreaNode?)
         case camera(CameraJib)
-        case foliage(Foliage)
-        case footpath(Footpath)
+        case foliage(Foliage, FoliageNode?)
+        case footpath(Footpath, FootpathTile?, FootpathNode?)
         case scene(Meadow)
         case terrain(Terrain, TerrainTile?, TerrainNode?, TerrainLayer?)
-        case water(Water)
+        case water(Water, WaterNode?)
         
         func shouldTransition(to newState: InspectorTabViewController.ViewState) -> Should<InspectorTabViewController.ViewState> {
             

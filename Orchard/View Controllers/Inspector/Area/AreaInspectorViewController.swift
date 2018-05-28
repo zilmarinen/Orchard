@@ -34,9 +34,11 @@ extension AreaInspectorViewController {
         
         switch to {
             
-        case .inspecting(let area):
+        case .inspecting(let area, let areaTile, let areaNode):
             
             chunkCount.stringValue = "\(area.totalChildren)"
+            
+            //
             
         default: break
         }
