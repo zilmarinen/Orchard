@@ -7,10 +7,30 @@
 //
 
 import Meadow
+import SceneKit
 
 class WaterInspectorViewController: NSViewController {
     
+    @IBOutlet weak var tileBox: NSBox!
+    @IBOutlet weak var nodeBox: NSBox!
+    
     @IBOutlet weak var chunkCount: NSTextField!
+    
+    @IBOutlet weak var xTileCoordinateLabel: NSTextField!
+    @IBOutlet weak var yTileCoordinateLabel: NSTextField!
+    @IBOutlet weak var zTileCoordinateLabel: NSTextField!
+    
+    @IBOutlet weak var selectedNodePopUp: NSPopUpButton!
+    
+    @IBOutlet weak var sceneView: SCNView!
+    
+    @IBAction func popUp(_ sender: NSPopUpButton) {
+        
+        switch viewModel.state {
+            
+        default: break
+        }
+    }
 
     lazy var viewModel = {
         
@@ -37,6 +57,8 @@ extension WaterInspectorViewController {
         case .inspecting(let water, let waterNode):
             
             chunkCount.stringValue = "\(water.totalChildren)"
+            
+            //
             
         default: break
         }
