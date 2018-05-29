@@ -78,7 +78,7 @@ extension WaterInspectorViewController {
             
         case .inspecting(let grid, let inspectable):
             
-            chunkCount.stringValue = "\(grid.totalChildren)"
+            chunkCount.integerValue = grid.totalChildren
             
             tileBox.isHidden = true
             nodeBox.isHidden = true
@@ -90,9 +90,9 @@ extension WaterInspectorViewController {
                 tileBox.isHidden = false
                 nodeBox.isHidden = false
                 
-                xTileCoordinateLabel.stringValue = "\(tile.volume.coordinate.x)"
-                yTileCoordinateLabel.stringValue = "\(tile.volume.coordinate.y)"
-                zTileCoordinateLabel.stringValue = "\(tile.volume.coordinate.z)"
+                xTileCoordinateLabel.integerValue = tile.volume.coordinate.x
+                yTileCoordinateLabel.integerValue = tile.volume.coordinate.y
+                zTileCoordinateLabel.integerValue = tile.volume.coordinate.z
                 
                 for index in 0..<tile.totalChildren {
                     
@@ -104,12 +104,12 @@ extension WaterInspectorViewController {
                     selectedNodePopUp.selectItem(at: index)
                 }
                 
-                xNodeCoordinateLabel.stringValue = "\(node.volume.coordinate.x)"
-                yNodeCoordinateLabel.stringValue = "\(node.volume.coordinate.y)"
-                zNodeCoordinateLabel.stringValue = "\(node.volume.coordinate.z)"
-                widthNodeSizeLabel.stringValue = "\(node.volume.size.width)"
-                heightNodeSizeLabel.stringValue = "\(node.volume.size.height)"
-                depthNodeSizeLabel.stringValue = "\(node.volume.size.depth)"
+                xNodeCoordinateLabel.integerValue = node.volume.coordinate.x
+                yNodeCoordinateLabel.integerValue = node.volume.coordinate.y
+                zNodeCoordinateLabel.integerValue = node.volume.coordinate.z
+                widthNodeSizeLabel.integerValue = node.volume.size.width
+                heightNodeSizeLabel.integerValue = node.volume.size.height
+                depthNodeSizeLabel.integerValue = node.volume.size.depth
             }
             
         default: break
