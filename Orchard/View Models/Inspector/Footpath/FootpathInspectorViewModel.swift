@@ -14,7 +14,7 @@ extension FootpathInspectorViewController {
     enum ViewState: State {
         
         case empty
-        case inspecting(Footpath, FootpathNode?)
+        case inspecting(Footpath, (FootpathTile, FootpathNode)?)
         
         func shouldTransition(to newState: FootpathInspectorViewController.ViewState) -> Should<FootpathInspectorViewController.ViewState> {
             

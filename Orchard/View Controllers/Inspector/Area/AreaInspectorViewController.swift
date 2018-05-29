@@ -24,6 +24,13 @@ class AreaInspectorViewController: NSViewController {
     
     @IBOutlet weak var sceneView: SCNView!
     
+    @IBOutlet weak var xNodeCoordinateLabel: NSTextField!
+    @IBOutlet weak var yNodeCoordinateLabel: NSTextField!
+    @IBOutlet weak var zNodeCoordinateLabel: NSTextField!
+    @IBOutlet weak var widthNodeSizeLabel: NSTextField!
+    @IBOutlet weak var heightNodeSizeLabel: NSTextField!
+    @IBOutlet weak var depthNodeSizeLabel: NSTextField!
+    
     @IBAction func popUp(_ sender: NSPopUpButton) {
         
         switch viewModel.state {
@@ -54,11 +61,34 @@ extension AreaInspectorViewController {
         
         switch to {
             
-        case .inspecting(let area, let areaTile, let areaNode):
+        case .inspecting(let area, let inspectable):
             
             chunkCount.stringValue = "\(area.totalChildren)"
             
-            //
+            tileBox.isHidden = true
+            nodeBox.isHidden = true
+            
+            selectedNodePopUp.removeAllItems()
+            
+            if let (tile, node) = inspectable {
+                
+                tileBox.isHidden = false
+                nodeBox.isHidden = false
+                
+                xTileCoordinateLabel.stringValue = "\(tile.volume.coordinate.x)"
+                yTileCoordinateLabel.stringValue = "\(tile.volume.coordinate.y)"
+                zTileCoordinateLabel.stringValue = "\(tile.volume.coordinate.z)"
+                
+                for index in 0..<tile.totalChildren {
+                    
+                    selectedNodePopUp.addItem(withTitle: "Node \(index + 1)")
+                }
+                
+                if let index = tile.sceneGraph(indexOf: node) {
+                 
+                    selectedNodePopUp.selectItem(at: index)
+                }
+            }
             
         default: break
         }

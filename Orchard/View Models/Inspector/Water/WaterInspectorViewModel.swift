@@ -14,7 +14,7 @@ extension WaterInspectorViewController {
     enum ViewState: State {
         
         case empty
-        case inspecting(Water, WaterNode?)
+        case inspecting(Water, (WaterTile, WaterNode)?)
         
         func shouldTransition(to newState: WaterInspectorViewController.ViewState) -> Should<WaterInspectorViewController.ViewState> {
             

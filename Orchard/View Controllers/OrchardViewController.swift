@@ -94,14 +94,14 @@ extension OrchardViewController: SceneGraphDelegate {
             view.textField?.stringValue = "Meadow"
             view.imageView?.image = NSImage(named: NSImage.Name("meadow_icon"))
         }
-        if let item = item as? SceneGraphNode {
-        
-            view.textField?.stringValue = item.nodeName
-            view.imageView?.image = NSImage(named: NSImage.Name("grid_icon"))
-        }
         else if let _ = item as? CameraJib {
             
             view.textField?.stringValue = "Camera"
+            view.imageView?.image = NSImage(named: NSImage.Name("grid_icon"))
+        }
+        else if let item = item as? SceneGraphNode {
+            
+            view.textField?.stringValue = item.nodeName
             view.imageView?.image = NSImage(named: NSImage.Name("grid_icon"))
         }
         
@@ -110,39 +110,41 @@ extension OrchardViewController: SceneGraphDelegate {
     
     func sceneGraph(outlineView: NSOutlineView, didSelectItem item: Any, atIndex index: Int) {
     
-        guard let sceneViewController = sceneViewController else { return }
+        guard let sceneViewController = sceneViewController, let meadow = sceneViewController.meadow else { return }
         
         if let utilitiesTabViewController = utilitiesViewController?.tabViewController {
             
             utilitiesTabViewController.viewModel.state = .empty
         }
         
+        guard let inspectorTabViewController = inspectorTabViewController else { return }
+        
         switch type(of: item) {
             
         case is CameraJib.Type:
             
-            toggle(inspector: .camera(item as! CameraJib))
+            inspectorTabViewController.viewModel.state = .camera(item as! CameraJib)
             
         case is Area.Type,
              is AreaChunk.Type,
              is AreaTile.Type,
              is AreaNode.Type:
             
-            toggle(inspector: .area(sceneViewController.meadow.areas, item as? AreaTile, item as? AreaNode))
+            inspectorTabViewController.viewModel.state = .area(meadow.areas, item as? AreaTile, item as? AreaNode)
             
         case is Foliage.Type,
              is FoliageChunk.Type,
              is FoliageTile.Type,
              is FoliageNode.Type:
             
-            toggle(inspector: .foliage(sceneViewController.meadow.foliage, item as? FoliageNode))
+            inspectorTabViewController.viewModel.state = .foliage(meadow.foliage, item as? FoliageTile, item as? FoliageNode)
             
         case is Footpath.Type,
              is FootpathChunk.Type,
              is FootpathTile.Type,
              is FootpathNode.Type:
             
-            toggle(inspector: .footpath(sceneViewController.meadow.footpaths, item as? FootpathTile, item as? FootpathNode))
+            inspectorTabViewController.viewModel.state = .footpath(meadow.footpaths, item as? FootpathTile, item as? FootpathNode)
             
         case is Terrain.Type,
              is TerrainChunk.Type,
@@ -150,36 +152,26 @@ extension OrchardViewController: SceneGraphDelegate {
              is TerrainNode.Type,
              is TerrainLayer.Type:
             
-            toggle(inspector: .terrain(sceneViewController.meadow.terrain, item as? TerrainTile, item as? TerrainNode, item as? TerrainLayer))
+            inspectorTabViewController.viewModel.state = .terrain(meadow.terrain, item as? TerrainTile, item as? TerrainNode, item as? TerrainLayer)
             
         case is Water.Type,
              is WaterChunk.Type,
              is WaterTile.Type,
              is WaterNode.Type:
             
-            toggle(inspector: .water(sceneViewController.meadow.water, item as? WaterNode))
+            inspectorTabViewController.viewModel.state = .water(meadow.water, item as? WaterTile, item as? WaterNode)
             
         default:
             
-            if let item = item as? SCNNode, item == sceneViewController.meadow.rootNode {
+            if let item = item as? SCNNode, item == meadow.rootNode {
                 
-                toggle(inspector: .scene(sceneViewController.meadow))
+                inspectorTabViewController.viewModel.state = .scene(sceneViewController.meadow)
                 
                 break
             }
             
-            toggle(inspector: .empty)
+            inspectorTabViewController.viewModel.state = .empty
         }
-    }
-}
-
-extension OrchardViewController {
-    
-    func toggle(inspector viewState: InspectorTabViewController.ViewState) {
-        
-        guard let inspectorTabViewController = inspectorTabViewController else { return }
-        
-        inspectorTabViewController.viewModel.state = viewState
     }
 }
 

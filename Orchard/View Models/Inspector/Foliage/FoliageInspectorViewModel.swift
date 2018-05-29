@@ -14,7 +14,7 @@ extension FoliageInspectorViewController {
     enum ViewState: State {
         
         case empty
-        case inspecting(Foliage, FoliageNode?)
+        case inspecting(Foliage, (FoliageTile, FoliageNode)?)
         
         func shouldTransition(to newState: FoliageInspectorViewController.ViewState) -> Should<FoliageInspectorViewController.ViewState> {
             

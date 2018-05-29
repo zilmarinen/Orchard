@@ -16,11 +16,11 @@ extension InspectorTabViewController {
         case empty
         case area(Area, AreaTile?, AreaNode?)
         case camera(CameraJib)
-        case foliage(Foliage, FoliageNode?)
+        case foliage(Foliage, FoliageTile?, FoliageNode?)
         case footpath(Footpath, FootpathTile?, FootpathNode?)
         case scene(Meadow)
         case terrain(Terrain, TerrainTile?, TerrainNode?, TerrainLayer?)
-        case water(Water, WaterNode?)
+        case water(Water, WaterTile?, WaterNode?)
         
         func shouldTransition(to newState: InspectorTabViewController.ViewState) -> Should<InspectorTabViewController.ViewState> {
             

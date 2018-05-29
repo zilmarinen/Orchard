@@ -12,6 +12,7 @@ import SceneKit
 class TerrainInspectorViewController: NSViewController {
     
     @IBOutlet weak var tileBox: NSBox!
+    @IBOutlet weak var nodeBox: NSBox!
     @IBOutlet weak var layerBox: NSBox!
     
     @IBOutlet weak var chunkCount: NSTextField!
@@ -54,11 +55,36 @@ extension TerrainInspectorViewController {
         
         switch to {
             
-        case .inspecting(let terrain, let layer):
+        case .inspecting(let terrain, let inspectable):
             
             chunkCount.stringValue = "\(terrain.totalChildren)"
             
-            //
+            tileBox.isHidden = true
+            nodeBox.isHidden = true
+            layerBox.isHidden = true
+            
+            selectedNodePopUp.removeAllItems()
+            
+            if let (tile, node, layer) = inspectable {
+                
+                tileBox.isHidden = false
+                nodeBox.isHidden = false
+                layerBox.isHidden = false
+                
+                xTileCoordinateLabel.stringValue = "\(tile.volume.coordinate.x)"
+                yTileCoordinateLabel.stringValue = "\(tile.volume.coordinate.y)"
+                zTileCoordinateLabel.stringValue = "\(tile.volume.coordinate.z)"
+                
+                for index in 0..<tile.totalChildren {
+                    
+                    selectedNodePopUp.addItem(withTitle: "Node \(index + 1)")
+                }
+                
+                if let index = tile.sceneGraph(indexOf: node) {
+                    
+                    selectedNodePopUp.selectItem(at: index)
+                }
+            }
             
         default: break
         }

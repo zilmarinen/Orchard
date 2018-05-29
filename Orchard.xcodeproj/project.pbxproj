@@ -448,14 +448,14 @@
 		18B4886520B1BD1C0032E832 /* Inspector */ = {
 			isa = PBXGroup;
 			children = (
-				189256C020B8009300FD9364 /* Scene */,
-				1803165920B6F091009D367F /* Camera */,
 				18B4886B20B1BD370032E832 /* Area */,
+				1803165920B6F091009D367F /* Camera */,
 				18B4886A20B1BD340032E832 /* Foliage */,
 				18B4886920B1BD320032E832 /* Footpath */,
+				18B4887320B1BD7F0032E832 /* InspectorTabViewModel.swift */,
+				189256C020B8009300FD9364 /* Scene */,
 				18B4886820B1BD2F0032E832 /* Terrain */,
 				18B4886720B1BD2D0032E832 /* Water */,
-				18B4887320B1BD7F0032E832 /* InspectorTabViewModel.swift */,
 			);
 			path = Inspector;
 			sourceTree = "<group>";

@@ -54,11 +54,34 @@ extension FoliageInspectorViewController {
         
         switch to {
             
-        case .inspecting(let foliage, let foliageNode):
+        case .inspecting(let foliage, let inspectable):
             
             chunkCount.stringValue = "\(foliage.totalChildren)"
             
-            //
+            tileBox.isHidden = true
+            nodeBox.isHidden = true
+            
+            selectedNodePopUp.removeAllItems()
+            
+            if let (tile, node) = inspectable {
+                
+                tileBox.isHidden = false
+                nodeBox.isHidden = false
+                
+                xTileCoordinateLabel.stringValue = "\(tile.volume.coordinate.x)"
+                yTileCoordinateLabel.stringValue = "\(tile.volume.coordinate.y)"
+                zTileCoordinateLabel.stringValue = "\(tile.volume.coordinate.z)"
+                
+                for index in 0..<tile.totalChildren {
+                    
+                    selectedNodePopUp.addItem(withTitle: "Node \(index + 1)")
+                }
+                
+                if let index = tile.sceneGraph(indexOf: node) {
+                    
+                    selectedNodePopUp.selectItem(at: index)
+                }
+            }
             
         default: break
         }
