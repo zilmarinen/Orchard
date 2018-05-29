@@ -35,6 +35,21 @@ class AreaInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
+        case .inspecting(let grid, let inspectable):
+            
+            guard let (tile, _) = inspectable else { break }
+            
+            switch sender {
+                
+            case selectedNodePopUp:
+                
+                guard let selectedNode = tile.sceneGraph(childAtIndex: sender.indexOfSelectedItem) as? AreaNode else { break }
+                
+                viewModel.state = .inspecting(grid, (tile, selectedNode))
+                
+            default: break
+            }
+            
         default: break
         }
     }
@@ -61,9 +76,9 @@ extension AreaInspectorViewController {
         
         switch to {
             
-        case .inspecting(let area, let inspectable):
+        case .inspecting(let grid, let inspectable):
             
-            chunkCount.stringValue = "\(area.totalChildren)"
+            chunkCount.stringValue = "\(grid.totalChildren)"
             
             tileBox.isHidden = true
             nodeBox.isHidden = true
@@ -88,6 +103,13 @@ extension AreaInspectorViewController {
                  
                     selectedNodePopUp.selectItem(at: index)
                 }
+                
+                xNodeCoordinateLabel.stringValue = "\(node.volume.coordinate.x)"
+                yNodeCoordinateLabel.stringValue = "\(node.volume.coordinate.y)"
+                zNodeCoordinateLabel.stringValue = "\(node.volume.coordinate.z)"
+                widthNodeSizeLabel.stringValue = "\(node.volume.size.width)"
+                heightNodeSizeLabel.stringValue = "\(node.volume.size.height)"
+                depthNodeSizeLabel.stringValue = "\(node.volume.size.depth)"
             }
             
         default: break

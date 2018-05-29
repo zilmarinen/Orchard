@@ -1283,12 +1283,18 @@
                     </view>
                     <connections>
                         <outlet property="chunkCount" destination="W9x-U2-QWy" id="4bC-zw-t1n"/>
+                        <outlet property="depthNodeSizeLabel" destination="vcm-i0-mrT" id="kSU-AT-1Rn"/>
+                        <outlet property="heightNodeSizeLabel" destination="Ajh-jI-GdA" id="gKQ-kJ-eTs"/>
                         <outlet property="nodeBox" destination="a7g-2d-yU9" id="vtS-a2-z9c"/>
                         <outlet property="sceneView" destination="AkP-ux-73H" id="2lh-iu-Foy"/>
                         <outlet property="selectedNodePopUp" destination="oi3-ys-J5G" id="FvI-uN-fhE"/>
                         <outlet property="tileBox" destination="LgA-cY-4DK" id="OsR-wc-5TM"/>
+                        <outlet property="widthNodeSizeLabel" destination="pZA-9K-UhQ" id="Pj9-at-aMu"/>
+                        <outlet property="xNodeCoordinateLabel" destination="ryv-pt-ZcC" id="2gD-kl-Qit"/>
                         <outlet property="xTileCoordinateLabel" destination="rMx-Tg-VOY" id="vAs-VZ-q6C"/>
+                        <outlet property="yNodeCoordinateLabel" destination="N6m-k8-P7g" id="XoT-fg-GXp"/>
                         <outlet property="yTileCoordinateLabel" destination="aWu-S7-50h" id="6o6-Px-D8D"/>
+                        <outlet property="zNodeCoordinateLabel" destination="53L-k9-vr7" id="uN5-JJ-a4f"/>
                         <outlet property="zTileCoordinateLabel" destination="VIe-eK-IwX" id="OX0-VQ-Ycj"/>
                     </connections>
                 </viewController>
@@ -2069,13 +2075,20 @@
                     </view>
                     <connections>
                         <outlet property="chunkCount" destination="TVV-J4-01G" id="ORK-3v-m2t"/>
+                        <outlet property="depthNodeSizeLabel" destination="ndC-iE-7dj" id="O2l-zJ-X2I"/>
+                        <outlet property="heightNodeSizeLabel" destination="XOU-rP-LKu" id="IsT-RE-I4p"/>
                         <outlet property="layerBox" destination="vHm-qb-RGt" id="0d5-pM-c3N"/>
                         <outlet property="nodeBox" destination="9z9-hh-7mO" id="W6S-Dp-Qvx"/>
                         <outlet property="sceneView" destination="hLv-mR-JS7" id="i7c-jd-DzC"/>
+                        <outlet property="selectedLayerPopUp" destination="E53-5V-i5d" id="3du-hp-tWt"/>
                         <outlet property="selectedNodePopUp" destination="7Pb-qa-U4m" id="avR-qv-2LN"/>
                         <outlet property="tileBox" destination="sFK-Z9-PiN" id="QvI-gd-e8a"/>
+                        <outlet property="widthNodeSizeLabel" destination="VIb-pG-Vfn" id="LxH-Z9-Vyf"/>
+                        <outlet property="xNodeCoordinateLabel" destination="oRQ-0n-VLf" id="5Ft-yf-fei"/>
                         <outlet property="xTileCoordinateLabel" destination="CRW-WG-tH1" id="eIh-kF-7a2"/>
+                        <outlet property="yNodeCoordinateLabel" destination="uGb-Vz-9gu" id="DBf-Kb-7cr"/>
                         <outlet property="yTileCoordinateLabel" destination="9I2-qu-SHh" id="6pt-oR-g35"/>
+                        <outlet property="zNodeCoordinateLabel" destination="8GZ-RP-84q" id="EXb-Za-1ug"/>
                         <outlet property="zTileCoordinateLabel" destination="guS-O1-BYm" id="rEJ-no-54S"/>
                     </connections>
                 </viewController>
@@ -2624,12 +2637,18 @@
                     </view>
                     <connections>
                         <outlet property="chunkCount" destination="dUk-1B-CK3" id="efE-3G-uCK"/>
+                        <outlet property="depthNodeSizeLabel" destination="kPM-Wn-LfG" id="voz-ap-xh2"/>
+                        <outlet property="heightNodeSizeLabel" destination="pue-ia-zpH" id="nOe-mE-gy6"/>
                         <outlet property="nodeBox" destination="MmQ-5s-nZF" id="am1-rn-lr6"/>
                         <outlet property="sceneView" destination="KBl-RP-LkN" id="pOX-HO-hcz"/>
                         <outlet property="selectedNodePopUp" destination="8IR-6p-sCP" id="Moy-ho-mPJ"/>
                         <outlet property="tileBox" destination="PDp-8E-ael" id="KTP-Aq-15J"/>
+                        <outlet property="widthNodeSizeLabel" destination="AOd-KZ-EIb" id="9KM-7i-LMO"/>
+                        <outlet property="xNodeCoordinateLabel" destination="xKL-Sm-vjY" id="IIR-jz-Fwg"/>
                         <outlet property="xTileCoordinateLabel" destination="8Re-t7-wlf" id="mr3-d2-qFZ"/>
+                        <outlet property="yNodeCoordinateLabel" destination="jJX-vG-q08" id="oFB-Tr-l0R"/>
                         <outlet property="yTileCoordinateLabel" destination="Yax-Gh-jum" id="svN-qp-sek"/>
+                        <outlet property="zNodeCoordinateLabel" destination="eii-7P-05x" id="7bb-d3-O3Y"/>
                         <outlet property="zTileCoordinateLabel" destination="3bP-ai-DF1" id="3OK-I5-0Ta"/>
                     </connections>
                 </viewController>
@@ -3250,12 +3269,18 @@
                     </view>
                     <connections>
                         <outlet property="chunkCount" destination="gef-2g-LLb" id="mZc-Re-wR5"/>
+                        <outlet property="depthNodeSizeLabel" destination="TJU-pG-jMZ" id="sQv-oM-xqJ"/>
+                        <outlet property="heightNodeSizeLabel" destination="fVg-gT-SVl" id="rXX-zc-iFQ"/>
                         <outlet property="nodeBox" destination="s2R-GT-XS8" id="0xi-Wq-rZn"/>
                         <outlet property="sceneView" destination="oro-bB-bmy" id="WYf-Cs-97Q"/>
                         <outlet property="selectedNodePopUp" destination="BUX-6d-Mbe" id="Y3g-xc-g1m"/>
                         <outlet property="tileBox" destination="3wR-dD-4v2" id="3Qg-c2-K0V"/>
+                        <outlet property="widthNodeSizeLabel" destination="SZa-OM-Ftu" id="6m3-MA-Zl7"/>
+                        <outlet property="xNodeCoordinateLabel" destination="2YB-HE-awl" id="gLk-1Q-rqV"/>
                         <outlet property="xTileCoordinateLabel" destination="AQR-zD-SvZ" id="JXO-K4-k0H"/>
+                        <outlet property="yNodeCoordinateLabel" destination="4kj-a8-sr8" id="YEN-Ne-sNi"/>
                         <outlet property="yTileCoordinateLabel" destination="mP6-Vv-5Ut" id="Vq6-0I-7su"/>
+                        <outlet property="zNodeCoordinateLabel" destination="Osf-rY-UA8" id="7qx-tc-KQa"/>
                         <outlet property="zTileCoordinateLabel" destination="R2S-Ix-8u8" id="3op-ot-ePk"/>
                     </connections>
                 </viewController>
@@ -4202,12 +4227,18 @@
                     </view>
                     <connections>
                         <outlet property="chunkCount" destination="P7Q-0p-qbg" id="dGY-Y8-6Ai"/>
+                        <outlet property="depthNodeSizeLabel" destination="XxI-pv-qpE" id="jk4-z3-eYT"/>
+                        <outlet property="heightNodeSizeLabel" destination="vx8-XH-G95" id="Piz-wt-Pcy"/>
                         <outlet property="nodeBox" destination="akG-zW-0PA" id="4ep-SC-wjN"/>
                         <outlet property="sceneView" destination="Q9O-kV-RMX" id="JMy-ul-7kd"/>
                         <outlet property="selectedNodePopUp" destination="PF6-mM-ABS" id="Cuc-QU-4bz"/>
                         <outlet property="tileBox" destination="E6o-fa-Zea" id="hO2-lT-Uf1"/>
+                        <outlet property="widthNodeSizeLabel" destination="bPy-eA-Jfh" id="pq2-J0-Rm7"/>
+                        <outlet property="xNodeCoordinateLabel" destination="aT4-EB-bkw" id="IkR-BO-H5c"/>
                         <outlet property="xTileCoordinateLabel" destination="qGI-Jx-gQU" id="Bki-Jy-Ltr"/>
+                        <outlet property="yNodeCoordinateLabel" destination="rM5-pE-SuH" id="Pnx-hl-GbG"/>
                         <outlet property="yTileCoordinateLabel" destination="W4A-IJ-j5t" id="UV7-Mf-8Z0"/>
+                        <outlet property="zNodeCoordinateLabel" destination="l8z-Yb-Fl0" id="kYn-2A-XEN"/>
                         <outlet property="zTileCoordinateLabel" destination="6Mv-nz-OcH" id="1qw-Nc-HVz"/>
                     </connections>
                 </viewController>

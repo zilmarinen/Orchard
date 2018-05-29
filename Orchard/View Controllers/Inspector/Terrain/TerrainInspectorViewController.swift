@@ -25,9 +25,39 @@ class TerrainInspectorViewController: NSViewController {
     
     @IBOutlet weak var sceneView: SCNView!
     
+    @IBOutlet weak var xNodeCoordinateLabel: NSTextField!
+    @IBOutlet weak var yNodeCoordinateLabel: NSTextField!
+    @IBOutlet weak var zNodeCoordinateLabel: NSTextField!
+    @IBOutlet weak var widthNodeSizeLabel: NSTextField!
+    @IBOutlet weak var heightNodeSizeLabel: NSTextField!
+    @IBOutlet weak var depthNodeSizeLabel: NSTextField!
+    
+    @IBOutlet weak var selectedLayerPopUp: NSPopUpButton!
+    
     @IBAction func popUp(_ sender: NSPopUpButton) {
         
         switch viewModel.state {
+            
+        case .inspecting(let grid, let inspectable):
+            
+            guard let (tile, node, _) = inspectable else { break }
+            
+            switch sender {
+                
+            case selectedNodePopUp:
+                
+                guard let selectedNode = tile.sceneGraph(childAtIndex: sender.indexOfSelectedItem) as? TerrainNode, let selectedLayer = selectedNode.sceneGraph(childAtIndex: 0) as? TerrainLayer else { break }
+                
+                viewModel.state = .inspecting(grid, (tile, selectedNode, selectedLayer))
+                
+            case selectedLayerPopUp:
+                
+                guard let selectedLayer = node.sceneGraph(childAtIndex: sender.indexOfSelectedItem) as? TerrainLayer else { break }
+                
+                viewModel.state = .inspecting(grid, (tile, node, selectedLayer))
+                
+            default: break
+            }
             
         default: break
         }
@@ -55,15 +85,16 @@ extension TerrainInspectorViewController {
         
         switch to {
             
-        case .inspecting(let terrain, let inspectable):
+        case .inspecting(let grid, let inspectable):
             
-            chunkCount.stringValue = "\(terrain.totalChildren)"
+            chunkCount.stringValue = "\(grid.totalChildren)"
             
             tileBox.isHidden = true
             nodeBox.isHidden = true
             layerBox.isHidden = true
             
             selectedNodePopUp.removeAllItems()
+            selectedLayerPopUp.removeAllItems()
             
             if let (tile, node, layer) = inspectable {
                 
@@ -83,6 +114,23 @@ extension TerrainInspectorViewController {
                 if let index = tile.sceneGraph(indexOf: node) {
                     
                     selectedNodePopUp.selectItem(at: index)
+                }
+                
+                xNodeCoordinateLabel.stringValue = "\(node.volume.coordinate.x)"
+                yNodeCoordinateLabel.stringValue = "\(node.volume.coordinate.y)"
+                zNodeCoordinateLabel.stringValue = "\(node.volume.coordinate.z)"
+                widthNodeSizeLabel.stringValue = "\(node.volume.size.width)"
+                heightNodeSizeLabel.stringValue = "\(node.volume.size.height)"
+                depthNodeSizeLabel.stringValue = "\(node.volume.size.depth)"
+                
+                for index in 0..<node.totalChildren {
+                    
+                    selectedLayerPopUp.addItem(withTitle: "Layer \(index + 1)")
+                }
+                
+                if let index = node.sceneGraph(indexOf: layer) {
+                    
+                    selectedLayerPopUp.selectItem(at: index)
                 }
             }
             

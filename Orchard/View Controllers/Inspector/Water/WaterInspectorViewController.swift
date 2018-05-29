@@ -24,9 +24,31 @@ class WaterInspectorViewController: NSViewController {
     
     @IBOutlet weak var sceneView: SCNView!
     
+    @IBOutlet weak var xNodeCoordinateLabel: NSTextField!
+    @IBOutlet weak var yNodeCoordinateLabel: NSTextField!
+    @IBOutlet weak var zNodeCoordinateLabel: NSTextField!
+    @IBOutlet weak var widthNodeSizeLabel: NSTextField!
+    @IBOutlet weak var heightNodeSizeLabel: NSTextField!
+    @IBOutlet weak var depthNodeSizeLabel: NSTextField!
+    
     @IBAction func popUp(_ sender: NSPopUpButton) {
         
         switch viewModel.state {
+            
+        case .inspecting(let grid, let inspectable):
+            
+            guard let (tile, _) = inspectable else { break }
+            
+            switch sender {
+                
+            case selectedNodePopUp:
+                
+                guard let selectedNode = tile.sceneGraph(childAtIndex: sender.indexOfSelectedItem) as? WaterNode else { break }
+                
+                viewModel.state = .inspecting(grid, (tile, selectedNode))
+                
+            default: break
+            }
             
         default: break
         }
@@ -54,9 +76,9 @@ extension WaterInspectorViewController {
         
         switch to {
             
-        case .inspecting(let water, let inspectable):
+        case .inspecting(let grid, let inspectable):
             
-            chunkCount.stringValue = "\(water.totalChildren)"
+            chunkCount.stringValue = "\(grid.totalChildren)"
             
             tileBox.isHidden = true
             nodeBox.isHidden = true
@@ -81,6 +103,13 @@ extension WaterInspectorViewController {
                     
                     selectedNodePopUp.selectItem(at: index)
                 }
+                
+                xNodeCoordinateLabel.stringValue = "\(node.volume.coordinate.x)"
+                yNodeCoordinateLabel.stringValue = "\(node.volume.coordinate.y)"
+                zNodeCoordinateLabel.stringValue = "\(node.volume.coordinate.z)"
+                widthNodeSizeLabel.stringValue = "\(node.volume.size.width)"
+                heightNodeSizeLabel.stringValue = "\(node.volume.size.height)"
+                depthNodeSizeLabel.stringValue = "\(node.volume.size.depth)"
             }
             
         default: break
