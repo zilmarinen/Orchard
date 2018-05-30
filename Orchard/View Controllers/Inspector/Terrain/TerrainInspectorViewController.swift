@@ -11,11 +11,16 @@ import SceneKit
 
 class TerrainInspectorViewController: NSViewController {
     
+    @IBOutlet weak var chunkBox: NSBox!
     @IBOutlet weak var tileBox: NSBox!
     @IBOutlet weak var nodeBox: NSBox!
     @IBOutlet weak var layerBox: NSBox!
     
     @IBOutlet weak var chunkCount: NSTextField!
+    @IBOutlet weak var gridRenderingButton: NSButton!
+    
+    @IBOutlet weak var tileCount: NSTextField!
+    @IBOutlet weak var chunkRenderingButton: NSButton!
     
     @IBOutlet weak var xTileCoordinateLabel: NSTextField!
     @IBOutlet weak var yTileCoordinateLabel: NSTextField!
@@ -54,13 +59,40 @@ class TerrainInspectorViewController: NSViewController {
     @IBOutlet weak var southLayerEdgeTerrainTypePopUp: NSPopUpButton!
     @IBOutlet weak var westLayerEdgeTerrainTypePopUp: NSPopUpButton!
     
+    @IBAction func button(_ sender: NSButton) {
+        
+        switch viewModel.state {
+            
+        case .inspecting(let terrain, let inspectable):
+            
+            switch sender {
+                
+            case gridRenderingButton:
+                
+                terrain.isHidden = sender.state == .off
+                
+            case chunkRenderingButton:
+                
+                guard let (chunk, _, _, _) = inspectable else { break }
+                
+                chunk.isHidden = sender.state == .off
+             
+            default: break
+            }
+            
+            viewModel.state = .inspecting(terrain, inspectable)
+            
+        default: break
+        }
+    }
+    
     @IBAction func popUp(_ sender: NSPopUpButton) {
         
         switch viewModel.state {
             
         case .inspecting(let grid, let inspectable):
             
-            guard let (tile, node, layer) = inspectable else { break }
+            guard let (chunk, tile, node, layer) = inspectable else { break }
             
             switch sender {
                 
@@ -68,13 +100,13 @@ class TerrainInspectorViewController: NSViewController {
                 
                 guard let selectedNode = tile.sceneGraph(childAtIndex: sender.indexOfSelectedItem) as? TerrainNode, let selectedLayer = selectedNode.sceneGraph(childAtIndex: 0) as? TerrainLayer else { break }
                 
-                viewModel.state = .inspecting(grid, (tile, selectedNode, selectedLayer))
+                viewModel.state = .inspecting(grid, (chunk, tile, selectedNode, selectedLayer))
                 
             case selectedLayerPopUp:
                 
                 guard let selectedLayer = node.sceneGraph(childAtIndex: sender.indexOfSelectedItem) as? TerrainLayer else { break }
                 
-                viewModel.state = .inspecting(grid, (tile, node, selectedLayer))
+                viewModel.state = .inspecting(grid, (chunk, tile, node, selectedLayer))
                 
             case northLayerEdgeTerrainTypePopUp,
                  eastLayerEdgeTerrainTypePopUp,
@@ -119,7 +151,7 @@ class TerrainInspectorViewController: NSViewController {
             
         case .inspecting(let grid, let inspectable):
             
-            guard let (_, _, layer) = inspectable else { break }
+            guard let (_, _, _, layer) = inspectable else { break }
             
             switch sender {
                 
@@ -154,7 +186,7 @@ class TerrainInspectorViewController: NSViewController {
             
         case .inspecting(let grid, let inspectable):
             
-            guard let (_, _, layer) = inspectable else { break }
+            guard let (_, _, _, layer) = inspectable else { break }
             
             switch sender {
                 
@@ -208,8 +240,10 @@ extension TerrainInspectorViewController {
         case .inspecting(let grid, let inspectable):
             
             chunkCount.integerValue = grid.totalChildren
+            gridRenderingButton.state = (grid.isHidden ? .off : .on)
             
             tileBox.isHidden = true
+            chunkBox.isHidden = true
             nodeBox.isHidden = true
             layerBox.isHidden = true
             
@@ -220,11 +254,15 @@ extension TerrainInspectorViewController {
             southLayerEdgeTerrainTypePopUp.removeAllItems()
             westLayerEdgeTerrainTypePopUp.removeAllItems()
             
-            if let (tile, node, layer) = inspectable {
+            if let (chunk, tile, node, layer) = inspectable {
                 
                 tileBox.isHidden = false
+                chunkBox.isHidden = false
                 nodeBox.isHidden = false
                 layerBox.isHidden = false
+                
+                tileCount.integerValue = chunk.totalChildren
+                chunkRenderingButton.state = (chunk.isHidden ? .off : .on)
                 
                 xTileCoordinateLabel.integerValue = tile.volume.coordinate.x
                 yTileCoordinateLabel.integerValue = tile.volume.coordinate.y

@@ -32,24 +32,24 @@ extension SceneViewController {
         sceneView.scene = meadow
         sceneView.delegate = meadow
         sceneView.showsStatistics = true
-        sceneView.autoenablesDefaultLighting = true
         
-        let terrainNode = meadow.terrain.add(node: Coordinate.Zero)
-        
-        if let terrainNode = terrainNode, let terrainType = meadow.terrain.availableTerrainTypes.first {
+        if let terrainType = meadow.terrain.availableTerrainTypes.first {
             
-            let _ = terrainNode.add(layer: terrainType)
-            let _ = terrainNode.add(layer: terrainType)
+            for x in 0..<7 {
+                
+                for z in 0..<7 {
+                    
+                    let coordinate = Coordinate(x: x, y: World.Floor, z: z)
+                    
+                    if let terrainNode = meadow.terrain.add(node: coordinate) {
+                        
+                        let _ = terrainNode.add(layer: terrainType)
+                    }
+                }
+            }
         }
         
-        let footpathNode = meadow.footpaths.add(node: Coordinate.Zero)
-        
-        if let footpathNode = footpathNode, let footpathType = meadow.footpaths.availableFootpathTypes.first {
-            
-            footpathNode.footpathType = footpathType
-        }
-        
-        meadow.cameraJib.position = SCNVector3(x: 0.0, y: 5.0, z: 10.0)
+        meadow.cameraJib.position = SCNVector3(x: 2.0, y: 2.0, z: 15.0)
     }
 }
 

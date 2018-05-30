@@ -147,7 +147,7 @@ extension OrchardViewController: SceneGraphDelegate {
              is AreaTile.Type,
              is AreaNode.Type:
             
-            inspectorTabViewController?.viewModel.state = .area(meadow.areas, item as? AreaTile, item as? AreaNode)
+            inspectorTabViewController?.viewModel.state = .area(meadow.areas, item as? AreaChunk, item as? AreaTile, item as? AreaNode)
             utilitiesTabViewController?.viewModel.state = .area(meadow.areas)
             
         case is Foliage.Type,
@@ -155,7 +155,7 @@ extension OrchardViewController: SceneGraphDelegate {
              is FoliageTile.Type,
              is FoliageNode.Type:
             
-            inspectorTabViewController?.viewModel.state = .foliage(meadow.foliage, item as? FoliageTile, item as? FoliageNode)
+            inspectorTabViewController?.viewModel.state = .foliage(meadow.foliage, item as? FoliageChunk, item as? FoliageTile, item as? FoliageNode)
             utilitiesTabViewController?.viewModel.state = .foliage(meadow.foliage)
             
         case is Footpath.Type,
@@ -163,7 +163,7 @@ extension OrchardViewController: SceneGraphDelegate {
              is FootpathTile.Type,
              is FootpathNode.Type:
             
-            inspectorTabViewController?.viewModel.state = .footpath(meadow.footpaths, item as? FootpathTile, item as? FootpathNode)
+            inspectorTabViewController?.viewModel.state = .footpath(meadow.footpaths, item as? FootpathChunk, item as? FootpathTile, item as? FootpathNode)
             utilitiesTabViewController?.viewModel.state = .footpath(meadow.footpaths)
             
         case is Terrain.Type,
@@ -172,7 +172,7 @@ extension OrchardViewController: SceneGraphDelegate {
              is TerrainNode.Type,
              is TerrainLayer.Type:
             
-            inspectorTabViewController?.viewModel.state = .terrain(meadow.terrain, item as? TerrainTile, item as? TerrainNode, item as? TerrainLayer)
+            inspectorTabViewController?.viewModel.state = .terrain(meadow.terrain, item as? TerrainChunk, item as? TerrainTile, item as? TerrainNode, item as? TerrainLayer)
             utilitiesTabViewController?.viewModel.state = .terrain(meadow.terrain)
             
         case is Water.Type,
@@ -180,7 +180,7 @@ extension OrchardViewController: SceneGraphDelegate {
              is WaterTile.Type,
              is WaterNode.Type:
             
-            inspectorTabViewController?.viewModel.state = .water(meadow.water, item as? WaterTile, item as? WaterNode)
+            inspectorTabViewController?.viewModel.state = .water(meadow.water, item as? WaterChunk, item as? WaterTile, item as? WaterNode)
             utilitiesTabViewController?.viewModel.state = .water(meadow.water)
             
         default:

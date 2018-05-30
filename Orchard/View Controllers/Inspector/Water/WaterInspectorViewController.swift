@@ -11,10 +11,15 @@ import SceneKit
 
 class WaterInspectorViewController: NSViewController {
     
+    @IBOutlet weak var chunkBox: NSBox!
     @IBOutlet weak var tileBox: NSBox!
     @IBOutlet weak var nodeBox: NSBox!
     
     @IBOutlet weak var chunkCount: NSTextField!
+    @IBOutlet weak var gridRenderingButton: NSButton!
+    
+    @IBOutlet weak var tileCount: NSTextField!
+    @IBOutlet weak var chunkRenderingButton: NSButton!
     
     @IBOutlet weak var xTileCoordinateLabel: NSTextField!
     @IBOutlet weak var yTileCoordinateLabel: NSTextField!
@@ -37,7 +42,7 @@ class WaterInspectorViewController: NSViewController {
             
         case .inspecting(let grid, let inspectable):
             
-            guard let (tile, _) = inspectable else { break }
+            guard let (chunk, tile, _) = inspectable else { break }
             
             switch sender {
                 
@@ -45,7 +50,7 @@ class WaterInspectorViewController: NSViewController {
                 
                 guard let selectedNode = tile.sceneGraph(childAtIndex: sender.indexOfSelectedItem) as? WaterNode else { break }
                 
-                viewModel.state = .inspecting(grid, (tile, selectedNode))
+                viewModel.state = .inspecting(grid, (chunk, tile, selectedNode))
                 
             default: break
             }
@@ -79,16 +84,21 @@ extension WaterInspectorViewController {
         case .inspecting(let grid, let inspectable):
             
             chunkCount.integerValue = grid.totalChildren
+            gridRenderingButton.state = (grid.isHidden ? .off : .on)
             
             tileBox.isHidden = true
             nodeBox.isHidden = true
             
             selectedNodePopUp.removeAllItems()
             
-            if let (tile, node) = inspectable {
+            if let (chunk, tile, node) = inspectable {
                 
                 tileBox.isHidden = false
+                chunkBox.isHidden = false
                 nodeBox.isHidden = false
+                
+                tileCount.integerValue = chunk.totalChildren
+                chunkRenderingButton.state = (chunk.isHidden ? .off : .on)
                 
                 xTileCoordinateLabel.integerValue = tile.volume.coordinate.x
                 yTileCoordinateLabel.integerValue = tile.volume.coordinate.y
