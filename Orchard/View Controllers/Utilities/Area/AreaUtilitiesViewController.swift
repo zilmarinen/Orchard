@@ -10,6 +10,8 @@ import Meadow
 import THRUtilities
 
 class AreaUtilitiesViewController: NSViewController {
+    
+    @IBOutlet weak var chunkCount: NSTextField!
 
     var tabViewController: AreaUtilitiesTabViewController?
     
@@ -34,6 +36,10 @@ extension AreaUtilitiesViewController {
     func stateDidChange(from: ViewState?, to: ViewState) {
         
         switch to {
+            
+        case .inspecting(let grid):
+            
+            chunkCount.integerValue = grid.totalChildren
             
         default: break
         }

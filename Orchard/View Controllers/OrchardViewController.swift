@@ -138,6 +138,7 @@ extension OrchardViewController: SceneGraphDelegate {
             
         case is CameraJib.Type:
             
+            sidebarTabViewController?.viewModel.state = .inspector(meadow)
             inspectorTabViewController?.viewModel.state = .camera(item as! CameraJib)
             utilitiesTabViewController?.viewModel.state = .empty
             
@@ -189,6 +190,7 @@ extension OrchardViewController: SceneGraphDelegate {
             
             if let item = item as? SCNNode, item == meadow.rootNode {
                 
+                sidebarTabViewController?.viewModel.state = .inspector(meadow)
                 inspectorTabViewController?.viewModel.state = .scene(meadow)
             }
         }

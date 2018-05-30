@@ -11,6 +11,8 @@ import THRUtilities
 
 class FoliageUtilitiesViewController: NSViewController {
 
+    @IBOutlet weak var chunkCount: NSTextField!
+    
     var tabViewController: FoliageUtilitiesTabViewController?
     
     lazy var viewModel = {
@@ -34,6 +36,10 @@ extension FoliageUtilitiesViewController {
     func stateDidChange(from: ViewState?, to: ViewState) {
         
         switch to {
+            
+        case .inspecting(let grid):
+            
+            chunkCount.integerValue = grid.totalChildren
             
         default: break
         }

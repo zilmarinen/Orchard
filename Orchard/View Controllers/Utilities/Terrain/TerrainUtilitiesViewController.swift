@@ -11,7 +11,7 @@ import THRUtilities
 
 class TerrainUtilitiesViewController: NSViewController {
 
-    var tabViewController: TerrainUtilitiesTabViewController?
+    @IBOutlet weak var chunkCount: NSTextField!
     
     @IBOutlet weak var buildButton: NSButton!
     @IBOutlet weak var terraformButton: NSButton!
@@ -46,6 +46,8 @@ class TerrainUtilitiesViewController: NSViewController {
         }
     }
     
+    var tabViewController: TerrainUtilitiesTabViewController?
+    
     lazy var viewModel = {
         
         return TerrainUtilitiesViewModel(initialState: .empty)
@@ -68,11 +70,13 @@ extension TerrainUtilitiesViewController {
         
         switch to {
         
-        case .inspecting(let terrain):
+        case .inspecting(let grid):
             
-            guard let tabViewController = tabViewController else { return }
+            chunkCount.integerValue = grid.totalChildren
             
-            tabViewController.viewModel.state = .build(terrain)
+            guard let tabViewController = tabViewController else { break }
+            
+            tabViewController.viewModel.state = .build(grid)
             
         default: break
         }

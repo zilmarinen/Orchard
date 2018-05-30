@@ -10,6 +10,8 @@ import Meadow
 import THRUtilities
 
 class FootpathUtilitiesViewController: NSViewController {
+    
+    @IBOutlet weak var chunkCount: NSTextField!
 
     var tabViewController: FootpathUtilitiesTabViewController?
     
@@ -34,6 +36,10 @@ extension FootpathUtilitiesViewController {
     func stateDidChange(from: ViewState?, to: ViewState) {
         
         switch to {
+            
+        case .inspecting(let grid):
+            
+            chunkCount.integerValue = grid.totalChildren
             
         default: break
         }

@@ -4695,6 +4695,9 @@
                             <constraint firstItem="g3c-Rh-tPk" firstAttribute="centerY" secondItem="O97-or-Qta" secondAttribute="centerY" id="yR2-AN-hY1"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="chunkCount" destination="OPp-Kj-kOB" id="Kob-8j-bEb"/>
+                    </connections>
                 </viewController>
                 <customObject id="J9t-8Z-29A" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -4899,6 +4902,7 @@
                     </view>
                     <connections>
                         <outlet property="buildButton" destination="0Sd-NJ-auo" id="dJC-Wz-QzT"/>
+                        <outlet property="chunkCount" destination="KhS-R9-hNo" id="cFL-XP-PjW"/>
                         <outlet property="paintButton" destination="Th4-Ir-sMK" id="Jlr-p0-Kc1"/>
                         <outlet property="terraformButton" destination="ASS-UI-ZT1" id="3LG-ku-i4v"/>
                     </connections>
@@ -5661,6 +5665,9 @@
                             <constraint firstItem="k2g-6Z-lGi" firstAttribute="width" secondItem="jD3-hB-CiP" secondAttribute="width" id="ycR-rc-eIM"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="chunkCount" destination="Lhd-rZ-a2F" id="q3A-UD-c4W"/>
+                    </connections>
                 </viewController>
                 <customObject id="eDS-aQ-9Lu" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -5833,6 +5840,9 @@
                             <constraint firstItem="pYm-MQ-eRn" firstAttribute="centerY" secondItem="PhH-S3-0jc" secondAttribute="centerY" id="u28-ut-o68"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="chunkCount" destination="rgn-cx-w8c" id="jfr-pC-AaM"/>
+                    </connections>
                 </viewController>
                 <customObject id="q2j-OT-qOs" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <box boxType="custom" borderType="none" titlePosition="noTitle" id="cVV-Ud-ENb">
@@ -6154,6 +6164,9 @@
                             <constraint firstItem="ku5-Gt-6zt" firstAttribute="centerX" secondItem="nGU-xL-XaD" secondAttribute="centerX" id="vyy-fQ-bwg"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="chunkCount" destination="pdT-Jt-gXK" id="X1b-V4-gfk"/>
+                    </connections>
                 </viewController>
                 <customObject id="eAA-cr-arU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
