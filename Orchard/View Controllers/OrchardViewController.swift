@@ -24,14 +24,36 @@ class OrchardViewController: NSViewController {
         return splitViewController?.sceneViewController
     }
     
-    var inspectorTabViewController: InspectorTabViewController? {
+    var sidebarViewController: SidebarViewController? {
         
-        return splitViewController?.sidebarViewController?.splitViewController?.inspectorTabViewController
+        return splitViewController?.sidebarViewController
     }
     
-    var utilitiesViewController: UtilitiesViewController? {
+    var sidebarTabViewController: SidebarTabViewController? {
         
-        return splitViewController?.sidebarViewController?.splitViewController?.utilitiesViewController
+        return splitViewController?.sidebarViewController?.tabViewController
+    }
+    
+    var inspectorTabViewController: InspectorTabViewController? {
+        
+        return splitViewController?.sidebarViewController?.tabViewController?.inspectorTabViewController
+    }
+    
+    var utilitiesTabViewController: UtilitiesTabViewController? {
+        
+        return splitViewController?.sidebarViewController?.tabViewController?.utilitiesTabViewController
+    }
+}
+
+extension OrchardViewController {
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        guard let meadow = sceneViewController?.meadow else { return }
+        
+        sidebarViewController?.viewModel.state = .inspecting(meadow)
     }
 }
 
@@ -52,14 +74,14 @@ extension OrchardViewController: SceneGraphDataSource {
             return 0
         }
         
-        guard let sceneViewController = sceneViewController, let meadow = sceneViewController.meadow else { return 0 }
+        guard let meadow = sceneViewController?.meadow else { return 0 }
         
         return meadow.rootNode.childNodes.count
     }
     
     func sceneGraph(childOfItem item: Any?, atIndex index: Int) -> Any {
         
-        guard let sceneViewController = sceneViewController, let meadow = sceneViewController.meadow else { return item! }
+        guard let meadow = sceneViewController?.meadow else { return item! }
         
         if item == nil {
             
@@ -110,41 +132,38 @@ extension OrchardViewController: SceneGraphDelegate {
     
     func sceneGraph(outlineView: NSOutlineView, didSelectItem item: Any, atIndex index: Int) {
     
-        guard let sceneViewController = sceneViewController, let meadow = sceneViewController.meadow else { return }
-        
-        if let utilitiesTabViewController = utilitiesViewController?.tabViewController {
-            
-            utilitiesTabViewController.viewModel.state = .empty
-        }
-        
-        guard let inspectorTabViewController = inspectorTabViewController else { return }
+        guard let meadow = sceneViewController?.meadow else { return }
         
         switch type(of: item) {
             
         case is CameraJib.Type:
             
-            inspectorTabViewController.viewModel.state = .camera(item as! CameraJib)
+            inspectorTabViewController?.viewModel.state = .camera(item as! CameraJib)
+            utilitiesTabViewController?.viewModel.state = .empty
             
         case is Area.Type,
              is AreaChunk.Type,
              is AreaTile.Type,
              is AreaNode.Type:
             
-            inspectorTabViewController.viewModel.state = .area(meadow.areas, item as? AreaTile, item as? AreaNode)
+            inspectorTabViewController?.viewModel.state = .area(meadow.areas, item as? AreaTile, item as? AreaNode)
+            utilitiesTabViewController?.viewModel.state = .area(meadow.areas)
             
         case is Foliage.Type,
              is FoliageChunk.Type,
              is FoliageTile.Type,
              is FoliageNode.Type:
             
-            inspectorTabViewController.viewModel.state = .foliage(meadow.foliage, item as? FoliageTile, item as? FoliageNode)
+            inspectorTabViewController?.viewModel.state = .foliage(meadow.foliage, item as? FoliageTile, item as? FoliageNode)
+            utilitiesTabViewController?.viewModel.state = .foliage(meadow.foliage)
             
         case is Footpath.Type,
              is FootpathChunk.Type,
              is FootpathTile.Type,
              is FootpathNode.Type:
             
-            inspectorTabViewController.viewModel.state = .footpath(meadow.footpaths, item as? FootpathTile, item as? FootpathNode)
+            inspectorTabViewController?.viewModel.state = .footpath(meadow.footpaths, item as? FootpathTile, item as? FootpathNode)
+            utilitiesTabViewController?.viewModel.state = .footpath(meadow.footpaths)
             
         case is Terrain.Type,
              is TerrainChunk.Type,
@@ -152,25 +171,26 @@ extension OrchardViewController: SceneGraphDelegate {
              is TerrainNode.Type,
              is TerrainLayer.Type:
             
-            inspectorTabViewController.viewModel.state = .terrain(meadow.terrain, item as? TerrainTile, item as? TerrainNode, item as? TerrainLayer)
+            inspectorTabViewController?.viewModel.state = .terrain(meadow.terrain, item as? TerrainTile, item as? TerrainNode, item as? TerrainLayer)
+            utilitiesTabViewController?.viewModel.state = .terrain(meadow.terrain)
             
         case is Water.Type,
              is WaterChunk.Type,
              is WaterTile.Type,
              is WaterNode.Type:
             
-            inspectorTabViewController.viewModel.state = .water(meadow.water, item as? WaterTile, item as? WaterNode)
+            inspectorTabViewController?.viewModel.state = .water(meadow.water, item as? WaterTile, item as? WaterNode)
+            utilitiesTabViewController?.viewModel.state = .water(meadow.water)
             
         default:
             
+            inspectorTabViewController?.viewModel.state = .empty
+            utilitiesTabViewController?.viewModel.state = .empty
+            
             if let item = item as? SCNNode, item == meadow.rootNode {
                 
-                inspectorTabViewController.viewModel.state = .scene(sceneViewController.meadow)
-                
-                break
+                inspectorTabViewController?.viewModel.state = .scene(meadow)
             }
-            
-            inspectorTabViewController.viewModel.state = .empty
         }
     }
 }
@@ -179,13 +199,7 @@ extension OrchardViewController: GridDelegate {
     
     func didBecomeDirty(node: GridNode) {
         
-        guard let sceneGraphViewController = sceneGraphViewController else { return }
-        
-        sceneGraphViewController.outlineView.reloadData()
-        
-        guard let sceneViewController = sceneViewController, let utilitiesViewController = utilitiesViewController else { return }
-        
-        utilitiesViewController.viewModel.state = .inspecting(sceneViewController.meadow)
+        sceneGraphViewController?.outlineView.reloadData()
     }
 }
 
