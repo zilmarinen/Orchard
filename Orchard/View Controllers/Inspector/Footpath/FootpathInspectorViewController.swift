@@ -16,10 +16,12 @@ class FootpathInspectorViewController: NSViewController {
     @IBOutlet weak var nodeBox: NSBox!
     
     @IBOutlet weak var chunkCount: NSTextField!
-    @IBOutlet weak var gridRenderingButton: NSButton!
-    
     @IBOutlet weak var tileCount: NSTextField!
-    @IBOutlet weak var chunkRenderingButton: NSButton!
+    
+    @IBOutlet weak var gridHiddenButton: NSButton!
+    @IBOutlet weak var chunkHiddenButton: NSButton!
+    @IBOutlet weak var tileHiddenButton: NSButton!
+    @IBOutlet weak var nodeHiddenButton: NSButton!
     
     @IBOutlet weak var xTileCoordinateLabel: NSTextField!
     @IBOutlet weak var yTileCoordinateLabel: NSTextField!
@@ -42,24 +44,52 @@ class FootpathInspectorViewController: NSViewController {
     
     @IBOutlet weak var selectedSlopeEdgePopUp: NSPopUpButton!
     
-    
     @IBAction func button(_ sender: NSButton) {
         
         switch viewModel.state {
             
         case .inspecting(let grid, let inspectable):
             
-            guard let (_, _, node) = inspectable else { break }
-            
-            switch sender .state {
+            switch sender {
                 
-            case .on:
+            case gridHiddenButton:
                 
-                node.slope = GridEdge(rawValue: selectedSlopeEdgePopUp.indexOfSelectedItem)
+                grid.isHidden = sender.state == .off
                 
-            default:
+            case chunkHiddenButton:
                 
-                node.slope = nil
+                guard let (chunk, _, _) = inspectable else { break }
+                
+                chunk.isHidden = sender.state == .off
+                
+            case tileHiddenButton:
+                
+                guard let (_, tile, _) = inspectable else { break }
+                
+                tile.isHidden = sender.state == .off
+                
+            case nodeHiddenButton:
+                
+                guard let (_, _, node) = inspectable else { break }
+                
+                node.isHidden = sender.state == .off
+                
+            case slopeEdgeButton:
+                
+                guard let (_, _, node) = inspectable else { break }
+                
+                switch sender .state {
+                    
+                case .on:
+                    
+                    node.slope = GridEdge(rawValue: selectedSlopeEdgePopUp.indexOfSelectedItem)
+                    
+                default:
+                    
+                    node.slope = nil
+                }
+                
+            default: break
             }
             
             viewModel.state = .inspecting(grid, inspectable)
@@ -132,10 +162,10 @@ extension FootpathInspectorViewController {
         case .inspecting(let grid, let inspectable):
             
             chunkCount.integerValue = grid.totalChildren
-            gridRenderingButton.state = (grid.isHidden ? .off : .on)
+            gridHiddenButton.state = (grid.isHidden ? .off : .on)
             
-            tileBox.isHidden = true
             chunkBox.isHidden = true
+            tileBox.isHidden = true
             nodeBox.isHidden = true
             
             selectedNodePopUp.removeAllItems()
@@ -146,11 +176,14 @@ extension FootpathInspectorViewController {
             
             if let (chunk, tile, node) = inspectable {
                 
-                tileBox.isHidden = false
-                nodeBox.isHidden = false
+                chunkBox.isHidden = grid.isHidden
+                tileBox.isHidden = grid.isHidden || chunk.isHidden
+                nodeBox.isHidden = grid.isHidden || chunk.isHidden || tile.isHidden
                 
                 tileCount.integerValue = chunk.totalChildren
-                chunkRenderingButton.state = (chunk.isHidden ? .off : .on)
+                chunkHiddenButton.state = (chunk.isHidden ? .off : .on)
+                tileHiddenButton.state = (tile.isHidden ? .off : .on)
+                nodeHiddenButton.state = (node.isHidden ? .off : .on)
                 
                 xTileCoordinateLabel.integerValue = tile.volume.coordinate.x
                 yTileCoordinateLabel.integerValue = tile.volume.coordinate.y

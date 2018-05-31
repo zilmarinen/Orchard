@@ -15,7 +15,7 @@ class SceneViewController: NSViewController {
     
     var meadow: Meadow!
 
-    var delegate: GridDelegate?
+    var delegate: SoilableDelegate?
 }
 
 extension SceneViewController {
@@ -47,16 +47,21 @@ extension SceneViewController {
                     }
                 }
             }
+            
+            if let terrainNode = meadow.terrain.find(node: Coordinate(x: 1, y: World.Floor, z: 1)) {
+                
+                let _ = terrainNode.add(layer: terrainType)
+            }
         }
         
         meadow.cameraJib.position = SCNVector3(x: 2.0, y: 2.0, z: 15.0)
     }
 }
 
-extension SceneViewController: GridDelegate {
+extension SceneViewController: SoilableDelegate {
     
-    func didBecomeDirty(node: GridNode) {
+    func didBecomeDirty(soilable: Soilable) {
         
-        delegate?.didBecomeDirty(node: node)
+        delegate?.didBecomeDirty(soilable: soilable)
     }
 }

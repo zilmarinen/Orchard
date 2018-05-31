@@ -13,34 +13,40 @@ class TerrainUtilitiesViewController: NSViewController {
 
     @IBOutlet weak var chunkCount: NSTextField!
     
+    @IBOutlet weak var gridHiddenButton: NSButton!
+    
     @IBOutlet weak var buildButton: NSButton!
     @IBOutlet weak var terraformButton: NSButton!
     @IBOutlet weak var paintButton: NSButton!
     
     @IBAction func button(_ sender: NSButton) {
         
-        guard let tabViewController = tabViewController else { return }
-        
         switch viewModel.state {
             
-        case .inspecting(let terrain):
+        case .inspecting(let grid):
             
             switch sender {
                 
+            case gridHiddenButton:
+                
+                grid.isHidden = sender.state == .off
+                
             case buildButton:
                 
-                tabViewController.viewModel.state = .build(terrain)
+                tabViewController?.viewModel.state = .build(grid)
                 
             case terraformButton:
                 
-                tabViewController.viewModel.state = .terraform(terrain)
+                tabViewController?.viewModel.state = .terraform(grid)
                 
             case paintButton:
                 
-                tabViewController.viewModel.state = .paint(terrain)
+                tabViewController?.viewModel.state = .paint(grid)
                 
             default: break
             }
+            
+            viewModel.state = .inspecting(grid)
             
         default: break
         }
@@ -73,10 +79,9 @@ extension TerrainUtilitiesViewController {
         case .inspecting(let grid):
             
             chunkCount.integerValue = grid.totalChildren
+            gridHiddenButton.state = (grid.isHidden ? .off : .on)
             
-            guard let tabViewController = tabViewController else { break }
-            
-            tabViewController.viewModel.state = .build(grid)
+            tabViewController?.viewModel.state = .build(grid)
             
         default: break
         }

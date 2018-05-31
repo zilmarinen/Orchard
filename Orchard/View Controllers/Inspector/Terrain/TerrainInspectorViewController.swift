@@ -17,10 +17,13 @@ class TerrainInspectorViewController: NSViewController {
     @IBOutlet weak var layerBox: NSBox!
     
     @IBOutlet weak var chunkCount: NSTextField!
-    @IBOutlet weak var gridRenderingButton: NSButton!
-    
     @IBOutlet weak var tileCount: NSTextField!
-    @IBOutlet weak var chunkRenderingButton: NSButton!
+    
+    @IBOutlet weak var gridHiddenButton: NSButton!
+    @IBOutlet weak var chunkHiddenButton: NSButton!
+    @IBOutlet weak var tileHiddenButton: NSButton!
+    @IBOutlet weak var nodeHiddenButton: NSButton!
+    @IBOutlet weak var layerHiddenButton: NSButton!
     
     @IBOutlet weak var xTileCoordinateLabel: NSTextField!
     @IBOutlet weak var yTileCoordinateLabel: NSTextField!
@@ -63,24 +66,42 @@ class TerrainInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let terrain, let inspectable):
+        case .inspecting(let grid, let inspectable):
             
             switch sender {
                 
-            case gridRenderingButton:
+            case gridHiddenButton:
                 
-                terrain.isHidden = sender.state == .off
+                grid.isHidden = sender.state == .off
                 
-            case chunkRenderingButton:
+            case chunkHiddenButton:
                 
                 guard let (chunk, _, _, _) = inspectable else { break }
                 
                 chunk.isHidden = sender.state == .off
+                
+            case tileHiddenButton:
+                
+                guard let (_, tile, _, _) = inspectable else { break }
+                
+                tile.isHidden = sender.state == .off
+                
+            case nodeHiddenButton:
+                
+                guard let (_, _, node, _) = inspectable else { break }
+                
+                node.isHidden = sender.state == .off
+                
+            case layerHiddenButton:
+                
+                guard let (_, _, _, layer) = inspectable else { break }
+                
+                layer.isHidden = sender.state == .off
              
             default: break
             }
             
-            viewModel.state = .inspecting(terrain, inspectable)
+            viewModel.state = .inspecting(grid, inspectable)
             
         default: break
         }
@@ -240,10 +261,10 @@ extension TerrainInspectorViewController {
         case .inspecting(let grid, let inspectable):
             
             chunkCount.integerValue = grid.totalChildren
-            gridRenderingButton.state = (grid.isHidden ? .off : .on)
+            gridHiddenButton.state = (grid.isHidden ? .off : .on)
             
-            tileBox.isHidden = true
             chunkBox.isHidden = true
+            tileBox.isHidden = true
             nodeBox.isHidden = true
             layerBox.isHidden = true
             
@@ -256,13 +277,16 @@ extension TerrainInspectorViewController {
             
             if let (chunk, tile, node, layer) = inspectable {
                 
-                tileBox.isHidden = false
-                chunkBox.isHidden = false
-                nodeBox.isHidden = false
-                layerBox.isHidden = false
+                chunkBox.isHidden = grid.isHidden
+                tileBox.isHidden = grid.isHidden || chunk.isHidden
+                nodeBox.isHidden = grid.isHidden || chunk.isHidden || tile.isHidden
+                layerBox.isHidden = grid.isHidden || chunk.isHidden || tile.isHidden || node.isHidden
                 
                 tileCount.integerValue = chunk.totalChildren
-                chunkRenderingButton.state = (chunk.isHidden ? .off : .on)
+                chunkHiddenButton.state = (chunk.isHidden ? .off : .on)
+                tileHiddenButton.state = (tile.isHidden ? .off : .on)
+                nodeHiddenButton.state = (node.isHidden ? .off : .on)
+                layerHiddenButton.state = (layer.isHidden ? .off : .on)
                 
                 xTileCoordinateLabel.integerValue = tile.volume.coordinate.x
                 yTileCoordinateLabel.integerValue = tile.volume.coordinate.y

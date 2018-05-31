@@ -54,8 +54,16 @@ extension SidebarTabViewController {
                 
                 viewController.viewModel.state = .scene(meadow)
                 
-            default: break
+            default:
+                
+                viewController.viewModel.state = viewController.viewModel.state
             }
+            
+        case .utilities:
+            
+            guard let viewController = utilitiesTabViewController else { break }
+            
+            viewController.viewModel.state = viewController.viewModel.state
             
         default: break
         }

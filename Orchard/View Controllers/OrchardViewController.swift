@@ -197,11 +197,13 @@ extension OrchardViewController: SceneGraphDelegate {
     }
 }
 
-extension OrchardViewController: GridDelegate {
+extension OrchardViewController: SoilableDelegate {
     
-    func didBecomeDirty(node: GridNode) {
+    func didBecomeDirty(soilable: Soilable) {
         
         sceneGraphViewController?.outlineView.reloadData()
+        
+        sceneViewController?.sceneView.isPlaying = true
     }
 }
 
