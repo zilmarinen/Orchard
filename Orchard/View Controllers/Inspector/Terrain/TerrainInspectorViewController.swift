@@ -65,6 +65,26 @@ class TerrainInspectorViewController: NSViewController {
     @IBOutlet weak var southLayerEdgeTerrainTypePopUp: NSPopUpButton!
     @IBOutlet weak var westLayerEdgeTerrainTypePopUp: NSPopUpButton!
     
+    @IBOutlet weak var northLayerEdgeTerrainTypeColorPalettePrimary: NSBox!
+    @IBOutlet weak var northLayerEdgeTerrainTypeColorPaletteSecondary: NSBox!
+    @IBOutlet weak var northLayerEdgeTerrainTypeColorPaletteTertiary: NSBox!
+    @IBOutlet weak var northLayerEdgeTerrainTypeColorPaletteQuaternary: NSBox!
+    
+    @IBOutlet weak var eastLayerEdgeTerrainTypeColorPalettePrimary: NSBox!
+    @IBOutlet weak var eastLayerEdgeTerrainTypeColorPaletteSecondary: NSBox!
+    @IBOutlet weak var eastLayerEdgeTerrainTypeColorPaletteTertiary: NSBox!
+    @IBOutlet weak var eastLayerEdgeTerrainTypeColorPaletteQuaternary: NSBox!
+    
+    @IBOutlet weak var southLayerEdgeTerrainTypeColorPalettePrimary: NSBox!
+    @IBOutlet weak var southLayerEdgeTerrainTypeColorPaletteSecondary: NSBox!
+    @IBOutlet weak var southLayerEdgeTerrainTypeColorPaletteTertiary: NSBox!
+    @IBOutlet weak var southLayerEdgeTerrainTypeColorPaletteQuaternary: NSBox!
+    
+    @IBOutlet weak var westLayerEdgeTerrainTypeColorPalettePrimary: NSBox!
+    @IBOutlet weak var westLayerEdgeTerrainTypeColorPaletteSecondary: NSBox!
+    @IBOutlet weak var westLayerEdgeTerrainTypeColorPaletteTertiary: NSBox!
+    @IBOutlet weak var westLayerEdgeTerrainTypeColorPaletteQuaternary: NSBox!
+    
     @IBAction func button(_ sender: NSButton) {
         
         switch viewModel.state {
@@ -362,10 +382,45 @@ extension TerrainInspectorViewController {
                     westLayerEdgeTerrainTypePopUp.addItem(withTitle: terrainType.name)
                 }
                 
-                if let terrainLayerEdge = layer.get(terrainType: .north), let index = grid.availableTerrainTypes.index(of: terrainLayerEdge.terrainType) { northLayerEdgeTerrainTypePopUp.selectItem(at: index) }
-                if let terrainLayerEdge = layer.get(terrainType: .east), let index = grid.availableTerrainTypes.index(of: terrainLayerEdge.terrainType) { eastLayerEdgeTerrainTypePopUp.selectItem(at: index) }
-                if let terrainLayerEdge = layer.get(terrainType: .south), let index = grid.availableTerrainTypes.index(of: terrainLayerEdge.terrainType) { southLayerEdgeTerrainTypePopUp.selectItem(at: index) }
-                if let terrainLayerEdge = layer.get(terrainType: .west), let index = grid.availableTerrainTypes.index(of: terrainLayerEdge.terrainType) { westLayerEdgeTerrainTypePopUp.selectItem(at: index) }
+                if let terrainLayerEdge = layer.get(terrainType: .north), let index = grid.availableTerrainTypes.index(of: terrainLayerEdge.terrainType) {
+                    
+                    northLayerEdgeTerrainTypePopUp.selectItem(at: index)
+                    
+                    northLayerEdgeTerrainTypeColorPalettePrimary.fillColor = terrainLayerEdge.terrainType.colorPalette.primary.color
+                    northLayerEdgeTerrainTypeColorPaletteSecondary.fillColor = terrainLayerEdge.terrainType.colorPalette.secondary.color
+                    northLayerEdgeTerrainTypeColorPaletteTertiary.fillColor = terrainLayerEdge.terrainType.colorPalette.tertiary.color
+                    northLayerEdgeTerrainTypeColorPaletteQuaternary.fillColor = terrainLayerEdge.terrainType.colorPalette.quaternary.color
+                }
+                
+                if let terrainLayerEdge = layer.get(terrainType: .east), let index = grid.availableTerrainTypes.index(of: terrainLayerEdge.terrainType) {
+                    
+                    eastLayerEdgeTerrainTypePopUp.selectItem(at: index)
+                    
+                    eastLayerEdgeTerrainTypeColorPalettePrimary.fillColor = terrainLayerEdge.terrainType.colorPalette.primary.color
+                    eastLayerEdgeTerrainTypeColorPaletteSecondary.fillColor = terrainLayerEdge.terrainType.colorPalette.secondary.color
+                    eastLayerEdgeTerrainTypeColorPaletteTertiary.fillColor = terrainLayerEdge.terrainType.colorPalette.tertiary.color
+                    eastLayerEdgeTerrainTypeColorPaletteQuaternary.fillColor = terrainLayerEdge.terrainType.colorPalette.quaternary.color
+                }
+                
+                if let terrainLayerEdge = layer.get(terrainType: .south), let index = grid.availableTerrainTypes.index(of: terrainLayerEdge.terrainType) {
+                    
+                    southLayerEdgeTerrainTypePopUp.selectItem(at: index)
+                    
+                    southLayerEdgeTerrainTypeColorPalettePrimary.fillColor = terrainLayerEdge.terrainType.colorPalette.primary.color
+                    southLayerEdgeTerrainTypeColorPaletteSecondary.fillColor = terrainLayerEdge.terrainType.colorPalette.secondary.color
+                    southLayerEdgeTerrainTypeColorPaletteTertiary.fillColor = terrainLayerEdge.terrainType.colorPalette.tertiary.color
+                    southLayerEdgeTerrainTypeColorPaletteQuaternary.fillColor = terrainLayerEdge.terrainType.colorPalette.quaternary.color
+                }
+                
+                if let terrainLayerEdge = layer.get(terrainType: .west), let index = grid.availableTerrainTypes.index(of: terrainLayerEdge.terrainType) {
+                    
+                    westLayerEdgeTerrainTypePopUp.selectItem(at: index)
+                    
+                    westLayerEdgeTerrainTypeColorPalettePrimary.fillColor = terrainLayerEdge.terrainType.colorPalette.primary.color
+                    westLayerEdgeTerrainTypeColorPaletteSecondary.fillColor = terrainLayerEdge.terrainType.colorPalette.secondary.color
+                    westLayerEdgeTerrainTypeColorPaletteTertiary.fillColor = terrainLayerEdge.terrainType.colorPalette.tertiary.color
+                    westLayerEdgeTerrainTypeColorPaletteQuaternary.fillColor = terrainLayerEdge.terrainType.colorPalette.quaternary.color
+                }
             }
             
         default: break
