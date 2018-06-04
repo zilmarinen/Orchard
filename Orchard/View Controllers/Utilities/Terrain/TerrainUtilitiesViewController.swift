@@ -81,7 +81,16 @@ extension TerrainUtilitiesViewController {
             chunkCount.integerValue = grid.totalChildren
             gridHiddenButton.state = (grid.isHidden ? .off : .on)
             
-            tabViewController?.viewModel.state = .build(grid)
+            guard let tabViewController = tabViewController else { break }
+            
+            switch tabViewController.viewModel.state {
+                
+            case .empty:
+                
+                tabViewController.viewModel.state = .build(grid)
+                
+            default: break
+            }
             
         default: break
         }

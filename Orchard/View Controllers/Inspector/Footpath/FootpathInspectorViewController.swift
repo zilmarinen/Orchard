@@ -40,7 +40,14 @@ class FootpathInspectorViewController: NSViewController {
     
     @IBOutlet weak var selectedFootpathTypePopUp: NSPopUpButton!
     
+    @IBOutlet weak var colorPalettePrimary: NSBox!
+    @IBOutlet weak var colorPaletteSecondary: NSBox!
+    @IBOutlet weak var colorPaletteTertiary: NSBox!
+    @IBOutlet weak var colorPaletteQuaternary: NSBox!
+    
     @IBOutlet weak var slopeEdgeButton: NSButton!
+    
+    @IBOutlet weak var steepInclinationButton: NSButton!
     
     @IBOutlet weak var selectedSlopeEdgePopUp: NSPopUpButton!
     
@@ -74,15 +81,18 @@ class FootpathInspectorViewController: NSViewController {
                 
                 node.isHidden = sender.state == .off
                 
-            case slopeEdgeButton:
+            case slopeEdgeButton,
+                 steepInclinationButton:
                 
-                guard let (_, _, node) = inspectable else { break }
+                guard let (_, _, node) = inspectable, let selectedEdge = GridEdge(rawValue: selectedSlopeEdgePopUp.indexOfSelectedItem) else { break }
                 
-                switch sender .state {
+                switch slopeEdgeButton.state {
                     
                 case .on:
                     
-                    node.slope = GridEdge(rawValue: selectedSlopeEdgePopUp.indexOfSelectedItem)
+                    let inclination = (steepInclinationButton.state == .on)
+                    
+                    node.slope = FootpathNodeSlope(edge: selectedEdge, steepInclination: inclination)
                     
                 default:
                     
@@ -126,7 +136,18 @@ class FootpathInspectorViewController: NSViewController {
                 
                 guard let selectedEdge = GridEdge(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                node.slope = selectedEdge
+                switch slopeEdgeButton.state {
+                    
+                case .on:
+                    
+                    let inclination = (steepInclinationButton.state == .on)
+                    
+                    node.slope = FootpathNodeSlope(edge: selectedEdge, steepInclination: inclination)
+                    
+                default:
+                    
+                    node.slope = nil
+                }
                 
                 viewModel.state = .inspecting(grid, inspectable)
                 
@@ -172,6 +193,7 @@ extension FootpathInspectorViewController {
             selectedFootpathTypePopUp.removeAllItems()
             selectedSlopeEdgePopUp.removeAllItems()
             
+            steepInclinationButton.isEnabled = false
             selectedSlopeEdgePopUp.isEnabled = false
             
             if let (chunk, tile, node) = inspectable {
@@ -214,8 +236,14 @@ extension FootpathInspectorViewController {
                 if let footpathType = node.footpathType, let index = grid.availableFootpathTypes.index(of: footpathType) {
                     
                     selectedFootpathTypePopUp.selectItem(at: index)
+                    
+                    colorPalettePrimary.fillColor = footpathType.colorPalette.primary.color
+                    colorPaletteSecondary.fillColor = footpathType.colorPalette.secondary.color
+                    colorPaletteTertiary.fillColor = footpathType.colorPalette.tertiary.color
+                    colorPaletteQuaternary.fillColor = footpathType.colorPalette.quaternary.color
                 }
                 
+                steepInclinationButton.state = (node.slope != nil && node.slope!.steepInclination ? .on : .off)
                 slopeEdgeButton.state = (node.slope != nil ? .on : .off)
                 
                 selectedSlopeEdgePopUp.addItem(withTitle: GridEdge.north.description)
@@ -225,9 +253,10 @@ extension FootpathInspectorViewController {
                 
                 if let slope = node.slope {
                     
+                    steepInclinationButton.isEnabled = true
                     selectedSlopeEdgePopUp.isEnabled = true
                     
-                    selectedSlopeEdgePopUp.selectItem(at: slope.rawValue)
+                    selectedSlopeEdgePopUp.selectItem(at: slope.edge.rawValue)
                 }
             }
             

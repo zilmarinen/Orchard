@@ -47,7 +47,8 @@ extension InspectorTabViewController {
                 
                 node = tile.sceneGraph(childAtIndex: 0) as? AreaNode
             }
-            else if let node = node {
+            
+            if let node = node {
                 
                 tile = area.find(tile: node.volume.coordinate)
                 chunk = area.find(chunk: node.volume.coordinate)
@@ -81,7 +82,8 @@ extension InspectorTabViewController {
                 
                 node = tile.sceneGraph(childAtIndex: 0) as? FoliageNode
             }
-            else if let node = node {
+            
+            if let node = node {
                 
                 tile = foliage.find(tile: node.volume.coordinate)
                 chunk = foliage.find(chunk: node.volume.coordinate)
@@ -109,7 +111,8 @@ extension InspectorTabViewController {
                 
                 node = tile.sceneGraph(childAtIndex: 0) as? FootpathNode
             }
-            else if let node = node {
+            
+            if let node = node {
                 
                 tile = footpath.find(tile: node.volume.coordinate)
                 chunk = footpath.find(chunk: node.volume.coordinate)
@@ -156,13 +159,29 @@ extension InspectorTabViewController {
                 chunk = terrain.find(chunk: layer.node.volume.coordinate)
             }
             
-            if let chunk = chunk, let tile = tile, let node = node, let layer = layer {
-             
-                viewController.viewModel.state = .inspecting(terrain, (chunk, tile, node, layer))
-            }
-            else {
+            switch viewController.viewModel.state {
                 
-                viewController.viewModel.state = .inspecting(terrain, nil)
+            case .empty:
+             
+                if let chunk = chunk, let tile = tile, let node = node, let layer = layer {
+                    
+                    viewController.viewModel.state = .inspecting(terrain, (chunk, tile, node, layer), false)
+                }
+                else {
+                    
+                    viewController.viewModel.state = .inspecting(terrain, nil, false)
+                }
+                
+            case .inspecting(_, _, let smooth):
+                
+                if let chunk = chunk, let tile = tile, let node = node, let layer = layer {
+                    
+                    viewController.viewModel.state = .inspecting(terrain, (chunk, tile, node, layer), smooth)
+                }
+                else {
+                    
+                    viewController.viewModel.state = .inspecting(terrain, nil, smooth)
+                }
             }
             
         case .water(let water, var chunk, var tile, var node):
@@ -178,7 +197,8 @@ extension InspectorTabViewController {
                 
                 node = tile.sceneGraph(childAtIndex: 0) as? WaterNode
             }
-            else if let node = node {
+            
+            if let node = node {
                 
                 tile = water.find(tile: node.volume.coordinate)
                 chunk = water.find(chunk: node.volume.coordinate)

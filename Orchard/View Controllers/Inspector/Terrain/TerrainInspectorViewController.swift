@@ -42,6 +42,9 @@ class TerrainInspectorViewController: NSViewController {
     
     @IBOutlet weak var selectedLayerPopUp: NSPopUpButton!
     
+    
+    @IBOutlet weak var smoothTerraformButton: NSButton!
+    
     @IBOutlet weak var upperNorthWestLayerCornerLabel: NSTextField!
     @IBOutlet weak var upperNorthEastLayerCornerLabel: NSTextField!
     @IBOutlet weak var upperSouthEastLayerCornerLabel: NSTextField!
@@ -66,7 +69,7 @@ class TerrainInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid, let inspectable):
+        case .inspecting(let grid, let inspectable, var smooth):
             
             switch sender {
                 
@@ -97,11 +100,15 @@ class TerrainInspectorViewController: NSViewController {
                 guard let (_, _, _, layer) = inspectable else { break }
                 
                 layer.isHidden = sender.state == .off
+                
+            case smoothTerraformButton:
+                
+                smooth = sender.state == .on
              
             default: break
             }
             
-            viewModel.state = .inspecting(grid, inspectable)
+            viewModel.state = .inspecting(grid, inspectable, smooth)
             
         default: break
         }
@@ -111,7 +118,7 @@ class TerrainInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid, let inspectable):
+        case .inspecting(let grid, let inspectable, let smooth):
             
             guard let (chunk, tile, node, layer) = inspectable else { break }
             
@@ -121,13 +128,13 @@ class TerrainInspectorViewController: NSViewController {
                 
                 guard let selectedNode = tile.sceneGraph(childAtIndex: sender.indexOfSelectedItem) as? TerrainNode, let selectedLayer = selectedNode.sceneGraph(childAtIndex: 0) as? TerrainLayer else { break }
                 
-                viewModel.state = .inspecting(grid, (chunk, tile, selectedNode, selectedLayer))
+                viewModel.state = .inspecting(grid, (chunk, tile, selectedNode, selectedLayer), smooth)
                 
             case selectedLayerPopUp:
                 
                 guard let selectedLayer = node.sceneGraph(childAtIndex: sender.indexOfSelectedItem) as? TerrainLayer else { break }
                 
-                viewModel.state = .inspecting(grid, (chunk, tile, node, selectedLayer))
+                viewModel.state = .inspecting(grid, (chunk, tile, node, selectedLayer), smooth)
                 
             case northLayerEdgeTerrainTypePopUp,
                  eastLayerEdgeTerrainTypePopUp,
@@ -157,7 +164,7 @@ class TerrainInspectorViewController: NSViewController {
                 default: break
                 }
                 
-                viewModel.state = .inspecting(grid, inspectable)
+                viewModel.state = .inspecting(grid, inspectable, smooth)
                 
             default: break
             }
@@ -170,7 +177,7 @@ class TerrainInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid, let inspectable):
+        case .inspecting(let grid, let inspectable, let smooth):
             
             guard let (_, _, _, layer) = inspectable else { break }
             
@@ -178,24 +185,24 @@ class TerrainInspectorViewController: NSViewController {
                 
             case northWestLayerCornerStepper:
                 
-                layer.set(height: sender.integerValue, corner: .northWest)
+                layer.set(height: sender.integerValue, corner: .northWest, smooth: smooth)
                 
             case northEastLayerCornerStepper:
                 
-                layer.set(height: sender.integerValue, corner: .northEast)
+                layer.set(height: sender.integerValue, corner: .northEast, smooth: smooth)
                 
             case southEastLayerCornerStepper:
                 
-                layer.set(height: sender.integerValue, corner: .southEast)
+                layer.set(height: sender.integerValue, corner: .southEast, smooth: smooth)
                 
             case southWestLayerCornerStepper:
                 
-                layer.set(height: sender.integerValue, corner: .southWest)
+                layer.set(height: sender.integerValue, corner: .southWest, smooth: smooth)
             
             default: break
             }
             
-            viewModel.state = .inspecting(grid, inspectable)
+            viewModel.state = .inspecting(grid, inspectable, smooth)
             
         default: break
         }
@@ -205,7 +212,7 @@ class TerrainInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid, let inspectable):
+        case .inspecting(let grid, let inspectable, let smooth):
             
             guard let (_, _, _, layer) = inspectable else { break }
             
@@ -213,24 +220,24 @@ class TerrainInspectorViewController: NSViewController {
                 
             case upperNorthWestLayerCornerLabel:
                 
-                layer.set(height: sender.integerValue, corner: .northWest)
+                layer.set(height: sender.integerValue, corner: .northWest, smooth: smooth)
                 
             case upperNorthEastLayerCornerLabel:
                 
-                layer.set(height: sender.integerValue, corner: .northEast)
+                layer.set(height: sender.integerValue, corner: .northEast, smooth: smooth)
                 
             case upperSouthEastLayerCornerLabel:
                 
-                layer.set(height: sender.integerValue, corner: .southEast)
+                layer.set(height: sender.integerValue, corner: .southEast, smooth: smooth)
                 
             case upperSouthWestLayerCornerLabel:
                 
-                layer.set(height: sender.integerValue, corner: .southWest)
+                layer.set(height: sender.integerValue, corner: .southWest, smooth: smooth)
                 
             default: break
             }
             
-            viewModel.state = .inspecting(grid, inspectable)
+            viewModel.state = .inspecting(grid, inspectable, smooth)
             
         default: break
         }
@@ -258,7 +265,7 @@ extension TerrainInspectorViewController {
         
         switch to {
             
-        case .inspecting(let grid, let inspectable):
+        case .inspecting(let grid, let inspectable, let smooth):
             
             chunkCount.integerValue = grid.totalChildren
             gridHiddenButton.state = (grid.isHidden ? .off : .on)
@@ -318,6 +325,8 @@ extension TerrainInspectorViewController {
                     
                     selectedLayerPopUp.selectItem(at: index)
                 }
+                
+                smoothTerraformButton.state = (smooth ? .on : .off)
                 
                 northWestLayerCornerStepper.maxValue = Double(layer.upper?.get(height: .northWest) ?? World.Ceiling)
                 northWestLayerCornerStepper.minValue = Double(layer.lower?.get(height: .northWest) ?? World.Floor)

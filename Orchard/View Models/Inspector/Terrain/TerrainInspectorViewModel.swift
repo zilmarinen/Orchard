@@ -14,7 +14,7 @@ extension TerrainInspectorViewController {
     enum ViewState: State {
         
         case empty
-        case inspecting(Terrain, (TerrainChunk, TerrainTile, TerrainNode, TerrainLayer)?)
+        case inspecting(Terrain, (TerrainChunk, TerrainTile, TerrainNode, TerrainLayer)?, Bool)
         
         func shouldTransition(to newState: TerrainInspectorViewController.ViewState) -> Should<TerrainInspectorViewController.ViewState> {
             

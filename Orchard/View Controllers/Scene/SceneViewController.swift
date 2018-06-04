@@ -44,13 +44,42 @@ extension SceneViewController {
                     if let terrainNode = meadow.terrain.add(node: coordinate) {
                         
                         let _ = terrainNode.add(layer: terrainType)
+                        let _ = terrainNode.add(layer: terrainType)
                     }
                 }
             }
+        }
+        
+        if let footpathType = meadow.footpaths.availableFootpathTypes.last {
             
-            if let terrainNode = meadow.terrain.find(node: Coordinate(x: 1, y: World.Floor, z: 1)) {
+            for x in 1..<6 {
                 
-                let _ = terrainNode.add(layer: terrainType)
+                let coordinate = Coordinate(x: x, y: (World.Floor + 2), z: 2)
+                
+                if let footpathNode = meadow.footpaths.add(node: coordinate) {
+                    
+                    footpathNode.footpathType = footpathType
+                }
+            }
+            
+            for x in 3..<5 {
+                
+                let coordinate = Coordinate(x: x, y: (World.Floor + 2), z: 3)
+                
+                if let footpathNode = meadow.footpaths.add(node: coordinate) {
+                    
+                    footpathNode.footpathType = footpathType
+                }
+            }
+            
+            for z in 1..<6 {
+                
+                let coordinate = Coordinate(x: 2, y: (World.Floor + 2), z: z)
+                
+                if let footpathNode = meadow.footpaths.add(node: coordinate) {
+                    
+                    footpathNode.footpathType = footpathType
+                }
             }
         }
         
