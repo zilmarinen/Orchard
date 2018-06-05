@@ -33,17 +33,21 @@ extension SceneViewController {
         sceneView.delegate = meadow
         sceneView.showsStatistics = true
         
-        if let terrainType = meadow.terrain.availableTerrainTypes.first {
+        /*for x in 0..<7 {
             
-            for x in 0..<7 {
+            for z in 0..<7 {
                 
-                for z in 0..<7 {
+                let coordinate = Coordinate(x: x, y: World.Floor, z: z)
+                
+                if let terrainNode = meadow.terrain.add(node: coordinate) {
                     
-                    let coordinate = Coordinate(x: x, y: World.Floor, z: z)
-                    
-                    if let terrainNode = meadow.terrain.add(node: coordinate) {
+                    if let terrainType = meadow.terrain.availableTerrainTypes.first {
                         
                         let _ = terrainNode.add(layer: terrainType)
+                    }
+                    
+                    if let terrainType = meadow.terrain.availableTerrainTypes.last {
+                        
                         let _ = terrainNode.add(layer: terrainType)
                     }
                 }
@@ -81,9 +85,14 @@ extension SceneViewController {
                     footpathNode.footpathType = footpathType
                 }
             }
-        }
+        }*/
         
-        meadow.cameraJib.position = SCNVector3(x: 2.0, y: 2.0, z: 15.0)
+        let coordinate = Coordinate(x: 2, y: (World.Floor + 3), z: 2)
+        
+        let _ = meadow.water.add(node: coordinate)
+        
+        meadow.cameraJib.position = SCNVector3(x: 0.0, y: 5.0, z: 5.0)
+        meadow.cameraJib.eulerAngles = SCNVector3(x: -1.0, y: -1.0, z: 0.0)
     }
 }
 

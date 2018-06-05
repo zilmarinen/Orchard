@@ -38,6 +38,13 @@ class WaterInspectorViewController: NSViewController {
     @IBOutlet weak var heightNodeSizeLabel: NSTextField!
     @IBOutlet weak var depthNodeSizeLabel: NSTextField!
     
+    @IBOutlet weak var selectedWaterTypePopUp: NSPopUpButton!
+    
+    @IBOutlet weak var colorPalettePrimary: NSBox!
+    @IBOutlet weak var colorPaletteSecondary: NSBox!
+    @IBOutlet weak var colorPaletteTertiary: NSBox!
+    @IBOutlet weak var colorPaletteQuaternary: NSBox!
+    
     @IBAction func button(_ sender: NSButton) {
         
         switch viewModel.state {
@@ -83,7 +90,7 @@ class WaterInspectorViewController: NSViewController {
             
         case .inspecting(let grid, let inspectable):
             
-            guard let (chunk, tile, _) = inspectable else { break }
+            guard let (chunk, tile, node) = inspectable else { break }
             
             switch sender {
                 
@@ -92,6 +99,14 @@ class WaterInspectorViewController: NSViewController {
                 guard let selectedNode = tile.sceneGraph(childAtIndex: sender.indexOfSelectedItem) as? WaterNode else { break }
                 
                 viewModel.state = .inspecting(grid, (chunk, tile, selectedNode))
+                
+            case selectedWaterTypePopUp:
+                
+                let selectedWaterType = grid.availableWaterTypes[sender.indexOfSelectedItem]
+                
+                node.waterType = selectedWaterType
+                
+                viewModel.state = .inspecting(grid, inspectable)
                 
             default: break
             }
@@ -132,6 +147,7 @@ extension WaterInspectorViewController {
             nodeBox.isHidden = true
             
             selectedNodePopUp.removeAllItems()
+            selectedWaterTypePopUp.removeAllItems()
             
             if let (chunk, tile, node) = inspectable {
                 
@@ -164,6 +180,21 @@ extension WaterInspectorViewController {
                 widthNodeSizeLabel.integerValue = node.volume.size.width
                 heightNodeSizeLabel.integerValue = node.volume.size.height
                 depthNodeSizeLabel.integerValue = node.volume.size.depth
+                
+                grid.availableWaterTypes.forEach { waterType in
+                    
+                    selectedWaterTypePopUp.addItem(withTitle: waterType.name)
+                }
+                
+                if let waterType = node.waterType, let index = grid.availableWaterTypes.index(of: waterType) {
+                    
+                    selectedWaterTypePopUp.selectItem(at: index)
+                    
+                    colorPalettePrimary.fillColor = waterType.colorPalette.primary.color
+                    colorPaletteSecondary.fillColor = waterType.colorPalette.secondary.color
+                    colorPaletteTertiary.fillColor = waterType.colorPalette.tertiary.color
+                    colorPaletteQuaternary.fillColor = waterType.colorPalette.quaternary.color
+                }
             }
             
         default: break
