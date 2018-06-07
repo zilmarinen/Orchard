@@ -33,14 +33,14 @@ extension SceneViewController {
         sceneView.delegate = meadow
         sceneView.showsStatistics = true
         
-        /*for x in 0..<7 {
+        for x in 0..<10 {
+        
+            for z in 0..<10 {
             
-            for z in 0..<7 {
-                
                 let coordinate = Coordinate(x: x, y: World.Floor, z: z)
                 
                 if let terrainNode = meadow.terrain.add(node: coordinate) {
-                    
+                
                     if let terrainType = meadow.terrain.availableTerrainTypes.first {
                         
                         let _ = terrainNode.add(layer: terrainType)
@@ -54,45 +54,8 @@ extension SceneViewController {
             }
         }
         
-        if let footpathType = meadow.footpaths.availableFootpathTypes.last {
-            
-            for x in 1..<6 {
-                
-                let coordinate = Coordinate(x: x, y: (World.Floor + 2), z: 2)
-                
-                if let footpathNode = meadow.footpaths.add(node: coordinate) {
-                    
-                    footpathNode.footpathType = footpathType
-                }
-            }
-            
-            for x in 3..<5 {
-                
-                let coordinate = Coordinate(x: x, y: (World.Floor + 2), z: 3)
-                
-                if let footpathNode = meadow.footpaths.add(node: coordinate) {
-                    
-                    footpathNode.footpathType = footpathType
-                }
-            }
-            
-            for z in 1..<6 {
-                
-                let coordinate = Coordinate(x: 2, y: (World.Floor + 2), z: z)
-                
-                if let footpathNode = meadow.footpaths.add(node: coordinate) {
-                    
-                    footpathNode.footpathType = footpathType
-                }
-            }
-        }*/
-        
-        let coordinate = Coordinate(x: 2, y: (World.Floor + 3), z: 2)
-        
-        let _ = meadow.water.add(node: coordinate)
-        
-        meadow.cameraJib.position = SCNVector3(x: 0.0, y: 5.0, z: 5.0)
-        meadow.cameraJib.eulerAngles = SCNVector3(x: -1.0, y: -1.0, z: 0.0)
+        meadow.cameraJib.position = SCNVector3(x: -2.0, y: 5.0, z: 10.0)
+        meadow.cameraJib.eulerAngles = SCNVector3(x: -0.7, y: -0.9, z: 0.0)
     }
 }
 

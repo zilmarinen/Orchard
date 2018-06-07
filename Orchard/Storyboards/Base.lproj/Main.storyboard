@@ -906,7 +906,7 @@
                                                                     <rect key="frame" x="1" y="1" width="422" height="422"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <sceneView translatesAutoresizingMaskIntoConstraints="NO" id="AkP-ux-73H">
+                                                                        <sceneView translatesAutoresizingMaskIntoConstraints="NO" id="AkP-ux-73H" customClass="InspectorSceneView" customModule="Orchard" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="422" height="422"/>
                                                                         </sceneView>
                                                                     </subviews>
@@ -2058,7 +2058,7 @@
                                                                     <rect key="frame" x="1" y="1" width="412" height="412"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <sceneView translatesAutoresizingMaskIntoConstraints="NO" id="hLv-mR-JS7">
+                                                                        <sceneView translatesAutoresizingMaskIntoConstraints="NO" id="hLv-mR-JS7" customClass="InspectorSceneView" customModule="Orchard" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="412" height="412"/>
                                                                         </sceneView>
                                                                     </subviews>
@@ -3315,7 +3315,7 @@
                                                                     <rect key="frame" x="1" y="1" width="412" height="412"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <sceneView translatesAutoresizingMaskIntoConstraints="NO" id="KBl-RP-LkN">
+                                                                        <sceneView translatesAutoresizingMaskIntoConstraints="NO" id="KBl-RP-LkN" customClass="InspectorSceneView" customModule="Orchard" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="412" height="412"/>
                                                                         </sceneView>
                                                                     </subviews>
@@ -4135,7 +4135,7 @@
                                                                     <rect key="frame" x="1" y="1" width="422" height="422"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <sceneView translatesAutoresizingMaskIntoConstraints="NO" id="oro-bB-bmy">
+                                                                        <sceneView translatesAutoresizingMaskIntoConstraints="NO" id="oro-bB-bmy" customClass="InspectorSceneView" customModule="Orchard" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="422" height="422"/>
                                                                         </sceneView>
                                                                     </subviews>
@@ -5335,7 +5335,7 @@
                                                                     <rect key="frame" x="1" y="1" width="422" height="422"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <sceneView translatesAutoresizingMaskIntoConstraints="NO" id="Q9O-kV-RMX">
+                                                                        <sceneView translatesAutoresizingMaskIntoConstraints="NO" id="Q9O-kV-RMX" customClass="InspectorSceneView" customModule="Orchard" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="422" height="422"/>
                                                                         </sceneView>
                                                                     </subviews>

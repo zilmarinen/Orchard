@@ -31,7 +31,7 @@ class TerrainInspectorViewController: NSViewController {
     
     @IBOutlet weak var selectedNodePopUp: NSPopUpButton!
     
-    @IBOutlet weak var sceneView: SCNView!
+    @IBOutlet weak var sceneView: InspectorSceneView!
     
     @IBOutlet weak var xNodeCoordinateLabel: NSTextField!
     @IBOutlet weak var yNodeCoordinateLabel: NSTextField!
@@ -41,7 +41,6 @@ class TerrainInspectorViewController: NSViewController {
     @IBOutlet weak var depthNodeSizeLabel: NSTextField!
     
     @IBOutlet weak var selectedLayerPopUp: NSPopUpButton!
-    
     
     @IBOutlet weak var smoothTerraformButton: NSButton!
     

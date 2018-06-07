@@ -11,18 +11,18 @@ import THRUtilities
 
 extension CameraInspectorViewController {
     
-    enum ViewState: State {
+    enum ViewState: THRUtilities.State {
         
         case empty
         case inspecting(CameraJib)
         
-        func shouldTransition(to newState: CameraInspectorViewController.ViewState) -> Should<CameraInspectorViewController.ViewState> {
+        func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
             return .continue
         }
     }
     
-    class CameraInspectorViewModel: BaseViewModel<CameraInspectorViewController.ViewState> {
+    class CameraInspectorViewModel: BaseViewModel<ViewState> {
         
     }
 }

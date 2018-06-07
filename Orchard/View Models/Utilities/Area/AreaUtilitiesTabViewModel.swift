@@ -11,11 +11,11 @@ import THRUtilities
 
 extension AreaUtilitiesTabViewController {
     
-    enum ViewState: State {
+    enum ViewState: THRUtilities.State {
         
         case empty
         
-        func shouldTransition(to newState: AreaUtilitiesTabViewController.ViewState) -> Should<AreaUtilitiesTabViewController.ViewState> {
+        func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
             return .continue
         }
@@ -29,7 +29,7 @@ extension AreaUtilitiesTabViewController {
         }
     }
     
-    class AreaUtilitiesTabViewModel: BaseViewModel<AreaUtilitiesTabViewController.ViewState> {
+    class AreaUtilitiesTabViewModel: BaseViewModel<ViewState> {
         
     }
 }

@@ -11,18 +11,18 @@ import THRUtilities
 
 extension AreaUtilitiesViewController {
     
-    enum ViewState: State {
+    enum ViewState: THRUtilities.State {
         
         case empty
         case inspecting(Area)
         
-        func shouldTransition(to newState: AreaUtilitiesViewController.ViewState) -> Should<AreaUtilitiesViewController.ViewState> {
+        func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
             return .continue
         }
     }
     
-    class AreaUtilitiesViewModel: BaseViewModel<AreaUtilitiesViewController.ViewState> {
+    class AreaUtilitiesViewModel: BaseViewModel<ViewState> {
         
     }
 }

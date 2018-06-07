@@ -11,18 +11,18 @@ import THRUtilities
 
 extension FootpathUtilitiesViewController {
     
-    enum ViewState: State {
+    enum ViewState: THRUtilities.State {
         
         case empty
         case inspecting(Footpath)
         
-        func shouldTransition(to newState: FootpathUtilitiesViewController.ViewState) -> Should<FootpathUtilitiesViewController.ViewState> {
+        func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
             return .continue
         }
     }
     
-    class FootpathUtilitiesViewModel: BaseViewModel<FootpathUtilitiesViewController.ViewState> {
+    class FootpathUtilitiesViewModel: BaseViewModel<ViewState> {
         
     }
 }

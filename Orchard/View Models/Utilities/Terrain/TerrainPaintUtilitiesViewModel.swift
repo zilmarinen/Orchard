@@ -17,12 +17,12 @@ extension TerrainPaintUtilitiesViewController {
         case tile
     }
     
-    enum ViewState: State {
+    enum ViewState: THRUtilities.State {
         
         case empty
         case inspecting(Terrain, TerrainType?, ToolType)
         
-        func shouldTransition(to newState: TerrainPaintUtilitiesViewController.ViewState) -> Should<TerrainPaintUtilitiesViewController.ViewState> {
+        func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
             return .continue
         }
@@ -38,7 +38,7 @@ extension TerrainPaintUtilitiesViewController {
         }
     }
     
-    class TerrainPaintUtilitiesViewModel: BaseViewModel<TerrainPaintUtilitiesViewController.ViewState> {
+    class TerrainPaintUtilitiesViewModel: BaseViewModel<ViewState> {
         
     }
 }

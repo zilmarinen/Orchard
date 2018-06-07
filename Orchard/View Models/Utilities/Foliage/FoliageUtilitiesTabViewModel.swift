@@ -11,11 +11,11 @@ import THRUtilities
 
 extension FoliageUtilitiesTabViewController {
     
-    enum ViewState: State {
+    enum ViewState: THRUtilities.State {
         
         case empty
         
-        func shouldTransition(to newState: FoliageUtilitiesTabViewController.ViewState) -> Should<FoliageUtilitiesTabViewController.ViewState> {
+        func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
             return .continue
         }
@@ -29,7 +29,7 @@ extension FoliageUtilitiesTabViewController {
         }
     }
     
-    class FoliageUtilitiesTabViewModel: BaseViewModel<FoliageUtilitiesTabViewController.ViewState> {
+    class FoliageUtilitiesTabViewModel: BaseViewModel<ViewState> {
         
     }
 }

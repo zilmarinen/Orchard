@@ -11,14 +11,14 @@ import THRUtilities
 
 extension TerrainUtilitiesTabViewController {
     
-    enum ViewState: State {
+    enum ViewState: THRUtilities.State {
         
         case empty
         case build(Terrain)
         case terraform(Terrain)
         case paint(Terrain)
         
-        func shouldTransition(to newState: TerrainUtilitiesTabViewController.ViewState) -> Should<TerrainUtilitiesTabViewController.ViewState> {
+        func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
             return .continue
         }
@@ -38,7 +38,7 @@ extension TerrainUtilitiesTabViewController {
         }
     }
     
-    class TerrainUtilitiesTabViewModel: BaseViewModel<TerrainUtilitiesTabViewController.ViewState> {
+    class TerrainUtilitiesTabViewModel: BaseViewModel<ViewState> {
         
     }
 }

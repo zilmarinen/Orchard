@@ -11,11 +11,11 @@ import THRUtilities
 
 extension FootpathUtilitiesTabViewController {
     
-    enum ViewState: State {
+    enum ViewState: THRUtilities.State {
         
         case empty
         
-        func shouldTransition(to newState: FootpathUtilitiesTabViewController.ViewState) -> Should<FootpathUtilitiesTabViewController.ViewState> {
+        func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
             return .continue
         }
@@ -29,7 +29,7 @@ extension FootpathUtilitiesTabViewController {
         }
     }
     
-    class FootpathUtilitiesTabViewModel: BaseViewModel<FootpathUtilitiesTabViewController.ViewState> {
+    class FootpathUtilitiesTabViewModel: BaseViewModel<ViewState> {
         
     }
 }

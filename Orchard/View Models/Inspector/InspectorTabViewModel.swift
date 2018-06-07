@@ -11,7 +11,7 @@ import THRUtilities
 
 extension InspectorTabViewController {
     
-    enum ViewState: State {
+    enum ViewState: THRUtilities.State {
         
         case empty
         case area(Area, AreaChunk?, AreaTile?, AreaNode?)
@@ -22,7 +22,7 @@ extension InspectorTabViewController {
         case terrain(Terrain, TerrainChunk?, TerrainTile?, TerrainNode?, TerrainLayer?)
         case water(Water, WaterChunk?, WaterTile?, WaterNode?)
         
-        func shouldTransition(to newState: InspectorTabViewController.ViewState) -> Should<InspectorTabViewController.ViewState> {
+        func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
             return .continue
         }
@@ -50,7 +50,7 @@ extension InspectorTabViewController {
         }
     }
     
-    class InspectorTabViewModel: BaseViewModel<InspectorTabViewController.ViewState> {
+    class InspectorTabViewModel: BaseViewModel<ViewState> {
         
     }
 }

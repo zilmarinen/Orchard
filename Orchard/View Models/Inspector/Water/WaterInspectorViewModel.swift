@@ -11,18 +11,18 @@ import THRUtilities
 
 extension WaterInspectorViewController {
     
-    enum ViewState: State {
+    enum ViewState: THRUtilities.State {
         
         case empty
         case inspecting(Water, (WaterChunk, WaterTile, WaterNode)?)
         
-        func shouldTransition(to newState: WaterInspectorViewController.ViewState) -> Should<WaterInspectorViewController.ViewState> {
+        func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
             return .continue
         }
     }
     
-    class WaterInspectorViewModel: BaseViewModel<WaterInspectorViewController.ViewState> {
+    class WaterInspectorViewModel: BaseViewModel<ViewState> {
         
     }
 }

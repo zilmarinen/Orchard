@@ -11,7 +11,7 @@ import THRUtilities
 
 extension UtilitiesTabViewController {
     
-    enum ViewState: State {
+    enum ViewState: THRUtilities.State {
         
         case empty
         case area(Area)
@@ -20,7 +20,7 @@ extension UtilitiesTabViewController {
         case terrain(Terrain)
         case water(Water)
         
-        func shouldTransition(to newState: UtilitiesTabViewController.ViewState) -> Should<UtilitiesTabViewController.ViewState> {
+        func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
             return .continue
         }
@@ -44,7 +44,7 @@ extension UtilitiesTabViewController {
         }
     }
     
-    class UtilitiesTabViewModel: BaseViewModel<UtilitiesTabViewController.ViewState> {
+    class UtilitiesTabViewModel: BaseViewModel<ViewState> {
         
     }
 }

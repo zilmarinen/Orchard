@@ -11,18 +11,18 @@ import THRUtilities
 
 extension FoliageInspectorViewController {
     
-    enum ViewState: State {
+    enum ViewState: THRUtilities.State {
         
         case empty
         case inspecting(Foliage, (FoliageChunk, FoliageTile, FoliageNode)?)
         
-        func shouldTransition(to newState: FoliageInspectorViewController.ViewState) -> Should<FoliageInspectorViewController.ViewState> {
+        func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
             return .continue
         }
     }
     
-    class FoliageInspectorViewModel: BaseViewModel<FoliageInspectorViewController.ViewState> {
+    class FoliageInspectorViewModel: BaseViewModel<ViewState> {
         
     }
 }

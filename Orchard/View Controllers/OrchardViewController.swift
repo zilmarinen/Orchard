@@ -175,6 +175,13 @@ extension OrchardViewController: SceneGraphDelegate {
             inspectorTabViewController?.viewModel.state = .terrain(meadow.terrain, item as? TerrainChunk, item as? TerrainTile, item as? TerrainNode, item as? TerrainLayer)
             utilitiesTabViewController?.viewModel.state = .terrain(meadow.terrain)
             
+            if let item = item as? SceneGraphNode {
+                
+                let vector = SCNVector3(x: MDWFloat(item.volume.coordinate.x), y: World.Y(y: item.volume.coordinate.y), z: MDWFloat(item.volume.coordinate.z))
+                
+                meadow.cameraJib.stateMachine.state = .focus(vector)
+            }
+            
         case is Water.Type,
              is WaterChunk.Type,
              is WaterTile.Type,

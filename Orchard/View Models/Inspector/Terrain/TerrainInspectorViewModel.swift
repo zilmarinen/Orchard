@@ -11,18 +11,18 @@ import THRUtilities
 
 extension TerrainInspectorViewController {
     
-    enum ViewState: State {
+    enum ViewState: THRUtilities.State {
         
         case empty
         case inspecting(Terrain, (TerrainChunk, TerrainTile, TerrainNode, TerrainLayer)?, Bool)
         
-        func shouldTransition(to newState: TerrainInspectorViewController.ViewState) -> Should<TerrainInspectorViewController.ViewState> {
+        func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
             return .continue
         }
     }
     
-    class TerrainInspectorViewModel: BaseViewModel<TerrainInspectorViewController.ViewState> {
+    class TerrainInspectorViewModel: BaseViewModel<ViewState> {
         
     }
 }

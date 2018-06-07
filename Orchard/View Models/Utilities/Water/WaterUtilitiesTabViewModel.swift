@@ -11,11 +11,11 @@ import THRUtilities
 
 extension WaterUtilitiesTabViewController {
     
-    enum ViewState: State {
+    enum ViewState: THRUtilities.State {
         
         case empty
         
-        func shouldTransition(to newState: WaterUtilitiesTabViewController.ViewState) -> Should<WaterUtilitiesTabViewController.ViewState> {
+        func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
             return .continue
         }
@@ -29,7 +29,7 @@ extension WaterUtilitiesTabViewController {
         }
     }
     
-    class WaterUtilitiesTabViewModel: BaseViewModel<WaterUtilitiesTabViewController.ViewState> {
+    class WaterUtilitiesTabViewModel: BaseViewModel<ViewState> {
         
     }
 }

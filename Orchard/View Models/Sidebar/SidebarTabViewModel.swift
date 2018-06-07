@@ -11,13 +11,13 @@ import THRUtilities
 
 extension SidebarTabViewController {
     
-    enum ViewState: State {
+    enum ViewState: THRUtilities.State {
         
         case empty
         case inspector(Meadow)
         case utilities(Meadow)
         
-        func shouldTransition(to newState: SidebarTabViewController.ViewState) -> Should<SidebarTabViewController.ViewState> {
+        func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
             return .continue
         }
@@ -35,7 +35,7 @@ extension SidebarTabViewController {
         }
     }
     
-    class SidebarTabViewModel: BaseViewModel<SidebarTabViewController.ViewState> {
+    class SidebarTabViewModel: BaseViewModel<ViewState> {
         
     }
 }
