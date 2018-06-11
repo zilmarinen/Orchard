@@ -179,7 +179,7 @@ extension OrchardViewController: SceneGraphDelegate {
                 
                 let vector = SCNVector3(x: MDWFloat(item.volume.coordinate.x), y: World.Y(y: item.volume.coordinate.y), z: MDWFloat(item.volume.coordinate.z))
                 
-                meadow.cameraJib.stateMachine.state = .focus(vector)
+                meadow.cameraJib.stateMachine.state = .focus(vector, .north)
             }
             
         case is Water.Type,

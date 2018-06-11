@@ -38,6 +38,21 @@ class AreaInspectorViewController: NSViewController {
     @IBOutlet weak var heightNodeSizeLabel: NSTextField!
     @IBOutlet weak var depthNodeSizeLabel: NSTextField!
     
+    @IBOutlet weak var selectedSurfaceTypePopUp: NSPopUpButton!
+    
+    @IBOutlet weak var surfaceTypecolorPalettePrimary: NSBox!
+    @IBOutlet weak var surfaceTypecolorPaletteSecondary: NSBox!
+    @IBOutlet weak var surfaceTypecolorPaletteTertiary: NSBox!
+    @IBOutlet weak var surfaceTypecolorPaletteQuaternary: NSBox!
+    
+    @IBOutlet weak var selectedExternalPrefabTypePopUp: NSPopUpButton!
+    @IBOutlet weak var selectedInternalPrefabTypePopUp: NSPopUpButton!
+    
+    @IBOutlet weak var selectedNorthPerimeterTypePopUp: NSPopUpButton!
+    @IBOutlet weak var selectedEastPerimeterTypePopUp: NSPopUpButton!
+    @IBOutlet weak var selectedSouthPerimeterTypePopUp: NSPopUpButton!
+    @IBOutlet weak var selectedWestPerimeterTypePopUp: NSPopUpButton!
+    
     @IBAction func button(_ sender: NSButton) {
         
         switch viewModel.state {
@@ -83,7 +98,7 @@ class AreaInspectorViewController: NSViewController {
             
         case .inspecting(let grid, let inspectable):
             
-            guard let (chunk, tile, _) = inspectable else { break }
+            guard let (chunk, tile, node) = inspectable else { break }
             
             switch sender {
                 
@@ -92,6 +107,62 @@ class AreaInspectorViewController: NSViewController {
                 guard let selectedNode = tile.sceneGraph(childAtIndex: sender.indexOfSelectedItem) as? AreaNode else { break }
                 
                 viewModel.state = .inspecting(grid, (chunk, tile, selectedNode))
+                
+            case selectedSurfaceTypePopUp:
+                
+                let selectedSurfaceType = grid.availableSurfaceTypes[sender.indexOfSelectedItem]
+                
+                node.surfaceType = selectedSurfaceType
+                
+                viewModel.state = .inspecting(grid, inspectable)
+                
+            case selectedExternalPrefabTypePopUp,
+                 selectedInternalPrefabTypePopUp:
+                
+                let selectedPrefabType = AreaPrefabType.All[sender.indexOfSelectedItem]
+                
+                if sender == selectedExternalPrefabTypePopUp {
+                 
+                    node.externalPrefabType = selectedPrefabType
+                }
+                else {
+                    
+                    node.internalPrefabType = selectedPrefabType
+                }
+                
+                viewModel.state = .inspecting(grid, inspectable)
+                
+            case selectedNorthPerimeterTypePopUp,
+                 selectedEastPerimeterTypePopUp,
+                 selectedSouthPerimeterTypePopUp,
+                 selectedWestPerimeterTypePopUp:
+                
+                let selectedPerimeterIdentifier = AreaPerimeterType.Identifier.All[sender.indexOfSelectedItem]
+                
+                let perimeterType = AreaPerimeterType(identifier: selectedPerimeterIdentifier)
+                
+                switch sender {
+                    
+                case selectedNorthPerimeterTypePopUp:
+                    
+                    node.set(perimeterType: perimeterType, edge: .north)
+                    
+                case selectedEastPerimeterTypePopUp:
+                    
+                    node.set(perimeterType: perimeterType, edge: .east)
+                    
+                case selectedSouthPerimeterTypePopUp:
+                    
+                    node.set(perimeterType: perimeterType, edge: .south)
+                    
+                case selectedWestPerimeterTypePopUp:
+                    
+                    node.set(perimeterType: perimeterType, edge: .west)
+                    
+                default: break
+                }
+                
+                viewModel.state = .inspecting(grid, inspectable)
                 
             default: break
             }
@@ -132,6 +203,13 @@ extension AreaInspectorViewController {
             nodeBox.isHidden = true
             
             selectedNodePopUp.removeAllItems()
+            selectedSurfaceTypePopUp.removeAllItems()
+            selectedExternalPrefabTypePopUp.removeAllItems()
+            selectedInternalPrefabTypePopUp.removeAllItems()
+            selectedNorthPerimeterTypePopUp.removeAllItems()
+            selectedEastPerimeterTypePopUp.removeAllItems()
+            selectedSouthPerimeterTypePopUp.removeAllItems()
+            selectedWestPerimeterTypePopUp.removeAllItems()
             
             if let (chunk, tile, node) = inspectable {
                 
@@ -164,6 +242,69 @@ extension AreaInspectorViewController {
                 widthNodeSizeLabel.integerValue = node.volume.size.width
                 heightNodeSizeLabel.integerValue = node.volume.size.height
                 depthNodeSizeLabel.integerValue = node.volume.size.depth
+                
+                grid.availableSurfaceTypes.forEach { surfaceType in
+                    
+                    selectedSurfaceTypePopUp.addItem(withTitle: surfaceType.name)
+                }
+                
+                if let surfaceType = node.surfaceType, let index = grid.availableSurfaceTypes.index(of: surfaceType) {
+                    
+                    selectedSurfaceTypePopUp.selectItem(at: index)
+                    
+                    surfaceTypecolorPalettePrimary.fillColor = surfaceType.colorPalette.primary.color
+                    surfaceTypecolorPaletteSecondary.fillColor = surfaceType.colorPalette.secondary.color
+                    surfaceTypecolorPaletteTertiary.fillColor = surfaceType.colorPalette.tertiary.color
+                    surfaceTypecolorPaletteQuaternary.fillColor = surfaceType.colorPalette.quaternary.color
+                }
+                
+                let prefabTypes = AreaPrefabType.All
+                
+                prefabTypes.forEach { areaPrefabType in
+                    
+                    selectedExternalPrefabTypePopUp.addItem(withTitle: areaPrefabType.description)
+                    selectedInternalPrefabTypePopUp.addItem(withTitle: areaPrefabType.description)
+                }
+                
+                if let index = prefabTypes.index(of: node.externalPrefabType) {
+                 
+                    selectedExternalPrefabTypePopUp.selectItem(at: index)
+                }
+                
+                if let index = prefabTypes.index(of: node.internalPrefabType) {
+                    
+                    selectedInternalPrefabTypePopUp.selectItem(at: index)
+                }
+                
+                let perimeterTypes = AreaPerimeterType.Identifier.All
+                
+                perimeterTypes.forEach { perimeterType in
+                    
+                    selectedNorthPerimeterTypePopUp.addItem(withTitle: perimeterType.description)
+                    selectedEastPerimeterTypePopUp.addItem(withTitle: perimeterType.description)
+                    selectedSouthPerimeterTypePopUp.addItem(withTitle: perimeterType.description)
+                    selectedWestPerimeterTypePopUp.addItem(withTitle: perimeterType.description)
+                }
+                
+                if let perimeterEdge = node.get(perimeterEdge: .north), let index = perimeterTypes.index(of: perimeterEdge.perimeterType.identifier) {
+                    
+                    selectedNorthPerimeterTypePopUp.selectItem(at: index)
+                }
+                
+                if let perimeterEdge = node.get(perimeterEdge: .east), let index = perimeterTypes.index(of: perimeterEdge.perimeterType.identifier) {
+                    
+                    selectedEastPerimeterTypePopUp.selectItem(at: index)
+                }
+                
+                if let perimeterEdge = node.get(perimeterEdge: .south), let index = perimeterTypes.index(of: perimeterEdge.perimeterType.identifier) {
+                    
+                    selectedSouthPerimeterTypePopUp.selectItem(at: index)
+                }
+                
+                if let perimeterEdge = node.get(perimeterEdge: .west), let index = perimeterTypes.index(of: perimeterEdge.perimeterType.identifier) {
+                    
+                    selectedWestPerimeterTypePopUp.selectItem(at: index)
+                }
             }
             
         default: break

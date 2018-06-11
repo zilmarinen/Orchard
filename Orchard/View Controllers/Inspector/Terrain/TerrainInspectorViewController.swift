@@ -381,7 +381,7 @@ extension TerrainInspectorViewController {
                     westLayerEdgeTerrainTypePopUp.addItem(withTitle: terrainType.name)
                 }
                 
-                if let terrainLayerEdge = layer.get(terrainType: .north), let index = grid.availableTerrainTypes.index(of: terrainLayerEdge.terrainType) {
+                if let terrainLayerEdge = layer.get(terrainEdge: .north), let index = grid.availableTerrainTypes.index(of: terrainLayerEdge.terrainType) {
                     
                     northLayerEdgeTerrainTypePopUp.selectItem(at: index)
                     
@@ -391,7 +391,7 @@ extension TerrainInspectorViewController {
                     northLayerEdgeTerrainTypeColorPaletteQuaternary.fillColor = terrainLayerEdge.terrainType.colorPalette.quaternary.color
                 }
                 
-                if let terrainLayerEdge = layer.get(terrainType: .east), let index = grid.availableTerrainTypes.index(of: terrainLayerEdge.terrainType) {
+                if let terrainLayerEdge = layer.get(terrainEdge: .east), let index = grid.availableTerrainTypes.index(of: terrainLayerEdge.terrainType) {
                     
                     eastLayerEdgeTerrainTypePopUp.selectItem(at: index)
                     
@@ -401,7 +401,7 @@ extension TerrainInspectorViewController {
                     eastLayerEdgeTerrainTypeColorPaletteQuaternary.fillColor = terrainLayerEdge.terrainType.colorPalette.quaternary.color
                 }
                 
-                if let terrainLayerEdge = layer.get(terrainType: .south), let index = grid.availableTerrainTypes.index(of: terrainLayerEdge.terrainType) {
+                if let terrainLayerEdge = layer.get(terrainEdge: .south), let index = grid.availableTerrainTypes.index(of: terrainLayerEdge.terrainType) {
                     
                     southLayerEdgeTerrainTypePopUp.selectItem(at: index)
                     
@@ -411,7 +411,7 @@ extension TerrainInspectorViewController {
                     southLayerEdgeTerrainTypeColorPaletteQuaternary.fillColor = terrainLayerEdge.terrainType.colorPalette.quaternary.color
                 }
                 
-                if let terrainLayerEdge = layer.get(terrainType: .west), let index = grid.availableTerrainTypes.index(of: terrainLayerEdge.terrainType) {
+                if let terrainLayerEdge = layer.get(terrainEdge: .west), let index = grid.availableTerrainTypes.index(of: terrainLayerEdge.terrainType) {
                     
                     westLayerEdgeTerrainTypePopUp.selectItem(at: index)
                     

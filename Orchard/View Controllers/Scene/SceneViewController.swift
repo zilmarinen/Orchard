@@ -54,8 +54,19 @@ extension SceneViewController {
             }
         }
         
-        meadow.cameraJib.position = SCNVector3(x: -2.0, y: 5.0, z: 10.0)
-        meadow.cameraJib.eulerAngles = SCNVector3(x: -0.7, y: -0.9, z: 0.0)
+        
+        for x in 3..<7 {
+            
+            for z in 3..<7 {
+                
+                let coordinate = Coordinate(x: x, y: World.Floor + 2, z: z)
+        
+                if let areaNode = meadow.areas.add(node: coordinate) {
+            
+                    areaNode.surfaceType = meadow.areas.availableSurfaceTypes.first
+                }
+            }
+        }
     }
 }
 
