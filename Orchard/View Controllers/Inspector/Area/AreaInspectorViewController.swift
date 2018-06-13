@@ -40,13 +40,26 @@ class AreaInspectorViewController: NSViewController {
     
     @IBOutlet weak var selectedSurfaceTypePopUp: NSPopUpButton!
     
-    @IBOutlet weak var surfaceTypecolorPalettePrimary: NSBox!
-    @IBOutlet weak var surfaceTypecolorPaletteSecondary: NSBox!
-    @IBOutlet weak var surfaceTypecolorPaletteTertiary: NSBox!
-    @IBOutlet weak var surfaceTypecolorPaletteQuaternary: NSBox!
+    @IBOutlet weak var surfaceTypeColorPalettePrimary: NSBox!
+    @IBOutlet weak var surfaceTypeColorPaletteSecondary: NSBox!
+    @IBOutlet weak var surfaceTypeColorPaletteTertiary: NSBox!
+    @IBOutlet weak var surfaceTypeColorPaletteQuaternary: NSBox!
     
     @IBOutlet weak var selectedExternalPrefabTypePopUp: NSPopUpButton!
+    @IBOutlet weak var selectedExternalMaterialTypePopUp: NSPopUpButton!
+    
+    @IBOutlet weak var externalMaterialTypeColorPalettePrimary: NSBox!
+    @IBOutlet weak var externalMaterialTypeColorPaletteSecondary: NSBox!
+    @IBOutlet weak var externalMaterialTypeColorPaletteTertiary: NSBox!
+    @IBOutlet weak var externalMaterialTypeColorPaletteQuaternary: NSBox!
+    
     @IBOutlet weak var selectedInternalPrefabTypePopUp: NSPopUpButton!
+    @IBOutlet weak var selectedInternalMaterialTypePopUp: NSPopUpButton!
+    
+    @IBOutlet weak var internalMaterialTypeColorPalettePrimary: NSBox!
+    @IBOutlet weak var internalMaterialTypeColorPaletteSecondary: NSBox!
+    @IBOutlet weak var internalMaterialTypeColorPaletteTertiary: NSBox!
+    @IBOutlet weak var internalMaterialTypeColorPaletteQuaternary: NSBox!
     
     @IBOutlet weak var selectedNorthPerimeterTypePopUp: NSPopUpButton!
     @IBOutlet weak var selectedEastPerimeterTypePopUp: NSPopUpButton!
@@ -119,7 +132,7 @@ class AreaInspectorViewController: NSViewController {
             case selectedExternalPrefabTypePopUp,
                  selectedInternalPrefabTypePopUp:
                 
-                let selectedPrefabType = AreaPrefabType.All[sender.indexOfSelectedItem]
+                let selectedPrefabType = AreaPrefabType.all[sender.indexOfSelectedItem]
                 
                 if sender == selectedExternalPrefabTypePopUp {
                  
@@ -132,12 +145,28 @@ class AreaInspectorViewController: NSViewController {
                 
                 viewModel.state = .inspecting(grid, inspectable)
                 
+            case selectedExternalMaterialTypePopUp,
+                 selectedInternalMaterialTypePopUp:
+                
+                let selectedMaterialType = grid.availableMaterialTypes[sender.indexOfSelectedItem]
+                
+                if sender == selectedExternalMaterialTypePopUp {
+                    
+                    node.externalMaterialType = selectedMaterialType
+                }
+                else {
+                    
+                    node.internalMaterialType = selectedMaterialType
+                }
+                
+                viewModel.state = .inspecting(grid, inspectable)
+                
             case selectedNorthPerimeterTypePopUp,
                  selectedEastPerimeterTypePopUp,
                  selectedSouthPerimeterTypePopUp,
                  selectedWestPerimeterTypePopUp:
                 
-                let selectedPerimeterIdentifier = AreaPerimeterType.Identifier.All[sender.indexOfSelectedItem]
+                let selectedPerimeterIdentifier = AreaPerimeterType.Identifier.all[sender.indexOfSelectedItem]
                 
                 let perimeterType = AreaPerimeterType(identifier: selectedPerimeterIdentifier)
                 
@@ -205,7 +234,9 @@ extension AreaInspectorViewController {
             selectedNodePopUp.removeAllItems()
             selectedSurfaceTypePopUp.removeAllItems()
             selectedExternalPrefabTypePopUp.removeAllItems()
+            selectedExternalMaterialTypePopUp.removeAllItems()
             selectedInternalPrefabTypePopUp.removeAllItems()
+            selectedInternalMaterialTypePopUp.removeAllItems()
             selectedNorthPerimeterTypePopUp.removeAllItems()
             selectedEastPerimeterTypePopUp.removeAllItems()
             selectedSouthPerimeterTypePopUp.removeAllItems()
@@ -252,13 +283,39 @@ extension AreaInspectorViewController {
                     
                     selectedSurfaceTypePopUp.selectItem(at: index)
                     
-                    surfaceTypecolorPalettePrimary.fillColor = surfaceType.colorPalette.primary.color
-                    surfaceTypecolorPaletteSecondary.fillColor = surfaceType.colorPalette.secondary.color
-                    surfaceTypecolorPaletteTertiary.fillColor = surfaceType.colorPalette.tertiary.color
-                    surfaceTypecolorPaletteQuaternary.fillColor = surfaceType.colorPalette.quaternary.color
+                    surfaceTypeColorPalettePrimary.fillColor = surfaceType.colorPalette.primary.color
+                    surfaceTypeColorPaletteSecondary.fillColor = surfaceType.colorPalette.secondary.color
+                    surfaceTypeColorPaletteTertiary.fillColor = surfaceType.colorPalette.tertiary.color
+                    surfaceTypeColorPaletteQuaternary.fillColor = surfaceType.colorPalette.quaternary.color
                 }
                 
-                let prefabTypes = AreaPrefabType.All
+                grid.availableMaterialTypes.forEach { materialType in
+                    
+                    selectedExternalMaterialTypePopUp.addItem(withTitle: materialType.name)
+                    selectedInternalMaterialTypePopUp.addItem(withTitle: materialType.name)
+                }
+                
+                if let materialType = node.externalMaterialType, let index = grid.availableMaterialTypes.index(of: materialType) {
+                    
+                    selectedExternalMaterialTypePopUp.selectItem(at: index)
+                    
+                    externalMaterialTypeColorPalettePrimary.fillColor = materialType.colorPalette.primary.color
+                    externalMaterialTypeColorPaletteSecondary.fillColor = materialType.colorPalette.secondary.color
+                    externalMaterialTypeColorPaletteTertiary.fillColor = materialType.colorPalette.tertiary.color
+                    externalMaterialTypeColorPaletteQuaternary.fillColor = materialType.colorPalette.quaternary.color
+                }
+                
+                if let materialType = node.internalMaterialType, let index = grid.availableMaterialTypes.index(of: materialType) {
+                    
+                    selectedInternalMaterialTypePopUp.selectItem(at: index)
+                    
+                    internalMaterialTypeColorPalettePrimary.fillColor = materialType.colorPalette.primary.color
+                    internalMaterialTypeColorPaletteSecondary.fillColor = materialType.colorPalette.secondary.color
+                    internalMaterialTypeColorPaletteTertiary.fillColor = materialType.colorPalette.tertiary.color
+                    internalMaterialTypeColorPaletteQuaternary.fillColor = materialType.colorPalette.quaternary.color
+                }
+                
+                let prefabTypes = AreaPrefabType.all
                 
                 prefabTypes.forEach { areaPrefabType in
                     
@@ -276,7 +333,7 @@ extension AreaInspectorViewController {
                     selectedInternalPrefabTypePopUp.selectItem(at: index)
                 }
                 
-                let perimeterTypes = AreaPerimeterType.Identifier.All
+                let perimeterTypes = AreaPerimeterType.Identifier.all
                 
                 perimeterTypes.forEach { perimeterType in
                     
@@ -284,6 +341,14 @@ extension AreaInspectorViewController {
                     selectedEastPerimeterTypePopUp.addItem(withTitle: perimeterType.description)
                     selectedSouthPerimeterTypePopUp.addItem(withTitle: perimeterType.description)
                     selectedWestPerimeterTypePopUp.addItem(withTitle: perimeterType.description)
+                }
+                
+                if let defaultIndex = perimeterTypes.index(of: .none) {
+                
+                    selectedNorthPerimeterTypePopUp.selectItem(at: defaultIndex)
+                    selectedEastPerimeterTypePopUp.selectItem(at: defaultIndex)
+                    selectedSouthPerimeterTypePopUp.selectItem(at: defaultIndex)
+                    selectedWestPerimeterTypePopUp.selectItem(at: defaultIndex)
                 }
                 
                 if let perimeterEdge = node.get(perimeterEdge: .north), let index = perimeterTypes.index(of: perimeterEdge.perimeterType.identifier) {
