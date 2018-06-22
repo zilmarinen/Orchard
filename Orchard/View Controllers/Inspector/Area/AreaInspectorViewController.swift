@@ -166,29 +166,28 @@ class AreaInspectorViewController: NSViewController {
                  selectedSouthPerimeterTypePopUp,
                  selectedWestPerimeterTypePopUp:
                 
-                let selectedPerimeterIdentifier = AreaPerimeterType.Identifier.all[sender.indexOfSelectedItem]
-                
-                let perimeterType = AreaPerimeterType(identifier: selectedPerimeterIdentifier)
+                var edge = GridEdge.north
                 
                 switch sender {
                     
-                case selectedNorthPerimeterTypePopUp:
+                case selectedEastPerimeterTypePopUp: edge = .east
                     
-                    node.set(perimeterType: perimeterType, edge: .north)
+                case selectedSouthPerimeterTypePopUp: edge = .south
                     
-                case selectedEastPerimeterTypePopUp:
+                case selectedWestPerimeterTypePopUp: edge = .west
                     
-                    node.set(perimeterType: perimeterType, edge: .east)
+                default: edge = .north
+                }
+                
+                if sender.indexOfSelectedItem == AreaPerimeterType.all.count {
                     
-                case selectedSouthPerimeterTypePopUp:
+                    node.remove(perimeterType: edge)
+                }
+                else {
+                 
+                    let selectedPerimeterType = AreaPerimeterType.all[sender.indexOfSelectedItem]
                     
-                    node.set(perimeterType: perimeterType, edge: .south)
-                    
-                case selectedWestPerimeterTypePopUp:
-                    
-                    node.set(perimeterType: perimeterType, edge: .west)
-                    
-                default: break
+                    node.set(perimeterType: selectedPerimeterType, edge: edge)
                 }
                 
                 viewModel.state = .inspecting(grid, inspectable)
@@ -333,7 +332,7 @@ extension AreaInspectorViewController {
                     selectedInternalPrefabTypePopUp.selectItem(at: index)
                 }
                 
-                let perimeterTypes = AreaPerimeterType.Identifier.all
+                let perimeterTypes = AreaPerimeterType.all
                 
                 perimeterTypes.forEach { perimeterType in
                     
@@ -343,30 +342,32 @@ extension AreaInspectorViewController {
                     selectedWestPerimeterTypePopUp.addItem(withTitle: perimeterType.description)
                 }
                 
-                if let defaultIndex = perimeterTypes.index(of: .none) {
+                selectedNorthPerimeterTypePopUp.addItem(withTitle: "None")
+                selectedEastPerimeterTypePopUp.addItem(withTitle: "None")
+                selectedSouthPerimeterTypePopUp.addItem(withTitle: "None")
+                selectedWestPerimeterTypePopUp.addItem(withTitle: "None")
                 
-                    selectedNorthPerimeterTypePopUp.selectItem(at: defaultIndex)
-                    selectedEastPerimeterTypePopUp.selectItem(at: defaultIndex)
-                    selectedSouthPerimeterTypePopUp.selectItem(at: defaultIndex)
-                    selectedWestPerimeterTypePopUp.selectItem(at: defaultIndex)
-                }
+                selectedNorthPerimeterTypePopUp.selectItem(at: perimeterTypes.count)
+                selectedEastPerimeterTypePopUp.selectItem(at: perimeterTypes.count)
+                selectedSouthPerimeterTypePopUp.selectItem(at: perimeterTypes.count)
+                selectedWestPerimeterTypePopUp.selectItem(at: perimeterTypes.count)
                 
-                if let perimeterEdge = node.get(perimeterEdge: .north), let index = perimeterTypes.index(of: perimeterEdge.perimeterType.identifier) {
+                if let perimeterEdge = node.get(perimeterEdge: .north), let index = perimeterTypes.index(of: perimeterEdge.perimeterType) {
                     
                     selectedNorthPerimeterTypePopUp.selectItem(at: index)
                 }
                 
-                if let perimeterEdge = node.get(perimeterEdge: .east), let index = perimeterTypes.index(of: perimeterEdge.perimeterType.identifier) {
+                if let perimeterEdge = node.get(perimeterEdge: .east), let index = perimeterTypes.index(of: perimeterEdge.perimeterType) {
                     
                     selectedEastPerimeterTypePopUp.selectItem(at: index)
                 }
                 
-                if let perimeterEdge = node.get(perimeterEdge: .south), let index = perimeterTypes.index(of: perimeterEdge.perimeterType.identifier) {
+                if let perimeterEdge = node.get(perimeterEdge: .south), let index = perimeterTypes.index(of: perimeterEdge.perimeterType) {
                     
                     selectedSouthPerimeterTypePopUp.selectItem(at: index)
                 }
                 
-                if let perimeterEdge = node.get(perimeterEdge: .west), let index = perimeterTypes.index(of: perimeterEdge.perimeterType.identifier) {
+                if let perimeterEdge = node.get(perimeterEdge: .west), let index = perimeterTypes.index(of: perimeterEdge.perimeterType) {
                     
                     selectedWestPerimeterTypePopUp.selectItem(at: index)
                 }

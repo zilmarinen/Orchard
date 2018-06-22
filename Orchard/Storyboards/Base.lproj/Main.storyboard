@@ -4637,7 +4637,7 @@
                                                                 </connections>
                                                             </popUpButton>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ge4-hR-Vbf">
-                                                                <rect key="frame" x="11" y="167" width="83" height="13"/>
+                                                                <rect key="frame" x="11" y="166" width="83" height="13"/>
                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Internal Material" id="3KX-e5-cSu">
                                                                     <font key="font" metaFont="system" size="10"/>
                                                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>

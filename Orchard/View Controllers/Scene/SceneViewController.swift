@@ -63,7 +63,28 @@ extension SceneViewController {
         
                 if let areaNode = meadow.areas.add(node: coordinate) {
             
-                    areaNode.surfaceType = meadow.areas.availableSurfaceTypes.first
+                    areaNode.surfaceType = meadow.areas.availableSurfaceTypes.last
+                    areaNode.internalMaterialType = meadow.areas.availableMaterialTypes[1]
+                    
+                    if x == 3 {
+                        
+                        areaNode.set(perimeterType: .wall, edge: .east)
+                    }
+                    
+                    if x == 6 {
+                        
+                        areaNode.set(perimeterType: .wall, edge: .west)
+                    }
+                    
+                    if z == 3 {
+                        
+                        areaNode.set(perimeterType: .wall, edge: .south)
+                    }
+                    
+                    if z == 6 {
+                        
+                        areaNode.set(perimeterType: .wall, edge: .north)
+                    }
                 }
             }
         }
