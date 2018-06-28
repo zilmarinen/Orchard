@@ -91,6 +91,63 @@ extension SceneViewController {
     }
 }
 
+extension SceneViewController {
+    
+    enum KeyCodes: Int {
+        
+        case q = 12
+        case w = 13
+        case e = 14
+        case a = 0
+        case s = 1
+        case d = 2
+    }
+    
+    override func scrollWheel(with event: NSEvent) {
+    
+        switch meadow.cameraJib.stateMachine.state {
+        
+        case .focus(let focus, let edge, let zoomLevel):
+            
+            let newZoomLevel = (zoomLevel + event.deltaY)
+            
+            meadow.cameraJib.stateMachine.state = .focus(focus, edge, newZoomLevel)
+        }
+    }
+    
+    override func keyUp(with event: NSEvent) {
+        
+        guard let keyCode = KeyCodes(rawValue: Int(event.keyCode)) else { return }
+        
+        switch keyCode {
+            
+        case .q,
+             .e:
+            
+            switch meadow.cameraJib.stateMachine.state {
+                
+            case .focus(let focus, let edge, let zoomLevel):
+                
+                let clockwise = (keyCode == .q)
+                
+                let nextEdge = GridEdge(rawValue: (clockwise ? (edge == .west ? GridEdge.north.rawValue : (edge.rawValue + 1)) : (edge == .north ? GridEdge.west.rawValue : (edge.rawValue - 1))))!
+                
+                meadow.cameraJib.stateMachine.state = .focus(focus, nextEdge, zoomLevel)
+            }
+            
+        default: break
+        }
+    }
+    
+    override func mouseDown(with event: NSEvent) {
+        
+    }
+    
+    override func rightMouseDown(with event: NSEvent) {
+        
+    }
+}
+
 extension SceneViewController: SoilableDelegate {
     
     func didBecomeDirty(soilable: Soilable) {

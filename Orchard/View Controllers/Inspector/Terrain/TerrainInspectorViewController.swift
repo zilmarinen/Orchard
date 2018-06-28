@@ -420,6 +420,19 @@ extension TerrainInspectorViewController {
                     westLayerEdgeTerrainTypeColorPaletteTertiary.fillColor = terrainLayerEdge.terrainType.colorPalette.tertiary.color
                     westLayerEdgeTerrainTypeColorPaletteQuaternary.fillColor = terrainLayerEdge.terrainType.colorPalette.quaternary.color
                 }
+                
+                sceneView.isPlaying = true
+                sceneView.inspectable.position = chunk.position
+                sceneView.inspectable.geometry = SCNGeometry(mesh: node.compactMesh())
+                
+                switch sceneView.cameraJib.stateMachine.state {
+                    
+                case .focus(_, let edge, let zoomLevel):
+                    
+                    let vector = SCNVector3(x: MDWFloat(node.volume.coordinate.x), y: World.Y(y: node.volume.coordinate.y), z: MDWFloat(node.volume.coordinate.z))
+                    
+                    sceneView.cameraJib.stateMachine.state = .focus(vector, edge, zoomLevel)
+                }
             }
             
         default: break

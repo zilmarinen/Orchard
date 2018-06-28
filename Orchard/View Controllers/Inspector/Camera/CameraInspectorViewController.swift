@@ -19,12 +19,37 @@ class CameraInspectorViewController: NSViewController {
     @IBOutlet weak var yRotationLabel: NSTextField!
     @IBOutlet weak var zRotationLabel: NSTextField!
     
+    @IBOutlet weak var selectedProjectionTypePopUp: NSPopUpButton!
+    
+    @IBOutlet weak var zNearLabel: NSTextField!
+    @IBOutlet weak var zFarLabel: NSTextField!
+    @IBOutlet weak var fovLabel: NSTextField!
+    @IBOutlet weak var scaleLabel: NSTextField!
+    
+    @IBAction func popUp(_ sender: NSPopUpButton) {
+        
+        switch viewModel.state {
+            
+        case .inspecting(let cameraJib):
+            
+            guard let camera = cameraJib.camera else { break }
+            
+            camera.usesOrthographicProjection = sender.indexOfSelectedItem == 0
+            
+            viewModel.state = .inspecting(cameraJib)
+            
+        default: break
+        }
+    }
+    
     @IBAction func textField(_ sender: NSTextField) {
         
         switch viewModel.state {
             
         case .inspecting(let cameraJib):
-        
+            
+            guard let camera = cameraJib.camera else { break }
+            
             switch sender {
             
             case xPositionLabel,
@@ -33,9 +58,29 @@ class CameraInspectorViewController: NSViewController {
             
                 cameraJib.position = SCNVector3(x: CGFloat(xPositionLabel.floatValue), y: CGFloat(yPositionLabel.floatValue), z: CGFloat(zPositionLabel.floatValue))
             
-            default:
+            case xRotationLabel,
+                 yRotationLabel,
+                 zRotationLabel:
             
                 cameraJib.eulerAngles = SCNVector3(x: CGFloat(xRotationLabel.floatValue), y: CGFloat(yRotationLabel.floatValue), z: CGFloat(zRotationLabel.floatValue))
+                
+            case zNearLabel:
+                
+                camera.zNear = zNearLabel.doubleValue
+                
+            case zFarLabel:
+                
+                camera.zFar = zFarLabel.doubleValue
+                
+            case fovLabel:
+                
+                camera.fieldOfView = MDWFloat(fovLabel.floatValue)
+                
+            case scaleLabel:
+                
+                camera.orthographicScale = scaleLabel.doubleValue
+                
+            default: break
             }
             
             viewModel.state = .inspecting(cameraJib)
@@ -68,13 +113,30 @@ extension CameraInspectorViewController {
             
         case .inspecting(let cameraJib):
             
-            xPositionLabel.stringValue = "\(cameraJib.position.x)"
-            yPositionLabel.stringValue = "\(cameraJib.position.y)"
-            zPositionLabel.stringValue = "\(cameraJib.position.z)"
+            guard let camera = cameraJib.camera else { break }
             
-            xRotationLabel.stringValue = "\(cameraJib.eulerAngles.x)"
-            yRotationLabel.stringValue = "\(cameraJib.eulerAngles.y)"
-            zRotationLabel.stringValue = "\(cameraJib.eulerAngles.z)"
+            selectedProjectionTypePopUp.removeAllItems()
+            
+            selectedProjectionTypePopUp.addItem(withTitle: "Orthographic")
+            selectedProjectionTypePopUp.addItem(withTitle: "Perspective")
+            
+            xPositionLabel.floatValue = Float(cameraJib.position.x)
+            yPositionLabel.floatValue = Float(cameraJib.position.y)
+            zPositionLabel.floatValue = Float(cameraJib.position.z)
+            
+            xRotationLabel.floatValue = Float(cameraJib.eulerAngles.x)
+            yRotationLabel.floatValue = Float(cameraJib.eulerAngles.y)
+            zRotationLabel.floatValue = Float(cameraJib.eulerAngles.z)
+            
+            selectedProjectionTypePopUp.selectItem(at: (camera.usesOrthographicProjection ? 0 : 1))
+            
+            zNearLabel.doubleValue = camera.zNear
+            zFarLabel.doubleValue = camera.zFar
+            fovLabel.floatValue = Float(camera.fieldOfView)
+            scaleLabel.doubleValue = camera.orthographicScale
+            
+            fovLabel.isEnabled = !camera.usesOrthographicProjection
+            scaleLabel.isEnabled = camera.usesOrthographicProjection
             
         default: break
         }
