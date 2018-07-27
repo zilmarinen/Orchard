@@ -92,7 +92,7 @@ class FootpathInspectorViewController: NSViewController {
                     
                     let inclination = (steepInclinationButton.state == .on)
                     
-                    node.slope = FootpathNodeSlope(edge: selectedEdge, steepInclination: inclination)
+                    node.slope = FootpathNode.Slope(edge: selectedEdge, steep: inclination)
                     
                 default:
                     
@@ -120,13 +120,13 @@ class FootpathInspectorViewController: NSViewController {
                 
             case selectedNodePopUp:
                 
-                guard let selectedNode = tile.sceneGraph(childAtIndex: sender.indexOfSelectedItem) as? FootpathNode else { break }
+                guard let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? FootpathNode else { break }
                 
                 viewModel.state = .inspecting(grid, (chunk, tile, selectedNode))
                 
             case selectedFootpathTypePopUp:
                 
-                let selectedFootpathType = grid.availableFootpathTypes[sender.indexOfSelectedItem]
+                guard let selectedFootpathType = FootpathType(rawValue: sender.indexOfSelectedItem) else { break }
                 
                 node.footpathType = selectedFootpathType
                 
@@ -142,7 +142,7 @@ class FootpathInspectorViewController: NSViewController {
                     
                     let inclination = (steepInclinationButton.state == .on)
                     
-                    node.slope = FootpathNodeSlope(edge: selectedEdge, steepInclination: inclination)
+                    node.slope = FootpathNode.Slope(edge: selectedEdge, steep: inclination)
                     
                 default:
                     
@@ -216,7 +216,7 @@ extension FootpathInspectorViewController {
                     selectedNodePopUp.addItem(withTitle: "Node \(index + 1)")
                 }
                 
-                if let index = tile.sceneGraph(indexOf: node) {
+                if let index = tile.index(of: node) {
                     
                     selectedNodePopUp.selectItem(at: index)
                 }
@@ -228,22 +228,22 @@ extension FootpathInspectorViewController {
                 heightNodeSizeLabel.integerValue = node.volume.size.height
                 depthNodeSizeLabel.integerValue = node.volume.size.depth
                 
-                grid.availableFootpathTypes.forEach { footpathType in
+                FootpathType.allCases.forEach { footpathType in
                     
                     selectedFootpathTypePopUp.addItem(withTitle: footpathType.name)
                 }
                 
-                if let footpathType = node.footpathType, let index = grid.availableFootpathTypes.index(of: footpathType) {
+                if let footpathType = node.footpathType, let index = FootpathType.allCases.index(of: footpathType), let colorPalette = footpathType.colorPalette {
                     
                     selectedFootpathTypePopUp.selectItem(at: index)
                     
-                    colorPalettePrimary.fillColor = footpathType.colorPalette.primary.color
-                    colorPaletteSecondary.fillColor = footpathType.colorPalette.secondary.color
-                    colorPaletteTertiary.fillColor = footpathType.colorPalette.tertiary.color
-                    colorPaletteQuaternary.fillColor = footpathType.colorPalette.quaternary.color
+                    colorPalettePrimary.fillColor = colorPalette.primary.color
+                    colorPaletteSecondary.fillColor = colorPalette.secondary.color
+                    colorPaletteTertiary.fillColor = colorPalette.tertiary.color
+                    colorPaletteQuaternary.fillColor = colorPalette.quaternary.color
                 }
                 
-                steepInclinationButton.state = (node.slope != nil && node.slope!.steepInclination ? .on : .off)
+                steepInclinationButton.state = (node.slope != nil && node.slope!.steep ? .on : .off)
                 slopeEdgeButton.state = (node.slope != nil ? .on : .off)
                 
                 selectedSlopeEdgePopUp.addItem(withTitle: GridEdge.north.description)

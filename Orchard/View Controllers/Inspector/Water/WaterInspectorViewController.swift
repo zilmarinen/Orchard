@@ -96,13 +96,13 @@ class WaterInspectorViewController: NSViewController {
                 
             case selectedNodePopUp:
                 
-                guard let selectedNode = tile.sceneGraph(childAtIndex: sender.indexOfSelectedItem) as? WaterNode else { break }
+                guard let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? WaterNode else { break }
                 
                 viewModel.state = .inspecting(grid, (chunk, tile, selectedNode))
                 
             case selectedWaterTypePopUp:
                 
-                let selectedWaterType = grid.availableWaterTypes[sender.indexOfSelectedItem]
+                guard let selectedWaterType = WaterType(rawValue: sender.indexOfSelectedItem) else { break }
                 
                 node.waterType = selectedWaterType
                 
@@ -169,7 +169,7 @@ extension WaterInspectorViewController {
                     selectedNodePopUp.addItem(withTitle: "Node \(index + 1)")
                 }
                 
-                if let index = tile.sceneGraph(indexOf: node) {
+                if let index = tile.index(of: node) {
                     
                     selectedNodePopUp.selectItem(at: index)
                 }
@@ -181,19 +181,19 @@ extension WaterInspectorViewController {
                 heightNodeSizeLabel.integerValue = node.volume.size.height
                 depthNodeSizeLabel.integerValue = node.volume.size.depth
                 
-                grid.availableWaterTypes.forEach { waterType in
+                WaterType.allCases.forEach { waterType in
                     
                     selectedWaterTypePopUp.addItem(withTitle: waterType.name)
                 }
                 
-                if let waterType = node.waterType, let index = grid.availableWaterTypes.index(of: waterType) {
+                if let waterType = node.waterType, let index = WaterType.allCases.index(of: waterType), let colorPalette = waterType.colorPalette {
                     
                     selectedWaterTypePopUp.selectItem(at: index)
                     
-                    colorPalettePrimary.fillColor = waterType.colorPalette.primary.color
-                    colorPaletteSecondary.fillColor = waterType.colorPalette.secondary.color
-                    colorPaletteTertiary.fillColor = waterType.colorPalette.tertiary.color
-                    colorPaletteQuaternary.fillColor = waterType.colorPalette.quaternary.color
+                    colorPalettePrimary.fillColor = colorPalette.primary.color
+                    colorPaletteSecondary.fillColor = colorPalette.secondary.color
+                    colorPaletteTertiary.fillColor = colorPalette.tertiary.color
+                    colorPaletteQuaternary.fillColor = colorPalette.quaternary.color
                 }
             }
             

@@ -38,33 +38,43 @@ class AreaInspectorViewController: NSViewController {
     @IBOutlet weak var heightNodeSizeLabel: NSTextField!
     @IBOutlet weak var depthNodeSizeLabel: NSTextField!
     
-    @IBOutlet weak var selectedSurfaceTypePopUp: NSPopUpButton!
+    @IBOutlet weak var selectedExternalAreaTypePopUp: NSPopUpButton!
+    @IBOutlet weak var selectedInternalAreaTypePopUp: NSPopUpButton!
     
-    @IBOutlet weak var surfaceTypeColorPalettePrimary: NSBox!
-    @IBOutlet weak var surfaceTypeColorPaletteSecondary: NSBox!
-    @IBOutlet weak var surfaceTypeColorPaletteTertiary: NSBox!
-    @IBOutlet weak var surfaceTypeColorPaletteQuaternary: NSBox!
+    @IBOutlet weak var selectedFloorColorPalettePopUp: NSPopUpButton!
     
-    @IBOutlet weak var selectedExternalPrefabTypePopUp: NSPopUpButton!
-    @IBOutlet weak var selectedExternalMaterialTypePopUp: NSPopUpButton!
+    @IBOutlet weak var floorColorPalettePrimary: NSBox!
+    @IBOutlet weak var floorColorPaletteSecondary: NSBox!
+    @IBOutlet weak var floorColorPaletteTertiary: NSBox!
+    @IBOutlet weak var floorColorPaletteQuaternary: NSBox!
     
-    @IBOutlet weak var externalMaterialTypeColorPalettePrimary: NSBox!
-    @IBOutlet weak var externalMaterialTypeColorPaletteSecondary: NSBox!
-    @IBOutlet weak var externalMaterialTypeColorPaletteTertiary: NSBox!
-    @IBOutlet weak var externalMaterialTypeColorPaletteQuaternary: NSBox!
+    @IBOutlet weak var selectedNorthEdgeTypePopup: NSPopUpButton!
+    @IBOutlet weak var selectedNorthEdgeColorPalettePopup: NSPopUpButton!
+    @IBOutlet weak var northEdgeColorPalettePrimary: NSBox!
+    @IBOutlet weak var northEdgeColorPaletteSecondary: NSBox!
+    @IBOutlet weak var northEdgeColorPaletteTertiary: NSBox!
+    @IBOutlet weak var northEdgeColorPaletteQuaternary: NSBox!
     
-    @IBOutlet weak var selectedInternalPrefabTypePopUp: NSPopUpButton!
-    @IBOutlet weak var selectedInternalMaterialTypePopUp: NSPopUpButton!
+    @IBOutlet weak var selectedEastEdgeTypePopup: NSPopUpButton!
+    @IBOutlet weak var selectedEastEdgeColorPalettePopup: NSPopUpButton!
+    @IBOutlet weak var eastEdgeColorPalettePrimary: NSBox!
+    @IBOutlet weak var eastEdgeColorPaletteSecondary: NSBox!
+    @IBOutlet weak var eastEdgeColorPaletteTertiary: NSBox!
+    @IBOutlet weak var eastEdgeColorPaletteQuaternary: NSBox!
     
-    @IBOutlet weak var internalMaterialTypeColorPalettePrimary: NSBox!
-    @IBOutlet weak var internalMaterialTypeColorPaletteSecondary: NSBox!
-    @IBOutlet weak var internalMaterialTypeColorPaletteTertiary: NSBox!
-    @IBOutlet weak var internalMaterialTypeColorPaletteQuaternary: NSBox!
+    @IBOutlet weak var selectedSouthEdgeTypePopup: NSPopUpButton!
+    @IBOutlet weak var selectedSouthEdgeColorPalettePopup: NSPopUpButton!
+    @IBOutlet weak var southEdgeColorPalettePrimary: NSBox!
+    @IBOutlet weak var southEdgeColorPaletteSecondary: NSBox!
+    @IBOutlet weak var southEdgeColorPaletteTertiary: NSBox!
+    @IBOutlet weak var southEdgeColorPaletteQuaternary: NSBox!
     
-    @IBOutlet weak var selectedNorthPerimeterTypePopUp: NSPopUpButton!
-    @IBOutlet weak var selectedEastPerimeterTypePopUp: NSPopUpButton!
-    @IBOutlet weak var selectedSouthPerimeterTypePopUp: NSPopUpButton!
-    @IBOutlet weak var selectedWestPerimeterTypePopUp: NSPopUpButton!
+    @IBOutlet weak var selectedWestEdgeTypePopup: NSPopUpButton!
+    @IBOutlet weak var selectedWestEdgeColorPalettePopup: NSPopUpButton!
+    @IBOutlet weak var westEdgeColorPalettePrimary: NSBox!
+    @IBOutlet weak var westEdgeColorPaletteSecondary: NSBox!
+    @IBOutlet weak var westEdgeColorPaletteTertiary: NSBox!
+    @IBOutlet weak var westEdgeColorPaletteQuaternary: NSBox!
     
     @IBAction func button(_ sender: NSButton) {
         
@@ -117,78 +127,62 @@ class AreaInspectorViewController: NSViewController {
                 
             case selectedNodePopUp:
                 
-                guard let selectedNode = tile.sceneGraph(childAtIndex: sender.indexOfSelectedItem) as? AreaNode else { break }
+                guard let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? AreaNode else { break }
                 
                 viewModel.state = .inspecting(grid, (chunk, tile, selectedNode))
                 
-            case selectedSurfaceTypePopUp:
+            case selectedFloorColorPalettePopUp:
                 
-                let selectedSurfaceType = grid.availableSurfaceTypes[sender.indexOfSelectedItem]
-                
-                node.surfaceType = selectedSurfaceType
-                
+//                let selectedColorPalette = grid.availableSurfaceTypes[sender.indexOfSelectedItem]
+//
+//                node.floorColorPalette = selectedSurfaceType
+//
                 viewModel.state = .inspecting(grid, inspectable)
                 
-            case selectedExternalPrefabTypePopUp,
-                 selectedInternalPrefabTypePopUp:
+            case selectedExternalAreaTypePopUp,
+                 selectedInternalAreaTypePopUp:
                 
-                let selectedPrefabType = AreaPrefabType.all[sender.indexOfSelectedItem]
+                guard let selectedAreaType = AreaType(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                if sender == selectedExternalPrefabTypePopUp {
+                if sender == selectedExternalAreaTypePopUp {
                  
-                    node.externalPrefabType = selectedPrefabType
+                    node.externalAreaType = selectedAreaType
                 }
                 else {
                     
-                    node.internalPrefabType = selectedPrefabType
+                    node.internalAreaType = selectedAreaType
                 }
                 
                 viewModel.state = .inspecting(grid, inspectable)
                 
-            case selectedExternalMaterialTypePopUp,
-                 selectedInternalMaterialTypePopUp:
-                
-                let selectedMaterialType = grid.availableMaterialTypes[sender.indexOfSelectedItem]
-                
-                if sender == selectedExternalMaterialTypePopUp {
-                    
-                    node.externalMaterialType = selectedMaterialType
-                }
-                else {
-                    
-                    node.internalMaterialType = selectedMaterialType
-                }
-                
-                viewModel.state = .inspecting(grid, inspectable)
-                
-            case selectedNorthPerimeterTypePopUp,
-                 selectedEastPerimeterTypePopUp,
-                 selectedSouthPerimeterTypePopUp,
-                 selectedWestPerimeterTypePopUp:
+            case selectedNorthEdgeTypePopup,
+                 selectedEastEdgeTypePopup,
+                 selectedSouthEdgeTypePopup,
+                 selectedWestEdgeTypePopup:
                 
                 var edge = GridEdge.north
                 
                 switch sender {
                     
-                case selectedEastPerimeterTypePopUp: edge = .east
+                case selectedEastEdgeTypePopup: edge = .east
                     
-                case selectedSouthPerimeterTypePopUp: edge = .south
+                case selectedSouthEdgeTypePopup: edge = .south
                     
-                case selectedWestPerimeterTypePopUp: edge = .west
+                case selectedWestEdgeTypePopup: edge = .west
                     
                 default: edge = .north
                 }
-                
-                if sender.indexOfSelectedItem == AreaPerimeterType.all.count {
-                    
-                    node.remove(perimeterType: edge)
-                }
-                else {
-                 
-                    let selectedPerimeterType = AreaPerimeterType.all[sender.indexOfSelectedItem]
-                    
-                    node.set(perimeterType: selectedPerimeterType, edge: edge)
-                }
+//
+//                if sender.indexOfSelectedItem == AreaPerimeterType.all.count {
+//
+//                    node.remove(perimeterType: edge)
+//                }
+//                else {
+//
+//                    let selectedPerimeterType = AreaPerimeterType.all[sender.indexOfSelectedItem]
+//
+//                    node.set(perimeterType: selectedPerimeterType, edge: edge)
+//                }
                 
                 viewModel.state = .inspecting(grid, inspectable)
                 
@@ -231,15 +225,6 @@ extension AreaInspectorViewController {
             nodeBox.isHidden = true
             
             selectedNodePopUp.removeAllItems()
-            selectedSurfaceTypePopUp.removeAllItems()
-            selectedExternalPrefabTypePopUp.removeAllItems()
-            selectedExternalMaterialTypePopUp.removeAllItems()
-            selectedInternalPrefabTypePopUp.removeAllItems()
-            selectedInternalMaterialTypePopUp.removeAllItems()
-            selectedNorthPerimeterTypePopUp.removeAllItems()
-            selectedEastPerimeterTypePopUp.removeAllItems()
-            selectedSouthPerimeterTypePopUp.removeAllItems()
-            selectedWestPerimeterTypePopUp.removeAllItems()
             
             if let (chunk, tile, node) = inspectable {
                 
@@ -261,7 +246,7 @@ extension AreaInspectorViewController {
                     selectedNodePopUp.addItem(withTitle: "Node \(index + 1)")
                 }
                 
-                if let index = tile.sceneGraph(indexOf: node) {
+                if let index = tile.index(of: node) {
                  
                     selectedNodePopUp.selectItem(at: index)
                 }
@@ -272,105 +257,6 @@ extension AreaInspectorViewController {
                 widthNodeSizeLabel.integerValue = node.volume.size.width
                 heightNodeSizeLabel.integerValue = node.volume.size.height
                 depthNodeSizeLabel.integerValue = node.volume.size.depth
-                
-                grid.availableSurfaceTypes.forEach { surfaceType in
-                    
-                    selectedSurfaceTypePopUp.addItem(withTitle: surfaceType.name)
-                }
-                
-                if let surfaceType = node.surfaceType, let index = grid.availableSurfaceTypes.index(of: surfaceType) {
-                    
-                    selectedSurfaceTypePopUp.selectItem(at: index)
-                    
-                    surfaceTypeColorPalettePrimary.fillColor = surfaceType.colorPalette.primary.color
-                    surfaceTypeColorPaletteSecondary.fillColor = surfaceType.colorPalette.secondary.color
-                    surfaceTypeColorPaletteTertiary.fillColor = surfaceType.colorPalette.tertiary.color
-                    surfaceTypeColorPaletteQuaternary.fillColor = surfaceType.colorPalette.quaternary.color
-                }
-                
-                grid.availableMaterialTypes.forEach { materialType in
-                    
-                    selectedExternalMaterialTypePopUp.addItem(withTitle: materialType.name)
-                    selectedInternalMaterialTypePopUp.addItem(withTitle: materialType.name)
-                }
-                
-                if let materialType = node.externalMaterialType, let index = grid.availableMaterialTypes.index(of: materialType) {
-                    
-                    selectedExternalMaterialTypePopUp.selectItem(at: index)
-                    
-                    externalMaterialTypeColorPalettePrimary.fillColor = materialType.colorPalette.primary.color
-                    externalMaterialTypeColorPaletteSecondary.fillColor = materialType.colorPalette.secondary.color
-                    externalMaterialTypeColorPaletteTertiary.fillColor = materialType.colorPalette.tertiary.color
-                    externalMaterialTypeColorPaletteQuaternary.fillColor = materialType.colorPalette.quaternary.color
-                }
-                
-                if let materialType = node.internalMaterialType, let index = grid.availableMaterialTypes.index(of: materialType) {
-                    
-                    selectedInternalMaterialTypePopUp.selectItem(at: index)
-                    
-                    internalMaterialTypeColorPalettePrimary.fillColor = materialType.colorPalette.primary.color
-                    internalMaterialTypeColorPaletteSecondary.fillColor = materialType.colorPalette.secondary.color
-                    internalMaterialTypeColorPaletteTertiary.fillColor = materialType.colorPalette.tertiary.color
-                    internalMaterialTypeColorPaletteQuaternary.fillColor = materialType.colorPalette.quaternary.color
-                }
-                
-                let prefabTypes = AreaPrefabType.all
-                
-                prefabTypes.forEach { areaPrefabType in
-                    
-                    selectedExternalPrefabTypePopUp.addItem(withTitle: areaPrefabType.description)
-                    selectedInternalPrefabTypePopUp.addItem(withTitle: areaPrefabType.description)
-                }
-                
-                if let index = prefabTypes.index(of: node.externalPrefabType) {
-                 
-                    selectedExternalPrefabTypePopUp.selectItem(at: index)
-                }
-                
-                if let index = prefabTypes.index(of: node.internalPrefabType) {
-                    
-                    selectedInternalPrefabTypePopUp.selectItem(at: index)
-                }
-                
-                let perimeterTypes = AreaPerimeterType.all
-                
-                perimeterTypes.forEach { perimeterType in
-                    
-                    selectedNorthPerimeterTypePopUp.addItem(withTitle: perimeterType.description)
-                    selectedEastPerimeterTypePopUp.addItem(withTitle: perimeterType.description)
-                    selectedSouthPerimeterTypePopUp.addItem(withTitle: perimeterType.description)
-                    selectedWestPerimeterTypePopUp.addItem(withTitle: perimeterType.description)
-                }
-                
-                selectedNorthPerimeterTypePopUp.addItem(withTitle: "None")
-                selectedEastPerimeterTypePopUp.addItem(withTitle: "None")
-                selectedSouthPerimeterTypePopUp.addItem(withTitle: "None")
-                selectedWestPerimeterTypePopUp.addItem(withTitle: "None")
-                
-                selectedNorthPerimeterTypePopUp.selectItem(at: perimeterTypes.count)
-                selectedEastPerimeterTypePopUp.selectItem(at: perimeterTypes.count)
-                selectedSouthPerimeterTypePopUp.selectItem(at: perimeterTypes.count)
-                selectedWestPerimeterTypePopUp.selectItem(at: perimeterTypes.count)
-                
-                if let perimeterEdge = node.get(perimeterEdge: .north), let index = perimeterTypes.index(of: perimeterEdge.perimeterType) {
-                    
-                    selectedNorthPerimeterTypePopUp.selectItem(at: index)
-                }
-                
-                if let perimeterEdge = node.get(perimeterEdge: .east), let index = perimeterTypes.index(of: perimeterEdge.perimeterType) {
-                    
-                    selectedEastPerimeterTypePopUp.selectItem(at: index)
-                }
-                
-                if let perimeterEdge = node.get(perimeterEdge: .south), let index = perimeterTypes.index(of: perimeterEdge.perimeterType) {
-                    
-                    selectedSouthPerimeterTypePopUp.selectItem(at: index)
-                }
-                
-                if let perimeterEdge = node.get(perimeterEdge: .west), let index = perimeterTypes.index(of: perimeterEdge.perimeterType) {
-                    
-                    selectedWestPerimeterTypePopUp.selectItem(at: index)
-                }
             }
             
         default: break

@@ -40,12 +40,12 @@ extension InspectorTabViewController {
             
             if let chunk = chunk, chunk.totalChildren > 0 {
                 
-                tile = chunk.sceneGraph(childAtIndex: 0) as? AreaTile
+                tile = chunk.child(at: 0) as? AreaTile
             }
             
             if let tile = tile, tile.totalChildren > 0 {
                 
-                node = tile.sceneGraph(childAtIndex: 0) as? AreaNode
+                node = tile.child(at: 0) as? AreaNode
             }
             
             if let node = node {
@@ -75,12 +75,12 @@ extension InspectorTabViewController {
             
             if let chunk = chunk, chunk.totalChildren > 0 {
                 
-                tile = chunk.sceneGraph(childAtIndex: 0) as? FoliageTile
+                tile = chunk.child(at: 0) as? FoliageTile
             }
             
             if let tile = tile, tile.totalChildren > 0 {
                 
-                node = tile.sceneGraph(childAtIndex: 0) as? FoliageNode
+                node = tile.child(at: 0) as? FoliageNode
             }
             
             if let node = node {
@@ -104,12 +104,12 @@ extension InspectorTabViewController {
             
             if let chunk = chunk, chunk.totalChildren > 0 {
                 
-                tile = chunk.sceneGraph(childAtIndex: 0) as? FootpathTile
+                tile = chunk.child(at: 0) as? FootpathTile
             }
             
             if let tile = tile, tile.totalChildren > 0 {
                 
-                node = tile.sceneGraph(childAtIndex: 0) as? FootpathNode
+                node = tile.child(at: 0) as? FootpathNode
             }
             
             if let node = node {
@@ -139,24 +139,23 @@ extension InspectorTabViewController {
             
             if let chunk = chunk, chunk.totalChildren > 0 {
                 
-                tile = chunk.sceneGraph(childAtIndex: 0) as? TerrainTile
+                tile = chunk.child(at: 0) as? TerrainTile
             }
             
             if let tile = tile, tile.totalChildren > 0 {
                 
-                node = tile.sceneGraph(childAtIndex: 0) as? TerrainNode
+                node = tile.child(at: 0) as? TerrainNode
             }
             
             if let node = node, node.totalChildren > 0 {
                 
-                layer = node.sceneGraph(childAtIndex: 0) as? TerrainLayer
+                layer = node.child(at: 0) as? TerrainLayer
             }
             
-            if let layer = layer {
+            if let layer = layer, let node = layer.observer as? TerrainNode {
                 
-                node = layer.node
-                tile = terrain.find(tile: layer.node.volume.coordinate)
-                chunk = terrain.find(chunk: layer.node.volume.coordinate)
+                tile = terrain.find(tile: node.volume.coordinate)
+                chunk = terrain.find(chunk: node.volume.coordinate)
             }
             
             switch viewController.viewModel.state {
@@ -190,12 +189,12 @@ extension InspectorTabViewController {
             
             if let chunk = chunk, chunk.totalChildren > 0 {
                 
-                tile = chunk.sceneGraph(childAtIndex: 0) as? WaterTile
+                tile = chunk.child(at: 0) as? WaterTile
             }
             
             if let tile = tile, tile.totalChildren > 0 {
                 
-                node = tile.sceneGraph(childAtIndex: 0) as? WaterNode
+                node = tile.child(at: 0) as? WaterNode
             }
             
             if let node = node {

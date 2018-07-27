@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Meadow
 
 class TerrainBuildUtilitiesViewController: NSViewController {
     
@@ -23,7 +24,7 @@ class TerrainBuildUtilitiesViewController: NSViewController {
             
         case .inspecting(let terrain, _):
             
-            let terrainType = terrain.availableTerrainTypes[sender.indexOfSelectedItem]
+            let terrainType = TerrainType(rawValue: sender.indexOfSelectedItem)
             
             viewModel.state = .inspecting(terrain, terrainType)
             
@@ -53,7 +54,7 @@ extension TerrainBuildUtilitiesViewController {
         
         switch to {
             
-        case .inspecting(let terrain, let terrainType):
+        case .inspecting(_, let terrainType):
             
             terrainTypePopUp.removeAllItems()
             
@@ -62,19 +63,19 @@ extension TerrainBuildUtilitiesViewController {
             colorPaletteTertiary.fillColor = NSColor.white
             colorPaletteQuaternary.fillColor = NSColor.white
             
-            terrain.availableTerrainTypes.forEach { terrainType in
+            TerrainType.allCases.forEach { terrainType in
                 
                 terrainTypePopUp.addItem(withTitle: terrainType.name)
             }
             
-            if let terrainType = terrainType, let index = terrain.availableTerrainTypes.index(of: terrainType) {
+            if let terrainType = terrainType, let index = TerrainType.allCases.index(of: terrainType), let colorPalette = terrainType.colorPalette {
                 
                 terrainTypePopUp.selectItem(at: index)
                 
-                colorPalettePrimary.fillColor = terrainType.colorPalette.primary.color
-                colorPaletteSecondary.fillColor = terrainType.colorPalette.secondary.color
-                colorPaletteTertiary.fillColor = terrainType.colorPalette.tertiary.color
-                colorPaletteQuaternary.fillColor = terrainType.colorPalette.quaternary.color
+                colorPalettePrimary.fillColor = colorPalette.primary.color
+                colorPaletteSecondary.fillColor = colorPalette.secondary.color
+                colorPaletteTertiary.fillColor = colorPalette.tertiary.color
+                colorPaletteQuaternary.fillColor = colorPalette.quaternary.color
             }
             
         default: break

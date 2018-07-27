@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Meadow
 
 class TerrainUtilitiesTabViewController: NSTabViewController {
 
@@ -42,7 +43,7 @@ extension TerrainUtilitiesTabViewController {
                 
             case .empty:
                 
-                viewController.viewModel.state = .inspecting(terrain, terrain.availableTerrainTypes.first)
+                viewController.viewModel.state = .inspecting(terrain, TerrainType.bedrock)
                 
             case .inspecting(let terrain, let terrainType):
                 
@@ -72,7 +73,7 @@ extension TerrainUtilitiesTabViewController {
                 
             case .empty:
                 
-                viewController.viewModel.state = .inspecting(terrain, terrain.availableTerrainTypes.first, .tile)
+                viewController.viewModel.state = .inspecting(terrain, TerrainType.bedrock, .tile)
                 
             case .inspecting(let terrain, let terrainType, let toolType):
                 

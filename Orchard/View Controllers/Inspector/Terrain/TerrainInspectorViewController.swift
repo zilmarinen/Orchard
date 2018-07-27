@@ -145,13 +145,13 @@ class TerrainInspectorViewController: NSViewController {
                 
             case selectedNodePopUp:
                 
-                guard let selectedNode = tile.sceneGraph(childAtIndex: sender.indexOfSelectedItem) as? TerrainNode, let selectedLayer = selectedNode.sceneGraph(childAtIndex: 0) as? TerrainLayer else { break }
+                guard let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? TerrainNode, let selectedLayer = selectedNode.child(at: 0) as? TerrainLayer else { break }
                 
                 viewModel.state = .inspecting(grid, (chunk, tile, selectedNode, selectedLayer), smooth)
                 
             case selectedLayerPopUp:
                 
-                guard let selectedLayer = node.sceneGraph(childAtIndex: sender.indexOfSelectedItem) as? TerrainLayer else { break }
+                guard let selectedLayer = node.child(at: sender.indexOfSelectedItem) as? TerrainLayer else { break }
                 
                 viewModel.state = .inspecting(grid, (chunk, tile, node, selectedLayer), smooth)
                 
@@ -160,7 +160,7 @@ class TerrainInspectorViewController: NSViewController {
                  southLayerEdgeTerrainTypePopUp,
                  westLayerEdgeTerrainTypePopUp:
                 
-                let selectedTerrainType = grid.availableTerrainTypes[sender.indexOfSelectedItem]
+                guard let selectedTerrainType = TerrainType(rawValue: sender.indexOfSelectedItem) else { break }
                 
                 switch sender {
                     
@@ -204,19 +204,19 @@ class TerrainInspectorViewController: NSViewController {
                 
             case northWestLayerCornerStepper:
                 
-                layer.set(height: sender.integerValue, corner: .northWest, smooth: smooth)
+                layer.set(height: sender.integerValue, corner: .northWest)
                 
             case northEastLayerCornerStepper:
                 
-                layer.set(height: sender.integerValue, corner: .northEast, smooth: smooth)
+                layer.set(height: sender.integerValue, corner: .northEast)
                 
             case southEastLayerCornerStepper:
                 
-                layer.set(height: sender.integerValue, corner: .southEast, smooth: smooth)
+                layer.set(height: sender.integerValue, corner: .southEast)
                 
             case southWestLayerCornerStepper:
                 
-                layer.set(height: sender.integerValue, corner: .southWest, smooth: smooth)
+                layer.set(height: sender.integerValue, corner: .southWest)
             
             default: break
             }
@@ -239,19 +239,19 @@ class TerrainInspectorViewController: NSViewController {
                 
             case upperNorthWestLayerCornerLabel:
                 
-                layer.set(height: sender.integerValue, corner: .northWest, smooth: smooth)
+                layer.set(height: sender.integerValue, corner: .northWest)
                 
             case upperNorthEastLayerCornerLabel:
                 
-                layer.set(height: sender.integerValue, corner: .northEast, smooth: smooth)
+                layer.set(height: sender.integerValue, corner: .northEast)
                 
             case upperSouthEastLayerCornerLabel:
                 
-                layer.set(height: sender.integerValue, corner: .southEast, smooth: smooth)
+                layer.set(height: sender.integerValue, corner: .southEast)
                 
             case upperSouthWestLayerCornerLabel:
                 
-                layer.set(height: sender.integerValue, corner: .southWest, smooth: smooth)
+                layer.set(height: sender.integerValue, corner: .southWest)
                 
             default: break
             }
@@ -323,7 +323,7 @@ extension TerrainInspectorViewController {
                     selectedNodePopUp.addItem(withTitle: "Node \(index + 1)")
                 }
                 
-                if let index = tile.sceneGraph(indexOf: node) {
+                if let index = tile.index(of: node) {
                     
                     selectedNodePopUp.selectItem(at: index)
                 }
@@ -340,27 +340,27 @@ extension TerrainInspectorViewController {
                     selectedLayerPopUp.addItem(withTitle: "Layer \(index + 1)")
                 }
                 
-                if let index = node.sceneGraph(indexOf: layer) {
+                if let index = node.index(of: layer) {
                     
                     selectedLayerPopUp.selectItem(at: index)
                 }
                 
                 smoothTerraformButton.state = (smooth ? .on : .off)
                 
-                northWestLayerCornerStepper.maxValue = Double(layer.upper?.get(height: .northWest) ?? World.Ceiling)
-                northWestLayerCornerStepper.minValue = Double(layer.lower?.get(height: .northWest) ?? World.Floor)
+                northWestLayerCornerStepper.maxValue = Double(layer.hierarchy.upper?.get(height: .northWest) ?? World.ceiling)
+                northWestLayerCornerStepper.minValue = Double(layer.hierarchy.lower?.get(height: .northWest) ?? World.floor)
                 northWestLayerCornerStepper.integerValue = layer.get(height: .northWest)
                 
-                northEastLayerCornerStepper.maxValue = Double(layer.upper?.get(height: .northEast) ?? World.Ceiling)
-                northEastLayerCornerStepper.minValue = Double(layer.lower?.get(height: .northEast) ?? World.Floor)
+                northEastLayerCornerStepper.maxValue = Double(layer.hierarchy.upper?.get(height: .northEast) ?? World.ceiling)
+                northEastLayerCornerStepper.minValue = Double(layer.hierarchy.lower?.get(height: .northEast) ?? World.floor)
                 northEastLayerCornerStepper.integerValue = layer.get(height: .northEast)
                 
-                southEastLayerCornerStepper.maxValue = Double(layer.upper?.get(height: .southEast) ?? World.Ceiling)
-                southEastLayerCornerStepper.minValue = Double(layer.lower?.get(height: .southEast) ?? World.Floor)
+                southEastLayerCornerStepper.maxValue = Double(layer.hierarchy.upper?.get(height: .southEast) ?? World.ceiling)
+                southEastLayerCornerStepper.minValue = Double(layer.hierarchy.lower?.get(height: .southEast) ?? World.floor)
                 southEastLayerCornerStepper.integerValue = layer.get(height: .southEast)
                 
-                southWestLayerCornerStepper.maxValue = Double(layer.upper?.get(height: .southWest) ?? World.Ceiling)
-                southWestLayerCornerStepper.minValue = Double(layer.lower?.get(height: .southWest) ?? World.Floor)
+                southWestLayerCornerStepper.maxValue = Double(layer.hierarchy.upper?.get(height: .southWest) ?? World.ceiling)
+                southWestLayerCornerStepper.minValue = Double(layer.hierarchy.lower?.get(height: .southWest) ?? World.floor)
                 southWestLayerCornerStepper.integerValue = layer.get(height: .southWest)
                 
                 upperNorthWestLayerCornerLabel.integerValue = northWestLayerCornerStepper.integerValue
@@ -368,12 +368,12 @@ extension TerrainInspectorViewController {
                 upperSouthEastLayerCornerLabel.integerValue = southEastLayerCornerStepper.integerValue
                 upperSouthWestLayerCornerLabel.integerValue = southWestLayerCornerStepper.integerValue
                 
-                lowerNorthWestLayerCornerLabel.integerValue = (layer.lower?.get(height: .northWest) ?? World.Floor)
-                lowerNorthEastLayerCornerLabel.integerValue = (layer.lower?.get(height: .northEast) ?? World.Floor)
-                lowerSouthEastLayerCornerLabel.integerValue = (layer.lower?.get(height: .southEast) ?? World.Floor)
-                lowerSouthWestLayerCornerLabel.integerValue = (layer.lower?.get(height: .southWest) ?? World.Floor)
+                lowerNorthWestLayerCornerLabel.integerValue = (layer.hierarchy.lower?.get(height: .northWest) ?? World.floor)
+                lowerNorthEastLayerCornerLabel.integerValue = (layer.hierarchy.lower?.get(height: .northEast) ?? World.floor)
+                lowerSouthEastLayerCornerLabel.integerValue = (layer.hierarchy.lower?.get(height: .southEast) ?? World.floor)
+                lowerSouthWestLayerCornerLabel.integerValue = (layer.hierarchy.lower?.get(height: .southWest) ?? World.floor)
                 
-                grid.availableTerrainTypes.forEach { terrainType in
+                TerrainType.allCases.forEach { terrainType in
                     
                     northLayerEdgeTerrainTypePopUp.addItem(withTitle: terrainType.name)
                     eastLayerEdgeTerrainTypePopUp.addItem(withTitle: terrainType.name)
@@ -381,55 +381,60 @@ extension TerrainInspectorViewController {
                     westLayerEdgeTerrainTypePopUp.addItem(withTitle: terrainType.name)
                 }
                 
-                if let terrainLayerEdge = layer.get(terrainEdge: .north), let index = grid.availableTerrainTypes.index(of: terrainLayerEdge.terrainType) {
+                let northTerrainType = layer.get(terrainType: .north)
+                let eastTerrainType = layer.get(terrainType: .north)
+                let southTerrainType = layer.get(terrainType: .north)
+                let westTerrainType = layer.get(terrainType: .north)
+                
+                if let index = TerrainType.allCases.index(of: northTerrainType), let colorPalette = northTerrainType.colorPalette {
                     
                     northLayerEdgeTerrainTypePopUp.selectItem(at: index)
                     
-                    northLayerEdgeTerrainTypeColorPalettePrimary.fillColor = terrainLayerEdge.terrainType.colorPalette.primary.color
-                    northLayerEdgeTerrainTypeColorPaletteSecondary.fillColor = terrainLayerEdge.terrainType.colorPalette.secondary.color
-                    northLayerEdgeTerrainTypeColorPaletteTertiary.fillColor = terrainLayerEdge.terrainType.colorPalette.tertiary.color
-                    northLayerEdgeTerrainTypeColorPaletteQuaternary.fillColor = terrainLayerEdge.terrainType.colorPalette.quaternary.color
+                    northLayerEdgeTerrainTypeColorPalettePrimary.fillColor = colorPalette.primary.color
+                    northLayerEdgeTerrainTypeColorPaletteSecondary.fillColor = colorPalette.secondary.color
+                    northLayerEdgeTerrainTypeColorPaletteTertiary.fillColor = colorPalette.tertiary.color
+                    northLayerEdgeTerrainTypeColorPaletteQuaternary.fillColor = colorPalette.quaternary.color
                 }
                 
-                if let terrainLayerEdge = layer.get(terrainEdge: .east), let index = grid.availableTerrainTypes.index(of: terrainLayerEdge.terrainType) {
+                if let index = TerrainType.allCases.index(of: eastTerrainType), let colorPalette = eastTerrainType.colorPalette {
                     
                     eastLayerEdgeTerrainTypePopUp.selectItem(at: index)
                     
-                    eastLayerEdgeTerrainTypeColorPalettePrimary.fillColor = terrainLayerEdge.terrainType.colorPalette.primary.color
-                    eastLayerEdgeTerrainTypeColorPaletteSecondary.fillColor = terrainLayerEdge.terrainType.colorPalette.secondary.color
-                    eastLayerEdgeTerrainTypeColorPaletteTertiary.fillColor = terrainLayerEdge.terrainType.colorPalette.tertiary.color
-                    eastLayerEdgeTerrainTypeColorPaletteQuaternary.fillColor = terrainLayerEdge.terrainType.colorPalette.quaternary.color
+                    eastLayerEdgeTerrainTypeColorPalettePrimary.fillColor = colorPalette.primary.color
+                    eastLayerEdgeTerrainTypeColorPaletteSecondary.fillColor = colorPalette.secondary.color
+                    eastLayerEdgeTerrainTypeColorPaletteTertiary.fillColor = colorPalette.tertiary.color
+                    eastLayerEdgeTerrainTypeColorPaletteQuaternary.fillColor = colorPalette.quaternary.color
                 }
                 
-                if let terrainLayerEdge = layer.get(terrainEdge: .south), let index = grid.availableTerrainTypes.index(of: terrainLayerEdge.terrainType) {
+                if let index = TerrainType.allCases.index(of: southTerrainType), let colorPalette = southTerrainType.colorPalette {
                     
                     southLayerEdgeTerrainTypePopUp.selectItem(at: index)
                     
-                    southLayerEdgeTerrainTypeColorPalettePrimary.fillColor = terrainLayerEdge.terrainType.colorPalette.primary.color
-                    southLayerEdgeTerrainTypeColorPaletteSecondary.fillColor = terrainLayerEdge.terrainType.colorPalette.secondary.color
-                    southLayerEdgeTerrainTypeColorPaletteTertiary.fillColor = terrainLayerEdge.terrainType.colorPalette.tertiary.color
-                    southLayerEdgeTerrainTypeColorPaletteQuaternary.fillColor = terrainLayerEdge.terrainType.colorPalette.quaternary.color
+                    southLayerEdgeTerrainTypeColorPalettePrimary.fillColor = colorPalette.primary.color
+                    southLayerEdgeTerrainTypeColorPaletteSecondary.fillColor = colorPalette.secondary.color
+                    southLayerEdgeTerrainTypeColorPaletteTertiary.fillColor = colorPalette.tertiary.color
+                    southLayerEdgeTerrainTypeColorPaletteQuaternary.fillColor = colorPalette.quaternary.color
                 }
                 
-                if let terrainLayerEdge = layer.get(terrainEdge: .west), let index = grid.availableTerrainTypes.index(of: terrainLayerEdge.terrainType) {
+                if let index = TerrainType.allCases.index(of: westTerrainType), let colorPalette = westTerrainType.colorPalette {
                     
                     westLayerEdgeTerrainTypePopUp.selectItem(at: index)
                     
-                    westLayerEdgeTerrainTypeColorPalettePrimary.fillColor = terrainLayerEdge.terrainType.colorPalette.primary.color
-                    westLayerEdgeTerrainTypeColorPaletteSecondary.fillColor = terrainLayerEdge.terrainType.colorPalette.secondary.color
-                    westLayerEdgeTerrainTypeColorPaletteTertiary.fillColor = terrainLayerEdge.terrainType.colorPalette.tertiary.color
-                    westLayerEdgeTerrainTypeColorPaletteQuaternary.fillColor = terrainLayerEdge.terrainType.colorPalette.quaternary.color
+                    westLayerEdgeTerrainTypeColorPalettePrimary.fillColor = colorPalette.primary.color
+                    westLayerEdgeTerrainTypeColorPaletteSecondary.fillColor = colorPalette.secondary.color
+                    westLayerEdgeTerrainTypeColorPaletteTertiary.fillColor = colorPalette.tertiary.color
+                    westLayerEdgeTerrainTypeColorPaletteQuaternary.fillColor = colorPalette.quaternary.color
                 }
                 
                 sceneView.isPlaying = true
                 sceneView.inspectable.position = chunk.position
-                sceneView.inspectable.geometry = SCNGeometry(mesh: node.compactMesh())
+                sceneView.inspectable.geometry = SCNGeometry(mesh: node.mesh)
                 
                 switch sceneView.cameraJib.stateMachine.state {
                     
                 case .focus(_, let edge, let zoomLevel):
                     
-                    let vector = SCNVector3(x: MDWFloat(node.volume.coordinate.x), y: World.Y(y: node.volume.coordinate.y), z: MDWFloat(node.volume.coordinate.z))
+                    let vector = SCNVector3(x: MDWFloat(node.volume.coordinate.x), y: Axis.Y(y: node.volume.coordinate.y), z: MDWFloat(node.volume.coordinate.z))
                     
                     sceneView.cameraJib.stateMachine.state = .focus(vector, edge, zoomLevel)
                 }

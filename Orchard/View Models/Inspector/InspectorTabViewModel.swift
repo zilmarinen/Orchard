@@ -19,7 +19,7 @@ extension InspectorTabViewController {
         case foliage(Foliage, FoliageChunk?, FoliageTile?, FoliageNode?)
         case footpath(Footpath, FootpathChunk?, FootpathTile?, FootpathNode?)
         case scene(Meadow)
-        case terrain(Terrain, TerrainChunk?, TerrainTile?, TerrainNode?, TerrainLayer?)
+        case terrain(Terrain, TerrainChunk?, TerrainTile?, TerrainNode<TerrainLayer>?, TerrainLayer?)
         case water(Water, WaterChunk?, WaterTile?, WaterNode?)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {

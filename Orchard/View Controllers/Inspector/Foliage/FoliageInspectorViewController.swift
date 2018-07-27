@@ -89,7 +89,7 @@ class FoliageInspectorViewController: NSViewController {
                 
             case selectedNodePopUp:
                 
-                guard let selectedNode = tile.sceneGraph(childAtIndex: sender.indexOfSelectedItem) as? FoliageNode else { break }
+                guard let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? FoliageNode else { break }
                 
                 viewModel.state = .inspecting(grid, (chunk, tile, selectedNode))
                 
@@ -153,7 +153,7 @@ extension FoliageInspectorViewController {
                     selectedNodePopUp.addItem(withTitle: "Node \(index + 1)")
                 }
                 
-                if let index = tile.sceneGraph(indexOf: node) {
+                if let index = tile.index(of: node) {
                     
                     selectedNodePopUp.selectItem(at: index)
                 }

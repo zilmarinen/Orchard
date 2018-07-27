@@ -65,7 +65,7 @@ extension OrchardViewController: SceneGraphDataSource {
             
             return 1
         }
-        if let item = item as? SceneGraphNode {
+        if let item = item as? SceneGraphParent {
             
             return item.totalChildren
         }
@@ -87,9 +87,9 @@ extension OrchardViewController: SceneGraphDataSource {
             
             return meadow.rootNode
         }
-        if let item = item as? SceneGraphNode {
+        if let item = item as? SceneGraphParent {
             
-            if let child = item.sceneGraph(childAtIndex: index) {
+            if let child = item.child(at: index) {
                 
                 return child
             }
@@ -121,9 +121,9 @@ extension OrchardViewController: SceneGraphDelegate {
             view.textField?.stringValue = "Camera"
             view.imageView?.image = NSImage(named: NSImage.Name("grid_icon"))
         }
-        else if let item = item as? SceneGraphNode {
+        else if let item = item as? SceneGraphChild {
             
-            view.textField?.stringValue = item.nodeName
+            view.textField?.stringValue = item.name ?? ""
             view.imageView?.image = NSImage(named: NSImage.Name("grid_icon"))
         }
         
@@ -134,9 +134,9 @@ extension OrchardViewController: SceneGraphDelegate {
     
         guard let meadow = sceneViewController?.meadow else { return }
         
-        if let item = item as? SceneGraphNode {
+        if let item = item as? GridChild {
             
-            let vector = SCNVector3(x: MDWFloat(item.volume.coordinate.x), y: World.Y(y: item.volume.coordinate.y), z: MDWFloat(item.volume.coordinate.z))
+            let vector = SCNVector3(x: MDWFloat(item.volume.coordinate.x), y: Axis.Y(y: item.volume.coordinate.y), z: MDWFloat(item.volume.coordinate.z))
             
             switch meadow.cameraJib.stateMachine.state {
                 
@@ -181,7 +181,7 @@ extension OrchardViewController: SceneGraphDelegate {
         case is Terrain.Type,
              is TerrainChunk.Type,
              is TerrainTile.Type,
-             is TerrainNode.Type,
+             is TerrainNode<TerrainLayer>.Type,
              is TerrainLayer.Type:
             
             inspectorTabViewController?.viewModel.state = .terrain(meadow.terrain, item as? TerrainChunk, item as? TerrainTile, item as? TerrainNode, item as? TerrainLayer)
@@ -272,9 +272,9 @@ extension OrchardViewController {
     }
 }
 
-extension OrchardViewController: SoilableDelegate {
+extension OrchardViewController: GridObserver {
     
-    func didBecomeDirty(soilable: Soilable) {
+    func child(didBecomeDirty child: SceneGraphChild) {
         
         DispatchQueue.main.async {
             
@@ -310,7 +310,7 @@ extension OrchardViewController: SegueHandlerType {
             
             if let sceneViewController = sceneViewController {
                 
-                sceneViewController.delegate = self
+                sceneViewController.observer = self
             }
         }
     }

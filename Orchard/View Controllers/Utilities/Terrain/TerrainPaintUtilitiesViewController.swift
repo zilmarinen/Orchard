@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Meadow
 
 class TerrainPaintUtilitiesViewController: NSViewController {
 
@@ -28,13 +29,13 @@ class TerrainPaintUtilitiesViewController: NSViewController {
                 
             case terrainTypePopUp:
                 
-                let selectedTerrainType = terrain.availableTerrainTypes[sender.indexOfSelectedItem]
+                guard let selectedTerrainType = TerrainType(rawValue: sender.indexOfSelectedItem) else { break }
                 
                 viewModel.state = .inspecting(terrain, selectedTerrainType, toolType)
                 
             case toolTypePopUp:
                 
-                let selectedToolType = ToolType(rawValue: sender.indexOfSelectedItem)!
+                guard let selectedToolType = ToolType(rawValue: sender.indexOfSelectedItem) else { break }
                 
                 viewModel.state = .inspecting(terrain, terrainType, selectedToolType)
                 
@@ -67,7 +68,7 @@ extension TerrainPaintUtilitiesViewController {
         
         switch to {
             
-        case .inspecting(let terrain, let terrainType, let toolType):
+        case .inspecting(_, let terrainType, let toolType):
             
             terrainTypePopUp.removeAllItems()
             toolTypePopUp.removeAllItems()
@@ -77,7 +78,7 @@ extension TerrainPaintUtilitiesViewController {
             colorPaletteTertiary.fillColor = NSColor.white
             colorPaletteQuaternary.fillColor = NSColor.white
             
-            terrain.availableTerrainTypes.forEach { terrainType in
+            TerrainType.allCases.forEach { terrainType in
                 
                 terrainTypePopUp.addItem(withTitle: terrainType.name)
             }
@@ -87,14 +88,14 @@ extension TerrainPaintUtilitiesViewController {
             
             toolTypePopUp.selectItem(at: toolType.rawValue)
             
-            if let terrainType = terrainType, let index = terrain.availableTerrainTypes.index(of: terrainType) {
+            if let terrainType = terrainType, let index = TerrainType.allCases.index(of: terrainType), let colorPalette = terrainType.colorPalette {
                 
                 terrainTypePopUp.selectItem(at: index)
                 
-                colorPalettePrimary.fillColor = terrainType.colorPalette.primary.color
-                colorPaletteSecondary.fillColor = terrainType.colorPalette.secondary.color
-                colorPaletteTertiary.fillColor = terrainType.colorPalette.tertiary.color
-                colorPaletteQuaternary.fillColor = terrainType.colorPalette.quaternary.color
+                colorPalettePrimary.fillColor = colorPalette.primary.color
+                colorPaletteSecondary.fillColor = colorPalette.secondary.color
+                colorPaletteTertiary.fillColor = colorPalette.tertiary.color
+                colorPaletteQuaternary.fillColor = colorPalette.quaternary.color
             }
             
         default: break

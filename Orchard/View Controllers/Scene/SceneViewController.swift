@@ -15,14 +15,14 @@ class SceneViewController: NSViewController {
     
     var meadow: Meadow!
 
-    var delegate: SoilableDelegate?
+    var observer: GridObserver?
 }
 
 extension SceneViewController {
     
     override func awakeFromNib() {
         
-        self.meadow = Meadow(delegate: self)
+        self.meadow = Meadow(observer: self)
     }
     
     override func viewDidLoad() {
@@ -37,26 +37,20 @@ extension SceneViewController {
         
             for z in 0..<10 {
             
-                let coordinate = Coordinate(x: x, y: World.Floor, z: z)
+                let coordinate = Coordinate(x: x, y: World.floor, z: z)
                 
                 if let terrainNode = meadow.terrain.add(node: coordinate) {
                 
-                    if let terrainType = meadow.terrain.availableTerrainTypes.first {
-                        
-                        let _ = terrainNode.add(layer: terrainType)
-                    }
+                    let _ = terrainNode.add(layer: TerrainType.bedrock)
                     
-                    if let terrainType = meadow.terrain.availableTerrainTypes.last {
-                        
-                        let _ = terrainNode.add(layer: terrainType)
-                    }
+                    let _ = terrainNode.add(layer: TerrainType.grass)
                 }
             }
         }
         
         for x in 0..<10 {
             
-            let coordinate = Coordinate(x: x, y: World.Floor, z: 1)
+            let coordinate = Coordinate(x: x, y: World.floor, z: 1)
                 
             if let terrainNode = meadow.terrain.find(node: coordinate) {
                 
@@ -72,57 +66,22 @@ extension SceneViewController {
         
         for z in 0..<10 {
             
-            let coordinate = Coordinate(x: 1, y: World.Floor + 2, z: z)
+            let coordinate = Coordinate(x: 1, y: World.floor + 2, z: z)
          
             _ = meadow.footpaths.add(node: coordinate)
         }
         
-        for x in 3..<7 {
+        if let waterNode = meadow.water.add(node: Coordinate(x: 9, y: World.floor, z: 9)) {
             
-            for z in 3..<7 {
-                
-                let coordinate = Coordinate(x: x, y: World.Floor + 2, z: z)
-        
-                if let areaNode = meadow.areas.add(node: coordinate) {
-            
-                    areaNode.surfaceType = meadow.areas.availableSurfaceTypes.last
-                    areaNode.internalMaterialType = meadow.areas.availableMaterialTypes[1]
-                    
-                    if x == 3 {
-                        
-                        areaNode.set(perimeterType: .wall, edge: .east)
-                    }
-                    
-                    if x == 6 {
-                        
-                        areaNode.set(perimeterType: .wall, edge: .west)
-                    }
-                    
-                    if z == 3 {
-                        
-                        areaNode.set(perimeterType: .wall, edge: .south)
-                    }
-                    
-                    if z == 6 {
-                        
-                        areaNode.set(perimeterType: .wall, edge: .north)
-                    }
-                }
-            }
-        }
-        
-        if let waterNode = meadow.water.add(node: Coordinate(x: 9, y: World.Floor, z: 9)) {
-            
-            waterNode.waterType = meadow.water.availableWaterTypes.first
-            waterNode.waterLevel = (World.Floor + 4)
+            waterNode.waterLevel = (World.floor + 4)
         }
     }
 }
 
-extension SceneViewController: SoilableDelegate {
+extension SceneViewController: GridObserver {
     
-    func didBecomeDirty(soilable: Soilable) {
+    func child(didBecomeDirty child: SceneGraphChild) {
         
-        delegate?.didBecomeDirty(soilable: soilable)
+        observer?.child(didBecomeDirty: child)
     }
 }
