@@ -54,6 +54,28 @@ extension SceneViewController {
             }
         }
         
+        for x in 0..<10 {
+            
+            let coordinate = Coordinate(x: x, y: World.Floor, z: 1)
+                
+            if let terrainNode = meadow.terrain.find(node: coordinate) {
+                
+                if let terrainLayer = terrainNode.topLayer {
+                    
+                    terrainLayer.set(height: 0, corner: .northWest)
+                    terrainLayer.set(height: 0, corner: .northEast)
+                    terrainLayer.set(height: 0, corner: .southEast)
+                    terrainLayer.set(height: 0, corner: .southWest)
+                }
+            }
+        }
+        
+        for z in 0..<10 {
+            
+            let coordinate = Coordinate(x: 1, y: World.Floor + 2, z: z)
+         
+            _ = meadow.footpaths.add(node: coordinate)
+        }
         
         for x in 3..<7 {
             
@@ -88,63 +110,12 @@ extension SceneViewController {
                 }
             }
         }
-    }
-}
-
-extension SceneViewController {
-    
-    enum KeyCodes: Int {
         
-        case q = 12
-        case w = 13
-        case e = 14
-        case a = 0
-        case s = 1
-        case d = 2
-    }
-    
-    override func scrollWheel(with event: NSEvent) {
-    
-        switch meadow.cameraJib.stateMachine.state {
-        
-        case .focus(let focus, let edge, let zoomLevel):
+        if let waterNode = meadow.water.add(node: Coordinate(x: 9, y: World.Floor, z: 9)) {
             
-            let newZoomLevel = (zoomLevel + event.deltaY)
-            
-            meadow.cameraJib.stateMachine.state = .focus(focus, edge, newZoomLevel)
+            waterNode.waterType = meadow.water.availableWaterTypes.first
+            waterNode.waterLevel = (World.Floor + 4)
         }
-    }
-    
-    override func keyUp(with event: NSEvent) {
-        
-        guard let keyCode = KeyCodes(rawValue: Int(event.keyCode)) else { return }
-        
-        switch keyCode {
-            
-        case .q,
-             .e:
-            
-            switch meadow.cameraJib.stateMachine.state {
-                
-            case .focus(let focus, let edge, let zoomLevel):
-                
-                let clockwise = (keyCode == .q)
-                
-                let nextEdge = GridEdge(rawValue: (clockwise ? (edge == .west ? GridEdge.north.rawValue : (edge.rawValue + 1)) : (edge == .north ? GridEdge.west.rawValue : (edge.rawValue - 1))))!
-                
-                meadow.cameraJib.stateMachine.state = .focus(focus, nextEdge, zoomLevel)
-            }
-            
-        default: break
-        }
-    }
-    
-    override func mouseDown(with event: NSEvent) {
-        
-    }
-    
-    override func rightMouseDown(with event: NSEvent) {
-        
     }
 }
 

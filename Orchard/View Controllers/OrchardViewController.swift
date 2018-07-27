@@ -209,13 +209,79 @@ extension OrchardViewController: SceneGraphDelegate {
     }
 }
 
+extension OrchardViewController {
+    
+    enum KeyCodes: Int {
+        
+        case q = 12
+        case w = 13
+        case e = 14
+        case a = 0
+        case s = 1
+        case d = 2
+    }
+    
+    override func scrollWheel(with event: NSEvent) {
+        
+        guard let meadow = sceneViewController?.meadow else { return }
+        
+        switch meadow.cameraJib.stateMachine.state {
+            
+        case .focus(let focus, let edge, let zoomLevel):
+            
+            let newZoomLevel = (zoomLevel + event.deltaY)
+            
+            meadow.cameraJib.stateMachine.state = .focus(focus, edge, newZoomLevel)
+        }
+    }
+    
+    override func keyUp(with event: NSEvent) {
+        
+        guard let meadow = sceneViewController?.meadow, let keyCode = KeyCodes(rawValue: Int(event.keyCode)) else { return }
+        
+        switch keyCode {
+            
+        case .q,
+             .e:
+            
+            switch meadow.cameraJib.stateMachine.state {
+                
+            case .focus(let focus, let edge, let zoomLevel):
+                
+                let clockwise = (keyCode == .q)
+                
+                let nextEdge = GridEdge(rawValue: (clockwise ? (edge == .west ? GridEdge.north.rawValue : (edge.rawValue + 1)) : (edge == .north ? GridEdge.west.rawValue : (edge.rawValue - 1))))!
+                
+                meadow.cameraJib.stateMachine.state = .focus(focus, nextEdge, zoomLevel)
+            }
+        case .a:
+            
+            print("a")
+            
+        default: break
+        }
+    }
+    
+    override func mouseDown(with event: NSEvent) {
+        
+        
+    }
+    
+    override func rightMouseDown(with event: NSEvent) {
+        
+    }
+}
+
 extension OrchardViewController: SoilableDelegate {
     
     func didBecomeDirty(soilable: Soilable) {
         
-        sceneGraphViewController?.outlineView.reloadData()
-        
-        sceneViewController?.sceneView.isPlaying = true
+        DispatchQueue.main.async {
+            
+            self.sceneGraphViewController?.outlineView.reloadData()
+            
+            self.sceneViewController?.sceneView.isPlaying = true
+        }
     }
 }
 
