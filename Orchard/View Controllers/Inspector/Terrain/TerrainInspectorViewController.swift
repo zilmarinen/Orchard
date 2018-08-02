@@ -42,8 +42,6 @@ class TerrainInspectorViewController: NSViewController {
     
     @IBOutlet weak var selectedLayerPopUp: NSPopUpButton!
     
-    @IBOutlet weak var smoothTerraformButton: NSButton!
-    
     @IBOutlet weak var upperNorthWestLayerCornerLabel: NSTextField!
     @IBOutlet weak var upperNorthEastLayerCornerLabel: NSTextField!
     @IBOutlet weak var upperSouthEastLayerCornerLabel: NSTextField!
@@ -59,36 +57,16 @@ class TerrainInspectorViewController: NSViewController {
     @IBOutlet weak var southEastLayerCornerStepper: NSStepper!
     @IBOutlet weak var southWestLayerCornerStepper: NSStepper!
     
-    @IBOutlet weak var northLayerEdgeTerrainTypePopUp: NSPopUpButton!
-    @IBOutlet weak var eastLayerEdgeTerrainTypePopUp: NSPopUpButton!
-    @IBOutlet weak var southLayerEdgeTerrainTypePopUp: NSPopUpButton!
-    @IBOutlet weak var westLayerEdgeTerrainTypePopUp: NSPopUpButton!
+    @IBOutlet weak var selectedEdgePopup: NSPopUpButton!
+    @IBOutlet weak var selectedTerrainTypePopup: NSPopUpButton!
     
-    @IBOutlet weak var northLayerEdgeTerrainTypeColorPalettePrimary: NSBox!
-    @IBOutlet weak var northLayerEdgeTerrainTypeColorPaletteSecondary: NSBox!
-    @IBOutlet weak var northLayerEdgeTerrainTypeColorPaletteTertiary: NSBox!
-    @IBOutlet weak var northLayerEdgeTerrainTypeColorPaletteQuaternary: NSBox!
-    
-    @IBOutlet weak var eastLayerEdgeTerrainTypeColorPalettePrimary: NSBox!
-    @IBOutlet weak var eastLayerEdgeTerrainTypeColorPaletteSecondary: NSBox!
-    @IBOutlet weak var eastLayerEdgeTerrainTypeColorPaletteTertiary: NSBox!
-    @IBOutlet weak var eastLayerEdgeTerrainTypeColorPaletteQuaternary: NSBox!
-    
-    @IBOutlet weak var southLayerEdgeTerrainTypeColorPalettePrimary: NSBox!
-    @IBOutlet weak var southLayerEdgeTerrainTypeColorPaletteSecondary: NSBox!
-    @IBOutlet weak var southLayerEdgeTerrainTypeColorPaletteTertiary: NSBox!
-    @IBOutlet weak var southLayerEdgeTerrainTypeColorPaletteQuaternary: NSBox!
-    
-    @IBOutlet weak var westLayerEdgeTerrainTypeColorPalettePrimary: NSBox!
-    @IBOutlet weak var westLayerEdgeTerrainTypeColorPaletteSecondary: NSBox!
-    @IBOutlet weak var westLayerEdgeTerrainTypeColorPaletteTertiary: NSBox!
-    @IBOutlet weak var westLayerEdgeTerrainTypeColorPaletteQuaternary: NSBox!
+    @IBOutlet weak var terrainTypeColorPaletteView: ColorPaletteView!
     
     @IBAction func button(_ sender: NSButton) {
         
         switch viewModel.state {
             
-        case .inspecting(let grid, let inspectable, var smooth):
+        case .inspecting(let grid, let inspectable):
             
             switch sender {
                 
@@ -98,36 +76,32 @@ class TerrainInspectorViewController: NSViewController {
                 
             case chunkHiddenButton:
                 
-                guard let (chunk, _, _, _) = inspectable else { break }
+                guard let (chunk, _, _, _, _) = inspectable else { break }
                 
                 chunk.isHidden = sender.state == .off
                 
             case tileHiddenButton:
                 
-                guard let (_, tile, _, _) = inspectable else { break }
+                guard let (_, tile, _, _, _) = inspectable else { break }
                 
                 tile.isHidden = sender.state == .off
                 
             case nodeHiddenButton:
                 
-                guard let (_, _, node, _) = inspectable else { break }
+                guard let (_, _, node, _, _) = inspectable else { break }
                 
                 node.isHidden = sender.state == .off
                 
             case layerHiddenButton:
                 
-                guard let (_, _, _, layer) = inspectable else { break }
+                guard let (_, _, _, layer, _) = inspectable else { break }
                 
                 layer.isHidden = sender.state == .off
-                
-            case smoothTerraformButton:
-                
-                smooth = sender.state == .on
              
             default: break
             }
             
-            viewModel.state = .inspecting(grid, inspectable, smooth)
+            viewModel.state = .inspecting(grid, inspectable)
             
         default: break
         }
@@ -137,9 +111,9 @@ class TerrainInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid, let inspectable, let smooth):
+        case .inspecting(let grid, let inspectable):
             
-            guard let (chunk, tile, node, layer) = inspectable else { break }
+            guard let (chunk, tile, node, layer, edge) = inspectable else { break }
             
             switch sender {
                 
@@ -147,43 +121,27 @@ class TerrainInspectorViewController: NSViewController {
                 
                 guard let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? TerrainNode, let selectedLayer = selectedNode.child(at: 0) as? TerrainLayer else { break }
                 
-                viewModel.state = .inspecting(grid, (chunk, tile, selectedNode, selectedLayer), smooth)
+                viewModel.state = .inspecting(grid, (chunk, tile, selectedNode, selectedLayer, edge))
                 
             case selectedLayerPopUp:
                 
                 guard let selectedLayer = node.child(at: sender.indexOfSelectedItem) as? TerrainLayer else { break }
                 
-                viewModel.state = .inspecting(grid, (chunk, tile, node, selectedLayer), smooth)
+                viewModel.state = .inspecting(grid, (chunk, tile, node, selectedLayer, edge))
                 
-            case northLayerEdgeTerrainTypePopUp,
-                 eastLayerEdgeTerrainTypePopUp,
-                 southLayerEdgeTerrainTypePopUp,
-                 westLayerEdgeTerrainTypePopUp:
+            case selectedEdgePopup:
                 
-                guard let selectedTerrainType = TerrainType(rawValue: sender.indexOfSelectedItem) else { break }
+                guard let selectedEdge = GridEdge(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                switch sender {
-                    
-                case northLayerEdgeTerrainTypePopUp:
-                    
-                    layer.set(terrainType: selectedTerrainType, edge: .north)
-                    
-                case eastLayerEdgeTerrainTypePopUp:
-                    
-                    layer.set(terrainType: selectedTerrainType, edge: .east)
-                    
-                case southLayerEdgeTerrainTypePopUp:
-                    
-                    layer.set(terrainType: selectedTerrainType, edge: .south)
-                    
-                case westLayerEdgeTerrainTypePopUp:
-                    
-                    layer.set(terrainType: selectedTerrainType, edge: .west)
-                    
-                default: break
-                }
+                viewModel.state = .inspecting(grid, (chunk, tile, node, layer, selectedEdge))
                 
-                viewModel.state = .inspecting(grid, inspectable, smooth)
+            case selectedTerrainTypePopup:
+                
+                guard let selectedTerrainType = TerrainType(rawValue: sender.indexOfSelectedItem), let edge = GridEdge(rawValue: selectedEdgePopup.indexOfSelectedItem) else { break }
+                
+                layer.set(terrainType: selectedTerrainType, edge: edge)
+                
+                viewModel.state = .inspecting(grid, inspectable)
                 
             default: break
             }
@@ -196,9 +154,9 @@ class TerrainInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid, let inspectable, let smooth):
+        case .inspecting(let grid, let inspectable):
             
-            guard let (_, _, _, layer) = inspectable else { break }
+            guard let (_, _, _, layer, _) = inspectable else { break }
             
             switch sender {
                 
@@ -221,7 +179,7 @@ class TerrainInspectorViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .inspecting(grid, inspectable, smooth)
+            viewModel.state = .inspecting(grid, inspectable)
             
         default: break
         }
@@ -231,9 +189,9 @@ class TerrainInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid, let inspectable, let smooth):
+        case .inspecting(let grid, let inspectable):
             
-            guard let (_, _, _, layer) = inspectable else { break }
+            guard let (_, _, _, layer, _) = inspectable else { break }
             
             switch sender {
                 
@@ -256,7 +214,7 @@ class TerrainInspectorViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .inspecting(grid, inspectable, smooth)
+            viewModel.state = .inspecting(grid, inspectable)
             
         default: break
         }
@@ -284,7 +242,7 @@ extension TerrainInspectorViewController {
         
         switch to {
             
-        case .inspecting(let grid, let inspectable, let smooth):
+        case .inspecting(let grid, let inspectable):
             
             chunkCount.integerValue = grid.totalChildren
             gridHiddenButton.state = (grid.isHidden ? .off : .on)
@@ -296,12 +254,10 @@ extension TerrainInspectorViewController {
             
             selectedNodePopUp.removeAllItems()
             selectedLayerPopUp.removeAllItems()
-            northLayerEdgeTerrainTypePopUp.removeAllItems()
-            eastLayerEdgeTerrainTypePopUp.removeAllItems()
-            southLayerEdgeTerrainTypePopUp.removeAllItems()
-            westLayerEdgeTerrainTypePopUp.removeAllItems()
+            selectedEdgePopup.removeAllItems()
+            selectedTerrainTypePopup.removeAllItems()
             
-            if let (chunk, tile, node, layer) = inspectable {
+            if let (chunk, tile, node, layer, edge) = inspectable {
                 
                 chunkBox.isHidden = grid.isHidden
                 tileBox.isHidden = grid.isHidden || chunk.isHidden
@@ -345,8 +301,6 @@ extension TerrainInspectorViewController {
                     selectedLayerPopUp.selectItem(at: index)
                 }
                 
-                smoothTerraformButton.state = (smooth ? .on : .off)
-                
                 northWestLayerCornerStepper.maxValue = Double(layer.hierarchy.upper?.get(height: .northWest) ?? World.ceiling)
                 northWestLayerCornerStepper.minValue = Double(layer.hierarchy.lower?.get(height: .northWest) ?? World.floor)
                 northWestLayerCornerStepper.integerValue = layer.get(height: .northWest)
@@ -373,70 +327,32 @@ extension TerrainInspectorViewController {
                 lowerSouthEastLayerCornerLabel.integerValue = (layer.hierarchy.lower?.get(height: .southEast) ?? World.floor)
                 lowerSouthWestLayerCornerLabel.integerValue = (layer.hierarchy.lower?.get(height: .southWest) ?? World.floor)
                 
+                GridEdge.Edges.forEach { edge in
+                    
+                    selectedEdgePopup.addItem(withTitle: edge.description)
+                }
+                
                 TerrainType.allCases.forEach { terrainType in
                     
-                    northLayerEdgeTerrainTypePopUp.addItem(withTitle: terrainType.name)
-                    eastLayerEdgeTerrainTypePopUp.addItem(withTitle: terrainType.name)
-                    southLayerEdgeTerrainTypePopUp.addItem(withTitle: terrainType.name)
-                    westLayerEdgeTerrainTypePopUp.addItem(withTitle: terrainType.name)
+                    selectedTerrainTypePopup.addItem(withTitle: terrainType.name)
                 }
                 
-                let northTerrainType = layer.get(terrainType: .north)
-                let eastTerrainType = layer.get(terrainType: .north)
-                let southTerrainType = layer.get(terrainType: .north)
-                let westTerrainType = layer.get(terrainType: .north)
-                
-                if let index = TerrainType.allCases.index(of: northTerrainType), let colorPalette = northTerrainType.colorPalette {
+                if let index = GridEdge.Edges.index(of: edge) {
                     
-                    northLayerEdgeTerrainTypePopUp.selectItem(at: index)
-                    
-                    northLayerEdgeTerrainTypeColorPalettePrimary.fillColor = colorPalette.primary.color
-                    northLayerEdgeTerrainTypeColorPaletteSecondary.fillColor = colorPalette.secondary.color
-                    northLayerEdgeTerrainTypeColorPaletteTertiary.fillColor = colorPalette.tertiary.color
-                    northLayerEdgeTerrainTypeColorPaletteQuaternary.fillColor = colorPalette.quaternary.color
+                    selectedEdgePopup.selectItem(at: index)
                 }
                 
-                if let index = TerrainType.allCases.index(of: eastTerrainType), let colorPalette = eastTerrainType.colorPalette {
+                let terrainType = layer.get(terrainType: edge)
+                
+                if let index = TerrainType.allCases.index(of: terrainType), let colorPalette = terrainType.colorPalette {
                     
-                    eastLayerEdgeTerrainTypePopUp.selectItem(at: index)
+                    selectedTerrainTypePopup.selectItem(at: index)
                     
-                    eastLayerEdgeTerrainTypeColorPalettePrimary.fillColor = colorPalette.primary.color
-                    eastLayerEdgeTerrainTypeColorPaletteSecondary.fillColor = colorPalette.secondary.color
-                    eastLayerEdgeTerrainTypeColorPaletteTertiary.fillColor = colorPalette.tertiary.color
-                    eastLayerEdgeTerrainTypeColorPaletteQuaternary.fillColor = colorPalette.quaternary.color
+                    terrainTypeColorPaletteView.colorPalette = colorPalette
                 }
-                
-                if let index = TerrainType.allCases.index(of: southTerrainType), let colorPalette = southTerrainType.colorPalette {
+                else {
                     
-                    southLayerEdgeTerrainTypePopUp.selectItem(at: index)
-                    
-                    southLayerEdgeTerrainTypeColorPalettePrimary.fillColor = colorPalette.primary.color
-                    southLayerEdgeTerrainTypeColorPaletteSecondary.fillColor = colorPalette.secondary.color
-                    southLayerEdgeTerrainTypeColorPaletteTertiary.fillColor = colorPalette.tertiary.color
-                    southLayerEdgeTerrainTypeColorPaletteQuaternary.fillColor = colorPalette.quaternary.color
-                }
-                
-                if let index = TerrainType.allCases.index(of: westTerrainType), let colorPalette = westTerrainType.colorPalette {
-                    
-                    westLayerEdgeTerrainTypePopUp.selectItem(at: index)
-                    
-                    westLayerEdgeTerrainTypeColorPalettePrimary.fillColor = colorPalette.primary.color
-                    westLayerEdgeTerrainTypeColorPaletteSecondary.fillColor = colorPalette.secondary.color
-                    westLayerEdgeTerrainTypeColorPaletteTertiary.fillColor = colorPalette.tertiary.color
-                    westLayerEdgeTerrainTypeColorPaletteQuaternary.fillColor = colorPalette.quaternary.color
-                }
-                
-                sceneView.isPlaying = true
-                sceneView.inspectable.position = chunk.position
-                sceneView.inspectable.geometry = SCNGeometry(mesh: node.mesh)
-                
-                switch sceneView.cameraJib.stateMachine.state {
-                    
-                case .focus(_, let edge, let zoomLevel):
-                    
-                    let vector = SCNVector3(x: MDWFloat(node.volume.coordinate.x), y: Axis.Y(y: node.volume.coordinate.y), z: MDWFloat(node.volume.coordinate.z))
-                    
-                    sceneView.cameraJib.stateMachine.state = .focus(vector, edge, zoomLevel)
+                    terrainTypeColorPaletteView.colorPalette = nil
                 }
             }
             

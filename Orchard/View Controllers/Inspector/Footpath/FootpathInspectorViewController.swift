@@ -40,10 +40,7 @@ class FootpathInspectorViewController: NSViewController {
     
     @IBOutlet weak var selectedFootpathTypePopUp: NSPopUpButton!
     
-    @IBOutlet weak var colorPalettePrimary: NSBox!
-    @IBOutlet weak var colorPaletteSecondary: NSBox!
-    @IBOutlet weak var colorPaletteTertiary: NSBox!
-    @IBOutlet weak var colorPaletteQuaternary: NSBox!
+    @IBOutlet weak var colorPaletteView: ColorPaletteView!
     
     @IBOutlet weak var slopeEdgeButton: NSButton!
     
@@ -237,10 +234,11 @@ extension FootpathInspectorViewController {
                     
                     selectedFootpathTypePopUp.selectItem(at: index)
                     
-                    colorPalettePrimary.fillColor = colorPalette.primary.color
-                    colorPaletteSecondary.fillColor = colorPalette.secondary.color
-                    colorPaletteTertiary.fillColor = colorPalette.tertiary.color
-                    colorPaletteQuaternary.fillColor = colorPalette.quaternary.color
+                    colorPaletteView.colorPalette = colorPalette
+                }
+                else {
+                    
+                    colorPaletteView.colorPalette = nil
                 }
                 
                 steepInclinationButton.state = (node.slope != nil && node.slope!.steep ? .on : .off)

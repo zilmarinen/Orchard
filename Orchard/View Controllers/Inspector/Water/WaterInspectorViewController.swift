@@ -40,10 +40,7 @@ class WaterInspectorViewController: NSViewController {
     
     @IBOutlet weak var selectedWaterTypePopUp: NSPopUpButton!
     
-    @IBOutlet weak var colorPalettePrimary: NSBox!
-    @IBOutlet weak var colorPaletteSecondary: NSBox!
-    @IBOutlet weak var colorPaletteTertiary: NSBox!
-    @IBOutlet weak var colorPaletteQuaternary: NSBox!
+    @IBOutlet weak var colorPaletteView: ColorPaletteView!
     
     @IBAction func button(_ sender: NSButton) {
         
@@ -190,10 +187,11 @@ extension WaterInspectorViewController {
                     
                     selectedWaterTypePopUp.selectItem(at: index)
                     
-                    colorPalettePrimary.fillColor = colorPalette.primary.color
-                    colorPaletteSecondary.fillColor = colorPalette.secondary.color
-                    colorPaletteTertiary.fillColor = colorPalette.tertiary.color
-                    colorPaletteQuaternary.fillColor = colorPalette.quaternary.color
+                    colorPaletteView.colorPalette = colorPalette
+                }
+                else {
+                    
+                    colorPaletteView.colorPalette = nil
                 }
             }
             

@@ -32,7 +32,7 @@ extension SceneViewController {
         sceneView.scene = meadow
         sceneView.delegate = meadow
         sceneView.showsStatistics = true
-        
+        return
         for x in 0..<10 {
         
             for z in 0..<10 {
@@ -63,6 +63,41 @@ extension SceneViewController {
                 }
             }
         }
+        
+        for x in 3..<7 {
+                
+                for z in 3..<7 {
+                    
+                    let coordinate = Coordinate(x: x, y: World.floor + 2, z: z)
+                    
+                    if let areaNode = meadow.areas.add(node: coordinate) {
+                        
+                        areaNode.floorColorPalette = ColorPalettes.shared.all.first
+                        areaNode.internalAreaType = AreaType.brick
+                        areaNode.externalAreaType = AreaType.concrete
+                        
+                        if x == 3 {
+                            
+                            areaNode.set(edge: AreaNode.Edge(edge: .east, edgeType: .wall, externalColorPalette: ColorPalettes.shared.all.first!, internalColorPalette: ColorPalettes.shared.all.last!))
+                        }
+                        
+                        if x == 6 {
+                            
+                            areaNode.set(edge: AreaNode.Edge(edge: .west, edgeType: .wall, externalColorPalette: ColorPalettes.shared.all.first!, internalColorPalette: ColorPalettes.shared.all.last!))
+                        }
+                        
+                        if z == 3 {
+                            
+                            areaNode.set(edge: AreaNode.Edge(edge: .south, edgeType: .wall, externalColorPalette: ColorPalettes.shared.all.first!, internalColorPalette: ColorPalettes.shared.all.last!))
+                        }
+                        
+                        if z == 6 {
+                            
+                            areaNode.set(edge: AreaNode.Edge(edge: .north, edgeType: .wall, externalColorPalette: ColorPalettes.shared.all.first!, internalColorPalette: ColorPalettes.shared.all.last!))
+                        }
+                    }
+                }
+            }
         
         for z in 0..<10 {
             

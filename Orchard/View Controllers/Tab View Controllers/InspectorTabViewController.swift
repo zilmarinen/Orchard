@@ -56,7 +56,7 @@ extension InspectorTabViewController {
             
             if let chunk = chunk, let tile = tile, let node = node {
                 
-                viewController.viewModel.state = .inspecting(area, (chunk, tile, node))
+                viewController.viewModel.state = .inspecting(area, (chunk, tile, node, .north))
             }
             else {
                 
@@ -164,22 +164,22 @@ extension InspectorTabViewController {
              
                 if let chunk = chunk, let tile = tile, let node = node, let layer = layer {
                     
-                    viewController.viewModel.state = .inspecting(terrain, (chunk, tile, node, layer), false)
+                    viewController.viewModel.state = .inspecting(terrain, (chunk, tile, node, layer, .north))
                 }
                 else {
                     
-                    viewController.viewModel.state = .inspecting(terrain, nil, false)
+                    viewController.viewModel.state = .inspecting(terrain, nil)
                 }
                 
-            case .inspecting(_, _, let smooth):
+            case .inspecting(_, _):
                 
                 if let chunk = chunk, let tile = tile, let node = node, let layer = layer {
                     
-                    viewController.viewModel.state = .inspecting(terrain, (chunk, tile, node, layer), smooth)
+                    viewController.viewModel.state = .inspecting(terrain, (chunk, tile, node, layer, .north))
                 }
                 else {
                     
-                    viewController.viewModel.state = .inspecting(terrain, nil, smooth)
+                    viewController.viewModel.state = .inspecting(terrain, nil)
                 }
             }
             

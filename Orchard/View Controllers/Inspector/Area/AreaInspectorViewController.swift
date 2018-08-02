@@ -42,39 +42,16 @@ class AreaInspectorViewController: NSViewController {
     @IBOutlet weak var selectedInternalAreaTypePopUp: NSPopUpButton!
     
     @IBOutlet weak var selectedFloorColorPalettePopUp: NSPopUpButton!
+    @IBOutlet weak var floorColorPaletteView: ColorPaletteView!
     
-    @IBOutlet weak var floorColorPalettePrimary: NSBox!
-    @IBOutlet weak var floorColorPaletteSecondary: NSBox!
-    @IBOutlet weak var floorColorPaletteTertiary: NSBox!
-    @IBOutlet weak var floorColorPaletteQuaternary: NSBox!
+    @IBOutlet weak var selectedEdgePopup: NSPopUpButton!
+    @IBOutlet weak var selectedEdgeTypePopup: NSPopUpButton!
     
-    @IBOutlet weak var selectedNorthEdgeTypePopup: NSPopUpButton!
-    @IBOutlet weak var selectedNorthEdgeColorPalettePopup: NSPopUpButton!
-    @IBOutlet weak var northEdgeColorPalettePrimary: NSBox!
-    @IBOutlet weak var northEdgeColorPaletteSecondary: NSBox!
-    @IBOutlet weak var northEdgeColorPaletteTertiary: NSBox!
-    @IBOutlet weak var northEdgeColorPaletteQuaternary: NSBox!
+    @IBOutlet weak var externalColorPalettePopup: NSPopUpButton!
+    @IBOutlet weak var externalColorPaletteView: ColorPaletteView!
     
-    @IBOutlet weak var selectedEastEdgeTypePopup: NSPopUpButton!
-    @IBOutlet weak var selectedEastEdgeColorPalettePopup: NSPopUpButton!
-    @IBOutlet weak var eastEdgeColorPalettePrimary: NSBox!
-    @IBOutlet weak var eastEdgeColorPaletteSecondary: NSBox!
-    @IBOutlet weak var eastEdgeColorPaletteTertiary: NSBox!
-    @IBOutlet weak var eastEdgeColorPaletteQuaternary: NSBox!
-    
-    @IBOutlet weak var selectedSouthEdgeTypePopup: NSPopUpButton!
-    @IBOutlet weak var selectedSouthEdgeColorPalettePopup: NSPopUpButton!
-    @IBOutlet weak var southEdgeColorPalettePrimary: NSBox!
-    @IBOutlet weak var southEdgeColorPaletteSecondary: NSBox!
-    @IBOutlet weak var southEdgeColorPaletteTertiary: NSBox!
-    @IBOutlet weak var southEdgeColorPaletteQuaternary: NSBox!
-    
-    @IBOutlet weak var selectedWestEdgeTypePopup: NSPopUpButton!
-    @IBOutlet weak var selectedWestEdgeColorPalettePopup: NSPopUpButton!
-    @IBOutlet weak var westEdgeColorPalettePrimary: NSBox!
-    @IBOutlet weak var westEdgeColorPaletteSecondary: NSBox!
-    @IBOutlet weak var westEdgeColorPaletteTertiary: NSBox!
-    @IBOutlet weak var westEdgeColorPaletteQuaternary: NSBox!
+    @IBOutlet weak var internalColorPalettePopup: NSPopUpButton!
+    @IBOutlet weak var internalColorPaletteView: ColorPaletteView!
     
     @IBAction func button(_ sender: NSButton) {
         
@@ -90,19 +67,19 @@ class AreaInspectorViewController: NSViewController {
                 
             case chunkHiddenButton:
                 
-                guard let (chunk, _, _) = inspectable else { break }
+                guard let (chunk, _, _, _) = inspectable else { break }
                 
                 chunk.isHidden = sender.state == .off
                 
             case tileHiddenButton:
                 
-                guard let (_, tile, _) = inspectable else { break }
+                guard let (_, tile, _, _) = inspectable else { break }
                 
                 tile.isHidden = sender.state == .off
                 
             case nodeHiddenButton:
                 
-                guard let (_, _, node) = inspectable else { break }
+                guard let (_, _, node, _) = inspectable else { break }
                 
                 node.isHidden = sender.state == .off
                 
@@ -121,7 +98,7 @@ class AreaInspectorViewController: NSViewController {
             
         case .inspecting(let grid, let inspectable):
             
-            guard let (chunk, tile, node) = inspectable else { break }
+            guard let (chunk, tile, node, edge) = inspectable else { break }
             
             switch sender {
                 
@@ -129,14 +106,14 @@ class AreaInspectorViewController: NSViewController {
                 
                 guard let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? AreaNode else { break }
                 
-                viewModel.state = .inspecting(grid, (chunk, tile, selectedNode))
+                viewModel.state = .inspecting(grid, (chunk, tile, selectedNode, edge))
                 
             case selectedFloorColorPalettePopUp:
                 
-//                let selectedColorPalette = grid.availableSurfaceTypes[sender.indexOfSelectedItem]
-//
-//                node.floorColorPalette = selectedSurfaceType
-//
+                let selectedColorPalette = ColorPalettes.shared.all[sender.indexOfSelectedItem]
+
+                node.floorColorPalette = selectedColorPalette
+
                 viewModel.state = .inspecting(grid, inspectable)
                 
             case selectedExternalAreaTypePopUp,
@@ -155,36 +132,49 @@ class AreaInspectorViewController: NSViewController {
                 
                 viewModel.state = .inspecting(grid, inspectable)
                 
-            case selectedNorthEdgeTypePopup,
-                 selectedEastEdgeTypePopup,
-                 selectedSouthEdgeTypePopup,
-                 selectedWestEdgeTypePopup:
+            case selectedEdgePopup:
                 
-                var edge = GridEdge.north
+                guard let selectedEdge = GridEdge(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                switch sender {
+                viewModel.state = .inspecting(grid, (chunk, tile, node, selectedEdge))
+                
+            case selectedEdgeTypePopup:
+                
+                if let edgeType = AreaNodeEdgeType(rawValue: sender.indexOfSelectedItem) {
                     
-                case selectedEastEdgeTypePopup: edge = .east
+                    let externalColorPalette = ColorPalettes.shared.all[externalColorPalettePopup.indexOfSelectedItem]
+                    let internalColorPalette = ColorPalettes.shared.all[internalColorPalettePopup.indexOfSelectedItem]
                     
-                case selectedSouthEdgeTypePopup: edge = .south
-                    
-                case selectedWestEdgeTypePopup: edge = .west
-                    
-                default: edge = .north
+                    node.set(edge: AreaNode.Edge(edge: edge, edgeType: edgeType, externalColorPalette: externalColorPalette, internalColorPalette: internalColorPalette))
                 }
-//
-//                if sender.indexOfSelectedItem == AreaPerimeterType.all.count {
-//
-//                    node.remove(perimeterType: edge)
-//                }
-//                else {
-//
-//                    let selectedPerimeterType = AreaPerimeterType.all[sender.indexOfSelectedItem]
-//
-//                    node.set(perimeterType: selectedPerimeterType, edge: edge)
-//                }
+                else {
+                    
+                    node.remove(edge: edge)
+                }
                 
                 viewModel.state = .inspecting(grid, inspectable)
+                
+            case externalColorPalettePopup:
+                
+                if let nodeEdge = node.find(edge: edge) {
+                 
+                    let colorPalette = ColorPalettes.shared.all[sender.indexOfSelectedItem]
+                    
+                    node.set(edge: AreaNode.Edge(edge: nodeEdge.edge, edgeType: nodeEdge.edgeType, externalColorPalette: colorPalette, internalColorPalette: nodeEdge.internalColorPalette))
+                    
+                    viewModel.state = .inspecting(grid, inspectable)
+                }
+                
+            case internalColorPalettePopup:
+                
+                if let nodeEdge = node.find(edge: edge) {
+                    
+                    let colorPalette = ColorPalettes.shared.all[sender.indexOfSelectedItem]
+                    
+                    node.set(edge: AreaNode.Edge(edge: nodeEdge.edge, edgeType: nodeEdge.edgeType, externalColorPalette: nodeEdge.externalColorPalette, internalColorPalette: colorPalette))
+                    
+                    viewModel.state = .inspecting(grid, inspectable)
+                }
                 
             default: break
             }
@@ -225,8 +215,18 @@ extension AreaInspectorViewController {
             nodeBox.isHidden = true
             
             selectedNodePopUp.removeAllItems()
+            selectedExternalAreaTypePopUp.removeAllItems()
+            selectedInternalAreaTypePopUp.removeAllItems()
+            selectedFloorColorPalettePopUp.removeAllItems()
+            selectedEdgePopup.removeAllItems()
+            selectedEdgeTypePopup.removeAllItems()
+            externalColorPalettePopup.removeAllItems()
+            internalColorPalettePopup.removeAllItems()
             
-            if let (chunk, tile, node) = inspectable {
+            externalColorPalettePopup.isEnabled = false
+            internalColorPalettePopup.isEnabled = false
+            
+            if let (chunk, tile, node, edge) = inspectable {
                 
                 chunkBox.isHidden = grid.isHidden
                 tileBox.isHidden = grid.isHidden || chunk.isHidden
@@ -257,6 +257,97 @@ extension AreaInspectorViewController {
                 widthNodeSizeLabel.integerValue = node.volume.size.width
                 heightNodeSizeLabel.integerValue = node.volume.size.height
                 depthNodeSizeLabel.integerValue = node.volume.size.depth
+                
+                AreaType.allCases.forEach { areaType in
+                    
+                    selectedExternalAreaTypePopUp.addItem(withTitle: areaType.name)
+                    selectedInternalAreaTypePopUp.addItem(withTitle: areaType.name)
+                }
+                
+                ColorPalettes.shared.all.forEach { colorPalette in
+                    
+                    selectedFloorColorPalettePopUp.addItem(withTitle: colorPalette.name)
+                    externalColorPalettePopup.addItem(withTitle: colorPalette.name)
+                    internalColorPalettePopup.addItem(withTitle: colorPalette.name)
+                }
+                
+                if let areaType = node.externalAreaType {
+                    
+                    selectedExternalAreaTypePopUp.selectItem(at: areaType.rawValue)
+                }
+                
+                if let areaType = node.internalAreaType {
+                    
+                    selectedInternalAreaTypePopUp.selectItem(at: areaType.rawValue)
+                }
+                
+                if let colorPalette = node.floorColorPalette, let index = ColorPalettes.shared.all.index(of: colorPalette) {
+                    
+                    selectedFloorColorPalettePopUp.selectItem(at: index)
+                    
+                    floorColorPaletteView.colorPalette = colorPalette
+                }
+                else {
+                    
+                    floorColorPaletteView.colorPalette = nil
+                }
+                
+                GridEdge.Edges.forEach { edge in
+                    
+                    selectedEdgePopup.addItem(withTitle: edge.description)
+                }
+                
+                AreaNodeEdgeType.allCases.forEach { edgeType in
+                    
+                    selectedEdgeTypePopup.addItem(withTitle: edgeType.name)
+                }
+                
+                selectedEdgeTypePopup.addItem(withTitle: "None")
+                
+                if let index = GridEdge.Edges.index(of: edge) {
+                    
+                    selectedEdgePopup.selectItem(at: index)
+                }
+                
+                if let nodeEdge = node.find(edge: edge) {
+                    
+                    if let index = AreaNodeEdgeType.allCases.index(of: nodeEdge.edgeType) {
+                        
+                        selectedEdgeTypePopup.selectItem(at: index)
+                    }
+                    
+                    externalColorPalettePopup.isEnabled = true
+                    internalColorPalettePopup.isEnabled = true
+                    
+                    if let index = ColorPalettes.shared.all.index(of: nodeEdge.externalColorPalette) {
+                        
+                        externalColorPalettePopup.selectItem(at: index)
+                        
+                        externalColorPaletteView.colorPalette = nodeEdge.externalColorPalette
+                    }
+                    else {
+                        
+                        externalColorPaletteView.colorPalette = nil
+                    }
+                    
+                    if let index = ColorPalettes.shared.all.index(of: nodeEdge.internalColorPalette) {
+                        
+                        internalColorPalettePopup.selectItem(at: index)
+                        
+                        internalColorPaletteView.colorPalette = nodeEdge.internalColorPalette
+                    }
+                    else {
+                        
+                        internalColorPaletteView.colorPalette = nil
+                    }
+                }
+                else {
+                    
+                    selectedEdgeTypePopup.selectItem(at: AreaNodeEdgeType.allCases.count)
+                    
+                    externalColorPaletteView.colorPalette = nil
+                    internalColorPaletteView.colorPalette = nil
+                }
             }
             
         default: break

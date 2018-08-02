@@ -53,6 +53,8 @@ extension OrchardViewController {
         
         guard let meadow = sceneViewController?.meadow else { return }
         
+        sceneViewController?.observer = self
+        
         sidebarViewController?.viewModel.state = .inspecting(meadow)
     }
 }
@@ -61,45 +63,34 @@ extension OrchardViewController: SceneGraphDataSource {
     
     func sceneGraph(numberOfChildrenOfItem item: Any?) -> Int {
         
-        if item == nil {
-            
-            return 1
-        }
+        guard item != nil else { return 1 }
+        
         if let item = item as? SceneGraphParent {
             
             return item.totalChildren
         }
-        else if let _ = item as? CameraJib {
+        
+        if let item = item as? SCNNode {
             
-            return 0
+            return item.childNodes.count
         }
         
-        guard let meadow = sceneViewController?.meadow else { return 0 }
-        
-        return meadow.rootNode.childNodes.count
+        return 0
     }
     
     func sceneGraph(childOfItem item: Any?, atIndex index: Int) -> Any {
         
-        guard let meadow = sceneViewController?.meadow else { return item! }
+        if let item = item as? SceneGraphParent, let child = item.child(at: index) {
+            
+            return child
+        }
         
-        if item == nil {
-            
-            return meadow.rootNode
-        }
-        if let item = item as? SceneGraphParent {
-            
-            if let child = item.child(at: index) {
-                
-                return child
-            }
-        }
-        else if let item = item as? SCNNode {
+        if let item = item as? SCNNode {
             
             return item.childNodes[index]
         }
         
-        return meadow.rootNode.childNodes[index]
+        return sceneViewController!.meadow
     }
 }
 
@@ -109,19 +100,13 @@ extension OrchardViewController: SceneGraphDelegate {
         
         guard let view = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(SceneGraphCell.cellIdentifier), owner: self) as? SceneGraphCell else { return nil }
         
-        guard let sceneViewController = sceneViewController, let meadow = sceneViewController.meadow else { return view }
-        
-        if let item = item as? SCNNode, item == meadow.rootNode {
+        if let _ = item as? Meadow {
             
             view.textField?.stringValue = "Meadow"
             view.imageView?.image = NSImage(named: NSImage.Name("meadow_icon"))
         }
-        else if let _ = item as? CameraJib {
-            
-            view.textField?.stringValue = "Camera"
-            view.imageView?.image = NSImage(named: NSImage.Name("grid_icon"))
-        }
-        else if let item = item as? SceneGraphChild {
+        
+        if let item = item as? SceneGraphChild {
             
             view.textField?.stringValue = item.name ?? ""
             view.imageView?.image = NSImage(named: NSImage.Name("grid_icon"))
