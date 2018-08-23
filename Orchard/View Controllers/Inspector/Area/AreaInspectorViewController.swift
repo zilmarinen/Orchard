@@ -46,6 +46,7 @@ class AreaInspectorViewController: NSViewController {
     
     @IBOutlet weak var selectedEdgePopup: NSPopUpButton!
     @IBOutlet weak var selectedEdgeTypePopup: NSPopUpButton!
+    @IBOutlet weak var selectedArchitectureTypePopup: NSPopUpButton!
     
     @IBOutlet weak var externalColorPalettePopup: NSPopUpButton!
     @IBOutlet weak var externalColorPaletteView: ColorPaletteView!
@@ -142,14 +143,28 @@ class AreaInspectorViewController: NSViewController {
                 
                 if let edgeType = AreaNodeEdgeType(rawValue: sender.indexOfSelectedItem) {
                     
+                    let architectureType = AreaArchitectureType.allCases[selectedArchitectureTypePopup.indexOfSelectedItem]
                     let externalColorPalette = ColorPalettes.shared.all[externalColorPalettePopup.indexOfSelectedItem]
                     let internalColorPalette = ColorPalettes.shared.all[internalColorPalettePopup.indexOfSelectedItem]
                     
-                    node.set(edge: AreaNode.Edge(edge: edge, edgeType: edgeType, externalColorPalette: externalColorPalette, internalColorPalette: internalColorPalette))
+                    node.set(edge: AreaNode.Edge(edge: edge, edgeType: edgeType, architectureType: architectureType, externalColorPalette: externalColorPalette, internalColorPalette: internalColorPalette))
                 }
                 else {
                     
                     node.remove(edge: edge)
+                }
+                
+                viewModel.state = .inspecting(grid, inspectable)
+                
+            case selectedArchitectureTypePopup:
+                
+                if let nodeEdge = node.find(edge: edge) {
+                    
+                    let architectureType = AreaArchitectureType.allCases[selectedArchitectureTypePopup.indexOfSelectedItem]
+                    
+                    node.set(edge: AreaNode.Edge(edge: nodeEdge.edge, edgeType: nodeEdge.edgeType, architectureType: architectureType, externalColorPalette: nodeEdge.externalColorPalette, internalColorPalette: nodeEdge.internalColorPalette))
+                    
+                    viewModel.state = .inspecting(grid, inspectable)
                 }
                 
                 viewModel.state = .inspecting(grid, inspectable)
@@ -160,7 +175,7 @@ class AreaInspectorViewController: NSViewController {
                  
                     let colorPalette = ColorPalettes.shared.all[sender.indexOfSelectedItem]
                     
-                    node.set(edge: AreaNode.Edge(edge: nodeEdge.edge, edgeType: nodeEdge.edgeType, externalColorPalette: colorPalette, internalColorPalette: nodeEdge.internalColorPalette))
+                    node.set(edge: AreaNode.Edge(edge: nodeEdge.edge, edgeType: nodeEdge.edgeType, architectureType: nodeEdge.architectureType, externalColorPalette: colorPalette, internalColorPalette: nodeEdge.internalColorPalette))
                     
                     viewModel.state = .inspecting(grid, inspectable)
                 }
@@ -171,7 +186,7 @@ class AreaInspectorViewController: NSViewController {
                     
                     let colorPalette = ColorPalettes.shared.all[sender.indexOfSelectedItem]
                     
-                    node.set(edge: AreaNode.Edge(edge: nodeEdge.edge, edgeType: nodeEdge.edgeType, externalColorPalette: nodeEdge.externalColorPalette, internalColorPalette: colorPalette))
+                    node.set(edge: AreaNode.Edge(edge: nodeEdge.edge, edgeType: nodeEdge.edgeType, architectureType: nodeEdge.architectureType, externalColorPalette: nodeEdge.externalColorPalette, internalColorPalette: colorPalette))
                     
                     viewModel.state = .inspecting(grid, inspectable)
                 }
@@ -220,6 +235,7 @@ extension AreaInspectorViewController {
             selectedFloorColorPalettePopUp.removeAllItems()
             selectedEdgePopup.removeAllItems()
             selectedEdgeTypePopup.removeAllItems()
+            selectedArchitectureTypePopup.removeAllItems()
             externalColorPalettePopup.removeAllItems()
             internalColorPalettePopup.removeAllItems()
             
@@ -302,6 +318,11 @@ extension AreaInspectorViewController {
                     selectedEdgeTypePopup.addItem(withTitle: edgeType.name)
                 }
                 
+                AreaArchitectureType.allCases.forEach { architectureType in
+                    
+                    selectedArchitectureTypePopup.addItem(withTitle: architectureType.name)
+                }
+                
                 selectedEdgeTypePopup.addItem(withTitle: "None")
                 
                 if let index = GridEdge.Edges.index(of: edge) {
@@ -315,6 +336,13 @@ extension AreaInspectorViewController {
                         
                         selectedEdgeTypePopup.selectItem(at: index)
                     }
+                    
+                    if let index = AreaArchitectureType.allCases.index(of: nodeEdge.architectureType) {
+                        
+                        selectedArchitectureTypePopup.selectItem(at: index)
+                    }
+                    
+                    selectedArchitectureTypePopup.isEnabled = (nodeEdge.edgeType != .wall)
                     
                     externalColorPalettePopup.isEnabled = true
                     internalColorPalettePopup.isEnabled = true

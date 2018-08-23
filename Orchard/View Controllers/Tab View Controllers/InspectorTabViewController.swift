@@ -152,10 +152,11 @@ extension InspectorTabViewController {
                 layer = node.child(at: 0) as? TerrainLayer
             }
             
-            if let layer = layer, let node = layer.observer as? TerrainNode {
+            if let layer = layer, let observer = layer.observer as? TerrainNode {
                 
-                tile = terrain.find(tile: node.volume.coordinate)
-                chunk = terrain.find(chunk: node.volume.coordinate)
+                node = observer
+                tile = terrain.find(tile: observer.volume.coordinate)
+                chunk = terrain.find(chunk: observer.volume.coordinate)
             }
             
             switch viewController.viewModel.state {

@@ -249,7 +249,6 @@ extension OrchardViewController {
     
     override func mouseDown(with event: NSEvent) {
         
-        
     }
     
     override func rightMouseDown(with event: NSEvent) {
@@ -264,8 +263,6 @@ extension OrchardViewController: GridObserver {
         DispatchQueue.main.async {
             
             self.sceneGraphViewController?.outlineView.reloadData()
-            
-            self.sceneViewController?.sceneView.isPlaying = true
         }
     }
 }
