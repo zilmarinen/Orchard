@@ -46,7 +46,7 @@ class WaterInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid, let inspectable):
+        case .inspecting(let delegate, let grid, let inspectable):
             
             switch sender {
                 
@@ -75,7 +75,7 @@ class WaterInspectorViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .inspecting(grid, inspectable)
+            viewModel.state = .inspecting(delegate, grid, inspectable)
             
         default: break
         }
@@ -85,7 +85,7 @@ class WaterInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid, let inspectable):
+        case .inspecting(let delegate, let grid, let inspectable):
             
             guard let (chunk, tile, node) = inspectable else { break }
             
@@ -95,7 +95,9 @@ class WaterInspectorViewController: NSViewController {
                 
                 guard let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? WaterNode else { break }
                 
-                viewModel.state = .inspecting(grid, (chunk, tile, selectedNode))
+                viewModel.state = .inspecting(delegate, grid, (chunk, tile, selectedNode))
+                
+                delegate.sceneGraph(didSelectChild: selectedNode, atIndex: sender.indexOfSelectedItem)
                 
             case selectedWaterTypePopUp:
                 
@@ -103,7 +105,7 @@ class WaterInspectorViewController: NSViewController {
                 
                 node.waterType = selectedWaterType
                 
-                viewModel.state = .inspecting(grid, inspectable)
+                viewModel.state = .inspecting(delegate, grid, inspectable)
                 
             default: break
             }
@@ -134,7 +136,7 @@ extension WaterInspectorViewController {
         
         switch to {
             
-        case .inspecting(let grid, let inspectable):
+        case .inspecting(_, let grid, let inspectable):
             
             chunkCount.integerValue = grid.totalChildren
             gridHiddenButton.state = (grid.isHidden ? .off : .on)

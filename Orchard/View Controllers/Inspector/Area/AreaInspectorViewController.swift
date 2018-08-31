@@ -58,7 +58,7 @@ class AreaInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid, let inspectable):
+        case .inspecting(let delegate, let grid, let inspectable):
             
             switch sender {
                 
@@ -87,7 +87,7 @@ class AreaInspectorViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .inspecting(grid, inspectable)
+            viewModel.state = .inspecting(delegate, grid, inspectable)
             
         default: break
         }
@@ -97,7 +97,7 @@ class AreaInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid, let inspectable):
+        case .inspecting(let delegate, let grid, let inspectable):
             
             guard let (chunk, tile, node, edge) = inspectable else { break }
             
@@ -107,7 +107,9 @@ class AreaInspectorViewController: NSViewController {
                 
                 guard let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? AreaNode else { break }
                 
-                viewModel.state = .inspecting(grid, (chunk, tile, selectedNode, edge))
+                viewModel.state = .inspecting(delegate, grid, (chunk, tile, selectedNode, edge))
+                
+                delegate.sceneGraph(didSelectChild: selectedNode, atIndex: sender.indexOfSelectedItem)
                 
             case selectedFloorColorPalettePopUp:
                 
@@ -115,7 +117,7 @@ class AreaInspectorViewController: NSViewController {
 
                 node.floorColorPalette = selectedColorPalette
 
-                viewModel.state = .inspecting(grid, inspectable)
+                viewModel.state = .inspecting(delegate, grid, inspectable)
                 
             case selectedExternalAreaTypePopUp,
                  selectedInternalAreaTypePopUp:
@@ -131,13 +133,13 @@ class AreaInspectorViewController: NSViewController {
                     node.internalAreaType = selectedAreaType
                 }
                 
-                viewModel.state = .inspecting(grid, inspectable)
+                viewModel.state = .inspecting(delegate, grid, inspectable)
                 
             case selectedEdgePopup:
                 
                 guard let selectedEdge = GridEdge(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                viewModel.state = .inspecting(grid, (chunk, tile, node, selectedEdge))
+                viewModel.state = .inspecting(delegate, grid, (chunk, tile, node, selectedEdge))
                 
             case selectedEdgeTypePopup:
                 
@@ -154,7 +156,7 @@ class AreaInspectorViewController: NSViewController {
                     node.remove(edge: edge)
                 }
                 
-                viewModel.state = .inspecting(grid, inspectable)
+                viewModel.state = .inspecting(delegate, grid, inspectable)
                 
             case selectedArchitectureTypePopup:
                 
@@ -164,10 +166,10 @@ class AreaInspectorViewController: NSViewController {
                     
                     node.set(edge: AreaNode.Edge(edge: nodeEdge.edge, edgeType: nodeEdge.edgeType, architectureType: architectureType, externalColorPalette: nodeEdge.externalColorPalette, internalColorPalette: nodeEdge.internalColorPalette))
                     
-                    viewModel.state = .inspecting(grid, inspectable)
+                    viewModel.state = .inspecting(delegate, grid, inspectable)
                 }
                 
-                viewModel.state = .inspecting(grid, inspectable)
+                viewModel.state = .inspecting(delegate, grid, inspectable)
                 
             case externalColorPalettePopup:
                 
@@ -177,7 +179,7 @@ class AreaInspectorViewController: NSViewController {
                     
                     node.set(edge: AreaNode.Edge(edge: nodeEdge.edge, edgeType: nodeEdge.edgeType, architectureType: nodeEdge.architectureType, externalColorPalette: colorPalette, internalColorPalette: nodeEdge.internalColorPalette))
                     
-                    viewModel.state = .inspecting(grid, inspectable)
+                    viewModel.state = .inspecting(delegate, grid, inspectable)
                 }
                 
             case internalColorPalettePopup:
@@ -188,7 +190,7 @@ class AreaInspectorViewController: NSViewController {
                     
                     node.set(edge: AreaNode.Edge(edge: nodeEdge.edge, edgeType: nodeEdge.edgeType, architectureType: nodeEdge.architectureType, externalColorPalette: nodeEdge.externalColorPalette, internalColorPalette: colorPalette))
                     
-                    viewModel.state = .inspecting(grid, inspectable)
+                    viewModel.state = .inspecting(delegate, grid, inspectable)
                 }
                 
             default: break
@@ -220,7 +222,7 @@ extension AreaInspectorViewController {
         
         switch to {
             
-        case .inspecting(let grid, let inspectable):
+        case .inspecting(_, let grid, let inspectable):
             
             chunkCount.integerValue = grid.totalChildren
             gridHiddenButton.state = (grid.isHidden ? .off : .on)

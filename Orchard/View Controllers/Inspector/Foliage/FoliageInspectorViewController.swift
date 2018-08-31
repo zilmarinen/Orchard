@@ -42,7 +42,7 @@ class FoliageInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid, let inspectable):
+        case .inspecting(let delegate, let grid, let inspectable):
             
             switch sender {
                 
@@ -71,7 +71,7 @@ class FoliageInspectorViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .inspecting(grid, inspectable)
+            viewModel.state = .inspecting(delegate, grid, inspectable)
             
         default: break
         }
@@ -81,7 +81,7 @@ class FoliageInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid, let inspectable):
+        case .inspecting(let delegate, let grid, let inspectable):
             
             guard let (chunk, tile, _) = inspectable else { break }
             
@@ -91,7 +91,9 @@ class FoliageInspectorViewController: NSViewController {
                 
                 guard let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? FoliageNode else { break }
                 
-                viewModel.state = .inspecting(grid, (chunk, tile, selectedNode))
+                viewModel.state = .inspecting(delegate, grid, (chunk, tile, selectedNode))
+                
+                delegate.sceneGraph(didSelectChild: selectedNode, atIndex: sender.indexOfSelectedItem)
                 
             default: break
             }
@@ -122,7 +124,7 @@ extension FoliageInspectorViewController {
         
         switch to {
             
-        case .inspecting(let grid, let inspectable):
+        case .inspecting(_, let grid, let inspectable):
             
             chunkCount.integerValue = grid.totalChildren
             gridHiddenButton.state = (grid.isHidden ? .off : .on)

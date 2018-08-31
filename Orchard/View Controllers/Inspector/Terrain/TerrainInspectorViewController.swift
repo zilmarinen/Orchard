@@ -66,7 +66,7 @@ class TerrainInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid, let inspectable):
+        case .inspecting(let delegate, let grid, let inspectable):
             
             switch sender {
                 
@@ -101,7 +101,7 @@ class TerrainInspectorViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .inspecting(grid, inspectable)
+            viewModel.state = .inspecting(delegate, grid, inspectable)
             
         default: break
         }
@@ -111,7 +111,7 @@ class TerrainInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid, let inspectable):
+        case .inspecting(let delegate, let grid, let inspectable):
             
             guard let (chunk, tile, node, layer, edge) = inspectable else { break }
             
@@ -121,19 +121,23 @@ class TerrainInspectorViewController: NSViewController {
                 
                 guard let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? TerrainNode, let selectedLayer = selectedNode.child(at: 0) as? TerrainLayer else { break }
                 
-                viewModel.state = .inspecting(grid, (chunk, tile, selectedNode, selectedLayer, edge))
+                viewModel.state = .inspecting(delegate, grid, (chunk, tile, selectedNode, selectedLayer, edge))
+                
+                delegate.sceneGraph(didSelectChild: selectedNode, atIndex: sender.indexOfSelectedItem)
                 
             case selectedLayerPopUp:
                 
                 guard let selectedLayer = node.child(at: sender.indexOfSelectedItem) as? TerrainLayer else { break }
                 
-                viewModel.state = .inspecting(grid, (chunk, tile, node, selectedLayer, edge))
+                viewModel.state = .inspecting(delegate, grid, (chunk, tile, node, selectedLayer, edge))
+                
+                delegate.sceneGraph(didSelectChild: selectedLayer, atIndex: sender.indexOfSelectedItem)
                 
             case selectedEdgePopup:
                 
                 guard let selectedEdge = GridEdge(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                viewModel.state = .inspecting(grid, (chunk, tile, node, layer, selectedEdge))
+                viewModel.state = .inspecting(delegate, grid, (chunk, tile, node, layer, selectedEdge))
                 
             case selectedTerrainTypePopup:
                 
@@ -141,7 +145,7 @@ class TerrainInspectorViewController: NSViewController {
                 
                 layer.set(terrainType: selectedTerrainType, edge: edge)
                 
-                viewModel.state = .inspecting(grid, inspectable)
+                viewModel.state = .inspecting(delegate, grid, inspectable)
                 
             default: break
             }
@@ -154,7 +158,7 @@ class TerrainInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid, let inspectable):
+        case .inspecting(let delegate, let grid, let inspectable):
             
             guard let (_, _, _, layer, _) = inspectable else { break }
             
@@ -179,7 +183,7 @@ class TerrainInspectorViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .inspecting(grid, inspectable)
+            viewModel.state = .inspecting(delegate, grid, inspectable)
             
         default: break
         }
@@ -189,7 +193,7 @@ class TerrainInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid, let inspectable):
+        case .inspecting(let delegate, let grid, let inspectable):
             
             guard let (_, _, _, layer, _) = inspectable else { break }
             
@@ -214,7 +218,7 @@ class TerrainInspectorViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .inspecting(grid, inspectable)
+            viewModel.state = .inspecting(delegate, grid, inspectable)
             
         default: break
         }
@@ -242,7 +246,7 @@ extension TerrainInspectorViewController {
         
         switch to {
             
-        case .inspecting(let grid, let inspectable):
+        case .inspecting(_, let grid, let inspectable):
             
             chunkCount.integerValue = grid.totalChildren
             gridHiddenButton.state = (grid.isHidden ? .off : .on)

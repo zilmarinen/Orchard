@@ -83,7 +83,7 @@ extension OrchardViewController: SceneGraphDelegate {
             
             sceneViewController?.viewModel.state = .inspecting(meadow, child)
             
-            sidebarViewController?.viewModel.state = .inspecting(meadow, child)
+            sidebarViewController?.viewModel.state = .inspecting(self, meadow, child)
             
         default: break
         }
@@ -171,8 +171,10 @@ extension OrchardViewController {
             if let node = nodes.first {
                 
                 sceneGraphViewController?.viewModel.state = .inspecting(meadow, node)
+                
                 sceneViewController?.viewModel.state = .inspecting(meadow, node)
-                sidebarViewController?.viewModel.state = .inspecting(meadow, node)
+                
+                sidebarViewController?.viewModel.state = .inspecting(self, meadow, node)
             }
             
         default: break
@@ -205,9 +207,9 @@ extension OrchardViewController: GridObserver {
             
             switch sidebarViewController.viewModel.state {
                 
-            case .inspecting(_, let item):
+            case .inspecting(let delegate, _, let item):
                 
-                sidebarViewController.viewModel.state = .inspecting(meadow, item)
+                sidebarViewController.viewModel.state = .inspecting(delegate, meadow, item)
                 
             default: break
             }

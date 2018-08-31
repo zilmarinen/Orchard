@@ -14,7 +14,7 @@ extension FootpathInspectorViewController {
     enum ViewState: THRUtilities.State {
         
         case empty
-        case inspecting(Footpath, (FootpathChunk, FootpathTile, FootpathNode)?)
+        case inspecting(SceneGraphDelegate, Footpath, (FootpathChunk, FootpathTile, FootpathNode)?)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

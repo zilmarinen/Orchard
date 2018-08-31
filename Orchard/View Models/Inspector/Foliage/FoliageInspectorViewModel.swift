@@ -14,7 +14,7 @@ extension FoliageInspectorViewController {
     enum ViewState: THRUtilities.State {
         
         case empty
-        case inspecting(Foliage, (FoliageChunk, FoliageTile, FoliageNode)?)
+        case inspecting(SceneGraphDelegate, Foliage, (FoliageChunk, FoliageTile, FoliageNode)?)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

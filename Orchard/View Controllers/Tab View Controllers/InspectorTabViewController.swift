@@ -34,7 +34,7 @@ extension InspectorTabViewController {
         
         switch to {
         
-        case .area(let area, var chunk, var tile, var node):
+        case .area(let delegate, let area, var chunk, var tile, var node):
             
             guard let viewController = childViewControllers[to.sortOrder] as? AreaInspectorViewController else { break }
             
@@ -54,14 +54,14 @@ extension InspectorTabViewController {
                 chunk = tile?.observer as? AreaChunk
             }
             
+            var inspectable: (AreaChunk, AreaTile, AreaNode, GridEdge)?
+            
             if let chunk = chunk, let tile = tile, let node = node {
                 
-                viewController.viewModel.state = .inspecting(area, (chunk, tile, node, .north))
+                inspectable = (chunk, tile, node, .north)
             }
-            else {
-                
-                viewController.viewModel.state = .inspecting(area, nil)
-            }
+            
+            viewController.viewModel.state = .inspecting(delegate, area, inspectable)
             
         case .camera(let cameraJib):
             
@@ -69,7 +69,7 @@ extension InspectorTabViewController {
             
             viewController.viewModel.state = .inspecting(cameraJib)
             
-        case .foliage(let foliage, var chunk, var tile, var node):
+        case .foliage(let delegate, let foliage, var chunk, var tile, var node):
             
             guard let viewController = childViewControllers[to.sortOrder] as? FoliageInspectorViewController else { break }
             
@@ -89,16 +89,16 @@ extension InspectorTabViewController {
                 chunk = tile?.observer as? FoliageChunk
             }
             
+            var inspectable: (FoliageChunk, FoliageTile, FoliageNode)?
+            
             if let chunk = chunk, let tile = tile, let node = node {
             
-                viewController.viewModel.state = .inspecting(foliage, (chunk, tile, node))
-            }
-            else {
-                
-                viewController.viewModel.state = .inspecting(foliage, nil)
+                inspectable = (chunk, tile, node)
             }
             
-        case .footpath(let footpath, var chunk, var tile, var node):
+            viewController.viewModel.state = .inspecting(delegate, foliage, inspectable)
+            
+        case .footpath(let delegate, let footpath, var chunk, var tile, var node):
             
             guard let viewController = childViewControllers[to.sortOrder] as? FootpathInspectorViewController else { break }
             
@@ -118,14 +118,14 @@ extension InspectorTabViewController {
                 chunk = tile?.observer as? FootpathChunk
             }
             
+            var inspectable: (FootpathChunk, FootpathTile, FootpathNode)?
+            
             if let chunk = chunk, let tile = tile, let node = node {
                 
-                viewController.viewModel.state = .inspecting(footpath, (chunk, tile, node))
+                inspectable = (chunk, tile, node)
             }
-            else {
-                
-                viewController.viewModel.state = .inspecting(footpath, nil)
-            }
+            
+            viewController.viewModel.state = .inspecting(delegate, footpath, inspectable)
             
         case.scene(let meadow):
             
@@ -133,7 +133,7 @@ extension InspectorTabViewController {
             
             viewController.viewModel.state = .inspecting(meadow)
             
-        case.terrain(let terrain, var chunk, var tile, var node, var layer):
+        case.terrain(let delegate, let terrain, var chunk, var tile, var node, var layer):
             
             guard let viewController = childViewControllers[to.sortOrder] as? TerrainInspectorViewController else { break }
             
@@ -159,32 +159,16 @@ extension InspectorTabViewController {
                 chunk = tile?.observer as? TerrainChunk
             }
             
-            switch viewController.viewModel.state {
+            var inspectable: (TerrainChunk, TerrainTile, TerrainNode<TerrainLayer>, TerrainLayer, GridEdge)?
+            
+            if let chunk = chunk, let tile = tile, let node = node, let layer = layer {
                 
-            case .empty:
-             
-                if let chunk = chunk, let tile = tile, let node = node, let layer = layer {
-                    
-                    viewController.viewModel.state = .inspecting(terrain, (chunk, tile, node, layer, .north))
-                }
-                else {
-                    
-                    viewController.viewModel.state = .inspecting(terrain, nil)
-                }
-                
-            case .inspecting(_, _):
-                
-                if let chunk = chunk, let tile = tile, let node = node, let layer = layer {
-                    
-                    viewController.viewModel.state = .inspecting(terrain, (chunk, tile, node, layer, .north))
-                }
-                else {
-                    
-                    viewController.viewModel.state = .inspecting(terrain, nil)
-                }
+                inspectable = (chunk, tile, node, layer, .north)
             }
             
-        case .water(let water, var chunk, var tile, var node):
+            viewController.viewModel.state = .inspecting(delegate, terrain, inspectable)
+            
+        case .water(let delegate, let water, var chunk, var tile, var node):
             
             guard let viewController = childViewControllers[to.sortOrder] as? WaterInspectorViewController else { break }
             
@@ -204,14 +188,14 @@ extension InspectorTabViewController {
                 chunk = tile?.observer as? WaterChunk
             }
             
+            var inspectable: (WaterChunk, WaterTile, WaterNode)?
+            
             if let chunk = chunk, let tile = tile, let node = node {
                 
-                viewController.viewModel.state = .inspecting(water, (chunk, tile, node))
+                inspectable = (chunk, tile, node)
             }
-            else {
-                
-                viewController.viewModel.state = .inspecting(water, nil)
-            }
+            
+            viewController.viewModel.state = .inspecting(delegate, water, inspectable)
             
         default: break
         }

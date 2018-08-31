@@ -14,7 +14,7 @@ extension AreaInspectorViewController {
     enum ViewState: THRUtilities.State {
         
         case empty
-        case inspecting(Area, (AreaChunk, AreaTile, AreaNode, GridEdge)?)
+        case inspecting(SceneGraphDelegate, Area, (AreaChunk, AreaTile, AreaNode, GridEdge)?)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

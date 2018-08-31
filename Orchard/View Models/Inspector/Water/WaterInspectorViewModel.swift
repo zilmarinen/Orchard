@@ -14,7 +14,7 @@ extension WaterInspectorViewController {
     enum ViewState: THRUtilities.State {
         
         case empty
-        case inspecting(Water, (WaterChunk, WaterTile, WaterNode)?)
+        case inspecting(SceneGraphDelegate, Water, (WaterChunk, WaterTile, WaterNode)?)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
