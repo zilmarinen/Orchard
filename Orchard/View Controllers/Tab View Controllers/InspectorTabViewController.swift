@@ -50,8 +50,8 @@ extension InspectorTabViewController {
             
             if let node = node {
                 
-                tile = area.find(tile: node.volume.coordinate)
-                chunk = area.find(chunk: node.volume.coordinate)
+                tile = node.observer as? AreaTile
+                chunk = tile?.observer as? AreaChunk
             }
             
             if let chunk = chunk, let tile = tile, let node = node {
@@ -85,8 +85,8 @@ extension InspectorTabViewController {
             
             if let node = node {
                 
-                tile = foliage.find(tile: node.volume.coordinate)
-                chunk = foliage.find(chunk: node.volume.coordinate)
+                tile = node.observer as? FoliageTile
+                chunk = tile?.observer as? FoliageChunk
             }
             
             if let chunk = chunk, let tile = tile, let node = node {
@@ -114,8 +114,8 @@ extension InspectorTabViewController {
             
             if let node = node {
                 
-                tile = footpath.find(tile: node.volume.coordinate)
-                chunk = footpath.find(chunk: node.volume.coordinate)
+                tile = node.observer as? FootpathTile
+                chunk = tile?.observer as? FootpathChunk
             }
             
             if let chunk = chunk, let tile = tile, let node = node {
@@ -152,11 +152,11 @@ extension InspectorTabViewController {
                 layer = node.child(at: 0) as? TerrainLayer
             }
             
-            if let layer = layer, let observer = layer.observer as? TerrainNode {
+            if let layer = layer {
                 
-                node = observer
-                tile = terrain.find(tile: observer.volume.coordinate)
-                chunk = terrain.find(chunk: observer.volume.coordinate)
+                node = layer.observer as? TerrainNode
+                tile = node?.observer as? TerrainTile
+                chunk = tile?.observer as? TerrainChunk
             }
             
             switch viewController.viewModel.state {
@@ -200,8 +200,8 @@ extension InspectorTabViewController {
             
             if let node = node {
                 
-                tile = water.find(tile: node.volume.coordinate)
-                chunk = water.find(chunk: node.volume.coordinate)
+                tile = node.observer as? WaterTile
+                chunk = tile?.observer as? WaterChunk
             }
             
             if let chunk = chunk, let tile = tile, let node = node {

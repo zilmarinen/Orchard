@@ -11,14 +11,7 @@ import SceneKit
 
 protocol SceneGraphDelegate {
  
-    func sceneGraph(outlineView: NSOutlineView, viewForItem item: Any, inColumn column: NSTableColumn?) -> NSView?
-    func sceneGraph(outlineView: NSOutlineView, didSelectItem item: Any, atIndex index: Int)
-}
-
-protocol SceneGraphDataSource {
-    
-    func sceneGraph(numberOfChildrenOfItem item: Any?) -> Int
-    func sceneGraph(childOfItem item: Any?, atIndex index: Int) -> Any
+    func sceneGraph(didSelectChild child: SceneGraphChild, atIndex index: Int)
 }
 
 class SceneGraphViewController: NSViewController {
@@ -26,7 +19,11 @@ class SceneGraphViewController: NSViewController {
     @IBOutlet weak var outlineView: NSOutlineView!
     
     var delegate: SceneGraphDelegate?
-    var dataSource: SceneGraphDataSource?
+    
+    lazy var viewModel = {
+        
+        return SceneGraphViewModel(initialState: .empty)
+    }()
 }
 
 extension SceneGraphViewController {
@@ -39,6 +36,26 @@ extension SceneGraphViewController {
         outlineView.action = #selector(didSelectRow(sender:))
         
         outlineView.register(NSNib(nibNamed: NSNib.Name(SceneGraphCell.cellIdentifier), bundle: nil), forIdentifier: NSUserInterfaceItemIdentifier(SceneGraphCell.cellIdentifier))
+    
+        viewModel.subscribe(stateDidChange)
+    }
+}
+
+extension SceneGraphViewController {
+    
+    func stateDidChange(from: ViewState?, to: ViewState) {
+        
+        switch to {
+            
+        case .editor(_):
+            
+            DispatchQueue.main.async {
+                
+                self.outlineView.reloadData()
+            }
+            
+        default: break
+        }
     }
 }
 
@@ -50,9 +67,26 @@ extension SceneGraphViewController {
         
         let index = sender.selectedRow
         
-        guard let item = sender.item(atRow: index) else { return }
+        guard let child = sender.item(atRow: index) as? SceneGraphChild else { return }
         
-        delegate.sceneGraph(outlineView: sender, didSelectItem: item, atIndex: index)
+        delegate.sceneGraph(didSelectChild: child, atIndex: index)
+    }
+ 
+    func sceneGraph(numberOfChildrenOfItem item: Any?) -> Int {
+        
+        guard item != nil else { return 1 }
+        
+        if let item = item as? SceneGraphParent {
+            
+            return item.totalChildren
+        }
+        
+        if let item = item as? SCNNode {
+            
+            return item.childNodes.count
+        }
+        
+        return 0
     }
 }
 
@@ -60,23 +94,32 @@ extension SceneGraphViewController: NSOutlineViewDataSource {
     
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
     
-        guard let dataSource = dataSource else { return 0 }
-        
-        return dataSource.sceneGraph(numberOfChildrenOfItem: item)
+        return sceneGraph(numberOfChildrenOfItem: item)
     }
     
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         
-        guard let dataSource = dataSource else { return item! }
+        if let item = item as? SceneGraphParent, let child = item.child(at: index) {
+            
+            return child
+        }
         
-        return dataSource.sceneGraph(childOfItem: item, atIndex: index)
+        if let item = item as? SCNNode {
+            
+            return item.childNodes[index]
+        }
+        
+        switch viewModel.state {
+            
+        case .editor(let meadow): return meadow
+            
+        default: fatalError("Unable to find child of item \(String(describing: item))")
+        }
     }
     
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
         
-        guard let dataSource = dataSource else { return false }
-        
-        return dataSource.sceneGraph(numberOfChildrenOfItem: item) != 0
+        return sceneGraph(numberOfChildrenOfItem: item) != 0
     }
 }
 
@@ -84,8 +127,20 @@ extension SceneGraphViewController: NSOutlineViewDelegate {
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         
-        guard let delegate = delegate else { return nil }
+        guard let view = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(SceneGraphCell.cellIdentifier), owner: self) as? SceneGraphCell else { return nil }
         
-        return delegate.sceneGraph(outlineView: outlineView, viewForItem: item, inColumn: tableColumn)
+        if let _ = item as? Meadow {
+            
+            view.textField?.stringValue = "Meadow"
+            view.imageView?.image = NSImage(named: NSImage.Name("meadow_icon"))
+        }
+        
+        if let item = item as? SceneGraphChild {
+            
+            view.textField?.stringValue = item.name ?? ""
+            view.imageView?.image = NSImage(named: NSImage.Name("grid_icon"))
+        }
+        
+        return view
     }
 }

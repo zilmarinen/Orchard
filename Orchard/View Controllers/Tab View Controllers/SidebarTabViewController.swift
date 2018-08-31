@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Meadow
 
 class SidebarTabViewController: NSTabViewController {
     
@@ -40,32 +41,22 @@ extension SidebarTabViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        selectedTabViewItemIndex = to.sortOrder
+        guard let inspectorTabViewController = inspectorTabViewController, let utilitiesTabViewController = utilitiesTabViewController else { return }
+        
+        selectedTabViewItemIndex = to.tab.rawValue
         
         switch to {
             
-        case .inspector(let meadow):
+        case .empty:
             
-            guard let viewController = inspectorTabViewController else { break }
+            inspectorTabViewController.viewModel.state = .empty
+            utilitiesTabViewController.viewModel.state = .empty
             
-            switch viewController.viewModel.state {
-                
-            case .empty:
-                
-                viewController.viewModel.state = .scene(meadow)
-                
-            default:
-                
-                viewController.viewModel.state = viewController.viewModel.state
-            }
+        case .inspector(let meadow),
+             .utilities(let meadow):
             
-        case .utilities:
-            
-            guard let viewController = utilitiesTabViewController else { break }
-            
-            viewController.viewModel.state = viewController.viewModel.state
-            
-        default: break
+            inspectorTabViewController.viewModel.state = .scene(meadow)
+            utilitiesTabViewController.viewModel.state = .empty
         }
     }
 }

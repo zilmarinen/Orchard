@@ -220,7 +220,7 @@
         <scene sceneID="ChG-nj-Mpf">
             <objects>
                 <viewController showSeguePresentationStyle="single" id="Sfp-cT-zfa" customClass="SceneGraphViewController" customModule="Orchard" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" misplaced="YES" id="Ima-ad-2qx">
+                    <view key="view" id="Ima-ad-2qx">
                         <rect key="frame" x="0.0" y="0.0" width="210" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
@@ -507,6 +507,9 @@
                     </view>
                     <connections>
                         <outlet property="sceneView" destination="cwi-RL-2bX" id="Hlk-dG-jjG"/>
+                        <outlet property="xCoordinateLabel" destination="X1b-XP-bu7" id="b3I-xd-j4N"/>
+                        <outlet property="yCoordinateLabel" destination="Z9P-eP-E6u" id="mgj-fT-jf2"/>
+                        <outlet property="zCoordinateLabel" destination="gmg-qT-FJa" id="aA9-6L-beR"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -517,7 +520,7 @@
         <scene sceneID="uAy-T2-gyq">
             <objects>
                 <viewController showSeguePresentationStyle="single" id="S2f-pZ-rg9" customClass="SidebarViewController" customModule="Orchard" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" misplaced="YES" id="OcT-D7-EnK">
+                    <view key="view" id="OcT-D7-EnK">
                         <rect key="frame" x="0.0" y="0.0" width="280" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>

@@ -11,6 +11,13 @@ import THRUtilities
 
 extension SidebarTabViewController {
     
+    enum Tab: Int {
+        
+        case empty
+        case inspector
+        case utilities
+    }
+    
     enum ViewState: THRUtilities.State {
         
         case empty
@@ -22,15 +29,13 @@ extension SidebarTabViewController {
             return .continue
         }
         
-        var sortOrder: Int {
+        var tab: Tab {
             
             switch self {
                 
-            case .empty: return 0
-                
-            case .inspector: return 1
-                
-            case .utilities: return 2
+            case .empty: return Tab.empty
+            case .inspector: return Tab.inspector
+            case .utilities: return Tab.utilities
             }
         }
     }

@@ -1,28 +1,29 @@
 //
-//  SidebarViewModel.swift
+//  SceneViewModel.swift
 //  Orchard
 //
-//  Created by Zack Brown on 30/05/2018.
+//  Created by Zack Brown on 31/08/2018.
 //  Copyright © 2018 Script Orchard. All rights reserved.
 //
 
 import Meadow
 import THRUtilities
 
-extension SidebarViewController {
+extension SceneViewController {
     
     enum ViewState: THRUtilities.State {
         
         case empty
+        case editor(Meadow)
         case inspecting(Meadow, SceneGraphChild)
         
-        func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
+        func shouldTransition(to newState: SceneViewController.ViewState) -> THRUtilities.Should<SceneViewController.ViewState> {
             
             return .continue
         }
     }
     
-    class SidebarViewModel: BaseViewModel<ViewState> {
+    class SceneViewModel: BaseViewModel<ViewState> {
         
     }
 }

@@ -16,6 +16,10 @@ class Document: NSDocument {
         
         self.windowController = NSStoryboard.main!.instantiateController(withIdentifier: OrchardWindowController.sceneIdentifier) as! OrchardWindowController
         
+        guard let viewController = windowController.contentViewController as? OrchardViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        viewController.viewModel.state = .editor(viewController.meadow)
+        
         super.init()
     }
     
@@ -31,15 +35,22 @@ class Document: NSDocument {
     
     override func data(ofType typeName: String) throws -> Data {
         
-        guard let viewController = windowController.contentViewController as? OrchardViewController, let meadow = viewController.splitViewController?.sceneViewController?.meadow else { fatalError("Invalid view controller hierarchy") }
+        guard let viewController = windowController.contentViewController as? OrchardViewController else { fatalError("Invalid view controller hierarchy") }
         
         do {
             
-            let encoder = JSONEncoder()
-        
-            let data = try encoder.encode(meadow)
+            switch viewController.viewModel.state {
+                
+            case .editor(let meadow):
             
-            return data
+                let encoder = JSONEncoder()
+        
+                let data = try encoder.encode(meadow)
+            
+                return data
+            
+            default: throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": "Invalid state"])
+            }
         }
         catch {
             
@@ -49,15 +60,22 @@ class Document: NSDocument {
     
     override func read(from data: Data, ofType typeName: String) throws {
         
-        guard let viewController = windowController.contentViewController as? OrchardViewController, let meadow = viewController.splitViewController?.sceneViewController?.meadow else { fatalError("Invalid view controller hierarchy") }
+        guard let viewController = windowController.contentViewController as? OrchardViewController else { fatalError("Invalid view controller hierarchy") }
         
         do {
-        
-            let decoder = JSONDecoder()
             
-            let intermediate = try decoder.decode(MeadowIntermediate.self, from: data)
-            
-            meadow.load(intermediate: intermediate)
+            switch viewController.viewModel.state {
+                
+            case .editor(let meadow):
+                
+                let decoder = JSONDecoder()
+                
+                let intermediate = try decoder.decode(MeadowIntermediate.self, from: data)
+                
+                meadow.load(intermediate: intermediate)
+                
+            default: break
+            }
         }
         catch {
         

@@ -12,6 +12,17 @@ import THRUtilities
 
 class OrchardViewController: NSViewController {
     
+    lazy var viewModel = {
+        
+        return OrchardViewModel(initialState: .empty)
+    }()
+    
+    lazy var meadow = {
+        
+       return Meadow(observer: self)
+        
+    }()
+    
     var splitViewController: WindowSplitViewController?
     
     var sceneGraphViewController: SceneGraphViewController? {
@@ -28,21 +39,6 @@ class OrchardViewController: NSViewController {
         
         return splitViewController?.sidebarViewController
     }
-    
-    var sidebarTabViewController: SidebarTabViewController? {
-        
-        return splitViewController?.sidebarViewController?.tabViewController
-    }
-    
-    var inspectorTabViewController: InspectorTabViewController? {
-        
-        return splitViewController?.sidebarViewController?.tabViewController?.inspectorTabViewController
-    }
-    
-    var utilitiesTabViewController: UtilitiesTabViewController? {
-        
-        return splitViewController?.sidebarViewController?.tabViewController?.utilitiesTabViewController
-    }
 }
 
 extension OrchardViewController {
@@ -51,145 +47,45 @@ extension OrchardViewController {
         
         super.viewDidLoad()
         
-        guard let meadow = sceneViewController?.meadow else { return }
-        
-        sceneViewController?.observer = self
-        
-        sidebarViewController?.viewModel.state = .inspecting(meadow)
+        viewModel.subscribe(stateDidChange)
     }
 }
 
-extension OrchardViewController: SceneGraphDataSource {
+extension OrchardViewController {
     
-    func sceneGraph(numberOfChildrenOfItem item: Any?) -> Int {
+    func stateDidChange(from: ViewState?, to: ViewState) {
         
-        guard item != nil else { return 1 }
-        
-        if let item = item as? SceneGraphParent {
+        switch to {
             
-            return item.totalChildren
-        }
-        
-        if let item = item as? SCNNode {
+        case .editor(let meadow):
             
-            return item.childNodes.count
-        }
-        
-        return 0
-    }
-    
-    func sceneGraph(childOfItem item: Any?, atIndex index: Int) -> Any {
-        
-        if let item = item as? SceneGraphParent, let child = item.child(at: index) {
+            sceneGraphViewController?.delegate = self
+            sceneGraphViewController?.viewModel.state = .editor(meadow)
             
-            return child
-        }
-        
-        if let item = item as? SCNNode {
+            sceneViewController?.viewModel.state = .editor(meadow)
             
-            return item.childNodes[index]
+            sidebarViewController?.viewModel.state = .empty
+            
+        default: break
         }
-        
-        return sceneViewController!.meadow
     }
 }
 
 extension OrchardViewController: SceneGraphDelegate {
     
-    func sceneGraph(outlineView: NSOutlineView, viewForItem item: Any, inColumn column: NSTableColumn?) -> NSView? {
+    func sceneGraph(didSelectChild child: SceneGraphChild, atIndex index: Int) {
         
-        guard let view = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(SceneGraphCell.cellIdentifier), owner: self) as? SceneGraphCell else { return nil }
-        
-        if let _ = item as? Meadow {
+        switch viewModel.state {
             
-            view.textField?.stringValue = "Meadow"
-            view.imageView?.image = NSImage(named: NSImage.Name("meadow_icon"))
-        }
-        
-        if let item = item as? SceneGraphChild {
+        case .editor(let meadow):
             
-            view.textField?.stringValue = item.name ?? ""
-            view.imageView?.image = NSImage(named: NSImage.Name("grid_icon"))
-        }
-        
-        return view
-    }
-    
-    func sceneGraph(outlineView: NSOutlineView, didSelectItem item: Any, atIndex index: Int) {
-    
-        guard let meadow = sceneViewController?.meadow else { return }
-        
-        if let item = item as? GridChild {
+            sceneGraphViewController?.viewModel.state = .inspecting(meadow, child)
             
-            let vector = SCNVector3(x: MDWFloat(item.volume.coordinate.x), y: Axis.Y(y: item.volume.coordinate.y), z: MDWFloat(item.volume.coordinate.z))
+            sceneViewController?.viewModel.state = .inspecting(meadow, child)
             
-            switch meadow.cameraJib.stateMachine.state {
-                
-            case .focus(_, let edge, let zoomLevel):
-                
-                meadow.cameraJib.stateMachine.state = .focus(vector, edge, zoomLevel)
-            }
-        }
-        
-        switch type(of: item) {
+            sidebarViewController?.viewModel.state = .inspecting(meadow, child)
             
-        case is CameraJib.Type:
-            
-            sidebarTabViewController?.viewModel.state = .inspector(meadow)
-            inspectorTabViewController?.viewModel.state = .camera(item as! CameraJib)
-            utilitiesTabViewController?.viewModel.state = .empty
-            
-        case is Area.Type,
-             is AreaChunk.Type,
-             is AreaTile.Type,
-             is AreaNode.Type:
-            
-            inspectorTabViewController?.viewModel.state = .area(meadow.areas, item as? AreaChunk, item as? AreaTile, item as? AreaNode)
-            utilitiesTabViewController?.viewModel.state = .area(meadow.areas)
-            
-        case is Foliage.Type,
-             is FoliageChunk.Type,
-             is FoliageTile.Type,
-             is FoliageNode.Type:
-            
-            inspectorTabViewController?.viewModel.state = .foliage(meadow.foliage, item as? FoliageChunk, item as? FoliageTile, item as? FoliageNode)
-            utilitiesTabViewController?.viewModel.state = .foliage(meadow.foliage)
-            
-        case is Footpath.Type,
-             is FootpathChunk.Type,
-             is FootpathTile.Type,
-             is FootpathNode.Type:
-            
-            inspectorTabViewController?.viewModel.state = .footpath(meadow.footpaths, item as? FootpathChunk, item as? FootpathTile, item as? FootpathNode)
-            utilitiesTabViewController?.viewModel.state = .footpath(meadow.footpaths)
-            
-        case is Terrain.Type,
-             is TerrainChunk.Type,
-             is TerrainTile.Type,
-             is TerrainNode<TerrainLayer>.Type,
-             is TerrainLayer.Type:
-            
-            inspectorTabViewController?.viewModel.state = .terrain(meadow.terrain, item as? TerrainChunk, item as? TerrainTile, item as? TerrainNode, item as? TerrainLayer)
-            utilitiesTabViewController?.viewModel.state = .terrain(meadow.terrain)
-            
-        case is Water.Type,
-             is WaterChunk.Type,
-             is WaterTile.Type,
-             is WaterNode.Type:
-            
-            inspectorTabViewController?.viewModel.state = .water(meadow.water, item as? WaterChunk, item as? WaterTile, item as? WaterNode)
-            utilitiesTabViewController?.viewModel.state = .water(meadow.water)
-            
-        default:
-            
-            inspectorTabViewController?.viewModel.state = .empty
-            utilitiesTabViewController?.viewModel.state = .empty
-            
-            if let item = item as? SCNNode, item == meadow.rootNode {
-                
-                sidebarTabViewController?.viewModel.state = .inspector(meadow)
-                inspectorTabViewController?.viewModel.state = .scene(meadow)
-            }
+        default: break
         }
     }
 }
@@ -208,40 +104,49 @@ extension OrchardViewController {
     
     override func scrollWheel(with event: NSEvent) {
         
-        guard let meadow = sceneViewController?.meadow else { return }
-        
-        switch meadow.cameraJib.stateMachine.state {
+        switch viewModel.state {
             
-        case .focus(let focus, let edge, let zoomLevel):
-            
-            let newZoomLevel = (zoomLevel + event.deltaY)
-            
-            meadow.cameraJib.stateMachine.state = .focus(focus, edge, newZoomLevel)
-        }
-    }
-    
-    override func keyUp(with event: NSEvent) {
-        
-        guard let meadow = sceneViewController?.meadow, let keyCode = KeyCodes(rawValue: Int(event.keyCode)) else { return }
-        
-        switch keyCode {
-            
-        case .q,
-             .e:
+        case .editor(let meadow):
             
             switch meadow.cameraJib.stateMachine.state {
                 
             case .focus(let focus, let edge, let zoomLevel):
                 
-                let clockwise = (keyCode == .q)
+                let newZoomLevel = (zoomLevel + event.deltaY)
                 
-                let nextEdge = GridEdge(rawValue: (clockwise ? (edge == .west ? GridEdge.north.rawValue : (edge.rawValue + 1)) : (edge == .north ? GridEdge.west.rawValue : (edge.rawValue - 1))))!
-                
-                meadow.cameraJib.stateMachine.state = .focus(focus, nextEdge, zoomLevel)
+                meadow.cameraJib.stateMachine.state = .focus(focus, edge, newZoomLevel)
             }
-        case .a:
             
-            print("a")
+        default: break
+        }
+    }
+    
+    override func keyUp(with event: NSEvent) {
+        
+        switch viewModel.state {
+            
+        case .editor(let meadow):
+            
+            guard let keyCode = KeyCodes(rawValue: Int(event.keyCode)) else { break }
+            
+            switch keyCode {
+                
+            case .q,
+                 .e:
+                
+                switch meadow.cameraJib.stateMachine.state {
+                    
+                case .focus(let focus, let edge, let zoomLevel):
+                    
+                    let clockwise = (keyCode == .q)
+                    
+                    let nextEdge = GridEdge(rawValue: (clockwise ? (edge == .west ? GridEdge.north.rawValue : (edge.rawValue + 1)) : (edge == .north ? GridEdge.west.rawValue : (edge.rawValue - 1))))!
+                    
+                    meadow.cameraJib.stateMachine.state = .focus(focus, nextEdge, zoomLevel)
+                }
+                
+            default: break
+            }
             
         default: break
         }
@@ -249,6 +154,29 @@ extension OrchardViewController {
     
     override func mouseDown(with event: NSEvent) {
         
+        switch viewModel.state {
+            
+        case .editor(let meadow):
+            
+            guard let sceneView = sceneViewController?.sceneView else { break }
+            
+            let pointInView = sceneView.convert(event.locationInWindow, from: nil)
+            
+            let point = CGPoint(x: pointInView.x, y: pointInView.y)
+            
+            let hits = sceneView.hitTest(point, options: nil)
+            
+            let nodes = meadow.hitTest(hits: hits)
+            
+            if let node = nodes.first {
+                
+                sceneGraphViewController?.viewModel.state = .inspecting(meadow, node)
+                sceneViewController?.viewModel.state = .inspecting(meadow, node)
+                sidebarViewController?.viewModel.state = .inspecting(meadow, node)
+            }
+            
+        default: break
+        }
     }
     
     override func rightMouseDown(with event: NSEvent) {
@@ -260,9 +188,31 @@ extension OrchardViewController: GridObserver {
     
     func child(didBecomeDirty child: SceneGraphChild) {
         
-        DispatchQueue.main.async {
+        switch viewModel.state {
             
-            self.sceneGraphViewController?.outlineView.reloadData()
+        case .editor(let meadow):
+            
+            guard let sceneGraphViewController = sceneGraphViewController, let sidebarViewController = sidebarViewController else { break }
+            
+            switch sceneGraphViewController.viewModel.state {
+                
+            case .inspecting(_, let item):
+                
+                sceneGraphViewController.viewModel.state = .inspecting(meadow, item)
+                
+            default: break
+            }
+            
+            switch sidebarViewController.viewModel.state {
+                
+            case .inspecting(_, let item):
+                
+                sidebarViewController.viewModel.state = .inspecting(meadow, item)
+                
+            default: break
+            }
+            
+        default: break
         }
     }
 }
@@ -283,17 +233,6 @@ extension OrchardViewController: SegueHandlerType {
             guard let splitViewController = segue.destinationController as? WindowSplitViewController else { fatalError("Invalid segue destination") }
             
             self.splitViewController = splitViewController
-            
-            if let sceneGraphViewController = sceneGraphViewController {
-                
-                sceneGraphViewController.dataSource = self
-                sceneGraphViewController.delegate = self
-            }
-            
-            if let sceneViewController = sceneViewController {
-                
-                sceneViewController.observer = self
-            }
         }
     }
 }
