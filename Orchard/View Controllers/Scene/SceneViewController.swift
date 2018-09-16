@@ -45,11 +45,14 @@ extension SceneViewController {
             sceneView.delegate = meadow
             sceneView.showsStatistics = true
             sceneView.isPlaying = true
-            sceneView.autoenablesDefaultLighting = true
             
         case .inspecting(let meadow, let item):
             
             if let item = item as? GridChild {
+                
+                xCoordinateLabel.integerValue = item.volume.coordinate.x
+                yCoordinateLabel.integerValue = item.volume.coordinate.y
+                zCoordinateLabel.integerValue = item.volume.coordinate.z
                 
                 let vector = SCNVector3(x: MDWFloat(item.volume.coordinate.x), y: Axis.Y(y: item.volume.coordinate.y), z: MDWFloat(item.volume.coordinate.z))
                 

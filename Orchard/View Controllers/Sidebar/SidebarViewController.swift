@@ -95,24 +95,24 @@ extension SidebarViewController {
                  is AreaTile.Type,
                  is AreaNode.Type:
                 
-                inspectorTabViewController.viewModel.state = .area(delegate, meadow.areas, item as? AreaChunk, item as? AreaTile, item as? AreaNode)
-                utilitiesTabViewController.viewModel.state = .area(meadow.areas)
+                inspectorTabViewController.viewModel.state = .area(delegate, meadow.world.areas, item as? AreaChunk, item as? AreaTile, item as? AreaNode)
+                utilitiesTabViewController.viewModel.state = .area(meadow.world.areas)
                 
             case is Foliage.Type,
                  is FoliageChunk.Type,
                  is FoliageTile.Type,
                  is FoliageNode.Type:
                 
-                inspectorTabViewController.viewModel.state = .foliage(delegate, meadow.foliage, item as? FoliageChunk, item as? FoliageTile, item as? FoliageNode)
-                utilitiesTabViewController.viewModel.state = .foliage(meadow.foliage)
+                inspectorTabViewController.viewModel.state = .foliage(delegate, meadow.world.foliage, item as? FoliageChunk, item as? FoliageTile, item as? FoliageNode)
+                utilitiesTabViewController.viewModel.state = .foliage(meadow.world.foliage)
                 
             case is Footpath.Type,
                  is FootpathChunk.Type,
                  is FootpathTile.Type,
                  is FootpathNode.Type:
                 
-                inspectorTabViewController.viewModel.state = .footpath(delegate, meadow.footpaths, item as? FootpathChunk, item as? FootpathTile, item as? FootpathNode)
-                utilitiesTabViewController.viewModel.state = .footpath(meadow.footpaths)
+                inspectorTabViewController.viewModel.state = .footpath(delegate, meadow.world.footpaths, item as? FootpathChunk, item as? FootpathTile, item as? FootpathNode)
+                utilitiesTabViewController.viewModel.state = .footpath(meadow.world.footpaths)
                 
             case is Terrain.Type,
                  is TerrainChunk.Type,
@@ -120,16 +120,22 @@ extension SidebarViewController {
                  is TerrainNode<TerrainLayer>.Type,
                  is TerrainLayer.Type:
                 
-                inspectorTabViewController.viewModel.state = .terrain(delegate, meadow.terrain, item as? TerrainChunk, item as? TerrainTile, item as? TerrainNode, item as? TerrainLayer)
-                utilitiesTabViewController.viewModel.state = .terrain(meadow.terrain)
+                inspectorTabViewController.viewModel.state = .terrain(delegate, meadow.world.terrain, item as? TerrainChunk, item as? TerrainTile, item as? TerrainNode, item as? TerrainLayer)
+                utilitiesTabViewController.viewModel.state = .terrain(meadow.world.terrain)
                 
             case is Water.Type,
                  is WaterChunk.Type,
                  is WaterTile.Type,
                  is WaterNode.Type:
                 
-                inspectorTabViewController.viewModel.state = .water(delegate, meadow.water, item as? WaterChunk, item as? WaterTile, item as? WaterNode)
-                utilitiesTabViewController.viewModel.state = .water(meadow.water)
+                inspectorTabViewController.viewModel.state = .water(delegate, meadow.world.water, item as? WaterChunk, item as? WaterTile, item as? WaterNode)
+                utilitiesTabViewController.viewModel.state = .water(meadow.world.water)
+                
+            case is World.Type:
+                
+                tabViewController.viewModel.state = .inspector(meadow)
+                inspectorTabViewController.viewModel.state = .world(meadow.world)
+                utilitiesTabViewController.viewModel.state = .empty
                 
             case is Meadow.Type:
                 

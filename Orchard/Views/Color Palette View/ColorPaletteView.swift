@@ -36,4 +36,25 @@ class ColorPaletteView: NSView {
             }
         }
     }
+    
+    public var color: Color? {
+        
+        didSet {
+            
+            if let color = color {
+                
+                primaryColor.fillColor = color.color
+                secondaryColor.fillColor = color.color
+                tertiaryColor.fillColor = color.color
+                quaternaryColor.fillColor = color.color
+            }
+            else {
+                
+                primaryColor.fillColor = NSColor.controlBackgroundColor
+                secondaryColor.fillColor = NSColor.controlBackgroundColor
+                tertiaryColor.fillColor = NSColor.controlBackgroundColor
+                quaternaryColor.fillColor = NSColor.controlBackgroundColor
+            }
+        }
+    }
 }

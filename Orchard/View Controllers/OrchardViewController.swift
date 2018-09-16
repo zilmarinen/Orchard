@@ -14,13 +14,7 @@ class OrchardViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return OrchardViewModel(initialState: .empty)
-    }()
-    
-    lazy var meadow = {
-        
-       return Meadow(observer: self)
-        
+        return OrchardViewModel(initialState: .editor(Meadow(observer: self)))
     }()
     
     var splitViewController: WindowSplitViewController?
@@ -65,8 +59,6 @@ extension OrchardViewController {
             sceneViewController?.viewModel.state = .editor(meadow)
             
             sidebarViewController?.viewModel.state = .empty
-            
-        default: break
         }
     }
 }
@@ -84,8 +76,6 @@ extension OrchardViewController: SceneGraphDelegate {
             sceneViewController?.viewModel.state = .inspecting(meadow, child)
             
             sidebarViewController?.viewModel.state = .inspecting(self, meadow, child)
-            
-        default: break
         }
     }
 }
@@ -116,8 +106,6 @@ extension OrchardViewController {
                 
                 meadow.cameraJib.stateMachine.state = .focus(focus, edge, newZoomLevel)
             }
-            
-        default: break
         }
     }
     
@@ -147,8 +135,6 @@ extension OrchardViewController {
                 
             default: break
             }
-            
-        default: break
         }
     }
     

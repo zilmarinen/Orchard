@@ -16,10 +16,6 @@ class Document: NSDocument {
         
         self.windowController = NSStoryboard.main!.instantiateController(withIdentifier: OrchardWindowController.sceneIdentifier) as! OrchardWindowController
         
-        guard let viewController = windowController.contentViewController as? OrchardViewController else { fatalError("Invalid view controller hierarchy") }
-        
-        viewController.viewModel.state = .editor(viewController.meadow)
-        
         super.init()
     }
     
@@ -37,24 +33,22 @@ class Document: NSDocument {
         
         guard let viewController = windowController.contentViewController as? OrchardViewController else { fatalError("Invalid view controller hierarchy") }
         
-        do {
+        switch viewController.viewModel.state {
             
-            switch viewController.viewModel.state {
+        case .editor(let meadow):
+            
+            do {
                 
-            case .editor(let meadow):
-            
                 let encoder = JSONEncoder()
-        
+                
                 let data = try encoder.encode(meadow)
-            
+                
                 return data
-            
-            default: throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": "Invalid state"])
             }
-        }
-        catch {
-            
-            throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": error])
+            catch {
+                
+                throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": error])
+            }
         }
     }
     
@@ -62,24 +56,22 @@ class Document: NSDocument {
         
         guard let viewController = windowController.contentViewController as? OrchardViewController else { fatalError("Invalid view controller hierarchy") }
         
-        do {
+        switch viewController.viewModel.state {
             
-            switch viewController.viewModel.state {
-                
-            case .editor(let meadow):
+        case .editor(let meadow):
+            
+            do {
                 
                 let decoder = JSONDecoder()
                 
                 let intermediate = try decoder.decode(MeadowIntermediate.self, from: data)
                 
-                meadow.load(intermediate: intermediate)
-                
-            default: break
+                meadow.load(intermediates: [intermediate])
             }
-        }
-        catch {
-        
-            throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": error])
+            catch {
+                
+                throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": error])
+            }
         }
     }
 }

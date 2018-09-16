@@ -113,7 +113,7 @@ class AreaInspectorViewController: NSViewController {
                 
             case selectedFloorColorPalettePopUp:
                 
-                let selectedColorPalette = ColorPalettes.shared.all[sender.indexOfSelectedItem]
+                let selectedColorPalette = ColorPalettes.shared.allColorPalettes[sender.indexOfSelectedItem]
 
                 node.floorColorPalette = selectedColorPalette
 
@@ -145,9 +145,11 @@ class AreaInspectorViewController: NSViewController {
                 
                 if let edgeType = AreaNodeEdgeType(rawValue: sender.indexOfSelectedItem) {
                     
-                    let architectureType = AreaArchitectureType.allCases[selectedArchitectureTypePopup.indexOfSelectedItem]
-                    let externalColorPalette = ColorPalettes.shared.all[externalColorPalettePopup.indexOfSelectedItem]
-                    let internalColorPalette = ColorPalettes.shared.all[internalColorPalettePopup.indexOfSelectedItem]
+                    let nodeEdge = node.anyEdge()
+                    
+                    let architectureType = (nodeEdge?.architectureType ?? AreaArchitectureType.allCases[selectedArchitectureTypePopup.indexOfSelectedItem])
+                    let externalColorPalette = (nodeEdge?.externalColorPalette ?? ColorPalettes.shared.allColorPalettes[externalColorPalettePopup.indexOfSelectedItem])
+                    let internalColorPalette = (nodeEdge?.internalColorPalette ?? ColorPalettes.shared.allColorPalettes[internalColorPalettePopup.indexOfSelectedItem])
                     
                     node.set(edge: AreaNode.Edge(edge: edge, edgeType: edgeType, architectureType: architectureType, externalColorPalette: externalColorPalette, internalColorPalette: internalColorPalette))
                 }
@@ -175,7 +177,7 @@ class AreaInspectorViewController: NSViewController {
                 
                 if let nodeEdge = node.find(edge: edge) {
                  
-                    let colorPalette = ColorPalettes.shared.all[sender.indexOfSelectedItem]
+                    let colorPalette = ColorPalettes.shared.allColorPalettes[sender.indexOfSelectedItem]
                     
                     node.set(edge: AreaNode.Edge(edge: nodeEdge.edge, edgeType: nodeEdge.edgeType, architectureType: nodeEdge.architectureType, externalColorPalette: colorPalette, internalColorPalette: nodeEdge.internalColorPalette))
                     
@@ -186,7 +188,7 @@ class AreaInspectorViewController: NSViewController {
                 
                 if let nodeEdge = node.find(edge: edge) {
                     
-                    let colorPalette = ColorPalettes.shared.all[sender.indexOfSelectedItem]
+                    let colorPalette = ColorPalettes.shared.allColorPalettes[sender.indexOfSelectedItem]
                     
                     node.set(edge: AreaNode.Edge(edge: nodeEdge.edge, edgeType: nodeEdge.edgeType, architectureType: nodeEdge.architectureType, externalColorPalette: nodeEdge.externalColorPalette, internalColorPalette: colorPalette))
                     
@@ -282,7 +284,7 @@ extension AreaInspectorViewController {
                     selectedInternalAreaTypePopUp.addItem(withTitle: areaType.name)
                 }
                 
-                ColorPalettes.shared.all.forEach { colorPalette in
+                ColorPalettes.shared.allColorPalettes.forEach { colorPalette in
                     
                     selectedFloorColorPalettePopUp.addItem(withTitle: colorPalette.name)
                     externalColorPalettePopup.addItem(withTitle: colorPalette.name)
@@ -299,7 +301,7 @@ extension AreaInspectorViewController {
                     selectedInternalAreaTypePopUp.selectItem(at: areaType.rawValue)
                 }
                 
-                if let colorPalette = node.floorColorPalette, let index = ColorPalettes.shared.all.index(of: colorPalette) {
+                if let colorPalette = node.floorColorPalette, let index = ColorPalettes.shared.allColorPalettes.index(of: colorPalette) {
                     
                     selectedFloorColorPalettePopUp.selectItem(at: index)
                     
@@ -349,7 +351,7 @@ extension AreaInspectorViewController {
                     externalColorPalettePopup.isEnabled = true
                     internalColorPalettePopup.isEnabled = true
                     
-                    if let index = ColorPalettes.shared.all.index(of: nodeEdge.externalColorPalette) {
+                    if let index = ColorPalettes.shared.allColorPalettes.index(of: nodeEdge.externalColorPalette) {
                         
                         externalColorPalettePopup.selectItem(at: index)
                         
@@ -360,7 +362,7 @@ extension AreaInspectorViewController {
                         externalColorPaletteView.colorPalette = nil
                     }
                     
-                    if let index = ColorPalettes.shared.all.index(of: nodeEdge.internalColorPalette) {
+                    if let index = ColorPalettes.shared.allColorPalettes.index(of: nodeEdge.internalColorPalette) {
                         
                         internalColorPalettePopup.selectItem(at: index)
                         

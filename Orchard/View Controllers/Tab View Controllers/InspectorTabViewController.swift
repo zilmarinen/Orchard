@@ -197,6 +197,12 @@ extension InspectorTabViewController {
             
             viewController.viewModel.state = .inspecting(delegate, water, inspectable)
             
+        case .world(let world):
+            
+            guard let viewController = childViewControllers[to.sortOrder] as? WorldInspectorViewController else { break }
+            
+            viewController.viewModel.state = .inspecting(world)
+            
         default: break
         }
     }

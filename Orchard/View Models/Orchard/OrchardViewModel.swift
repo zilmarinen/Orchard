@@ -13,7 +13,6 @@ extension OrchardViewController {
     
     enum ViewState: THRUtilities.State {
         
-        case empty
         case editor(Meadow)
         
         func shouldTransition(to newState: OrchardViewController.ViewState) -> THRUtilities.Should<OrchardViewController.ViewState> {

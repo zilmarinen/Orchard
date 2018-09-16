@@ -21,6 +21,7 @@ extension InspectorTabViewController {
         case scene(Meadow)
         case terrain(SceneGraphDelegate, Terrain, TerrainChunk?, TerrainTile?, TerrainNode<TerrainLayer>?, TerrainLayer?)
         case water(SceneGraphDelegate, Water, WaterChunk?, WaterTile?, WaterNode?)
+        case world(World)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
@@ -46,6 +47,8 @@ extension InspectorTabViewController {
             case .terrain: return 6
                 
             case .water: return 7
+                
+            case .world: return 8
             }
         }
     }
