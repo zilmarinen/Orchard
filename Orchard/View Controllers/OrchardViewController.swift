@@ -58,7 +58,7 @@ extension OrchardViewController {
             
             sceneViewController?.viewModel.state = .editor(meadow)
             
-            sidebarViewController?.viewModel.state = .empty
+            sidebarViewController?.viewModel.state = .inspecting(self, meadow, meadow)
         }
     }
 }
@@ -162,8 +162,6 @@ extension OrchardViewController {
                 
                 sidebarViewController?.viewModel.state = .inspecting(self, meadow, node)
             }
-            
-        default: break
         }
     }
     
@@ -199,8 +197,6 @@ extension OrchardViewController: GridObserver {
                 
             default: break
             }
-            
-        default: break
         }
     }
 }

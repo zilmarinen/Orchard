@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		067D210C49D9AD130E911337 /* libPods-OrchardTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95616876E66A90764CB82BEE /* libPods-OrchardTests.a */; };
 		1803165B20B6F0AE009D367F /* CameraInspectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1803165A20B6F0AE009D367F /* CameraInspectorViewModel.swift */; };
 		1803165D20B6F2DF009D367F /* TerrainInspectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1803165C20B6F2DF009D367F /* TerrainInspectorViewModel.swift */; };
 		1805DF2220C912FF00F333C6 /* InspectorSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1805DF2120C912FF00F333C6 /* InspectorSceneView.swift */; };
@@ -74,8 +75,7 @@
 		18C9BF1A214E8F7E00440DCA /* WorldInspectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C9BF19214E8F7E00440DCA /* WorldInspectorViewModel.swift */; };
 		18FCFAEE20B2D17700EBCBBB /* CameraInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCFAEC20B2D17700EBCBBB /* CameraInspectorViewController.swift */; };
 		18FCFAF220B2D34000EBCBBB /* SceneInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCFAF120B2D34000EBCBBB /* SceneInspectorViewController.swift */; };
-		E0081A8A645735C36BAC7EA3 /* Pods_Orchard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD87A9B137F6385378538367 /* Pods_Orchard.framework */; };
-		E07C13382DFF61887FF009F3 /* Pods_OrchardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ECC18733B7C0D5B829A19C8 /* Pods_OrchardTests.framework */; };
+		95C09820F6A9C63DD26AA375 /* libPods-Orchard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEC913C8FBAB8126A50226D5 /* libPods-Orchard.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -164,9 +164,9 @@
 		18FCFAF120B2D34000EBCBBB /* SceneInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneInspectorViewController.swift; sourceTree = "<group>"; };
 		569504FABC2C1C147277D036 /* Pods-Orchard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orchard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Orchard/Pods-Orchard.debug.xcconfig"; sourceTree = "<group>"; };
 		625DF7EC8D7148586F17ACD0 /* Pods-Orchard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orchard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Orchard/Pods-Orchard.release.xcconfig"; sourceTree = "<group>"; };
-		7ECC18733B7C0D5B829A19C8 /* Pods_OrchardTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OrchardTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		95616876E66A90764CB82BEE /* libPods-OrchardTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OrchardTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BEC913C8FBAB8126A50226D5 /* libPods-Orchard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Orchard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C5F3F31A6B581BE781291C /* Pods-OrchardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OrchardTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OrchardTests/Pods-OrchardTests.debug.xcconfig"; sourceTree = "<group>"; };
-		FD87A9B137F6385378538367 /* Pods_Orchard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Orchard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,7 +174,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0081A8A645735C36BAC7EA3 /* Pods_Orchard.framework in Frameworks */,
+				95C09820F6A9C63DD26AA375 /* libPods-Orchard.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,7 +182,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E07C13382DFF61887FF009F3 /* Pods_OrchardTests.framework in Frameworks */,
+				067D210C49D9AD130E911337 /* libPods-OrchardTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,14 +365,14 @@
 		1871220520932094002488E0 /* Orchard */ = {
 			isa = PBXGroup;
 			children = (
+				1871220A20932095002488E0 /* Assets.xcassets */,
 				188E38E820B57CAC001A6C3A /* Document */,
+				18496C622093243900992AF3 /* Storyboards */,
+				18496C61209323FE00992AF3 /* Supporting */,
+				18496C632093244900992AF3 /* View Controllers */,
 				18B4886420B1BD110032E832 /* View Models */,
 				18C7732420A73564006F3EA8 /* Views */,
 				18C7731F20A728A7006F3EA8 /* Window Controllers */,
-				18496C632093244900992AF3 /* View Controllers */,
-				18496C622093243900992AF3 /* Storyboards */,
-				18496C61209323FE00992AF3 /* Supporting */,
-				1871220A20932095002488E0 /* Assets.xcassets */,
 			);
 			path = Orchard;
 			sourceTree = "<group>";
@@ -699,8 +699,8 @@
 		428DBAAD587453FEBFF7B21A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FD87A9B137F6385378538367 /* Pods_Orchard.framework */,
-				7ECC18733B7C0D5B829A19C8 /* Pods_OrchardTests.framework */,
+				BEC913C8FBAB8126A50226D5 /* libPods-Orchard.a */,
+				95616876E66A90764CB82BEE /* libPods-OrchardTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -716,7 +716,7 @@
 				187121FF20932094002488E0 /* Sources */,
 				1871220020932094002488E0 /* Frameworks */,
 				1871220120932094002488E0 /* Resources */,
-				EABF9B413D0CE6957C4BEF2A /* [CP] Embed Pods Frameworks */,
+				E55DA60BBA69A2377ECE7D55 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -758,6 +758,11 @@
 				TargetAttributes = {
 					1871220220932094002488E0 = {
 						CreatedOnToolsVersion = 9.3;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 					1871221420932095002488E0 = {
 						CreatedOnToolsVersion = 9.3;
@@ -823,28 +828,22 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EABF9B413D0CE6957C4BEF2A /* [CP] Embed Pods Frameworks */ = {
+		E55DA60BBA69A2377ECE7D55 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Orchard/Pods-Orchard-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Meadow/Meadow.framework",
-				"${BUILT_PRODUCTS_DIR}/THROperations/THROperations.framework",
-				"${BUILT_PRODUCTS_DIR}/THRResult/THRResult.framework",
-				"${BUILT_PRODUCTS_DIR}/THRUtilities/THRUtilities.framework",
+				"${SRCROOT}/Pods/Target Support Files/Pods-Orchard/Pods-Orchard-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/Meadow/Meadow.bundle",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Meadow.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/THROperations.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/THRResult.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/THRUtilities.framework",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Meadow.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Orchard/Pods-Orchard-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Orchard/Pods-Orchard-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EE4BCFC560E6F208F2157145 /* [CP] Check Pods Manifest.lock */ = {
@@ -1024,7 +1023,10 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -1077,7 +1079,9 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -1086,14 +1090,10 @@
 			baseConfigurationReference = 569504FABC2C1C147277D036 /* Pods-Orchard.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Orchard/Supporting/Orchard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Orchard/Supporting/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.Orchard";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1105,14 +1105,10 @@
 			baseConfigurationReference = 625DF7EC8D7148586F17ACD0 /* Pods-Orchard.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Orchard/Supporting/Orchard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Orchard/Supporting/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.Orchard";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1128,11 +1124,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = OrchardTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.OrchardTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1149,11 +1141,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = OrchardTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.OrchardTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

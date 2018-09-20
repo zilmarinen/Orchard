@@ -16,6 +16,11 @@ class Document: NSDocument {
         
         self.windowController = NSStoryboard.main!.instantiateController(withIdentifier: OrchardWindowController.sceneIdentifier) as! OrchardWindowController
         
+        if let screen = self.windowController.window?.screen {
+        
+            self.windowController.window?.setFrame(screen.visibleFrame, display: true, animate: true)
+        }
+        
         super.init()
     }
     
