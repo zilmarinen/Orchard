@@ -40,7 +40,7 @@ class Document: NSDocument {
         
         switch viewController.viewModel.state {
             
-        case .editor(let meadow):
+        case .editor(let meadow, _):
             
             do {
                 
@@ -54,6 +54,8 @@ class Document: NSDocument {
                 
                 throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": error])
             }
+            
+        default: throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": "Invalid view model state"])
         }
     }
     
@@ -63,7 +65,7 @@ class Document: NSDocument {
         
         switch viewController.viewModel.state {
             
-        case .editor(let meadow):
+        case .editor(let meadow, let cursorModel):
             
             do {
                 
@@ -71,12 +73,14 @@ class Document: NSDocument {
                 
                 let intermediate = try decoder.decode(MeadowIntermediate.self, from: data)
                 
-                meadow.load(intermediates: [intermediate])
+                viewController.viewModel.state = .loading(meadow, cursorModel, intermediate)
             }
             catch {
                 
                 throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": error])
             }
+            
+        default: break
         }
     }
 }

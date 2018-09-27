@@ -14,8 +14,7 @@ extension SceneGraphViewController {
     enum ViewState: THRUtilities.State {
         
         case empty
-        case editor(Meadow)
-        case inspecting(Meadow, SceneGraphChild)
+        case sceneGraph(Meadow, SceneGraphChild?)
         
         func shouldTransition(to newState: SceneGraphViewController.ViewState) -> THRUtilities.Should<SceneGraphViewController.ViewState> {
             

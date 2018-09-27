@@ -1,7 +1,9 @@
 PODS:
   - Meadow (0.1):
     - Meadow/Core (= 0.1)
-  - Meadow/Core (0.1)
+    - THRUtilities
+  - Meadow/Core (0.1):
+    - THRUtilities
   - THROperations (1.4.3):
     - THROperations/Core (= 1.4.3)
     - THRResult
@@ -31,11 +33,11 @@ EXTERNAL SOURCES:
     :path: "../THRUtilities"
 
 SPEC CHECKSUMS:
-  Meadow: d3be92b3425aa1180939b9a6704c16c6bf0bda59
+  Meadow: 6164da11a6cb53fe7dfcec83acbc61e010d8fbf3
   THROperations: d179a3685c73a59c27e65d577c79975946051f65
   THRResult: ae040cc6ad5318d09e1ea6360f779c647f8378d8
   THRUtilities: 08695fe94b602540cba2c0db60d256320339ae5b
 
-PODFILE CHECKSUM: a970bbf0b5a864d3f1d6d30f34cf0bcf973bc86b
+PODFILE CHECKSUM: f9b82aacb1a2d7216236b5b2acccdc378339391c
 
 COCOAPODS: 1.5.3

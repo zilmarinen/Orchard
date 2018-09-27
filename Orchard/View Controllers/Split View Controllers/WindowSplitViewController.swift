@@ -34,11 +34,11 @@ extension WindowSplitViewController {
         
         super.awakeFromNib()
         
-        sceneGraphViewController = childViewControllers.first { return type(of: $0) == SceneGraphViewController.self } as? SceneGraphViewController
+        sceneGraphViewController = children.first { return type(of: $0) == SceneGraphViewController.self } as? SceneGraphViewController
         
-        sceneViewController = childViewControllers.first { return type(of: $0) == SceneViewController.self } as? SceneViewController
+        sceneViewController = children.first { return type(of: $0) == SceneViewController.self } as? SceneViewController
         
-        sidebarViewController = childViewControllers.first { return type(of: $0) == SidebarViewController.self } as? SidebarViewController
+        sidebarViewController = children.first { return type(of: $0) == SidebarViewController.self } as? SidebarViewController
     }
 }
 

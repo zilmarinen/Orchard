@@ -60,45 +60,6 @@ extension InspectorSceneView {
     }
 }
 
-extension InspectorSceneView {
-    
-    override func scrollWheel(with event: NSEvent) {
-        
-        switch cameraJib.stateMachine.state {
-            
-        case .focus(let focus, let edge, let zoomLevel):
-            
-            let newZoomLevel = (zoomLevel + event.deltaY)
-            
-            cameraJib.stateMachine.state = .focus(focus, edge, newZoomLevel)
-        }
-    }
-    
-    override func mouseDown(with event: NSEvent) {
-        
-        switch cameraJib.stateMachine.state {
-            
-        case .focus(let focus, let edge, let zoomLevel):
-            
-            let nextEdge = GridEdge(rawValue: (edge == .west ? GridEdge.north.rawValue : (edge.rawValue + 1)))!
-            
-            cameraJib.stateMachine.state = .focus(focus, nextEdge, zoomLevel)
-        }
-    }
-    
-    override func rightMouseDown(with event: NSEvent) {
-     
-        switch cameraJib.stateMachine.state {
-            
-        case .focus(let focus, let edge, let zoomLevel):
-            
-            let nextEdge = GridEdge(rawValue: (edge == .north ? GridEdge.west.rawValue : (edge.rawValue - 1)))!
-            
-            cameraJib.stateMachine.state = .focus(focus, nextEdge, zoomLevel)
-        }
-    }
-}
-
 extension InspectorSceneView: SCNSceneRendererDelegate {
     
     /*!

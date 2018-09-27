@@ -47,11 +47,20 @@ extension SceneGraphViewController {
         
         switch to {
             
-        case .editor(_):
+        case .sceneGraph(_, let child):
             
             DispatchQueue.main.async {
                 
                 self.outlineView.reloadData()
+                
+                if let child = child {
+                    
+                    let row = self.outlineView.row(forItem: child)
+                    
+                    let indexSet = IndexSet(integer: row)
+                    
+                    self.outlineView.selectRowIndexes(indexSet, byExtendingSelection: false)
+                }
             }
             
         default: break
@@ -69,7 +78,16 @@ extension SceneGraphViewController {
         
         guard let child = sender.item(atRow: index) as? SceneGraphChild else { return }
         
-        delegate.sceneGraph(didSelectChild: child, atIndex: index)
+        switch viewModel.state {
+            
+        case .sceneGraph(let meadow, _):
+            
+            viewModel.state = .sceneGraph(meadow, child)
+            
+            delegate.sceneGraph(didSelectChild: child, atIndex: index)
+            
+        default: break
+        }
     }
  
     func sceneGraph(numberOfChildrenOfItem item: Any?) -> Int {
@@ -111,7 +129,7 @@ extension SceneGraphViewController: NSOutlineViewDataSource {
         
         switch viewModel.state {
             
-        case .editor(let meadow): return meadow
+        case .sceneGraph(let meadow, _): return meadow
             
         default: fatalError("Unable to find child of item \(String(describing: item))")
         }

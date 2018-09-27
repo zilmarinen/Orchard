@@ -14,7 +14,7 @@ class OrchardViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return OrchardViewModel(initialState: .editor(Meadow(observer: self)))
+        return OrchardViewModel(initialState: .editor(Meadow(observer: self), SceneView.CursorModel()))
     }()
     
     var splitViewController: WindowSplitViewController?
@@ -51,14 +51,28 @@ extension OrchardViewController {
         
         switch to {
             
-        case .editor(let meadow):
+        case .editor(let meadow, let cursorModel):
             
             sceneGraphViewController?.delegate = self
-            sceneGraphViewController?.viewModel.state = .editor(meadow)
+            sceneGraphViewController?.viewModel.state = .sceneGraph(meadow, meadow)
             
-            sceneViewController?.viewModel.state = .editor(meadow)
+            sceneViewController?.viewModel.state = .editor(meadow, cursorModel)
             
-            sidebarViewController?.viewModel.state = .inspecting(self, meadow, meadow)
+            sidebarViewController?.viewModel.state = .empty
+            
+        case .loading(let meadow, let cursorModel, let intermediate):
+            
+            meadow.load(intermediates: [intermediate])
+            
+            viewModel.state = .editor(meadow, cursorModel)
+        }
+    }
+    
+    func stateDidChange(from: SceneView.CursorState?, to: SceneView.CursorState) {
+        
+        switch to {
+            
+        default: break
         }
     }
 }
@@ -69,17 +83,15 @@ extension OrchardViewController: SceneGraphDelegate {
         
         switch viewModel.state {
             
-        case .editor(let meadow):
-            
-            sceneGraphViewController?.viewModel.state = .inspecting(meadow, child)
-            
-            sceneViewController?.viewModel.state = .inspecting(meadow, child)
+        case .editor(let meadow, _):
             
             sidebarViewController?.viewModel.state = .inspecting(self, meadow, child)
+        
+        default: break
         }
     }
 }
-
+/*
 extension OrchardViewController {
     
     enum KeyCodes: Int {
@@ -106,6 +118,8 @@ extension OrchardViewController {
                 
                 meadow.cameraJib.stateMachine.state = .focus(focus, edge, newZoomLevel)
             }
+            
+        default: break
         }
     }
     
@@ -135,6 +149,8 @@ extension OrchardViewController {
                 
             default: break
             }
+            
+        default: break
         }
     }
     
@@ -156,12 +172,14 @@ extension OrchardViewController {
             
             if let node = nodes.first {
                 
-                sceneGraphViewController?.viewModel.state = .inspecting(meadow, node)
+                sceneGraphViewController?.viewModel.state = .sceneGraph(meadow, node)
                 
                 sceneViewController?.viewModel.state = .inspecting(meadow, node)
                 
                 sidebarViewController?.viewModel.state = .inspecting(self, meadow, node)
             }
+            
+        default: break
         }
     }
     
@@ -169,22 +187,22 @@ extension OrchardViewController {
         
     }
 }
-
+*/
 extension OrchardViewController: GridObserver {
     
     func child(didBecomeDirty child: SceneGraphChild) {
         
         switch viewModel.state {
             
-        case .editor(let meadow):
+        case .editor(let meadow, _):
             
             guard let sceneGraphViewController = sceneGraphViewController, let sidebarViewController = sidebarViewController else { break }
             
             switch sceneGraphViewController.viewModel.state {
                 
-            case .inspecting(_, let item):
+            case .sceneGraph(_, let item):
                 
-                sceneGraphViewController.viewModel.state = .inspecting(meadow, item)
+                sceneGraphViewController.viewModel.state = .sceneGraph(meadow, item)
                 
             default: break
             }
@@ -197,6 +215,8 @@ extension OrchardViewController: GridObserver {
                 
             default: break
             }
+        
+        default: break
         }
     }
 }

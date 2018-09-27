@@ -37,7 +37,7 @@ extension TerrainUtilitiesTabViewController {
             
         case .build(let terrain):
             
-            guard let viewController = childViewControllers[to.sortOrder] as? TerrainBuildUtilitiesViewController else { break }
+            guard let viewController = children[to.sortOrder] as? TerrainBuildUtilitiesViewController else { break }
             
             switch viewController.viewModel.state {
                 
@@ -52,7 +52,7 @@ extension TerrainUtilitiesTabViewController {
             
         case .terraform(let terrain):
             
-            guard let viewController = childViewControllers[to.sortOrder] as? TerrainTerraformUtilitiesViewController else { break }
+            guard let viewController = children[to.sortOrder] as? TerrainTerraformUtilitiesViewController else { break }
             
             switch viewController.viewModel.state {
                 
@@ -67,7 +67,7 @@ extension TerrainUtilitiesTabViewController {
         
         case .paint(let terrain):
             
-            guard let viewController = childViewControllers[to.sortOrder] as? TerrainPaintUtilitiesViewController else { break }
+            guard let viewController = children[to.sortOrder] as? TerrainPaintUtilitiesViewController else { break }
             
             switch viewController.viewModel.state {
                 

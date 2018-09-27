@@ -13,12 +13,12 @@ class SidebarTabViewController: NSTabViewController {
     
     var inspectorTabViewController: InspectorTabViewController? {
         
-        return childViewControllers.first { return type(of: $0) == InspectorTabViewController.self } as? InspectorTabViewController
+        return children.first { return type(of: $0) == InspectorTabViewController.self } as? InspectorTabViewController
     }
     
     var utilitiesTabViewController: UtilitiesTabViewController? {
         
-        return childViewControllers.first { return type(of: $0) == UtilitiesTabViewController.self } as? UtilitiesTabViewController
+        return children.first { return type(of: $0) == UtilitiesTabViewController.self } as? UtilitiesTabViewController
     }
 
     lazy var viewModel = {
