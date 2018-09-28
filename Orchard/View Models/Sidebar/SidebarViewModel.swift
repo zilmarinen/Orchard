@@ -14,7 +14,7 @@ extension SidebarViewController {
     enum ViewState: THRUtilities.State {
         
         case empty
-        case inspecting(SceneGraphDelegate, Meadow, SceneGraphChild)
+        case inspecting(SceneGraphDelegate, Meadow, SceneGraphChild, SceneView.CursorModel)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

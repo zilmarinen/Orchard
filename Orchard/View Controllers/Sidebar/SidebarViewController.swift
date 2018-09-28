@@ -22,7 +22,7 @@ class SidebarViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(_, let meadow, _):
+        case .inspecting(_, let meadow, _, _):
         
             switch sender {
         
@@ -69,7 +69,7 @@ extension SidebarViewController {
             
             tabViewController.viewModel.state = .empty
             
-        case .inspecting(let delegate, let meadow, let item):
+        case .inspecting(let delegate, let meadow, let item, _):
             
             switch tabViewController.viewModel.state {
                 

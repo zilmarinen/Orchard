@@ -32,35 +32,37 @@ extension UtilitiesTabViewController {
         
         selectedTabViewItemIndex = to.sortOrder
         
+        let viewController = children[to.sortOrder]
+        
         switch to {
             
         case .area(let area):
             
-            guard let viewController = children[to.sortOrder] as? AreaUtilitiesViewController else { break }
+            guard let viewController = viewController as? AreaUtilitiesViewController else { break }
             
             viewController.viewModel.state = .inspecting(area)
             
         case .foliage(let foliage):
             
-            guard let viewController = children[to.sortOrder] as? FoliageUtilitiesViewController else { break }
+            guard let viewController = viewController as? FoliageUtilitiesViewController else { break }
             
             viewController.viewModel.state = .inspecting(foliage)
             
         case .footpath(let footpath):
             
-            guard let viewController = children[to.sortOrder] as? FootpathUtilitiesViewController else { break }
+            guard let viewController = viewController as? FootpathUtilitiesViewController else { break }
             
             viewController.viewModel.state = .inspecting(footpath)
             
         case .terrain(let terrain):
             
-            guard let viewController = children[to.sortOrder] as? TerrainUtilitiesViewController else { break }
+            guard let viewController = viewController as? TerrainUtilitiesViewController else { break }
             
             viewController.viewModel.state = .inspecting(terrain)
             
         case .water(let water):
             
-            guard let viewController = children[to.sortOrder] as? WaterUtilitiesViewController else { break }
+            guard let viewController = viewController as? WaterUtilitiesViewController else { break }
             
             viewController.viewModel.state = .inspecting(water)
             

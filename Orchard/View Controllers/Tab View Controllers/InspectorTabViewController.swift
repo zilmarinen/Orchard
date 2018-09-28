@@ -32,11 +32,13 @@ extension InspectorTabViewController {
         
         selectedTabViewItemIndex = to.sortOrder
         
+        let viewController = children[to.sortOrder]
+        
         switch to {
         
         case .area(let delegate, let area, var chunk, var tile, var node):
             
-            guard let viewController = children[to.sortOrder] as? AreaInspectorViewController else { break }
+            guard let viewController = viewController as? AreaInspectorViewController else { break }
             
             if let chunk = chunk, chunk.totalChildren > 0 {
                 
@@ -65,13 +67,13 @@ extension InspectorTabViewController {
             
         case .camera(let cameraJib):
             
-            guard let viewController = children[to.sortOrder] as? CameraInspectorViewController else { break }
+            guard let viewController = viewController as? CameraInspectorViewController else { break }
             
             viewController.viewModel.state = .inspecting(cameraJib)
             
         case .foliage(let delegate, let foliage, var chunk, var tile, var node):
             
-            guard let viewController = children[to.sortOrder] as? FoliageInspectorViewController else { break }
+            guard let viewController = viewController as? FoliageInspectorViewController else { break }
             
             if let chunk = chunk, chunk.totalChildren > 0 {
                 
@@ -100,7 +102,7 @@ extension InspectorTabViewController {
             
         case .footpath(let delegate, let footpath, var chunk, var tile, var node):
             
-            guard let viewController = children[to.sortOrder] as? FootpathInspectorViewController else { break }
+            guard let viewController = viewController as? FootpathInspectorViewController else { break }
             
             if let chunk = chunk, chunk.totalChildren > 0 {
                 
@@ -129,13 +131,13 @@ extension InspectorTabViewController {
             
         case.scene(let meadow):
             
-            guard let viewController = children[to.sortOrder] as? SceneInspectorViewController else { break }
+            guard let viewController = viewController as? SceneInspectorViewController else { break }
             
             viewController.viewModel.state = .inspecting(meadow)
             
         case.terrain(let delegate, let terrain, var chunk, var tile, var node, var layer):
             
-            guard let viewController = children[to.sortOrder] as? TerrainInspectorViewController else { break }
+            guard let viewController = viewController as? TerrainInspectorViewController else { break }
             
             if let chunk = chunk, chunk.totalChildren > 0 {
                 
@@ -170,7 +172,7 @@ extension InspectorTabViewController {
             
         case .water(let delegate, let water, var chunk, var tile, var node):
             
-            guard let viewController = children[to.sortOrder] as? WaterInspectorViewController else { break }
+            guard let viewController = viewController as? WaterInspectorViewController else { break }
             
             if let chunk = chunk, chunk.totalChildren > 0 {
                 
@@ -199,7 +201,7 @@ extension InspectorTabViewController {
             
         case .world(let world):
             
-            guard let viewController = children[to.sortOrder] as? WorldInspectorViewController else { break }
+            guard let viewController = viewController as? WorldInspectorViewController else { break }
             
             viewController.viewModel.state = .inspecting(world)
             

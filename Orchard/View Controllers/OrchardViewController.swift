@@ -67,14 +67,6 @@ extension OrchardViewController {
             viewModel.state = .editor(meadow, cursorModel)
         }
     }
-    
-    func stateDidChange(from: SceneView.CursorState?, to: SceneView.CursorState) {
-        
-        switch to {
-            
-        default: break
-        }
-    }
 }
 
 extension OrchardViewController: SceneGraphDelegate {
@@ -83,9 +75,9 @@ extension OrchardViewController: SceneGraphDelegate {
         
         switch viewModel.state {
             
-        case .editor(let meadow, _):
+        case .editor(let meadow, let cursorModel):
             
-            sidebarViewController?.viewModel.state = .inspecting(self, meadow, child)
+            sidebarViewController?.viewModel.state = .inspecting(self, meadow, child, cursorModel)
         
         default: break
         }
@@ -182,10 +174,6 @@ extension OrchardViewController {
         default: break
         }
     }
-    
-    override func rightMouseDown(with event: NSEvent) {
-        
-    }
 }
 */
 extension OrchardViewController: GridObserver {
@@ -194,7 +182,7 @@ extension OrchardViewController: GridObserver {
         
         switch viewModel.state {
             
-        case .editor(let meadow, _):
+        case .editor(let meadow, let cursorModel):
             
             guard let sceneGraphViewController = sceneGraphViewController, let sidebarViewController = sidebarViewController else { break }
             
@@ -209,9 +197,9 @@ extension OrchardViewController: GridObserver {
             
             switch sidebarViewController.viewModel.state {
                 
-            case .inspecting(let delegate, _, let item):
+            case .inspecting(let delegate, _, let item, _):
                 
-                sidebarViewController.viewModel.state = .inspecting(delegate, meadow, item)
+                sidebarViewController.viewModel.state = .inspecting(delegate, meadow, item, cursorModel)
                 
             default: break
             }
