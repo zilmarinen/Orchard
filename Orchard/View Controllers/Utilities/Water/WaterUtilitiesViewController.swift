@@ -19,7 +19,7 @@ class WaterUtilitiesViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid):
+        case .water(let editor, let grid):
             
             switch sender {
                 
@@ -30,7 +30,7 @@ class WaterUtilitiesViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .inspecting(grid)
+            viewModel.state = .water(editor: editor, grid: grid)
             
         default: break
         }
@@ -40,7 +40,7 @@ class WaterUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return WaterUtilitiesViewModel(initialState: .empty)
+        return WaterUtilitiesViewModel(initialState: .empty(editor: nil))
     }()
 }
 
@@ -60,7 +60,7 @@ extension WaterUtilitiesViewController {
         
         switch to {
             
-        case .inspecting(let grid):
+        case .water(_, let grid):
             
             chunkCount.integerValue = grid.totalChildren
             gridHiddenButton.state = (grid.isHidden ? .off : .on)

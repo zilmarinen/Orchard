@@ -14,7 +14,7 @@ class OrchardViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return OrchardViewModel(initialState: .editor(Meadow(observer: self), SceneView.CursorModel()))
+        return OrchardViewModel(initialState: .editor(editor: (meadow: Meadow(observer: self), cursorModel: SceneView.CursorModel(), delegate: self)))
     }()
     
     var splitViewController: WindowSplitViewController?
@@ -51,20 +51,20 @@ extension OrchardViewController {
         
         switch to {
             
-        case .editor(let meadow, let cursorModel):
+        case .editor(let editor):
             
             sceneGraphViewController?.delegate = self
-            sceneGraphViewController?.viewModel.state = .sceneGraph(meadow, meadow)
+            sceneGraphViewController?.viewModel.state = .sceneGraph(meadow: editor.meadow, child: editor.meadow)
             
-            sceneViewController?.viewModel.state = .editor(meadow, cursorModel)
+            sceneViewController?.viewModel.state = .editor(editor: editor)
             
-            sidebarViewController?.viewModel.state = .empty
+            sidebarViewController?.viewModel.state = .inspector(editor: editor, child: editor.meadow)
             
-        case .loading(let meadow, let cursorModel, let intermediate):
+        case .loading(let editor, let intermediate):
             
-            meadow.load(intermediates: [intermediate])
+            editor.meadow.load(intermediates: [intermediate])
             
-            viewModel.state = .editor(meadow, cursorModel)
+            viewModel.state = .editor(editor: editor)
         }
     }
 }
@@ -75,9 +75,9 @@ extension OrchardViewController: SceneGraphDelegate {
         
         switch viewModel.state {
             
-        case .editor(let meadow, let cursorModel):
+        case .editor(let editor):
             
-            sidebarViewController?.viewModel.state = .inspecting(self, meadow, child, cursorModel)
+            sidebarViewController?.viewModel.state = .inspector(editor: editor, child: child)
         
         default: break
         }
@@ -182,7 +182,7 @@ extension OrchardViewController: GridObserver {
         
         switch viewModel.state {
             
-        case .editor(let meadow, let cursorModel):
+        case .editor(let editor):
             
             guard let sceneGraphViewController = sceneGraphViewController, let sidebarViewController = sidebarViewController else { break }
             
@@ -190,16 +190,16 @@ extension OrchardViewController: GridObserver {
                 
             case .sceneGraph(_, let item):
                 
-                sceneGraphViewController.viewModel.state = .sceneGraph(meadow, item)
+                sceneGraphViewController.viewModel.state = .sceneGraph(meadow: editor.meadow, child: item)
                 
             default: break
             }
             
             switch sidebarViewController.viewModel.state {
                 
-            case .inspecting(let delegate, _, let item, _):
+            case .inspector(_, let child):
                 
-                sidebarViewController.viewModel.state = .inspecting(delegate, meadow, item, cursorModel)
+                sidebarViewController.viewModel.state = .inspector(editor: editor, child: child)
                 
             default: break
             }

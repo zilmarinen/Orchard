@@ -12,7 +12,7 @@ class AreaUtilitiesTabViewController: NSTabViewController {
     
     lazy var viewModel = {
         
-        return AreaUtilitiesTabViewModel(initialState: .empty)
+        return AreaUtilitiesTabViewModel(initialState: .empty(editor: nil))
     }()
 }
 

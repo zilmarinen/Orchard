@@ -58,36 +58,36 @@ class AreaInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let delegate, let grid, let inspectable):
+        case .area(let editor, let inspectable):
             
             switch sender {
                 
             case gridHiddenButton:
                 
-                grid.isHidden = sender.state == .off
+                inspectable.grid.isHidden = sender.state == .off
                 
             case chunkHiddenButton:
                 
-                guard let (chunk, _, _, _) = inspectable else { break }
+                guard let chunk = inspectable.chunk else { break }
                 
                 chunk.isHidden = sender.state == .off
                 
             case tileHiddenButton:
                 
-                guard let (_, tile, _, _) = inspectable else { break }
+                guard let tile = inspectable.tile else { break }
                 
                 tile.isHidden = sender.state == .off
                 
             case nodeHiddenButton:
                 
-                guard let (_, _, node, _) = inspectable else { break }
+                guard let node = inspectable.node else { break }
                 
                 node.isHidden = sender.state == .off
                 
             default: break
             }
             
-            viewModel.state = .inspecting(delegate, grid, inspectable)
+            viewModel.state = .area(editor: editor, inspectable: inspectable)
             
         default: break
         }
@@ -97,32 +97,32 @@ class AreaInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let delegate, let grid, let inspectable):
-            
-            guard let (chunk, tile, node, edge) = inspectable else { break }
+        case .area(let editor, let inspectable):
             
             switch sender {
                 
             case selectedNodePopUp:
                 
-                guard let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? AreaNode else { break }
+                guard let tile = inspectable.tile, let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? AreaNode else { break }
                 
-                viewModel.state = .inspecting(delegate, grid, (chunk, tile, selectedNode, edge))
+                viewModel.state = .area(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, tile, selectedNode, inspectable.edge))
                 
-                delegate.sceneGraph(didSelectChild: selectedNode, atIndex: sender.indexOfSelectedItem)
+                editor.delegate.sceneGraph(didSelectChild: selectedNode, atIndex: sender.indexOfSelectedItem)
                 
             case selectedFloorColorPalettePopUp:
+                
+                guard let node = inspectable.node else { break }
                 
                 let selectedColorPalette = ColorPalettes.shared?.allColorPalettes[sender.indexOfSelectedItem]
 
                 node.floorColorPalette = selectedColorPalette
 
-                viewModel.state = .inspecting(delegate, grid, inspectable)
+                viewModel.state = .area(editor: editor, inspectable: inspectable)
                 
             case selectedExternalAreaTypePopUp,
                  selectedInternalAreaTypePopUp:
                 
-                guard let selectedAreaType = AreaType(rawValue: sender.indexOfSelectedItem) else { break }
+                guard let node = inspectable.node, let selectedAreaType = AreaType(rawValue: sender.indexOfSelectedItem) else { break }
                 
                 if sender == selectedExternalAreaTypePopUp {
                  
@@ -133,15 +133,17 @@ class AreaInspectorViewController: NSViewController {
                     node.internalAreaType = selectedAreaType
                 }
                 
-                viewModel.state = .inspecting(delegate, grid, inspectable)
+                viewModel.state = .area(editor: editor, inspectable: inspectable)
                 
             case selectedEdgePopup:
                 
                 guard let selectedEdge = GridEdge(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                viewModel.state = .inspecting(delegate, grid, (chunk, tile, node, selectedEdge))
+                viewModel.state = .area(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, inspectable.node, selectedEdge))
                 
             case selectedEdgeTypePopup:
+                
+                guard let node = inspectable.node else { break }
                 
                 if let edgeType = AreaNodeEdgeType(rawValue: sender.indexOfSelectedItem) {
                     
@@ -153,48 +155,54 @@ class AreaInspectorViewController: NSViewController {
                     let externalColorPalette = (nodeEdge?.externalColorPalette ?? colorPalettes.allColorPalettes[externalColorPalettePopup.indexOfSelectedItem])
                     let internalColorPalette = (nodeEdge?.internalColorPalette ?? colorPalettes.allColorPalettes[internalColorPalettePopup.indexOfSelectedItem])
                     
-                    node.set(edge: AreaNode.Edge(edge: edge, edgeType: edgeType, architectureType: architectureType, externalColorPalette: externalColorPalette, internalColorPalette: internalColorPalette))
+                    node.set(edge: AreaNode.Edge(edge: inspectable.edge, edgeType: edgeType, architectureType: architectureType, externalColorPalette: externalColorPalette, internalColorPalette: internalColorPalette))
                 }
                 else {
                     
-                    node.remove(edge: edge)
+                    node.remove(edge: inspectable.edge)
                 }
                 
-                viewModel.state = .inspecting(delegate, grid, inspectable)
+                viewModel.state = .area(editor: editor, inspectable: inspectable)
                 
             case selectedArchitectureTypePopup:
                 
-                if let nodeEdge = node.find(edge: edge) {
+                guard let node = inspectable.node else { break }
+                
+                if let nodeEdge = node.find(edge: inspectable.edge) {
                     
                     let architectureType = AreaArchitectureType.allCases[selectedArchitectureTypePopup.indexOfSelectedItem]
                     
                     node.set(edge: AreaNode.Edge(edge: nodeEdge.edge, edgeType: nodeEdge.edgeType, architectureType: architectureType, externalColorPalette: nodeEdge.externalColorPalette, internalColorPalette: nodeEdge.internalColorPalette))
                     
-                    viewModel.state = .inspecting(delegate, grid, inspectable)
+                    viewModel.state = .area(editor: editor, inspectable: inspectable)
                 }
                 
-                viewModel.state = .inspecting(delegate, grid, inspectable)
+                viewModel.state = .area(editor: editor, inspectable: inspectable)
                 
             case externalColorPalettePopup:
                 
-                if let nodeEdge = node.find(edge: edge) {
+                guard let node = inspectable.node else { break }
+                
+                if let nodeEdge = node.find(edge: inspectable.edge) {
                  
                     guard let colorPalette = ColorPalettes.shared?.allColorPalettes[sender.indexOfSelectedItem] else { break }
                     
                     node.set(edge: AreaNode.Edge(edge: nodeEdge.edge, edgeType: nodeEdge.edgeType, architectureType: nodeEdge.architectureType, externalColorPalette: colorPalette, internalColorPalette: nodeEdge.internalColorPalette))
                     
-                    viewModel.state = .inspecting(delegate, grid, inspectable)
+                    viewModel.state = .area(editor: editor, inspectable: inspectable)
                 }
                 
             case internalColorPalettePopup:
                 
-                if let nodeEdge = node.find(edge: edge) {
+                guard let node = inspectable.node else { break }
+                
+                if let nodeEdge = node.find(edge: inspectable.edge) {
                     
                     guard let colorPalette = ColorPalettes.shared?.allColorPalettes[sender.indexOfSelectedItem] else { break }
                     
                     node.set(edge: AreaNode.Edge(edge: nodeEdge.edge, edgeType: nodeEdge.edgeType, architectureType: nodeEdge.architectureType, externalColorPalette: nodeEdge.externalColorPalette, internalColorPalette: colorPalette))
                     
-                    viewModel.state = .inspecting(delegate, grid, inspectable)
+                    viewModel.state = .area(editor: editor, inspectable: inspectable)
                 }
                 
             default: break
@@ -226,10 +234,10 @@ extension AreaInspectorViewController {
         
         switch to {
             
-        case .inspecting(_, let grid, let inspectable):
+        case .area(_, let inspectable):
             
-            chunkCount.integerValue = grid.totalChildren
-            gridHiddenButton.state = (grid.isHidden ? .off : .on)
+            chunkCount.integerValue = inspectable.grid.totalChildren
+            gridHiddenButton.state = (inspectable.grid.isHidden ? .off : .on)
             
             chunkBox.isHidden = true
             tileBox.isHidden = true
@@ -248,11 +256,11 @@ extension AreaInspectorViewController {
             externalColorPalettePopup.isEnabled = false
             internalColorPalettePopup.isEnabled = false
             
-            if let (chunk, tile, node, edge) = inspectable {
+            if let chunk = inspectable.chunk, let tile = inspectable.tile, let node = inspectable.node {
                 
-                chunkBox.isHidden = grid.isHidden
-                tileBox.isHidden = grid.isHidden || chunk.isHidden
-                nodeBox.isHidden = grid.isHidden || chunk.isHidden || tile.isHidden
+                chunkBox.isHidden = inspectable.grid.isHidden
+                tileBox.isHidden = inspectable.grid.isHidden || chunk.isHidden
+                nodeBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden
                 
                 tileCount.integerValue = chunk.totalChildren
                 chunkHiddenButton.state = (chunk.isHidden ? .off : .on)
@@ -331,12 +339,12 @@ extension AreaInspectorViewController {
                 
                 selectedEdgeTypePopup.addItem(withTitle: "None")
                 
-                if let index = GridEdge.Edges.index(of: edge) {
+                if let index = GridEdge.Edges.index(of: inspectable.edge) {
                     
                     selectedEdgePopup.selectItem(at: index)
                 }
                 
-                if let nodeEdge = node.find(edge: edge) {
+                if let nodeEdge = node.find(edge: inspectable.edge) {
                     
                     if let index = AreaNodeEdgeType.allCases.index(of: nodeEdge.edgeType) {
                         

@@ -18,11 +18,11 @@ class TerrainTerraformUtilitiesViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let terrain, let toolType, _):
+        case .terraform(let editor, let grid, let toolType, _):
             
             let smooth = (sender.state == .on)
             
-            viewModel.state = .inspecting(terrain, toolType, smooth)
+            viewModel.state = .terraform(editor: editor, grid: grid, toolType: toolType, smooth: smooth)
             
         default: break
         }
@@ -32,11 +32,11 @@ class TerrainTerraformUtilitiesViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let terrain, _, let smooth):
+        case .terraform(let editor, let grid, _, let smooth):
             
             let selectedToolType = ToolType(rawValue: sender.indexOfSelectedItem)!
             
-            viewModel.state = .inspecting(terrain, selectedToolType, smooth)
+            viewModel.state = .terraform(editor: editor, grid: grid, toolType: selectedToolType, smooth: smooth)
             
         default: break
         }
@@ -44,7 +44,7 @@ class TerrainTerraformUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return TerrainTerraformUtilitiesViewModel(initialState: .empty)
+        return TerrainTerraformUtilitiesViewModel(initialState: .empty(editor: nil))
     }()
 }
 
@@ -64,7 +64,13 @@ extension TerrainTerraformUtilitiesViewController {
         
         switch to {
             
-        case .inspecting(_, let toolType, let smooth):
+        case .empty(let editor):
+            
+            print("empty")
+            
+        case .terraform(_, _, let toolType, let smooth):
+            
+            print("terraform")
             
             toolTypePopUp.removeAllItems()
             

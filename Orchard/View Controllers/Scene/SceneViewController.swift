@@ -35,9 +35,9 @@ extension SceneViewController {
         
         switch to {
             
-        case .editor(let meadow, let cursorModel):
+        case .editor(let editor):
             
-            sceneView.viewModel.state = .scene(meadow, cursorModel)
+            sceneView.viewModel.state = .scene(editor.meadow, editor.cursorModel)
             
             sceneView.showsStatistics = true
             sceneView.isPlaying = true

@@ -13,12 +13,12 @@ extension UtilitiesTabViewController {
     
     enum ViewState: THRUtilities.State {
         
-        case empty
-        case area(Area)
-        case foliage(Foliage)
-        case footpath(Footpath)
-        case terrain(Terrain)
-        case water(Water)
+        case empty(editor: Editor?)
+        case area(editor: Editor, grid: Area)
+        case foliage(editor: Editor, grid: Foliage)
+        case footpath(editor: Editor, grid: Footpath)
+        case terrain(editor: Editor, grid: Terrain)
+        case water(editor: Editor, grid: Water)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

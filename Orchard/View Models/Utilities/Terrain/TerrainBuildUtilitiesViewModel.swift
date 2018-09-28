@@ -13,22 +13,12 @@ extension TerrainBuildUtilitiesViewController {
     
     enum ViewState: THRUtilities.State {
         
-        case empty
-        case inspecting(Terrain, TerrainType?)
+        case empty(editor: Editor?)
+        case build(editor: Editor, grid: Terrain, terrainType: TerrainType)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
             return .continue
-        }
-        
-        var sortOrder: Int {
-            
-            switch self {
-                
-            case .empty: return 0
-                
-            case .inspecting: return 1
-            }
         }
     }
     

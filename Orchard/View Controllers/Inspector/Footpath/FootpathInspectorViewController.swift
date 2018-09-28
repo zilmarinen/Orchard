@@ -52,36 +52,36 @@ class FootpathInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let delegate, let grid, let inspectable):
+        case .footpath(let editor, let inspectable):
             
             switch sender {
                 
             case gridHiddenButton:
                 
-                grid.isHidden = sender.state == .off
+                inspectable.grid.isHidden = sender.state == .off
                 
             case chunkHiddenButton:
                 
-                guard let (chunk, _, _) = inspectable else { break }
+                guard let chunk = inspectable.chunk else { break }
                 
                 chunk.isHidden = sender.state == .off
                 
             case tileHiddenButton:
                 
-                guard let (_, tile, _) = inspectable else { break }
+                guard let tile = inspectable.tile else { break }
                 
                 tile.isHidden = sender.state == .off
                 
             case nodeHiddenButton:
                 
-                guard let (_, _, node) = inspectable else { break }
+                guard let node = inspectable.node else { break }
                 
                 node.isHidden = sender.state == .off
                 
             case slopeEdgeButton,
                  steepInclinationButton:
                 
-                guard let (_, _, node) = inspectable, let selectedEdge = GridEdge(rawValue: selectedSlopeEdgePopUp.indexOfSelectedItem) else { break }
+                guard let node = inspectable.node, let selectedEdge = GridEdge(rawValue: selectedSlopeEdgePopUp.indexOfSelectedItem) else { break }
                 
                 switch slopeEdgeButton.state {
                     
@@ -99,7 +99,7 @@ class FootpathInspectorViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .inspecting(delegate, grid, inspectable)
+            viewModel.state = .footpath(editor: editor, inspectable: inspectable)
             
         default: break
         }
@@ -109,31 +109,29 @@ class FootpathInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let delegate, let grid, let inspectable):
-            
-            guard let (chunk, tile, node) = inspectable else { break }
+        case .footpath(let editor, let inspectable):
             
             switch sender {
                 
             case selectedNodePopUp:
                 
-                guard let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? FootpathNode else { break }
+                guard let tile = inspectable.tile, let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? FootpathNode else { break }
                 
-                viewModel.state = .inspecting(delegate, grid, (chunk, tile, selectedNode))
+                viewModel.state = .footpath(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, tile, selectedNode))
                 
-                delegate.sceneGraph(didSelectChild: selectedNode, atIndex: sender.indexOfSelectedItem)
+                editor.delegate.sceneGraph(didSelectChild: selectedNode, atIndex: sender.indexOfSelectedItem)
                 
             case selectedFootpathTypePopUp:
                 
-                guard let selectedFootpathType = FootpathType(rawValue: sender.indexOfSelectedItem) else { break }
+                guard let node = inspectable.node, let selectedFootpathType = FootpathType(rawValue: sender.indexOfSelectedItem) else { break }
                 
                 node.footpathType = selectedFootpathType
                 
-                viewModel.state = .inspecting(delegate, grid, inspectable)
+                viewModel.state = .footpath(editor: editor, inspectable: inspectable)
                 
             case selectedSlopeEdgePopUp:
                 
-                guard let selectedEdge = GridEdge(rawValue: sender.indexOfSelectedItem) else { break }
+                guard let node = inspectable.node, let selectedEdge = GridEdge(rawValue: sender.indexOfSelectedItem) else { break }
                 
                 switch slopeEdgeButton.state {
                     
@@ -148,7 +146,7 @@ class FootpathInspectorViewController: NSViewController {
                     node.slope = nil
                 }
                 
-                viewModel.state = .inspecting(delegate, grid, inspectable)
+                viewModel.state = .footpath(editor: editor, inspectable: inspectable)
                 
             default: break
             }
@@ -179,10 +177,10 @@ extension FootpathInspectorViewController {
         
         switch to {
             
-        case .inspecting(_, let grid, let inspectable):
+        case .footpath(_, let inspectable):
             
-            chunkCount.integerValue = grid.totalChildren
-            gridHiddenButton.state = (grid.isHidden ? .off : .on)
+            chunkCount.integerValue = inspectable.grid.totalChildren
+            gridHiddenButton.state = (inspectable.grid.isHidden ? .off : .on)
             
             chunkBox.isHidden = true
             tileBox.isHidden = true
@@ -195,11 +193,11 @@ extension FootpathInspectorViewController {
             steepInclinationButton.isEnabled = false
             selectedSlopeEdgePopUp.isEnabled = false
             
-            if let (chunk, tile, node) = inspectable {
+            if let chunk = inspectable.chunk, let tile = inspectable.tile, let node = inspectable.node {
                 
-                chunkBox.isHidden = grid.isHidden
-                tileBox.isHidden = grid.isHidden || chunk.isHidden
-                nodeBox.isHidden = grid.isHidden || chunk.isHidden || tile.isHidden
+                chunkBox.isHidden = inspectable.grid.isHidden
+                tileBox.isHidden = inspectable.grid.isHidden || chunk.isHidden
+                nodeBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden
                 
                 tileCount.integerValue = chunk.totalChildren
                 chunkHiddenButton.state = (chunk.isHidden ? .off : .on)

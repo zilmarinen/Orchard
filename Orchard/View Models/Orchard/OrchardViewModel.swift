@@ -9,12 +9,14 @@
 import Meadow
 import THRUtilities
 
+typealias Editor = (meadow: Meadow, cursorModel: SceneView.CursorModel, delegate: SceneGraphDelegate)
+
 extension OrchardViewController {
     
     enum ViewState: THRUtilities.State {
         
-        case editor(Meadow, SceneView.CursorModel)
-        case loading(Meadow, SceneView.CursorModel, MeadowIntermediate)
+        case editor(editor: Editor)
+        case loading(editor: Editor, intermediate: MeadowIntermediate)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

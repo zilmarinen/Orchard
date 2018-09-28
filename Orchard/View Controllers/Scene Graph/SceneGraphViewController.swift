@@ -82,7 +82,7 @@ extension SceneGraphViewController {
             
         case .sceneGraph(let meadow, _):
             
-            viewModel.state = .sceneGraph(meadow, child)
+            viewModel.state = .sceneGraph(meadow: meadow, child: child)
             
             delegate.sceneGraph(didSelectChild: child, atIndex: index)
             

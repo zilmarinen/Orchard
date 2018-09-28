@@ -9,12 +9,14 @@
 import Meadow
 import THRUtilities
 
+typealias WaterInspectable = (grid: Water, chunk: WaterChunk?, tile: WaterTile?, node: WaterNode?)
+
 extension WaterInspectorViewController {
     
     enum ViewState: THRUtilities.State {
         
         case empty
-        case inspecting(SceneGraphDelegate, Water, (WaterChunk, WaterTile, WaterNode)?)
+        case water(editor: Editor, inspectable: WaterInspectable)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

@@ -19,7 +19,7 @@ class AreaUtilitiesViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid):
+        case .area(let editor, let grid):
             
             switch sender {
                 
@@ -30,7 +30,7 @@ class AreaUtilitiesViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .inspecting(grid)
+            viewModel.state = .area(editor: editor, grid: grid)
             
         default: break
         }
@@ -40,7 +40,7 @@ class AreaUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return AreaUtilitiesViewModel(initialState: .empty)
+        return AreaUtilitiesViewModel(initialState: .empty(editor: nil))
     }()
 }
 
@@ -60,7 +60,7 @@ extension AreaUtilitiesViewController {
         
         switch to {
             
-        case .inspecting(let grid):
+        case .area(_, let grid):
             
             chunkCount.integerValue = grid.totalChildren
             gridHiddenButton.state = (grid.isHidden ? .off : .on)

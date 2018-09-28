@@ -9,12 +9,14 @@
 import Meadow
 import THRUtilities
 
+typealias FoliageInspectable = (grid: Foliage, chunk: FoliageChunk?, tile: FoliageTile?, node: FoliageNode?)
+
 extension FoliageInspectorViewController {
     
     enum ViewState: THRUtilities.State {
         
         case empty
-        case inspecting(SceneGraphDelegate, Foliage, (FoliageChunk, FoliageTile, FoliageNode)?)
+        case foliage(editor: Editor, inspectable: FoliageInspectable)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

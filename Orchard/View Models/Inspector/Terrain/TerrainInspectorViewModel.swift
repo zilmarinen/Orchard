@@ -9,12 +9,14 @@
 import Meadow
 import THRUtilities
 
+typealias TerrainInspectable = (grid: Terrain, chunk: TerrainChunk?, tile: TerrainTile?, node: TerrainNode<TerrainLayer>?, layer: TerrainLayer?, edge: GridEdge)
+
 extension TerrainInspectorViewController {
     
     enum ViewState: THRUtilities.State {
         
         case empty
-        case inspecting(SceneGraphDelegate, Terrain, (TerrainChunk, TerrainTile, TerrainNode<TerrainLayer>, TerrainLayer, GridEdge)?)
+        case terrain(editor: Editor, inspectable: TerrainInspectable)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

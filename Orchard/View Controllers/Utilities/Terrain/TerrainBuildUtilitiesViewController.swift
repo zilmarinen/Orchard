@@ -22,11 +22,11 @@ class TerrainBuildUtilitiesViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let terrain, _):
+        case .build(let editor, let grid, _):
             
-            let terrainType = TerrainType(rawValue: sender.indexOfSelectedItem)
+            guard let terrainType = TerrainType(rawValue: sender.indexOfSelectedItem) else { break }
             
-            viewModel.state = .inspecting(terrain, terrainType)
+            viewModel.state = .build(editor: editor, grid: grid, terrainType: terrainType)
             
         default: break
         }
@@ -34,7 +34,7 @@ class TerrainBuildUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return TerrainBuildUtilitiesViewModel(initialState: .empty)
+        return TerrainBuildUtilitiesViewModel(initialState: .empty(editor: nil))
     }()
 }
 
@@ -54,7 +54,13 @@ extension TerrainBuildUtilitiesViewController {
         
         switch to {
             
-        case .inspecting(_, let terrainType):
+        case .empty(let editor):
+            
+            print("empty")
+            
+        case .build(_, _, let terrainType):
+            
+            print("build")
             
             terrainTypePopUp.removeAllItems()
             
@@ -68,7 +74,7 @@ extension TerrainBuildUtilitiesViewController {
                 terrainTypePopUp.addItem(withTitle: terrainType.name)
             }
             
-            if let terrainType = terrainType, let index = TerrainType.allCases.index(of: terrainType), let colorPalette = terrainType.colorPalette {
+            if let index = TerrainType.allCases.index(of: terrainType), let colorPalette = terrainType.colorPalette {
                 
                 terrainTypePopUp.selectItem(at: index)
                 
@@ -77,8 +83,6 @@ extension TerrainBuildUtilitiesViewController {
                 colorPaletteTertiary.fillColor = colorPalette.tertiary.color
                 colorPaletteQuaternary.fillColor = colorPalette.quaternary.color
             }
-            
-        default: break
         }
     }
 }

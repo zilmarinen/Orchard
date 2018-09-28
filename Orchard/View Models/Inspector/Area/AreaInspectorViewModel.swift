@@ -9,12 +9,14 @@
 import Meadow
 import THRUtilities
 
+typealias AreaInspectable = (grid: Area, chunk: AreaChunk?, tile: AreaTile?, node: AreaNode?, edge: GridEdge)
+
 extension AreaInspectorViewController {
     
     enum ViewState: THRUtilities.State {
         
         case empty
-        case inspecting(SceneGraphDelegate, Area, (AreaChunk, AreaTile, AreaNode, GridEdge)?)
+        case area(editor: Editor, inspectable: AreaInspectable)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

@@ -12,7 +12,7 @@ class UtilitiesTabViewController: NSTabViewController {
 
     lazy var viewModel = {
         
-        return UtilitiesTabViewModel(initialState: .empty)
+        return UtilitiesTabViewModel(initialState: .empty(editor: nil))
     }()
 }
 
@@ -30,41 +30,81 @@ extension UtilitiesTabViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
+        if let from = from {
+            
+            let viewController = children[from.sortOrder]
+            
+            switch from {
+                
+            case .area(let editor, _):
+                
+                guard let viewController = viewController as? AreaUtilitiesViewController else { break }
+                
+                viewController.viewModel.state = .empty(editor: editor)
+                
+            case .foliage(let editor, _):
+                
+                guard let viewController = viewController as? FoliageUtilitiesViewController else { break }
+                
+                viewController.viewModel.state = .empty(editor: editor)
+                
+            case .footpath(let editor, _):
+                
+                guard let viewController = viewController as? FootpathUtilitiesViewController else { break }
+                
+                viewController.viewModel.state = .empty(editor: editor)
+                
+            case .terrain(let editor, _):
+                
+                guard let viewController = viewController as? TerrainUtilitiesViewController else { break }
+                
+                viewController.viewModel.state = .empty(editor: editor)
+                
+            case .water(let editor, _):
+                
+                guard let viewController = viewController as? WaterUtilitiesViewController else { break }
+                
+                viewController.viewModel.state = .empty(editor: editor)
+                
+            default: break
+            }
+        }
+        
         selectedTabViewItemIndex = to.sortOrder
         
         let viewController = children[to.sortOrder]
         
         switch to {
             
-        case .area(let area):
+        case .area(let editor, let grid):
             
             guard let viewController = viewController as? AreaUtilitiesViewController else { break }
             
-            viewController.viewModel.state = .inspecting(area)
+            viewController.viewModel.state = .area(editor: editor, grid: grid)
             
-        case .foliage(let foliage):
+        case .foliage(let editor, let grid):
             
             guard let viewController = viewController as? FoliageUtilitiesViewController else { break }
             
-            viewController.viewModel.state = .inspecting(foliage)
+            viewController.viewModel.state = .foliage(editor: editor, grid: grid)
             
-        case .footpath(let footpath):
+        case .footpath(let editor, let grid):
             
             guard let viewController = viewController as? FootpathUtilitiesViewController else { break }
             
-            viewController.viewModel.state = .inspecting(footpath)
+            viewController.viewModel.state = .footpath(editor: editor, grid: grid)
             
-        case .terrain(let terrain):
+        case .terrain(let editor, let grid):
             
             guard let viewController = viewController as? TerrainUtilitiesViewController else { break }
             
-            viewController.viewModel.state = .inspecting(terrain)
+            viewController.viewModel.state = .terrain(editor: editor, grid: grid)
             
-        case .water(let water):
+        case .water(let editor, let grid):
             
             guard let viewController = viewController as? WaterUtilitiesViewController else { break }
             
-            viewController.viewModel.state = .inspecting(water)
+            viewController.viewModel.state = .water(editor: editor, grid: grid)
             
         default: break
         }

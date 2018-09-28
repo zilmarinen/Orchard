@@ -15,14 +15,14 @@ extension SidebarTabViewController {
         
         case empty
         case inspector
-        case utilities
+        case utility
     }
     
     enum ViewState: THRUtilities.State {
         
-        case empty
-        case inspector(Meadow)
-        case utilities(Meadow)
+        case empty(editor: Editor?)
+        case inspector(editor: Editor, child: SceneGraphChild)
+        case utility(editor: Editor, child: SceneGraphChild)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
@@ -35,7 +35,7 @@ extension SidebarTabViewController {
                 
             case .empty: return Tab.empty
             case .inspector: return Tab.inspector
-            case .utilities: return Tab.utilities
+            case .utility: return Tab.utility
             }
         }
     }

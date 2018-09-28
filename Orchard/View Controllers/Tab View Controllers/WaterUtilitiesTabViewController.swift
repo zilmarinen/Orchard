@@ -12,7 +12,7 @@ class WaterUtilitiesTabViewController: NSTabViewController {
 
     lazy var viewModel = {
         
-        return WaterUtilitiesTabViewModel(initialState: .empty)
+        return WaterUtilitiesTabViewModel(initialState: .empty(editor: nil))
     }()
 }
 

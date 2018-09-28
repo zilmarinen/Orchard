@@ -23,7 +23,7 @@ class TerrainUtilitiesViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid):
+        case .terrain(let editor, let grid):
             
             switch sender {
                 
@@ -33,20 +33,20 @@ class TerrainUtilitiesViewController: NSViewController {
                 
             case buildButton:
                 
-                tabViewController?.viewModel.state = .build(grid)
+                tabViewController?.viewModel.state = .build(editor: editor, grid: grid)
                 
             case terraformButton:
                 
-                tabViewController?.viewModel.state = .terraform(grid)
+                tabViewController?.viewModel.state = .terraform(editor: editor, grid: grid)
                 
             case paintButton:
                 
-                tabViewController?.viewModel.state = .paint(grid)
+                tabViewController?.viewModel.state = .paint(editor: editor, grid: grid)
                 
             default: break
             }
             
-            viewModel.state = .inspecting(grid)
+            viewModel.state = .terrain(editor: editor, grid: grid)
             
         default: break
         }
@@ -56,7 +56,7 @@ class TerrainUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return TerrainUtilitiesViewModel(initialState: .empty)
+        return TerrainUtilitiesViewModel(initialState: .empty(editor: nil))
     }()
 }
 
@@ -74,25 +74,27 @@ extension TerrainUtilitiesViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        switch to {
+        guard let tabViewController = tabViewController else { return }
         
-        case .inspecting(let grid):
+        switch to {
+            
+        case .empty(let editor):
+            
+            tabViewController.viewModel.state = .empty(editor: editor)
+        
+        case .terrain(let editor, let grid):
             
             chunkCount.integerValue = grid.totalChildren
             gridHiddenButton.state = (grid.isHidden ? .off : .on)
-            
-            guard let tabViewController = tabViewController else { break }
             
             switch tabViewController.viewModel.state {
                 
             case .empty:
                 
-                tabViewController.viewModel.state = .build(grid)
+                tabViewController.viewModel.state = .build(editor: editor, grid: grid)
                 
             default: break
             }
-            
-        default: break
         }
     }
 }

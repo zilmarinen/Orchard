@@ -46,36 +46,36 @@ class WaterInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let delegate, let grid, let inspectable):
+        case .water(let editor, let inspectable):
             
             switch sender {
                 
             case gridHiddenButton:
                 
-                grid.isHidden = sender.state == .off
+                inspectable.grid.isHidden = sender.state == .off
                 
             case chunkHiddenButton:
                 
-                guard let (chunk, _, _) = inspectable else { break }
+                guard let chunk = inspectable.chunk else { break }
                 
                 chunk.isHidden = sender.state == .off
                 
             case tileHiddenButton:
                 
-                guard let (_, tile, _) = inspectable else { break }
+                guard let tile = inspectable.tile else { break }
                 
                 tile.isHidden = sender.state == .off
                 
             case nodeHiddenButton:
                 
-                guard let (_, _, node) = inspectable else { break }
+                guard let node = inspectable.node else { break }
                 
                 node.isHidden = sender.state == .off
                 
             default: break
             }
             
-            viewModel.state = .inspecting(delegate, grid, inspectable)
+            viewModel.state = .water(editor: editor, inspectable: inspectable)
             
         default: break
         }
@@ -85,27 +85,25 @@ class WaterInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let delegate, let grid, let inspectable):
-            
-            guard let (chunk, tile, node) = inspectable else { break }
+        case .water(let editor, let inspectable):
             
             switch sender {
                 
             case selectedNodePopUp:
                 
-                guard let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? WaterNode else { break }
+                guard let tile = inspectable.tile, let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? WaterNode else { break }
                 
-                viewModel.state = .inspecting(delegate, grid, (chunk, tile, selectedNode))
+                viewModel.state = .water(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, tile, selectedNode))
                 
-                delegate.sceneGraph(didSelectChild: selectedNode, atIndex: sender.indexOfSelectedItem)
+                editor.delegate.sceneGraph(didSelectChild: selectedNode, atIndex: sender.indexOfSelectedItem)
                 
             case selectedWaterTypePopUp:
                 
-                guard let selectedWaterType = WaterType(rawValue: sender.indexOfSelectedItem) else { break }
+                guard let node = inspectable.node, let selectedWaterType = WaterType(rawValue: sender.indexOfSelectedItem) else { break }
                 
                 node.waterType = selectedWaterType
                 
-                viewModel.state = .inspecting(delegate, grid, inspectable)
+                viewModel.state = .water(editor: editor, inspectable: inspectable)
                 
             default: break
             }
@@ -136,10 +134,10 @@ extension WaterInspectorViewController {
         
         switch to {
             
-        case .inspecting(_, let grid, let inspectable):
+        case .water(_, let inspectable):
             
-            chunkCount.integerValue = grid.totalChildren
-            gridHiddenButton.state = (grid.isHidden ? .off : .on)
+            chunkCount.integerValue = inspectable.grid.totalChildren
+            gridHiddenButton.state = (inspectable.grid.isHidden ? .off : .on)
             
             chunkBox.isHidden = true
             tileBox.isHidden = true
@@ -148,11 +146,11 @@ extension WaterInspectorViewController {
             selectedNodePopUp.removeAllItems()
             selectedWaterTypePopUp.removeAllItems()
             
-            if let (chunk, tile, node) = inspectable {
+            if let chunk = inspectable.chunk, let tile = inspectable.tile, let node = inspectable.node {
                 
-                chunkBox.isHidden = grid.isHidden
-                tileBox.isHidden = grid.isHidden || chunk.isHidden
-                nodeBox.isHidden = grid.isHidden || chunk.isHidden || tile.isHidden
+                chunkBox.isHidden = inspectable.grid.isHidden
+                tileBox.isHidden = inspectable.grid.isHidden || chunk.isHidden
+                nodeBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden
                 
                 tileCount.integerValue = chunk.totalChildren
                 chunkHiddenButton.state = (chunk.isHidden ? .off : .on)

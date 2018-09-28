@@ -14,14 +14,12 @@ extension InspectorTabViewController {
     enum ViewState: THRUtilities.State {
         
         case empty
-        case area(SceneGraphDelegate, Area, AreaChunk?, AreaTile?, AreaNode?)
-        case camera(CameraJib)
-        case foliage(SceneGraphDelegate, Foliage, FoliageChunk?, FoliageTile?, FoliageNode?)
-        case footpath(SceneGraphDelegate, Footpath, FootpathChunk?, FootpathTile?, FootpathNode?)
-        case scene(Meadow)
-        case terrain(SceneGraphDelegate, Terrain, TerrainChunk?, TerrainTile?, TerrainNode<TerrainLayer>?, TerrainLayer?)
-        case water(SceneGraphDelegate, Water, WaterChunk?, WaterTile?, WaterNode?)
-        case world(World)
+        case area(editor: Editor, inspectable: AreaInspectable)
+        case foliage(editor: Editor, inspectable: FoliageInspectable)
+        case footpath(editor: Editor, inspectable: FootpathInspectable)
+        case scene(editor: Editor)
+        case terrain(editor: Editor, inspectable: TerrainInspectable)
+        case water(editor: Editor, inspectable: WaterInspectable)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
@@ -36,19 +34,15 @@ extension InspectorTabViewController {
                 
             case .area: return 1
                 
-            case .camera: return 2
+            case .foliage: return 2
                 
-            case .foliage: return 3
+            case .footpath: return 3
                 
-            case .footpath: return 4
+            case .scene: return 4
                 
-            case .scene: return 5
+            case .terrain: return 5
                 
-            case .terrain: return 6
-                
-            case .water: return 7
-                
-            case .world: return 8
+            case .water: return 6
             }
         }
     }

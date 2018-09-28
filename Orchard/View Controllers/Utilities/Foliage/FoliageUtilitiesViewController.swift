@@ -19,7 +19,7 @@ class FoliageUtilitiesViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid):
+        case .foliage(let editor, let grid):
             
             switch sender {
                 
@@ -30,7 +30,7 @@ class FoliageUtilitiesViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .inspecting(grid)
+            viewModel.state = .foliage(editor: editor, grid: grid)
             
         default: break
         }
@@ -40,7 +40,7 @@ class FoliageUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return FoliageUtilitiesViewModel(initialState: .empty)
+        return FoliageUtilitiesViewModel(initialState: .empty(editor: nil))
     }()
 }
 
@@ -60,7 +60,7 @@ extension FoliageUtilitiesViewController {
         
         switch to {
             
-        case .inspecting(let grid):
+        case .foliage(_, let grid):
             
             chunkCount.integerValue = grid.totalChildren
             gridHiddenButton.state = (grid.isHidden ? .off : .on)

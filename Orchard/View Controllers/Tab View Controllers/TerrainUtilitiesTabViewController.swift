@@ -13,7 +13,7 @@ class TerrainUtilitiesTabViewController: NSTabViewController {
 
     lazy var viewModel = {
         
-        return TerrainUtilitiesTabViewModel(initialState: .empty)
+        return TerrainUtilitiesTabViewModel(initialState: .empty(editor: nil))
     }()
 }
 
@@ -31,53 +31,77 @@ extension TerrainUtilitiesTabViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
+        if let from = from {
+            
+            let viewController = children[from.sortOrder]
+            
+            switch from {
+                
+            case .build(let editor, _):
+                
+                guard let viewController = viewController as? TerrainBuildUtilitiesViewController else { break }
+                
+                viewController.viewModel.state = .empty(editor: editor)
+                
+            case .terraform(let editor, _):
+                
+                guard let viewController = viewController as? TerrainTerraformUtilitiesViewController else { break }
+                
+                viewController.viewModel.state = .empty(editor: editor)
+                
+            case .paint(let editor, _):
+                
+                guard let viewController = viewController as? TerrainPaintUtilitiesViewController else { break }
+                
+                viewController.viewModel.state = .empty(editor: editor)
+                
+            default: break
+            }
+        }
+        
         selectedTabViewItemIndex = to.sortOrder
+        
+        let viewController = children[to.sortOrder]
         
         switch to {
             
-        case .build(let terrain):
+        case .build(let editor, let grid):
             
-            guard let viewController = children[to.sortOrder] as? TerrainBuildUtilitiesViewController else { break }
+            guard let viewController = viewController as? TerrainBuildUtilitiesViewController else { break }
             
             switch viewController.viewModel.state {
                 
             case .empty:
                 
-                viewController.viewModel.state = .inspecting(terrain, TerrainType.bedrock)
+                viewController.viewModel.state = .build(editor: editor, grid: grid, terrainType: TerrainType.bedrock)
                 
-            case .inspecting(let terrain, let terrainType):
-                
-                viewController.viewModel.state = .inspecting(terrain, terrainType)
+            default: break
             }
             
-        case .terraform(let terrain):
+        case .terraform(let editor, let grid):
             
-            guard let viewController = children[to.sortOrder] as? TerrainTerraformUtilitiesViewController else { break }
+            guard let viewController = viewController as? TerrainTerraformUtilitiesViewController else { break }
             
             switch viewController.viewModel.state {
                 
             case .empty:
                 
-                viewController.viewModel.state = .inspecting(terrain, .tile, false)
+                viewController.viewModel.state = .terraform(editor: editor, grid: grid, toolType: .tile, smooth: false)
                 
-            case .inspecting(let terrain, let toolType, let smooth):
-                
-                viewController.viewModel.state = .inspecting(terrain, toolType, smooth)
+            default: break
             }
         
-        case .paint(let terrain):
+        case .paint(let editor, let grid):
             
-            guard let viewController = children[to.sortOrder] as? TerrainPaintUtilitiesViewController else { break }
+            guard let viewController = viewController as? TerrainPaintUtilitiesViewController else { break }
             
             switch viewController.viewModel.state {
                 
             case .empty:
                 
-                viewController.viewModel.state = .inspecting(terrain, TerrainType.bedrock, .tile)
+                viewController.viewModel.state = .paint(editor: editor, grid: grid, terrainType: TerrainType.bedrock, toolType: .tile)
                 
-            case .inspecting(let terrain, let terrainType, let toolType):
-                
-                viewController.viewModel.state = .inspecting(terrain, terrainType, toolType)
+            default: break
             }
             
         default: break

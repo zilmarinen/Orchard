@@ -23,7 +23,7 @@ class TerrainPaintUtilitiesViewController: NSViewController {
      
         switch viewModel.state {
             
-        case .inspecting(let terrain, let terrainType, let toolType):
+        case .paint(let editor, let grid, let terrainType, let toolType):
             
             switch sender {
                 
@@ -31,13 +31,13 @@ class TerrainPaintUtilitiesViewController: NSViewController {
                 
                 guard let selectedTerrainType = TerrainType(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                viewModel.state = .inspecting(terrain, selectedTerrainType, toolType)
+                viewModel.state = .paint(editor: editor, grid: grid, terrainType: selectedTerrainType, toolType: toolType)
                 
             case toolTypePopUp:
                 
                 guard let selectedToolType = ToolType(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                viewModel.state = .inspecting(terrain, terrainType, selectedToolType)
+                viewModel.state = .paint(editor: editor, grid: grid, terrainType: terrainType, toolType: selectedToolType)
                 
             default: break
             }
@@ -48,7 +48,7 @@ class TerrainPaintUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return TerrainPaintUtilitiesViewModel(initialState: .empty)
+        return TerrainPaintUtilitiesViewModel(initialState: .empty(editor: nil))
     }()
 }
 
@@ -68,7 +68,13 @@ extension TerrainPaintUtilitiesViewController {
         
         switch to {
             
-        case .inspecting(_, let terrainType, let toolType):
+        case .empty(let editor):
+            
+            print("empty")
+            
+        case .paint(_, _, let terrainType, let toolType):
+            
+            print("paint")
             
             terrainTypePopUp.removeAllItems()
             toolTypePopUp.removeAllItems()
@@ -88,7 +94,7 @@ extension TerrainPaintUtilitiesViewController {
             
             toolTypePopUp.selectItem(at: toolType.rawValue)
             
-            if let terrainType = terrainType, let index = TerrainType.allCases.index(of: terrainType), let colorPalette = terrainType.colorPalette {
+            if let index = TerrainType.allCases.index(of: terrainType), let colorPalette = terrainType.colorPalette {
                 
                 terrainTypePopUp.selectItem(at: index)
                 

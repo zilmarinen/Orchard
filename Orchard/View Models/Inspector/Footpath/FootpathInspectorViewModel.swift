@@ -9,12 +9,14 @@
 import Meadow
 import THRUtilities
 
+typealias FootpathInspectable = (grid: Footpath, chunk: FootpathChunk?, tile: FootpathTile?, node: FootpathNode?)
+
 extension FootpathInspectorViewController {
     
     enum ViewState: THRUtilities.State {
         
         case empty
-        case inspecting(SceneGraphDelegate, Footpath, (FootpathChunk, FootpathTile, FootpathNode)?)
+        case footpath(editor: Editor, inspectable: FootpathInspectable)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

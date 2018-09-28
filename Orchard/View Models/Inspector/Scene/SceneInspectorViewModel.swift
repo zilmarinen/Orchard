@@ -14,7 +14,7 @@ extension SceneInspectorViewController {
     enum ViewState: THRUtilities.State {
         
         case empty
-        case inspecting(Meadow)
+        case scene(editor: Editor)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

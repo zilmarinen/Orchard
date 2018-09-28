@@ -40,13 +40,13 @@ class Document: NSDocument {
         
         switch viewController.viewModel.state {
             
-        case .editor(let meadow, _):
+        case .editor(let editor):
             
             do {
                 
                 let encoder = JSONEncoder()
                 
-                let data = try encoder.encode(meadow)
+                let data = try encoder.encode(editor.meadow)
                 
                 return data
             }
@@ -65,7 +65,7 @@ class Document: NSDocument {
         
         switch viewController.viewModel.state {
             
-        case .editor(let meadow, let cursorModel):
+        case .editor(let editor):
             
             do {
                 
@@ -73,7 +73,7 @@ class Document: NSDocument {
                 
                 let intermediate = try decoder.decode(MeadowIntermediate.self, from: data)
                 
-                viewController.viewModel.state = .loading(meadow, cursorModel, intermediate)
+                viewController.viewModel.state = .loading(editor: editor, intermediate: intermediate)
             }
             catch {
                 

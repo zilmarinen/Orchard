@@ -13,8 +13,8 @@ extension FootpathUtilitiesViewController {
     
     enum ViewState: THRUtilities.State {
         
-        case empty
-        case inspecting(Footpath)
+        case empty(editor: Editor?)
+        case footpath(editor: Editor, grid: Footpath)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

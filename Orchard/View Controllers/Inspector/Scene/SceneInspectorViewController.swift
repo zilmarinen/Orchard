@@ -19,13 +19,13 @@ class SceneInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let meadow):
+        case .scene(let editor):
             
             let selectedColor = ColorPalettes.shared?.allColors[sender.indexOfSelectedItem]
             
-            meadow.world.floor.color = selectedColor
+            editor.meadow.world.floor.color = selectedColor
             
-            viewModel.state = .inspecting(meadow)
+            viewModel.state = .scene(editor: editor)
             
         default: break
         }
@@ -35,11 +35,11 @@ class SceneInspectorViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let meadow):
+        case .scene(let editor):
             
-            meadow.rootNode.name = textField.stringValue
+            editor.meadow.rootNode.name = textField.stringValue
             
-            viewModel.state = .inspecting(meadow)
+            viewModel.state = .scene(editor: editor)
             
         default: break
         }
@@ -67,18 +67,18 @@ extension SceneInspectorViewController {
         
         switch to {
             
-        case .inspecting(let meadow):
+        case .scene(let editor):
             
             clearColorPopUp.removeAllItems()
             
-            nameTextField.stringValue = meadow.rootNode.name ?? ""
+            nameTextField.stringValue = editor.meadow.rootNode.name ?? ""
             
             ColorPalettes.shared?.allColors.forEach { color in
                 
                 clearColorPopUp.addItem(withTitle: color.name)
             }
             
-            if let floorColor = meadow.world.floor.color, let index = ColorPalettes.shared?.allColors.index(of: floorColor) {
+            if let floorColor = editor.meadow.world.floor.color, let index = ColorPalettes.shared?.allColors.index(of: floorColor) {
                 
                 clearColorPopUp.selectItem(at: index)
                 

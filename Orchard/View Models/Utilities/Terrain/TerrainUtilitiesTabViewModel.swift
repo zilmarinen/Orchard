@@ -13,10 +13,10 @@ extension TerrainUtilitiesTabViewController {
     
     enum ViewState: THRUtilities.State {
         
-        case empty
-        case build(Terrain)
-        case terraform(Terrain)
-        case paint(Terrain)
+        case empty(editor: Editor?)
+        case build(editor: Editor, grid: Terrain)
+        case terraform(editor: Editor, grid: Terrain)
+        case paint(editor: Editor, grid: Terrain)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

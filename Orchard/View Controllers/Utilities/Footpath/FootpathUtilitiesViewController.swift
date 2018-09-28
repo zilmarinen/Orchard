@@ -19,7 +19,7 @@ class FootpathUtilitiesViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .inspecting(let grid):
+        case .footpath(let editor, let grid):
             
             switch sender {
                 
@@ -30,7 +30,7 @@ class FootpathUtilitiesViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .inspecting(grid)
+            viewModel.state = .footpath(editor: editor, grid: grid)
             
         default: break
         }
@@ -40,7 +40,7 @@ class FootpathUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return FootpathUtilitiesViewModel(initialState: .empty)
+        return FootpathUtilitiesViewModel(initialState: .empty(editor: nil))
     }()
 }
 
@@ -60,7 +60,7 @@ extension FootpathUtilitiesViewController {
         
         switch to {
             
-        case .inspecting(let grid):
+        case .footpath(_, let grid):
             
             chunkCount.integerValue = grid.totalChildren
             gridHiddenButton.state = (grid.isHidden ? .off : .on)
