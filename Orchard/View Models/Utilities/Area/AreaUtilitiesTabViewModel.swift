@@ -13,7 +13,7 @@ extension AreaUtilitiesTabViewController {
     
     enum ViewState: THRUtilities.State {
         
-        case empty(editor: Editor?)
+        case empty(meadow: Meadow?)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

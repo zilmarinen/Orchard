@@ -167,7 +167,7 @@ extension FootpathInspectorViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange)
+        viewModel.subscribe(stateDidChange(from:to:))
     }
 }
 

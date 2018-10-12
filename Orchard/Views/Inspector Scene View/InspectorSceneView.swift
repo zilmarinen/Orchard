@@ -11,28 +11,12 @@ import SceneKit
 
 class InspectorSceneView: SCNView {
     
-    /*!
-     @property lastUpdateTime
-     @abstract TimeInterval of when the last update was performed.
-     */
     private var lastUpdateTime: TimeInterval = -1
 
-    /*!
-     @property inspectable
-     @abstract Singular instance of a SCNNode to inspect.
-     */
     let inspectable: SCNNode
 
-    /*!
-     @property cameraJib
-     @abstract Main world camera parent node.
-     */
     let cameraJib: CameraJib
     
-    /*!
-     @method initWithCoder
-     @abstract Support coding and decoding via NSKeyedArchiver.
-     */
     required init?(coder decoder: NSCoder) {
         
         inspectable = SCNNode()
@@ -62,12 +46,6 @@ extension InspectorSceneView {
 
 extension InspectorSceneView: SCNSceneRendererDelegate {
     
-    /*!
-     @method renderer:updateAtTime:
-     @abstract Called exactly once per frame before any animation and actions are evaluated and any physics are simulated.
-     @param renderer The renderer that will render the scene.
-     @param time The time at which to update the scene.
-     */
     public func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         
         let deltaTime = (lastUpdateTime == -1 ? 0 : (time - lastUpdateTime))

@@ -19,8 +19,8 @@ extension TerrainPaintUtilitiesViewController {
     
     enum ViewState: THRUtilities.State {
         
-        case empty(editor: Editor?)
-        case paint(editor: Editor, grid: Terrain, terrainType: TerrainType, toolType: ToolType)
+        case empty(meadow: Meadow?)
+        case paint(meadow: Meadow, terrainType: TerrainType, toolType: ToolType)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

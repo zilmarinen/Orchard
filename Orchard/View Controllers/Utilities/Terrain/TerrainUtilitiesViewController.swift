@@ -23,30 +23,30 @@ class TerrainUtilitiesViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .terrain(let editor, let grid):
+        case .terrain(let meadow):
             
             switch sender {
                 
             case gridHiddenButton:
                 
-                grid.isHidden = sender.state == .off
+                meadow.scene.world.terrain.isHidden = sender.state == .off
                 
             case buildButton:
                 
-                tabViewController?.viewModel.state = .build(editor: editor, grid: grid)
+                tabViewController?.viewModel.state = .build(meadow: meadow)
                 
             case terraformButton:
                 
-                tabViewController?.viewModel.state = .terraform(editor: editor, grid: grid)
+                tabViewController?.viewModel.state = .terraform(meadow: meadow)
                 
             case paintButton:
                 
-                tabViewController?.viewModel.state = .paint(editor: editor, grid: grid)
+                tabViewController?.viewModel.state = .paint(meadow: meadow)
                 
             default: break
             }
             
-            viewModel.state = .terrain(editor: editor, grid: grid)
+            viewModel.state = .terrain(meadow: meadow)
             
         default: break
         }
@@ -56,7 +56,7 @@ class TerrainUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return TerrainUtilitiesViewModel(initialState: .empty(editor: nil))
+        return TerrainUtilitiesViewModel(initialState: .empty(meadow: nil))
     }()
 }
 
@@ -66,7 +66,7 @@ extension TerrainUtilitiesViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange)
+        viewModel.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -78,20 +78,20 @@ extension TerrainUtilitiesViewController {
         
         switch to {
             
-        case .empty(let editor):
+        case .empty(let meadow):
             
-            tabViewController.viewModel.state = .empty(editor: editor)
+            tabViewController.viewModel.state = .empty(meadow: meadow)
         
-        case .terrain(let editor, let grid):
+        case .terrain(let meadow):
             
-            chunkCount.integerValue = grid.totalChildren
-            gridHiddenButton.state = (grid.isHidden ? .off : .on)
+            chunkCount.integerValue = meadow.scene.world.terrain.totalChildren
+            gridHiddenButton.state = (meadow.scene.world.terrain.isHidden ? .off : .on)
             
             switch tabViewController.viewModel.state {
                 
             case .empty:
                 
-                tabViewController.viewModel.state = .build(editor: editor, grid: grid)
+                tabViewController.viewModel.state = .build(meadow: meadow)
                 
             default: break
             }

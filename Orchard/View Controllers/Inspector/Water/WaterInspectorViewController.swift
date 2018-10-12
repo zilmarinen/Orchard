@@ -124,7 +124,7 @@ extension WaterInspectorViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange)
+        viewModel.subscribe(stateDidChange(from:to:))
     }
 }
 

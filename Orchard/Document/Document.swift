@@ -46,7 +46,7 @@ class Document: NSDocument {
                 
                 let encoder = JSONEncoder()
                 
-                let data = try encoder.encode(editor.meadow)
+                let data = try encoder.encode(editor.meadow.scene)
                 
                 return data
             }
@@ -71,7 +71,7 @@ class Document: NSDocument {
                 
                 let decoder = JSONDecoder()
                 
-                let intermediate = try decoder.decode(MeadowIntermediate.self, from: data)
+                let intermediate = try decoder.decode(SceneIntermediate.self, from: data)
                 
                 viewController.viewModel.state = .loading(editor: editor, intermediate: intermediate)
             }

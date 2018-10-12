@@ -19,18 +19,18 @@ class WaterUtilitiesViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .water(let editor, let grid):
+        case .water(let meadow):
             
             switch sender {
                 
             case gridHiddenButton:
                 
-                grid.isHidden = sender.state == .off
+                meadow.scene.world.water.isHidden = sender.state == .off
                 
             default: break
             }
             
-            viewModel.state = .water(editor: editor, grid: grid)
+            viewModel.state = .water(meadow: meadow)
             
         default: break
         }
@@ -40,7 +40,7 @@ class WaterUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return WaterUtilitiesViewModel(initialState: .empty(editor: nil))
+        return WaterUtilitiesViewModel(initialState: .empty(meadow: nil))
     }()
 }
 
@@ -50,7 +50,7 @@ extension WaterUtilitiesViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange)
+        viewModel.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -60,10 +60,10 @@ extension WaterUtilitiesViewController {
         
         switch to {
             
-        case .water(_, let grid):
+        case .water(let meadow):
             
-            chunkCount.integerValue = grid.totalChildren
-            gridHiddenButton.state = (grid.isHidden ? .off : .on)
+            chunkCount.integerValue = meadow.scene.world.water.totalChildren
+            gridHiddenButton.state = (meadow.scene.world.water.isHidden ? .off : .on)
             
         default: break
         }

@@ -12,7 +12,7 @@ class WaterUtilitiesTabViewController: NSTabViewController {
 
     lazy var viewModel = {
         
-        return WaterUtilitiesTabViewModel(initialState: .empty(editor: nil))
+        return WaterUtilitiesTabViewModel(initialState: .empty(meadow: nil))
     }()
 }
 
@@ -22,7 +22,7 @@ extension WaterUtilitiesTabViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange)
+        viewModel.subscribe(stateDidChange(from:to:))
     }
 }
 

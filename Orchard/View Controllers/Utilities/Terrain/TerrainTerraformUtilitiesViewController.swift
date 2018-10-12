@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Meadow
 
 class TerrainTerraformUtilitiesViewController: NSViewController {
 
@@ -18,11 +19,11 @@ class TerrainTerraformUtilitiesViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .terraform(let editor, let grid, let toolType, _):
+        case .terraform(let meadow, let toolType, _):
             
             let smooth = (sender.state == .on)
             
-            viewModel.state = .terraform(editor: editor, grid: grid, toolType: toolType, smooth: smooth)
+            viewModel.state = .terraform(meadow: meadow, toolType: toolType, smooth: smooth)
             
         default: break
         }
@@ -32,11 +33,11 @@ class TerrainTerraformUtilitiesViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .terraform(let editor, let grid, _, let smooth):
+        case .terraform(let meadow, _, let smooth):
             
             let selectedToolType = ToolType(rawValue: sender.indexOfSelectedItem)!
             
-            viewModel.state = .terraform(editor: editor, grid: grid, toolType: selectedToolType, smooth: smooth)
+            viewModel.state = .terraform(meadow: meadow, toolType: selectedToolType, smooth: smooth)
             
         default: break
         }
@@ -44,8 +45,10 @@ class TerrainTerraformUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return TerrainTerraformUtilitiesViewModel(initialState: .empty(editor: nil))
+        return TerrainTerraformUtilitiesViewModel(initialState: .empty(meadow: nil))
     }()
+    
+    var cursorModelCallbackReference: UUID?
 }
 
 extension TerrainTerraformUtilitiesViewController {
@@ -54,7 +57,7 @@ extension TerrainTerraformUtilitiesViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange)
+        viewModel.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -64,13 +67,22 @@ extension TerrainTerraformUtilitiesViewController {
         
         switch to {
             
-        case .empty(let editor):
+        case .empty(let meadow):
             
-            print("empty")
+            guard let meadow = meadow else { break }
             
-        case .terraform(_, _, let toolType, let smooth):
+            meadow.input.cursorModel.tracksIdleEvents = false
             
-            print("terraform")
+            if let reference = cursorModelCallbackReference {
+                
+                meadow.input.cursorModel.unsubscribe(reference)
+            }
+            
+        case .terraform(let meadow, let toolType, let smooth):
+            
+            meadow.input.cursorModel.tracksIdleEvents = true
+            
+            cursorModelCallbackReference = meadow.input.cursorModel.subscribe(stateDidChange(from:to:))
             
             toolTypePopUp.removeAllItems()
             
@@ -81,6 +93,36 @@ extension TerrainTerraformUtilitiesViewController {
             toolTypePopUp.selectItem(at: toolType.rawValue)
             
             smoothCheckBox.state = (smooth ? .on : .off)
+        }
+    }
+}
+
+extension TerrainTerraformUtilitiesViewController: CursorModelObserver {
+    
+    func stateDidChange(from: SceneView.CursorState?, to: SceneView.CursorState) {
+        
+        switch viewModel.state {
+            
+        case .terraform(let meadow, let toolType, let smooth):
+            
+            switch to {
+                
+            case .idle(let position):
+                
+                print("terraform - idle: \(position)")
+                
+            case .down(let position, let inputType):
+                
+                print("terraform - down: \(inputType) \(position)")
+                
+            case .tracking(let position, let inputType, let startPosition):
+                
+                print("terraform - tracking: \(inputType) \(startPosition) -> \(position)")
+                
+            case .up(let position, let inputType, let startPosition):
+                
+                print("terraform - up: \(inputType) \(startPosition) -> \(position)")
+            }
             
         default: break
         }

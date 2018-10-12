@@ -33,7 +33,7 @@ extension SidebarTabViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange)
+        viewModel.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -47,9 +47,9 @@ extension SidebarTabViewController {
             
             switch from {
                 
-            case .utility(let editor, _):
+            case .utility(let meadow):
                 
-                utilitiesTabViewController.viewModel.state = .empty(editor: editor)
+                utilitiesTabViewController.viewModel.state = .empty(meadow: meadow)
                 
             default: break
             }
@@ -62,7 +62,7 @@ extension SidebarTabViewController {
         case .empty(let editor):
             
             inspectorTabViewController.viewModel.state = .empty
-            utilitiesTabViewController.viewModel.state = .empty(editor: editor)
+            utilitiesTabViewController.viewModel.state = .empty(meadow: editor?.meadow)
             
         case .inspector(let editor, let child):
             
@@ -73,21 +73,21 @@ extension SidebarTabViewController {
                  is AreaTile.Type,
                  is AreaNode.Type:
                 
-                inspectorTabViewController.viewModel.state = .area(editor: editor, inspectable: (editor.meadow.world.areas, child as? AreaChunk, child as? AreaTile, child as? AreaNode, .north))
+                inspectorTabViewController.viewModel.state = .area(editor: editor, inspectable: (editor.meadow.scene.world.areas, child as? AreaChunk, child as? AreaTile, child as? AreaNode, .north))
                 
             case is Foliage.Type,
                  is FoliageChunk.Type,
                  is FoliageTile.Type,
                  is FoliageNode.Type:
                 
-                inspectorTabViewController.viewModel.state = .foliage(editor: editor, inspectable: (editor.meadow.world.foliage, child as? FoliageChunk, child as? FoliageTile, child as? FoliageNode))
+                inspectorTabViewController.viewModel.state = .foliage(editor: editor, inspectable: (editor.meadow.scene.world.foliage, child as? FoliageChunk, child as? FoliageTile, child as? FoliageNode))
                 
             case is Footpath.Type,
                  is FootpathChunk.Type,
                  is FootpathTile.Type,
                  is FootpathNode.Type:
                 
-                inspectorTabViewController.viewModel.state = .footpath(editor: editor, inspectable: (editor.meadow.world.footpaths, child as? FootpathChunk, child as? FootpathTile, child as? FootpathNode))
+                inspectorTabViewController.viewModel.state = .footpath(editor: editor, inspectable: (editor.meadow.scene.world.footpaths, child as? FootpathChunk, child as? FootpathTile, child as? FootpathNode))
                 
             case is Terrain.Type,
                  is TerrainChunk.Type,
@@ -95,16 +95,16 @@ extension SidebarTabViewController {
                  is TerrainNode<TerrainLayer>.Type,
                  is TerrainLayer.Type:
                 
-                inspectorTabViewController.viewModel.state = .terrain(editor: editor, inspectable: (editor.meadow.world.terrain, child as? TerrainChunk, child as? TerrainTile, child as? TerrainNode<TerrainLayer>, child as? TerrainLayer, .north))
+                inspectorTabViewController.viewModel.state = .terrain(editor: editor, inspectable: (editor.meadow.scene.world.terrain, child as? TerrainChunk, child as? TerrainTile, child as? TerrainNode<TerrainLayer>, child as? TerrainLayer, .north))
                 
             case is Water.Type,
                  is WaterChunk.Type,
                  is WaterTile.Type,
                  is WaterNode.Type:
                 
-                inspectorTabViewController.viewModel.state = .water(editor: editor, inspectable: (editor.meadow.world.water, child as? WaterChunk, child as? WaterTile, child as? WaterNode))
+                inspectorTabViewController.viewModel.state = .water(editor: editor, inspectable: (editor.meadow.scene.world.water, child as? WaterChunk, child as? WaterTile, child as? WaterNode))
                 
-            case is Meadow.Type:
+            case is Scene.Type:
                 
                 inspectorTabViewController.viewModel.state = .scene(editor: editor)
                 
@@ -113,33 +113,33 @@ extension SidebarTabViewController {
                 inspectorTabViewController.viewModel.state = .empty
             }
             
-        case .utility(let editor, _):
+        case .utility(let meadow):
             
             switch inspectorTabViewController.viewModel.state {
             
-            case .area(let editor, let inspectable):
+            case .area:
                 
-                utilitiesTabViewController.viewModel.state = .area(editor: editor, grid: inspectable.grid)
+                utilitiesTabViewController.viewModel.state = .area(meadow: meadow)
                 
-            case .foliage(_, let inspectable):
+            case .foliage:
                 
-                utilitiesTabViewController.viewModel.state = .foliage(editor: editor, grid: inspectable.grid)
+                utilitiesTabViewController.viewModel.state = .foliage(meadow: meadow)
                 
-            case .footpath(_, let inspectable):
+            case .footpath:
                 
-                utilitiesTabViewController.viewModel.state = .footpath(editor: editor, grid: inspectable.grid)
+                utilitiesTabViewController.viewModel.state = .footpath(meadow: meadow)
                 
-            case .terrain(_, let inspectable):
+            case .terrain:
                 
-                utilitiesTabViewController.viewModel.state = .terrain(editor: editor, grid: inspectable.grid)
+                utilitiesTabViewController.viewModel.state = .terrain(meadow: meadow)
                 
-            case .water(_, let inspectable):
+            case .water:
                 
-                utilitiesTabViewController.viewModel.state = .water(editor: editor, grid: inspectable.grid)
+                utilitiesTabViewController.viewModel.state = .water(meadow: meadow)
                 
             default:
                 
-                utilitiesTabViewController.viewModel.state = .empty(editor: editor)
+                utilitiesTabViewController.viewModel.state = .empty(meadow: meadow)
             }
         }
     }

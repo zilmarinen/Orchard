@@ -37,7 +37,7 @@ extension SceneGraphViewController {
         
         outlineView.register(NSNib(nibNamed: NSNib.Name(SceneGraphCell.cellIdentifier), bundle: nil), forIdentifier: NSUserInterfaceItemIdentifier(SceneGraphCell.cellIdentifier))
     
-        viewModel.subscribe(stateDidChange)
+        viewModel.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -80,9 +80,9 @@ extension SceneGraphViewController {
         
         switch viewModel.state {
             
-        case .sceneGraph(let meadow, _):
+        case .sceneGraph(let scene, _):
             
-            viewModel.state = .sceneGraph(meadow: meadow, child: child)
+            viewModel.state = .sceneGraph(scene: scene, child: child)
             
             delegate.sceneGraph(didSelectChild: child, atIndex: index)
             
@@ -129,7 +129,7 @@ extension SceneGraphViewController: NSOutlineViewDataSource {
         
         switch viewModel.state {
             
-        case .sceneGraph(let meadow, _): return meadow
+        case .sceneGraph(let scene, _): return scene
             
         default: fatalError("Unable to find child of item \(String(describing: item))")
         }
@@ -147,7 +147,7 @@ extension SceneGraphViewController: NSOutlineViewDelegate {
         
         guard let view = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(SceneGraphCell.cellIdentifier), owner: self) as? SceneGraphCell else { return nil }
         
-        if let _ = item as? Meadow {
+        if let _ = item as? Scene {
             
             view.textField?.stringValue = "Meadow"
             view.imageView?.image = NSImage(named: NSImage.Name("meadow_icon"))

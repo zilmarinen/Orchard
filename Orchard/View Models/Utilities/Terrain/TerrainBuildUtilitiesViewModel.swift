@@ -13,8 +13,8 @@ extension TerrainBuildUtilitiesViewController {
     
     enum ViewState: THRUtilities.State {
         
-        case empty(editor: Editor?)
-        case build(editor: Editor, grid: Terrain, terrainType: TerrainType)
+        case empty(meadow: Meadow?)
+        case build(meadow: Meadow, terrainType: TerrainType)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

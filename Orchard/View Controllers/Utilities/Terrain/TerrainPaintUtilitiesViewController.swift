@@ -23,7 +23,7 @@ class TerrainPaintUtilitiesViewController: NSViewController {
      
         switch viewModel.state {
             
-        case .paint(let editor, let grid, let terrainType, let toolType):
+        case .paint(let meadow, let terrainType, let toolType):
             
             switch sender {
                 
@@ -31,13 +31,13 @@ class TerrainPaintUtilitiesViewController: NSViewController {
                 
                 guard let selectedTerrainType = TerrainType(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                viewModel.state = .paint(editor: editor, grid: grid, terrainType: selectedTerrainType, toolType: toolType)
+                viewModel.state = .paint(meadow: meadow, terrainType: selectedTerrainType, toolType: toolType)
                 
             case toolTypePopUp:
                 
                 guard let selectedToolType = ToolType(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                viewModel.state = .paint(editor: editor, grid: grid, terrainType: terrainType, toolType: selectedToolType)
+                viewModel.state = .paint(meadow: meadow, terrainType: terrainType, toolType: selectedToolType)
                 
             default: break
             }
@@ -48,8 +48,10 @@ class TerrainPaintUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return TerrainPaintUtilitiesViewModel(initialState: .empty(editor: nil))
+        return TerrainPaintUtilitiesViewModel(initialState: .empty(meadow: nil))
     }()
+    
+    var cursorModelCallbackReference: UUID?
 }
 
 extension TerrainPaintUtilitiesViewController {
@@ -58,7 +60,7 @@ extension TerrainPaintUtilitiesViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange)
+        viewModel.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -68,13 +70,22 @@ extension TerrainPaintUtilitiesViewController {
         
         switch to {
             
-        case .empty(let editor):
+        case .empty(let meadow):
             
-            print("empty")
+            guard let meadow = meadow else { break }
             
-        case .paint(_, _, let terrainType, let toolType):
+            meadow.input.cursorModel.tracksIdleEvents = false
             
-            print("paint")
+            if let reference = cursorModelCallbackReference {
+            
+                meadow.input.cursorModel.unsubscribe(reference)
+            }
+            
+        case .paint(let meadow, let terrainType, let toolType):
+            
+            meadow.input.cursorModel.tracksIdleEvents = true
+            
+            cursorModelCallbackReference = meadow.input.cursorModel.subscribe(stateDidChange(from:to:))
             
             terrainTypePopUp.removeAllItems()
             toolTypePopUp.removeAllItems()
@@ -102,6 +113,36 @@ extension TerrainPaintUtilitiesViewController {
                 colorPaletteSecondary.fillColor = colorPalette.secondary.color
                 colorPaletteTertiary.fillColor = colorPalette.tertiary.color
                 colorPaletteQuaternary.fillColor = colorPalette.quaternary.color
+            }
+        }
+    }
+}
+
+extension TerrainPaintUtilitiesViewController: CursorModelObserver {
+    
+    func stateDidChange(from: SceneView.CursorState?, to: SceneView.CursorState) {
+        
+        switch viewModel.state {
+            
+        case .paint(let meadow, let terrainType, let toolType):
+            
+            switch to {
+                
+            case .idle(let position):
+                
+                print("paint - idle: \(position)")
+                
+            case .down(let position, let inputType):
+                
+                print("paint - down: \(inputType) \(position)")
+                
+            case .tracking(let position, let inputType, let startPosition):
+                
+                print("paint - tracking: \(inputType) \(startPosition) -> \(position)")
+                
+            case .up(let position, let inputType, let startPosition):
+                
+                print("paint - up: \(inputType) \(startPosition) -> \(position)")
             }
             
         default: break

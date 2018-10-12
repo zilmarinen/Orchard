@@ -12,9 +12,13 @@ import THRUtilities
 
 class OrchardViewController: NSViewController {
     
-    lazy var viewModel = {
+    lazy var viewModel: OrchardViewModel = {
         
-        return OrchardViewModel(initialState: .editor(editor: (meadow: Meadow(observer: self), cursorModel: SceneView.CursorModel(), delegate: self)))
+        let input = Input(cursorModel: SceneView.CursorModel(), keyboardModel: SceneView.CursorModel())
+        
+        let meadow = Meadow(scene: Scene(observer: self), sceneView: self.sceneViewController!.sceneView, input: input)
+        
+        return OrchardViewModel(initialState: .editor(editor: (meadow: meadow, delegate: self)))
     }()
     
     var splitViewController: WindowSplitViewController?
@@ -41,7 +45,7 @@ extension OrchardViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange)
+        viewModel.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -54,15 +58,15 @@ extension OrchardViewController {
         case .editor(let editor):
             
             sceneGraphViewController?.delegate = self
-            sceneGraphViewController?.viewModel.state = .sceneGraph(meadow: editor.meadow, child: editor.meadow)
+            sceneGraphViewController?.viewModel.state = .sceneGraph(scene: editor.meadow.scene, child: editor.meadow.scene)
             
             sceneViewController?.viewModel.state = .editor(editor: editor)
             
-            sidebarViewController?.viewModel.state = .inspector(editor: editor, child: editor.meadow)
+            sidebarViewController?.viewModel.state = .inspector(editor: editor, child: editor.meadow.scene)
             
         case .loading(let editor, let intermediate):
             
-            editor.meadow.load(intermediates: [intermediate])
+            editor.meadow.scene.load(intermediates: [intermediate])
             
             viewModel.state = .editor(editor: editor)
         }
@@ -83,99 +87,7 @@ extension OrchardViewController: SceneGraphDelegate {
         }
     }
 }
-/*
-extension OrchardViewController {
-    
-    enum KeyCodes: Int {
-        
-        case q = 12
-        case w = 13
-        case e = 14
-        case a = 0
-        case s = 1
-        case d = 2
-    }
-    
-    override func scrollWheel(with event: NSEvent) {
-        
-        switch viewModel.state {
-            
-        case .editor(let meadow):
-            
-            switch meadow.cameraJib.stateMachine.state {
-                
-            case .focus(let focus, let edge, let zoomLevel):
-                
-                let newZoomLevel = (zoomLevel + event.deltaY)
-                
-                meadow.cameraJib.stateMachine.state = .focus(focus, edge, newZoomLevel)
-            }
-            
-        default: break
-        }
-    }
-    
-    override func keyUp(with event: NSEvent) {
-        
-        switch viewModel.state {
-            
-        case .editor(let meadow):
-            
-            guard let keyCode = KeyCodes(rawValue: Int(event.keyCode)) else { break }
-            
-            switch keyCode {
-                
-            case .q,
-                 .e:
-                
-                switch meadow.cameraJib.stateMachine.state {
-                    
-                case .focus(let focus, let edge, let zoomLevel):
-                    
-                    let clockwise = (keyCode == .q)
-                    
-                    let nextEdge = GridEdge(rawValue: (clockwise ? (edge == .west ? GridEdge.north.rawValue : (edge.rawValue + 1)) : (edge == .north ? GridEdge.west.rawValue : (edge.rawValue - 1))))!
-                    
-                    meadow.cameraJib.stateMachine.state = .focus(focus, nextEdge, zoomLevel)
-                }
-                
-            default: break
-            }
-            
-        default: break
-        }
-    }
-    
-    override func mouseDown(with event: NSEvent) {
-        
-        switch viewModel.state {
-            
-        case .editor(let meadow):
-            
-            guard let sceneView = sceneViewController?.sceneView else { break }
-            
-            let pointInView = sceneView.convert(event.locationInWindow, from: nil)
-            
-            let point = CGPoint(x: pointInView.x, y: pointInView.y)
-            
-            let hits = sceneView.hitTest(point, options: nil)
-            
-            let nodes = meadow.hitTest(hits: hits)
-            
-            if let node = nodes.first {
-                
-                sceneGraphViewController?.viewModel.state = .sceneGraph(meadow, node)
-                
-                sceneViewController?.viewModel.state = .inspecting(meadow, node)
-                
-                sidebarViewController?.viewModel.state = .inspecting(self, meadow, node)
-            }
-            
-        default: break
-        }
-    }
-}
-*/
+
 extension OrchardViewController: GridObserver {
     
     func child(didBecomeDirty child: SceneGraphChild) {
@@ -190,7 +102,7 @@ extension OrchardViewController: GridObserver {
                 
             case .sceneGraph(_, let item):
                 
-                sceneGraphViewController.viewModel.state = .sceneGraph(meadow: editor.meadow, child: item)
+                sceneGraphViewController.viewModel.state = .sceneGraph(scene: editor.meadow.scene, child: item)
                 
             default: break
             }

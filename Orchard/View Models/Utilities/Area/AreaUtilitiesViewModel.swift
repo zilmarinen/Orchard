@@ -13,8 +13,8 @@ extension AreaUtilitiesViewController {
     
     enum ViewState: THRUtilities.State {
         
-        case empty(editor: Editor?)
-        case area(editor: Editor, grid: Area)
+        case empty(meadow: Meadow?)
+        case area(meadow: Meadow)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

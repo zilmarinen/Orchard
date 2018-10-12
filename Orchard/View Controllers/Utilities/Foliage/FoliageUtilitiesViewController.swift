@@ -19,18 +19,18 @@ class FoliageUtilitiesViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .foliage(let editor, let grid):
+        case .foliage(let meadow):
             
             switch sender {
                 
             case gridHiddenButton:
                 
-                grid.isHidden = sender.state == .off
+                meadow.scene.world.foliage.isHidden = sender.state == .off
                 
             default: break
             }
             
-            viewModel.state = .foliage(editor: editor, grid: grid)
+            viewModel.state = .foliage(meadow: meadow)
             
         default: break
         }
@@ -40,7 +40,7 @@ class FoliageUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return FoliageUtilitiesViewModel(initialState: .empty(editor: nil))
+        return FoliageUtilitiesViewModel(initialState: .empty(meadow: nil))
     }()
 }
 
@@ -50,7 +50,7 @@ extension FoliageUtilitiesViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange)
+        viewModel.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -60,10 +60,10 @@ extension FoliageUtilitiesViewController {
         
         switch to {
             
-        case .foliage(_, let grid):
+        case .foliage(let meadow):
             
-            chunkCount.integerValue = grid.totalChildren
-            gridHiddenButton.state = (grid.isHidden ? .off : .on)
+            chunkCount.integerValue = meadow.scene.world.foliage.totalChildren
+            gridHiddenButton.state = (meadow.scene.world.foliage.isHidden ? .off : .on)
             
         default: break
         }

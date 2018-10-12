@@ -13,8 +13,8 @@ extension WaterUtilitiesViewController {
     
     enum ViewState: THRUtilities.State {
         
-        case empty(editor: Editor?)
-        case water(editor: Editor, grid: Water)
+        case empty(meadow: Meadow?)
+        case water(meadow: Meadow)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

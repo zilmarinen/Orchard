@@ -12,7 +12,7 @@ class AreaUtilitiesTabViewController: NSTabViewController {
     
     lazy var viewModel = {
         
-        return AreaUtilitiesTabViewModel(initialState: .empty(editor: nil))
+        return AreaUtilitiesTabViewModel(initialState: .empty(meadow: nil))
     }()
 }
 
@@ -22,7 +22,7 @@ extension AreaUtilitiesTabViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange)
+        viewModel.subscribe(stateDidChange(from:to:))
     }
 }
 

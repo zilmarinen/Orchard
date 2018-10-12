@@ -25,7 +25,7 @@ extension SceneViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange)
+        viewModel.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -37,10 +37,10 @@ extension SceneViewController {
             
         case .editor(let editor):
             
-            sceneView.viewModel.state = .scene(editor.meadow, editor.cursorModel)
+            editor.meadow.sceneView.viewModel.state = .scene(scene: editor.meadow.scene, input: editor.meadow.input)
             
-            sceneView.showsStatistics = true
-            sceneView.isPlaying = true
+            editor.meadow.sceneView.showsStatistics = true
+            editor.meadow.sceneView.isPlaying = true
             
         default: break
         }

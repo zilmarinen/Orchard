@@ -12,7 +12,7 @@ class FoliageUtilitiesTabViewController: NSTabViewController {
 
     lazy var viewModel = {
         
-        return FoliageUtilitiesTabViewModel(initialState: .empty(editor: nil))
+        return FoliageUtilitiesTabViewModel(initialState: .empty(meadow: nil))
     }()
 }
 
@@ -22,7 +22,7 @@ extension FoliageUtilitiesTabViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange)
+        viewModel.subscribe(stateDidChange(from:to:))
     }
 }
 

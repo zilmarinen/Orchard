@@ -58,7 +58,7 @@ extension SidebarViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange)
+        viewModel.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -78,9 +78,9 @@ extension SidebarViewController {
             
             tabViewController.viewModel.state = .inspector(editor: editor, child: child)
             
-        case .utility(let editor, let child):
+        case .utility(let editor, _):
             
-            tabViewController.viewModel.state = .utility(editor: editor, child: child)
+            tabViewController.viewModel.state = .utility(meadow: editor.meadow)
         }
     }
 }

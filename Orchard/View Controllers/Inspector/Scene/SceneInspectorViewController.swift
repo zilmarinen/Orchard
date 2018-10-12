@@ -23,7 +23,7 @@ class SceneInspectorViewController: NSViewController {
             
             let selectedColor = ColorPalettes.shared?.allColors[sender.indexOfSelectedItem]
             
-            editor.meadow.world.floor.color = selectedColor
+            editor.meadow.scene.world.floor.color = selectedColor
             
             viewModel.state = .scene(editor: editor)
             
@@ -37,7 +37,7 @@ class SceneInspectorViewController: NSViewController {
             
         case .scene(let editor):
             
-            editor.meadow.rootNode.name = textField.stringValue
+            editor.meadow.scene.rootNode.name = textField.stringValue
             
             viewModel.state = .scene(editor: editor)
             
@@ -57,7 +57,7 @@ extension SceneInspectorViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange)
+        viewModel.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -71,14 +71,14 @@ extension SceneInspectorViewController {
             
             clearColorPopUp.removeAllItems()
             
-            nameTextField.stringValue = editor.meadow.rootNode.name ?? ""
+            nameTextField.stringValue = editor.meadow.scene.rootNode.name ?? ""
             
             ColorPalettes.shared?.allColors.forEach { color in
                 
                 clearColorPopUp.addItem(withTitle: color.name)
             }
             
-            if let floorColor = editor.meadow.world.floor.color, let index = ColorPalettes.shared?.allColors.index(of: floorColor) {
+            if let floorColor = editor.meadow.scene.world.floor.color, let index = ColorPalettes.shared?.allColors.index(of: floorColor) {
                 
                 clearColorPopUp.selectItem(at: index)
                 

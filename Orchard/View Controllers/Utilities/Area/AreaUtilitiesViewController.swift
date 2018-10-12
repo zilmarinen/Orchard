@@ -19,18 +19,18 @@ class AreaUtilitiesViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .area(let editor, let grid):
+        case .area(let meadow):
             
             switch sender {
                 
             case gridHiddenButton:
                 
-                grid.isHidden = sender.state == .off
+                meadow.scene.world.areas.isHidden = sender.state == .off
                 
             default: break
             }
             
-            viewModel.state = .area(editor: editor, grid: grid)
+            viewModel.state = .area(meadow: meadow)
             
         default: break
         }
@@ -40,7 +40,7 @@ class AreaUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return AreaUtilitiesViewModel(initialState: .empty(editor: nil))
+        return AreaUtilitiesViewModel(initialState: .empty(meadow: nil))
     }()
 }
 
@@ -50,7 +50,7 @@ extension AreaUtilitiesViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange)
+        viewModel.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -60,10 +60,10 @@ extension AreaUtilitiesViewController {
         
         switch to {
             
-        case .area(_, let grid):
+        case .area(let meadow):
             
-            chunkCount.integerValue = grid.totalChildren
-            gridHiddenButton.state = (grid.isHidden ? .off : .on)
+            chunkCount.integerValue = meadow.scene.world.areas.totalChildren
+            gridHiddenButton.state = (meadow.scene.world.areas.isHidden ? .off : .on)
             
         default: break
         }

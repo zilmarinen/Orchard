@@ -20,8 +20,8 @@ extension TerrainTerraformUtilitiesViewController {
     
     enum ViewState: THRUtilities.State {
         
-        case empty(editor: Editor?)
-        case terraform(editor: Editor, grid: Terrain, toolType: ToolType, smooth: Bool)
+        case empty(meadow: Meadow?)
+        case terraform(meadow: Meadow, toolType: ToolType, smooth: Bool)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
