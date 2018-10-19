@@ -76,6 +76,8 @@ extension SceneInspectorViewController {
             ColorPalettes.shared?.allColors.forEach { color in
                 
                 clearColorPopUp.addItem(withTitle: color.name)
+                
+                clearColorPopUp.lastItem?.set(color: color.color)
             }
             
             if let floorColor = editor.meadow.scene.world.floor.color, let index = ColorPalettes.shared?.allColors.index(of: floorColor) {

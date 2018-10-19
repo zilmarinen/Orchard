@@ -14,7 +14,7 @@ class OrchardViewController: NSViewController {
     
     lazy var viewModel: OrchardViewModel = {
         
-        let input = Input(cursorModel: SceneView.CursorModel(), keyboardModel: SceneView.CursorModel())
+        let input = Input(cursor: SceneView.Cursor(), keyboard: SceneView.Cursor())
         
         let meadow = Meadow(scene: Scene(observer: self), sceneView: self.sceneViewController!.sceneView, input: input)
         

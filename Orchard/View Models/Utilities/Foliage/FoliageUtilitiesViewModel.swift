@@ -13,8 +13,8 @@ extension FoliageUtilitiesViewController {
     
     enum ViewState: THRUtilities.State {
         
-        case empty(meadow: Meadow?)
-        case foliage(meadow: Meadow)
+        case empty(editor: Editor?)
+        case foliage(editor: Editor)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

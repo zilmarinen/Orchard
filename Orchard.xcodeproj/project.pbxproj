@@ -17,6 +17,9 @@
 		1820663620B05C1700D0356D /* WaterInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1820663520B05C1700D0356D /* WaterInspectorViewController.swift */; };
 		1822D3B020BE8784004A1156 /* SidebarTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1822D3AF20BE8784004A1156 /* SidebarTabViewModel.swift */; };
 		1822D3B220BE8F11004A1156 /* SidebarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1822D3B120BE8F11004A1156 /* SidebarViewModel.swift */; };
+		182AFA2021709A510009AD0D /* NSMenuItem+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182AFA1F21709A510009AD0D /* NSMenuItem+Color.swift */; };
+		1832994421788D8100485907 /* WaterBuildUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1832994321788D8100485907 /* WaterBuildUtilitiesViewModel.swift */; };
+		1832994621788DAD00485907 /* WaterBuildUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1832994521788DAD00485907 /* WaterBuildUtilitiesViewController.swift */; };
 		1837ADEE20ADD0C9006802CA /* WindowSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1837ADED20ADD0C9006802CA /* WindowSplitViewController.swift */; };
 		185E588420A9C6F300139565 /* SceneGraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185E588320A9C6F300139565 /* SceneGraphCell.swift */; };
 		185E588620A9C71300139565 /* SceneGraphCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185E588520A9C71300139565 /* SceneGraphCell.xib */; };
@@ -95,6 +98,9 @@
 		1820663520B05C1700D0356D /* WaterInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterInspectorViewController.swift; sourceTree = "<group>"; };
 		1822D3AF20BE8784004A1156 /* SidebarTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarTabViewModel.swift; sourceTree = "<group>"; };
 		1822D3B120BE8F11004A1156 /* SidebarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewModel.swift; sourceTree = "<group>"; };
+		182AFA1F21709A510009AD0D /* NSMenuItem+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMenuItem+Color.swift"; sourceTree = "<group>"; };
+		1832994321788D8100485907 /* WaterBuildUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterBuildUtilitiesViewModel.swift; sourceTree = "<group>"; };
+		1832994521788DAD00485907 /* WaterBuildUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterBuildUtilitiesViewController.swift; sourceTree = "<group>"; };
 		1837ADED20ADD0C9006802CA /* WindowSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSplitViewController.swift; sourceTree = "<group>"; };
 		185E588320A9C6F300139565 /* SceneGraphCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGraphCell.swift; sourceTree = "<group>"; };
 		185E588520A9C71300139565 /* SceneGraphCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SceneGraphCell.xib; sourceTree = "<group>"; };
@@ -282,6 +288,14 @@
 			path = Sidebar;
 			sourceTree = "<group>";
 		};
+		182AFA1E21709A400009AD0D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				182AFA1F21709A510009AD0D /* NSMenuItem+Color.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		18496C61209323FE00992AF3 /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
@@ -347,6 +361,7 @@
 		1871220520932094002488E0 /* Orchard */ = {
 			isa = PBXGroup;
 			children = (
+				182AFA1E21709A400009AD0D /* Extensions */,
 				1871220A20932095002488E0 /* Assets.xcassets */,
 				188E38E820B57CAC001A6C3A /* Document */,
 				18496C622093243900992AF3 /* Storyboards */,
@@ -432,6 +447,7 @@
 			isa = PBXGroup;
 			children = (
 				18B4885920B1ACC20032E832 /* WaterUtilitiesViewController.swift */,
+				1832994521788DAD00485907 /* WaterBuildUtilitiesViewController.swift */,
 			);
 			path = Water;
 			sourceTree = "<group>";
@@ -564,6 +580,7 @@
 			children = (
 				18B13D3120BC3490007437DC /* WaterUtilitiesViewModel.swift */,
 				18B13D4520BC3602007437DC /* WaterUtilitiesTabViewModel.swift */,
+				1832994321788D8100485907 /* WaterBuildUtilitiesViewModel.swift */,
 			);
 			path = Water;
 			sourceTree = "<group>";
@@ -843,6 +860,7 @@
 				189256C220B800A000FD9364 /* SceneInspectorViewModel.swift in Sources */,
 				189256CC20B8551800FD9364 /* TerrainTerraformUtilitiesViewController.swift in Sources */,
 				189256D020B8554500FD9364 /* TerrainTerraformUtilitiesViewModel.swift in Sources */,
+				1832994421788D8100485907 /* WaterBuildUtilitiesViewModel.swift in Sources */,
 				18B4885820B1ACB50032E832 /* TerrainUtilitiesViewController.swift in Sources */,
 				18B4885A20B1ACC20032E832 /* WaterUtilitiesViewController.swift in Sources */,
 				18B13D4420BC35F8007437DC /* FootpathUtilitiesTabViewModel.swift in Sources */,
@@ -855,6 +873,7 @@
 				1820663420B05C0B00D0356D /* TerrainInspectorViewController.swift in Sources */,
 				1820663220B05C0000D0356D /* FootpathInspectorViewController.swift in Sources */,
 				18B13D4020BC35E3007437DC /* AreaUtilitiesTabViewModel.swift in Sources */,
+				182AFA2021709A510009AD0D /* NSMenuItem+Color.swift in Sources */,
 				189256B920B7FFE400FD9364 /* AreaInspectorViewModel.swift in Sources */,
 				185E588420A9C6F300139565 /* SceneGraphCell.swift in Sources */,
 				18FCFAF220B2D34000EBCBBB /* SceneInspectorViewController.swift in Sources */,
@@ -879,6 +898,7 @@
 				1871220920932094002488E0 /* SceneViewController.swift in Sources */,
 				18B13D3720BC354C007437DC /* FoliageUtilitiesTabViewController.swift in Sources */,
 				18B13D2C20BC3474007437DC /* AreaUtilitiesViewModel.swift in Sources */,
+				1832994621788DAD00485907 /* WaterBuildUtilitiesViewController.swift in Sources */,
 				1803165D20B6F2DF009D367F /* TerrainInspectorViewModel.swift in Sources */,
 				189256BD20B7FFF700FD9364 /* FootpathInspectorViewModel.swift in Sources */,
 				189256BF20B8000700FD9364 /* WaterInspectorViewModel.swift in Sources */,

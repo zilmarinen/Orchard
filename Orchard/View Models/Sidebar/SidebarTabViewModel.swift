@@ -22,7 +22,7 @@ extension SidebarTabViewController {
         
         case empty(editor: Editor?)
         case inspector(editor: Editor, child: SceneGraphChild)
-        case utility(meadow: Meadow)
+        case utility(editor: Editor)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

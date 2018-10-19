@@ -8,6 +8,7 @@
 
 import Cocoa
 import Meadow
+import SceneKit
 
 class TerrainPaintUtilitiesViewController: NSViewController {
 
@@ -23,7 +24,7 @@ class TerrainPaintUtilitiesViewController: NSViewController {
      
         switch viewModel.state {
             
-        case .paint(let meadow, let terrainType, let toolType):
+        case .paint(let editor, let terrainType, let toolType):
             
             switch sender {
                 
@@ -31,13 +32,13 @@ class TerrainPaintUtilitiesViewController: NSViewController {
                 
                 guard let selectedTerrainType = TerrainType(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                viewModel.state = .paint(meadow: meadow, terrainType: selectedTerrainType, toolType: toolType)
+                viewModel.state = .paint(editor: editor, terrainType: selectedTerrainType, toolType: toolType)
                 
             case toolTypePopUp:
                 
                 guard let selectedToolType = ToolType(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                viewModel.state = .paint(meadow: meadow, terrainType: terrainType, toolType: selectedToolType)
+                viewModel.state = .paint(editor: editor, terrainType: terrainType, toolType: selectedToolType)
                 
             default: break
             }
@@ -48,10 +49,24 @@ class TerrainPaintUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return TerrainPaintUtilitiesViewModel(initialState: .empty(meadow: nil))
+        return TerrainPaintUtilitiesViewModel(initialState: .empty(editor: nil))
     }()
     
-    var cursorModelCallbackReference: UUID?
+    var cursorCallbackReference: SceneView.Cursor.CallbackReference?
+    
+    lazy var edgeGraticule = {
+        
+        return SceneView.EdgeGraticule()
+    }()
+    
+    var edgeGraticuleCallbackReference: SceneView.EdgeGraticule.CallbackReference?
+    
+    lazy var tileGraticule = {
+    
+        return SceneView.TileGraticule()
+    }()
+    
+    var tileGraticuleCallbackReference: SceneView.TileGraticule.CallbackReference?
 }
 
 extension TerrainPaintUtilitiesViewController {
@@ -61,6 +76,10 @@ extension TerrainPaintUtilitiesViewController {
         super.viewDidLoad()
         
         viewModel.subscribe(stateDidChange(from:to:))
+        
+        tileGraticuleCallbackReference = tileGraticule.subscribe(stateDidChange(from:to:))
+        
+        edgeGraticuleCallbackReference = edgeGraticule.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -70,22 +89,22 @@ extension TerrainPaintUtilitiesViewController {
         
         switch to {
             
-        case .empty(let meadow):
+        case .empty(let editor):
             
-            guard let meadow = meadow else { break }
+            guard let editor = editor else { break }
             
-            meadow.input.cursorModel.tracksIdleEvents = false
+            editor.meadow.input.cursor.tracksIdleEvents = false
             
-            if let reference = cursorModelCallbackReference {
+            if let reference = cursorCallbackReference {
             
-                meadow.input.cursorModel.unsubscribe(reference)
+                editor.meadow.input.cursor.unsubscribe(reference)
             }
             
-        case .paint(let meadow, let terrainType, let toolType):
+        case .paint(let editor, let terrainType, let toolType):
             
-            meadow.input.cursorModel.tracksIdleEvents = true
+            editor.meadow.input.cursor.tracksIdleEvents = true
             
-            cursorModelCallbackReference = meadow.input.cursorModel.subscribe(stateDidChange(from:to:))
+            cursorCallbackReference = editor.meadow.input.cursor.subscribe(stateDidChange(from:to:))
             
             terrainTypePopUp.removeAllItems()
             toolTypePopUp.removeAllItems()
@@ -100,7 +119,7 @@ extension TerrainPaintUtilitiesViewController {
                 terrainTypePopUp.addItem(withTitle: terrainType.name)
             }
             
-            toolTypePopUp.addItem(withTitle: "Corner")
+            toolTypePopUp.addItem(withTitle: "Edge")
             toolTypePopUp.addItem(withTitle: "Tile")
             
             toolTypePopUp.selectItem(at: toolType.rawValue)
@@ -118,34 +137,251 @@ extension TerrainPaintUtilitiesViewController {
     }
 }
 
-extension TerrainPaintUtilitiesViewController: CursorModelObserver {
+extension TerrainPaintUtilitiesViewController: CursorObserver {
     
     func stateDidChange(from: SceneView.CursorState?, to: SceneView.CursorState) {
         
         switch viewModel.state {
             
-        case .paint(let meadow, let terrainType, let toolType):
+        case .paint(let editor, let terrainType, let toolType):
+            
+            let options: [SCNHitTestOption : Any] = [SCNHitTestOption.rootNode: editor.meadow.scene.world.terrain,
+                                                     SCNHitTestOption.categoryBitMask: SceneGraphNodeType.terrain.rawValue]
             
             switch to {
                 
             case .idle(let position):
                 
-                print("paint - idle: \(position)")
+                guard let hit = editor.meadow.sceneView.hitTest(position, options: options).first else { break }
+                
+                let coordinate = Coordinate(vector: hit.worldCoordinates)
+                
+                switch toolType {
+                    
+                case .edge:
+                    
+                    guard let terrainLayer = editor.meadow.scene.world.terrain.find(node: coordinate)?.topLayer else { break }
+                    
+                    let closestEdge = terrainLayer.polyhedron.upperPolytope.closest(edge: hit.worldCoordinates)
+                    
+                    switch edgeGraticule.state {
+                        
+                    case .idle:
+                        
+                        edgeGraticule.state = .tracking(position: coordinate, edge: closestEdge, yOffset: 0)
+                        
+                    case .tracking(let position, let edge, _):
+                        
+                        if position != coordinate && edge != closestEdge {
+                            
+                            edgeGraticule.state = .tracking(position: coordinate, edge: closestEdge, yOffset: 0)
+                        }
+                    }
+                    
+                case .tile:
+                    
+                    switch tileGraticule.state {
+                        
+                    case .idle:
+                        
+                        tileGraticule.state = .tracking(position: coordinate, startPosition: coordinate, yOffset: 0)
+                        
+                    case .tracking(let position, _, _):
+                        
+                        if position != coordinate {
+                            
+                            tileGraticule.state = .tracking(position: coordinate, startPosition: coordinate, yOffset: 0)
+                        }
+                    }
+                }
                 
             case .down(let position, let inputType):
                 
-                print("paint - down: \(inputType) \(position)")
+                if inputType == .right {
+                    
+                    guard let hit = editor.meadow.sceneView.hitTest(position, options: options).first else { break }
                 
-            case .tracking(let position, let inputType, let startPosition):
+                    let coordinate = Coordinate(vector: hit.worldCoordinates)
                 
-                print("paint - tracking: \(inputType) \(startPosition) -> \(position)")
+                    guard let terrainLayer = editor.meadow.scene.world.terrain.find(node: coordinate)?.topLayer else { break }
+                    
+                    editor.delegate.sceneGraph(didSelectChild: terrainLayer, atIndex: 0)
+                }
                 
-            case .up(let position, let inputType, let startPosition):
+            case .tracking(let position, _, _):
                 
-                print("paint - up: \(inputType) \(startPosition) -> \(position)")
+                switch toolType {
+                    
+                case .tile:
+                    
+                    guard let hit = editor.meadow.sceneView.hitTest(position, options: options).first else { break }
+                    
+                    let coordinate = Coordinate(vector: hit.worldCoordinates)
+                    
+                    switch tileGraticule.state {
+                        
+                    case .tracking(let position, let startPosition, _):
+                        
+                        if position != coordinate {
+                            
+                            tileGraticule.state = .tracking(position: coordinate, startPosition: startPosition, yOffset: 0)
+                        }
+                        
+                    default: break
+                    }
+                    
+                default: break
+                }
+                
+            case .up(let position, _, _):
+                
+                guard let hit = editor.meadow.sceneView.hitTest(position, options: options).first else { break }
+                
+                let coordinate = Coordinate(vector: hit.worldCoordinates)
+                
+                switch toolType {
+                    
+                case .edge:
+                    
+                    switch edgeGraticule.state {
+                        
+                    case .tracking(let position, let edge, _):
+                        
+                        guard let terrainLayer = editor.meadow.scene.world.terrain.find(node: position)?.topLayer else { break }
+                        
+                        guard terrainLayer.get(terrainType: edge) != terrainType else { break }
+                        
+                        terrainLayer.set(terrainType: terrainType, edge: edge)
+                        
+                    default: break
+                    }
+                    
+                case .tile:
+                    
+                    switch tileGraticule.state {
+                        
+                    case .tracking(_, let startPosition, _):
+                        
+                        let minimumX = min(startPosition.x, coordinate.x)
+                        let maximumX = max(startPosition.x, coordinate.x)
+                        let minimumZ = min(startPosition.z, coordinate.z)
+                        let maximumZ = max(startPosition.z, coordinate.z)
+
+                        for x in minimumX...maximumX {
+
+                            for z in minimumZ...maximumZ {
+
+                                let coordinate = Coordinate(x: x, y: World.floor, z: z)
+
+                                if let terrainLayer = editor.meadow.scene.world.terrain.find(node: coordinate)?.topLayer {
+
+                                    terrainLayer.set(terrainType: terrainType)
+                                }
+                            }
+                        }
+                        
+                    default: break
+                    }
+                }
+                
+            default: break
             }
             
         default: break
+        }
+    }
+}
+
+extension TerrainPaintUtilitiesViewController: TileGraticuleObserver {
+    
+    func stateDidChange(from: SceneView.TileGraticuleState?, to: SceneView.TileGraticuleState) {
+    
+        switch viewModel.state {
+            
+        case .empty(let editor):
+            
+            editor?.meadow.scene.world.blueprint.clear()
+            
+        case .paint(let editor, let terrainType, _):
+            
+            editor.meadow.scene.world.blueprint.clear()
+            
+            switch tileGraticule.state {
+                
+            case .tracking(let position, let startPosition, _):
+                
+                guard let colorPalette = terrainType.colorPalette else { break }
+                
+                var meshFaces: [MeshFace] = []
+                
+                let minimumX = min(startPosition.x, position.x)
+                let maximumX = max(startPosition.x, position.x)
+                let minimumZ = min(startPosition.z, position.z)
+                let maximumZ = max(startPosition.z, position.z)
+                
+                for x in minimumX...maximumX {
+                    
+                    for z in minimumZ...maximumZ {
+                        
+                        let coordinate = Coordinate(x: x, y: World.floor, z: z)
+                        
+                        if let terrainLayer = editor.meadow.scene.world.terrain.find(node: coordinate)?.topLayer {
+                            
+                            let polytope = Polytope.translate(polytope: terrainLayer.polyhedron.upperPolytope, translation: SCNVector3(x: 0.0, y: Blueprint.surface, z: 0.0))
+                            
+                            GridEdge.Edges.forEach { edge in
+                                
+                                if terrainLayer.get(terrainType: edge) != terrainType {
+                                 
+                                    let corners = GridCorner.corners(edge: edge)
+                                    
+                                    meshFaces.append(MeshProvider.surface(corners: corners, polytope: polytope, color: colorPalette.primary.vector))
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                editor.meadow.scene.world.blueprint.add(mesh: Mesh(faces: meshFaces))
+                
+            default: break
+            }
+        }
+    }
+}
+
+extension TerrainPaintUtilitiesViewController: EdgeGraticuleObserver {
+    
+    func stateDidChange(from: SceneView.EdgeGraticuleState?, to: SceneView.EdgeGraticuleState) {
+        
+        switch viewModel.state {
+            
+        case .empty(let editor):
+            
+            editor?.meadow.scene.world.blueprint.clear()
+            
+        case .paint(let editor, let terrainType, _):
+            
+            editor.meadow.scene.world.blueprint.clear()
+            
+            switch edgeGraticule.state {
+                
+            case .tracking(let position, let edge, _):
+                
+                guard let colorPalette = terrainType.colorPalette, let terrainLayer = editor.meadow.scene.world.terrain.find(node: position)?.topLayer else { break }
+                
+                guard terrainLayer.get(terrainType: edge) != terrainType else { break }
+                    
+                let corners = GridCorner.corners(edge: edge)
+                
+                let polytope = Polytope.translate(polytope: terrainLayer.polyhedron.upperPolytope, translation: SCNVector3(x: 0.0, y: Blueprint.surface, z: 0.0))
+                
+                let meshFace = MeshProvider.surface(corners: corners, polytope: polytope, color: colorPalette.primary.vector)
+                
+                editor.meadow.scene.world.blueprint.add(mesh: Mesh(faces: [meshFace]))
+                
+            default: break
+            }
         }
     }
 }

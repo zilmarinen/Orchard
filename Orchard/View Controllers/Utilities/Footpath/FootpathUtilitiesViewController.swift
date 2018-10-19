@@ -19,18 +19,18 @@ class FootpathUtilitiesViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .footpath(let meadow):
+        case .footpath(let editor):
             
             switch sender {
                 
             case gridHiddenButton:
                 
-                meadow.scene.world.footpaths.isHidden = sender.state == .off
+                editor.meadow.scene.world.footpaths.isHidden = sender.state == .off
                 
             default: break
             }
             
-            viewModel.state = .footpath(meadow: meadow)
+            viewModel.state = .footpath(editor: editor)
             
         default: break
         }
@@ -40,7 +40,7 @@ class FootpathUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return FootpathUtilitiesViewModel(initialState: .empty(meadow: nil))
+        return FootpathUtilitiesViewModel(initialState: .empty(editor: nil))
     }()
 }
 
@@ -60,10 +60,10 @@ extension FootpathUtilitiesViewController {
         
         switch to {
             
-        case .footpath(let meadow):
+        case .footpath(let editor):
             
-            chunkCount.integerValue = meadow.scene.world.footpaths.totalChildren
-            gridHiddenButton.state = (meadow.scene.world.footpaths.isHidden ? .off : .on)
+            chunkCount.integerValue = editor.meadow.scene.world.footpaths.totalChildren
+            gridHiddenButton.state = (editor.meadow.scene.world.footpaths.isHidden ? .off : .on)
             
         default: break
         }

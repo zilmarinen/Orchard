@@ -15,22 +15,28 @@ class WaterUtilitiesViewController: NSViewController {
     
     @IBOutlet weak var gridHiddenButton: NSButton!
     
+    @IBOutlet weak var buildButton: NSButton!
+    
     @IBAction func button(_ sender: NSButton) {
         
         switch viewModel.state {
             
-        case .water(let meadow):
+        case .water(let editor):
             
             switch sender {
                 
             case gridHiddenButton:
                 
-                meadow.scene.world.water.isHidden = sender.state == .off
+                editor.meadow.scene.world.water.isHidden = sender.state == .off
+                
+            case buildButton:
+                
+                tabViewController?.viewModel.state = .build(editor: editor)
                 
             default: break
             }
             
-            viewModel.state = .water(meadow: meadow)
+            viewModel.state = .water(editor: editor)
             
         default: break
         }
@@ -40,7 +46,7 @@ class WaterUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return WaterUtilitiesViewModel(initialState: .empty(meadow: nil))
+        return WaterUtilitiesViewModel(initialState: .empty(editor: nil))
     }()
 }
 
@@ -58,14 +64,27 @@ extension WaterUtilitiesViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
+        guard let tabViewController = tabViewController else { return }
+        
         switch to {
             
-        case .water(let meadow):
+        case .empty(let editor):
             
-            chunkCount.integerValue = meadow.scene.world.water.totalChildren
-            gridHiddenButton.state = (meadow.scene.world.water.isHidden ? .off : .on)
+            tabViewController.viewModel.state = .empty(editor: editor)
             
-        default: break
+        case .water(let editor):
+            
+            chunkCount.integerValue = editor.meadow.scene.world.water.totalChildren
+            gridHiddenButton.state = (editor.meadow.scene.world.water.isHidden ? .off : .on)
+            
+            switch tabViewController.viewModel.state {
+                
+            case .empty:
+                
+                tabViewController.viewModel.state = .build(editor: editor)
+                
+            default: break
+            }
         }
     }
 }

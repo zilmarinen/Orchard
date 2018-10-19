@@ -80,7 +80,7 @@ extension SidebarViewController {
             
         case .utility(let editor, _):
             
-            tabViewController.viewModel.state = .utility(meadow: editor.meadow)
+            tabViewController.viewModel.state = .utility(editor: editor)
         }
     }
 }

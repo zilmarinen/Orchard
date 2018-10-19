@@ -12,7 +12,7 @@ class UtilitiesTabViewController: NSTabViewController {
 
     lazy var viewModel = {
         
-        return UtilitiesTabViewModel(initialState: .empty(meadow: nil))
+        return UtilitiesTabViewModel(initialState: .empty(editor: nil))
     }()
 }
 
@@ -36,35 +36,35 @@ extension UtilitiesTabViewController {
             
             switch from {
                 
-            case .area(let meadow):
+            case .area(let editor):
                 
                 guard let viewController = viewController as? AreaUtilitiesViewController else { break }
                 
-                viewController.viewModel.state = .empty(meadow: meadow)
+                viewController.viewModel.state = .empty(editor: editor)
                 
-            case .foliage(let meadow):
+            case .foliage(let editor):
                 
                 guard let viewController = viewController as? FoliageUtilitiesViewController else { break }
                 
-                viewController.viewModel.state = .empty(meadow: meadow)
+                viewController.viewModel.state = .empty(editor: editor)
                 
-            case .footpath(let meadow):
+            case .footpath(let editor):
                 
                 guard let viewController = viewController as? FootpathUtilitiesViewController else { break }
                 
-                viewController.viewModel.state = .empty(meadow: meadow)
+                viewController.viewModel.state = .empty(editor: editor)
                 
-            case .terrain(let meadow):
+            case .terrain(let editor):
                 
                 guard let viewController = viewController as? TerrainUtilitiesViewController else { break }
                 
-                viewController.viewModel.state = .empty(meadow: meadow)
+                viewController.viewModel.state = .empty(editor: editor)
                 
-            case .water(let meadow):
+            case .water(let editor):
                 
                 guard let viewController = viewController as? WaterUtilitiesViewController else { break }
                 
-                viewController.viewModel.state = .empty(meadow: meadow)
+                viewController.viewModel.state = .empty(editor: editor)
                 
             default: break
             }
@@ -76,35 +76,35 @@ extension UtilitiesTabViewController {
         
         switch to {
             
-        case .area(let meadow):
+        case .area(let editor):
             
             guard let viewController = viewController as? AreaUtilitiesViewController else { break }
             
-            viewController.viewModel.state = .area(meadow: meadow)
+            viewController.viewModel.state = .area(editor: editor)
             
-        case .foliage(let meadow):
+        case .foliage(let editor):
             
             guard let viewController = viewController as? FoliageUtilitiesViewController else { break }
             
-            viewController.viewModel.state = .foliage(meadow: meadow)
+            viewController.viewModel.state = .foliage(editor: editor)
             
-        case .footpath(let meadow):
+        case .footpath(let editor):
             
             guard let viewController = viewController as? FootpathUtilitiesViewController else { break }
             
-            viewController.viewModel.state = .footpath(meadow: meadow)
+            viewController.viewModel.state = .footpath(editor: editor)
             
-        case .terrain(let meadow):
+        case .terrain(let editor):
             
             guard let viewController = viewController as? TerrainUtilitiesViewController else { break }
             
-            viewController.viewModel.state = .terrain(meadow: meadow)
+            viewController.viewModel.state = .terrain(editor: editor)
             
-        case .water(let meadow):
+        case .water(let editor):
             
             guard let viewController = viewController as? WaterUtilitiesViewController else { break }
             
-            viewController.viewModel.state = .water(meadow: meadow)
+            viewController.viewModel.state = .water(editor: editor)
             
         default: break
         }

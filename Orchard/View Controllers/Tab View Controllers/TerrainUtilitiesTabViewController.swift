@@ -13,7 +13,7 @@ class TerrainUtilitiesTabViewController: NSTabViewController {
 
     lazy var viewModel = {
         
-        return TerrainUtilitiesTabViewModel(initialState: .empty(meadow: nil))
+        return TerrainUtilitiesTabViewModel(initialState: .empty(editor: nil))
     }()
 }
 
@@ -37,23 +37,23 @@ extension TerrainUtilitiesTabViewController {
             
             switch from {
                 
-            case .build(let meadow):
+            case .build(let editor):
                 
                 guard let viewController = viewController as? TerrainBuildUtilitiesViewController else { break }
                 
-                viewController.viewModel.state = .empty(meadow: meadow)
+                viewController.viewModel.state = .empty(editor: editor)
                 
-            case .terraform(let meadow):
+            case .terraform(let editor):
                 
                 guard let viewController = viewController as? TerrainTerraformUtilitiesViewController else { break }
                 
-                viewController.viewModel.state = .empty(meadow: meadow)
+                viewController.viewModel.state = .empty(editor: editor)
                 
-            case .paint(let meadow):
+            case .paint(let editor):
                 
                 guard let viewController = viewController as? TerrainPaintUtilitiesViewController else { break }
                 
-                viewController.viewModel.state = .empty(meadow: meadow)
+                viewController.viewModel.state = .empty(editor: editor)
                 
             default: break
             }
@@ -65,7 +65,7 @@ extension TerrainUtilitiesTabViewController {
         
         switch to {
             
-        case .build(let meadow):
+        case .build(let editor):
             
             guard let viewController = viewController as? TerrainBuildUtilitiesViewController else { break }
             
@@ -73,12 +73,12 @@ extension TerrainUtilitiesTabViewController {
                 
             case .empty:
                 
-                viewController.viewModel.state = .build(meadow: meadow, terrainType: TerrainType.bedrock)
+                viewController.viewModel.state = .build(editor: editor, terrainType: TerrainType.bedrock)
                 
             default: break
             }
             
-        case .terraform(let meadow):
+        case .terraform(let editor):
             
             guard let viewController = viewController as? TerrainTerraformUtilitiesViewController else { break }
             
@@ -86,12 +86,12 @@ extension TerrainUtilitiesTabViewController {
                 
             case .empty:
                 
-                viewController.viewModel.state = .terraform(meadow: meadow, toolType: .tile, smooth: false)
+                viewController.viewModel.state = .terraform(editor: editor, toolType: .tile, reticule: (1, 1))
                 
             default: break
             }
         
-        case .paint(let meadow):
+        case .paint(let editor):
             
             guard let viewController = viewController as? TerrainPaintUtilitiesViewController else { break }
             
@@ -99,7 +99,7 @@ extension TerrainUtilitiesTabViewController {
                 
             case .empty:
                 
-                viewController.viewModel.state = .paint(meadow: meadow, terrainType: TerrainType.bedrock, toolType: .tile)
+                viewController.viewModel.state = .paint(editor: editor, terrainType: TerrainType.bedrock, toolType: .tile)
                 
             default: break
             }

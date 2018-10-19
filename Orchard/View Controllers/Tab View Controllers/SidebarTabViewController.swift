@@ -47,9 +47,9 @@ extension SidebarTabViewController {
             
             switch from {
                 
-            case .utility(let meadow):
+            case .utility(let editor):
                 
-                utilitiesTabViewController.viewModel.state = .empty(meadow: meadow)
+                utilitiesTabViewController.viewModel.state = .empty(editor: editor)
                 
             default: break
             }
@@ -62,7 +62,7 @@ extension SidebarTabViewController {
         case .empty(let editor):
             
             inspectorTabViewController.viewModel.state = .empty
-            utilitiesTabViewController.viewModel.state = .empty(meadow: editor?.meadow)
+            utilitiesTabViewController.viewModel.state = .empty(editor: editor)
             
         case .inspector(let editor, let child):
             
@@ -113,33 +113,33 @@ extension SidebarTabViewController {
                 inspectorTabViewController.viewModel.state = .empty
             }
             
-        case .utility(let meadow):
+        case .utility(let editor):
             
             switch inspectorTabViewController.viewModel.state {
             
             case .area:
                 
-                utilitiesTabViewController.viewModel.state = .area(meadow: meadow)
+                utilitiesTabViewController.viewModel.state = .area(editor: editor)
                 
             case .foliage:
                 
-                utilitiesTabViewController.viewModel.state = .foliage(meadow: meadow)
+                utilitiesTabViewController.viewModel.state = .foliage(editor: editor)
                 
             case .footpath:
                 
-                utilitiesTabViewController.viewModel.state = .footpath(meadow: meadow)
+                utilitiesTabViewController.viewModel.state = .footpath(editor: editor)
                 
             case .terrain:
                 
-                utilitiesTabViewController.viewModel.state = .terrain(meadow: meadow)
+                utilitiesTabViewController.viewModel.state = .terrain(editor: editor)
                 
             case .water:
                 
-                utilitiesTabViewController.viewModel.state = .water(meadow: meadow)
+                utilitiesTabViewController.viewModel.state = .water(editor: editor)
                 
             default:
                 
-                utilitiesTabViewController.viewModel.state = .empty(meadow: meadow)
+                utilitiesTabViewController.viewModel.state = .empty(editor: editor)
             }
         }
     }

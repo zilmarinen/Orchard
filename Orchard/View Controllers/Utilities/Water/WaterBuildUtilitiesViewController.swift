@@ -1,8 +1,8 @@
 //
-//  TerrainBuildUtilitiesViewController.swift
+//  WaterBuildUtilitiesViewController.swift
 //  Orchard
 //
-//  Created by Zack Brown on 25/05/2018.
+//  Created by Zack Brown on 18/10/2018.
 //  Copyright © 2018 Script Orchard. All rights reserved.
 //
 
@@ -10,9 +10,9 @@ import Cocoa
 import Meadow
 import SceneKit
 
-class TerrainBuildUtilitiesViewController: NSViewController {
+class WaterBuildUtilitiesViewController: NSViewController {
     
-    @IBOutlet weak var terrainTypePopUp: NSPopUpButton!
+    @IBOutlet weak var waterTypePopUp: NSPopUpButton!
     
     @IBOutlet weak var colorPalettePrimary: NSBox!
     @IBOutlet weak var colorPaletteSecondary: NSBox!
@@ -25,9 +25,9 @@ class TerrainBuildUtilitiesViewController: NSViewController {
             
         case .build(let editor, _):
             
-            guard let terrainType = TerrainType(rawValue: sender.indexOfSelectedItem) else { break }
+            guard let waterType = WaterType(rawValue: sender.indexOfSelectedItem) else { break }
             
-            viewModel.state = .build(editor: editor, terrainType: terrainType)
+            viewModel.state = .build(editor: editor, waterType: waterType)
             
         default: break
         }
@@ -35,20 +35,20 @@ class TerrainBuildUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return TerrainBuildUtilitiesViewModel(initialState: .empty(editor: nil))
+        return WaterBuildUtilitiesViewModel(initialState: .empty(editor: nil))
     }()
     
     var cursorCallbackReference: SceneView.Cursor.CallbackReference?
     
     lazy var graticule = {
-       
+        
         return SceneView.TileGraticule()
     }()
     
     var tileGraticuleCallbackReference: SceneView.TileGraticule.CallbackReference?
 }
 
-extension TerrainBuildUtilitiesViewController {
+extension WaterBuildUtilitiesViewController {
     
     override func viewDidLoad() {
         
@@ -60,7 +60,7 @@ extension TerrainBuildUtilitiesViewController {
     }
 }
 
-extension TerrainBuildUtilitiesViewController {
+extension WaterBuildUtilitiesViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
@@ -79,27 +79,27 @@ extension TerrainBuildUtilitiesViewController {
             
             graticule.state = .idle
             
-        case .build(let editor, let terrainType):
+        case .build(let editor, let waterType):
             
             editor.meadow.input.cursor.tracksIdleEvents = true
             
             cursorCallbackReference = editor.meadow.input.cursor.subscribe(stateDidChange(from:to:))
             
-            terrainTypePopUp.removeAllItems()
+            waterTypePopUp.removeAllItems()
             
             colorPalettePrimary.fillColor = NSColor.white
             colorPaletteSecondary.fillColor = NSColor.white
             colorPaletteTertiary.fillColor = NSColor.white
             colorPaletteQuaternary.fillColor = NSColor.white
             
-            TerrainType.allCases.forEach { terrainType in
+            WaterType.allCases.forEach { waterType in
                 
-                terrainTypePopUp.addItem(withTitle: terrainType.name)
+                waterTypePopUp.addItem(withTitle: waterType.name)
             }
             
-            if let index = TerrainType.allCases.index(of: terrainType), let colorPalette = terrainType.colorPalette {
+            if let index = WaterType.allCases.index(of: waterType), let colorPalette = waterType.colorPalette {
                 
-                terrainTypePopUp.selectItem(at: index)
+                waterTypePopUp.selectItem(at: index)
                 
                 colorPalettePrimary.fillColor = colorPalette.primary.color
                 colorPaletteSecondary.fillColor = colorPalette.secondary.color
@@ -110,17 +110,17 @@ extension TerrainBuildUtilitiesViewController {
     }
 }
 
-extension TerrainBuildUtilitiesViewController: CursorObserver {
+extension WaterBuildUtilitiesViewController: CursorObserver {
     
     func stateDidChange(from: SceneView.CursorState?, to: SceneView.CursorState) {
         
         switch viewModel.state {
             
-        case .build(let editor, let terrainType):
+        case .build(let editor, let waterType):
             
             let options: [SCNHitTestOption : Any] = [SCNHitTestOption.rootNode: editor.meadow.scene.world,
-                                                     SCNHitTestOption.categoryBitMask: SceneGraphNodeType.terrain.rawValue | SceneGraphNodeType.floor.rawValue]
-         
+                                                     SCNHitTestOption.categoryBitMask: SceneGraphNodeType.terrain.rawValue]
+            
             switch to {
                 
             case .idle(let position):
@@ -130,7 +130,7 @@ extension TerrainBuildUtilitiesViewController: CursorObserver {
                 let coordinate = Coordinate(vector: hit.worldCoordinates)
                 
                 switch graticule.state {
-                
+                    
                 case .idle:
                     
                     graticule.state = .tracking(position: coordinate, startPosition: coordinate, yOffset: 0)
@@ -162,7 +162,7 @@ extension TerrainBuildUtilitiesViewController: CursorObserver {
                 case .tracking(let position, let startPosition, _):
                     
                     if position != coordinate {
-                    
+                        
                         graticule.state = .tracking(position: coordinate, startPosition: startPosition, yOffset: 0)
                     }
                     
@@ -175,36 +175,19 @@ extension TerrainBuildUtilitiesViewController: CursorObserver {
                 
                 let coordinate = Coordinate(vector: hit.worldCoordinates)
                 
-                switch graticule.state {
+                if inputType == .left {
                     
-                case .tracking(_, let startPosition, _):
+                    let waterNode = editor.meadow.scene.world.water.add(node: coordinate)
                     
-                    let minimumX = min(startPosition.x, coordinate.x)
-                    let maximumX = max(startPosition.x, coordinate.x)
-                    let minimumZ = min(startPosition.z, coordinate.z)
-                    let maximumZ = max(startPosition.z, coordinate.z)
+                    waterNode?.waterType = waterType
+                    waterNode?.waterLevel = coordinate.y + 1
+                }
+                else {
                     
-                    for x in minimumX...maximumX {
+                    if let waterNode = editor.meadow.scene.world.water.find(node: coordinate) {
                         
-                        for z in minimumZ...maximumZ {
-                            
-                            let coordinate = Coordinate(x: x, y: World.floor, z: z)
-                            
-                            if inputType == .left {
-                                
-                                let _ = editor.meadow.scene.world.terrain.add(layer: coordinate, terrainType: terrainType)
-                            }
-                            else {
-                                
-                                if let terrainLayer = editor.meadow.scene.world.terrain.find(node: coordinate)?.topLayer {
-                                    
-                                    let _ = editor.meadow.scene.world.terrain.remove(layer: terrainLayer)
-                                }
-                            }
-                        }
+                        let _ = editor.meadow.scene.world.water.drain(node: waterNode)
                     }
-                    
-                default: break
                 }
                 
                 graticule.state = .idle
@@ -215,7 +198,7 @@ extension TerrainBuildUtilitiesViewController: CursorObserver {
     }
 }
 
-extension TerrainBuildUtilitiesViewController: TileGraticuleObserver {
+extension WaterBuildUtilitiesViewController: TileGraticuleObserver {
     
     func stateDidChange(from: SceneView.TileGraticuleState?, to: SceneView.TileGraticuleState) {
         
@@ -231,69 +214,46 @@ extension TerrainBuildUtilitiesViewController: TileGraticuleObserver {
             
             switch graticule.state {
                 
-            case .tracking(let position, let startPosition, _):
+            case .tracking(let position, _, _):
                 
                 guard let colorPalette = ColorPalettes.shared?.palette(named: "Blueprint") else { break }
                 
                 var meshFaces: [MeshFace] = []
                 
-                let minimumX = min(startPosition.x, position.x)
-                let maximumX = max(startPosition.x, position.x)
-                let minimumZ = min(startPosition.z, position.z)
-                let maximumZ = max(startPosition.z, position.z)
-                
-                for x in minimumX...maximumX {
-                
-                    for z in minimumZ...maximumZ {
+                if let terrainLayer = editor.meadow.scene.world.terrain.find(node: position)?.topLayer {
+                    
+                    let lowerPolytope = terrainLayer.polyhedron.upperPolytope
+                    
+                    var upperPolytope = Polytope.translate(polytope: lowerPolytope, translation: SCNVector3(x: 0.0, y: Axis.unitY, z: 0.0))
+                    
+                    if let waterNode = editor.meadow.scene.world.water.find(node: position) {
                         
-                        let coordinate = Coordinate(x: x, y: World.floor, z: z)
+                        upperPolytope = Polytope.translate(polytope: waterNode.polyhedron.upperPolytope, translation: SCNVector3(x: 0.0, y: Blueprint.surface, z: 0.0))
+                    }
+                    
+                    let polyhedron = Polyhedron(upperPolytope: upperPolytope, lowerPolytope: lowerPolytope)
+                    
+                    var color = colorPalette.primary
+                    
+                    if editor.meadow.scene.world.water.find(node: position) == nil {
                         
-                        var lowerPolytope: Polytope!
+                        color = colorPalette.secondary
+                    }
+                    else {
                         
-                        if let terrainLayer = editor.meadow.scene.world.terrain.find(node: coordinate)?.topLayer {
-                            
-                            lowerPolytope = terrainLayer.polyhedron.upperPolytope
-                        }
-                        else {
-                         
-                            lowerPolytope = Polytope(x: MDWFloat(coordinate.x), y0: World.floor, y1: World.floor, y2: World.floor, y3: World.floor, z: MDWFloat(coordinate.z))
-                        }
+                        color = colorPalette.tertiary
+                    }
+                    
+                    GridEdge.Edges.forEach { edge in
                         
-                        let upperPolytope = Polytope.translate(polytope: lowerPolytope, translation: SCNVector3(x: 0.0, y: Axis.unitY, z: 0.0))
+                        let corners = GridCorner.corners(edge: edge)
                         
-                        let polyhedron = Polyhedron(upperPolytope: upperPolytope, lowerPolytope: lowerPolytope)
+                        let normal = GridEdge.normal(edge: edge)
                         
-                        var color = colorPalette.primary
+                        meshFaces.append(MeshProvider.surface(corners: corners, polytope: polyhedron.upperPolytope, color: color.vector))
                         
-                        switch editor.meadow.input.cursor.state {
-                            
-                        case .down(_, let inputType),
-                             .tracking(_, let inputType, _),
-                             .up(_, let inputType, _):
-                            
-                            if inputType == .left {
-                                
-                                color = colorPalette.secondary
-                            }
-                            else {
-                                
-                                color = colorPalette.tertiary
-                            }
-                            
-                        default: break
-                        }
-                        
-                        GridEdge.Edges.forEach { edge in
-                            
-                            let corners = GridCorner.corners(edge: edge)
-                            
-                            let normal = GridEdge.normal(edge: edge)
-                            
-                            meshFaces.append(MeshProvider.surface(corners: corners, polytope: polyhedron.upperPolytope, color: color.vector))
-                            
-                            meshFaces.append(contentsOf: TerrainMeshProvider.terrainLayer(crown: corners, acuteCorner: nil, polyhedron: polyhedron, normal: normal, color: color.vector))
-                            meshFaces.append(contentsOf: TerrainMeshProvider.terrainLayer(throne: corners, acuteCorner: nil, polyhedron: polyhedron, normal: normal, color: color.vector))
-                        }
+                        meshFaces.append(contentsOf: TerrainMeshProvider.terrainLayer(crown: corners, acuteCorner: nil, polyhedron: polyhedron, normal: normal, color: color.vector))
+                        meshFaces.append(contentsOf: TerrainMeshProvider.terrainLayer(throne: corners, acuteCorner: nil, polyhedron: polyhedron, normal: normal, color: color.vector))
                     }
                 }
                 
@@ -304,3 +264,4 @@ extension TerrainBuildUtilitiesViewController: TileGraticuleObserver {
         }
     }
 }
+

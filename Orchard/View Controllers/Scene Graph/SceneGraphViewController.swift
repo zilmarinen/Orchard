@@ -149,11 +149,10 @@ extension SceneGraphViewController: NSOutlineViewDelegate {
         
         if let _ = item as? Scene {
             
-            view.textField?.stringValue = "Meadow"
+            view.textField?.stringValue = "Scene"
             view.imageView?.image = NSImage(named: NSImage.Name("meadow_icon"))
         }
-        
-        if let item = item as? SceneGraphChild {
+        else if let item = item as? SceneGraphChild {
             
             view.textField?.stringValue = item.name ?? ""
             view.imageView?.image = NSImage(named: NSImage.Name("grid_icon"))
