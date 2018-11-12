@@ -15,6 +15,9 @@ class FoliageUtilitiesViewController: NSViewController {
     
     @IBOutlet weak var gridHiddenButton: NSButton!
     
+    @IBOutlet weak var buildButton: NSButton!
+    @IBOutlet weak var paintButton: NSButton!
+    
     @IBAction func button(_ sender: NSButton) {
         
         switch viewModel.state {
@@ -26,6 +29,14 @@ class FoliageUtilitiesViewController: NSViewController {
             case gridHiddenButton:
                 
                 editor.meadow.scene.world.foliage.isHidden = sender.state == .off
+                
+            case buildButton:
+                
+                tabViewController?.viewModel.state = .build(editor: editor)
+                
+            case paintButton:
+                
+                tabViewController?.viewModel.state = .paint(editor: editor)
                 
             default: break
             }
@@ -58,12 +69,23 @@ extension FoliageUtilitiesViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
+        guard let tabViewController = tabViewController else { return }
+        
         switch to {
             
         case .foliage(let editor):
             
             chunkCount.integerValue = editor.meadow.scene.world.foliage.totalChildren
             gridHiddenButton.state = (editor.meadow.scene.world.foliage.isHidden ? .off : .on)
+            
+            switch tabViewController.viewModel.state {
+                
+            case .empty:
+                
+                tabViewController.viewModel.state = .build(editor: editor)
+                
+            default: break
+            }
             
         default: break
         }

@@ -14,10 +14,7 @@ class WaterBuildUtilitiesViewController: NSViewController {
     
     @IBOutlet weak var waterTypePopUp: NSPopUpButton!
     
-    @IBOutlet weak var colorPalettePrimary: NSBox!
-    @IBOutlet weak var colorPaletteSecondary: NSBox!
-    @IBOutlet weak var colorPaletteTertiary: NSBox!
-    @IBOutlet weak var colorPaletteQuaternary: NSBox!
+    @IBOutlet weak var colorPaletteView: ColorPaletteView!
     
     @IBAction func popUp(_ sender: NSPopUpButton) {
         
@@ -87,10 +84,7 @@ extension WaterBuildUtilitiesViewController {
             
             waterTypePopUp.removeAllItems()
             
-            colorPalettePrimary.fillColor = NSColor.white
-            colorPaletteSecondary.fillColor = NSColor.white
-            colorPaletteTertiary.fillColor = NSColor.white
-            colorPaletteQuaternary.fillColor = NSColor.white
+            colorPaletteView.color = nil
             
             WaterType.allCases.forEach { waterType in
                 
@@ -101,10 +95,7 @@ extension WaterBuildUtilitiesViewController {
                 
                 waterTypePopUp.selectItem(at: index)
                 
-                colorPalettePrimary.fillColor = colorPalette.primary.color
-                colorPaletteSecondary.fillColor = colorPalette.secondary.color
-                colorPaletteTertiary.fillColor = colorPalette.tertiary.color
-                colorPaletteQuaternary.fillColor = colorPalette.quaternary.color
+                colorPaletteView.colorPalette = colorPalette
             }
         }
     }

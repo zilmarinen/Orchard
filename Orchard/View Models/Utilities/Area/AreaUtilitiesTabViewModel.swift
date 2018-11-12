@@ -14,6 +14,9 @@ extension AreaUtilitiesTabViewController {
     enum ViewState: THRUtilities.State {
         
         case empty(editor: Editor?)
+        case build(editor: Editor)
+        case architecture(editor: Editor)
+        case paint(editor: Editor)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
@@ -25,6 +28,12 @@ extension AreaUtilitiesTabViewController {
             switch self {
                 
             case .empty: return 0
+                
+            case .build: return 1
+                
+            case .architecture: return 2
+                
+            case .paint: return 3
             }
         }
     }

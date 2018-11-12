@@ -15,6 +15,10 @@ class AreaUtilitiesViewController: NSViewController {
     
     @IBOutlet weak var gridHiddenButton: NSButton!
     
+    @IBOutlet weak var buildButton: NSButton!
+    @IBOutlet weak var architectureButton: NSButton!
+    @IBOutlet weak var paintButton: NSButton!
+    
     @IBAction func button(_ sender: NSButton) {
         
         switch viewModel.state {
@@ -26,6 +30,18 @@ class AreaUtilitiesViewController: NSViewController {
             case gridHiddenButton:
                 
                 editor.meadow.scene.world.areas.isHidden = sender.state == .off
+                
+            case buildButton:
+                
+                tabViewController?.viewModel.state = .build(editor: editor)
+                
+            case architectureButton:
+                
+                tabViewController?.viewModel.state = .architecture(editor: editor)
+                
+            case paintButton:
+                
+                tabViewController?.viewModel.state = .paint(editor: editor)
                 
             default: break
             }
@@ -58,14 +74,27 @@ extension AreaUtilitiesViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
+        guard let tabViewController = tabViewController else { return }
+        
         switch to {
+            
+        case .empty(let editor):
+            
+            tabViewController.viewModel.state = .empty(editor: editor)
             
         case .area(let editor):
             
             chunkCount.integerValue = editor.meadow.scene.world.areas.totalChildren
             gridHiddenButton.state = (editor.meadow.scene.world.areas.isHidden ? .off : .on)
             
-        default: break
+            switch tabViewController.viewModel.state {
+                
+            case .empty:
+                
+                tabViewController.viewModel.state = .build(editor: editor)
+                
+            default: break
+            }
         }
     }
 }

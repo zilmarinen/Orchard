@@ -23,6 +23,20 @@
 		1837ADEE20ADD0C9006802CA /* WindowSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1837ADED20ADD0C9006802CA /* WindowSplitViewController.swift */; };
 		185E588420A9C6F300139565 /* SceneGraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185E588320A9C6F300139565 /* SceneGraphCell.swift */; };
 		185E588620A9C71300139565 /* SceneGraphCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185E588520A9C71300139565 /* SceneGraphCell.xib */; };
+		186A27C8217EFE1C00CBC156 /* AreaBuildUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27C7217EFE1C00CBC156 /* AreaBuildUtilitiesViewController.swift */; };
+		186A27CA217F008200CBC156 /* AreaBuildUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27C9217F008200CBC156 /* AreaBuildUtilitiesViewModel.swift */; };
+		186A27CC217F0CD100CBC156 /* AreaArchitectureUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27CB217F0CD100CBC156 /* AreaArchitectureUtilitiesViewController.swift */; };
+		186A27CE217F0CE100CBC156 /* AreaPaintUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27CD217F0CE100CBC156 /* AreaPaintUtilitiesViewController.swift */; };
+		186A27D0217F115300CBC156 /* AreaArchitectureUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27CF217F115300CBC156 /* AreaArchitectureUtilitiesViewModel.swift */; };
+		186A27D2217F115C00CBC156 /* AreaPaintUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27D1217F115C00CBC156 /* AreaPaintUtilitiesViewModel.swift */; };
+		186A27D4217F3AC400CBC156 /* FootpathBuildUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27D3217F3AC400CBC156 /* FootpathBuildUtilitiesViewModel.swift */; };
+		186A27D6217F3AF500CBC156 /* FootpathBuildUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27D5217F3AF500CBC156 /* FootpathBuildUtilitiesViewController.swift */; };
+		186A27D8217F5DFD00CBC156 /* FoliageBuildUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27D7217F5DFD00CBC156 /* FoliageBuildUtilitiesViewController.swift */; };
+		186A27DA217F5E1700CBC156 /* FoliageBuildUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27D9217F5E1700CBC156 /* FoliageBuildUtilitiesViewModel.swift */; };
+		186A27DC217F5E8700CBC156 /* FootpathPaintUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27DB217F5E8700CBC156 /* FootpathPaintUtilitiesViewModel.swift */; };
+		186A27DE217F5EC300CBC156 /* FoliagePaintUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27DD217F5EC300CBC156 /* FoliagePaintUtilitiesViewModel.swift */; };
+		186A27E0217F5EF500CBC156 /* FoliagePaintUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27DF217F5EF500CBC156 /* FoliagePaintUtilitiesViewController.swift */; };
+		186A27E2217F5F0D00CBC156 /* FootpathPaintUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27E1217F5F0D00CBC156 /* FootpathPaintUtilitiesViewController.swift */; };
 		1871220720932094002488E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871220620932094002488E0 /* AppDelegate.swift */; };
 		1871220920932094002488E0 /* SceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871220820932094002488E0 /* SceneViewController.swift */; };
 		1871220B20932095002488E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1871220A20932095002488E0 /* Assets.xcassets */; };
@@ -104,6 +118,20 @@
 		1837ADED20ADD0C9006802CA /* WindowSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSplitViewController.swift; sourceTree = "<group>"; };
 		185E588320A9C6F300139565 /* SceneGraphCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGraphCell.swift; sourceTree = "<group>"; };
 		185E588520A9C71300139565 /* SceneGraphCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SceneGraphCell.xib; sourceTree = "<group>"; };
+		186A27C7217EFE1C00CBC156 /* AreaBuildUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaBuildUtilitiesViewController.swift; sourceTree = "<group>"; };
+		186A27C9217F008200CBC156 /* AreaBuildUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaBuildUtilitiesViewModel.swift; sourceTree = "<group>"; };
+		186A27CB217F0CD100CBC156 /* AreaArchitectureUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaArchitectureUtilitiesViewController.swift; sourceTree = "<group>"; };
+		186A27CD217F0CE100CBC156 /* AreaPaintUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaPaintUtilitiesViewController.swift; sourceTree = "<group>"; };
+		186A27CF217F115300CBC156 /* AreaArchitectureUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaArchitectureUtilitiesViewModel.swift; sourceTree = "<group>"; };
+		186A27D1217F115C00CBC156 /* AreaPaintUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaPaintUtilitiesViewModel.swift; sourceTree = "<group>"; };
+		186A27D3217F3AC400CBC156 /* FootpathBuildUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathBuildUtilitiesViewModel.swift; sourceTree = "<group>"; };
+		186A27D5217F3AF500CBC156 /* FootpathBuildUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathBuildUtilitiesViewController.swift; sourceTree = "<group>"; };
+		186A27D7217F5DFD00CBC156 /* FoliageBuildUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageBuildUtilitiesViewController.swift; sourceTree = "<group>"; };
+		186A27D9217F5E1700CBC156 /* FoliageBuildUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageBuildUtilitiesViewModel.swift; sourceTree = "<group>"; };
+		186A27DB217F5E8700CBC156 /* FootpathPaintUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathPaintUtilitiesViewModel.swift; sourceTree = "<group>"; };
+		186A27DD217F5EC300CBC156 /* FoliagePaintUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliagePaintUtilitiesViewModel.swift; sourceTree = "<group>"; };
+		186A27DF217F5EF500CBC156 /* FoliagePaintUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliagePaintUtilitiesViewController.swift; sourceTree = "<group>"; };
+		186A27E1217F5F0D00CBC156 /* FootpathPaintUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathPaintUtilitiesViewController.swift; sourceTree = "<group>"; };
 		1871220320932094002488E0 /* Orchard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Orchard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1871220620932094002488E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1871220820932094002488E0 /* SceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneViewController.swift; sourceTree = "<group>"; };
@@ -467,6 +495,8 @@
 			isa = PBXGroup;
 			children = (
 				18B4885520B1ACA60032E832 /* FootpathUtilitiesViewController.swift */,
+				186A27D5217F3AF500CBC156 /* FootpathBuildUtilitiesViewController.swift */,
+				186A27E1217F5F0D00CBC156 /* FootpathPaintUtilitiesViewController.swift */,
 			);
 			path = Footpath;
 			sourceTree = "<group>";
@@ -475,6 +505,8 @@
 			isa = PBXGroup;
 			children = (
 				18B4885320B1AC980032E832 /* FoliageUtilitiesViewController.swift */,
+				186A27D7217F5DFD00CBC156 /* FoliageBuildUtilitiesViewController.swift */,
+				186A27DF217F5EF500CBC156 /* FoliagePaintUtilitiesViewController.swift */,
 			);
 			path = Foliage;
 			sourceTree = "<group>";
@@ -483,6 +515,9 @@
 			isa = PBXGroup;
 			children = (
 				18B4885120B1AC880032E832 /* AreaUtilitiesViewController.swift */,
+				186A27C7217EFE1C00CBC156 /* AreaBuildUtilitiesViewController.swift */,
+				186A27CB217F0CD100CBC156 /* AreaArchitectureUtilitiesViewController.swift */,
+				186A27CD217F0CE100CBC156 /* AreaPaintUtilitiesViewController.swift */,
 			);
 			path = Area;
 			sourceTree = "<group>";
@@ -498,12 +533,12 @@
 		18B4886420B1BD110032E832 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				18B4886520B1BD1C0032E832 /* Inspector */,
+				18733D9C2139391400491CB7 /* Orchard */,
 				18733DA221394F0B00491CB7 /* Scene */,
 				18733D9F213946BE00491CB7 /* Scene Graph */,
-				18733D9C2139391400491CB7 /* Orchard */,
 				1822D3AE20BE876A004A1156 /* Sidebar */,
 				18B4886620B1BD230032E832 /* Utilities */,
-				18B4886520B1BD1C0032E832 /* Inspector */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -602,6 +637,8 @@
 			children = (
 				18B13D2F20BC3488007437DC /* FootpathUtilitiesViewModel.swift */,
 				18B13D4320BC35F8007437DC /* FootpathUtilitiesTabViewModel.swift */,
+				186A27D3217F3AC400CBC156 /* FootpathBuildUtilitiesViewModel.swift */,
+				186A27DB217F5E8700CBC156 /* FootpathPaintUtilitiesViewModel.swift */,
 			);
 			path = Footpath;
 			sourceTree = "<group>";
@@ -611,6 +648,8 @@
 			children = (
 				18B13D2D20BC347D007437DC /* FoliageUtilitiesViewModel.swift */,
 				18B13D4120BC35EE007437DC /* FoliageUtilitiesTabViewModel.swift */,
+				186A27D9217F5E1700CBC156 /* FoliageBuildUtilitiesViewModel.swift */,
+				186A27DD217F5EC300CBC156 /* FoliagePaintUtilitiesViewModel.swift */,
 			);
 			path = Foliage;
 			sourceTree = "<group>";
@@ -620,6 +659,9 @@
 			children = (
 				18B13D2B20BC3474007437DC /* AreaUtilitiesViewModel.swift */,
 				18B13D3F20BC35E3007437DC /* AreaUtilitiesTabViewModel.swift */,
+				186A27C9217F008200CBC156 /* AreaBuildUtilitiesViewModel.swift */,
+				186A27CF217F115300CBC156 /* AreaArchitectureUtilitiesViewModel.swift */,
+				186A27D1217F115C00CBC156 /* AreaPaintUtilitiesViewModel.swift */,
 			);
 			path = Area;
 			sourceTree = "<group>";
@@ -726,7 +768,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Script Orchard";
 				TargetAttributes = {
 					1871220220932094002488E0 = {
@@ -844,20 +886,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				186A27DE217F5EC300CBC156 /* FoliagePaintUtilitiesViewModel.swift in Sources */,
 				189256C820B8524200FD9364 /* TerrainBuildUtilitiesViewController.swift in Sources */,
 				18B4885220B1AC880032E832 /* AreaUtilitiesViewController.swift in Sources */,
 				18873B892111B6510010B52C /* ColorPaletteView.swift in Sources */,
 				18B4885420B1AC980032E832 /* FoliageUtilitiesViewController.swift in Sources */,
 				18B4885620B1ACA60032E832 /* FootpathUtilitiesViewController.swift in Sources */,
+				186A27CE217F0CE100CBC156 /* AreaPaintUtilitiesViewController.swift in Sources */,
 				18B13D3A20BC3560007437DC /* FootpathUtilitiesTabViewController.swift in Sources */,
 				1805DF2220C912FF00F333C6 /* InspectorSceneView.swift in Sources */,
+				186A27CA217F008200CBC156 /* AreaBuildUtilitiesViewModel.swift in Sources */,
 				18B13D3220BC3490007437DC /* WaterUtilitiesViewModel.swift in Sources */,
+				186A27D4217F3AC400CBC156 /* FootpathBuildUtilitiesViewModel.swift in Sources */,
 				1820662C20B05BDB00D0356D /* AreaInspectorViewController.swift in Sources */,
 				18B13D3420BC353F007437DC /* AreaUtilitiesTabViewController.swift in Sources */,
 				189256CA20B8525500FD9364 /* TerrainBuildUtilitiesViewModel.swift in Sources */,
 				189256CE20B8552600FD9364 /* TerrainPaintUtilitiesViewController.swift in Sources */,
 				1820663620B05C1700D0356D /* WaterInspectorViewController.swift in Sources */,
+				186A27E2217F5F0D00CBC156 /* FootpathPaintUtilitiesViewController.swift in Sources */,
 				189256C220B800A000FD9364 /* SceneInspectorViewModel.swift in Sources */,
+				186A27D8217F5DFD00CBC156 /* FoliageBuildUtilitiesViewController.swift in Sources */,
 				189256CC20B8551800FD9364 /* TerrainTerraformUtilitiesViewController.swift in Sources */,
 				189256D020B8554500FD9364 /* TerrainTerraformUtilitiesViewModel.swift in Sources */,
 				1832994421788D8100485907 /* WaterBuildUtilitiesViewModel.swift in Sources */,
@@ -869,11 +917,14 @@
 				1837ADEE20ADD0C9006802CA /* WindowSplitViewController.swift in Sources */,
 				18B4886120B1ADC20032E832 /* SidebarViewController.swift in Sources */,
 				188E38EB20B57CC0001A6C3A /* Document.swift in Sources */,
+				186A27D2217F115C00CBC156 /* AreaPaintUtilitiesViewModel.swift in Sources */,
 				1820662F20B05BE600D0356D /* FoliageInspectorViewController.swift in Sources */,
 				1820663420B05C0B00D0356D /* TerrainInspectorViewController.swift in Sources */,
 				1820663220B05C0000D0356D /* FootpathInspectorViewController.swift in Sources */,
+				186A27CC217F0CD100CBC156 /* AreaArchitectureUtilitiesViewController.swift in Sources */,
 				18B13D4020BC35E3007437DC /* AreaUtilitiesTabViewModel.swift in Sources */,
 				182AFA2021709A510009AD0D /* NSMenuItem+Color.swift in Sources */,
+				186A27D6217F3AF500CBC156 /* FootpathBuildUtilitiesViewController.swift in Sources */,
 				189256B920B7FFE400FD9364 /* AreaInspectorViewModel.swift in Sources */,
 				185E588420A9C6F300139565 /* SceneGraphCell.swift in Sources */,
 				18FCFAF220B2D34000EBCBBB /* SceneInspectorViewController.swift in Sources */,
@@ -883,6 +934,7 @@
 				18B13D3D20BC358D007437DC /* WaterUtilitiesTabViewController.swift in Sources */,
 				18B4887420B1BD7F0032E832 /* InspectorTabViewModel.swift in Sources */,
 				18B4885E20B1AD960032E832 /* SidebarTabViewController.swift in Sources */,
+				186A27DA217F5E1700CBC156 /* FoliageBuildUtilitiesViewModel.swift in Sources */,
 				189256D620B85BA900FD9364 /* TerrainUtilitiesViewModel.swift in Sources */,
 				18B13D4220BC35EE007437DC /* FoliageUtilitiesTabViewModel.swift in Sources */,
 				18B13D3020BC3488007437DC /* FootpathUtilitiesViewModel.swift in Sources */,
@@ -893,8 +945,12 @@
 				18733D9E2139392000491CB7 /* OrchardViewModel.swift in Sources */,
 				189256D420B8583200FD9364 /* UtilitiesTabViewModel.swift in Sources */,
 				189256C620B84DFB00FD9364 /* TerrainUtilitiesTabViewModel.swift in Sources */,
+				186A27DC217F5E8700CBC156 /* FootpathPaintUtilitiesViewModel.swift in Sources */,
+				186A27C8217EFE1C00CBC156 /* AreaBuildUtilitiesViewController.swift in Sources */,
+				186A27D0217F115300CBC156 /* AreaArchitectureUtilitiesViewModel.swift in Sources */,
 				18B13D2E20BC347D007437DC /* FoliageUtilitiesViewModel.swift in Sources */,
 				18C7732120A728D5006F3EA8 /* OrchardWindowController.swift in Sources */,
+				186A27E0217F5EF500CBC156 /* FoliagePaintUtilitiesViewController.swift in Sources */,
 				1871220920932094002488E0 /* SceneViewController.swift in Sources */,
 				18B13D3720BC354C007437DC /* FoliageUtilitiesTabViewController.swift in Sources */,
 				18B13D2C20BC3474007437DC /* AreaUtilitiesViewModel.swift in Sources */,
@@ -995,7 +1051,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;

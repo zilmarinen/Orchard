@@ -13,7 +13,7 @@ extension SceneViewController {
     
     enum ViewState: THRUtilities.State {
         
-        case empty
+        case empty(editor: Editor?)
         case editor(editor: Editor)
         
         func shouldTransition(to newState: SceneViewController.ViewState) -> THRUtilities.Should<SceneViewController.ViewState> {
