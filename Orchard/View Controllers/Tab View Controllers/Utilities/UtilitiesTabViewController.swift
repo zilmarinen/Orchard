@@ -54,6 +54,12 @@ extension UtilitiesTabViewController {
                 
                 viewController.viewModel.state = .empty(editor: editor)
                 
+            case .prop(let editor):
+                
+                guard let viewController = viewController as? PropUtilitiesViewController else { break}
+                
+                viewController.viewModel.state = .empty(editor: editor)
+                
             case .terrain(let editor):
                 
                 guard let viewController = viewController as? TerrainUtilitiesViewController else { break }
@@ -93,6 +99,12 @@ extension UtilitiesTabViewController {
             guard let viewController = viewController as? FootpathUtilitiesViewController else { break }
             
             viewController.viewModel.state = .footpath(editor: editor)
+            
+        case .prop(let editor):
+            
+            guard let viewController = viewController as? PropUtilitiesViewController else { break }
+            
+            viewController.viewModel.state = .area(editor: editor)
             
         case .terrain(let editor):
             

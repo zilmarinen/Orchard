@@ -217,7 +217,7 @@ extension AreaArchitectureUtilitiesViewController: EdgeGraticuleObserver {
                 
             case .tracking(let position, let edge, _):
                 
-                guard let colorPalette = ColorPalettes.shared?.palette(named: "Blueprint"), let areaNode = editor.meadow.scene.world.areas.find(node: position) else { break }
+                guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint"), let areaNode = editor.meadow.scene.world.areas.find(node: position) else { break }
                 
                 let corners = GridCorner.corners(edge: edge)
                 

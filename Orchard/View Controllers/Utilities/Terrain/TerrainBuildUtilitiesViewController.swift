@@ -224,7 +224,7 @@ extension TerrainBuildUtilitiesViewController: TileGraticuleObserver {
                 
             case .tracking(let position, let startPosition, _):
                 
-                guard let colorPalette = ColorPalettes.shared?.palette(named: "Blueprint") else { break }
+                guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint") else { break }
                 
                 var meshFaces: [MeshFace] = []
                 

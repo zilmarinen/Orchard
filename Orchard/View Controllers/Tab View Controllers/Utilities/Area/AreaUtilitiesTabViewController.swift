@@ -73,7 +73,7 @@ extension AreaUtilitiesTabViewController {
                 
             case .empty:
                 
-                guard let colorPalette = ColorPalettes.shared?.palette(named: "Blueprint") else { break }
+                guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint") else { break }
                 
                 let utility = AreaBuildUtility(externalAreaType: AreaType.brick, internalAreaType: AreaType.brick, floorColorPalette: colorPalette, edgeType: AreaNodeEdgeType.wall, architectureType: AreaArchitectureType.american, externalColorPalette: colorPalette, internalColorPalette: colorPalette)
                 
@@ -105,7 +105,7 @@ extension AreaUtilitiesTabViewController {
                 
             case .empty:
                 
-                guard let colorPalette = ColorPalettes.shared?.palette(named: "Blueprint") else { break }
+                guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint") else { break }
                 
                 let utility = AreaPaintUtility(floorColorPalette: colorPalette, externalColorPalette: colorPalette, internalColorPalette: colorPalette)
                 

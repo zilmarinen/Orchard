@@ -207,7 +207,7 @@ extension WaterBuildUtilitiesViewController: TileGraticuleObserver {
                 
             case .tracking(let position, _, _):
                 
-                guard let colorPalette = ColorPalettes.shared?.palette(named: "Blueprint") else { break }
+                guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint") else { break }
                 
                 var meshFaces: [MeshFace] = []
                 

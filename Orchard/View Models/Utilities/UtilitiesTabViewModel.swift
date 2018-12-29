@@ -17,6 +17,7 @@ extension UtilitiesTabViewController {
         case area(editor: Editor)
         case foliage(editor: Editor)
         case footpath(editor: Editor)
+        case prop(editor: Editor)
         case terrain(editor: Editor)
         case water(editor: Editor)
         
@@ -37,9 +38,11 @@ extension UtilitiesTabViewController {
                 
             case .footpath: return 3
                 
-            case .terrain: return 4
+            case .prop: return 4
                 
-            case .water: return 5
+            case .terrain: return 5
+                
+            case .water: return 6
             }
         }
     }

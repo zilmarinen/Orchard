@@ -49,7 +49,7 @@ class AreaBuildUtilitiesViewController: NSViewController {
                 
             case selectedFloorColorPalettePopUp:
                 
-                guard let colorPalette = ColorPalettes.shared?.allColorPalettes[sender.indexOfSelectedItem] else { break }
+                guard let colorPalette = ArtDirector.shared?.palettes.child(at: sender.indexOfSelectedItem) else { break }
                 
                 utility.floorColorPalette = colorPalette
                 
@@ -67,13 +67,13 @@ class AreaBuildUtilitiesViewController: NSViewController {
                 
             case externalColorPalettePopup:
                 
-                guard let colorPalette = ColorPalettes.shared?.allColorPalettes[sender.indexOfSelectedItem] else { break }
+                guard let colorPalette = ArtDirector.shared?.palettes.child(at: sender.indexOfSelectedItem) else { break }
                 
                 utility.externalColorPalette = colorPalette
                 
             case internalColorPalettePopup:
                 
-                guard let colorPalette = ColorPalettes.shared?.allColorPalettes[sender.indexOfSelectedItem] else { break }
+                guard let colorPalette = ArtDirector.shared?.palettes.child(at: sender.indexOfSelectedItem) else { break }
                 
                 utility.internalColorPalette = colorPalette
                 
@@ -166,11 +166,17 @@ extension AreaBuildUtilitiesViewController {
                 selectedArchitectureTypePopup.addItem(withTitle: architectureType.name)
             }
             
-            ColorPalettes.shared?.allColorPalettes.forEach { colorPalette in
+            if let paletteCount = ArtDirector.shared?.palettes.totalChildren {
                 
-                selectedFloorColorPalettePopUp.addItem(withTitle: colorPalette.name)
-                externalColorPalettePopup.addItem(withTitle: colorPalette.name)
-                internalColorPalettePopup.addItem(withTitle: colorPalette.name)
+                for index in 0..<paletteCount {
+                    
+                    if let palette = ArtDirector.shared?.palettes.child(at: index) {
+                        
+                        selectedFloorColorPalettePopUp.addItem(withTitle: palette.name)
+                        externalColorPalettePopup.addItem(withTitle: palette.name)
+                        internalColorPalettePopup.addItem(withTitle: palette.name)
+                    }
+                }
             }
             
             if let index = AreaType.allCases.index(of: utility.externalAreaType) {
@@ -183,7 +189,7 @@ extension AreaBuildUtilitiesViewController {
                 selectedInternalAreaTypePopUp.selectItem(at: index)
             }
             
-            if let index = ColorPalettes.shared?.allColorPalettes.index(of: utility.floorColorPalette) {
+            if let index = ArtDirector.shared?.palettes.index(of: utility.floorColorPalette) {
                 
                 selectedFloorColorPalettePopUp.selectItem(at: index)
                 
@@ -200,14 +206,14 @@ extension AreaBuildUtilitiesViewController {
                 selectedArchitectureTypePopup.selectItem(at: index)
             }
             
-            if let index = ColorPalettes.shared?.allColorPalettes.index(of: utility.externalColorPalette) {
+            if let index = ArtDirector.shared?.palettes.index(of: utility.externalColorPalette) {
                 
                 externalColorPalettePopup.selectItem(at: index)
                 
                 externalColorPaletteView.colorPalette = utility.externalColorPalette
             }
             
-            if let index = ColorPalettes.shared?.allColorPalettes.index(of: utility.internalColorPalette) {
+            if let index = ArtDirector.shared?.palettes.index(of: utility.internalColorPalette) {
                 
                 internalColorPalettePopup.selectItem(at: index)
                 
@@ -371,7 +377,7 @@ extension AreaBuildUtilitiesViewController: TileGraticuleObserver {
                 
             case .tracking(let position, let startPosition, _):
                 
-                guard let colorPalette = ColorPalettes.shared?.palette(named: "Blueprint") else { break }
+                guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint") else { break }
                 
                 var meshFaces: [MeshFace] = []
                 

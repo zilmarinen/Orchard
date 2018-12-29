@@ -113,7 +113,7 @@ class AreaInspectorViewController: NSViewController {
                 
                 guard let node = inspectable.node else { break }
                 
-                let selectedColorPalette = ColorPalettes.shared?.allColorPalettes[sender.indexOfSelectedItem]
+                let selectedColorPalette = ArtDirector.shared?.palettes.child(at: sender.indexOfSelectedItem)
 
                 node.floorColorPalette = selectedColorPalette
 
@@ -147,13 +147,12 @@ class AreaInspectorViewController: NSViewController {
                 
                 if let edgeType = AreaNodeEdgeType(rawValue: sender.indexOfSelectedItem) {
                     
-                    guard let colorPalettes = ColorPalettes.shared else { break }
-                    
                     let nodeEdge = node.anyEdge()
                     
+                    guard let externalColorPalette = (nodeEdge?.externalColorPalette ?? ArtDirector.shared?.palettes.child(at: externalColorPalettePopup.indexOfSelectedItem)) else { break }
+                    guard let internalColorPalette = (nodeEdge?.internalColorPalette ?? ArtDirector.shared?.palettes.child(at: internalColorPalettePopup.indexOfSelectedItem)) else { break }
+                    
                     let architectureType = (nodeEdge?.architectureType ?? AreaArchitectureType.allCases[selectedArchitectureTypePopup.indexOfSelectedItem])
-                    let externalColorPalette = (nodeEdge?.externalColorPalette ?? colorPalettes.allColorPalettes[externalColorPalettePopup.indexOfSelectedItem])
-                    let internalColorPalette = (nodeEdge?.internalColorPalette ?? colorPalettes.allColorPalettes[internalColorPalettePopup.indexOfSelectedItem])
                     
                     node.set(edge: AreaNode.Edge(edge: inspectable.edge, edgeType: edgeType, architectureType: architectureType, externalColorPalette: externalColorPalette, internalColorPalette: internalColorPalette))
                 }
@@ -185,7 +184,7 @@ class AreaInspectorViewController: NSViewController {
                 
                 if let nodeEdge = node.find(edge: inspectable.edge) {
                  
-                    guard let colorPalette = ColorPalettes.shared?.allColorPalettes[sender.indexOfSelectedItem] else { break }
+                    guard let colorPalette = ArtDirector.shared?.palettes.child(at: sender.indexOfSelectedItem) else { break }
                     
                     node.set(edge: AreaNode.Edge(edge: nodeEdge.edge, edgeType: nodeEdge.edgeType, architectureType: nodeEdge.architectureType, externalColorPalette: colorPalette, internalColorPalette: nodeEdge.internalColorPalette))
                     
@@ -198,7 +197,7 @@ class AreaInspectorViewController: NSViewController {
                 
                 if let nodeEdge = node.find(edge: inspectable.edge) {
                     
-                    guard let colorPalette = ColorPalettes.shared?.allColorPalettes[sender.indexOfSelectedItem] else { break }
+                    guard let colorPalette = ArtDirector.shared?.palettes.child(at: sender.indexOfSelectedItem) else { break }
                     
                     node.set(edge: AreaNode.Edge(edge: nodeEdge.edge, edgeType: nodeEdge.edgeType, architectureType: nodeEdge.architectureType, externalColorPalette: nodeEdge.externalColorPalette, internalColorPalette: colorPalette))
                     
@@ -294,11 +293,17 @@ extension AreaInspectorViewController {
                     selectedInternalAreaTypePopUp.addItem(withTitle: areaType.name)
                 }
                 
-                ColorPalettes.shared?.allColorPalettes.forEach { colorPalette in
+                if let paletteCount = ArtDirector.shared?.palettes.totalChildren {
                     
-                    selectedFloorColorPalettePopUp.addItem(withTitle: colorPalette.name)
-                    externalColorPalettePopup.addItem(withTitle: colorPalette.name)
-                    internalColorPalettePopup.addItem(withTitle: colorPalette.name)
+                    for index in 0..<paletteCount {
+                        
+                        if let palette = ArtDirector.shared?.palettes.child(at: index) {
+                            
+                            selectedFloorColorPalettePopUp.addItem(withTitle: palette.name)
+                            externalColorPalettePopup.addItem(withTitle: palette.name)
+                            internalColorPalettePopup.addItem(withTitle: palette.name)
+                        }
+                    }
                 }
                 
                 if let areaType = node.externalAreaType {
@@ -311,7 +316,7 @@ extension AreaInspectorViewController {
                     selectedInternalAreaTypePopUp.selectItem(at: areaType.rawValue)
                 }
                 
-                if let colorPalette = node.floorColorPalette, let index = ColorPalettes.shared?.allColorPalettes.index(of: colorPalette) {
+                if let colorPalette = node.floorColorPalette, let index = ArtDirector.shared?.palettes.index(of: colorPalette) {
                     
                     selectedFloorColorPalettePopUp.selectItem(at: index)
                     
@@ -361,7 +366,7 @@ extension AreaInspectorViewController {
                     externalColorPalettePopup.isEnabled = true
                     internalColorPalettePopup.isEnabled = true
                     
-                    if let index = ColorPalettes.shared?.allColorPalettes.index(of: nodeEdge.externalColorPalette) {
+                    if let index = ArtDirector.shared?.palettes.index(of: nodeEdge.externalColorPalette) {
                         
                         externalColorPalettePopup.selectItem(at: index)
                         
@@ -372,7 +377,7 @@ extension AreaInspectorViewController {
                         externalColorPaletteView.colorPalette = nil
                     }
                     
-                    if let index = ColorPalettes.shared?.allColorPalettes.index(of: nodeEdge.internalColorPalette) {
+                    if let index = ArtDirector.shared?.palettes.index(of: nodeEdge.internalColorPalette) {
                         
                         internalColorPalettePopup.selectItem(at: index)
                         

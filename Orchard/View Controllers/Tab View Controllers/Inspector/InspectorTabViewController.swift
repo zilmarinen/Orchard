@@ -102,6 +102,12 @@ extension InspectorTabViewController {
             
             viewController.viewModel.state = .footpath(editor: editor, inspectable: inspectable)
             
+        case .prop(let editor, let inspectable):
+            
+            guard let viewController = viewController as? PropInspectorViewController else { break }
+            
+            viewController.viewModel.state = .prop(editor: editor, inspectable: inspectable)
+            
         case.scene(let editor):
             
             guard let viewController = viewController as? SceneInspectorViewController else { break }

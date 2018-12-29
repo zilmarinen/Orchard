@@ -17,6 +17,7 @@ extension InspectorTabViewController {
         case area(editor: Editor, inspectable: AreaInspectable)
         case foliage(editor: Editor, inspectable: FoliageInspectable)
         case footpath(editor: Editor, inspectable: FootpathInspectable)
+        case prop(editor: Editor, inspectable: PropInspectable)
         case scene(editor: Editor)
         case terrain(editor: Editor, inspectable: TerrainInspectable)
         case water(editor: Editor, inspectable: WaterInspectable)
@@ -38,11 +39,13 @@ extension InspectorTabViewController {
                 
             case .footpath: return 3
                 
-            case .scene: return 4
+            case .prop: return 4
                 
-            case .terrain: return 5
+            case .scene: return 5
                 
-            case .water: return 6
+            case .terrain: return 6
+                
+            case .water: return 7
             }
         }
     }

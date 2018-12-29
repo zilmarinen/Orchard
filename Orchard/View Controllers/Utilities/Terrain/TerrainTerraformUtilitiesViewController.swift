@@ -387,7 +387,7 @@ extension TerrainTerraformUtilitiesViewController: CornerGraticuleObserver {
                 
             case .tracking(let position, let corner, _):
                 
-                guard let colorPalette = ColorPalettes.shared?.palette(named: "Blueprint"), let terrainLayer = editor.meadow.scene.world.terrain.find(node: position)?.topLayer else { break }
+                guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint"), let terrainLayer = editor.meadow.scene.world.terrain.find(node: position)?.topLayer else { break }
                 
                 var meshFaces: [MeshFace] = []
                 
@@ -428,7 +428,7 @@ extension TerrainTerraformUtilitiesViewController: EdgeGraticuleObserver {
                 
             case .tracking(let position, let edge, _):
                 
-                guard let colorPalette = ColorPalettes.shared?.palette(named: "Blueprint"), let terrainLayer = editor.meadow.scene.world.terrain.find(node: position)?.topLayer else { break }
+                guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint"), let terrainLayer = editor.meadow.scene.world.terrain.find(node: position)?.topLayer else { break }
                 
                 let corners = GridCorner.corners(edge: edge)
                 
@@ -462,7 +462,7 @@ extension TerrainTerraformUtilitiesViewController: TileGraticuleObserver {
                 
             case .tracking(let position, _, _):
                 
-                guard let colorPalette = ColorPalettes.shared?.palette(named: "Blueprint") else { break }
+                guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint") else { break }
                 
                 var meshFaces: [MeshFace] = []
                 
