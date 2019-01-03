@@ -90,9 +90,9 @@ extension SidebarTabViewController {
                 inspectorTabViewController.viewModel.state = .footpath(editor: editor, inspectable: (editor.meadow.scene.world.footpaths, child as? FootpathChunk, child as? FootpathTile, child as? FootpathNode))
                 
             case is Props.Type,
-                 is PropNode.Type:
+                 is Prop.Type:
                 
-                inspectorTabViewController.viewModel.state = .prop(editor: editor, inspectable: (props: editor.meadow.scene.world.props, child as? PropNode))
+                inspectorTabViewController.viewModel.state = .prop(editor: editor, inspectable: (props: editor.meadow.scene.world.props, child as? Prop))
                 
             case is Terrain.Type,
                  is TerrainChunk.Type,

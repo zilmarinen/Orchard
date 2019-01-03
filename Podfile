@@ -6,11 +6,11 @@ target 'Orchard' do
 	platform :osx, '10.13'
 
 	pod 'Meadow', :path => '../Meadow'
-	pod 'THRUtilities', :path => '../THRUtilities'
-	pod 'THRResult', :path => '../THRResult'
-	pod 'THROperations', :path => '../THROperations'
+	pod 'THRUtilities', :path => '../../3Squared/THR/THRUtilities'
+	pod 'PeakResult', :path => '../../3Squared/Peak/PeakResult'
+	pod 'PeakOperation', :path => '../../3Squared/Peak/PeakOperation'
 
-  	target 'OrchardTests' do
+  	target 'Orchard-Tests' do
     
     	inherit! :search_paths
     

@@ -12,9 +12,9 @@ class OrchardWindowController: NSWindowController {
     
     static let sceneIdentifier = NSStoryboard.SceneIdentifier("OrchardWindowController")
 
-    @IBAction func segmentedControl(_ sender: Any) {
+    @IBAction func segmentedControl(_ sender: NSSegmentedControl) {
         
-        guard let sender = sender as? NSSegmentedControl, let orchardViewController = contentViewController as? OrchardViewController, let splitViewController = orchardViewController.splitViewController else { return }
+        guard let orchardViewController = contentViewController as? OrchardViewController, let splitViewController = orchardViewController.splitViewController else { return }
         
         let panel = (sender.selectedSegment == 0 ? WindowSplitViewController.Panel.sceneGraph : WindowSplitViewController.Panel.utilities)
         

@@ -97,6 +97,7 @@
 		18F64844219C1DB000CE3267 /* PropBuildUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F64843219C1DB000CE3267 /* PropBuildUtilitiesViewModel.swift */; };
 		18FCFAF220B2D34000EBCBBB /* SceneInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCFAF120B2D34000EBCBBB /* SceneInspectorViewController.swift */; };
 		95C09820F6A9C63DD26AA375 /* libPods-Orchard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEC913C8FBAB8126A50226D5 /* libPods-Orchard.a */; };
+		BA07A3D5ED20566BF813225B /* libPods-Orchard-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0179D21FEE16CD532608FE07 /* libPods-Orchard-Tests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +111,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0179D21FEE16CD532608FE07 /* libPods-Orchard-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Orchard-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EC9B9EA3D57D1579AF7465E /* Pods-OrchardTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OrchardTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OrchardTests/Pods-OrchardTests.release.xcconfig"; sourceTree = "<group>"; };
 		1803165C20B6F2DF009D367F /* TerrainInspectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainInspectorViewModel.swift; sourceTree = "<group>"; };
 		1805DF2120C912FF00F333C6 /* InspectorSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorSceneView.swift; sourceTree = "<group>"; };
@@ -147,7 +149,7 @@
 		1871220D20932095002488E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1871220F20932095002488E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1871221020932095002488E0 /* Orchard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Orchard.entitlements; sourceTree = "<group>"; };
-		1871221520932095002488E0 /* OrchardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OrchardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1871221520932095002488E0 /* Orchard-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Orchard-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1871221920932095002488E0 /* OrchardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrchardTests.swift; sourceTree = "<group>"; };
 		1871221B20932095002488E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18733D9D2139392000491CB7 /* OrchardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrchardViewModel.swift; sourceTree = "<group>"; };
@@ -207,8 +209,10 @@
 		569504FABC2C1C147277D036 /* Pods-Orchard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orchard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Orchard/Pods-Orchard.debug.xcconfig"; sourceTree = "<group>"; };
 		625DF7EC8D7148586F17ACD0 /* Pods-Orchard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orchard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Orchard/Pods-Orchard.release.xcconfig"; sourceTree = "<group>"; };
 		95616876E66A90764CB82BEE /* libPods-OrchardTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OrchardTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1E0C2F266DFD52AD0D3ABD5 /* Pods-Orchard-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orchard-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Orchard-Tests/Pods-Orchard-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		BEC913C8FBAB8126A50226D5 /* libPods-Orchard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Orchard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C5F3F31A6B581BE781291C /* Pods-OrchardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OrchardTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OrchardTests/Pods-OrchardTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F260B429956BB954840CEEDE /* Pods-Orchard-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orchard-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Orchard-Tests/Pods-Orchard-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				067D210C49D9AD130E911337 /* libPods-OrchardTests.a in Frameworks */,
+				BA07A3D5ED20566BF813225B /* libPods-Orchard-Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,7 +387,7 @@
 			isa = PBXGroup;
 			children = (
 				1871220520932094002488E0 /* Orchard */,
-				1871221820932095002488E0 /* OrchardTests */,
+				1871221820932095002488E0 /* Orchard Tests */,
 				1871220420932094002488E0 /* Products */,
 				28B6BA7A38378D07A4AA6F9C /* Pods */,
 				428DBAAD587453FEBFF7B21A /* Frameworks */,
@@ -393,7 +398,7 @@
 			isa = PBXGroup;
 			children = (
 				1871220320932094002488E0 /* Orchard.app */,
-				1871221520932095002488E0 /* OrchardTests.xctest */,
+				1871221520932095002488E0 /* Orchard-Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -414,13 +419,13 @@
 			path = Orchard;
 			sourceTree = "<group>";
 		};
-		1871221820932095002488E0 /* OrchardTests */ = {
+		1871221820932095002488E0 /* Orchard Tests */ = {
 			isa = PBXGroup;
 			children = (
 				1871221920932095002488E0 /* OrchardTests.swift */,
 				1871221B20932095002488E0 /* Info.plist */,
 			);
-			path = OrchardTests;
+			path = "Orchard Tests";
 			sourceTree = "<group>";
 		};
 		18733D9C2139391400491CB7 /* Orchard */ = {
@@ -827,6 +832,8 @@
 				625DF7EC8D7148586F17ACD0 /* Pods-Orchard.release.xcconfig */,
 				C0C5F3F31A6B581BE781291C /* Pods-OrchardTests.debug.xcconfig */,
 				0EC9B9EA3D57D1579AF7465E /* Pods-OrchardTests.release.xcconfig */,
+				F260B429956BB954840CEEDE /* Pods-Orchard-Tests.debug.xcconfig */,
+				A1E0C2F266DFD52AD0D3ABD5 /* Pods-Orchard-Tests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -836,6 +843,7 @@
 			children = (
 				BEC913C8FBAB8126A50226D5 /* libPods-Orchard.a */,
 				95616876E66A90764CB82BEE /* libPods-OrchardTests.a */,
+				0179D21FEE16CD532608FE07 /* libPods-Orchard-Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -862,9 +870,9 @@
 			productReference = 1871220320932094002488E0 /* Orchard.app */;
 			productType = "com.apple.product-type.application";
 		};
-		1871221420932095002488E0 /* OrchardTests */ = {
+		1871221420932095002488E0 /* Orchard-Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1871222120932095002488E0 /* Build configuration list for PBXNativeTarget "OrchardTests" */;
+			buildConfigurationList = 1871222120932095002488E0 /* Build configuration list for PBXNativeTarget "Orchard-Tests" */;
 			buildPhases = (
 				31EF69CD4B55E2EA2152C8F8 /* [CP] Check Pods Manifest.lock */,
 				1871221120932095002488E0 /* Sources */,
@@ -876,9 +884,9 @@
 			dependencies = (
 				1871221720932095002488E0 /* PBXTargetDependency */,
 			);
-			name = OrchardTests;
+			name = "Orchard-Tests";
 			productName = OrchardTests;
-			productReference = 1871221520932095002488E0 /* OrchardTests.xctest */;
+			productReference = 1871221520932095002488E0 /* Orchard-Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -919,7 +927,7 @@
 			projectRoot = "";
 			targets = (
 				1871220220932094002488E0 /* Orchard */,
-				1871221420932095002488E0 /* OrchardTests */,
+				1871221420932095002488E0 /* Orchard-Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -956,7 +964,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-OrchardTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Orchard-Tests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1248,10 +1256,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Orchard/Supporting/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.Orchard";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1265,10 +1270,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Orchard/Supporting/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.Orchard";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1276,18 +1278,14 @@
 		};
 		1871222220932095002488E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C0C5F3F31A6B581BE781291C /* Pods-OrchardTests.debug.xcconfig */;
+			baseConfigurationReference = F260B429956BB954840CEEDE /* Pods-Orchard-Tests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = OrchardTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.OrchardTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -1297,18 +1295,14 @@
 		};
 		1871222320932095002488E0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0EC9B9EA3D57D1579AF7465E /* Pods-OrchardTests.release.xcconfig */;
+			baseConfigurationReference = A1E0C2F266DFD52AD0D3ABD5 /* Pods-Orchard-Tests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = OrchardTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.OrchardTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -1337,7 +1331,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1871222120932095002488E0 /* Build configuration list for PBXNativeTarget "OrchardTests" */ = {
+		1871222120932095002488E0 /* Build configuration list for PBXNativeTarget "Orchard-Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1871222220932095002488E0 /* Debug */,

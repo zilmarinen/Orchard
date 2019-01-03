@@ -37,9 +37,9 @@ class PropInspectorViewController: NSViewController {
                 
             case propHiddenButton:
                 
-                guard let propNode = inspectable.propNode else { break }
+                guard let prop = inspectable.prop else { break }
                 
-                propNode.isHidden = sender.state == .off
+                prop.isHidden = sender.state == .off
                 
             default: break
             }
@@ -79,13 +79,13 @@ extension PropInspectorViewController {
             
             propBox.isHidden = true
             
-            if let propNode = inspectable.propNode {
+            if let prop = inspectable.prop {
                 
-                propBox.isHidden = propNode.isHidden
+                propBox.isHidden = prop.isHidden
                 
-                xPropCoordinateLabel.integerValue = propNode.footprint.coordinate.x
-                yPropCoordinateLabel.integerValue = propNode.footprint.coordinate.y
-                zPropCoordinateLabel.integerValue = propNode.footprint.coordinate.z
+                xPropCoordinateLabel.integerValue = prop.footprint.coordinate.x
+                yPropCoordinateLabel.integerValue = prop.footprint.coordinate.y
+                zPropCoordinateLabel.integerValue = prop.footprint.coordinate.z
             }
             
         default: break

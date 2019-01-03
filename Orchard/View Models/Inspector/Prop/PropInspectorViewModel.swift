@@ -9,7 +9,7 @@
 import Meadow
 import THRUtilities
 
-typealias PropInspectable = (props: Props, propNode: PropNode?)
+typealias PropInspectable = (props: Props, prop: Prop?)
 
 extension PropInspectorViewController {
     
@@ -28,4 +28,3 @@ extension PropInspectorViewController {
         
     }
 }
-

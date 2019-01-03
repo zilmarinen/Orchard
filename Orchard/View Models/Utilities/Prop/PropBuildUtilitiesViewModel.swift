@@ -9,7 +9,7 @@
 import Meadow
 import THRUtilities
 
-typealias PropBuildUtility = (prop: Prop, colorPalette: ColorPalette)
+typealias PropBuildUtility = (prop: PropPrototype, colorPalette: ColorPalette)
 
 extension PropBuildUtilitiesViewController {
     

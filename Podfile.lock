@@ -4,40 +4,35 @@ PODS:
     - THRUtilities
   - Meadow/Core (0.1):
     - THRUtilities
-  - THROperations (1.4.3):
-    - THROperations/Core (= 1.4.3)
-    - THRResult
-  - THROperations/Core (1.4.3):
-    - THRResult
-  - THRResult (1.0.1):
-    - THRResult/Core (= 1.0.1)
-  - THRResult/Core (1.0.1)
+  - PeakOperation (2.1.1):
+    - PeakResult
+  - PeakResult (2.1.1)
   - THRUtilities (1.7.5):
     - THRUtilities/Core (= 1.7.5)
   - THRUtilities/Core (1.7.5)
 
 DEPENDENCIES:
   - Meadow (from `../Meadow`)
-  - THROperations (from `../THROperations`)
-  - THRResult (from `../THRResult`)
-  - THRUtilities (from `../THRUtilities`)
+  - PeakOperation (from `../../3Squared/Peak/PeakOperation`)
+  - PeakResult (from `../../3Squared/Peak/PeakResult`)
+  - THRUtilities (from `../../3Squared/THR/THRUtilities`)
 
 EXTERNAL SOURCES:
   Meadow:
     :path: "../Meadow"
-  THROperations:
-    :path: "../THROperations"
-  THRResult:
-    :path: "../THRResult"
+  PeakOperation:
+    :path: "../../3Squared/Peak/PeakOperation"
+  PeakResult:
+    :path: "../../3Squared/Peak/PeakResult"
   THRUtilities:
-    :path: "../THRUtilities"
+    :path: "../../3Squared/THR/THRUtilities"
 
 SPEC CHECKSUMS:
   Meadow: 38db70484539a8abfaad825f5aff0f9bf6225331
-  THROperations: d179a3685c73a59c27e65d577c79975946051f65
-  THRResult: ae040cc6ad5318d09e1ea6360f779c647f8378d8
+  PeakOperation: 5108168673ab46ce62385c0dff7a979d6418851a
+  PeakResult: bf8e73ea7b558a9ec89d55cd0098c28f84b6b603
   THRUtilities: 08695fe94b602540cba2c0db60d256320339ae5b
 
-PODFILE CHECKSUM: f9b82aacb1a2d7216236b5b2acccdc378339391c
+PODFILE CHECKSUM: a22b5137e3a5407f9217df096f4fcdeacaf11515
 
 COCOAPODS: 1.5.3
