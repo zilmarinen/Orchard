@@ -100,9 +100,9 @@ extension OrchardViewController: GridObserver {
             
             switch sceneGraphViewController.viewModel.state {
                 
-            case .sceneGraph(_, let item):
+            case .sceneGraph(_, let child):
                 
-                sceneGraphViewController.viewModel.state = .sceneGraph(scene: editor.meadow.scene, child: item)
+                sceneGraphViewController.viewModel.state = .sceneGraph(scene: editor.meadow.scene, child: child)
                 
             default: break
             }

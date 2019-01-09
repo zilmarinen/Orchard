@@ -28,10 +28,10 @@ EXTERNAL SOURCES:
     :path: "../../3Squared/THR/THRUtilities"
 
 SPEC CHECKSUMS:
-  Meadow: 38db70484539a8abfaad825f5aff0f9bf6225331
-  PeakOperation: 5108168673ab46ce62385c0dff7a979d6418851a
-  PeakResult: bf8e73ea7b558a9ec89d55cd0098c28f84b6b603
-  THRUtilities: 08695fe94b602540cba2c0db60d256320339ae5b
+  Meadow: 7b28dcc2f78ab06153cba0b80ccb3cfa15dbb924
+  PeakOperation: 2d8a00365a94c6a1200d4f715812c8b2e8c44139
+  PeakResult: 677b2993e1312bbc994bfa024a997916fdc734ac
+  THRUtilities: 1f11171a4ed90eb2a0cc966f549e891129ed5bc5
 
 PODFILE CHECKSUM: a22b5137e3a5407f9217df096f4fcdeacaf11515
 
