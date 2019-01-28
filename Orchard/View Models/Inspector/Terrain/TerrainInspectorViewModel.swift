@@ -9,7 +9,7 @@
 import Meadow
 import THRUtilities
 
-typealias TerrainInspectable = (grid: Terrain, chunk: TerrainChunk?, tile: TerrainTile?, node: TerrainNode<TerrainLayer>?, layer: TerrainLayer?, edge: GridEdge)
+typealias TerrainInspectable = (grid: Terrain, chunk: TerrainChunk?, tile: TerrainTile?, node: TerrainNode<TerrainNodeEdge<TerrainEdgeLayer>>?, edge: TerrainNodeEdge<TerrainEdgeLayer>?, layer: TerrainEdgeLayer?)
 
 extension TerrainInspectorViewController {
     

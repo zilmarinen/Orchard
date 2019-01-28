@@ -73,7 +73,7 @@ extension TerrainUtilitiesTabViewController {
                 
             case .empty:
                 
-                viewController.viewModel.state = .build(editor: editor, terrainType: TerrainType.bedrock)
+                viewController.viewModel.state = .build(editor: editor, tool: (toolType: .edge, terrainType: TerrainType.bedrock))
                 
             default: break
             }
@@ -86,7 +86,7 @@ extension TerrainUtilitiesTabViewController {
                 
             case .empty:
                 
-                viewController.viewModel.state = .terraform(editor: editor, toolType: .tile, reticule: (1, 1))
+                viewController.viewModel.state = .terraform(editor: editor, tool: (toolType: .edge, reticule: (1, 1)))
                 
             default: break
             }
@@ -99,7 +99,7 @@ extension TerrainUtilitiesTabViewController {
                 
             case .empty:
                 
-                viewController.viewModel.state = .paint(editor: editor, terrainType: TerrainType.bedrock, toolType: .tile)
+                viewController.viewModel.state = .paint(editor: editor, tool: (toolType: .edge, terrainType: TerrainType.bedrock))
                 
             default: break
             }

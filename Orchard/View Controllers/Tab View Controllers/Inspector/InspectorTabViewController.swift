@@ -42,12 +42,12 @@ extension InspectorTabViewController {
             
             if let chunk = inspectable.chunk, chunk.totalChildren > 0 {
                 
-                inspectable.tile = chunk.child(at: 0) as? AreaTile
+                inspectable.tile = chunk.child(at: 0)
             }
             
             if let tile = inspectable.tile, tile.totalChildren > 0 {
                 
-                inspectable.node = tile.child(at: 0) as? AreaNode
+                inspectable.node = tile.child(at: 0)
             }
             
             if let node = inspectable.node {
@@ -64,12 +64,12 @@ extension InspectorTabViewController {
             
             if let chunk = inspectable.chunk, chunk.totalChildren > 0 {
                 
-                inspectable.tile = chunk.child(at: 0) as? FoliageTile
+                inspectable.tile = chunk.child(at: 0)
             }
             
             if let tile = inspectable.tile, tile.totalChildren > 0 {
                 
-                inspectable.node = tile.child(at: 0) as? FoliageNode
+                inspectable.node = tile.child(at: 0)
             }
             
             if let node = inspectable.node {
@@ -86,12 +86,12 @@ extension InspectorTabViewController {
             
             if let chunk = inspectable.chunk, chunk.totalChildren > 0 {
                 
-                inspectable.tile = chunk.child(at: 0) as? FootpathTile
+                inspectable.tile = chunk.child(at: 0)
             }
             
             if let tile = inspectable.tile, tile.totalChildren > 0 {
                 
-                inspectable.node = tile.child(at: 0) as? FootpathNode
+                inspectable.node = tile.child(at: 0)
             }
             
             if let node = inspectable.node {
@@ -120,22 +120,28 @@ extension InspectorTabViewController {
             
             if let chunk = inspectable.chunk, chunk.totalChildren > 0 {
                 
-                inspectable.tile = chunk.child(at: 0) as? TerrainTile
+                inspectable.tile = chunk.child(at: 0)
             }
             
             if let tile = inspectable.tile, tile.totalChildren > 0 {
                 
-                inspectable.node = tile.child(at: 0) as? TerrainNode
+                inspectable.node = tile.child(at: 0)
             }
             
             if let node = inspectable.node, node.totalChildren > 0 {
                 
-                inspectable.layer = node.child(at: 0) as? TerrainLayer
+                inspectable.edge = node.child(at: 0)
+            }
+            
+            if let edge = inspectable.edge, edge.totalChildren > 0 {
+                
+                inspectable.layer = edge.child(at: 0)
             }
             
             if let layer = inspectable.layer {
                 
-                inspectable.node = layer.observer as? TerrainNode
+                inspectable.edge = layer.observer as? TerrainNodeEdge
+                inspectable.node = inspectable.edge?.observer as? TerrainNode
                 inspectable.tile = inspectable.node?.observer as? TerrainTile
                 inspectable.chunk = inspectable.tile?.observer as? TerrainChunk
             }
@@ -148,12 +154,12 @@ extension InspectorTabViewController {
             
             if let chunk = inspectable.chunk, chunk.totalChildren > 0 {
                 
-                inspectable.tile = chunk.child(at: 0) as? WaterTile
+                inspectable.tile = chunk.child(at: 0)
             }
             
             if let tile = inspectable.tile, tile.totalChildren > 0 {
                 
-                inspectable.node = tile.child(at: 0) as? WaterNode
+                inspectable.node = tile.child(at: 0)
             }
             
             if let node = inspectable.node {

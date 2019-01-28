@@ -91,7 +91,7 @@ class WaterInspectorViewController: NSViewController {
                 
             case selectedNodePopUp:
                 
-                guard let tile = inspectable.tile, let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? WaterNode else { break }
+                guard let tile = inspectable.tile, let selectedNode = tile.child(at: sender.indexOfSelectedItem) else { break }
                 
                 viewModel.state = .water(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, tile, selectedNode))
                 

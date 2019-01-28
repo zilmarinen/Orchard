@@ -87,7 +87,7 @@ class FoliageInspectorViewController: NSViewController {
                 
             case selectedNodePopUp:
                 
-                guard let tile = inspectable.tile, let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? FoliageNode else { break }
+                guard let tile = inspectable.tile, let selectedNode = tile.child(at: sender.indexOfSelectedItem) else { break }
                 
                 viewModel.state = .foliage(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, tile, selectedNode))
                 

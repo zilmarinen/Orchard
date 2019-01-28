@@ -24,11 +24,11 @@ class TerrainTerraformUtilitiesViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .terraform(let editor, _, let reticule):
+        case .terraform(let editor, let tool):
             
-            let selectedToolType = ToolType(rawValue: sender.indexOfSelectedItem)!
+            guard let toolType = ToolType(rawValue: sender.indexOfSelectedItem) else { break }
             
-            viewModel.state = .terraform(editor: editor, toolType: selectedToolType, reticule: reticule)
+            viewModel.state = .terraform(editor: editor, tool: (toolType: toolType, reticule: tool.reticule))
             
         default: break
         }
@@ -38,22 +38,22 @@ class TerrainTerraformUtilitiesViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .terraform(let editor, let toolType, var reticule):
+        case .terraform(let editor, var tool):
             
             switch sender {
                 
             case widthStepper:
                 
-                reticule.width = widthStepper.integerValue
+                tool.reticule.width = widthStepper.integerValue
                 
             case depthStepper:
                 
-                reticule.depth = depthStepper.integerValue
+                tool.reticule.depth = depthStepper.integerValue
                 
             default: break
             }
             
-            viewModel.state = .terraform(editor: editor, toolType: toolType, reticule: reticule)
+            viewModel.state = .terraform(editor: editor, tool: tool)
             
         default: break
         }
@@ -121,7 +121,7 @@ extension TerrainTerraformUtilitiesViewController {
                 editor.meadow.input.cursor.unsubscribe(reference)
             }
             
-        case .terraform(let editor, let toolType, let reticule):
+        case .terraform(let editor, let tool):
             
             editor.meadow.input.cursor.tracksIdleEvents = true
             
@@ -133,23 +133,23 @@ extension TerrainTerraformUtilitiesViewController {
             toolTypePopUp.addItem(withTitle: "Edge")
             toolTypePopUp.addItem(withTitle: "Tile")
             
-            toolTypePopUp.selectItem(at: toolType.rawValue)
+            toolTypePopUp.selectItem(at: tool.toolType.rawValue)
             
             widthStepper.maxValue = 10
             widthStepper.minValue = 1
-            widthStepper.integerValue = reticule.width
-            widthStepper.isEnabled = toolType == ToolType.tile
+            widthStepper.integerValue = tool.reticule.width
+            widthStepper.isEnabled = tool.toolType == ToolType.tile
                 
             depthStepper.maxValue = 10
             depthStepper.minValue = 1
-            depthStepper.integerValue = reticule.depth
-            depthStepper.isEnabled = toolType == ToolType.tile
+            depthStepper.integerValue = tool.reticule.depth
+            depthStepper.isEnabled = tool.toolType == ToolType.tile
             
             widthTextField.integerValue = widthStepper.integerValue
-            widthTextField.isEnabled = toolType == ToolType.tile
+            widthTextField.isEnabled = tool.toolType == ToolType.tile
             
             depthTextField.integerValue = depthStepper.integerValue
-            depthTextField.isEnabled = toolType == ToolType.tile
+            depthTextField.isEnabled = tool.toolType == ToolType.tile
         }
     }
 }
@@ -158,7 +158,7 @@ extension TerrainTerraformUtilitiesViewController: CursorObserver {
     
     func stateDidChange(from: SceneView.CursorState?, to: SceneView.CursorState) {
         
-        switch viewModel.state {
+        /*switch viewModel.state {
             
         case .terraform(let editor, let toolType, let reticule):
             
@@ -365,7 +365,7 @@ extension TerrainTerraformUtilitiesViewController: CursorObserver {
             }
             
         default: break
-        }
+        }*/
     }
 }
 
@@ -373,7 +373,7 @@ extension TerrainTerraformUtilitiesViewController: CornerGraticuleObserver {
     
     func stateDidChange(from: SceneView.CornerGraticuleState?, to: SceneView.CornerGraticuleState) {
         
-        switch viewModel.state {
+        /*switch viewModel.state {
             
         case .empty(let editor):
             
@@ -406,7 +406,7 @@ extension TerrainTerraformUtilitiesViewController: CornerGraticuleObserver {
                 
             default: break
             }
-        }
+        }*/
     }
 }
 
@@ -414,7 +414,7 @@ extension TerrainTerraformUtilitiesViewController: EdgeGraticuleObserver {
     
     func stateDidChange(from: SceneView.EdgeGraticuleState?, to: SceneView.EdgeGraticuleState) {
         
-        switch viewModel.state {
+        /*switch viewModel.state {
             
         case .empty(let editor):
             
@@ -440,7 +440,7 @@ extension TerrainTerraformUtilitiesViewController: EdgeGraticuleObserver {
                 
             default: break
             }
-        }
+        }*/
     }
 }
 
@@ -448,7 +448,7 @@ extension TerrainTerraformUtilitiesViewController: TileGraticuleObserver {
     
     func stateDidChange(from: SceneView.TileGraticuleState?, to: SceneView.TileGraticuleState) {
         
-        switch viewModel.state {
+        /*switch viewModel.state {
             
         case .empty(let editor):
             
@@ -495,6 +495,6 @@ extension TerrainTerraformUtilitiesViewController: TileGraticuleObserver {
                 
             default: break
             }
-        }
+        }*/
     }
 }

@@ -12,6 +12,7 @@ import SceneKit
 
 class TerrainBuildUtilitiesViewController: NSViewController {
     
+    @IBOutlet weak var toolTypePopUp: NSPopUpButton!
     @IBOutlet weak var terrainTypePopUp: NSPopUpButton!
     
     @IBOutlet weak var colorPaletteView: ColorPaletteView!
@@ -20,11 +21,24 @@ class TerrainBuildUtilitiesViewController: NSViewController {
         
         switch viewModel.state {
             
-        case .build(let editor, _):
+        case .build(let editor, let tool):
             
-            guard let terrainType = TerrainType(rawValue: sender.indexOfSelectedItem) else { break }
-            
-            viewModel.state = .build(editor: editor, terrainType: terrainType)
+            switch sender {
+                
+            case toolTypePopUp:
+                
+                guard let toolType = ToolType(rawValue: sender.indexOfSelectedItem) else { break }
+                
+                viewModel.state = .build(editor: editor, tool: (toolType: toolType, terrainType: tool.terrainType))
+                
+            case terrainTypePopUp:
+                
+                guard let terrainType = TerrainType(rawValue: sender.indexOfSelectedItem) else { break }
+                
+                viewModel.state = .build(editor: editor, tool: (toolType: tool.toolType, terrainType: terrainType))
+                
+            default: break
+            }
             
         default: break
         }
@@ -76,13 +90,20 @@ extension TerrainBuildUtilitiesViewController {
             
             graticule.state = .idle
             
-        case .build(let editor, let terrainType):
+        case .build(let editor, let tool):
             
             editor.meadow.input.cursor.tracksIdleEvents = true
             
             cursorCallbackReference = editor.meadow.input.cursor.subscribe(stateDidChange(from:to:))
             
             terrainTypePopUp.removeAllItems()
+            toolTypePopUp.removeAllItems()
+            
+            toolTypePopUp.addItem(withTitle: "Corner")
+            toolTypePopUp.addItem(withTitle: "Edge")
+            toolTypePopUp.addItem(withTitle: "Tile")
+            
+            toolTypePopUp.selectItem(at: tool.toolType.rawValue)
             
             colorPaletteView.color = nil
             
@@ -91,7 +112,7 @@ extension TerrainBuildUtilitiesViewController {
                 terrainTypePopUp.addItem(withTitle: terrainType.name)
             }
             
-            if let index = TerrainType.allCases.index(of: terrainType), let colorPalette = terrainType.colorPalette {
+            if let index = TerrainType.allCases.index(of: tool.terrainType), let colorPalette = tool.terrainType.colorPalette {
                 
                 terrainTypePopUp.selectItem(at: index)
                 
@@ -105,7 +126,7 @@ extension TerrainBuildUtilitiesViewController: CursorObserver {
     
     func stateDidChange(from: SceneView.CursorState?, to: SceneView.CursorState) {
         
-        switch viewModel.state {
+        /*switch viewModel.state {
             
         case .build(let editor, let terrainType):
             
@@ -202,7 +223,7 @@ extension TerrainBuildUtilitiesViewController: CursorObserver {
             }
             
         default: break
-        }
+        }*/
     }
 }
 
@@ -210,7 +231,7 @@ extension TerrainBuildUtilitiesViewController: TileGraticuleObserver {
     
     func stateDidChange(from: SceneView.TileGraticuleState?, to: SceneView.TileGraticuleState) {
         
-        switch viewModel.state {
+        /*switch viewModel.state {
             
         case .empty(let editor):
             
@@ -292,6 +313,6 @@ extension TerrainBuildUtilitiesViewController: TileGraticuleObserver {
                 
             default: break
             }
-        }
+        }*/
     }
 }

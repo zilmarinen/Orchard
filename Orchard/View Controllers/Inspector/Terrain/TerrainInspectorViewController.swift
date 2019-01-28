@@ -14,15 +14,18 @@ class TerrainInspectorViewController: NSViewController {
     @IBOutlet weak var chunkBox: NSBox!
     @IBOutlet weak var tileBox: NSBox!
     @IBOutlet weak var nodeBox: NSBox!
+    @IBOutlet weak var edgeBox: NSBox!
     @IBOutlet weak var layerBox: NSBox!
     
     @IBOutlet weak var chunkCount: NSTextField!
     @IBOutlet weak var tileCount: NSTextField!
+    @IBOutlet weak var layerCount: NSTextField!
     
     @IBOutlet weak var gridHiddenButton: NSButton!
     @IBOutlet weak var chunkHiddenButton: NSButton!
     @IBOutlet weak var tileHiddenButton: NSButton!
     @IBOutlet weak var nodeHiddenButton: NSButton!
+    @IBOutlet weak var edgeHiddenButton: NSButton!
     @IBOutlet weak var layerHiddenButton: NSButton!
     
     @IBOutlet weak var xTileCoordinateLabel: NSTextField!
@@ -40,25 +43,26 @@ class TerrainInspectorViewController: NSViewController {
     @IBOutlet weak var heightNodeSizeLabel: NSTextField!
     @IBOutlet weak var depthNodeSizeLabel: NSTextField!
     
+    @IBOutlet weak var selectedEdgePopUp: NSPopUpButton!
     @IBOutlet weak var selectedLayerPopUp: NSPopUpButton!
     
-    @IBOutlet weak var upperNorthWestLayerCornerLabel: NSTextField!
-    @IBOutlet weak var upperNorthEastLayerCornerLabel: NSTextField!
-    @IBOutlet weak var upperSouthEastLayerCornerLabel: NSTextField!
-    @IBOutlet weak var upperSouthWestLayerCornerLabel: NSTextField!
+    @IBOutlet weak var upperCorner0Label: NSTextField!
+    @IBOutlet weak var upperCorner1Label: NSTextField!
+    @IBOutlet weak var upperCorner0TextField: NSTextField!
+    @IBOutlet weak var upperCorner1TextField: NSTextField!
+    @IBOutlet weak var upperCentreTextField: NSTextField!
     
-    @IBOutlet weak var lowerNorthWestLayerCornerLabel: NSTextField!
-    @IBOutlet weak var lowerNorthEastLayerCornerLabel: NSTextField!
-    @IBOutlet weak var lowerSouthEastLayerCornerLabel: NSTextField!
-    @IBOutlet weak var lowerSouthWestLayerCornerLabel: NSTextField!
+    @IBOutlet weak var lowerCorner0Label: NSTextField!
+    @IBOutlet weak var lowerCorner1Label: NSTextField!
+    @IBOutlet weak var lowerCorner0TextField: NSTextField!
+    @IBOutlet weak var lowerCorner1TextField: NSTextField!
+    @IBOutlet weak var lowerCentreTextField: NSTextField!
     
-    @IBOutlet weak var northWestLayerCornerStepper: NSStepper!
-    @IBOutlet weak var northEastLayerCornerStepper: NSStepper!
-    @IBOutlet weak var southEastLayerCornerStepper: NSStepper!
-    @IBOutlet weak var southWestLayerCornerStepper: NSStepper!
+    @IBOutlet weak var upperCorner0Stepper: NSStepper!
+    @IBOutlet weak var upperCorner1Stepper: NSStepper!
+    @IBOutlet weak var upperCentreStepper: NSStepper!
     
-    @IBOutlet weak var selectedEdgePopup: NSPopUpButton!
-    @IBOutlet weak var selectedTerrainTypePopup: NSPopUpButton!
+    @IBOutlet weak var selectedTerrainTypePopUp: NSPopUpButton!
     
     @IBOutlet weak var terrainTypeColorPaletteView: ColorPaletteView!
     
@@ -117,31 +121,29 @@ class TerrainInspectorViewController: NSViewController {
                 
             case selectedNodePopUp:
                 
-                guard let tile = inspectable.tile, let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? TerrainNode, let selectedLayer = selectedNode.child(at: 0) as? TerrainLayer else { break }
+                guard let tile = inspectable.tile, let node = tile.child(at: sender.indexOfSelectedItem), let edge = node.child(at: 0), let layer = edge.child(at: 0) else { break }
                 
-                viewModel.state = .terrain(editor: editor,inspectable: (inspectable.grid, inspectable.chunk, tile, selectedNode, selectedLayer, inspectable.edge))
+                viewModel.state = .terrain(editor: editor,inspectable: (inspectable.grid, inspectable.chunk, tile, node, edge, layer))
                 
-                editor.delegate.sceneGraph(didSelectChild: selectedNode, atIndex: sender.indexOfSelectedItem)
+                editor.delegate.sceneGraph(didSelectChild: node, atIndex: sender.indexOfSelectedItem)
+                
+            case selectedEdgePopUp:
+                
+                guard let gridEdge = GridEdge(rawValue: sender.indexOfSelectedItem), let edge = inspectable.node?.find(edge: gridEdge) else { break }
+                
+                viewModel.state = .terrain(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, inspectable.node, edge, edge.child(at: 0)))
                 
             case selectedLayerPopUp:
                 
-                guard let node = inspectable.node, let selectedLayer = node.child(at: sender.indexOfSelectedItem) as? TerrainLayer else { break }
+                guard let layer = inspectable.edge?.child(at: sender.indexOfSelectedItem) else { break }
                 
-                viewModel.state = .terrain(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, node, selectedLayer, inspectable.edge))
+                viewModel.state = .terrain(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, inspectable.node, inspectable.edge, layer))
                 
-                editor.delegate.sceneGraph(didSelectChild: selectedLayer, atIndex: sender.indexOfSelectedItem)
+            case selectedTerrainTypePopUp:
                 
-            case selectedEdgePopup:
+                guard let layer = inspectable.layer, let terrainType = TerrainType(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                guard let selectedEdge = GridEdge(rawValue: sender.indexOfSelectedItem) else { break }
-                
-                viewModel.state = .terrain(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, inspectable.node, inspectable.layer, selectedEdge))
-                
-            case selectedTerrainTypePopup:
-                
-                guard let layer = inspectable.layer, let selectedTerrainType = TerrainType(rawValue: sender.indexOfSelectedItem), let edge = GridEdge(rawValue: selectedEdgePopup.indexOfSelectedItem) else { break }
-                
-                layer.set(terrainType: selectedTerrainType, edge: edge)
+                layer.terrainType = terrainType
                 
                 viewModel.state = .terrain(editor: editor, inspectable: inspectable)
                 
@@ -160,23 +162,21 @@ class TerrainInspectorViewController: NSViewController {
             
             guard let layer = inspectable.layer else { break }
             
+            let (c0, c1) = GridCorner.corners(edge: layer.edge)
+            
             switch sender {
                 
-            case northWestLayerCornerStepper:
+            case upperCorner0Stepper:
                 
-                layer.set(height: sender.integerValue, corner: .northWest)
+                layer.set(corner: c0, height: sender.integerValue)
                 
-            case northEastLayerCornerStepper:
+            case upperCorner1Stepper:
                 
-                layer.set(height: sender.integerValue, corner: .northEast)
+                layer.set(corner: c1, height: sender.integerValue)
                 
-            case southEastLayerCornerStepper:
+            case upperCentreStepper:
                 
-                layer.set(height: sender.integerValue, corner: .southEast)
-                
-            case southWestLayerCornerStepper:
-                
-                layer.set(height: sender.integerValue, corner: .southWest)
+                layer.set(center: sender.integerValue)
             
             default: break
             }
@@ -195,23 +195,21 @@ class TerrainInspectorViewController: NSViewController {
             
             guard let layer = inspectable.layer else { break }
             
+            let (c0, c1) = GridCorner.corners(edge: layer.edge)
+            
             switch sender {
                 
-            case upperNorthWestLayerCornerLabel:
+            case upperCorner0TextField:
                 
-                layer.set(height: sender.integerValue, corner: .northWest)
+                layer.set(corner: c0, height: sender.integerValue)
                 
-            case upperNorthEastLayerCornerLabel:
+            case upperCorner1TextField:
                 
-                layer.set(height: sender.integerValue, corner: .northEast)
+                layer.set(corner: c1, height: sender.integerValue)
                 
-            case upperSouthEastLayerCornerLabel:
+            case upperCentreTextField:
                 
-                layer.set(height: sender.integerValue, corner: .southEast)
-                
-            case upperSouthWestLayerCornerLabel:
-                
-                layer.set(height: sender.integerValue, corner: .southWest)
+                layer.set(center: sender.integerValue)
                 
             default: break
             }
@@ -252,24 +250,29 @@ extension TerrainInspectorViewController {
             chunkBox.isHidden = true
             tileBox.isHidden = true
             nodeBox.isHidden = true
+            edgeBox.isHidden = true
             layerBox.isHidden = true
             
             selectedNodePopUp.removeAllItems()
-            selectedLayerPopUp.removeAllItems()
-            selectedEdgePopup.removeAllItems()
-            selectedTerrainTypePopup.removeAllItems()
+            selectedEdgePopUp.removeAllItems()
+            selectedTerrainTypePopUp.removeAllItems()
             
-            if let chunk = inspectable.chunk, let tile = inspectable.tile, let node = inspectable.node, let layer = inspectable.layer {
+            if let chunk = inspectable.chunk, let tile = inspectable.tile, let node = inspectable.node, let edge = inspectable.edge, let layer = inspectable.layer {
+                
+                let (c0, c1) = GridCorner.corners(edge: layer.edge)
                 
                 chunkBox.isHidden = inspectable.grid.isHidden
                 tileBox.isHidden = inspectable.grid.isHidden || chunk.isHidden
                 nodeBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden
-                layerBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden || node.isHidden
+                edgeBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden || node.isHidden
+                layerBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden || node.isHidden || layer.isHidden
                 
                 tileCount.integerValue = chunk.totalChildren
+                layerCount.integerValue = edge.totalChildren
                 chunkHiddenButton.state = (chunk.isHidden ? .off : .on)
                 tileHiddenButton.state = (tile.isHidden ? .off : .on)
                 nodeHiddenButton.state = (node.isHidden ? .off : .on)
+                edgeHiddenButton.state = (node.isHidden ? .off : .on)
                 layerHiddenButton.state = (layer.isHidden ? .off : .on)
                 
                 xTileCoordinateLabel.integerValue = tile.volume.coordinate.x
@@ -298,57 +301,49 @@ extension TerrainInspectorViewController {
                     selectedLayerPopUp.addItem(withTitle: "Layer \(index + 1)")
                 }
                 
-                if let index = node.index(of: layer) {
+                if let index = edge.index(of: layer) {
                     
                     selectedLayerPopUp.selectItem(at: index)
                 }
                 
-                northWestLayerCornerStepper.maxValue = Double(layer.hierarchy.upper?.get(height: .northWest) ?? World.ceiling)
-                northWestLayerCornerStepper.minValue = Double(layer.hierarchy.lower?.get(height: .northWest) ?? World.floor)
-                northWestLayerCornerStepper.integerValue = layer.get(height: .northWest)
+                upperCorner0Stepper.maxValue = Double(layer.upper?.get(corner: c0) ?? World.ceiling)
+                upperCorner0Stepper.minValue = Double(layer.lower?.get(corner: c0) ?? World.floor)
+                upperCorner0Stepper.integerValue = (layer.get(corner: c0) ?? World.floor)
                 
-                northEastLayerCornerStepper.maxValue = Double(layer.hierarchy.upper?.get(height: .northEast) ?? World.ceiling)
-                northEastLayerCornerStepper.minValue = Double(layer.hierarchy.lower?.get(height: .northEast) ?? World.floor)
-                northEastLayerCornerStepper.integerValue = layer.get(height: .northEast)
+                upperCorner1Stepper.maxValue = Double(layer.upper?.get(corner: c1) ?? World.ceiling)
+                upperCorner1Stepper.minValue = Double(layer.lower?.get(corner: c1) ?? World.floor)
+                upperCorner1Stepper.integerValue = (layer.get(corner: c1) ?? World.floor)
                 
-                southEastLayerCornerStepper.maxValue = Double(layer.hierarchy.upper?.get(height: .southEast) ?? World.ceiling)
-                southEastLayerCornerStepper.minValue = Double(layer.hierarchy.lower?.get(height: .southEast) ?? World.floor)
-                southEastLayerCornerStepper.integerValue = layer.get(height: .southEast)
+                upperCentreStepper.maxValue = Double(layer.upper?.centre ?? World.ceiling)
+                upperCentreStepper.minValue = Double(layer.lower?.centre ?? World.floor)
+                upperCentreStepper.integerValue = layer.centre
                 
-                southWestLayerCornerStepper.maxValue = Double(layer.hierarchy.upper?.get(height: .southWest) ?? World.ceiling)
-                southWestLayerCornerStepper.minValue = Double(layer.hierarchy.lower?.get(height: .southWest) ?? World.floor)
-                southWestLayerCornerStepper.integerValue = layer.get(height: .southWest)
+                upperCorner0TextField.integerValue = upperCorner0Stepper.integerValue
+                upperCorner1TextField.integerValue = upperCorner1Stepper.integerValue
+                upperCentreTextField.integerValue = upperCentreStepper.integerValue
                 
-                upperNorthWestLayerCornerLabel.integerValue = northWestLayerCornerStepper.integerValue
-                upperNorthEastLayerCornerLabel.integerValue = northEastLayerCornerStepper.integerValue
-                upperSouthEastLayerCornerLabel.integerValue = southEastLayerCornerStepper.integerValue
-                upperSouthWestLayerCornerLabel.integerValue = southWestLayerCornerStepper.integerValue
-                
-                lowerNorthWestLayerCornerLabel.integerValue = (layer.hierarchy.lower?.get(height: .northWest) ?? World.floor)
-                lowerNorthEastLayerCornerLabel.integerValue = (layer.hierarchy.lower?.get(height: .northEast) ?? World.floor)
-                lowerSouthEastLayerCornerLabel.integerValue = (layer.hierarchy.lower?.get(height: .southEast) ?? World.floor)
-                lowerSouthWestLayerCornerLabel.integerValue = (layer.hierarchy.lower?.get(height: .southWest) ?? World.floor)
+                lowerCorner0TextField.integerValue = (layer.lower?.get(corner: c0) ?? World.floor)
+                lowerCorner1TextField.integerValue = (layer.lower?.get(corner: c1) ?? World.floor)
+                lowerCentreTextField.integerValue = (layer.lower?.centre ?? World.floor)
                 
                 GridEdge.Edges.forEach { edge in
                     
-                    selectedEdgePopup.addItem(withTitle: edge.description)
+                    selectedEdgePopUp.addItem(withTitle: edge.description)
                 }
                 
                 TerrainType.allCases.forEach { terrainType in
                     
-                    selectedTerrainTypePopup.addItem(withTitle: terrainType.name)
+                    selectedTerrainTypePopUp.addItem(withTitle: terrainType.name)
                 }
                 
-                if let index = GridEdge.Edges.index(of: inspectable.edge) {
+                if let index = GridEdge.Edges.index(of: layer.edge) {
                     
-                    selectedEdgePopup.selectItem(at: index)
+                    selectedEdgePopUp.selectItem(at: index)
                 }
                 
-                let terrainType = layer.get(terrainType: inspectable.edge)
-                
-                if let index = TerrainType.allCases.index(of: terrainType), let colorPalette = terrainType.colorPalette {
+                if let index = TerrainType.allCases.index(of: layer.terrainType), let colorPalette = layer.terrainType.colorPalette {
                     
-                    selectedTerrainTypePopup.selectItem(at: index)
+                    selectedTerrainTypePopUp.selectItem(at: index)
                     
                     terrainTypeColorPaletteView.colorPalette = colorPalette
                 }

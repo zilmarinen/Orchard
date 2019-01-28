@@ -88,7 +88,7 @@ extension OrchardViewController: SceneGraphDelegate {
     }
 }
 
-extension OrchardViewController: GridObserver {
+extension OrchardViewController: SceneGraphObserver {
     
     func child(didBecomeDirty child: SceneGraphChild) {
         

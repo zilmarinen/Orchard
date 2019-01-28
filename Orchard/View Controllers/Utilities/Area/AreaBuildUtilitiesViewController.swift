@@ -363,7 +363,7 @@ extension AreaBuildUtilitiesViewController: TileGraticuleObserver {
     
     func stateDidChange(from: SceneView.TileGraticuleState?, to: SceneView.TileGraticuleState) {
         
-        switch viewModel.state {
+        /*switch viewModel.state {
             
         case .empty(let editor):
             
@@ -430,6 +430,6 @@ extension AreaBuildUtilitiesViewController: TileGraticuleObserver {
                 
             default: break
             }
-        }
+        }*/
     }
 }

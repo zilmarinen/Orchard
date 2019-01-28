@@ -12,8 +12,8 @@ import SceneKit
 
 class TerrainPaintUtilitiesViewController: NSViewController {
 
-    @IBOutlet weak var terrainTypePopUp: NSPopUpButton!
     @IBOutlet weak var toolTypePopUp: NSPopUpButton!
+    @IBOutlet weak var terrainTypePopUp: NSPopUpButton!
     
     @IBOutlet weak var colorPaletteView: ColorPaletteView!
     
@@ -21,21 +21,21 @@ class TerrainPaintUtilitiesViewController: NSViewController {
      
         switch viewModel.state {
             
-        case .paint(let editor, let terrainType, let toolType):
+        case .paint(let editor, let tool):
             
             switch sender {
                 
-            case terrainTypePopUp:
-                
-                guard let selectedTerrainType = TerrainType(rawValue: sender.indexOfSelectedItem) else { break }
-                
-                viewModel.state = .paint(editor: editor, terrainType: selectedTerrainType, toolType: toolType)
-                
             case toolTypePopUp:
                 
-                guard let selectedToolType = ToolType(rawValue: sender.indexOfSelectedItem) else { break }
+                guard let toolType = ToolType(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                viewModel.state = .paint(editor: editor, terrainType: terrainType, toolType: selectedToolType)
+                viewModel.state = .paint(editor: editor, tool: (toolType: toolType, terrainType: tool.terrainType))
+                
+            case terrainTypePopUp:
+                
+                guard let terrainType = TerrainType(rawValue: sender.indexOfSelectedItem) else { break }
+                
+                viewModel.state = .paint(editor: editor, tool: (toolType: tool.toolType, terrainType: terrainType))
                 
             default: break
             }
@@ -97,7 +97,7 @@ extension TerrainPaintUtilitiesViewController {
                 editor.meadow.input.cursor.unsubscribe(reference)
             }
             
-        case .paint(let editor, let terrainType, let toolType):
+        case .paint(let editor, let tool):
             
             editor.meadow.input.cursor.tracksIdleEvents = true
             
@@ -106,6 +106,12 @@ extension TerrainPaintUtilitiesViewController {
             terrainTypePopUp.removeAllItems()
             toolTypePopUp.removeAllItems()
             
+            toolTypePopUp.addItem(withTitle: "Corner")
+            toolTypePopUp.addItem(withTitle: "Edge")
+            toolTypePopUp.addItem(withTitle: "Tile")
+            
+            toolTypePopUp.selectItem(at: tool.toolType.rawValue)
+            
             colorPaletteView.color = nil
             
             TerrainType.allCases.forEach { terrainType in
@@ -113,12 +119,7 @@ extension TerrainPaintUtilitiesViewController {
                 terrainTypePopUp.addItem(withTitle: terrainType.name)
             }
             
-            toolTypePopUp.addItem(withTitle: "Edge")
-            toolTypePopUp.addItem(withTitle: "Tile")
-            
-            toolTypePopUp.selectItem(at: toolType.rawValue)
-            
-            if let index = TerrainType.allCases.index(of: terrainType), let colorPalette = terrainType.colorPalette {
+            if let index = TerrainType.allCases.index(of: tool.terrainType), let colorPalette = tool.terrainType.colorPalette {
                 
                 terrainTypePopUp.selectItem(at: index)
                 
@@ -132,7 +133,7 @@ extension TerrainPaintUtilitiesViewController: CursorObserver {
     
     func stateDidChange(from: SceneView.CursorState?, to: SceneView.CursorState) {
         
-        switch viewModel.state {
+        /*switch viewModel.state {
             
         case .paint(let editor, let terrainType, let toolType):
             
@@ -277,7 +278,7 @@ extension TerrainPaintUtilitiesViewController: CursorObserver {
             }
             
         default: break
-        }
+        }*/
     }
 }
 
@@ -285,7 +286,7 @@ extension TerrainPaintUtilitiesViewController: TileGraticuleObserver {
     
     func stateDidChange(from: SceneView.TileGraticuleState?, to: SceneView.TileGraticuleState) {
     
-        switch viewModel.state {
+        /*switch viewModel.state {
             
         case .empty(let editor):
             
@@ -335,7 +336,7 @@ extension TerrainPaintUtilitiesViewController: TileGraticuleObserver {
                 
             default: break
             }
-        }
+        }*/
     }
 }
 
@@ -343,7 +344,7 @@ extension TerrainPaintUtilitiesViewController: EdgeGraticuleObserver {
     
     func stateDidChange(from: SceneView.EdgeGraticuleState?, to: SceneView.EdgeGraticuleState) {
         
-        switch viewModel.state {
+        /*switch viewModel.state {
             
         case .empty(let editor):
             
@@ -371,6 +372,6 @@ extension TerrainPaintUtilitiesViewController: EdgeGraticuleObserver {
                 
             default: break
             }
-        }
+        }*/
     }
 }

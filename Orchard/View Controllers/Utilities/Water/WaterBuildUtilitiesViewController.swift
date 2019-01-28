@@ -193,7 +193,7 @@ extension WaterBuildUtilitiesViewController: TileGraticuleObserver {
     
     func stateDidChange(from: SceneView.TileGraticuleState?, to: SceneView.TileGraticuleState) {
         
-        switch viewModel.state {
+        /*switch viewModel.state {
             
         case .empty(let editor):
             
@@ -252,7 +252,7 @@ extension WaterBuildUtilitiesViewController: TileGraticuleObserver {
                 
             default: break
             }
-        }
+        }*/
     }
 }
 

@@ -97,10 +97,11 @@ extension SidebarTabViewController {
             case is Terrain.Type,
                  is TerrainChunk.Type,
                  is TerrainTile.Type,
-                 is TerrainNode<TerrainLayer>.Type,
-                 is TerrainLayer.Type:
+                 is TerrainNode<TerrainNodeEdge<TerrainEdgeLayer>>.Type,
+                 is TerrainNodeEdge<TerrainEdgeLayer>.Type,
+                 is TerrainEdgeLayer.Type:
                 
-                inspectorTabViewController.viewModel.state = .terrain(editor: editor, inspectable: (editor.meadow.scene.world.terrain, child as? TerrainChunk, child as? TerrainTile, child as? TerrainNode<TerrainLayer>, child as? TerrainLayer, .north))
+                inspectorTabViewController.viewModel.state = .terrain(editor: editor, inspectable: (editor.meadow.scene.world.terrain, child as? TerrainChunk, child as? TerrainTile, child as? TerrainNode<TerrainNodeEdge<TerrainEdgeLayer>>, child as? TerrainNodeEdge<TerrainEdgeLayer>, child as? TerrainEdgeLayer))
                 
             case is Water.Type,
                  is WaterChunk.Type,

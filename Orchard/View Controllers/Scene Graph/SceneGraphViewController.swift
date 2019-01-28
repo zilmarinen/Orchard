@@ -94,14 +94,39 @@ extension SceneGraphViewController {
         
         guard item != nil else { return 1 }
         
-        if let item = item as? SceneGraphParent {
+        if let scene = item as? Scene {
             
-            return item.totalChildren
+            return scene.totalChildren
         }
         
-        if let item = item as? SCNNode {
+        if let world = item as? World {
             
-            return item.childNodes.count
+            return world.totalChildren
+        }
+        
+        if let grid = item as? Grid {
+            
+            return grid.totalChildren
+        }
+        
+        if let chunk = item as? GridChunk {
+            
+            return chunk.totalChildren
+        }
+        
+        if let tile = item as? GridTile {
+            
+            return tile.totalChildren
+        }
+        
+        if let node = item as? TerrainNode {
+            
+            return node.totalChildren
+        }
+        
+        if let edge = item as? TerrainNodeEdge {
+            
+            return edge.totalChildren
         }
         
         return 0
@@ -117,14 +142,39 @@ extension SceneGraphViewController: NSOutlineViewDataSource {
     
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         
-        if let item = item as? SceneGraphParent, let child = item.child(at: index) {
+        if let scene = item as? Scene, let child = scene.child(at: index) {
             
             return child
         }
         
-        if let item = item as? SCNNode {
+        if let world = item as? World, let child = world.child(at: index) {
             
-            return item.childNodes[index]
+            return child
+        }
+        
+        if let grid = item as? Grid, let child = grid.child(at: index) {
+            
+            return child
+        }
+        
+        if let chunk = item as? GridChunk, let child = chunk.child(at: index) {
+            
+            return child
+        }
+        
+        if let tile = item as? GridTile, let child = tile.child(at: index) {
+            
+            return child
+        }
+        
+        if let node = item as? TerrainNode, let child = node.child(at: index) {
+            
+            return child
+        }
+        
+        if let edge = item as? TerrainNodeEdge, let child = edge.child(at: index) {
+            
+            return child
         }
         
         switch viewModel.state {
@@ -147,14 +197,9 @@ extension SceneGraphViewController: NSOutlineViewDelegate {
         
         guard let view = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(SceneGraphCell.cellIdentifier), owner: self) as? SceneGraphCell else { return nil }
         
-        if let _ = item as? Scene {
+        if let child = item as? SceneGraphChild {
             
-            view.textField?.stringValue = "Scene"
-            view.imageView?.image = NSImage(named: NSImage.Name("meadow_icon"))
-        }
-        else if let item = item as? SceneGraphChild {
-            
-            view.textField?.stringValue = item.name ?? ""
+            view.textField?.stringValue = child.name ?? ""
             view.imageView?.image = NSImage(named: NSImage.Name("grid_icon"))
         }
         

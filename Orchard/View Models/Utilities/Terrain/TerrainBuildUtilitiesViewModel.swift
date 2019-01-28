@@ -11,10 +11,17 @@ import THRUtilities
 
 extension TerrainBuildUtilitiesViewController {
     
+    enum ToolType: Int {
+        
+        case corner
+        case edge
+        case tile
+    }
+    
     enum ViewState: THRUtilities.State {
         
         case empty(editor: Editor?)
-        case build(editor: Editor, terrainType: TerrainType)
+        case build(editor: Editor, tool: (toolType: ToolType, terrainType: TerrainType))
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
