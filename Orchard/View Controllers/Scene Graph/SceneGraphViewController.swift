@@ -94,39 +94,9 @@ extension SceneGraphViewController {
         
         guard item != nil else { return 1 }
         
-        if let scene = item as? Scene {
+        if let item = item as? SceneGraphParent {
             
-            return scene.totalChildren
-        }
-        
-        if let world = item as? World {
-            
-            return world.totalChildren
-        }
-        
-        if let grid = item as? Grid {
-            
-            return grid.totalChildren
-        }
-        
-        if let chunk = item as? GridChunk {
-            
-            return chunk.totalChildren
-        }
-        
-        if let tile = item as? GridTile {
-            
-            return tile.totalChildren
-        }
-        
-        if let node = item as? TerrainNode {
-            
-            return node.totalChildren
-        }
-        
-        if let edge = item as? TerrainNodeEdge {
-            
-            return edge.totalChildren
+            return item.totalChildren
         }
         
         return 0
@@ -142,39 +112,9 @@ extension SceneGraphViewController: NSOutlineViewDataSource {
     
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         
-        if let scene = item as? Scene, let child = scene.child(at: index) {
-            
-            return child
-        }
-        
-        if let world = item as? World, let child = world.child(at: index) {
-            
-            return child
-        }
-        
-        if let grid = item as? Grid, let child = grid.child(at: index) {
-            
-            return child
-        }
-        
-        if let chunk = item as? GridChunk, let child = chunk.child(at: index) {
-            
-            return child
-        }
-        
-        if let tile = item as? GridTile, let child = tile.child(at: index) {
-            
-            return child
-        }
-        
-        if let node = item as? TerrainNode, let child = node.child(at: index) {
-            
-            return child
-        }
-        
-        if let edge = item as? TerrainNodeEdge, let child = edge.child(at: index) {
-            
-            return child
+        if let item = item as? SceneGraphParent {
+         
+            return item.child(at: index)!
         }
         
         switch viewModel.state {

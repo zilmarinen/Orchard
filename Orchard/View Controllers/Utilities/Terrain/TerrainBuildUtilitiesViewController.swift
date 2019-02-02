@@ -126,9 +126,9 @@ extension TerrainBuildUtilitiesViewController: CursorObserver {
     
     func stateDidChange(from: SceneView.CursorState?, to: SceneView.CursorState) {
         
-        /*switch viewModel.state {
+        switch viewModel.state {
             
-        case .build(let editor, let terrainType):
+        case .build(let editor, let tool):
             
             let options: [SCNHitTestOption : Any] = [SCNHitTestOption.rootNode: editor.meadow.scene.world,
                                                      SCNHitTestOption.categoryBitMask: SceneGraphNodeType.terrain.rawValue | SceneGraphNodeType.floor.rawValue]
@@ -204,14 +204,14 @@ extension TerrainBuildUtilitiesViewController: CursorObserver {
                             
                             if inputType == .left {
                                 
-                                let _ = editor.meadow.scene.world.terrain.add(layer: coordinate, terrainType: terrainType)
+                                let _ = editor.meadow.scene.world.terrain.add(layer: coordinate, edge: .north, terrainType: tool.terrainType)
                             }
                             else {
                                 
-                                if let terrainLayer = editor.meadow.scene.world.terrain.find(node: coordinate)?.topLayer {
-                                    
-                                    let _ = editor.meadow.scene.world.terrain.remove(layer: terrainLayer)
-                                }
+//                                if let terrainLayer = editor.meadow.scene.world.terrain.find(node: coordinate)?.topLayer {
+//
+//                                    let _ = editor.meadow.scene.world.terrain.remove(layer: terrainLayer)
+//                                }
                             }
                         }
                     }
@@ -223,7 +223,7 @@ extension TerrainBuildUtilitiesViewController: CursorObserver {
             }
             
         default: break
-        }*/
+        }
     }
 }
 
@@ -231,7 +231,7 @@ extension TerrainBuildUtilitiesViewController: TileGraticuleObserver {
     
     func stateDidChange(from: SceneView.TileGraticuleState?, to: SceneView.TileGraticuleState) {
         
-        /*switch viewModel.state {
+        switch viewModel.state {
             
         case .empty(let editor):
             
@@ -262,15 +262,15 @@ extension TerrainBuildUtilitiesViewController: TileGraticuleObserver {
                         
                         var lowerPolytope: Polytope!
                         
-                        if let terrainLayer = editor.meadow.scene.world.terrain.find(node: coordinate)?.topLayer {
-                            
-                            lowerPolytope = terrainLayer.polyhedron.upperPolytope
-                        }
-                        else {
-                         
-                            lowerPolytope = Polytope(x: MDWFloat(coordinate.x), y0: World.floor, y1: World.floor, y2: World.floor, y3: World.floor, z: MDWFloat(coordinate.z))
-                        }
-                        
+//                        if let terrainLayer = editor.meadow.scene.world.terrain.find(node: coordinate)?.topLayer {
+//
+//                            lowerPolytope = terrainLayer.polyhedron.upperPolytope
+//                        }
+//                        else {
+//
+//                            lowerPolytope = Polytope(x: MDWFloat(coordinate.x), y0: World.floor, y1: World.floor, y2: World.floor, y3: World.floor, z: MDWFloat(coordinate.z))
+//                        }
+                        lowerPolytope = Polytope(x: MDWFloat(coordinate.x), y0: World.floor, y1: World.floor, y2: World.floor, y3: World.floor, z: MDWFloat(coordinate.z))
                         let upperPolytope = Polytope.translate(polytope: lowerPolytope, translation: SCNVector3(x: 0.0, y: Axis.unitY, z: 0.0))
                         
                         let polyhedron = Polyhedron(upperPolytope: upperPolytope, lowerPolytope: lowerPolytope)
@@ -301,10 +301,9 @@ extension TerrainBuildUtilitiesViewController: TileGraticuleObserver {
                             
                             let normal = GridEdge.normal(edge: edge)
                             
-                            meshFaces.append(MeshProvider.surface(corners: corners, polytope: polyhedron.upperPolytope, color: color.vector))
+                            meshFaces.append(MeshFace.apex(corners: corners, polytope: polyhedron.upperPolytope, color: color.vector))
                             
-                            meshFaces.append(contentsOf: TerrainMeshProvider.terrainLayer(crown: corners, acuteCorner: nil, polyhedron: polyhedron, normal: normal, color: color.vector))
-                            meshFaces.append(contentsOf: TerrainMeshProvider.terrainLayer(throne: corners, acuteCorner: nil, polyhedron: polyhedron, normal: normal, color: color.vector))
+                            meshFaces.append(contentsOf: MeshFace.edge(corners: corners, polyhedron: polyhedron, normal: normal, color: color.vector))
                         }
                     }
                 }
@@ -313,6 +312,6 @@ extension TerrainBuildUtilitiesViewController: TileGraticuleObserver {
                 
             default: break
             }
-        }*/
+        }
     }
 }

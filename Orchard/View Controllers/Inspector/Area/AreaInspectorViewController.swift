@@ -103,7 +103,7 @@ class AreaInspectorViewController: NSViewController {
                 
             case selectedNodePopUp:
                 
-                guard let tile = inspectable.tile, let selectedNode = tile.child(at: sender.indexOfSelectedItem) else { break }
+                guard let tile = inspectable.tile, let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? AreaNode else { break }
                 
                 viewModel.state = .area(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, tile, selectedNode, inspectable.edge))
                 
@@ -113,7 +113,7 @@ class AreaInspectorViewController: NSViewController {
                 
                 guard let node = inspectable.node else { break }
                 
-                let selectedColorPalette = ArtDirector.shared?.palettes.child(at: sender.indexOfSelectedItem)
+                let selectedColorPalette = ArtDirector.shared?.palettes.children[sender.indexOfSelectedItem]
 
                 node.floorColorPalette = selectedColorPalette
 
@@ -149,8 +149,8 @@ class AreaInspectorViewController: NSViewController {
                     
                     let nodeEdge = node.anyEdge()
                     
-                    guard let externalColorPalette = (nodeEdge?.externalColorPalette ?? ArtDirector.shared?.palettes.child(at: externalColorPalettePopup.indexOfSelectedItem)) else { break }
-                    guard let internalColorPalette = (nodeEdge?.internalColorPalette ?? ArtDirector.shared?.palettes.child(at: internalColorPalettePopup.indexOfSelectedItem)) else { break }
+                    guard let externalColorPalette = (nodeEdge?.externalColorPalette ?? ArtDirector.shared?.palettes.children[externalColorPalettePopup.indexOfSelectedItem]) else { break }
+                    guard let internalColorPalette = (nodeEdge?.internalColorPalette ?? ArtDirector.shared?.palettes.children[internalColorPalettePopup.indexOfSelectedItem]) else { break }
                     
                     let architectureType = (nodeEdge?.architectureType ?? AreaArchitectureType.allCases[selectedArchitectureTypePopup.indexOfSelectedItem])
                     
@@ -184,7 +184,7 @@ class AreaInspectorViewController: NSViewController {
                 
                 if let nodeEdge = node.find(edge: inspectable.edge) {
                  
-                    guard let colorPalette = ArtDirector.shared?.palettes.child(at: sender.indexOfSelectedItem) else { break }
+                    guard let colorPalette = ArtDirector.shared?.palettes.children[sender.indexOfSelectedItem] else { break }
                     
                     node.set(edge: AreaNode.Edge(edge: nodeEdge.edge, edgeType: nodeEdge.edgeType, architectureType: nodeEdge.architectureType, externalColorPalette: colorPalette, internalColorPalette: nodeEdge.internalColorPalette))
                     
@@ -197,7 +197,7 @@ class AreaInspectorViewController: NSViewController {
                 
                 if let nodeEdge = node.find(edge: inspectable.edge) {
                     
-                    guard let colorPalette = ArtDirector.shared?.palettes.child(at: sender.indexOfSelectedItem) else { break }
+                    guard let colorPalette = ArtDirector.shared?.palettes.children[sender.indexOfSelectedItem] else { break }
                     
                     node.set(edge: AreaNode.Edge(edge: nodeEdge.edge, edgeType: nodeEdge.edgeType, architectureType: nodeEdge.architectureType, externalColorPalette: nodeEdge.externalColorPalette, internalColorPalette: colorPalette))
                     
@@ -293,11 +293,11 @@ extension AreaInspectorViewController {
                     selectedInternalAreaTypePopUp.addItem(withTitle: areaType.name)
                 }
                 
-                if let paletteCount = ArtDirector.shared?.palettes.totalChildren {
+                if let paletteCount = ArtDirector.shared?.palettes.children.count {
                     
                     for index in 0..<paletteCount {
                         
-                        if let palette = ArtDirector.shared?.palettes.child(at: index) {
+                        if let palette = ArtDirector.shared?.palettes.children[index] {
                             
                             selectedFloorColorPalettePopUp.addItem(withTitle: palette.name)
                             externalColorPalettePopup.addItem(withTitle: palette.name)
@@ -316,7 +316,7 @@ extension AreaInspectorViewController {
                     selectedInternalAreaTypePopUp.selectItem(at: areaType.rawValue)
                 }
                 
-                if let colorPalette = node.floorColorPalette, let index = ArtDirector.shared?.palettes.index(of: colorPalette) {
+                if let colorPalette = node.floorColorPalette, let index = ArtDirector.shared?.palettes.children.index(of: colorPalette) {
                     
                     selectedFloorColorPalettePopUp.selectItem(at: index)
                     
@@ -366,7 +366,7 @@ extension AreaInspectorViewController {
                     externalColorPalettePopup.isEnabled = true
                     internalColorPalettePopup.isEnabled = true
                     
-                    if let index = ArtDirector.shared?.palettes.index(of: nodeEdge.externalColorPalette) {
+                    if let index = ArtDirector.shared?.palettes.children.index(of: nodeEdge.externalColorPalette) {
                         
                         externalColorPalettePopup.selectItem(at: index)
                         
@@ -377,7 +377,7 @@ extension AreaInspectorViewController {
                         externalColorPaletteView.colorPalette = nil
                     }
                     
-                    if let index = ArtDirector.shared?.palettes.index(of: nodeEdge.internalColorPalette) {
+                    if let index = ArtDirector.shared?.palettes.children.index(of: nodeEdge.internalColorPalette) {
                         
                         internalColorPalettePopup.selectItem(at: index)
                         

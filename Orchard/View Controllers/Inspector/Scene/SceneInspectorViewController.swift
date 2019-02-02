@@ -21,7 +21,7 @@ class SceneInspectorViewController: NSViewController {
             
         case .scene(let editor):
             
-            let selectedColor = ArtDirector.shared?.colors.child(at: sender.indexOfSelectedItem)
+            let selectedColor = ArtDirector.shared?.colors.children[sender.indexOfSelectedItem]
             
             editor.meadow.scene.world.floor.color = selectedColor
             
@@ -73,11 +73,11 @@ extension SceneInspectorViewController {
             
             nameTextField.stringValue = editor.meadow.scene.rootNode.name ?? ""
             
-            if let colorCount = ArtDirector.shared?.colors.totalChildren {
+            if let colorCount = ArtDirector.shared?.colors.children.count {
                 
                 for index in 0..<colorCount {
                     
-                    if let color = ArtDirector.shared?.colors.child(at: index) {
+                    if let color = ArtDirector.shared?.colors.children[index] {
                         
                         clearColorPopUp.addItem(withTitle: color.name)
                         
@@ -86,7 +86,7 @@ extension SceneInspectorViewController {
                 }
             }
             
-            if let floorColor = editor.meadow.scene.world.floor.color, let index = ArtDirector.shared?.colors.index(of: floorColor) {
+            if let floorColor = editor.meadow.scene.world.floor.color, let index = ArtDirector.shared?.colors.children.index(of: floorColor) {
                 
                 clearColorPopUp.selectItem(at: index)
                 

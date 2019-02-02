@@ -61,7 +61,7 @@ extension PropUtilitiesTabViewController {
                 
             case .empty:
                 
-                guard let prop = PropsMaster.shared?.props.child(at: 0), let colorPalette = ArtDirector.shared?.palettes.child(at: 0) else { break }
+                guard let prop = PropsMaster.shared?.props.children.first, let colorPalette = ArtDirector.shared?.palettes.children.first else { break }
                 
                 let utility = PropBuildUtility(prop: prop, colorPalette: colorPalette)
                 

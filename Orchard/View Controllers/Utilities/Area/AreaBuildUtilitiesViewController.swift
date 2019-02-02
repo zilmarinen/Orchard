@@ -49,7 +49,7 @@ class AreaBuildUtilitiesViewController: NSViewController {
                 
             case selectedFloorColorPalettePopUp:
                 
-                guard let colorPalette = ArtDirector.shared?.palettes.child(at: sender.indexOfSelectedItem) else { break }
+                guard let colorPalette = ArtDirector.shared?.palettes.children[sender.indexOfSelectedItem] else { break }
                 
                 utility.floorColorPalette = colorPalette
                 
@@ -67,13 +67,13 @@ class AreaBuildUtilitiesViewController: NSViewController {
                 
             case externalColorPalettePopup:
                 
-                guard let colorPalette = ArtDirector.shared?.palettes.child(at: sender.indexOfSelectedItem) else { break }
+                guard let colorPalette = ArtDirector.shared?.palettes.children[sender.indexOfSelectedItem] else { break }
                 
                 utility.externalColorPalette = colorPalette
                 
             case internalColorPalettePopup:
                 
-                guard let colorPalette = ArtDirector.shared?.palettes.child(at: sender.indexOfSelectedItem) else { break }
+                guard let colorPalette = ArtDirector.shared?.palettes.children[sender.indexOfSelectedItem] else { break }
                 
                 utility.internalColorPalette = colorPalette
                 
@@ -166,11 +166,11 @@ extension AreaBuildUtilitiesViewController {
                 selectedArchitectureTypePopup.addItem(withTitle: architectureType.name)
             }
             
-            if let paletteCount = ArtDirector.shared?.palettes.totalChildren {
+            if let paletteCount = ArtDirector.shared?.palettes.children.count {
                 
                 for index in 0..<paletteCount {
                     
-                    if let palette = ArtDirector.shared?.palettes.child(at: index) {
+                    if let palette = ArtDirector.shared?.palettes.children[index] {
                         
                         selectedFloorColorPalettePopUp.addItem(withTitle: palette.name)
                         externalColorPalettePopup.addItem(withTitle: palette.name)
@@ -189,7 +189,7 @@ extension AreaBuildUtilitiesViewController {
                 selectedInternalAreaTypePopUp.selectItem(at: index)
             }
             
-            if let index = ArtDirector.shared?.palettes.index(of: utility.floorColorPalette) {
+            if let index = ArtDirector.shared?.palettes.children.index(of: utility.floorColorPalette) {
                 
                 selectedFloorColorPalettePopUp.selectItem(at: index)
                 
@@ -206,14 +206,14 @@ extension AreaBuildUtilitiesViewController {
                 selectedArchitectureTypePopup.selectItem(at: index)
             }
             
-            if let index = ArtDirector.shared?.palettes.index(of: utility.externalColorPalette) {
+            if let index = ArtDirector.shared?.palettes.children.index(of: utility.externalColorPalette) {
                 
                 externalColorPalettePopup.selectItem(at: index)
                 
                 externalColorPaletteView.colorPalette = utility.externalColorPalette
             }
             
-            if let index = ArtDirector.shared?.palettes.index(of: utility.internalColorPalette) {
+            if let index = ArtDirector.shared?.palettes.children.index(of: utility.internalColorPalette) {
                 
                 internalColorPalettePopup.selectItem(at: index)
                 

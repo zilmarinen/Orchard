@@ -96,6 +96,12 @@ class TerrainInspectorViewController: NSViewController {
                 
                 node.isHidden = sender.state == .off
                 
+            case edgeHiddenButton:
+                
+                guard let edge = inspectable.edge else { break }
+                
+                edge.isHidden = sender.state == .off
+                
             case layerHiddenButton:
                 
                 guard let layer = inspectable.layer else { break }
@@ -121,21 +127,23 @@ class TerrainInspectorViewController: NSViewController {
                 
             case selectedNodePopUp:
                 
-                guard let tile = inspectable.tile, let node = tile.child(at: sender.indexOfSelectedItem), let edge = node.child(at: 0), let layer = edge.child(at: 0) else { break }
+                guard let tile = inspectable.tile, let node = tile.child(at: sender.indexOfSelectedItem) as? TerrainNode, let edge = node.child(at: 0) as? TerrainNodeEdge else { break }
                 
-                viewModel.state = .terrain(editor: editor,inspectable: (inspectable.grid, inspectable.chunk, tile, node, edge, layer))
+                viewModel.state = .terrain(editor: editor,inspectable: (inspectable.grid, inspectable.chunk, tile, node, edge, edge.child(at: 0) as? TerrainEdgeLayer))
                 
                 editor.delegate.sceneGraph(didSelectChild: node, atIndex: sender.indexOfSelectedItem)
                 
             case selectedEdgePopUp:
                 
-                guard let gridEdge = GridEdge(rawValue: sender.indexOfSelectedItem), let edge = inspectable.node?.find(edge: gridEdge) else { break }
+                guard let gridEdge = GridEdge(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                viewModel.state = .terrain(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, inspectable.node, edge, edge.child(at: 0)))
+                let edge = inspectable.node?.find(edge: gridEdge)
+                
+                viewModel.state = .terrain(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, inspectable.node, edge, edge?.child(at: 0) as? TerrainEdgeLayer))
                 
             case selectedLayerPopUp:
                 
-                guard let layer = inspectable.edge?.child(at: sender.indexOfSelectedItem) else { break }
+                guard let layer = inspectable.edge?.child(at: sender.indexOfSelectedItem) as? TerrainEdgeLayer else { break }
                 
                 viewModel.state = .terrain(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, inspectable.node, inspectable.edge, layer))
                 
@@ -255,25 +263,21 @@ extension TerrainInspectorViewController {
             
             selectedNodePopUp.removeAllItems()
             selectedEdgePopUp.removeAllItems()
+            selectedLayerPopUp.removeAllItems()
             selectedTerrainTypePopUp.removeAllItems()
             
-            if let chunk = inspectable.chunk, let tile = inspectable.tile, let node = inspectable.node, let edge = inspectable.edge, let layer = inspectable.layer {
-                
-                let (c0, c1) = GridCorner.corners(edge: layer.edge)
+            if let chunk = inspectable.chunk, let tile = inspectable.tile, let node = inspectable.node {
                 
                 chunkBox.isHidden = inspectable.grid.isHidden
                 tileBox.isHidden = inspectable.grid.isHidden || chunk.isHidden
                 nodeBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden
                 edgeBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden || node.isHidden
-                layerBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden || node.isHidden || layer.isHidden
+                layerBox.isHidden = inspectable.edge == nil || inspectable.layer == nil
                 
                 tileCount.integerValue = chunk.totalChildren
-                layerCount.integerValue = edge.totalChildren
                 chunkHiddenButton.state = (chunk.isHidden ? .off : .on)
                 tileHiddenButton.state = (tile.isHidden ? .off : .on)
                 nodeHiddenButton.state = (node.isHidden ? .off : .on)
-                edgeHiddenButton.state = (node.isHidden ? .off : .on)
-                layerHiddenButton.state = (layer.isHidden ? .off : .on)
                 
                 xTileCoordinateLabel.integerValue = tile.volume.coordinate.x
                 yTileCoordinateLabel.integerValue = tile.volume.coordinate.y
@@ -298,6 +302,27 @@ extension TerrainInspectorViewController {
                 
                 for index in 0..<node.totalChildren {
                     
+                    if let nodeEdge = node.child(at: index) as? TerrainNodeEdge {
+                    
+                        selectedEdgePopUp.addItem(withTitle: nodeEdge.edge.description)
+                    }
+                }
+                
+                guard let edge = inspectable.edge, let layer = inspectable.layer else { break }
+                
+                edgeHiddenButton.state = (edge.isHidden ? .off : .on)
+                layerCount.integerValue = edge.totalChildren
+                
+                if let index = GridEdge.Edges.index(of: layer.edge) {
+                    
+                    selectedEdgePopUp.selectItem(at: index)
+                }
+                
+                layerBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden || node.isHidden || edge.isHidden
+                layerHiddenButton.state = (layer.isHidden ? .off : .on)
+                
+                for index in 0..<edge.totalChildren {
+                    
                     selectedLayerPopUp.addItem(withTitle: "Layer \(index + 1)")
                 }
                 
@@ -305,6 +330,8 @@ extension TerrainInspectorViewController {
                     
                     selectedLayerPopUp.selectItem(at: index)
                 }
+                
+                let (c0, c1) = GridCorner.corners(edge: layer.edge)
                 
                 upperCorner0Stepper.maxValue = Double(layer.upper?.get(corner: c0) ?? World.ceiling)
                 upperCorner0Stepper.minValue = Double(layer.lower?.get(corner: c0) ?? World.floor)
@@ -326,19 +353,9 @@ extension TerrainInspectorViewController {
                 lowerCorner1TextField.integerValue = (layer.lower?.get(corner: c1) ?? World.floor)
                 lowerCentreTextField.integerValue = (layer.lower?.centre ?? World.floor)
                 
-                GridEdge.Edges.forEach { edge in
-                    
-                    selectedEdgePopUp.addItem(withTitle: edge.description)
-                }
-                
                 TerrainType.allCases.forEach { terrainType in
                     
                     selectedTerrainTypePopUp.addItem(withTitle: terrainType.name)
-                }
-                
-                if let index = GridEdge.Edges.index(of: layer.edge) {
-                    
-                    selectedEdgePopUp.selectItem(at: index)
                 }
                 
                 if let index = TerrainType.allCases.index(of: layer.terrainType), let colorPalette = layer.terrainType.colorPalette {

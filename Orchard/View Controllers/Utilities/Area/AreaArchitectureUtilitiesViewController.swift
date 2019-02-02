@@ -223,7 +223,7 @@ extension AreaArchitectureUtilitiesViewController: EdgeGraticuleObserver {
                 
                 let polytope = Polytope.translate(polytope: areaNode.polyhedron.lowerPolytope, translation: SCNVector3(x: 0.0, y: Blueprint.surface + AreaNode.surface, z: 0.0))
                 
-                let meshFace = MeshProvider.surface(corners: corners, polytope: polytope, color: colorPalette.primary.vector)
+                let meshFace = MeshFace.apex(corners: corners, polytope: polytope, color: colorPalette.primary.vector)
                 
                 editor.meadow.scene.world.blueprint.add(mesh: Mesh(faces: [meshFace]))
                 

@@ -31,19 +31,19 @@ class AreaPaintUtilitiesViewController: NSViewController {
                 
             case selectedFloorColorPalettePopUp:
                 
-                guard let colorPalette = ArtDirector.shared?.palettes.child(at: sender.indexOfSelectedItem) else { break }
+                guard let colorPalette = ArtDirector.shared?.palettes.children[sender.indexOfSelectedItem] else { break }
                 
                 utility.floorColorPalette = colorPalette
                 
             case externalColorPalettePopup:
                 
-                guard let colorPalette = ArtDirector.shared?.palettes.child(at: sender.indexOfSelectedItem) else { break }
+                guard let colorPalette = ArtDirector.shared?.palettes.children[sender.indexOfSelectedItem] else { break }
                 
                 utility.externalColorPalette = colorPalette
                 
             case internalColorPalettePopup:
                 
-                guard let colorPalette = ArtDirector.shared?.palettes.child(at: sender.indexOfSelectedItem) else { break }
+                guard let colorPalette = ArtDirector.shared?.palettes.children[sender.indexOfSelectedItem] else { break }
                 
                 utility.internalColorPalette = colorPalette
                 
@@ -116,12 +116,12 @@ extension AreaPaintUtilitiesViewController {
             externalColorPaletteView.color = nil
             internalColorPaletteView.color = nil
             
-            if let paletteCount = ArtDirector.shared?.palettes.totalChildren {
+            if let paletteCount = ArtDirector.shared?.palettes.children.count {
                 
                 for index in 0..<paletteCount {
                     
-                    if let palette = ArtDirector.shared?.palettes.child(at: index) {
-                        
+                    if let palette = ArtDirector.shared?.palettes.children[index] {
+                    
                         selectedFloorColorPalettePopUp.addItem(withTitle: palette.name)
                         externalColorPalettePopup.addItem(withTitle: palette.name)
                         internalColorPalettePopup.addItem(withTitle: palette.name)
@@ -129,21 +129,21 @@ extension AreaPaintUtilitiesViewController {
                 }
             }
             
-            if let index = ArtDirector.shared?.palettes.index(of: utility.floorColorPalette) {
+            if let index = ArtDirector.shared?.palettes.children.index(of: utility.floorColorPalette) {
                 
                 selectedFloorColorPalettePopUp.selectItem(at: index)
                 
                 floorColorPaletteView.colorPalette = utility.floorColorPalette
             }
             
-            if let index = ArtDirector.shared?.palettes.index(of: utility.externalColorPalette) {
+            if let index = ArtDirector.shared?.palettes.children.index(of: utility.externalColorPalette) {
                 
                 externalColorPalettePopup.selectItem(at: index)
                 
                 externalColorPaletteView.colorPalette = utility.externalColorPalette
             }
             
-            if let index = ArtDirector.shared?.palettes.index(of: utility.internalColorPalette) {
+            if let index = ArtDirector.shared?.palettes.children.index(of: utility.internalColorPalette) {
                 
                 internalColorPalettePopup.selectItem(at: index)
                 
@@ -255,7 +255,7 @@ extension AreaPaintUtilitiesViewController: EdgeGraticuleObserver {
                 
                 let polytope = Polytope.translate(polytope: areaNode.polyhedron.lowerPolytope, translation: SCNVector3(x: 0.0, y: Blueprint.surface + AreaNode.surface, z: 0.0))
                 
-                let meshFace = MeshProvider.surface(corners: corners, polytope: polytope, color: colorPalette.primary.vector)
+                let meshFace = MeshFace.apex(corners: corners, polytope: polytope, color: colorPalette.primary.vector)
                 
                 editor.meadow.scene.world.blueprint.add(mesh: Mesh(faces: [meshFace]))
                 

@@ -115,7 +115,7 @@ class FootpathInspectorViewController: NSViewController {
                 
             case selectedNodePopUp:
                 
-                guard let tile = inspectable.tile, let selectedNode = tile.child(at: sender.indexOfSelectedItem) else { break }
+                guard let tile = inspectable.tile, let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? FootpathNode else { break }
                 
                 viewModel.state = .footpath(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, tile, selectedNode))
                 

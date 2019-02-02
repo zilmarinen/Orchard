@@ -27,13 +27,13 @@ class PropBuildUtilitiesViewController: NSViewController {
                 
             case propPopUp:
                 
-                guard let prop = PropsMaster.shared?.props.child(at: sender.indexOfSelectedItem) else { break }
+                guard let prop = PropsMaster.shared?.props.children[sender.indexOfSelectedItem] else { break }
                 
                 utility.prop = prop
                 
             case colorPalettePopUp:
                 
-                guard let colorPalette = ArtDirector.shared?.palettes.child(at: sender.indexOfSelectedItem) else { break }
+                guard let colorPalette = ArtDirector.shared?.palettes.children[sender.indexOfSelectedItem] else { break }
                 
                 utility.colorPalette = colorPalette
                 
@@ -92,34 +92,34 @@ extension PropBuildUtilitiesViewController {
             
             colorPaletteView.color = nil
             
-            if let propCount = PropsMaster.shared?.props.totalChildren {
+            if let propCount = PropsMaster.shared?.props.children.count {
                 
                 for index in 0..<propCount {
                     
-                    if let prop = PropsMaster.shared?.props.child(at: index) {
+                    if let prop = PropsMaster.shared?.props.children[index] {
                         
                         propPopUp.addItem(withTitle: prop.name)
                     }
                 }
             }
             
-            if let index = PropsMaster.shared?.props.index(of: utility.prop) {
+            if let index = PropsMaster.shared?.props.children.index(of: utility.prop) {
                 
                 propPopUp.selectItem(at: index)
             }
             
-            if let paletteCount = ArtDirector.shared?.palettes.totalChildren {
+            if let paletteCount = ArtDirector.shared?.palettes.children.count {
                 
                 for index in 0..<paletteCount {
                     
-                    if let palette = ArtDirector.shared?.palettes.child(at: index) {
+                    if let palette = ArtDirector.shared?.palettes.children[index] {
                         
                         colorPalettePopUp.addItem(withTitle: palette.name)
                     }
                 }
             }
             
-            if let index = ArtDirector.shared?.palettes.index(of: utility.colorPalette) {
+            if let index = ArtDirector.shared?.palettes.children.index(of: utility.colorPalette) {
                 
                 colorPalettePopUp.selectItem(at: index)
                 
