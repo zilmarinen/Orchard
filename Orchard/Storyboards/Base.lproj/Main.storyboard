@@ -390,7 +390,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="500" height="500"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <sceneView translatesAutoresizingMaskIntoConstraints="NO" id="cwi-RL-2bX" customClass="SceneView" customModule="Meadow">
+                            <sceneView preferredRenderingAPI="1" translatesAutoresizingMaskIntoConstraints="NO" id="cwi-RL-2bX" customClass="SceneView" customModule="Meadow">
                                 <rect key="frame" x="0.0" y="0.0" width="500" height="500"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="500" id="Rs6-lq-maf"/>

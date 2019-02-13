@@ -13,7 +13,6 @@ extension TerrainBuildUtilitiesViewController {
     
     enum ToolType: Int {
         
-        case corner
         case edge
         case tile
     }

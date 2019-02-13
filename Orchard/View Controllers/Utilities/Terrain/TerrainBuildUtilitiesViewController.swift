@@ -51,8 +51,15 @@ class TerrainBuildUtilitiesViewController: NSViewController {
     
     var cursorCallbackReference: SceneView.Cursor.CallbackReference?
     
-    lazy var graticule = {
-       
+    lazy var edgeGraticule = {
+        
+        return SceneView.EdgeGraticule()
+    }()
+    
+    var edgeGraticuleCallbackReference: SceneView.EdgeGraticule.CallbackReference?
+    
+    lazy var tileGraticule = {
+        
         return SceneView.TileGraticule()
     }()
     
@@ -67,7 +74,9 @@ extension TerrainBuildUtilitiesViewController {
         
         viewModel.subscribe(stateDidChange(from:to:))
         
-        tileGraticuleCallbackReference = graticule.subscribe(stateDidChange(from:to:))
+        edgeGraticuleCallbackReference = edgeGraticule.subscribe(stateDidChange(from:to:))
+        
+        tileGraticuleCallbackReference = tileGraticule.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -88,8 +97,6 @@ extension TerrainBuildUtilitiesViewController {
                 editor.meadow.input.cursor.unsubscribe(reference)
             }
             
-            graticule.state = .idle
-            
         case .build(let editor, let tool):
             
             editor.meadow.input.cursor.tracksIdleEvents = true
@@ -99,7 +106,6 @@ extension TerrainBuildUtilitiesViewController {
             terrainTypePopUp.removeAllItems()
             toolTypePopUp.removeAllItems()
             
-            toolTypePopUp.addItem(withTitle: "Corner")
             toolTypePopUp.addItem(withTitle: "Edge")
             toolTypePopUp.addItem(withTitle: "Tile")
             
@@ -141,17 +147,44 @@ extension TerrainBuildUtilitiesViewController: CursorObserver {
                 
                 let coordinate = Coordinate(vector: hit.worldCoordinates)
                 
-                switch graticule.state {
+                let terrainNode = editor.meadow.scene.world.terrain.find(node: coordinate)
                 
-                case .idle:
+                let polytope = (terrainNode?.polyhedron.upperPolytope ?? Polytope(x: MDWFloat(coordinate.x), y0: World.floor, y1: World.floor, y2: World.floor, y3: World.floor, z: MDWFloat(coordinate.z)))
+                
+                switch tool.toolType {
                     
-                    graticule.state = .tracking(position: coordinate, startPosition: coordinate, yOffset: 0)
+                case .edge:
                     
-                case .tracking(let position, _, _):
+                    let closestEdge = polytope.closest(edge: hit.worldCoordinates)
                     
-                    if position != coordinate {
+                    switch edgeGraticule.state {
                         
-                        graticule.state = .tracking(position: coordinate, startPosition: coordinate, yOffset: 0)
+                    case .idle:
+                        
+                        edgeGraticule.state = .tracking(position: coordinate, edge: closestEdge, yOffset: 0)
+                        
+                    case .tracking(let position, let edge, let yOffset):
+                        
+                        if position != coordinate && edge != closestEdge {
+                            
+                            edgeGraticule.state = .tracking(position: coordinate, edge: closestEdge, yOffset: yOffset)
+                        }
+                    }
+                
+                case .tile:
+                    
+                    switch tileGraticule.state {
+                        
+                    case .idle:
+                        
+                        tileGraticule.state = .tracking(position: coordinate, startPosition: coordinate, yOffset: 0)
+                        
+                    case .tracking(let position, _, let yOffset):
+                        
+                        if position != coordinate {
+                            
+                            tileGraticule.state = .tracking(position: coordinate, startPosition: coordinate, yOffset: yOffset)
+                        }
                     }
                 }
                 
@@ -161,7 +194,22 @@ extension TerrainBuildUtilitiesViewController: CursorObserver {
                 
                 let coordinate = Coordinate(vector: hit.worldCoordinates)
                 
-                graticule.state = .tracking(position: coordinate, startPosition: coordinate, yOffset: 0)
+                let terrainNode = editor.meadow.scene.world.terrain.find(node: coordinate)
+                
+                let polytope = (terrainNode?.polyhedron.upperPolytope ?? Polytope(x: MDWFloat(coordinate.x), y0: World.floor, y1: World.floor, y2: World.floor, y3: World.floor, z: MDWFloat(coordinate.z)))
+                
+                switch tool.toolType {
+                    
+                case .edge:
+                    
+                    let closestEdge = polytope.closest(edge: hit.worldCoordinates)
+                    
+                    edgeGraticule.state = .tracking(position: coordinate, edge: closestEdge, yOffset: 0)
+                    
+                case .tile:
+                    
+                    tileGraticule.state = .tracking(position: coordinate, startPosition: coordinate, yOffset: 0)
+                }
                 
             case .tracking(let position, _, _):
                 
@@ -169,16 +217,41 @@ extension TerrainBuildUtilitiesViewController: CursorObserver {
                 
                 let coordinate = Coordinate(vector: hit.worldCoordinates)
                 
-                switch graticule.state {
+                let terrainNode = editor.meadow.scene.world.terrain.find(node: coordinate)
+                
+                let polytope = (terrainNode?.polyhedron.upperPolytope ?? Polytope(x: MDWFloat(coordinate.x), y0: World.floor, y1: World.floor, y2: World.floor, y3: World.floor, z: MDWFloat(coordinate.z)))
+                
+                switch tool.toolType {
                     
-                case .tracking(let position, let startPosition, _):
+                case .edge:
                     
-                    if position != coordinate {
+                    let closestEdge = polytope.closest(edge: hit.worldCoordinates)
                     
-                        graticule.state = .tracking(position: coordinate, startPosition: startPosition, yOffset: 0)
+                    switch edgeGraticule.state {
+                        
+                    case .tracking(let position, let edge, let yOffset):
+                        
+                        if position != coordinate {
+                        
+                            edgeGraticule.state = .tracking(position: coordinate, edge: closestEdge, yOffset: yOffset)
+                        }
+                        
+                    default: break
                     }
                     
-                default: break
+                case .tile:
+                    
+                    switch tileGraticule.state {
+                        
+                    case .tracking(let position, let startPosition, let yOffset):
+                        
+                        if position != coordinate {
+                        
+                            tileGraticule.state = .tracking(position: coordinate, startPosition: startPosition, yOffset: yOffset)
+                        }
+                        
+                    default: break
+                    }
                 }
                 
             case .up(let position, let inputType, _):
@@ -187,42 +260,165 @@ extension TerrainBuildUtilitiesViewController: CursorObserver {
                 
                 let coordinate = Coordinate(vector: hit.worldCoordinates)
                 
-                switch graticule.state {
+                switch tool.toolType {
                     
-                case .tracking(_, let startPosition, _):
+                case .edge:
                     
-                    let minimumX = min(startPosition.x, coordinate.x)
-                    let maximumX = max(startPosition.x, coordinate.x)
-                    let minimumZ = min(startPosition.z, coordinate.z)
-                    let maximumZ = max(startPosition.z, coordinate.z)
+                    let terrainNode = editor.meadow.scene.world.terrain.find(node: coordinate)
                     
-                    for x in minimumX...maximumX {
+                    let polytope = (terrainNode?.polyhedron.upperPolytope ?? Polytope(x: MDWFloat(coordinate.x), y0: World.floor, y1: World.floor, y2: World.floor, y3: World.floor, z: MDWFloat(coordinate.z)))
+                    
+                    let closestEdge = polytope.closest(edge: hit.worldCoordinates)
+                    
+                    if inputType == .left {
                         
-                        for z in minimumZ...maximumZ {
+                        let _ = editor.meadow.scene.world.terrain.add(layer: coordinate, edge: closestEdge, terrainType: tool.terrainType)
+                    }
+                    else {
+                        
+                        if let nodeEdge = terrainNode?.find(edge: closestEdge), let layer = nodeEdge.topLayer {
                             
-                            let coordinate = Coordinate(x: x, y: World.floor, z: z)
+                            editor.meadow.scene.world.terrain.remove(layer: layer)
+                        }
+                    }
+                    
+                    edgeGraticule.state = .idle
+                    
+                case .tile:
+                    
+                    switch tileGraticule.state {
+                        
+                    case .tracking(_, let startPosition, _):
+                        
+                        let minimumX = min(startPosition.x, coordinate.x)
+                        let maximumX = max(startPosition.x, coordinate.x)
+                        let minimumZ = min(startPosition.z, coordinate.z)
+                        let maximumZ = max(startPosition.z, coordinate.z)
+                        
+                        for x in minimumX...maximumX {
                             
-                            if inputType == .left {
+                            for z in minimumZ...maximumZ {
                                 
-                                let _ = editor.meadow.scene.world.terrain.add(layer: coordinate, edge: .north, terrainType: tool.terrainType)
-                            }
-                            else {
+                                let coordinate = Coordinate(x: x, y: World.floor, z: z)
                                 
-//                                if let terrainLayer = editor.meadow.scene.world.terrain.find(node: coordinate)?.topLayer {
-//
-//                                    let _ = editor.meadow.scene.world.terrain.remove(layer: terrainLayer)
-//                                }
+                                GridEdge.Edges.forEach { edge in
+                                    
+                                    if inputType == .left {
+                                    
+                                        let _ = editor.meadow.scene.world.terrain.add(layer: coordinate, edge: edge, terrainType: tool.terrainType)
+                                    }
+                                    else {
+                                    
+                                        if let terrainNode = editor.meadow.scene.world.terrain.find(node: coordinate) {
+                                        
+                                            if let nodeEdge = terrainNode.find(edge: edge), let layer = nodeEdge.topLayer {
+                                                
+                                                editor.meadow.scene.world.terrain.remove(layer: layer)
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
+                        
+                    default: break
+                    }
+                    
+                    tileGraticule.state = .idle
+                }
+            }
+            
+        default: break
+        }
+    }
+}
+
+extension TerrainBuildUtilitiesViewController: EdgeGraticuleObserver {
+    
+    func stateDidChange(from: SceneView.EdgeGraticuleState?, to: SceneView.EdgeGraticuleState) {
+        
+        switch viewModel.state {
+            
+        case .empty(let editor):
+            
+            editor?.meadow.scene.world.blueprint.clear()
+            
+        case .build(let editor, _):
+            
+            editor.meadow.scene.world.blueprint.clear()
+            
+            guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint") else { break }
+            
+            var meshFaces: [MeshFace] = []
+            
+            switch edgeGraticule.state {
+                
+            case .tracking(let position, let edge, _):
+                
+                let terrainNode = editor.meadow.scene.world.terrain.find(node: position)
+                
+                let nodeEdge = terrainNode?.find(edge: edge)
+                
+                let lowerPolytope = (nodeEdge?.polyhedron.upperPolytope ?? Polytope(x: MDWFloat(position.x), y0: World.floor, y1: World.floor, y2: World.floor, y3: World.floor, z: MDWFloat(position.z)))
+                
+                let upperPolytope = Polytope.translate(polytope: lowerPolytope, translation: SCNVector3(x: 0.0, y: Axis.unitY, z: 0.0))
+                
+                let polyhedron = Polyhedron(upperPolytope: upperPolytope, lowerPolytope: lowerPolytope)
+                
+                var color = colorPalette.primary
+                
+                switch editor.meadow.input.cursor.state {
+                    
+                case .down(_, let inputType),
+                     .tracking(_, let inputType, _),
+                     .up(_, let inputType, _):
+                    
+                    if inputType == .left {
+                        
+                        color = colorPalette.secondary
+                    }
+                    else {
+                        
+                        color = colorPalette.tertiary
                     }
                     
                 default: break
                 }
                 
-                graticule.state = .idle
+                let (c0, c1) = GridCorner.corners(edge: edge)
+                
+                let edgeNormal = GridEdge.normal(edge: edge)
+                let inverseNormal = SCNVector3.negate(vector: edgeNormal)
+                
+                meshFaces.append(MeshFace.apex(corners: (c0: c0, c1: c1), polytope: polyhedron.upperPolytope, color: color.vector))
+                
+                meshFaces.append(contentsOf: MeshFace.edge(corners: (c0: c0, c1: c1), polyhedron: polyhedron, normal: edgeNormal, color: color.vector))
+                
+                let (e0, e1) = GridEdge.edges(edge: edge)
+                
+                [e0, e1].forEach { connectedEdge in
+                    
+                    let diagonalNormal = inverseNormal + GridEdge.normal(edge: connectedEdge)
+                    
+                    let (c2, c3) = GridCorner.corners(edge: connectedEdge)
+                    
+                    let corner = (c2 == c0 ? c2 : (c2 == c1 ? c2 : c3))
+                    
+                    let cornerUpper = polyhedron.upperPolytope.vertices[corner.rawValue]
+                    let centreUpper = polyhedron.upperPolytope.center
+                    
+                    let cornerLower = polyhedron.lowerPolytope.vertices[corner.rawValue]
+                    let centerLower = polyhedron.lowerPolytope.center
+                    
+                    let polytope = Polytope(v0: cornerUpper, v1: centreUpper, v2: centerLower, v3: cornerLower)
+                    
+                    meshFaces.append(contentsOf: MeshFace.diagonal(polytope: polytope, normal: diagonalNormal, color: colorPalette.secondary.vector))
+                }
+                
+            default: break
             }
             
-        default: break
+            editor.meadow.scene.world.blueprint.add(mesh: Mesh(faces: meshFaces))
         }
     }
 }
@@ -241,13 +437,13 @@ extension TerrainBuildUtilitiesViewController: TileGraticuleObserver {
             
             editor.meadow.scene.world.blueprint.clear()
             
-            switch graticule.state {
+            guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint") else { break }
+            
+            var meshFaces: [MeshFace] = []
+            
+            switch tileGraticule.state {
                 
             case .tracking(let position, let startPosition, _):
-                
-                guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint") else { break }
-                
-                var meshFaces: [MeshFace] = []
                 
                 let minimumX = min(startPosition.x, position.x)
                 let maximumX = max(startPosition.x, position.x)
@@ -255,22 +451,15 @@ extension TerrainBuildUtilitiesViewController: TileGraticuleObserver {
                 let maximumZ = max(startPosition.z, position.z)
                 
                 for x in minimumX...maximumX {
-                
+                    
                     for z in minimumZ...maximumZ {
                         
                         let coordinate = Coordinate(x: x, y: World.floor, z: z)
                         
-                        var lowerPolytope: Polytope!
+                        let terrainNode = editor.meadow.scene.world.terrain.find(node: coordinate)
                         
-//                        if let terrainLayer = editor.meadow.scene.world.terrain.find(node: coordinate)?.topLayer {
-//
-//                            lowerPolytope = terrainLayer.polyhedron.upperPolytope
-//                        }
-//                        else {
-//
-//                            lowerPolytope = Polytope(x: MDWFloat(coordinate.x), y0: World.floor, y1: World.floor, y2: World.floor, y3: World.floor, z: MDWFloat(coordinate.z))
-//                        }
-                        lowerPolytope = Polytope(x: MDWFloat(coordinate.x), y0: World.floor, y1: World.floor, y2: World.floor, y3: World.floor, z: MDWFloat(coordinate.z))
+                        let lowerPolytope = (terrainNode?.polyhedron.upperPolytope ?? Polytope(x: MDWFloat(coordinate.x), y0: World.floor, y1: World.floor, y2: World.floor, y3: World.floor, z: MDWFloat(coordinate.z)))
+                        
                         let upperPolytope = Polytope.translate(polytope: lowerPolytope, translation: SCNVector3(x: 0.0, y: Axis.unitY, z: 0.0))
                         
                         let polyhedron = Polyhedron(upperPolytope: upperPolytope, lowerPolytope: lowerPolytope)
@@ -308,10 +497,10 @@ extension TerrainBuildUtilitiesViewController: TileGraticuleObserver {
                     }
                 }
                 
-                editor.meadow.scene.world.blueprint.add(mesh: Mesh(faces: meshFaces))
-                
             default: break
             }
+            
+            editor.meadow.scene.world.blueprint.add(mesh: Mesh(faces: meshFaces))
         }
     }
 }

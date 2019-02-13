@@ -115,7 +115,7 @@ extension SceneViewController {
             
             editor.meadow.scene.delegate = self
             
-            editor.meadow.sceneView.viewModel.state = .scene(scene: editor.meadow.scene, input: editor.meadow.input)
+            editor.meadow.sceneView.viewModel.state = .scene(meadow: editor.meadow)
             
             editor.meadow.sceneView.showsStatistics = true
             editor.meadow.sceneView.isPlaying = true
@@ -141,17 +141,12 @@ extension SceneViewController: KeyboardObserver {
                     
                     switch key {
                         
-                    case .q:
-                        
-                        edge = (GridEdge(rawValue: edge.rawValue + 1) ?? GridEdge.north)
-                        
-                    case .e:
-                        
-                        edge = (GridEdge(rawValue: edge.rawValue - 1) ?? GridEdge.west)
+                    case .q: edge = (GridEdge(rawValue: edge.rawValue + 1) ?? GridEdge.north)
+                    case .e: edge = (GridEdge(rawValue: edge.rawValue - 1) ?? GridEdge.west)
                         
                     default: break
                     }
-                    print("edge: \(edge)")
+                    
                     editor.meadow.scene.cameraJib.model.state = .focus(vector: vector, edge: edge, zoom: zoom)
                     
                 default: break

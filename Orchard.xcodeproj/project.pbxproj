@@ -46,6 +46,7 @@
 		18733DA12139470C00491CB7 /* SceneGraphViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18733DA02139470C00491CB7 /* SceneGraphViewModel.swift */; };
 		18733DA421394F1900491CB7 /* SceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18733DA321394F1900491CB7 /* SceneViewModel.swift */; };
 		1884F8A520B0548F0023AA0B /* InspectorTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884F8A420B0548F0023AA0B /* InspectorTabViewController.swift */; };
+		18866768220B241600FFE6F6 /* libPods-Orchard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEC913C8FBAB8126A50226D5 /* libPods-Orchard.a */; };
 		18873B892111B6510010B52C /* ColorPaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18873B882111B6510010B52C /* ColorPaletteView.swift */; };
 		188E38EB20B57CC0001A6C3A /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E38E920B57CC0001A6C3A /* Document.swift */; };
 		189256B920B7FFE400FD9364 /* AreaInspectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256B820B7FFE400FD9364 /* AreaInspectorViewModel.swift */; };
@@ -96,7 +97,6 @@
 		18F64842219C1D8C00CE3267 /* PropUtilitiesTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F64841219C1D8C00CE3267 /* PropUtilitiesTabViewModel.swift */; };
 		18F64844219C1DB000CE3267 /* PropBuildUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F64843219C1DB000CE3267 /* PropBuildUtilitiesViewModel.swift */; };
 		18FCFAF220B2D34000EBCBBB /* SceneInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCFAF120B2D34000EBCBBB /* SceneInspectorViewController.swift */; };
-		95C09820F6A9C63DD26AA375 /* libPods-Orchard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEC913C8FBAB8126A50226D5 /* libPods-Orchard.a */; };
 		BA07A3D5ED20566BF813225B /* libPods-Orchard-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0179D21FEE16CD532608FE07 /* libPods-Orchard-Tests.a */; };
 /* End PBXBuildFile section */
 
@@ -115,6 +115,7 @@
 		0EC9B9EA3D57D1579AF7465E /* Pods-OrchardTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OrchardTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OrchardTests/Pods-OrchardTests.release.xcconfig"; sourceTree = "<group>"; };
 		1803165C20B6F2DF009D367F /* TerrainInspectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainInspectorViewModel.swift; sourceTree = "<group>"; };
 		1805DF2120C912FF00F333C6 /* InspectorSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorSceneView.swift; sourceTree = "<group>"; };
+		181EDA2322103C47002CD162 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		1820662B20B05BDB00D0356D /* AreaInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaInspectorViewController.swift; sourceTree = "<group>"; };
 		1820662D20B05BE600D0356D /* FoliageInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageInspectorViewController.swift; sourceTree = "<group>"; };
 		1820663120B05C0000D0356D /* FootpathInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathInspectorViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +157,7 @@
 		18733DA02139470C00491CB7 /* SceneGraphViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGraphViewModel.swift; sourceTree = "<group>"; };
 		18733DA321394F1900491CB7 /* SceneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneViewModel.swift; sourceTree = "<group>"; };
 		1884F8A420B0548F0023AA0B /* InspectorTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorTabViewController.swift; sourceTree = "<group>"; };
+		18866766220B23EB00FFE6F6 /* libMeadow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libMeadow.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		18873B882111B6510010B52C /* ColorPaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPaletteView.swift; sourceTree = "<group>"; };
 		188E38E920B57CC0001A6C3A /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		189256B820B7FFE400FD9364 /* AreaInspectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaInspectorViewModel.swift; sourceTree = "<group>"; };
@@ -220,7 +222,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95C09820F6A9C63DD26AA375 /* libPods-Orchard.a in Frameworks */,
+				18866768220B241600FFE6F6 /* libPods-Orchard.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -841,6 +843,8 @@
 		428DBAAD587453FEBFF7B21A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				181EDA2322103C47002CD162 /* MetalKit.framework */,
+				18866766220B23EB00FFE6F6 /* libMeadow.a */,
 				BEC913C8FBAB8126A50226D5 /* libPods-Orchard.a */,
 				95616876E66A90764CB82BEE /* libPods-OrchardTests.a */,
 				0179D21FEE16CD532608FE07 /* libPods-Orchard-Tests.a */,
@@ -977,7 +981,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Orchard/Pods-Orchard-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Orchard/Pods-Orchard-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/Meadow/Meadow.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -986,7 +990,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Orchard/Pods-Orchard-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Orchard/Pods-Orchard-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EE4BCFC560E6F208F2157145 /* [CP] Check Pods Manifest.lock */ = {
@@ -1182,6 +1186,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1238,6 +1243,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
@@ -1256,7 +1262,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Orchard/Supporting/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.Orchard";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1270,7 +1279,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Orchard/Supporting/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.Orchard";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1285,7 +1297,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = OrchardTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.OrchardTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -1302,7 +1318,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = OrchardTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.OrchardTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
