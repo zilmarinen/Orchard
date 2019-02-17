@@ -168,6 +168,13 @@ extension InspectorTabViewController {
                 inspectable.chunk = inspectable.tile?.observer as? WaterChunk
             }
             
+            if let edge = inspectable.edge {
+                
+                inspectable.node = edge.observer as? WaterNode
+                inspectable.tile = inspectable.node?.observer as? WaterTile
+                inspectable.chunk = inspectable.tile?.observer as? WaterChunk
+            }
+            
             viewController.viewModel.state = .water(editor: editor, inspectable: inspectable)
             
         default: break

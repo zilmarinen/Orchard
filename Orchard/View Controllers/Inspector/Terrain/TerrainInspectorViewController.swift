@@ -19,6 +19,7 @@ class TerrainInspectorViewController: NSViewController {
     
     @IBOutlet weak var chunkCount: NSTextField!
     @IBOutlet weak var tileCount: NSTextField!
+    @IBOutlet weak var edgeCount: NSTextField!
     @IBOutlet weak var layerCount: NSTextField!
     
     @IBOutlet weak var gridHiddenButton: NSButton!
@@ -275,6 +276,7 @@ extension TerrainInspectorViewController {
                 layerBox.isHidden = inspectable.edge == nil || inspectable.layer == nil
                 
                 tileCount.integerValue = chunk.totalChildren
+                edgeCount.integerValue = node.totalChildren
                 chunkHiddenButton.state = (chunk.isHidden ? .off : .on)
                 tileHiddenButton.state = (tile.isHidden ? .off : .on)
                 nodeHiddenButton.state = (node.isHidden ? .off : .on)

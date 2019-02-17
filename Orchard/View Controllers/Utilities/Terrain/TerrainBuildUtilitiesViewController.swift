@@ -231,7 +231,7 @@ extension TerrainBuildUtilitiesViewController: CursorObserver {
                         
                     case .tracking(let position, let edge, let yOffset):
                         
-                        if position != coordinate {
+                        if position != coordinate && edge != closestEdge {
                         
                             edgeGraticule.state = .tracking(position: coordinate, edge: closestEdge, yOffset: yOffset)
                         }
@@ -412,7 +412,7 @@ extension TerrainBuildUtilitiesViewController: EdgeGraticuleObserver {
                     
                     let polytope = Polytope(v0: cornerUpper, v1: centreUpper, v2: centerLower, v3: cornerLower)
                     
-                    meshFaces.append(contentsOf: MeshFace.diagonal(polytope: polytope, normal: diagonalNormal, color: colorPalette.secondary.vector))
+                    meshFaces.append(contentsOf: MeshFace.diagonal(polytope: polytope, normal: diagonalNormal, color: color.vector))
                 }
                 
             default: break

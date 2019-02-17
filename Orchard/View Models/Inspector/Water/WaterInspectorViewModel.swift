@@ -9,7 +9,7 @@
 import Meadow
 import THRUtilities
 
-typealias WaterInspectable = (grid: Water, chunk: WaterChunk?, tile: WaterTile?, node: WaterNode?)
+typealias WaterInspectable = (grid: Water, chunk: WaterChunk?, tile: WaterTile?, node: WaterNode<WaterNodeEdge>?, edge: WaterNodeEdge?)
 
 extension WaterInspectorViewController {
     

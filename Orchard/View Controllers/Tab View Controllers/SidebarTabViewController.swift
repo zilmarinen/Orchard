@@ -106,9 +106,10 @@ extension SidebarTabViewController {
             case is Water.Type,
                  is WaterChunk.Type,
                  is WaterTile.Type,
-                 is WaterNode.Type:
+                 is WaterNode<WaterNodeEdge>.Type,
+                 is WaterNodeEdge.Type:
                 
-                inspectorTabViewController.viewModel.state = .water(editor: editor, inspectable: (editor.meadow.scene.world.water, child as? WaterChunk, child as? WaterTile, child as? WaterNode))
+                inspectorTabViewController.viewModel.state = .water(editor: editor, inspectable: (editor.meadow.scene.world.water, child as? WaterChunk, child as? WaterTile, child as? WaterNode<WaterNodeEdge>, child as? WaterNodeEdge))
                 
             case is Scene.Type:
                 

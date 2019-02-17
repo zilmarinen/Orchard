@@ -14,14 +14,17 @@ class WaterInspectorViewController: NSViewController {
     @IBOutlet weak var chunkBox: NSBox!
     @IBOutlet weak var tileBox: NSBox!
     @IBOutlet weak var nodeBox: NSBox!
+    @IBOutlet weak var edgeBox: NSBox!
     
     @IBOutlet weak var chunkCount: NSTextField!
     @IBOutlet weak var tileCount: NSTextField!
+    @IBOutlet weak var edgeCount: NSTextField!
     
     @IBOutlet weak var gridHiddenButton: NSButton!
     @IBOutlet weak var chunkHiddenButton: NSButton!
     @IBOutlet weak var tileHiddenButton: NSButton!
     @IBOutlet weak var nodeHiddenButton: NSButton!
+    @IBOutlet weak var edgeHiddenButton: NSButton!
     
     @IBOutlet weak var xTileCoordinateLabel: NSTextField!
     @IBOutlet weak var yTileCoordinateLabel: NSTextField!
@@ -38,9 +41,15 @@ class WaterInspectorViewController: NSViewController {
     @IBOutlet weak var heightNodeSizeLabel: NSTextField!
     @IBOutlet weak var depthNodeSizeLabel: NSTextField!
     
+    @IBOutlet weak var selectedEdgePopUp: NSPopUpButton!
+    
     @IBOutlet weak var selectedWaterTypePopUp: NSPopUpButton!
     
     @IBOutlet weak var colorPaletteView: ColorPaletteView!
+    
+    @IBOutlet weak var waterLevelTextField: NSTextField!
+    
+    @IBOutlet weak var waterLevelStepper: NSStepper!
     
     @IBAction func button(_ sender: NSButton) {
         
@@ -72,6 +81,12 @@ class WaterInspectorViewController: NSViewController {
                 
                 node.isHidden = sender.state == .off
                 
+            case edgeHiddenButton:
+                
+                guard let edge = inspectable.edge else { break }
+                
+                edge.isHidden = sender.state == .off
+                
             default: break
             }
             
@@ -93,20 +108,74 @@ class WaterInspectorViewController: NSViewController {
                 
                 guard let tile = inspectable.tile, let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? WaterNode else { break }
                 
-                viewModel.state = .water(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, tile, selectedNode))
+                viewModel.state = .water(editor: editor, inspectable: (grid: inspectable.grid, chunk: inspectable.chunk, tile: tile, node: selectedNode, edge: selectedNode.child(at: 0) as? WaterNodeEdge))
                 
                 editor.delegate.sceneGraph(didSelectChild: selectedNode, atIndex: sender.indexOfSelectedItem)
                 
+            case selectedEdgePopUp:
+                
+                guard let gridEdge = GridEdge(rawValue: sender.indexOfSelectedItem) else { break }
+                
+                let edge = inspectable.node?.find(edge: gridEdge)
+                
+                viewModel.state = .water(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, inspectable.node, edge))
+                
             case selectedWaterTypePopUp:
                 
-                guard let node = inspectable.node, let selectedWaterType = WaterType(rawValue: sender.indexOfSelectedItem) else { break }
+                guard let edge = inspectable.edge, let selectedWaterType = WaterType(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                node.waterType = selectedWaterType
+                edge.waterType = selectedWaterType
                 
                 viewModel.state = .water(editor: editor, inspectable: inspectable)
                 
             default: break
             }
+            
+        default: break
+        }
+    }
+    
+    @IBAction func stepper(_ sender: NSStepper) {
+        
+        switch viewModel.state {
+            
+        case .water(let editor, let inspectable):
+            
+            guard let edge = inspectable.edge else { break }
+            
+            switch sender {
+                
+            case waterLevelStepper:
+                
+                edge.waterLevel = sender.integerValue
+                
+            default: break
+            }
+            
+            viewModel.state = .water(editor: editor, inspectable: inspectable)
+            
+        default: break
+        }
+    }
+    
+    @IBAction func textField(_ sender: NSTextField) {
+        
+        switch viewModel.state {
+            
+        case .water(let editor, let inspectable):
+            
+            guard let edge = inspectable.edge else { break }
+            
+            switch sender {
+                
+            case waterLevelStepper:
+                
+                edge.waterLevel = sender.integerValue
+                
+            default: break
+            }
+            
+            viewModel.state = .water(editor: editor, inspectable: inspectable)
             
         default: break
         }
@@ -142,8 +211,10 @@ extension WaterInspectorViewController {
             chunkBox.isHidden = true
             tileBox.isHidden = true
             nodeBox.isHidden = true
+            edgeBox.isHidden = true
             
             selectedNodePopUp.removeAllItems()
+            selectedEdgePopUp.removeAllItems()
             selectedWaterTypePopUp.removeAllItems()
             
             if let chunk = inspectable.chunk, let tile = inspectable.tile, let node = inspectable.node {
@@ -151,8 +222,10 @@ extension WaterInspectorViewController {
                 chunkBox.isHidden = inspectable.grid.isHidden
                 tileBox.isHidden = inspectable.grid.isHidden || chunk.isHidden
                 nodeBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden
+                edgeBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden || node.isHidden
                 
                 tileCount.integerValue = chunk.totalChildren
+                edgeCount.integerValue = node.totalChildren
                 chunkHiddenButton.state = (chunk.isHidden ? .off : .on)
                 tileHiddenButton.state = (tile.isHidden ? .off : .on)
                 nodeHiddenButton.state = (node.isHidden ? .off : .on)
@@ -178,12 +251,35 @@ extension WaterInspectorViewController {
                 heightNodeSizeLabel.integerValue = node.volume.size.height
                 depthNodeSizeLabel.integerValue = node.volume.size.depth
                 
+                for index in 0..<node.totalChildren {
+                    
+                    if let nodeEdge = node.child(at: index) as? WaterNodeEdge {
+                        
+                        selectedEdgePopUp.addItem(withTitle: nodeEdge.edge.description)
+                    }
+                }
+                
+                guard let edge = inspectable.edge else { break }
+                
+                edgeHiddenButton.state = (edge.isHidden ? .off : .on)
+                
+                if let index = GridEdge.Edges.index(of: edge.edge) {
+                    
+                    selectedEdgePopUp.selectItem(at: index)
+                }
+                
+                waterLevelStepper.maxValue = Double(World.ceiling)
+                waterLevelStepper.minValue = Double(World.floor + 1)
+                waterLevelStepper.integerValue = edge.waterLevel
+                
+                waterLevelTextField.integerValue = waterLevelStepper.integerValue
+                
                 WaterType.allCases.forEach { waterType in
                     
                     selectedWaterTypePopUp.addItem(withTitle: waterType.name)
                 }
                 
-                if let waterType = node.waterType, let index = WaterType.allCases.index(of: waterType), let colorPalette = waterType.colorPalette {
+                if let index = WaterType.allCases.index(of: edge.waterType), let colorPalette = edge.waterType.colorPalette {
                     
                     selectedWaterTypePopUp.selectItem(at: index)
                     

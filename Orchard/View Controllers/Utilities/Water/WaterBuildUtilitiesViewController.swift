@@ -37,12 +37,12 @@ class WaterBuildUtilitiesViewController: NSViewController {
     
     var cursorCallbackReference: SceneView.Cursor.CallbackReference?
     
-    lazy var graticule = {
+    lazy var edgeGraticule = {
         
-        return SceneView.TileGraticule()
+        return SceneView.EdgeGraticule()
     }()
     
-    var tileGraticuleCallbackReference: SceneView.TileGraticule.CallbackReference?
+    var edgeGraticuleCallbackReference: SceneView.EdgeGraticule.CallbackReference?
 }
 
 extension WaterBuildUtilitiesViewController {
@@ -53,7 +53,7 @@ extension WaterBuildUtilitiesViewController {
         
         viewModel.subscribe(stateDidChange(from:to:))
         
-        tileGraticuleCallbackReference = graticule.subscribe(stateDidChange(from:to:))
+        edgeGraticuleCallbackReference = edgeGraticule.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -73,8 +73,6 @@ extension WaterBuildUtilitiesViewController {
                 
                 editor.meadow.input.cursor.unsubscribe(reference)
             }
-            
-            graticule.state = .idle
             
         case .build(let editor, let waterType):
             
@@ -120,17 +118,23 @@ extension WaterBuildUtilitiesViewController: CursorObserver {
                 
                 let coordinate = Coordinate(vector: hit.worldCoordinates)
                 
-                switch graticule.state {
+                let terrainNode = editor.meadow.scene.world.terrain.find(node: coordinate)
+                
+                let polytope = (terrainNode?.polyhedron.upperPolytope ?? Polytope(x: MDWFloat(coordinate.x), y0: World.floor, y1: World.floor, y2: World.floor, y3: World.floor, z: MDWFloat(coordinate.z)))
+                
+                let closestEdge = polytope.closest(edge: hit.worldCoordinates)
+                
+                switch edgeGraticule.state {
                     
                 case .idle:
                     
-                    graticule.state = .tracking(position: coordinate, startPosition: coordinate, yOffset: 0)
+                    edgeGraticule.state = .tracking(position: coordinate, edge: closestEdge, yOffset: 0)
                     
-                case .tracking(let position, _, _):
+                case .tracking(let position, let edge, let yOffset):
                     
-                    if position != coordinate {
+                    if position != coordinate && edge != closestEdge {
                         
-                        graticule.state = .tracking(position: coordinate, startPosition: coordinate, yOffset: 0)
+                        edgeGraticule.state = .tracking(position: coordinate, edge: closestEdge, yOffset: yOffset)
                     }
                 }
                 
@@ -140,7 +144,13 @@ extension WaterBuildUtilitiesViewController: CursorObserver {
                 
                 let coordinate = Coordinate(vector: hit.worldCoordinates)
                 
-                graticule.state = .tracking(position: coordinate, startPosition: coordinate, yOffset: 0)
+                let terrainNode = editor.meadow.scene.world.terrain.find(node: coordinate)
+                
+                let polytope = (terrainNode?.polyhedron.upperPolytope ?? Polytope(x: MDWFloat(coordinate.x), y0: World.floor, y1: World.floor, y2: World.floor, y3: World.floor, z: MDWFloat(coordinate.z)))
+                
+                let closestEdge = polytope.closest(edge: hit.worldCoordinates)
+                
+                edgeGraticule.state = .tracking(position: coordinate, edge: closestEdge, yOffset: 0)
                 
             case .tracking(let position, _, _):
                 
@@ -148,13 +158,19 @@ extension WaterBuildUtilitiesViewController: CursorObserver {
                 
                 let coordinate = Coordinate(vector: hit.worldCoordinates)
                 
-                switch graticule.state {
+                let terrainNode = editor.meadow.scene.world.terrain.find(node: coordinate)
+                
+                let polytope = (terrainNode?.polyhedron.upperPolytope ?? Polytope(x: MDWFloat(coordinate.x), y0: World.floor, y1: World.floor, y2: World.floor, y3: World.floor, z: MDWFloat(coordinate.z)))
+                
+                let closestEdge = polytope.closest(edge: hit.worldCoordinates)
+                
+                switch edgeGraticule.state {
                     
-                case .tracking(let position, let startPosition, _):
+                case .tracking(let position, let edge, let yOffset):
                     
-                    if position != coordinate {
+                    if position != coordinate && edge != closestEdge {
                         
-                        graticule.state = .tracking(position: coordinate, startPosition: startPosition, yOffset: 0)
+                        edgeGraticule.state = .tracking(position: coordinate, edge: closestEdge, yOffset: yOffset)
                     }
                     
                 default: break
@@ -166,22 +182,32 @@ extension WaterBuildUtilitiesViewController: CursorObserver {
                 
                 let coordinate = Coordinate(vector: hit.worldCoordinates)
                 
-                if inputType == .left {
+                if let terrainNode = editor.meadow.scene.world.terrain.find(node: coordinate) {
+                
+                    let closestEdge = terrainNode.polyhedron.upperPolytope.closest(edge: hit.worldCoordinates)
                     
-                    let waterNode = editor.meadow.scene.world.water.add(node: coordinate)
+                    if let terrainNodeEdge = terrainNode.find(edge: closestEdge) {
                     
-                    waterNode?.waterType = waterType
-                    waterNode?.waterLevel = coordinate.y + 1
-                }
-                else {
+                        if inputType == .left, let terrainEdgeLayer = terrainNodeEdge.topLayer {
                     
-                    if let waterNode = editor.meadow.scene.world.water.find(node: coordinate) {
+                            let waterNodeEdge = editor.meadow.scene.world.water.add(edge: coordinate, edge: closestEdge, waterType: waterType)
+                    
+                            waterNodeEdge?.waterType = waterType
+                            waterNodeEdge?.waterLevel = terrainEdgeLayer.peak + 1
+                        }
+                        else {
+                            
+                            let waterNode = editor.meadow.scene.world.water.find(node: coordinate)
+                    
+                            if let nodeEdge = waterNode?.find(edge: closestEdge) {
                         
-                        let _ = editor.meadow.scene.world.water.drain(node: waterNode)
+                                let _ = editor.meadow.scene.world.water.remove(edge: nodeEdge)
+                            }
+                        }
                     }
                 }
                 
-                graticule.state = .idle
+                edgeGraticule.state = .idle
             }
             
         default: break
@@ -189,12 +215,12 @@ extension WaterBuildUtilitiesViewController: CursorObserver {
     }
 }
 
-extension WaterBuildUtilitiesViewController: TileGraticuleObserver {
+extension WaterBuildUtilitiesViewController: EdgeGraticuleObserver {
     
-    func stateDidChange(from: SceneView.TileGraticuleState?, to: SceneView.TileGraticuleState) {
+    func stateDidChange(from: SceneView.EdgeGraticuleState?, to: SceneView.EdgeGraticuleState) {
         
-        /*switch viewModel.state {
-            
+        switch viewModel.state {
+
         case .empty(let editor):
             
             editor?.meadow.scene.world.blueprint.clear()
@@ -203,30 +229,29 @@ extension WaterBuildUtilitiesViewController: TileGraticuleObserver {
             
             editor.meadow.scene.world.blueprint.clear()
             
-            switch graticule.state {
+            guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint") else { break }
+            
+            var meshFaces: [MeshFace] = []
+            
+            switch edgeGraticule.state {
                 
-            case .tracking(let position, _, _):
+            case .tracking(let position, let edge, _):
                 
-                guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint") else { break }
+                guard let terrainNode = editor.meadow.scene.world.terrain.find(node: position), let nodeEdge = terrainNode.find(edge: edge) else { break }
                 
-                var meshFaces: [MeshFace] = []
+                let upperPolytope = Polytope.translate(polytope: nodeEdge.polyhedron.upperPolytope, translation: SCNVector3(x: 0.0, y: Axis.unitY, z: 0.0))
                 
-                if let terrainLayer = editor.meadow.scene.world.terrain.find(node: position)?.topLayer {
+                let polyhedron = Polyhedron(upperPolytope: upperPolytope, lowerPolytope: nodeEdge.polyhedron.upperPolytope)
+                
+                var color = colorPalette.primary
+                
+                switch editor.meadow.input.cursor.state {
                     
-                    let lowerPolytope = terrainLayer.polyhedron.upperPolytope
+                case .down(_, let inputType),
+                     .tracking(_, let inputType, _),
+                     .up(_, let inputType, _):
                     
-                    var upperPolytope = Polytope.translate(polytope: lowerPolytope, translation: SCNVector3(x: 0.0, y: Axis.unitY, z: 0.0))
-                    
-                    if let waterNode = editor.meadow.scene.world.water.find(node: position) {
-                        
-                        upperPolytope = Polytope.translate(polytope: waterNode.polyhedron.upperPolytope, translation: SCNVector3(x: 0.0, y: Blueprint.surface, z: 0.0))
-                    }
-                    
-                    let polyhedron = Polyhedron(upperPolytope: upperPolytope, lowerPolytope: lowerPolytope)
-                    
-                    var color = colorPalette.primary
-                    
-                    if editor.meadow.scene.world.water.find(node: position) == nil {
+                    if inputType == .left {
                         
                         color = colorPalette.secondary
                     }
@@ -235,24 +260,43 @@ extension WaterBuildUtilitiesViewController: TileGraticuleObserver {
                         color = colorPalette.tertiary
                     }
                     
-                    GridEdge.Edges.forEach { edge in
-                        
-                        let corners = GridCorner.corners(edge: edge)
-                        
-                        let normal = GridEdge.normal(edge: edge)
-                        
-                        meshFaces.append(MeshProvider.surface(corners: corners, polytope: polyhedron.upperPolytope, color: color.vector))
-                        
-                        meshFaces.append(contentsOf: TerrainMeshProvider.terrainLayer(crown: corners, acuteCorner: nil, polyhedron: polyhedron, normal: normal, color: color.vector))
-                        meshFaces.append(contentsOf: TerrainMeshProvider.terrainLayer(throne: corners, acuteCorner: nil, polyhedron: polyhedron, normal: normal, color: color.vector))
-                    }
+                default: break
                 }
                 
-                editor.meadow.scene.world.blueprint.add(mesh: Mesh(faces: meshFaces))
+                let (c0, c1) = GridCorner.corners(edge: edge)
+                
+                let edgeNormal = GridEdge.normal(edge: edge)
+                let inverseNormal = SCNVector3.negate(vector: edgeNormal)
+                
+                meshFaces.append(MeshFace.apex(corners: (c0: c0, c1: c1), polytope: polyhedron.upperPolytope, color: color.vector))
+                
+                meshFaces.append(contentsOf: MeshFace.edge(corners: (c0: c0, c1: c1), polyhedron: polyhedron, normal: edgeNormal, color: color.vector))
+                
+                let (e0, e1) = GridEdge.edges(edge: edge)
+                
+                [e0, e1].forEach { connectedEdge in
+                    
+                    let diagonalNormal = inverseNormal + GridEdge.normal(edge: connectedEdge)
+                    
+                    let (c2, c3) = GridCorner.corners(edge: connectedEdge)
+                    
+                    let corner = (c2 == c0 ? c2 : (c2 == c1 ? c2 : c3))
+                    
+                    let cornerUpper = polyhedron.upperPolytope.vertices[corner.rawValue]
+                    let centreUpper = polyhedron.upperPolytope.center
+                    
+                    let cornerLower = polyhedron.lowerPolytope.vertices[corner.rawValue]
+                    let centerLower = polyhedron.lowerPolytope.center
+                    
+                    let polytope = Polytope(v0: cornerUpper, v1: centreUpper, v2: centerLower, v3: cornerLower)
+                    
+                    meshFaces.append(contentsOf: MeshFace.diagonal(polytope: polytope, normal: diagonalNormal, color: color.vector))
+                }
                 
             default: break
             }
-        }*/
+            
+            editor.meadow.scene.world.blueprint.add(mesh: Mesh(faces: meshFaces))
+        }
     }
 }
-
