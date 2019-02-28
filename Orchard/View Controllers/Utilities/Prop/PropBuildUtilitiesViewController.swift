@@ -25,18 +25,6 @@ class PropBuildUtilitiesViewController: NSViewController {
             
             switch sender {
                 
-            case propPopUp:
-                
-                guard let prop = PropsMaster.shared?.props.children[sender.indexOfSelectedItem] else { break }
-                
-                utility.prop = prop
-                
-            case colorPalettePopUp:
-                
-                guard let colorPalette = ArtDirector.shared?.palettes.children[sender.indexOfSelectedItem] else { break }
-                
-                utility.colorPalette = colorPalette
-                
             default: break
             }
          
@@ -50,8 +38,6 @@ class PropBuildUtilitiesViewController: NSViewController {
         
         return PropBuildUtilitiesViewModel(initialState: .empty(editor: nil))
     }()
-    
-    var cursorCallbackReference: SceneView.Cursor.CallbackReference?
 }
 
 extension PropBuildUtilitiesViewController {
@@ -69,75 +55,6 @@ extension PropBuildUtilitiesViewController {
     func stateDidChange(from: ViewState?, to: ViewState) {
         
         switch to {
-            
-        case .empty(let editor):
-            
-            guard let editor = editor else { break }
-            
-            editor.meadow.input.cursor.tracksIdleEvents = false
-            
-            if let reference = cursorCallbackReference {
-                
-                editor.meadow.input.cursor.unsubscribe(reference)
-            }
-            
-        case .build(let editor, let utility):
-            
-            editor.meadow.input.cursor.tracksIdleEvents = true
-            
-            cursorCallbackReference = editor.meadow.input.cursor.subscribe(stateDidChange(from:to:))
-            
-            propPopUp.removeAllItems()
-            colorPalettePopUp.removeAllItems()
-            
-            colorPaletteView.color = nil
-            
-            if let propCount = PropsMaster.shared?.props.children.count {
-                
-                for index in 0..<propCount {
-                    
-                    if let prop = PropsMaster.shared?.props.children[index] {
-                        
-                        propPopUp.addItem(withTitle: prop.name)
-                    }
-                }
-            }
-            
-            if let index = PropsMaster.shared?.props.children.index(of: utility.prop) {
-                
-                propPopUp.selectItem(at: index)
-            }
-            
-            if let paletteCount = ArtDirector.shared?.palettes.children.count {
-                
-                for index in 0..<paletteCount {
-                    
-                    if let palette = ArtDirector.shared?.palettes.children[index] {
-                        
-                        colorPalettePopUp.addItem(withTitle: palette.name)
-                    }
-                }
-            }
-            
-            if let index = ArtDirector.shared?.palettes.children.index(of: utility.colorPalette) {
-                
-                colorPalettePopUp.selectItem(at: index)
-                
-                colorPaletteView.colorPalette = utility.colorPalette
-            }
-        }
-    }
-}
-
-extension PropBuildUtilitiesViewController: CursorObserver {
-    
-    func stateDidChange(from: SceneView.CursorState?, to: SceneView.CursorState) {
-        
-        switch viewModel.state {
-            
-        case .build(let editor, let utility):
-            
-            print("")
             
         default: break
         }

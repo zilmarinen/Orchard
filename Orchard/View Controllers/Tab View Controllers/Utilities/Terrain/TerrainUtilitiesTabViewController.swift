@@ -73,7 +73,7 @@ extension TerrainUtilitiesTabViewController {
                 
             case .empty:
                 
-                viewController.viewModel.state = .build(editor: editor, tool: (toolType: .edge, terrainType: TerrainType.bedrock))
+                viewController.viewModel.state = .build(editor: editor, tool: (toolType: .tile, terrainType: TerrainType.bedrock))
                 
             default: break
             }

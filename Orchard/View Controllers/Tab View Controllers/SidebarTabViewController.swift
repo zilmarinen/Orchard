@@ -71,9 +71,10 @@ extension SidebarTabViewController {
             case is Area.Type,
                  is AreaChunk.Type,
                  is AreaTile.Type,
-                 is AreaNode.Type:
+                 is AreaNode<AreaNodeEdge>.Type,
+                 is AreaNodeEdge.Type:
                 
-                inspectorTabViewController.viewModel.state = .area(editor: editor, inspectable: (editor.meadow.scene.world.areas, child as? AreaChunk, child as? AreaTile, child as? AreaNode, .north))
+                inspectorTabViewController.viewModel.state = .area(editor: editor, inspectable: (editor.meadow.scene.world.areas, child as? AreaChunk, child as? AreaTile, child as? AreaNode, child as? AreaNodeEdge))
                 
             case is Foliage.Type,
                  is FoliageChunk.Type,

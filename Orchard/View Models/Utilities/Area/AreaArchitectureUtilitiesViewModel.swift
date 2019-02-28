@@ -9,7 +9,7 @@
 import Meadow
 import THRUtilities
 
-typealias AreaArchitectureUtility = (edgeType: AreaNodeEdgeType, architectureType: AreaArchitectureType)
+typealias AreaArchitectureUtility = (colorPalette: Editor, other: Editor)
 
 extension AreaArchitectureUtilitiesViewController {
     

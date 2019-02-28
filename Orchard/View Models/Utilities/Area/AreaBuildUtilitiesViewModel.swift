@@ -9,7 +9,7 @@
 import Meadow
 import THRUtilities
 
-typealias AreaBuildUtility = (externalAreaType: AreaType, internalAreaType: AreaType, floorColorPalette: ColorPalette, edgeType: AreaNodeEdgeType, architectureType: AreaArchitectureType, externalColorPalette: ColorPalette, internalColorPalette: ColorPalette)
+typealias AreaBuildUtility = (colorPalette: ColorPalette, other: ColorPalette)
 
 extension AreaBuildUtilitiesViewController {
     

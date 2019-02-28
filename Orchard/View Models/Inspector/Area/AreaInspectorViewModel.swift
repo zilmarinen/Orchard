@@ -9,7 +9,7 @@
 import Meadow
 import THRUtilities
 
-typealias AreaInspectable = (grid: Area, chunk: AreaChunk?, tile: AreaTile?, node: AreaNode?, edge: GridEdge)
+typealias AreaInspectable = (grid: Area, chunk: AreaChunk?, tile: AreaTile?, node: AreaNode<AreaNodeEdge>?, edge: AreaNodeEdge?)
 
 extension AreaInspectorViewController {
     

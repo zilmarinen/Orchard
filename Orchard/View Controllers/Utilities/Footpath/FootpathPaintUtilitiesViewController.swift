@@ -16,6 +16,4 @@ class FootpathPaintUtilitiesViewController: NSViewController {
         
         return FootpathPaintUtilitiesViewModel(initialState: .empty(editor: nil))
     }()
-    
-    var cursorCallbackReference: SceneView.Cursor.CallbackReference?
 }

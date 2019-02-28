@@ -75,7 +75,7 @@ extension AreaUtilitiesTabViewController {
                 
                 guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint") else { break }
                 
-                let utility = AreaBuildUtility(externalAreaType: AreaType.brick, internalAreaType: AreaType.brick, floorColorPalette: colorPalette, edgeType: AreaNodeEdgeType.wall, architectureType: AreaArchitectureType.american, externalColorPalette: colorPalette, internalColorPalette: colorPalette)
+                let utility = AreaBuildUtility(colorPalette: colorPalette, other: colorPalette)
                 
                 viewController.viewModel.state = .build(editor: editor, utility: utility)
                 
@@ -90,7 +90,7 @@ extension AreaUtilitiesTabViewController {
                 
             case .empty:
                 
-                let utility = AreaArchitectureUtility(edgeType: AreaNodeEdgeType.wall, architectureType: AreaArchitectureType.american)
+                let utility = AreaArchitectureUtility(colorPalette: editor, other: editor)
                 
                 viewController.viewModel.state = .architecture(editor: editor, utility: utility)
                 

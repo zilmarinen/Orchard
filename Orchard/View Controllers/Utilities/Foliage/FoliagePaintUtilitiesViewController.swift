@@ -16,6 +16,4 @@ class FoliagePaintUtilitiesViewController: NSViewController {
         
         return FoliagePaintUtilitiesViewModel(initialState: .empty(editor: nil))
     }()
-    
-    var cursorCallbackReference: SceneView.Cursor.CallbackReference?
 }
