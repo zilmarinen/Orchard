@@ -249,130 +249,133 @@ extension TerrainInspectorViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        switch to {
+        DispatchQueue.main.async {
             
-        case .terrain(_, let inspectable):
-            
-            chunkCount.integerValue = inspectable.grid.totalChildren
-            gridHiddenButton.state = (inspectable.grid.isHidden ? .off : .on)
-            
-            chunkBox.isHidden = true
-            tileBox.isHidden = true
-            nodeBox.isHidden = true
-            edgeBox.isHidden = true
-            layerBox.isHidden = true
-            
-            selectedNodePopUp.removeAllItems()
-            selectedEdgePopUp.removeAllItems()
-            selectedLayerPopUp.removeAllItems()
-            selectedTerrainTypePopUp.removeAllItems()
-            
-            if let chunk = inspectable.chunk, let tile = inspectable.tile, let node = inspectable.node {
+            switch to {
                 
-                chunkBox.isHidden = inspectable.grid.isHidden
-                tileBox.isHidden = inspectable.grid.isHidden || chunk.isHidden
-                nodeBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden
-                edgeBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden || node.isHidden
-                layerBox.isHidden = inspectable.edge == nil || inspectable.layer == nil
+            case .terrain(_, let inspectable):
                 
-                tileCount.integerValue = chunk.totalChildren
-                edgeCount.integerValue = node.totalChildren
-                chunkHiddenButton.state = (chunk.isHidden ? .off : .on)
-                tileHiddenButton.state = (tile.isHidden ? .off : .on)
-                nodeHiddenButton.state = (node.isHidden ? .off : .on)
+                self.chunkCount.integerValue = inspectable.grid.totalChildren
+                self.gridHiddenButton.state = (inspectable.grid.isHidden ? .off : .on)
                 
-                xTileCoordinateLabel.integerValue = tile.volume.coordinate.x
-                yTileCoordinateLabel.integerValue = tile.volume.coordinate.y
-                zTileCoordinateLabel.integerValue = tile.volume.coordinate.z
+                self.chunkBox.isHidden = true
+                self.tileBox.isHidden = true
+                self.nodeBox.isHidden = true
+                self.edgeBox.isHidden = true
+                self.layerBox.isHidden = true
                 
-                for index in 0..<tile.totalChildren {
+                self.selectedNodePopUp.removeAllItems()
+                self.selectedEdgePopUp.removeAllItems()
+                self.selectedLayerPopUp.removeAllItems()
+                self.selectedTerrainTypePopUp.removeAllItems()
+                
+                if let chunk = inspectable.chunk, let tile = inspectable.tile, let node = inspectable.node {
                     
-                    selectedNodePopUp.addItem(withTitle: "Node \(index + 1)")
-                }
-                
-                if let index = tile.index(of: node) {
+                    self.chunkBox.isHidden = inspectable.grid.isHidden
+                    self.tileBox.isHidden = inspectable.grid.isHidden || chunk.isHidden
+                    self.nodeBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden
+                    self.edgeBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden || node.isHidden
+                    self.layerBox.isHidden = inspectable.edge == nil || inspectable.layer == nil
                     
-                    selectedNodePopUp.selectItem(at: index)
-                }
-                
-                xNodeCoordinateLabel.integerValue = node.volume.coordinate.x
-                yNodeCoordinateLabel.integerValue = node.volume.coordinate.y
-                zNodeCoordinateLabel.integerValue = node.volume.coordinate.z
-                widthNodeSizeLabel.integerValue = node.volume.size.width
-                heightNodeSizeLabel.integerValue = node.volume.size.height
-                depthNodeSizeLabel.integerValue = node.volume.size.depth
-                
-                for index in 0..<node.totalChildren {
+                    self.tileCount.integerValue = chunk.totalChildren
+                    self.edgeCount.integerValue = node.totalChildren
+                    self.chunkHiddenButton.state = (chunk.isHidden ? .off : .on)
+                    self.tileHiddenButton.state = (tile.isHidden ? .off : .on)
+                    self.nodeHiddenButton.state = (node.isHidden ? .off : .on)
                     
-                    if let nodeEdge = node.child(at: index) as? TerrainNodeEdge {
+                    self.xTileCoordinateLabel.integerValue = tile.volume.coordinate.x
+                    self.yTileCoordinateLabel.integerValue = tile.volume.coordinate.y
+                    self.zTileCoordinateLabel.integerValue = tile.volume.coordinate.z
                     
-                        selectedEdgePopUp.addItem(withTitle: nodeEdge.edge.description)
+                    for index in 0..<tile.totalChildren {
+                        
+                        self.selectedNodePopUp.addItem(withTitle: "Node \(index + 1)")
+                    }
+                    
+                    if let index = tile.index(of: node) {
+                        
+                        self.selectedNodePopUp.selectItem(at: index)
+                    }
+                    
+                    self.xNodeCoordinateLabel.integerValue = node.volume.coordinate.x
+                    self.yNodeCoordinateLabel.integerValue = node.volume.coordinate.y
+                    self.zNodeCoordinateLabel.integerValue = node.volume.coordinate.z
+                    self.widthNodeSizeLabel.integerValue = node.volume.size.width
+                    self.heightNodeSizeLabel.integerValue = node.volume.size.height
+                    self.depthNodeSizeLabel.integerValue = node.volume.size.depth
+                    
+                    for index in 0..<node.totalChildren {
+                        
+                        if let nodeEdge = node.child(at: index) as? TerrainNodeEdge {
+                        
+                            self.selectedEdgePopUp.addItem(withTitle: nodeEdge.edge.description)
+                        }
+                    }
+                    
+                    guard let edge = inspectable.edge, let layer = inspectable.layer else { break }
+                    
+                    self.edgeHiddenButton.state = (edge.isHidden ? .off : .on)
+                    self.layerCount.integerValue = edge.totalChildren
+                    
+                    if let index = GridEdge.Edges.index(of: layer.edge) {
+                        
+                        self.selectedEdgePopUp.selectItem(at: index)
+                    }
+                    
+                    self.layerBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden || node.isHidden || edge.isHidden
+                    self.layerHiddenButton.state = (layer.isHidden ? .off : .on)
+                    
+                    for index in 0..<edge.totalChildren {
+                        
+                        self.selectedLayerPopUp.addItem(withTitle: "Layer \(index + 1)")
+                    }
+                    
+                    if let index = edge.index(of: layer) {
+                        
+                        self.selectedLayerPopUp.selectItem(at: index)
+                    }
+                    
+                    let (c0, c1) = GridCorner.corners(edge: layer.edge)
+                    
+                    self.upperCorner0Stepper.maxValue = Double(layer.upper?.get(corner: c0) ?? World.ceiling)
+                    self.upperCorner0Stepper.minValue = Double(layer.lower?.get(corner: c0) ?? World.floor)
+                    self.upperCorner0Stepper.integerValue = (layer.get(corner: c0) ?? World.floor)
+                    
+                    self.upperCorner1Stepper.maxValue = Double(layer.upper?.get(corner: c1) ?? World.ceiling)
+                    self.upperCorner1Stepper.minValue = Double(layer.lower?.get(corner: c1) ?? World.floor)
+                    self.upperCorner1Stepper.integerValue = (layer.get(corner: c1) ?? World.floor)
+                    
+                    self.upperCentreStepper.maxValue = Double(layer.upper?.centre ?? World.ceiling)
+                    self.upperCentreStepper.minValue = Double(layer.lower?.centre ?? World.floor)
+                    self.upperCentreStepper.integerValue = layer.centre
+                    
+                    self.upperCorner0TextField.integerValue = self.upperCorner0Stepper.integerValue
+                    self.upperCorner1TextField.integerValue = self.upperCorner1Stepper.integerValue
+                    self.upperCentreTextField.integerValue = self.upperCentreStepper.integerValue
+                    
+                    self.lowerCorner0TextField.integerValue = (layer.lower?.get(corner: c0) ?? World.floor)
+                    self.lowerCorner1TextField.integerValue = (layer.lower?.get(corner: c1) ?? World.floor)
+                    self.lowerCentreTextField.integerValue = (layer.lower?.centre ?? World.floor)
+                    
+                    TerrainType.allCases.forEach { terrainType in
+                        
+                        self.selectedTerrainTypePopUp.addItem(withTitle: terrainType.name)
+                    }
+                    
+                    if let index = TerrainType.allCases.index(of: layer.terrainType), let colorPalette = layer.terrainType.colorPalette {
+                        
+                        self.selectedTerrainTypePopUp.selectItem(at: index)
+                        
+                        self.terrainTypeColorPaletteView.colorPalette = colorPalette
+                    }
+                    else {
+                        
+                        self.terrainTypeColorPaletteView.colorPalette = nil
                     }
                 }
                 
-                guard let edge = inspectable.edge, let layer = inspectable.layer else { break }
-                
-                edgeHiddenButton.state = (edge.isHidden ? .off : .on)
-                layerCount.integerValue = edge.totalChildren
-                
-                if let index = GridEdge.Edges.index(of: layer.edge) {
-                    
-                    selectedEdgePopUp.selectItem(at: index)
-                }
-                
-                layerBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden || node.isHidden || edge.isHidden
-                layerHiddenButton.state = (layer.isHidden ? .off : .on)
-                
-                for index in 0..<edge.totalChildren {
-                    
-                    selectedLayerPopUp.addItem(withTitle: "Layer \(index + 1)")
-                }
-                
-                if let index = edge.index(of: layer) {
-                    
-                    selectedLayerPopUp.selectItem(at: index)
-                }
-                
-                let (c0, c1) = GridCorner.corners(edge: layer.edge)
-                
-                upperCorner0Stepper.maxValue = Double(layer.upper?.get(corner: c0) ?? World.ceiling)
-                upperCorner0Stepper.minValue = Double(layer.lower?.get(corner: c0) ?? World.floor)
-                upperCorner0Stepper.integerValue = (layer.get(corner: c0) ?? World.floor)
-                
-                upperCorner1Stepper.maxValue = Double(layer.upper?.get(corner: c1) ?? World.ceiling)
-                upperCorner1Stepper.minValue = Double(layer.lower?.get(corner: c1) ?? World.floor)
-                upperCorner1Stepper.integerValue = (layer.get(corner: c1) ?? World.floor)
-                
-                upperCentreStepper.maxValue = Double(layer.upper?.centre ?? World.ceiling)
-                upperCentreStepper.minValue = Double(layer.lower?.centre ?? World.floor)
-                upperCentreStepper.integerValue = layer.centre
-                
-                upperCorner0TextField.integerValue = upperCorner0Stepper.integerValue
-                upperCorner1TextField.integerValue = upperCorner1Stepper.integerValue
-                upperCentreTextField.integerValue = upperCentreStepper.integerValue
-                
-                lowerCorner0TextField.integerValue = (layer.lower?.get(corner: c0) ?? World.floor)
-                lowerCorner1TextField.integerValue = (layer.lower?.get(corner: c1) ?? World.floor)
-                lowerCentreTextField.integerValue = (layer.lower?.centre ?? World.floor)
-                
-                TerrainType.allCases.forEach { terrainType in
-                    
-                    selectedTerrainTypePopUp.addItem(withTitle: terrainType.name)
-                }
-                
-                if let index = TerrainType.allCases.index(of: layer.terrainType), let colorPalette = layer.terrainType.colorPalette {
-                    
-                    selectedTerrainTypePopUp.selectItem(at: index)
-                    
-                    terrainTypeColorPaletteView.colorPalette = colorPalette
-                }
-                else {
-                    
-                    terrainTypeColorPaletteView.colorPalette = nil
-                }
+            default: break
             }
-            
-        default: break
         }
     }
 }

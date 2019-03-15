@@ -74,26 +74,29 @@ extension TerrainUtilitiesViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        guard let tabViewController = tabViewController else { return }
-        
-        switch to {
+        DispatchQueue.main.async {
             
-        case .empty(let editor):
+            guard let tabViewController = self.tabViewController else { return }
             
-            tabViewController.viewModel.state = .empty(editor: editor)
-        
-        case .terrain(let editor):
-            
-            chunkCount.integerValue = editor.meadow.scene.world.terrain.totalChildren
-            gridHiddenButton.state = (editor.meadow.scene.world.terrain.isHidden ? .off : .on)
-            
-            switch tabViewController.viewModel.state {
+            switch to {
                 
-            case .empty:
+            case .empty(let editor):
                 
-                tabViewController.viewModel.state = .build(editor: editor)
+                tabViewController.viewModel.state = .empty(editor: editor)
+            
+            case .terrain(let editor):
                 
-            default: break
+                self.chunkCount.integerValue = editor.meadow.scene.world.terrain.totalChildren
+                self.gridHiddenButton.state = (editor.meadow.scene.world.terrain.isHidden ? .off : .on)
+                
+                switch tabViewController.viewModel.state {
+                    
+                case .empty:
+                    
+                    tabViewController.viewModel.state = .build(editor: editor)
+                    
+                default: break
+                }
             }
         }
     }

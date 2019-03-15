@@ -32,9 +32,12 @@ extension AreaArchitectureUtilitiesViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        switch to {
+        DispatchQueue.main.async {
+        
+            switch to {
             
-        default: break
+            default: break
+            }
         }
     }
 }

@@ -110,59 +110,62 @@ extension FootpathBuildUtilitiesViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        switch to {
+        DispatchQueue.main.async {
             
-        case .empty(let editor):
-            
-            guard let editor = editor else { break }
-            
-            editor.meadow.input.cursor.tracksIdleEvents = false
-            
-            if let graticuleIdentifier = graticuleIdentifier {
+            switch to {
                 
-                editor.meadow.input.graticule.unsubscribe(graticuleIdentifier)
-            }
-            
-            graticuleIdentifier = nil
-            
-        case .build(let editor, let tool):
-            
-            editor.meadow.input.cursor.tracksIdleEvents = true
-            
-            if graticuleIdentifier == nil {
+            case .empty(let editor):
                 
-                graticuleIdentifier = editor.meadow.input.graticule.subscribe(stateDidChange(from:to:))
-            }
-            
-            footpathTypePopUp.removeAllItems()
-            selectedEdgePopUp.removeAllItems()
-            
-            steepButton.isEnabled = (tool.slope != nil)
-            selectedEdgePopUp.isEnabled = (tool.slope != nil)
-            
-            FootpathType.allCases.forEach { footpathType in
+                guard let editor = editor else { break }
                 
-                footpathTypePopUp.addItem(withTitle: footpathType.name)
-            }
-            
-            if let index = FootpathType.allCases.index(of: tool.footpathType), let colorPalette = tool.footpathType.colorPalette {
+                editor.meadow.input.cursor.tracksIdleEvents = false
                 
-                footpathTypePopUp.selectItem(at: index)
+                if let graticuleIdentifier = self.graticuleIdentifier {
+                    
+                    editor.meadow.input.graticule.unsubscribe(graticuleIdentifier)
+                }
                 
-                colorPaletteView.colorPalette = colorPalette
-            }
-            
-            slopeButton.state = (tool.slope == nil ? .off : .on)
-            steepButton.state = (tool.slope?.steep ?? false ? .on : .off)
-            
-            GridEdge.Edges.forEach { edge in
+                self.graticuleIdentifier = nil
                 
-                selectedEdgePopUp.addItem(withTitle: edge.description)
-            }
-            
-            if let edge = tool.slope?.edge, let index = GridEdge.Edges.index(of: edge) {
+            case .build(let editor, let tool):
                 
-                selectedEdgePopUp.selectItem(at: index)
+                editor.meadow.input.cursor.tracksIdleEvents = true
+                
+                if self.graticuleIdentifier == nil {
+                    
+                    self.graticuleIdentifier = editor.meadow.input.graticule.subscribe(self.stateDidChange(from:to:))
+                }
+                
+                self.footpathTypePopUp.removeAllItems()
+                self.selectedEdgePopUp.removeAllItems()
+                
+                self.steepButton.isEnabled = (tool.slope != nil)
+                self.selectedEdgePopUp.isEnabled = (tool.slope != nil)
+                
+                FootpathType.allCases.forEach { footpathType in
+                    
+                    self.footpathTypePopUp.addItem(withTitle: footpathType.name)
+                }
+                
+                if let index = FootpathType.allCases.index(of: tool.footpathType), let colorPalette = tool.footpathType.colorPalette {
+                    
+                    self.footpathTypePopUp.selectItem(at: index)
+                    
+                    self.colorPaletteView.colorPalette = colorPalette
+                }
+                
+                self.slopeButton.state = (tool.slope == nil ? .off : .on)
+                self.steepButton.state = (tool.slope?.steep ?? false ? .on : .off)
+                
+                GridEdge.Edges.forEach { edge in
+                    
+                    self.selectedEdgePopUp.addItem(withTitle: edge.description)
+                }
+                
+                if let edge = tool.slope?.edge, let index = GridEdge.Edges.index(of: edge) {
+                    
+                    self.selectedEdgePopUp.selectItem(at: index)
+                }
             }
         }
     }
@@ -172,79 +175,82 @@ extension FootpathBuildUtilitiesViewController: GraticuleObserver {
     
     func stateDidChange(from: SceneView.GraticuleState?, to: SceneView.GraticuleState) {
         
-        switch viewModel.state {
+        DispatchQueue.main.async {
             
-        case .build(let editor, let tool):
-            
-            switch to {
+            switch self.viewModel.state {
                 
-            case .down(let start, let inputType):
+            case .build(let editor, let tool):
                 
-                let footpathNode = editor.meadow.scene.world.footpaths.add(node: start.coordinate, footpathType: .asphalt)
-                
-            case .tracking(let start, let end, _, let inputType):
-                
-                editor.meadow.scene.world.blueprint.clear()
-                
-                guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint") else { break }
-                
-                var meshFaces: [MeshFace] = []
-                
-                var color = colorPalette.primary
-                
-                switch inputType {
+                switch to {
                     
-                case .left: color = colorPalette.secondary
-                case .right: color = colorPalette.tertiary
+                case .down(let start, let inputType):
                     
-                default: break
-                }
-                
-                let minimumX = min(start.coordinate.x, end.coordinate.x)
-                var maximumX = max(start.coordinate.x, end.coordinate.x)
-                let minimumZ = min(start.coordinate.z, end.coordinate.z)
-                var maximumZ = max(start.coordinate.z, end.coordinate.z)
-                
-                let deltaX = abs(minimumX - maximumX)
-                let deltaZ = abs(minimumZ - maximumZ)
-                
-                maximumX = (deltaZ >= deltaX ? minimumX : maximumX)
-                maximumZ = (deltaX > deltaZ ? minimumZ : maximumZ)
-                
-                for x in minimumX...maximumX {
+                    let footpathNode = editor.meadow.scene.world.footpaths.add(node: start.coordinate, footpathType: .asphalt)
                     
-                    for z in minimumZ...maximumZ {
+                case .tracking(let start, let end, _, let inputType):
+                    
+                    editor.meadow.scene.world.blueprint.clear()
+                    
+                    guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint") else { break }
+                    
+                    var meshFaces: [MeshFace] = []
+                    
+                    var color = colorPalette.primary
+                    
+                    switch inputType {
                         
-                        let coordinate = Coordinate(x: x, y: World.floor, z: z)
+                    case .left: color = colorPalette.secondary
+                    case .right: color = colorPalette.tertiary
                         
-                        let terrainNode = editor.meadow.scene.world.terrain.find(node: coordinate)
+                    default: break
+                    }
+                    
+                    let minimumX = min(start.coordinate.x, end.coordinate.x)
+                    var maximumX = max(start.coordinate.x, end.coordinate.x)
+                    let minimumZ = min(start.coordinate.z, end.coordinate.z)
+                    var maximumZ = max(start.coordinate.z, end.coordinate.z)
+                    
+                    let deltaX = abs(minimumX - maximumX)
+                    let deltaZ = abs(minimumZ - maximumZ)
+                    
+                    maximumX = (deltaZ >= deltaX ? minimumX : maximumX)
+                    maximumZ = (deltaX > deltaZ ? minimumZ : maximumZ)
+                    
+                    for x in minimumX...maximumX {
                         
-                        let lowerPolytope = (terrainNode?.polyhedron.upperPolytope ?? Polytope(x: MDWFloat(coordinate.x), y0: World.floor, y1: World.floor, y2: World.floor, y3: World.floor, z: MDWFloat(coordinate.z)))
-                        
-                        let upperPolytope = Polytope.translate(polytope: lowerPolytope, translation: SCNVector3(x: 0.0, y: Axis.unitY, z: 0.0))
-                        
-                        let polyhedron = Polyhedron(upperPolytope: upperPolytope, lowerPolytope: lowerPolytope)
-                        
-                        GridEdge.Edges.forEach { edge in
+                        for z in minimumZ...maximumZ {
                             
-                            let corners = GridCorner.corners(edge: edge)
+                            let coordinate = Coordinate(x: x, y: World.floor, z: z)
                             
-                            let normal = GridEdge.normal(edge: edge)
+                            let terrainNode = editor.meadow.scene.world.terrain.find(node: coordinate)
                             
-                            meshFaces.append(MeshFace.apex(corners: corners, polytope: polyhedron.upperPolytope, color: color.vector))
+                            let lowerPolytope = (terrainNode?.polyhedron.upperPolytope ?? Polytope(x: MDWFloat(coordinate.x), y0: World.floor, y1: World.floor, y2: World.floor, y3: World.floor, z: MDWFloat(coordinate.z)))
                             
-                            meshFaces.append(contentsOf: MeshFace.edge(corners: corners, polyhedron: polyhedron, normal: normal, color: color.vector))
+                            let upperPolytope = Polytope.translate(polytope: lowerPolytope, translation: SCNVector3(x: 0.0, y: Axis.unitY, z: 0.0))
+                            
+                            let polyhedron = Polyhedron(upperPolytope: upperPolytope, lowerPolytope: lowerPolytope)
+                            
+                            GridEdge.Edges.forEach { edge in
+                                
+                                let corners = GridCorner.corners(edge: edge)
+                                
+                                let normal = GridEdge.normal(edge: edge)
+                                
+                                meshFaces.append(MeshFace.apex(corners: corners, polytope: polyhedron.upperPolytope, color: color.vector))
+                                
+                                meshFaces.append(contentsOf: MeshFace.edge(corners: corners, polyhedron: polyhedron, normal: normal, color: color.vector))
+                            }
                         }
                     }
+                    
+                    editor.meadow.scene.world.blueprint.add(mesh: Mesh(faces: meshFaces))
+                    
+                default: break
+                    
                 }
                 
-                editor.meadow.scene.world.blueprint.add(mesh: Mesh(faces: meshFaces))
-                
             default: break
-                
             }
-            
-        default: break
         }
     }
 }

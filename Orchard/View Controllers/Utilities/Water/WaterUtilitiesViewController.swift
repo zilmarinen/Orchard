@@ -64,26 +64,29 @@ extension WaterUtilitiesViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        guard let tabViewController = tabViewController else { return }
-        
-        switch to {
+        DispatchQueue.main.async {
             
-        case .empty(let editor):
+            guard let tabViewController = self.tabViewController else { return }
             
-            tabViewController.viewModel.state = .empty(editor: editor)
-            
-        case .water(let editor):
-            
-            chunkCount.integerValue = editor.meadow.scene.world.water.totalChildren
-            gridHiddenButton.state = (editor.meadow.scene.world.water.isHidden ? .off : .on)
-            
-            switch tabViewController.viewModel.state {
+            switch to {
                 
-            case .empty:
+            case .empty(let editor):
                 
-                tabViewController.viewModel.state = .build(editor: editor)
+                tabViewController.viewModel.state = .empty(editor: editor)
                 
-            default: break
+            case .water(let editor):
+                
+                self.chunkCount.integerValue = editor.meadow.scene.world.water.totalChildren
+                self.gridHiddenButton.state = (editor.meadow.scene.world.water.isHidden ? .off : .on)
+                
+                switch tabViewController.viewModel.state {
+                    
+                case .empty:
+                    
+                    tabViewController.viewModel.state = .build(editor: editor)
+                    
+                default: break
+                }
             }
         }
     }

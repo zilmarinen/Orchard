@@ -66,21 +66,24 @@ extension SidebarViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        guard let tabViewController = tabViewController else { return }
-        
-        switch to {
+        DispatchQueue.main.async {
             
-        case .empty(let editor):
+            guard let tabViewController = self.tabViewController else { return }
             
-            tabViewController.viewModel.state = .empty(editor: editor)
-            
-        case .inspector(let editor, let child):
-            
-            tabViewController.viewModel.state = .inspector(editor: editor, child: child)
-            
-        case .utility(let editor, _):
-            
-            tabViewController.viewModel.state = .utility(editor: editor)
+            switch to {
+                
+            case .empty(let editor):
+                
+                tabViewController.viewModel.state = .empty(editor: editor)
+                
+            case .inspector(let editor, let child):
+                
+                tabViewController.viewModel.state = .inspector(editor: editor, child: child)
+                
+            case .utility(let editor, _):
+                
+                tabViewController.viewModel.state = .utility(editor: editor)
+            }
         }
     }
 }

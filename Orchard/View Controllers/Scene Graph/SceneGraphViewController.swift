@@ -45,11 +45,11 @@ extension SceneGraphViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        switch to {
+        DispatchQueue.main.async {
             
-        case .sceneGraph(_, let child):
-            
-            DispatchQueue.main.async {
+            switch to {
+                
+            case .sceneGraph(_, let child):
                 
                 self.outlineView.reloadData()
                 
@@ -61,9 +61,9 @@ extension SceneGraphViewController {
                     
                     self.outlineView.selectRowIndexes(indexSet, byExtendingSelection: false)
                 }
+                
+            default: break
             }
-            
-        default: break
         }
     }
 }

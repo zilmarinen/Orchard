@@ -201,97 +201,100 @@ extension WaterInspectorViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        switch to {
+        DispatchQueue.main.async {
             
-        case .water(_, let inspectable):
-            
-            chunkCount.integerValue = inspectable.grid.totalChildren
-            gridHiddenButton.state = (inspectable.grid.isHidden ? .off : .on)
-            
-            chunkBox.isHidden = true
-            tileBox.isHidden = true
-            nodeBox.isHidden = true
-            edgeBox.isHidden = true
-            
-            selectedNodePopUp.removeAllItems()
-            selectedEdgePopUp.removeAllItems()
-            selectedWaterTypePopUp.removeAllItems()
-            
-            if let chunk = inspectable.chunk, let tile = inspectable.tile, let node = inspectable.node {
+            switch to {
                 
-                chunkBox.isHidden = inspectable.grid.isHidden
-                tileBox.isHidden = inspectable.grid.isHidden || chunk.isHidden
-                nodeBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden
-                edgeBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden || node.isHidden
+            case .water(_, let inspectable):
                 
-                tileCount.integerValue = chunk.totalChildren
-                edgeCount.integerValue = node.totalChildren
-                chunkHiddenButton.state = (chunk.isHidden ? .off : .on)
-                tileHiddenButton.state = (tile.isHidden ? .off : .on)
-                nodeHiddenButton.state = (node.isHidden ? .off : .on)
+                self.chunkCount.integerValue = inspectable.grid.totalChildren
+                self.gridHiddenButton.state = (inspectable.grid.isHidden ? .off : .on)
                 
-                xTileCoordinateLabel.integerValue = tile.volume.coordinate.x
-                yTileCoordinateLabel.integerValue = tile.volume.coordinate.y
-                zTileCoordinateLabel.integerValue = tile.volume.coordinate.z
+                self.chunkBox.isHidden = true
+                self.tileBox.isHidden = true
+                self.nodeBox.isHidden = true
+                self.edgeBox.isHidden = true
                 
-                for index in 0..<tile.totalChildren {
+                self.selectedNodePopUp.removeAllItems()
+                self.selectedEdgePopUp.removeAllItems()
+                self.selectedWaterTypePopUp.removeAllItems()
+                
+                if let chunk = inspectable.chunk, let tile = inspectable.tile, let node = inspectable.node {
                     
-                    selectedNodePopUp.addItem(withTitle: "Node \(index + 1)")
-                }
-                
-                if let index = tile.index(of: node) {
+                    self.chunkBox.isHidden = inspectable.grid.isHidden
+                    self.tileBox.isHidden = inspectable.grid.isHidden || chunk.isHidden
+                    self.nodeBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden
+                    self.edgeBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden || node.isHidden
                     
-                    selectedNodePopUp.selectItem(at: index)
-                }
-                
-                xNodeCoordinateLabel.integerValue = node.volume.coordinate.x
-                yNodeCoordinateLabel.integerValue = node.volume.coordinate.y
-                zNodeCoordinateLabel.integerValue = node.volume.coordinate.z
-                widthNodeSizeLabel.integerValue = node.volume.size.width
-                heightNodeSizeLabel.integerValue = node.volume.size.height
-                depthNodeSizeLabel.integerValue = node.volume.size.depth
-                
-                for index in 0..<node.totalChildren {
+                    self.tileCount.integerValue = chunk.totalChildren
+                    self.edgeCount.integerValue = node.totalChildren
+                    self.chunkHiddenButton.state = (chunk.isHidden ? .off : .on)
+                    self.tileHiddenButton.state = (tile.isHidden ? .off : .on)
+                    self.nodeHiddenButton.state = (node.isHidden ? .off : .on)
                     
-                    if let nodeEdge = node.child(at: index) as? WaterNodeEdge {
+                    self.xTileCoordinateLabel.integerValue = tile.volume.coordinate.x
+                    self.yTileCoordinateLabel.integerValue = tile.volume.coordinate.y
+                    self.zTileCoordinateLabel.integerValue = tile.volume.coordinate.z
+                    
+                    for index in 0..<tile.totalChildren {
                         
-                        selectedEdgePopUp.addItem(withTitle: nodeEdge.edge.description)
+                        self.selectedNodePopUp.addItem(withTitle: "Node \(index + 1)")
+                    }
+                    
+                    if let index = tile.index(of: node) {
+                        
+                        self.selectedNodePopUp.selectItem(at: index)
+                    }
+                    
+                    self.xNodeCoordinateLabel.integerValue = node.volume.coordinate.x
+                    self.yNodeCoordinateLabel.integerValue = node.volume.coordinate.y
+                    self.zNodeCoordinateLabel.integerValue = node.volume.coordinate.z
+                    self.widthNodeSizeLabel.integerValue = node.volume.size.width
+                    self.heightNodeSizeLabel.integerValue = node.volume.size.height
+                    self.depthNodeSizeLabel.integerValue = node.volume.size.depth
+                    
+                    for index in 0..<node.totalChildren {
+                        
+                        if let nodeEdge = node.child(at: index) as? WaterNodeEdge {
+                            
+                            self.selectedEdgePopUp.addItem(withTitle: nodeEdge.edge.description)
+                        }
+                    }
+                    
+                    guard let edge = inspectable.edge else { break }
+                    
+                    self.edgeHiddenButton.state = (edge.isHidden ? .off : .on)
+                    
+                    if let index = GridEdge.Edges.index(of: edge.edge) {
+                        
+                        self.selectedEdgePopUp.selectItem(at: index)
+                    }
+                    
+                    self.waterLevelStepper.maxValue = Double(World.ceiling)
+                    self.waterLevelStepper.minValue = Double(World.floor + 1)
+                    self.waterLevelStepper.integerValue = edge.waterLevel
+                    
+                    self.waterLevelTextField.integerValue = self.waterLevelStepper.integerValue
+                    
+                    WaterType.allCases.forEach { waterType in
+                        
+                        self.selectedWaterTypePopUp.addItem(withTitle: waterType.name)
+                    }
+                    
+                    if let index = WaterType.allCases.index(of: edge.waterType), let colorPalette = edge.waterType.colorPalette {
+                        
+                        self.selectedWaterTypePopUp.selectItem(at: index)
+                        
+                        self.colorPaletteView.colorPalette = colorPalette
+                    }
+                    else {
+                        
+                        self.colorPaletteView.colorPalette = nil
                     }
                 }
                 
-                guard let edge = inspectable.edge else { break }
-                
-                edgeHiddenButton.state = (edge.isHidden ? .off : .on)
-                
-                if let index = GridEdge.Edges.index(of: edge.edge) {
-                    
-                    selectedEdgePopUp.selectItem(at: index)
-                }
-                
-                waterLevelStepper.maxValue = Double(World.ceiling)
-                waterLevelStepper.minValue = Double(World.floor + 1)
-                waterLevelStepper.integerValue = edge.waterLevel
-                
-                waterLevelTextField.integerValue = waterLevelStepper.integerValue
-                
-                WaterType.allCases.forEach { waterType in
-                    
-                    selectedWaterTypePopUp.addItem(withTitle: waterType.name)
-                }
-                
-                if let index = WaterType.allCases.index(of: edge.waterType), let colorPalette = edge.waterType.colorPalette {
-                    
-                    selectedWaterTypePopUp.selectItem(at: index)
-                    
-                    colorPaletteView.colorPalette = colorPalette
-                }
-                else {
-                    
-                    colorPaletteView.colorPalette = nil
-                }
+            default: break
             }
-            
-        default: break
         }
     }
 }

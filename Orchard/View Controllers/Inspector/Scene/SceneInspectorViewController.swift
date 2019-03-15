@@ -65,35 +65,38 @@ extension SceneInspectorViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        switch to {
+        DispatchQueue.main.async {
             
-        case .scene(let editor):
-            
-            clearColorPopUp.removeAllItems()
-            
-            nameTextField.stringValue = editor.meadow.scene.rootNode.name ?? ""
-            
-            if let colorCount = ArtDirector.shared?.colors.children.count {
+            switch to {
                 
-                for index in 0..<colorCount {
+            case .scene(let editor):
+                
+                self.clearColorPopUp.removeAllItems()
+                
+                self.nameTextField.stringValue = editor.meadow.scene.rootNode.name ?? ""
+                
+                if let colorCount = ArtDirector.shared?.colors.children.count {
                     
-                    if let color = ArtDirector.shared?.colors.children[index] {
+                    for index in 0..<colorCount {
                         
-                        clearColorPopUp.addItem(withTitle: color.name)
-                        
-                        clearColorPopUp.lastItem?.set(color: color.color)
+                        if let color = ArtDirector.shared?.colors.children[index] {
+                            
+                            self.clearColorPopUp.addItem(withTitle: color.name)
+                            
+                            self.clearColorPopUp.lastItem?.set(color: color.color)
+                        }
                     }
                 }
-            }
-            
-            if let floorColor = editor.meadow.scene.world.floor.color, let index = ArtDirector.shared?.colors.children.index(of: floorColor) {
                 
-                clearColorPopUp.selectItem(at: index)
+                if let floorColor = editor.meadow.scene.world.floor.color, let index = ArtDirector.shared?.colors.children.index(of: floorColor) {
+                    
+                    self.clearColorPopUp.selectItem(at: index)
+                    
+                    self.clearColorPaletteView.color = floorColor
+                }
                 
-                clearColorPaletteView.color = floorColor
+            default: break
             }
-            
-        default: break
         }
     }
 }

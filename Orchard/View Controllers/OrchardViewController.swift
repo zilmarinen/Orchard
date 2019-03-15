@@ -53,22 +53,25 @@ extension OrchardViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        switch to {
+        DispatchQueue.main.async {
             
-        case .editor(let editor):
-            
-            sceneGraphViewController?.delegate = self
-            sceneGraphViewController?.viewModel.state = .sceneGraph(scene: editor.meadow.scene, child: editor.meadow.scene)
-            
-            sceneViewController?.viewModel.state = .editor(editor: editor)
-            
-            sidebarViewController?.viewModel.state = .inspector(editor: editor, child: editor.meadow.scene)
-            
-        case .loading(let editor, let intermediate):
-            
-            editor.meadow.scene.load(intermediates: [intermediate])
-            
-            viewModel.state = .editor(editor: editor)
+            switch to {
+                
+            case .editor(let editor):
+                
+                self.sceneGraphViewController?.delegate = self
+                self.sceneGraphViewController?.viewModel.state = .sceneGraph(scene: editor.meadow.scene, child: editor.meadow.scene)
+                
+                self.sceneViewController?.viewModel.state = .editor(editor: editor)
+                
+                self.sidebarViewController?.viewModel.state = .inspector(editor: editor, child: editor.meadow.scene)
+                
+            case .loading(let editor, let intermediate):
+                
+                editor.meadow.scene.load(intermediates: [intermediate])
+                
+                self.viewModel.state = .editor(editor: editor)
+            }
         }
     }
 }

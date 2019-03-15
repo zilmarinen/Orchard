@@ -98,41 +98,44 @@ extension SceneViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        switch to {
+        DispatchQueue.main.async {
             
-        case .empty(let editor):
-            
-            guard let editor = editor else { break }
-            
-            if let reference = keyboardCallbackReference {
+            switch to {
                 
-                editor.meadow.input.keyboard.unsubscribe(reference)
-            }
-            
-        case .editor(let editor):
-            
-            keyboardCallbackReference = editor.meadow.input.keyboard.subscribe(stateDidChange(from:to:))
-            
-            editor.meadow.scene.delegate = self
-            
-            editor.meadow.sceneView.viewModel.state = .scene(meadow: editor.meadow)
-            
-            editor.meadow.sceneView.showsStatistics = true
-            editor.meadow.sceneView.isPlaying = true
-            
-            for x in -5..<5 {
+            case .empty(let editor):
                 
-                for z in -5..<5 {
+                guard let editor = editor else { break }
+                
+                if let reference = self.keyboardCallbackReference {
                     
-                    let coordinate = Coordinate(x: x, y: World.floor, z: z)
+                    editor.meadow.input.keyboard.unsubscribe(reference)
+                }
+                
+            case .editor(let editor):
+                
+                self.keyboardCallbackReference = editor.meadow.input.keyboard.subscribe(self.stateDidChange(from:to:))
+                
+                editor.meadow.scene.delegate = self
+                
+                editor.meadow.sceneView.viewModel.state = .scene(meadow: editor.meadow)
+                
+                editor.meadow.sceneView.showsStatistics = true
+                editor.meadow.sceneView.isPlaying = true
+                
+                for x in -5..<5 {
                     
-                    GridEdge.Edges.forEach { edge in
+                    for z in -5..<5 {
                         
-                        let random = Int.random(in: 0...2)
+                        let coordinate = Coordinate(x: x, y: World.floor, z: z)
                         
-                        let terrainType: TerrainType = (random == 0 ? .grass1 : (random == 1 ? .grass2 : .grass3))
-                        
-                        let _ = editor.meadow.scene.world.terrain.add(layer: coordinate, edge: edge, terrainType: terrainType)
+                        GridEdge.Edges.forEach { edge in
+                            
+                            let random = Int.random(in: 0...2)
+                            
+                            let terrainType: TerrainType = (random == 0 ? .grass1 : (random == 1 ? .grass2 : .grass3))
+                            
+                            let _ = editor.meadow.scene.world.terrain.add(layer: coordinate, edge: edge, terrainType: terrainType)
+                        }
                     }
                 }
             }
@@ -144,32 +147,35 @@ extension SceneViewController: KeyboardObserver {
     
     func stateDidChange(from: SceneView.KeyboardState?, to: SceneView.KeyboardState) {
         
-        switch viewModel.state {
+        DispatchQueue.main.async {
             
-        case .editor(let editor):
-            
-            switch editor.meadow.scene.cameraJib.model.state {
+            switch self.viewModel.state {
                 
-            case .focus(let vector, var edge, let zoom):
+            case .editor(let editor):
                 
-                switch to {
+                switch editor.meadow.scene.cameraJib.model.state {
                     
-                case .keyDown(let key):
+                case .focus(let vector, var edge, let zoom):
                     
-                    switch key {
+                    switch to {
                         
-                    case .q: edge = (GridEdge(rawValue: edge.rawValue + 1) ?? GridEdge.north)
-                    case .e: edge = (GridEdge(rawValue: edge.rawValue - 1) ?? GridEdge.west)
+                    case .keyDown(let key):
+                        
+                        switch key {
+                            
+                        case .q: edge = (GridEdge(rawValue: edge.rawValue + 1) ?? GridEdge.north)
+                        case .e: edge = (GridEdge(rawValue: edge.rawValue - 1) ?? GridEdge.west)
+                            
+                        default: break
+                        }
+                        
+                        editor.meadow.scene.cameraJib.model.state = .focus(vector: vector, edge: edge, zoom: zoom)
                         
                     default: break
                     }
-                    
-                    editor.meadow.scene.cameraJib.model.state = .focus(vector: vector, edge: edge, zoom: zoom)
-                    
-                default: break
                 }
+            default: break
             }
-        default: break
         }
     }
 }

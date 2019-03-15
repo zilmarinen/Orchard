@@ -175,90 +175,93 @@ extension FootpathInspectorViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        switch to {
+        DispatchQueue.main.async {
+        
+            switch to {
             
-        case .footpath(_, let inspectable):
-            
-            chunkCount.integerValue = inspectable.grid.totalChildren
-            gridHiddenButton.state = (inspectable.grid.isHidden ? .off : .on)
-            
-            chunkBox.isHidden = true
-            tileBox.isHidden = true
-            nodeBox.isHidden = true
-            
-            selectedNodePopUp.removeAllItems()
-            selectedFootpathTypePopUp.removeAllItems()
-            selectedSlopeEdgePopUp.removeAllItems()
-            
-            steepInclinationButton.isEnabled = false
-            selectedSlopeEdgePopUp.isEnabled = false
-            
-            if let chunk = inspectable.chunk, let tile = inspectable.tile, let node = inspectable.node {
+            case .footpath(_, let inspectable):
                 
-                chunkBox.isHidden = inspectable.grid.isHidden
-                tileBox.isHidden = inspectable.grid.isHidden || chunk.isHidden
-                nodeBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden
+                self.chunkCount.integerValue = inspectable.grid.totalChildren
+                self.gridHiddenButton.state = (inspectable.grid.isHidden ? .off : .on)
                 
-                tileCount.integerValue = chunk.totalChildren
-                chunkHiddenButton.state = (chunk.isHidden ? .off : .on)
-                tileHiddenButton.state = (tile.isHidden ? .off : .on)
-                nodeHiddenButton.state = (node.isHidden ? .off : .on)
+                self.chunkBox.isHidden = true
+                self.tileBox.isHidden = true
+                self.nodeBox.isHidden = true
                 
-                xTileCoordinateLabel.integerValue = tile.volume.coordinate.x
-                yTileCoordinateLabel.integerValue = tile.volume.coordinate.y
-                zTileCoordinateLabel.integerValue = tile.volume.coordinate.z
+                self.selectedNodePopUp.removeAllItems()
+                self.selectedFootpathTypePopUp.removeAllItems()
+                self.selectedSlopeEdgePopUp.removeAllItems()
                 
-                for index in 0..<tile.totalChildren {
+                self.steepInclinationButton.isEnabled = false
+                self.selectedSlopeEdgePopUp.isEnabled = false
+                
+                if let chunk = inspectable.chunk, let tile = inspectable.tile, let node = inspectable.node {
                     
-                    selectedNodePopUp.addItem(withTitle: "Node \(index + 1)")
+                    self.chunkBox.isHidden = inspectable.grid.isHidden
+                    self.tileBox.isHidden = inspectable.grid.isHidden || chunk.isHidden
+                    self.nodeBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden
+                    
+                    self.tileCount.integerValue = chunk.totalChildren
+                    self.chunkHiddenButton.state = (chunk.isHidden ? .off : .on)
+                    self.tileHiddenButton.state = (tile.isHidden ? .off : .on)
+                    self.nodeHiddenButton.state = (node.isHidden ? .off : .on)
+                    
+                    self.xTileCoordinateLabel.integerValue = tile.volume.coordinate.x
+                    self.yTileCoordinateLabel.integerValue = tile.volume.coordinate.y
+                    self.zTileCoordinateLabel.integerValue = tile.volume.coordinate.z
+                    
+                    for index in 0..<tile.totalChildren {
+                        
+                        self.selectedNodePopUp.addItem(withTitle: "Node \(index + 1)")
+                    }
+                    
+                    if let index = tile.index(of: node) {
+                        
+                        self.selectedNodePopUp.selectItem(at: index)
+                    }
+                    
+                    self.xNodeCoordinateLabel.integerValue = node.volume.coordinate.x
+                    self.yNodeCoordinateLabel.integerValue = node.volume.coordinate.y
+                    self.zNodeCoordinateLabel.integerValue = node.volume.coordinate.z
+                    self.widthNodeSizeLabel.integerValue = node.volume.size.width
+                    self.heightNodeSizeLabel.integerValue = node.volume.size.height
+                    self.depthNodeSizeLabel.integerValue = node.volume.size.depth
+                    
+                    FootpathType.allCases.forEach { footpathType in
+                        
+                        self.selectedFootpathTypePopUp.addItem(withTitle: footpathType.name)
+                    }
+                    
+                    if let footpathType = node.footpathType, let index = FootpathType.allCases.index(of: footpathType), let colorPalette = footpathType.colorPalette {
+                        
+                        self.selectedFootpathTypePopUp.selectItem(at: index)
+                        
+                        self.colorPaletteView.colorPalette = colorPalette
+                    }
+                    else {
+                        
+                        self.colorPaletteView.colorPalette = nil
+                    }
+                    
+                    self.steepInclinationButton.state = (node.slope != nil && node.slope!.steep ? .on : .off)
+                    self.slopeEdgeButton.state = (node.slope != nil ? .on : .off)
+                    
+                    self.selectedSlopeEdgePopUp.addItem(withTitle: GridEdge.north.description)
+                    self.selectedSlopeEdgePopUp.addItem(withTitle: GridEdge.east.description)
+                    self.selectedSlopeEdgePopUp.addItem(withTitle: GridEdge.south.description)
+                    self.selectedSlopeEdgePopUp.addItem(withTitle: GridEdge.west.description)
+                    
+                    if let slope = node.slope {
+                        
+                        self.steepInclinationButton.isEnabled = true
+                        self.selectedSlopeEdgePopUp.isEnabled = true
+                        
+                        self.selectedSlopeEdgePopUp.selectItem(at: slope.edge.rawValue)
+                    }
                 }
                 
-                if let index = tile.index(of: node) {
-                    
-                    selectedNodePopUp.selectItem(at: index)
-                }
-                
-                xNodeCoordinateLabel.integerValue = node.volume.coordinate.x
-                yNodeCoordinateLabel.integerValue = node.volume.coordinate.y
-                zNodeCoordinateLabel.integerValue = node.volume.coordinate.z
-                widthNodeSizeLabel.integerValue = node.volume.size.width
-                heightNodeSizeLabel.integerValue = node.volume.size.height
-                depthNodeSizeLabel.integerValue = node.volume.size.depth
-                
-                FootpathType.allCases.forEach { footpathType in
-                    
-                    selectedFootpathTypePopUp.addItem(withTitle: footpathType.name)
-                }
-                
-                if let footpathType = node.footpathType, let index = FootpathType.allCases.index(of: footpathType), let colorPalette = footpathType.colorPalette {
-                    
-                    selectedFootpathTypePopUp.selectItem(at: index)
-                    
-                    colorPaletteView.colorPalette = colorPalette
-                }
-                else {
-                    
-                    colorPaletteView.colorPalette = nil
-                }
-                
-                steepInclinationButton.state = (node.slope != nil && node.slope!.steep ? .on : .off)
-                slopeEdgeButton.state = (node.slope != nil ? .on : .off)
-                
-                selectedSlopeEdgePopUp.addItem(withTitle: GridEdge.north.description)
-                selectedSlopeEdgePopUp.addItem(withTitle: GridEdge.east.description)
-                selectedSlopeEdgePopUp.addItem(withTitle: GridEdge.south.description)
-                selectedSlopeEdgePopUp.addItem(withTitle: GridEdge.west.description)
-                
-                if let slope = node.slope {
-                    
-                    steepInclinationButton.isEnabled = true
-                    selectedSlopeEdgePopUp.isEnabled = true
-                    
-                    selectedSlopeEdgePopUp.selectItem(at: slope.edge.rawValue)
-                }
+            default: break
             }
-            
-        default: break
         }
     }
 }

@@ -30,95 +30,98 @@ extension UtilitiesTabViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        if let from = from {
+        DispatchQueue.main.async {
             
-            let viewController = children[from.sortOrder]
+            if let from = from {
+                
+                let viewController = self.children[from.sortOrder]
+                
+                switch from {
+                    
+                case .area(let editor):
+                    
+                    guard let viewController = viewController as? AreaUtilitiesViewController else { break }
+                    
+                    viewController.viewModel.state = .empty(editor: editor)
+                    
+                case .foliage(let editor):
+                    
+                    guard let viewController = viewController as? FoliageUtilitiesViewController else { break }
+                    
+                    viewController.viewModel.state = .empty(editor: editor)
+                    
+                case .footpath(let editor):
+                    
+                    guard let viewController = viewController as? FootpathUtilitiesViewController else { break }
+                    
+                    viewController.viewModel.state = .empty(editor: editor)
+                    
+                case .prop(let editor):
+                    
+                    guard let viewController = viewController as? PropUtilitiesViewController else { break}
+                    
+                    viewController.viewModel.state = .empty(editor: editor)
+                    
+                case .terrain(let editor):
+                    
+                    guard let viewController = viewController as? TerrainUtilitiesViewController else { break }
+                    
+                    viewController.viewModel.state = .empty(editor: editor)
+                    
+                case .water(let editor):
+                    
+                    guard let viewController = viewController as? WaterUtilitiesViewController else { break }
+                    
+                    viewController.viewModel.state = .empty(editor: editor)
+                    
+                default: break
+                }
+            }
             
-            switch from {
+            self.selectedTabViewItemIndex = to.sortOrder
+            
+            let viewController = self.children[to.sortOrder]
+            
+            switch to {
                 
             case .area(let editor):
                 
                 guard let viewController = viewController as? AreaUtilitiesViewController else { break }
                 
-                viewController.viewModel.state = .empty(editor: editor)
+                viewController.viewModel.state = .area(editor: editor)
                 
             case .foliage(let editor):
                 
                 guard let viewController = viewController as? FoliageUtilitiesViewController else { break }
                 
-                viewController.viewModel.state = .empty(editor: editor)
+                viewController.viewModel.state = .foliage(editor: editor)
                 
             case .footpath(let editor):
                 
                 guard let viewController = viewController as? FootpathUtilitiesViewController else { break }
                 
-                viewController.viewModel.state = .empty(editor: editor)
+                viewController.viewModel.state = .footpath(editor: editor)
                 
             case .prop(let editor):
                 
-                guard let viewController = viewController as? PropUtilitiesViewController else { break}
+                guard let viewController = viewController as? PropUtilitiesViewController else { break }
                 
-                viewController.viewModel.state = .empty(editor: editor)
+                viewController.viewModel.state = .area(editor: editor)
                 
             case .terrain(let editor):
                 
                 guard let viewController = viewController as? TerrainUtilitiesViewController else { break }
                 
-                viewController.viewModel.state = .empty(editor: editor)
+                viewController.viewModel.state = .terrain(editor: editor)
                 
             case .water(let editor):
                 
                 guard let viewController = viewController as? WaterUtilitiesViewController else { break }
                 
-                viewController.viewModel.state = .empty(editor: editor)
+                viewController.viewModel.state = .water(editor: editor)
                 
             default: break
             }
-        }
-        
-        selectedTabViewItemIndex = to.sortOrder
-        
-        let viewController = children[to.sortOrder]
-        
-        switch to {
-            
-        case .area(let editor):
-            
-            guard let viewController = viewController as? AreaUtilitiesViewController else { break }
-            
-            viewController.viewModel.state = .area(editor: editor)
-            
-        case .foliage(let editor):
-            
-            guard let viewController = viewController as? FoliageUtilitiesViewController else { break }
-            
-            viewController.viewModel.state = .foliage(editor: editor)
-            
-        case .footpath(let editor):
-            
-            guard let viewController = viewController as? FootpathUtilitiesViewController else { break }
-            
-            viewController.viewModel.state = .footpath(editor: editor)
-            
-        case .prop(let editor):
-            
-            guard let viewController = viewController as? PropUtilitiesViewController else { break }
-            
-            viewController.viewModel.state = .area(editor: editor)
-            
-        case .terrain(let editor):
-            
-            guard let viewController = viewController as? TerrainUtilitiesViewController else { break }
-            
-            viewController.viewModel.state = .terrain(editor: editor)
-            
-        case .water(let editor):
-            
-            guard let viewController = viewController as? WaterUtilitiesViewController else { break }
-            
-            viewController.viewModel.state = .water(editor: editor)
-            
-        default: break
         }
     }
 }

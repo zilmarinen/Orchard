@@ -64,26 +64,29 @@ extension PropUtilitiesViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        guard let tabViewController = tabViewController else { return }
-        
-        switch to {
+        DispatchQueue.main.async {
             
-        case .empty(let editor):
+            guard let tabViewController = self.tabViewController else { return }
             
-            tabViewController.viewModel.state = .empty(editor: editor)
-            
-        case .area(let editor):
-            
-            propCount.integerValue = editor.meadow.scene.world.areas.totalChildren
-            propsHiddenButton.state = (editor.meadow.scene.world.props.isHidden ? .off : .on)
-            
-            switch tabViewController.viewModel.state {
+            switch to {
                 
-            case .empty:
+            case .empty(let editor):
                 
-                tabViewController.viewModel.state = .build(editor: editor)
+                tabViewController.viewModel.state = .empty(editor: editor)
                 
-            default: break
+            case .area(let editor):
+                
+                self.propCount.integerValue = editor.meadow.scene.world.areas.totalChildren
+                self.propsHiddenButton.state = (editor.meadow.scene.world.props.isHidden ? .off : .on)
+                
+                switch tabViewController.viewModel.state {
+                    
+                case .empty:
+                    
+                    tabViewController.viewModel.state = .build(editor: editor)
+                    
+                default: break
+                }
             }
         }
     }
