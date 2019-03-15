@@ -11,10 +11,16 @@ import THRUtilities
 
 extension WaterBuildUtilitiesViewController {
     
+    enum ToolType: Int {
+        
+        case edge
+        case tile
+    }
+    
     enum ViewState: THRUtilities.State {
         
         case empty(editor: Editor?)
-        case build(editor: Editor, waterType: WaterType)
+        case build(editor: Editor, tool: (toolType: ToolType, waterType: WaterType))
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

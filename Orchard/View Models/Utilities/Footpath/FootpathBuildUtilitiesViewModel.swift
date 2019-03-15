@@ -14,7 +14,7 @@ extension FootpathBuildUtilitiesViewController {
     enum ViewState: THRUtilities.State {
         
         case empty(editor: Editor?)
-        case build(editor: Editor)
+        case build(editor: Editor, tool: (footpathType: FootpathType, slope: FootpathNode.Slope?))
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

@@ -125,7 +125,7 @@ extension TerrainBuildUtilitiesViewController: GraticuleObserver {
          
             switch to {
                 
-            case .tracking(let position, let closest, _, let inputType):
+            case .tracking(let start, let end, _, let inputType):
                 
                 editor.meadow.scene.world.blueprint.clear()
                 
@@ -147,22 +147,22 @@ extension TerrainBuildUtilitiesViewController: GraticuleObserver {
                     
                 case .edge:
                     
-                    let lowerPolytope = closest.polytope
+                    let lowerPolytope = end.polytope
                     
                     let upperPolytope = Polytope.translate(polytope: lowerPolytope, translation: SCNVector3(x: 0.0, y: Axis.unitY, z: 0.0))
                     
                     let polyhedron = Polyhedron(upperPolytope: upperPolytope, lowerPolytope: lowerPolytope)
                     
-                    let corners = GridCorner.corners(edge: closest.edge)
+                    let corners = GridCorner.corners(edge: end.edge)
                     
-                    let edgeNormal = GridEdge.normal(edge: closest.edge)
+                    let edgeNormal = GridEdge.normal(edge: end.edge)
                     let inverseNormal = SCNVector3.negate(vector: edgeNormal)
                     
                     meshFaces.append(MeshFace.apex(corners: corners, polytope: polyhedron.upperPolytope, color: color.vector))
                     
                     meshFaces.append(contentsOf: MeshFace.edge(corners: corners, polyhedron: polyhedron, normal: edgeNormal, color: color.vector))
                     
-                    let edges = GridEdge.edges(edge: closest.edge)
+                    let edges = GridEdge.edges(edge: end.edge)
                     
                     [edges.e0, edges.e1].forEach { connectedEdge in
                         
@@ -185,10 +185,10 @@ extension TerrainBuildUtilitiesViewController: GraticuleObserver {
                     
                 case .tile:
                     
-                    let minimumX = min(position.start.x, position.end.x)
-                    let maximumX = max(position.start.x, position.end.x)
-                    let minimumZ = min(position.start.z, position.end.z)
-                    let maximumZ = max(position.start.z, position.end.z)
+                    let minimumX = min(start.coordinate.x, end.coordinate.x)
+                    let maximumX = max(start.coordinate.x, end.coordinate.x)
+                    let minimumZ = min(start.coordinate.z, end.coordinate.z)
+                    let maximumZ = max(start.coordinate.z, end.coordinate.z)
                     
                     for x in minimumX...maximumX {
                         
@@ -220,7 +220,7 @@ extension TerrainBuildUtilitiesViewController: GraticuleObserver {
                 
                 editor.meadow.scene.world.blueprint.add(mesh: Mesh(faces: meshFaces))
                 
-            case .up(let position, let closest, _, let inputType):
+            case .up(let start, let end, _, let inputType):
                 
                 switch tool.toolType {
                     
@@ -230,11 +230,11 @@ extension TerrainBuildUtilitiesViewController: GraticuleObserver {
                         
                     case .left:
                         
-                        let _ = editor.meadow.scene.world.terrain.add(layer: position.end, edge: closest.edge, terrainType: tool.terrainType)
+                        let _ = editor.meadow.scene.world.terrain.add(layer: end.coordinate, edge: end.edge, terrainType: tool.terrainType)
                         
                     case .right:
                         
-                        if let terrainLayer = editor.meadow.scene.world.terrain.find(edge: position.end, edge: closest.edge)?.topLayer {
+                        if let terrainLayer = editor.meadow.scene.world.terrain.find(edge: end.coordinate, edge: end.edge)?.topLayer {
                            
                             editor.meadow.scene.world.terrain.remove(layer: terrainLayer)
                         }
@@ -244,10 +244,10 @@ extension TerrainBuildUtilitiesViewController: GraticuleObserver {
                     
                 case .tile:
                     
-                    let minimumX = min(position.start.x, position.end.x)
-                    let maximumX = max(position.start.x, position.end.x)
-                    let minimumZ = min(position.start.z, position.end.z)
-                    let maximumZ = max(position.start.z, position.end.z)
+                    let minimumX = min(start.coordinate.x, end.coordinate.x)
+                    let maximumX = max(start.coordinate.x, end.coordinate.x)
+                    let minimumZ = min(start.coordinate.z, end.coordinate.z)
+                    let maximumZ = max(start.coordinate.z, end.coordinate.z)
                     
                     for x in minimumX...maximumX {
                         

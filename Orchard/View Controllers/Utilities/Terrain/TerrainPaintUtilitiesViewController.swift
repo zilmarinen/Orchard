@@ -125,7 +125,7 @@ extension TerrainPaintUtilitiesViewController: GraticuleObserver {
             
             switch to {
                 
-            case .tracking(let position, let closest, _, _):
+            case .tracking(let start, let end, _, _):
                 
                 editor.meadow.scene.world.blueprint.clear()
                 
@@ -137,11 +137,11 @@ extension TerrainPaintUtilitiesViewController: GraticuleObserver {
                     
                 case .edge:
                     
-                    guard let terrainLayer = editor.meadow.scene.world.terrain.find(edge: position.end, edge: closest.edge)?.topLayer else { break }
+                    guard let terrainLayer = editor.meadow.scene.world.terrain.find(edge: end.coordinate, edge: end.edge)?.topLayer else { break }
                     
-                    let corners = GridCorner.corners(edge: closest.edge)
+                    let corners = GridCorner.corners(edge: end.edge)
                     
-                    let edgeNormal = GridEdge.normal(edge: closest.edge)
+                    let edgeNormal = GridEdge.normal(edge: end.edge)
                     let inverseNormal = SCNVector3.negate(vector: edgeNormal)
                     
                     let upperPolytope = Polytope.translate(polytope: terrainLayer.polyhedron.upperPolytope, translation: SCNVector3(x: 0.0, y: Blueprint.surface, z: 0.0))
@@ -152,7 +152,7 @@ extension TerrainPaintUtilitiesViewController: GraticuleObserver {
                     
                     meshFaces.append(contentsOf: MeshFace.edge(corners: corners, polyhedron: polyhedron, normal: edgeNormal, color: colorPalette.secondary.vector))
                     
-                    let edges = GridEdge.edges(edge: closest.edge)
+                    let edges = GridEdge.edges(edge: end.edge)
                     
                     [edges.e0, edges.e1].forEach { connectedEdge in
                         
@@ -175,10 +175,10 @@ extension TerrainPaintUtilitiesViewController: GraticuleObserver {
                     
                 case .tile:
                     
-                    let minimumX = min(position.start.x, position.end.x)
-                    let maximumX = max(position.start.x, position.end.x)
-                    let minimumZ = min(position.start.z, position.end.z)
-                    let maximumZ = max(position.start.z, position.end.z)
+                    let minimumX = min(start.coordinate.x, end.coordinate.x)
+                    let maximumX = max(start.coordinate.x, end.coordinate.x)
+                    let minimumZ = min(start.coordinate.z, end.coordinate.z)
+                    let maximumZ = max(start.coordinate.z, end.coordinate.z)
                     
                     for x in minimumX...maximumX {
                         
@@ -209,22 +209,22 @@ extension TerrainPaintUtilitiesViewController: GraticuleObserver {
                 
                 editor.meadow.scene.world.blueprint.add(mesh: Mesh(faces: meshFaces))
                 
-            case .up(let position, let closest, _, _):
+            case .up(let start, let end, _, _):
                 
                 switch tool.toolType {
                     
                 case .edge:
                     
-                    guard let terrainLayer = editor.meadow.scene.world.terrain.find(edge: position.end, edge: closest.edge)?.topLayer else { break }
+                    guard let terrainLayer = editor.meadow.scene.world.terrain.find(edge: end.coordinate, edge: end.edge)?.topLayer else { break }
                      
                     terrainLayer.terrainType = tool.terrainType
                     
                 case .tile:
                     
-                    let minimumX = min(position.start.x, position.end.x)
-                    let maximumX = max(position.start.x, position.end.x)
-                    let minimumZ = min(position.start.z, position.end.z)
-                    let maximumZ = max(position.start.z, position.end.z)
+                    let minimumX = min(start.coordinate.x, end.coordinate.x)
+                    let maximumX = max(start.coordinate.x, end.coordinate.x)
+                    let minimumZ = min(start.coordinate.z, end.coordinate.z)
+                    let maximumZ = max(start.coordinate.z, end.coordinate.z)
                     
                     for x in minimumX...maximumX {
                         

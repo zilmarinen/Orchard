@@ -36,13 +36,13 @@ extension FootpathUtilitiesTabViewController {
             
             switch from {
                 
-            case .build(let editor):
+            case .build(let editor, _):
                 
                 guard let viewController = viewController as? FootpathBuildUtilitiesViewController else { break }
                 
                 viewController.viewModel.state = .empty(editor: editor)
                 
-            case .paint(let editor):
+            case .paint(let editor, _):
                 
                 guard let viewController = viewController as? FootpathPaintUtilitiesViewController else { break }
                 
@@ -58,7 +58,7 @@ extension FootpathUtilitiesTabViewController {
         
         switch to {
             
-        case .build(let editor):
+        case .build(let editor, let tool):
             
             guard let viewController = viewController as? FootpathBuildUtilitiesViewController else { break }
             
@@ -66,12 +66,12 @@ extension FootpathUtilitiesTabViewController {
                 
             case .empty:
                 
-                viewController.viewModel.state = .build(editor: editor)
+                viewController.viewModel.state = .build(editor: editor, tool: tool)
                 
             default: break
             }
             
-        case .paint(let editor):
+        case .paint(let editor, let tool):
             
             guard let viewController = viewController as? FootpathPaintUtilitiesViewController else { break }
             
@@ -79,7 +79,7 @@ extension FootpathUtilitiesTabViewController {
                 
             case .empty:
                 
-                viewController.viewModel.state = .paint(editor: editor)
+                viewController.viewModel.state = .paint(editor: editor, tool: tool)
                 
             default: break
             }

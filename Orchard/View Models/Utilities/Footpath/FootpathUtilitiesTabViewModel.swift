@@ -14,8 +14,8 @@ extension FootpathUtilitiesTabViewController {
     enum ViewState: THRUtilities.State {
         
         case empty(editor: Editor?)
-        case build(editor: Editor)
-        case paint(editor: Editor)
+        case build(editor: Editor, tool: (footpathType: FootpathType, slope: FootpathNode.Slope?))
+        case paint(editor: Editor, tool: (FootpathType))
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

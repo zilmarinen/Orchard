@@ -61,7 +61,7 @@ extension WaterUtilitiesTabViewController {
                 
             case .empty:
                 
-                viewController.viewModel.state = .build(editor: editor, waterType: WaterType.water)
+                viewController.viewModel.state = .build(editor: editor, tool: (toolType: .tile, waterType: WaterType.water))
                 
             default: break
             }

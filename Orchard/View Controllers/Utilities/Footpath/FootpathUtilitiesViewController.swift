@@ -32,11 +32,11 @@ class FootpathUtilitiesViewController: NSViewController {
                 
             case buildButton:
                 
-                tabViewController?.viewModel.state = .build(editor: editor)
+                tabViewController?.viewModel.state = .build(editor: editor, tool: (footpathType: FootpathType.asphalt, slope: nil))
                 
             case paintButton:
                 
-                tabViewController?.viewModel.state = .paint(editor: editor)
+                tabViewController?.viewModel.state = .paint(editor: editor, tool: (FootpathType.asphalt))
                 
             default: break
             }
@@ -82,7 +82,7 @@ extension FootpathUtilitiesViewController {
                 
             case .empty:
                 
-                tabViewController.viewModel.state = .build(editor: editor)
+                tabViewController.viewModel.state = .build(editor: editor, tool: (footpathType: FootpathType.asphalt, slope: nil))
                 
             default: break
             }

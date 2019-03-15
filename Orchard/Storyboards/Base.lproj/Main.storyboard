@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <plugIn identifier="com.apple.SceneKitIBPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -8612,7 +8613,7 @@
                                                 </menu>
                                             </popUpButtonCell>
                                             <connections>
-                                                <action selector="popUp:" target="0Ef-kM-1tp" id="QY9-5j-TfA"/>
+                                                <action selector="popUp:" target="SjR-aP-yCj" id="6d3-z4-dDy"/>
                                             </connections>
                                         </popUpButton>
                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="QWz-qV-w2m" userLabel="Color Palette" customClass="ColorPaletteView" customModule="Orchard" customModuleProvider="target">
@@ -8691,7 +8692,7 @@
                                                 <font key="font" metaFont="smallSystem"/>
                                             </buttonCell>
                                             <connections>
-                                                <action selector="button:" target="0Ef-kM-1tp" id="nQ3-lh-IkC"/>
+                                                <action selector="button:" target="SjR-aP-yCj" id="iNY-kG-bIs"/>
                                             </connections>
                                         </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="D2f-8W-hJ4">
@@ -8722,7 +8723,7 @@
                                                 </menu>
                                             </popUpButtonCell>
                                             <connections>
-                                                <action selector="popUp:" target="0Ef-kM-1tp" id="zZo-ik-gyK"/>
+                                                <action selector="popUp:" target="SjR-aP-yCj" id="LfF-VU-DVQ"/>
                                             </connections>
                                         </popUpButton>
                                         <box boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="tZF-YL-oBY" userLabel="Separator">
@@ -8743,7 +8744,7 @@
                                                 <font key="font" metaFont="smallSystem"/>
                                             </buttonCell>
                                             <connections>
-                                                <action selector="button:" target="0Ef-kM-1tp" id="wpE-kO-3dq"/>
+                                                <action selector="button:" target="SjR-aP-yCj" id="XcB-ZY-w1Z"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -8791,6 +8792,13 @@
                             <constraint firstItem="7pz-FP-vw4" firstAttribute="width" secondItem="OqD-8A-VVF" secondAttribute="width" id="zFs-Rw-e8b"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="colorPaletteView" destination="QWz-qV-w2m" id="XM0-wB-Ibb"/>
+                        <outlet property="footpathTypePopUp" destination="wgk-Wd-4oq" id="SJj-jl-c9a"/>
+                        <outlet property="selectedEdgePopUp" destination="a8A-qU-pyI" id="DTa-gJ-HdS"/>
+                        <outlet property="slopeButton" destination="vXW-GY-Gcr" id="buJ-c6-ujL"/>
+                        <outlet property="steepButton" destination="pNR-BW-Lll" id="V4o-ov-BPZ"/>
+                    </connections>
                 </viewController>
                 <customObject id="A4M-N0-HEZ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -8843,21 +8851,21 @@
                                             <rect key="frame" x="0.0" y="0.0" width="249" height="130"/>
                                             <subviews>
                                                 <box borderType="none" title="Build" translatesAutoresizingMaskIntoConstraints="NO" id="cxo-Se-4bz">
-                                                    <rect key="frame" x="-3" y="41" width="255" height="81"/>
+                                                    <rect key="frame" x="-3" y="12" width="255" height="110"/>
                                                     <view key="contentView" id="Snr-tj-1C6">
-                                                        <rect key="frame" x="0.0" y="0.0" width="255" height="67"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="255" height="96"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QJm-4q-gTF">
-                                                                <rect key="frame" x="35" y="42" width="59" height="13"/>
-                                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Water Type" id="iZm-wD-68p">
+                                                                <rect key="frame" x="43" y="71" width="51" height="13"/>
+                                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Tool Type" id="iZm-wD-68p">
                                                                     <font key="font" metaFont="system" size="10"/>
                                                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
                                                             </textField>
                                                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CCL-o5-9xZ">
-                                                                <rect key="frame" x="94" y="35" width="156" height="25"/>
+                                                                <rect key="frame" x="94" y="64" width="156" height="25"/>
                                                                 <popUpButtonCell key="cell" type="push" title="Unknown" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="bnM-Dj-XgI" id="gjQ-G8-rHk">
                                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                     <font key="font" metaFont="smallSystem"/>
@@ -8871,6 +8879,31 @@
                                                                 </popUpButtonCell>
                                                                 <connections>
                                                                     <action selector="popUp:" target="LdJ-v6-8hd" id="obE-5G-oUe"/>
+                                                                </connections>
+                                                            </popUpButton>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TeO-ck-HAU">
+                                                                <rect key="frame" x="35" y="42" width="59" height="13"/>
+                                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Water Type" id="Tnt-Ae-dWX">
+                                                                    <font key="font" metaFont="system" size="10"/>
+                                                                    <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="apA-lq-fB9">
+                                                                <rect key="frame" x="94" y="35" width="156" height="25"/>
+                                                                <popUpButtonCell key="cell" type="push" title="Unknown" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="mLb-tV-slu" id="bTg-0c-Njt">
+                                                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="smallSystem"/>
+                                                                    <menu key="menu" id="9rw-lW-mC2">
+                                                                        <items>
+                                                                            <menuItem title="Unknown" state="on" id="mLb-tV-slu"/>
+                                                                            <menuItem title="Item 2" id="iIa-9s-NFE"/>
+                                                                            <menuItem title="Item 3" id="zFq-Ye-xOk"/>
+                                                                        </items>
+                                                                    </menu>
+                                                                </popUpButtonCell>
+                                                                <connections>
+                                                                    <action selector="popUp:" target="LdJ-v6-8hd" id="cuY-uQ-05w"/>
                                                                 </connections>
                                                             </popUpButton>
                                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="nik-oS-yE9" userLabel="Color Palette" customClass="ColorPaletteView" customModule="Orchard" customModuleProvider="target">
@@ -8947,19 +8980,25 @@
                                                             </box>
                                                         </subviews>
                                                         <constraints>
-                                                            <constraint firstItem="nik-oS-yE9" firstAttribute="top" secondItem="CCL-o5-9xZ" secondAttribute="bottom" constant="8" id="04a-KY-Ogl"/>
                                                             <constraint firstItem="nik-oS-yE9" firstAttribute="leading" secondItem="CCL-o5-9xZ" secondAttribute="leading" id="1vx-id-PZk"/>
                                                             <constraint firstItem="nik-oS-yE9" firstAttribute="trailing" secondItem="CCL-o5-9xZ" secondAttribute="trailing" id="6I3-JH-w5W"/>
+                                                            <constraint firstItem="TeO-ck-HAU" firstAttribute="trailing" secondItem="QJm-4q-gTF" secondAttribute="trailing" id="8Sd-ay-PfM"/>
                                                             <constraint firstItem="CCL-o5-9xZ" firstAttribute="leading" secondItem="Snr-tj-1C6" secondAttribute="leading" constant="96" id="8pK-9N-eTE"/>
+                                                            <constraint firstItem="TeO-ck-HAU" firstAttribute="centerY" secondItem="apA-lq-fB9" secondAttribute="centerY" id="Jax-51-cEO"/>
                                                             <constraint firstItem="nik-oS-yE9" firstAttribute="height" secondItem="CCL-o5-9xZ" secondAttribute="height" id="OFI-eL-HO6"/>
                                                             <constraint firstItem="6Tf-0w-biX" firstAttribute="width" secondItem="Snr-tj-1C6" secondAttribute="width" id="PFY-QU-YRf"/>
+                                                            <constraint firstItem="apA-lq-fB9" firstAttribute="top" secondItem="CCL-o5-9xZ" secondAttribute="bottom" constant="8" id="XES-Fe-mpR"/>
+                                                            <constraint firstItem="nik-oS-yE9" firstAttribute="top" secondItem="apA-lq-fB9" secondAttribute="bottom" constant="8" id="Z2i-97-SFd"/>
                                                             <constraint firstItem="6Tf-0w-biX" firstAttribute="top" secondItem="nik-oS-yE9" secondAttribute="bottom" constant="8" id="ZTH-C8-wdt"/>
                                                             <constraint firstAttribute="bottom" secondItem="6Tf-0w-biX" secondAttribute="bottom" id="b7s-jd-eYz"/>
+                                                            <constraint firstItem="apA-lq-fB9" firstAttribute="leading" secondItem="CCL-o5-9xZ" secondAttribute="leading" id="bhp-SA-G6a"/>
                                                             <constraint firstItem="CCL-o5-9xZ" firstAttribute="leading" secondItem="QJm-4q-gTF" secondAttribute="trailing" constant="4" id="cIC-O0-YbC"/>
                                                             <constraint firstItem="QJm-4q-gTF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Snr-tj-1C6" secondAttribute="leading" constant="8" id="ero-zD-Ng4"/>
                                                             <constraint firstAttribute="trailing" secondItem="CCL-o5-9xZ" secondAttribute="trailing" constant="8" id="gBq-aJ-WSq"/>
                                                             <constraint firstItem="6Tf-0w-biX" firstAttribute="centerX" secondItem="Snr-tj-1C6" secondAttribute="centerX" id="iBh-ze-n4d"/>
+                                                            <constraint firstItem="apA-lq-fB9" firstAttribute="trailing" secondItem="CCL-o5-9xZ" secondAttribute="trailing" id="jur-tC-WCM"/>
                                                             <constraint firstItem="QJm-4q-gTF" firstAttribute="baseline" secondItem="CCL-o5-9xZ" secondAttribute="baseline" id="m3b-MQ-aZ0"/>
+                                                            <constraint firstItem="TeO-ck-HAU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Snr-tj-1C6" secondAttribute="leading" constant="8" id="qNl-EZ-kfq"/>
                                                             <constraint firstItem="CCL-o5-9xZ" firstAttribute="top" secondItem="Snr-tj-1C6" secondAttribute="top" constant="8" id="qea-PR-VeS"/>
                                                         </constraints>
                                                     </view>
@@ -8999,12 +9038,13 @@
                     </view>
                     <connections>
                         <outlet property="colorPaletteView" destination="nik-oS-yE9" id="hO4-Hx-Unr"/>
-                        <outlet property="waterTypePopUp" destination="CCL-o5-9xZ" id="Jkz-jE-pLP"/>
+                        <outlet property="toolTypePopUp" destination="CCL-o5-9xZ" id="PeV-Kb-O71"/>
+                        <outlet property="waterTypePopUp" destination="apA-lq-fB9" id="udI-cK-V0u"/>
                     </connections>
                 </viewController>
                 <customObject id="efZ-Ln-cdG" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1798" y="5243"/>
+            <point key="canvasLocation" x="1797.5" y="5243"/>
         </scene>
         <!--Area Build Utilities View Controller-->
         <scene sceneID="JCT-Uv-6by">

@@ -14,7 +14,7 @@ extension FootpathPaintUtilitiesViewController {
     enum ViewState: THRUtilities.State {
         
         case empty(editor: Editor?)
-        case paint(editor: Editor)
+        case paint(editor: Editor, tool: (FootpathType))
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

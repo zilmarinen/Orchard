@@ -127,8 +127,12 @@ extension SceneViewController {
                     let coordinate = Coordinate(x: x, y: World.floor, z: z)
                     
                     GridEdge.Edges.forEach { edge in
-                    
-                        let _ = editor.meadow.scene.world.terrain.add(layer: coordinate, edge: edge, terrainType: .bedrock)
+                        
+                        let random = Int.random(in: 0...2)
+                        
+                        let terrainType: TerrainType = (random == 0 ? .grass1 : (random == 1 ? .grass2 : .grass3))
+                        
+                        let _ = editor.meadow.scene.world.terrain.add(layer: coordinate, edge: edge, terrainType: terrainType)
                     }
                 }
             }
