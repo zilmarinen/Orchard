@@ -110,59 +110,64 @@ extension FootpathBuildUtilitiesViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        switch to {
+        DispatchQueue.main.async {
             
-        case .empty(let editor):
-            
-            guard let editor = editor else { break }
-            
-            editor.meadow.input.cursor.tracksIdleEvents = false
-            
-            if let graticuleIdentifier = graticuleIdentifier {
+            switch to {
                 
-                editor.meadow.input.graticule.unsubscribe(graticuleIdentifier)
-            }
-            
-            graticuleIdentifier = nil
-            
-        case .build(let editor, let tool):
-            
-            editor.meadow.input.cursor.tracksIdleEvents = true
-            
-            if graticuleIdentifier == nil {
+            case .empty(let editor):
                 
-                graticuleIdentifier = editor.meadow.input.graticule.subscribe(stateDidChange(from:to:))
-            }
-            
-            footpathTypePopUp.removeAllItems()
-            selectedEdgePopUp.removeAllItems()
-            
-            steepButton.isEnabled = (tool.slope != nil)
-            selectedEdgePopUp.isEnabled = (tool.slope != nil)
-            
-            FootpathType.allCases.forEach { footpathType in
+                guard let editor = editor else { break }
                 
-                footpathTypePopUp.addItem(withTitle: footpathType.name)
-            }
-            
-            if let index = FootpathType.allCases.index(of: tool.footpathType), let colorPalette = tool.footpathType.colorPalette {
+                editor.meadow.scene.world.blueprint.clear()
                 
-                footpathTypePopUp.selectItem(at: index)
+                editor.meadow.input.cursor.tracksIdleEvents = false
                 
-                colorPaletteView.colorPalette = colorPalette
-            }
-            
-            slopeButton.state = (tool.slope == nil ? .off : .on)
-            steepButton.state = (tool.slope?.steep ?? false ? .on : .off)
-            
-            GridEdge.Edges.forEach { edge in
+                if let graticuleIdentifier = self.graticuleIdentifier {
+                    
+                    editor.meadow.input.graticule.unsubscribe(graticuleIdentifier)
+                }
                 
-                selectedEdgePopUp.addItem(withTitle: edge.description)
-            }
-            
-            if let edge = tool.slope?.edge, let index = GridEdge.Edges.index(of: edge) {
+                self.graticuleIdentifier = nil
                 
-                selectedEdgePopUp.selectItem(at: index)
+            case .build(let editor, let tool):
+                
+                editor.meadow.input.cursor.tracksIdleEvents = true
+                
+                if self.graticuleIdentifier == nil {
+                    
+                    self.graticuleIdentifier = editor.meadow.input.graticule.subscribe(self.stateDidChange(from:to:))
+                }
+                
+                self.footpathTypePopUp.removeAllItems()
+                self.selectedEdgePopUp.removeAllItems()
+                
+                self.steepButton.isEnabled = (tool.slope != nil)
+                self.selectedEdgePopUp.isEnabled = (tool.slope != nil)
+                
+                FootpathType.allCases.forEach { footpathType in
+                    
+                    self.footpathTypePopUp.addItem(withTitle: footpathType.name)
+                }
+                
+                if let index = FootpathType.allCases.index(of: tool.footpathType), let colorPalette = tool.footpathType.colorPalette {
+                    
+                    self.footpathTypePopUp.selectItem(at: index)
+                    
+                    self.colorPaletteView.colorPalette = colorPalette
+                }
+                
+                self.slopeButton.state = (tool.slope == nil ? .off : .on)
+                self.steepButton.state = (tool.slope?.steep ?? false ? .on : .off)
+                
+                GridEdge.Edges.forEach { edge in
+                    
+                    self.selectedEdgePopUp.addItem(withTitle: edge.description)
+                }
+                
+                if let edge = tool.slope?.edge, let index = GridEdge.Edges.index(of: edge) {
+                    
+                    self.selectedEdgePopUp.selectItem(at: index)
+                }
             }
         }
     }
@@ -171,8 +176,8 @@ extension FootpathBuildUtilitiesViewController {
 extension FootpathBuildUtilitiesViewController: GraticuleObserver {
     
     func stateDidChange(from: SceneView.GraticuleState?, to: SceneView.GraticuleState) {
-        
-        switch viewModel.state {
+    
+        switch self.viewModel.state {
             
         case .build(let editor, let tool):
             
@@ -180,7 +185,14 @@ extension FootpathBuildUtilitiesViewController: GraticuleObserver {
                 
             case .down(let start, let inputType):
                 
-                let footpathNode = editor.meadow.scene.world.footpaths.add(node: start.coordinate, footpathType: .asphalt)
+                switch inputType {
+                    
+                case .left:
+                    
+                    let _ = editor.meadow.scene.world.footpaths.add(node: start.coordinate, footpathType: tool.footpathType)
+                    
+                default: break
+                }
                 
             case .tracking(let start, let end, _, let inputType):
                 

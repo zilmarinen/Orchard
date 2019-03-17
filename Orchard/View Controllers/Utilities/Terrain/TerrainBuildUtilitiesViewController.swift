@@ -66,50 +66,55 @@ extension TerrainBuildUtilitiesViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        switch to {
+        DispatchQueue.main.async {
             
-        case .empty(let editor):
-            
-            guard let editor = editor else { break }
-            
-            editor.meadow.input.cursor.tracksIdleEvents = false
-            
-            if let graticuleIdentifier = graticuleIdentifier {
+            switch to {
                 
-                editor.meadow.input.graticule.unsubscribe(graticuleIdentifier)
-            }
-            
-            graticuleIdentifier = nil
-            
-        case .build(let editor, let tool):
-            
-            editor.meadow.input.cursor.tracksIdleEvents = true
-            
-            if graticuleIdentifier == nil {
-            
-                graticuleIdentifier = editor.meadow.input.graticule.subscribe(stateDidChange(from:to:))
-            }
-            
-            terrainTypePopUp.removeAllItems()
-            toolTypePopUp.removeAllItems()
-            
-            toolTypePopUp.addItem(withTitle: "Edge")
-            toolTypePopUp.addItem(withTitle: "Tile")
-            
-            toolTypePopUp.selectItem(at: tool.toolType.rawValue)
-            
-            colorPaletteView.color = nil
-            
-            TerrainType.allCases.forEach { terrainType in
+            case .empty(let editor):
                 
-                terrainTypePopUp.addItem(withTitle: terrainType.name)
-            }
-            
-            if let index = TerrainType.allCases.index(of: tool.terrainType), let colorPalette = tool.terrainType.colorPalette {
+                guard let editor = editor else { break }
                 
-                terrainTypePopUp.selectItem(at: index)
+                editor.meadow.scene.world.blueprint.clear()
                 
-                colorPaletteView.colorPalette = colorPalette
+                editor.meadow.input.cursor.tracksIdleEvents = false
+                
+                if let graticuleIdentifier = self.graticuleIdentifier {
+                    
+                    editor.meadow.input.graticule.unsubscribe(graticuleIdentifier)
+                }
+                
+                self.graticuleIdentifier = nil
+                
+            case .build(let editor, let tool):
+                
+                editor.meadow.input.cursor.tracksIdleEvents = true
+                
+                if self.graticuleIdentifier == nil {
+                
+                    self.graticuleIdentifier = editor.meadow.input.graticule.subscribe(self.stateDidChange(from:to:))
+                }
+                
+                self.terrainTypePopUp.removeAllItems()
+                self.toolTypePopUp.removeAllItems()
+                
+                self.toolTypePopUp.addItem(withTitle: "Edge")
+                self.toolTypePopUp.addItem(withTitle: "Tile")
+                
+                self.toolTypePopUp.selectItem(at: tool.toolType.rawValue)
+                
+                self.colorPaletteView.color = nil
+                
+                TerrainType.allCases.forEach { terrainType in
+                    
+                    self.terrainTypePopUp.addItem(withTitle: terrainType.name)
+                }
+                
+                if let index = TerrainType.allCases.index(of: tool.terrainType), let colorPalette = tool.terrainType.colorPalette {
+                    
+                    self.terrainTypePopUp.selectItem(at: index)
+                    
+                    self.colorPaletteView.colorPalette = colorPalette
+                }
             }
         }
     }
@@ -118,8 +123,8 @@ extension TerrainBuildUtilitiesViewController {
 extension TerrainBuildUtilitiesViewController: GraticuleObserver {
     
     func stateDidChange(from: SceneView.GraticuleState?, to: SceneView.GraticuleState) {
-    
-        switch viewModel.state {
+            
+        switch self.viewModel.state {
             
         case .build(let editor, let tool):
          

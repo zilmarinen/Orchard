@@ -23,6 +23,9 @@ class AreaInspectorViewController: NSViewController {
     @IBOutlet weak var tileHiddenButton: NSButton!
     @IBOutlet weak var nodeHiddenButton: NSButton!
     
+    @IBOutlet weak var gridWallRenderStateButton: NSButton!
+    @IBOutlet weak var chunkWallRenderStateButton: NSButton!
+    
     @IBOutlet weak var xTileCoordinateLabel: NSTextField!
     @IBOutlet weak var yTileCoordinateLabel: NSTextField!
     @IBOutlet weak var zTileCoordinateLabel: NSTextField!
@@ -84,6 +87,16 @@ class AreaInspectorViewController: NSViewController {
                 
                 node.isHidden = sender.state == .off
                 
+            case gridWallRenderStateButton:
+                
+                inspectable.grid.wallRenderState = (sender.state == .off ? .cutaway : .raised)
+                
+            case chunkWallRenderStateButton:
+                
+                guard let chunk = inspectable.chunk else { break }
+                
+                chunk.wallRenderState = (sender.state == .off ? .cutaway : .raised)
+                
             default: break
             }
             
@@ -127,65 +140,73 @@ extension AreaInspectorViewController {
 extension AreaInspectorViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
+    
+        DispatchQueue.main.async {
         
-        switch to {
+            switch to {
             
-        case .area(_, let inspectable):
-            
-            chunkCount.integerValue = inspectable.grid.totalChildren
-            gridHiddenButton.state = (inspectable.grid.isHidden ? .off : .on)
-            
-            chunkBox.isHidden = true
-            tileBox.isHidden = true
-            nodeBox.isHidden = true
-            
-            selectedNodePopUp.removeAllItems()
-            selectedExternalAreaTypePopUp.removeAllItems()
-            selectedInternalAreaTypePopUp.removeAllItems()
-            selectedFloorColorPalettePopUp.removeAllItems()
-            selectedEdgePopup.removeAllItems()
-            selectedEdgeTypePopup.removeAllItems()
-            selectedArchitectureTypePopup.removeAllItems()
-            externalColorPalettePopup.removeAllItems()
-            internalColorPalettePopup.removeAllItems()
-            
-            externalColorPalettePopup.isEnabled = false
-            internalColorPalettePopup.isEnabled = false
-            
-            if let chunk = inspectable.chunk, let tile = inspectable.tile, let node = inspectable.node {
+            case .area(_, let inspectable):
                 
-                chunkBox.isHidden = inspectable.grid.isHidden
-                tileBox.isHidden = inspectable.grid.isHidden || chunk.isHidden
-                nodeBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden
+                self.chunkCount.integerValue = inspectable.grid.totalChildren
+                self.gridHiddenButton.state = (inspectable.grid.isHidden ? .off : .on)
                 
-                tileCount.integerValue = chunk.totalChildren
-                chunkHiddenButton.state = (chunk.isHidden ? .off : .on)
-                tileHiddenButton.state = (tile.isHidden ? .off : .on)
-                nodeHiddenButton.state = (node.isHidden ? .off : .on)
+                self.gridWallRenderStateButton.state = (inspectable.grid.wallRenderState == .cutaway ? .off : .on)
+                self.chunkWallRenderStateButton.state = .off
                 
-                xTileCoordinateLabel.integerValue = tile.volume.coordinate.x
-                yTileCoordinateLabel.integerValue = tile.volume.coordinate.y
-                zTileCoordinateLabel.integerValue = tile.volume.coordinate.z
+                self.chunkBox.isHidden = true
+                self.tileBox.isHidden = true
+                self.nodeBox.isHidden = true
                 
-                for index in 0..<tile.totalChildren {
+                self.selectedNodePopUp.removeAllItems()
+                self.selectedExternalAreaTypePopUp.removeAllItems()
+                self.selectedInternalAreaTypePopUp.removeAllItems()
+                self.selectedFloorColorPalettePopUp.removeAllItems()
+                self.selectedEdgePopup.removeAllItems()
+                self.selectedEdgeTypePopup.removeAllItems()
+                self.selectedArchitectureTypePopup.removeAllItems()
+                self.externalColorPalettePopup.removeAllItems()
+                self.internalColorPalettePopup.removeAllItems()
+                
+                self.externalColorPalettePopup.isEnabled = false
+                self.internalColorPalettePopup.isEnabled = false
+                
+                if let chunk = inspectable.chunk, let tile = inspectable.tile, let node = inspectable.node {
                     
-                    selectedNodePopUp.addItem(withTitle: "Node \(index + 1)")
+                    self.chunkWallRenderStateButton.state = (chunk.wallRenderState == .cutaway ? .off : .on)
+                    
+                    self.chunkBox.isHidden = inspectable.grid.isHidden
+                    self.tileBox.isHidden = inspectable.grid.isHidden || chunk.isHidden
+                    self.nodeBox.isHidden = inspectable.grid.isHidden || chunk.isHidden || tile.isHidden
+                    
+                    self.tileCount.integerValue = chunk.totalChildren
+                    self.chunkHiddenButton.state = (chunk.isHidden ? .off : .on)
+                    self.tileHiddenButton.state = (tile.isHidden ? .off : .on)
+                    self.nodeHiddenButton.state = (node.isHidden ? .off : .on)
+                    
+                    self.xTileCoordinateLabel.integerValue = tile.volume.coordinate.x
+                    self.yTileCoordinateLabel.integerValue = tile.volume.coordinate.y
+                    self.zTileCoordinateLabel.integerValue = tile.volume.coordinate.z
+                    
+                    for index in 0..<tile.totalChildren {
+                        
+                        self.selectedNodePopUp.addItem(withTitle: "Node \(index + 1)")
+                    }
+                    
+                    if let index = tile.index(of: node) {
+                     
+                        self.selectedNodePopUp.selectItem(at: index)
+                    }
+                    
+                    self.xNodeCoordinateLabel.integerValue = node.volume.coordinate.x
+                    self.yNodeCoordinateLabel.integerValue = node.volume.coordinate.y
+                    self.zNodeCoordinateLabel.integerValue = node.volume.coordinate.z
+                    self.widthNodeSizeLabel.integerValue = node.volume.size.width
+                    self.heightNodeSizeLabel.integerValue = node.volume.size.height
+                    self.depthNodeSizeLabel.integerValue = node.volume.size.depth
                 }
                 
-                if let index = tile.index(of: node) {
-                 
-                    selectedNodePopUp.selectItem(at: index)
-                }
-                
-                xNodeCoordinateLabel.integerValue = node.volume.coordinate.x
-                yNodeCoordinateLabel.integerValue = node.volume.coordinate.y
-                zNodeCoordinateLabel.integerValue = node.volume.coordinate.z
-                widthNodeSizeLabel.integerValue = node.volume.size.width
-                heightNodeSizeLabel.integerValue = node.volume.size.height
-                depthNodeSizeLabel.integerValue = node.volume.size.depth
+            default: break
             }
-            
-        default: break
         }
     }
 }

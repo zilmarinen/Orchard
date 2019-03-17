@@ -81,53 +81,58 @@ extension TerrainTerraformUtilitiesViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        switch to {
+        DispatchQueue.main.async {
             
-        case .empty(let editor):
-            
-            guard let editor = editor else { break }
-            
-            editor.meadow.input.cursor.tracksIdleEvents = false
-            
-            if let graticuleIdentifier = graticuleIdentifier {
+            switch to {
                 
-                editor.meadow.input.graticule.unsubscribe(graticuleIdentifier)
+            case .empty(let editor):
+                
+                guard let editor = editor else { break }
+                
+                editor.meadow.scene.world.blueprint.clear()
+                
+                editor.meadow.input.cursor.tracksIdleEvents = false
+                
+                if let graticuleIdentifier = self.graticuleIdentifier {
+                    
+                    editor.meadow.input.graticule.unsubscribe(graticuleIdentifier)
+                }
+                
+                self.graticuleIdentifier = nil
+                
+            case .terraform(let editor, let tool):
+                
+                editor.meadow.input.cursor.tracksIdleEvents = true
+                
+                if self.graticuleIdentifier == nil {
+                    
+                    self.graticuleIdentifier = editor.meadow.input.graticule.subscribe(self.stateDidChange(from:to:))
+                }
+                
+                self.toolTypePopUp.removeAllItems()
+                
+                self.toolTypePopUp.addItem(withTitle: "Corner")
+                self.toolTypePopUp.addItem(withTitle: "Edge")
+                self.toolTypePopUp.addItem(withTitle: "Tile")
+                
+                self.toolTypePopUp.selectItem(at: tool.toolType.rawValue)
+                
+                self.widthStepper.maxValue = 10
+                self.widthStepper.minValue = 1
+                self.widthStepper.integerValue = tool.reticule.width
+                self.widthStepper.isEnabled = tool.toolType == ToolType.tile
+                
+                self.depthStepper.maxValue = 10
+                self.depthStepper.minValue = 1
+                self.depthStepper.integerValue = tool.reticule.depth
+                self.depthStepper.isEnabled = tool.toolType == ToolType.tile
+                
+                self.widthTextField.integerValue = self.widthStepper.integerValue
+                self.widthTextField.isEnabled = tool.toolType == ToolType.tile
+                
+                self.depthTextField.integerValue = self.depthStepper.integerValue
+                self.depthTextField.isEnabled = tool.toolType == ToolType.tile
             }
-            
-            graticuleIdentifier = nil
-            
-        case .terraform(let editor, let tool):
-            
-            editor.meadow.input.cursor.tracksIdleEvents = true
-            
-            if graticuleIdentifier == nil {
-                
-                graticuleIdentifier = editor.meadow.input.graticule.subscribe(stateDidChange(from:to:))
-            }
-            
-            toolTypePopUp.removeAllItems()
-            
-            toolTypePopUp.addItem(withTitle: "Corner")
-            toolTypePopUp.addItem(withTitle: "Edge")
-            toolTypePopUp.addItem(withTitle: "Tile")
-            
-            toolTypePopUp.selectItem(at: tool.toolType.rawValue)
-            
-            widthStepper.maxValue = 10
-            widthStepper.minValue = 1
-            widthStepper.integerValue = tool.reticule.width
-            widthStepper.isEnabled = tool.toolType == ToolType.tile
-                
-            depthStepper.maxValue = 10
-            depthStepper.minValue = 1
-            depthStepper.integerValue = tool.reticule.depth
-            depthStepper.isEnabled = tool.toolType == ToolType.tile
-            
-            widthTextField.integerValue = widthStepper.integerValue
-            widthTextField.isEnabled = tool.toolType == ToolType.tile
-            
-            depthTextField.integerValue = depthStepper.integerValue
-            depthTextField.isEnabled = tool.toolType == ToolType.tile
         }
     }
 }
@@ -135,8 +140,8 @@ extension TerrainTerraformUtilitiesViewController {
 extension TerrainTerraformUtilitiesViewController: GraticuleObserver {
     
     func stateDidChange(from: SceneView.GraticuleState?, to: SceneView.GraticuleState) {
-        
-        switch viewModel.state {
+            
+        switch self.viewModel.state {
             
         case .terraform(let editor, let tool):
             

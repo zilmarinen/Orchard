@@ -15,6 +15,8 @@ class AreaUtilitiesViewController: NSViewController {
     
     @IBOutlet weak var gridHiddenButton: NSButton!
     
+    @IBOutlet weak var gridWallRenderStateButton: NSButton!
+    
     @IBOutlet weak var buildButton: NSButton!
     @IBOutlet weak var architectureButton: NSButton!
     @IBOutlet weak var paintButton: NSButton!
@@ -42,6 +44,10 @@ class AreaUtilitiesViewController: NSViewController {
             case paintButton:
                 
                 tabViewController?.viewModel.state = .paint(editor: editor)
+                
+            case gridWallRenderStateButton:
+                
+                editor.meadow.scene.world.areas.wallRenderState = (sender.state == .off ? .cutaway : .raised)
                 
             default: break
             }
@@ -74,26 +80,31 @@ extension AreaUtilitiesViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        guard let tabViewController = tabViewController else { return }
-        
-        switch to {
+        DispatchQueue.main.async {
             
-        case .empty(let editor):
+            guard let tabViewController = self.tabViewController else { return }
             
-            tabViewController.viewModel.state = .empty(editor: editor)
-            
-        case .area(let editor):
-            
-            chunkCount.integerValue = editor.meadow.scene.world.areas.totalChildren
-            gridHiddenButton.state = (editor.meadow.scene.world.areas.isHidden ? .off : .on)
-            
-            switch tabViewController.viewModel.state {
+            switch to {
                 
-            case .empty:
+            case .empty(let editor):
                 
-                tabViewController.viewModel.state = .build(editor: editor)
+                tabViewController.viewModel.state = .empty(editor: editor)
                 
-            default: break
+            case .area(let editor):
+                
+                self.chunkCount.integerValue = editor.meadow.scene.world.areas.totalChildren
+                self.gridHiddenButton.state = (editor.meadow.scene.world.areas.isHidden ? .off : .on)
+                
+                self.gridWallRenderStateButton.state = (editor.meadow.scene.world.areas.wallRenderState == .cutaway ? .off : .on)
+                
+                switch tabViewController.viewModel.state {
+                    
+                case .empty:
+                    
+                    tabViewController.viewModel.state = .build(editor: editor)
+                    
+                default: break
+                }
             }
         }
     }

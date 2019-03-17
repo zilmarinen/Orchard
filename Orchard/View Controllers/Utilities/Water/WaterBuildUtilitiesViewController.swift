@@ -66,50 +66,55 @@ extension WaterBuildUtilitiesViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        switch to {
+        DispatchQueue.main.async {
             
-        case .empty(let editor):
-            
-            guard let editor = editor else { break }
-            
-            editor.meadow.input.cursor.tracksIdleEvents = false
-            
-            if let graticuleIdentifier = graticuleIdentifier {
+            switch to {
                 
-                editor.meadow.input.graticule.unsubscribe(graticuleIdentifier)
-            }
-            
-            graticuleIdentifier = nil
-            
-        case .build(let editor, let tool):
-            
-            editor.meadow.input.cursor.tracksIdleEvents = true
-            
-            if graticuleIdentifier == nil {
+            case .empty(let editor):
                 
-                graticuleIdentifier = editor.meadow.input.graticule.subscribe(stateDidChange(from:to:))
-            }
-            
-            waterTypePopUp.removeAllItems()
-            toolTypePopUp.removeAllItems()
-            
-            toolTypePopUp.addItem(withTitle: "Edge")
-            toolTypePopUp.addItem(withTitle: "Tile")
-            
-            toolTypePopUp.selectItem(at: tool.toolType.rawValue)
-            
-            colorPaletteView.color = nil
-            
-            WaterType.allCases.forEach { waterType in
+                guard let editor = editor else { break }
                 
-                waterTypePopUp.addItem(withTitle: waterType.name)
-            }
-            
-            if let index = WaterType.allCases.index(of: tool.waterType), let colorPalette = tool.waterType.colorPalette {
+                editor.meadow.scene.world.blueprint.clear()
                 
-                waterTypePopUp.selectItem(at: index)
+                editor.meadow.input.cursor.tracksIdleEvents = false
                 
-                colorPaletteView.colorPalette = colorPalette
+                if let graticuleIdentifier = self.graticuleIdentifier {
+                    
+                    editor.meadow.input.graticule.unsubscribe(graticuleIdentifier)
+                }
+                
+                self.graticuleIdentifier = nil
+                
+            case .build(let editor, let tool):
+                
+                editor.meadow.input.cursor.tracksIdleEvents = true
+                
+                if self.graticuleIdentifier == nil {
+                    
+                    self.graticuleIdentifier = editor.meadow.input.graticule.subscribe(self.stateDidChange(from:to:))
+                }
+                
+                self.waterTypePopUp.removeAllItems()
+                self.toolTypePopUp.removeAllItems()
+                
+                self.toolTypePopUp.addItem(withTitle: "Edge")
+                self.toolTypePopUp.addItem(withTitle: "Tile")
+                
+                self.toolTypePopUp.selectItem(at: tool.toolType.rawValue)
+                
+                self.colorPaletteView.color = nil
+                
+                WaterType.allCases.forEach { waterType in
+                    
+                    self.waterTypePopUp.addItem(withTitle: waterType.name)
+                }
+                
+                if let index = WaterType.allCases.index(of: tool.waterType), let colorPalette = tool.waterType.colorPalette {
+                    
+                    self.waterTypePopUp.selectItem(at: index)
+                    
+                    self.colorPaletteView.colorPalette = colorPalette
+                }
             }
         }
     }
@@ -118,8 +123,8 @@ extension WaterBuildUtilitiesViewController {
 extension WaterBuildUtilitiesViewController: GraticuleObserver {
     
     func stateDidChange(from: SceneView.GraticuleState?, to: SceneView.GraticuleState) {
-        
-        switch viewModel.state {
+            
+        switch self.viewModel.state {
             
         case .build(let editor, let tool):
             
@@ -137,11 +142,11 @@ extension WaterBuildUtilitiesViewController: GraticuleObserver {
                         
                     case .edge:
                         
-                        guard let terrainEdgeLayer = terrainNode.find(edge: start.edge)?.topLayer else { break }
+                        guard let terrainNodeEdgeLayer = terrainNode.find(edge: start.edge)?.topLayer else { break }
                         
                         let waterNodeEdge = editor.meadow.scene.world.water.add(edge: start.coordinate, edge: start.edge, waterType: tool.waterType)
                         
-                        waterNodeEdge?.waterLevel = terrainEdgeLayer.base + 1
+                        waterNodeEdge?.waterLevel = terrainNodeEdgeLayer.base + 1
                         
                     case .tile:
                         
@@ -192,13 +197,13 @@ extension WaterBuildUtilitiesViewController: GraticuleObserver {
                     
                 case .edge:
                     
-                    guard let terrainEdgeLayer = terrainNode.find(edge: end.edge)?.topLayer else { break }
+                    guard let terrainNodeEdgeLayer = terrainNode.find(edge: end.edge)?.topLayer else { break }
                     
-                    let waterLevel = terrainEdgeLayer.peak + 1
+                    let waterLevel = terrainNodeEdgeLayer.peak + 1
                     
-                    let lowerPolytope = terrainEdgeLayer.polyhedron.upperPolytope
+                    let lowerPolytope = terrainNodeEdgeLayer.polyhedron.upperPolytope
                     
-                    let upperPolytope = Polytope(x: MDWFloat(terrainEdgeLayer.coordinate.x), y0: waterLevel, y1: waterLevel, y2: waterLevel, y3: waterLevel, z: MDWFloat(terrainEdgeLayer.coordinate.z))
+                    let upperPolytope = Polytope(x: MDWFloat(terrainNodeEdgeLayer.coordinate.x), y0: waterLevel, y1: waterLevel, y2: waterLevel, y3: waterLevel, z: MDWFloat(terrainNodeEdgeLayer.coordinate.z))
                     
                     let polyhedron = Polyhedron(upperPolytope: upperPolytope, lowerPolytope: lowerPolytope)
                     
@@ -238,11 +243,11 @@ extension WaterBuildUtilitiesViewController: GraticuleObserver {
                     
                     GridEdge.Edges.forEach { edge in
                         
-                        if let terrainEdgeLayer = terrainNode.find(edge: edge)?.topLayer {
+                        if let terrainNodeEdgeLayer = terrainNode.find(edge: edge)?.topLayer {
                             
-                            let lowerPolytope = terrainEdgeLayer.polyhedron.upperPolytope
+                            let lowerPolytope = terrainNodeEdgeLayer.polyhedron.upperPolytope
                             
-                            let upperPolytope = Polytope(x: MDWFloat(terrainEdgeLayer.coordinate.x), y0: waterLevel, y1: waterLevel, y2: waterLevel, y3: waterLevel, z: MDWFloat(terrainEdgeLayer.coordinate.z))
+                            let upperPolytope = Polytope(x: MDWFloat(terrainNodeEdgeLayer.coordinate.x), y0: waterLevel, y1: waterLevel, y2: waterLevel, y3: waterLevel, z: MDWFloat(terrainNodeEdgeLayer.coordinate.z))
                             
                             let polyhedron = Polyhedron(upperPolytope: upperPolytope, lowerPolytope: lowerPolytope)
                             

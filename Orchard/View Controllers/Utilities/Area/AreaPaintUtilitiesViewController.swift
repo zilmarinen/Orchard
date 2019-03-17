@@ -58,9 +58,12 @@ extension AreaPaintUtilitiesViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        switch to {
+        DispatchQueue.main.async {
             
-        default: break
+            switch to {
+                
+            default: break
+            }
         }
     }
 }

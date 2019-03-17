@@ -31,42 +31,45 @@ extension WaterUtilitiesTabViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        if let from = from {
+        DispatchQueue.main.async {
             
-            let viewController = children[from.sortOrder]
+            if let from = from {
+                
+                let viewController = self.children[from.sortOrder]
+                
+                switch from {
+                    
+                case .build(let editor):
+                    
+                    guard let viewController = viewController as? WaterBuildUtilitiesViewController else { break }
+                    
+                    viewController.viewModel.state = .empty(editor: editor)
+                    
+                default: break
+                }
+            }
             
-            switch from {
+            self.selectedTabViewItemIndex = to.sortOrder
+            
+            let viewController = self.children[to.sortOrder]
+            
+            switch to {
                 
             case .build(let editor):
                 
                 guard let viewController = viewController as? WaterBuildUtilitiesViewController else { break }
                 
-                viewController.viewModel.state = .empty(editor: editor)
+                switch viewController.viewModel.state {
+                    
+                case .empty:
+                    
+                    viewController.viewModel.state = .build(editor: editor, tool: (toolType: .tile, waterType: WaterType.water))
+                    
+                default: break
+                }
                 
             default: break
             }
-        }
-        
-        selectedTabViewItemIndex = to.sortOrder
-        
-        let viewController = children[to.sortOrder]
-        
-        switch to {
-            
-        case .build(let editor):
-            
-            guard let viewController = viewController as? WaterBuildUtilitiesViewController else { break }
-            
-            switch viewController.viewModel.state {
-                
-            case .empty:
-                
-                viewController.viewModel.state = .build(editor: editor, tool: (toolType: .tile, waterType: WaterType.water))
-                
-            default: break
-            }
-            
-        default: break
         }
     }
 }

@@ -70,25 +70,28 @@ extension PropInspectorViewController {
     
     func stateDidChange(from: ViewState?, to: ViewState) {
         
-        switch to {
+        DispatchQueue.main.async {
             
-        case .prop(_, let inspectable):
-            
-            propCount.integerValue = inspectable.props.totalChildren
-            propsHiddenButton.state = (inspectable.props.isHidden ? .off : .on)
-            
-            propBox.isHidden = true
-            
-            if let prop = inspectable.prop {
+            switch to {
                 
-                propBox.isHidden = prop.isHidden
+            case .prop(_, let inspectable):
                 
-                xPropCoordinateLabel.integerValue = prop.footprint.coordinate.x
-                yPropCoordinateLabel.integerValue = prop.footprint.coordinate.y
-                zPropCoordinateLabel.integerValue = prop.footprint.coordinate.z
+                self.propCount.integerValue = inspectable.props.totalChildren
+                self.propsHiddenButton.state = (inspectable.props.isHidden ? .off : .on)
+                
+                self.propBox.isHidden = true
+                
+                if let prop = inspectable.prop {
+                    
+                    self.propBox.isHidden = prop.isHidden
+                    
+                    self.xPropCoordinateLabel.integerValue = prop.footprint.coordinate.x
+                    self.yPropCoordinateLabel.integerValue = prop.footprint.coordinate.y
+                    self.zPropCoordinateLabel.integerValue = prop.footprint.coordinate.z
+                }
+                
+            default: break
             }
-            
-        default: break
         }
     }
 }
