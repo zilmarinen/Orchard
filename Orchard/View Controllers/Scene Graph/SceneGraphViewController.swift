@@ -92,14 +92,21 @@ extension SceneGraphViewController {
  
     func sceneGraph(numberOfChildrenOfItem item: Any?) -> Int {
         
-        guard item != nil else { return 1 }
-        
-        if let item = item as? SceneGraphParent {
+        switch viewModel.state {
             
-            return item.totalChildren
+        case .sceneGraph:
+            
+            guard item != nil else { return 1 }
+            
+            if let item = item as? SceneGraphParent {
+                
+                return item.totalChildren
+            }
+            
+            return 0
+            
+        default: return 0
         }
-        
-        return 0
     }
 }
 

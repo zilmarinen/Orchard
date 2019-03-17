@@ -89,6 +89,8 @@ extension TerrainTerraformUtilitiesViewController {
                 
                 guard let editor = editor else { break }
                 
+                editor.meadow.scene.world.blueprint.clear()
+                
                 editor.meadow.input.cursor.tracksIdleEvents = false
                 
                 if let graticuleIdentifier = self.graticuleIdentifier {
@@ -138,59 +140,34 @@ extension TerrainTerraformUtilitiesViewController {
 extension TerrainTerraformUtilitiesViewController: GraticuleObserver {
     
     func stateDidChange(from: SceneView.GraticuleState?, to: SceneView.GraticuleState) {
-        
-        DispatchQueue.main.async {
             
-            switch self.viewModel.state {
+        switch self.viewModel.state {
+            
+        case .terraform(let editor, let tool):
+            
+            switch to {
                 
-            case .terraform(let editor, let tool):
+            case .tracking(let start, _, let yOffset, let inputType):
                 
-                switch to {
+                editor.meadow.scene.world.blueprint.clear()
+                
+                guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint") else { break }
+                
+                var meshFaces: [MeshFace] = []
+                
+                switch tool.toolType {
                     
-                case .tracking(let start, _, let yOffset, let inputType):
+                case .corner:
                     
-                    editor.meadow.scene.world.blueprint.clear()
+                    let coordinate = Coordinate(x: start.coordinate.x, y: World.floor, z: start.coordinate.z)
                     
-                    guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint") else { break }
+                    let edges = GridEdge.edges(corner: start.corner)
                     
-                    var meshFaces: [MeshFace] = []
-                    
-                    switch tool.toolType {
+                    [edges.e0, edges.e1].forEach { edge in
                         
-                    case .corner:
-                        
-                        let coordinate = Coordinate(x: start.coordinate.x, y: World.floor, z: start.coordinate.z)
-                        
-                        let edges = GridEdge.edges(corner: start.corner)
-                        
-                        [edges.e0, edges.e1].forEach { edge in
+                        if let terrainLayer = editor.meadow.scene.world.terrain.find(edge: coordinate, edge: edge)?.topLayer {
                             
-                            if let terrainLayer = editor.meadow.scene.world.terrain.find(edge: coordinate, edge: edge)?.topLayer {
-                                
-                                let corners = GridCorner.corners(edge: edge)
-                                
-                                let polytope = Polytope.translate(polytope: terrainLayer.polyhedron.upperPolytope, translation: SCNVector3(x: 0.0, y: Blueprint.surface, z: 0.0))
-                                
-                                meshFaces.append(MeshFace.apex(corners: corners, polytope: polytope, color: colorPalette.secondary.vector))
-                                
-                                if inputType == .left {
-                                    
-                                    let height = start.coordinate.y + yOffset
-                                    
-                                    terrainLayer.set(center: height)
-                                    terrainLayer.set(corner: corners.c0, height: height)
-                                    terrainLayer.set(corner: corners.c1, height: height)
-                                }
-                            }
-                        }
-                        
-                    case .edge:
-                        
-                        let coordinate = Coordinate(x: start.coordinate.x, y: World.floor, z: start.coordinate.z)
-                        
-                        if let terrainLayer = editor.meadow.scene.world.terrain.find(edge: coordinate, edge: start.edge)?.topLayer {
-                         
-                            let corners = GridCorner.corners(edge: terrainLayer.edge)
+                            let corners = GridCorner.corners(edge: edge)
                             
                             let polytope = Polytope.translate(polytope: terrainLayer.polyhedron.upperPolytope, translation: SCNVector3(x: 0.0, y: Blueprint.surface, z: 0.0))
                             
@@ -205,51 +182,73 @@ extension TerrainTerraformUtilitiesViewController: GraticuleObserver {
                                 terrainLayer.set(corner: corners.c1, height: height)
                             }
                         }
+                    }
+                    
+                case .edge:
+                    
+                    let coordinate = Coordinate(x: start.coordinate.x, y: World.floor, z: start.coordinate.z)
+                    
+                    if let terrainLayer = editor.meadow.scene.world.terrain.find(edge: coordinate, edge: start.edge)?.topLayer {
+                     
+                        let corners = GridCorner.corners(edge: terrainLayer.edge)
                         
-                    case .tile:
+                        let polytope = Polytope.translate(polytope: terrainLayer.polyhedron.upperPolytope, translation: SCNVector3(x: 0.0, y: Blueprint.surface, z: 0.0))
                         
-                        let minimumX = start.coordinate.x
-                        let maximumX = start.coordinate.x + tool.reticule.width
-                        let minimumZ = start.coordinate.z
-                        let maximumZ = start.coordinate.z + tool.reticule.depth
+                        meshFaces.append(MeshFace.apex(corners: corners, polytope: polytope, color: colorPalette.secondary.vector))
                         
-                        for x in minimumX..<maximumX {
+                        if inputType == .left {
                             
-                            for z in minimumZ..<maximumZ {
+                            let height = start.coordinate.y + yOffset
+                            
+                            terrainLayer.set(center: height)
+                            terrainLayer.set(corner: corners.c0, height: height)
+                            terrainLayer.set(corner: corners.c1, height: height)
+                        }
+                    }
+                    
+                case .tile:
+                    
+                    let minimumX = start.coordinate.x
+                    let maximumX = start.coordinate.x + tool.reticule.width
+                    let minimumZ = start.coordinate.z
+                    let maximumZ = start.coordinate.z + tool.reticule.depth
+                    
+                    for x in minimumX..<maximumX {
+                        
+                        for z in minimumZ..<maximumZ {
+                            
+                            let coordinate = Coordinate(x: x, y: World.floor, z: z)
+                            
+                            GridEdge.Edges.forEach { edge in
                                 
-                                let coordinate = Coordinate(x: x, y: World.floor, z: z)
-                                
-                                GridEdge.Edges.forEach { edge in
+                                if let terrainLayer = editor.meadow.scene.world.terrain.find(edge: coordinate, edge: edge)?.topLayer {
                                     
-                                    if let terrainLayer = editor.meadow.scene.world.terrain.find(edge: coordinate, edge: edge)?.topLayer {
+                                    let corners = GridCorner.corners(edge: edge)
+                                    
+                                    let polytope = Polytope.translate(polytope: terrainLayer.polyhedron.upperPolytope, translation: SCNVector3(x: 0.0, y: Blueprint.surface, z: 0.0))
+                                    
+                                    meshFaces.append(MeshFace.apex(corners: corners, polytope: polytope, color: colorPalette.secondary.vector))
+                                    
+                                    if inputType == .left {
                                         
-                                        let corners = GridCorner.corners(edge: edge)
+                                        let height = start.coordinate.y + yOffset
                                         
-                                        let polytope = Polytope.translate(polytope: terrainLayer.polyhedron.upperPolytope, translation: SCNVector3(x: 0.0, y: Blueprint.surface, z: 0.0))
-                                        
-                                        meshFaces.append(MeshFace.apex(corners: corners, polytope: polytope, color: colorPalette.secondary.vector))
-                                        
-                                        if inputType == .left {
-                                            
-                                            let height = start.coordinate.y + yOffset
-                                            
-                                            terrainLayer.set(center: height)
-                                            terrainLayer.set(corner: corners.c0, height: height)
-                                            terrainLayer.set(corner: corners.c1, height: height)
-                                        }
+                                        terrainLayer.set(center: height)
+                                        terrainLayer.set(corner: corners.c0, height: height)
+                                        terrainLayer.set(corner: corners.c1, height: height)
                                     }
                                 }
                             }
                         }
                     }
-                    
-                    editor.meadow.scene.world.blueprint.add(mesh: Mesh(faces: meshFaces))
-                    
-                default: break
                 }
+                
+                editor.meadow.scene.world.blueprint.add(mesh: Mesh(faces: meshFaces))
                 
             default: break
             }
+            
+        default: break
         }
     }
 }

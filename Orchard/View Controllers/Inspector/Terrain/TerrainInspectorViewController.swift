@@ -130,7 +130,7 @@ class TerrainInspectorViewController: NSViewController {
                 
                 guard let tile = inspectable.tile, let node = tile.child(at: sender.indexOfSelectedItem) as? TerrainNode, let edge = node.child(at: 0) as? TerrainNodeEdge else { break }
                 
-                viewModel.state = .terrain(editor: editor,inspectable: (inspectable.grid, inspectable.chunk, tile, node, edge, edge.child(at: 0) as? TerrainEdgeLayer))
+                viewModel.state = .terrain(editor: editor,inspectable: (inspectable.grid, inspectable.chunk, tile, node, edge, edge.child(at: 0) as? TerrainNodeEdgeLayer))
                 
                 editor.delegate.sceneGraph(didSelectChild: node, atIndex: sender.indexOfSelectedItem)
                 
@@ -140,11 +140,11 @@ class TerrainInspectorViewController: NSViewController {
                 
                 let edge = inspectable.node?.find(edge: gridEdge)
                 
-                viewModel.state = .terrain(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, inspectable.node, edge, edge?.child(at: 0) as? TerrainEdgeLayer))
+                viewModel.state = .terrain(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, inspectable.node, edge, edge?.child(at: 0) as? TerrainNodeEdgeLayer))
                 
             case selectedLayerPopUp:
                 
-                guard let layer = inspectable.edge?.child(at: sender.indexOfSelectedItem) as? TerrainEdgeLayer else { break }
+                guard let layer = inspectable.edge?.child(at: sender.indexOfSelectedItem) as? TerrainNodeEdgeLayer else { break }
                 
                 viewModel.state = .terrain(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, inspectable.node, inspectable.edge, layer))
                 

@@ -137,7 +137,7 @@ extension InspectorTabViewController {
                 
                 if let edge = inspectable.edge, edge.totalChildren > 0 {
                     
-                    inspectable.layer = edge.child(at: 0) as? TerrainEdgeLayer
+                    inspectable.layer = edge.child(at: 0) as? TerrainNodeEdgeLayer
                 }
                 
                 if let layer = inspectable.layer {

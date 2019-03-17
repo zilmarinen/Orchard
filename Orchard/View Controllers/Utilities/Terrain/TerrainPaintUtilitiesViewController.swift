@@ -74,6 +74,8 @@ extension TerrainPaintUtilitiesViewController {
                 
                 guard let editor = editor else { break }
                 
+                editor.meadow.scene.world.blueprint.clear()
+                
                 editor.meadow.input.cursor.tracksIdleEvents = false
                 
                 if let graticuleIdentifier = self.graticuleIdentifier {
@@ -121,138 +123,135 @@ extension TerrainPaintUtilitiesViewController {
 extension TerrainPaintUtilitiesViewController: GraticuleObserver {
     
     func stateDidChange(from: SceneView.GraticuleState?, to: SceneView.GraticuleState) {
-        
-        DispatchQueue.main.async {
             
-            switch self.viewModel.state {
+        switch self.viewModel.state {
+            
+        case .paint(let editor, let tool):
+            
+            switch to {
                 
-            case .paint(let editor, let tool):
+            case .tracking(let start, let end, _, _):
                 
-                switch to {
+                editor.meadow.scene.world.blueprint.clear()
+                
+                guard let colorPalette = tool.terrainType.colorPalette else { break }
+                
+                var meshFaces: [MeshFace] = []
+                
+                switch tool.toolType {
                     
-                case .tracking(let start, let end, _, _):
+                case .edge:
                     
-                    editor.meadow.scene.world.blueprint.clear()
+                    guard let terrainLayer = editor.meadow.scene.world.terrain.find(edge: end.coordinate, edge: end.edge)?.topLayer else { break }
                     
-                    guard let colorPalette = tool.terrainType.colorPalette else { break }
+                    let corners = GridCorner.corners(edge: end.edge)
                     
-                    var meshFaces: [MeshFace] = []
+                    let edgeNormal = GridEdge.normal(edge: end.edge)
+                    let inverseNormal = SCNVector3.negate(vector: edgeNormal)
                     
-                    switch tool.toolType {
+                    let upperPolytope = Polytope.translate(polytope: terrainLayer.polyhedron.upperPolytope, translation: SCNVector3(x: 0.0, y: Blueprint.surface, z: 0.0))
+                    
+                    let polyhedron = Polyhedron(upperPolytope: upperPolytope, lowerPolytope: terrainLayer.polyhedron.lowerPolytope)
+                    
+                    meshFaces.append(MeshFace.apex(corners: corners, polytope: polyhedron.upperPolytope, color: colorPalette.primary.vector))
+                    
+                    meshFaces.append(contentsOf: MeshFace.edge(corners: corners, polyhedron: polyhedron, normal: edgeNormal, color: colorPalette.secondary.vector))
+                    
+                    let edges = GridEdge.edges(edge: end.edge)
+                    
+                    [edges.e0, edges.e1].forEach { connectedEdge in
                         
-                    case .edge:
+                        let diagonalNormal = inverseNormal + GridEdge.normal(edge: connectedEdge)
                         
-                        guard let terrainLayer = editor.meadow.scene.world.terrain.find(edge: end.coordinate, edge: end.edge)?.topLayer else { break }
+                        let connectedCorners = GridCorner.corners(edge: connectedEdge)
                         
-                        let corners = GridCorner.corners(edge: end.edge)
+                        let corner = (connectedCorners.c0 == corners.c0 ? connectedCorners.c0 : (connectedCorners.c0 == corners.c1 ? connectedCorners.c0 : connectedCorners.c1))
                         
-                        let edgeNormal = GridEdge.normal(edge: end.edge)
-                        let inverseNormal = SCNVector3.negate(vector: edgeNormal)
+                        let cornerUpper = polyhedron.upperPolytope.vertices[corner.rawValue]
+                        let centreUpper = polyhedron.upperPolytope.center
                         
-                        let upperPolytope = Polytope.translate(polytope: terrainLayer.polyhedron.upperPolytope, translation: SCNVector3(x: 0.0, y: Blueprint.surface, z: 0.0))
+                        let cornerLower = polyhedron.lowerPolytope.vertices[corner.rawValue]
+                        let centerLower = polyhedron.lowerPolytope.center
                         
-                        let polyhedron = Polyhedron(upperPolytope: upperPolytope, lowerPolytope: terrainLayer.polyhedron.lowerPolytope)
+                        let polytope = Polytope(v0: cornerUpper, v1: centreUpper, v2: centerLower, v3: cornerLower)
                         
-                        meshFaces.append(MeshFace.apex(corners: corners, polytope: polyhedron.upperPolytope, color: colorPalette.primary.vector))
-                        
-                        meshFaces.append(contentsOf: MeshFace.edge(corners: corners, polyhedron: polyhedron, normal: edgeNormal, color: colorPalette.secondary.vector))
-                        
-                        let edges = GridEdge.edges(edge: end.edge)
-                        
-                        [edges.e0, edges.e1].forEach { connectedEdge in
-                            
-                            let diagonalNormal = inverseNormal + GridEdge.normal(edge: connectedEdge)
-                            
-                            let connectedCorners = GridCorner.corners(edge: connectedEdge)
-                            
-                            let corner = (connectedCorners.c0 == corners.c0 ? connectedCorners.c0 : (connectedCorners.c0 == corners.c1 ? connectedCorners.c0 : connectedCorners.c1))
-                            
-                            let cornerUpper = polyhedron.upperPolytope.vertices[corner.rawValue]
-                            let centreUpper = polyhedron.upperPolytope.center
-                            
-                            let cornerLower = polyhedron.lowerPolytope.vertices[corner.rawValue]
-                            let centerLower = polyhedron.lowerPolytope.center
-                            
-                            let polytope = Polytope(v0: cornerUpper, v1: centreUpper, v2: centerLower, v3: cornerLower)
-                            
-                            meshFaces.append(contentsOf: MeshFace.diagonal(polytope: polytope, normal: diagonalNormal, color: colorPalette.secondary.vector))
-                        }
-                        
-                    case .tile:
-                        
-                        let minimumX = min(start.coordinate.x, end.coordinate.x)
-                        let maximumX = max(start.coordinate.x, end.coordinate.x)
-                        let minimumZ = min(start.coordinate.z, end.coordinate.z)
-                        let maximumZ = max(start.coordinate.z, end.coordinate.z)
-                        
-                        for x in minimumX...maximumX {
-                            
-                            for z in minimumZ...maximumZ {
-                                
-                                let coordinate = Coordinate(x: x, y: World.floor, z: z)
-                                
-                                if let terrainNode = editor.meadow.scene.world.terrain.find(node: coordinate) {
-                                
-                                    let upperPolytope = Polytope.translate(polytope: terrainNode.polyhedron.upperPolytope, translation: SCNVector3(x: 0.0, y: Blueprint.surface, z: 0.0))
-                                    
-                                    let polyhedron = Polyhedron(upperPolytope: upperPolytope, lowerPolytope: terrainNode.polyhedron.lowerPolytope)
-                                
-                                    GridEdge.Edges.forEach { edge in
-                                    
-                                        let corners = GridCorner.corners(edge: edge)
-                                        
-                                        let normal = GridEdge.normal(edge: edge)
-                                        
-                                        meshFaces.append(MeshFace.apex(corners: corners, polytope: polyhedron.upperPolytope, color: colorPalette.primary.vector))
-                                        
-                                        meshFaces.append(contentsOf: MeshFace.edge(corners: corners, polyhedron: polyhedron, normal: normal, color: colorPalette.secondary.vector))
-                                    }
-                                }
-                            }
-                        }
+                        meshFaces.append(contentsOf: MeshFace.diagonal(polytope: polytope, normal: diagonalNormal, color: colorPalette.secondary.vector))
                     }
                     
-                    editor.meadow.scene.world.blueprint.add(mesh: Mesh(faces: meshFaces))
+                case .tile:
                     
-                case .up(let start, let end, _, _):
+                    let minimumX = min(start.coordinate.x, end.coordinate.x)
+                    let maximumX = max(start.coordinate.x, end.coordinate.x)
+                    let minimumZ = min(start.coordinate.z, end.coordinate.z)
+                    let maximumZ = max(start.coordinate.z, end.coordinate.z)
                     
-                    switch tool.toolType {
+                    for x in minimumX...maximumX {
                         
-                    case .edge:
-                        
-                        guard let terrainLayer = editor.meadow.scene.world.terrain.find(edge: end.coordinate, edge: end.edge)?.topLayer else { break }
-                        
-                        terrainLayer.terrainType = tool.terrainType
-                        
-                    case .tile:
-                        
-                        let minimumX = min(start.coordinate.x, end.coordinate.x)
-                        let maximumX = max(start.coordinate.x, end.coordinate.x)
-                        let minimumZ = min(start.coordinate.z, end.coordinate.z)
-                        let maximumZ = max(start.coordinate.z, end.coordinate.z)
-                        
-                        for x in minimumX...maximumX {
+                        for z in minimumZ...maximumZ {
                             
-                            for z in minimumZ...maximumZ {
+                            let coordinate = Coordinate(x: x, y: World.floor, z: z)
+                            
+                            if let terrainNode = editor.meadow.scene.world.terrain.find(node: coordinate) {
+                            
+                                let upperPolytope = Polytope.translate(polytope: terrainNode.polyhedron.upperPolytope, translation: SCNVector3(x: 0.0, y: Blueprint.surface, z: 0.0))
                                 
-                                let coordinate = Coordinate(x: x, y: World.floor, z: z)
-                                
+                                let polyhedron = Polyhedron(upperPolytope: upperPolytope, lowerPolytope: terrainNode.polyhedron.lowerPolytope)
+                            
                                 GridEdge.Edges.forEach { edge in
+                                
+                                    let corners = GridCorner.corners(edge: edge)
                                     
-                                    if let terrainLayer = editor.meadow.scene.world.terrain.find(edge: coordinate, edge: edge)?.topLayer {
-                                        
-                                        terrainLayer.terrainType = tool.terrainType
-                                    }
+                                    let normal = GridEdge.normal(edge: edge)
+                                    
+                                    meshFaces.append(MeshFace.apex(corners: corners, polytope: polyhedron.upperPolytope, color: colorPalette.primary.vector))
+                                    
+                                    meshFaces.append(contentsOf: MeshFace.edge(corners: corners, polyhedron: polyhedron, normal: normal, color: colorPalette.secondary.vector))
                                 }
                             }
                         }
                     }
+                }
+                
+                editor.meadow.scene.world.blueprint.add(mesh: Mesh(faces: meshFaces))
+                
+            case .up(let start, let end, _, _):
+                
+                switch tool.toolType {
                     
-                default: break
+                case .edge:
+                    
+                    guard let terrainLayer = editor.meadow.scene.world.terrain.find(edge: end.coordinate, edge: end.edge)?.topLayer else { break }
+                    
+                    terrainLayer.terrainType = tool.terrainType
+                    
+                case .tile:
+                    
+                    let minimumX = min(start.coordinate.x, end.coordinate.x)
+                    let maximumX = max(start.coordinate.x, end.coordinate.x)
+                    let minimumZ = min(start.coordinate.z, end.coordinate.z)
+                    let maximumZ = max(start.coordinate.z, end.coordinate.z)
+                    
+                    for x in minimumX...maximumX {
+                        
+                        for z in minimumZ...maximumZ {
+                            
+                            let coordinate = Coordinate(x: x, y: World.floor, z: z)
+                            
+                            GridEdge.Edges.forEach { edge in
+                                
+                                if let terrainLayer = editor.meadow.scene.world.terrain.find(edge: coordinate, edge: edge)?.topLayer {
+                                    
+                                    terrainLayer.terrainType = tool.terrainType
+                                }
+                            }
+                        }
+                    }
                 }
                 
             default: break
             }
+            
+        default: break
         }
     }
 }

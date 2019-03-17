@@ -23,6 +23,9 @@ class AreaInspectorViewController: NSViewController {
     @IBOutlet weak var tileHiddenButton: NSButton!
     @IBOutlet weak var nodeHiddenButton: NSButton!
     
+    @IBOutlet weak var gridWallRenderStateButton: NSButton!
+    @IBOutlet weak var chunkWallRenderStateButton: NSButton!
+    
     @IBOutlet weak var xTileCoordinateLabel: NSTextField!
     @IBOutlet weak var yTileCoordinateLabel: NSTextField!
     @IBOutlet weak var zTileCoordinateLabel: NSTextField!
@@ -84,6 +87,16 @@ class AreaInspectorViewController: NSViewController {
                 
                 node.isHidden = sender.state == .off
                 
+            case gridWallRenderStateButton:
+                
+                inspectable.grid.wallRenderState = (sender.state == .off ? .cutaway : .raised)
+                
+            case chunkWallRenderStateButton:
+                
+                guard let chunk = inspectable.chunk else { break }
+                
+                chunk.wallRenderState = (sender.state == .off ? .cutaway : .raised)
+                
             default: break
             }
             
@@ -137,6 +150,9 @@ extension AreaInspectorViewController {
                 self.chunkCount.integerValue = inspectable.grid.totalChildren
                 self.gridHiddenButton.state = (inspectable.grid.isHidden ? .off : .on)
                 
+                self.gridWallRenderStateButton.state = (inspectable.grid.wallRenderState == .cutaway ? .off : .on)
+                self.chunkWallRenderStateButton.state = .off
+                
                 self.chunkBox.isHidden = true
                 self.tileBox.isHidden = true
                 self.nodeBox.isHidden = true
@@ -155,6 +171,8 @@ extension AreaInspectorViewController {
                 self.internalColorPalettePopup.isEnabled = false
                 
                 if let chunk = inspectable.chunk, let tile = inspectable.tile, let node = inspectable.node {
+                    
+                    self.chunkWallRenderStateButton.state = (chunk.wallRenderState == .cutaway ? .off : .on)
                     
                     self.chunkBox.isHidden = inspectable.grid.isHidden
                     self.tileBox.isHidden = inspectable.grid.isHidden || chunk.isHidden
