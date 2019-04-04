@@ -104,7 +104,7 @@ extension SidebarTabViewController {
                      is TerrainNodeEdge<TerrainNodeEdgeLayer>.Type,
                      is TerrainNodeEdgeLayer.Type:
                     
-                    inspectorTabViewController.viewModel.state = .terrain(editor: editor, inspectable: (editor.meadow.scene.world.terrain, child as? TerrainChunk, child as? TerrainTile, child as? TerrainNode<TerrainNodeEdge<TerrainNodeEdgeLayer>>, child as? TerrainNodeEdge<TerrainNodeEdgeLayer>, child as? TerrainNodeEdgeLayer))
+                    inspectorTabViewController.viewModel.state = .terrain(editor: editor, inspectable: (editor.meadow.scene.world.terrain, child as? TerrainChunk, child as? TerrainTile, child as? TerrainNode, child as? TerrainNodeEdge, child as? TerrainNodeEdgeLayer))
                     
                 case is Water.Type,
                      is WaterChunk.Type,
@@ -112,7 +112,7 @@ extension SidebarTabViewController {
                      is WaterNode<WaterNodeEdge>.Type,
                      is WaterNodeEdge.Type:
                     
-                    inspectorTabViewController.viewModel.state = .water(editor: editor, inspectable: (editor.meadow.scene.world.water, child as? WaterChunk, child as? WaterTile, child as? WaterNode<WaterNodeEdge>, child as? WaterNodeEdge))
+                    inspectorTabViewController.viewModel.state = .water(editor: editor, inspectable: (editor.meadow.scene.world.water, child as? WaterChunk, child as? WaterTile, child as? WaterNode, child as? WaterNodeEdge))
                     
                 case is Scene.Type:
                     

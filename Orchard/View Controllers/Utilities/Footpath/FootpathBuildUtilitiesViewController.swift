@@ -149,7 +149,7 @@ extension FootpathBuildUtilitiesViewController {
                     self.footpathTypePopUp.addItem(withTitle: footpathType.name)
                 }
                 
-                if let index = FootpathType.allCases.index(of: tool.footpathType), let colorPalette = tool.footpathType.colorPalette {
+                if let index = FootpathType.allCases.firstIndex(of: tool.footpathType), let colorPalette = tool.footpathType.colorPalette {
                     
                     self.footpathTypePopUp.selectItem(at: index)
                     
@@ -164,7 +164,7 @@ extension FootpathBuildUtilitiesViewController {
                     self.selectedEdgePopUp.addItem(withTitle: edge.description)
                 }
                 
-                if let edge = tool.slope?.edge, let index = GridEdge.Edges.index(of: edge) {
+                if let edge = tool.slope?.edge, let index = GridEdge.Edges.firstIndex(of: edge) {
                     
                     self.selectedEdgePopUp.selectItem(at: index)
                 }

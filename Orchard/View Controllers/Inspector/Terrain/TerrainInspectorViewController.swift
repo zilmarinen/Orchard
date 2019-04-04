@@ -136,11 +136,9 @@ class TerrainInspectorViewController: NSViewController {
                 
             case selectedEdgePopUp:
                 
-                guard let gridEdge = GridEdge(rawValue: sender.indexOfSelectedItem) else { break }
+                guard let gridEdge = GridEdge(rawValue: sender.indexOfSelectedItem), let edge = inspectable.node?.find(edge: gridEdge) else { break }
                 
-                let edge = inspectable.node?.find(edge: gridEdge)
-                
-                viewModel.state = .terrain(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, inspectable.node, edge, edge?.child(at: 0) as? TerrainNodeEdgeLayer))
+                viewModel.state = .terrain(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, inspectable.node, edge, edge.child(at: 0) as? TerrainNodeEdgeLayer))
                 
             case selectedLayerPopUp:
                 
@@ -317,7 +315,7 @@ extension TerrainInspectorViewController {
                     self.edgeHiddenButton.state = (edge.isHidden ? .off : .on)
                     self.layerCount.integerValue = edge.totalChildren
                     
-                    if let index = GridEdge.Edges.index(of: layer.edge) {
+                    if let index = node.index(of: edge) {
                         
                         self.selectedEdgePopUp.selectItem(at: index)
                     }
@@ -362,7 +360,7 @@ extension TerrainInspectorViewController {
                         self.selectedTerrainTypePopUp.addItem(withTitle: terrainType.name)
                     }
                     
-                    if let index = TerrainType.allCases.index(of: layer.terrainType), let colorPalette = layer.terrainType.colorPalette {
+                    if let index = TerrainType.allCases.firstIndex(of: layer.terrainType), let colorPalette = layer.terrainType.colorPalette {
                         
                         self.selectedTerrainTypePopUp.selectItem(at: index)
                         

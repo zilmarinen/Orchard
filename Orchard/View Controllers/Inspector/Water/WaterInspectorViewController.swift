@@ -265,7 +265,7 @@ extension WaterInspectorViewController {
                     
                     self.edgeHiddenButton.state = (edge.isHidden ? .off : .on)
                     
-                    if let index = GridEdge.Edges.index(of: edge.edge) {
+                    if let index = GridEdge.Edges.firstIndex(of: edge.edge) {
                         
                         self.selectedEdgePopUp.selectItem(at: index)
                     }
@@ -281,7 +281,7 @@ extension WaterInspectorViewController {
                         self.selectedWaterTypePopUp.addItem(withTitle: waterType.name)
                     }
                     
-                    if let index = WaterType.allCases.index(of: edge.waterType), let colorPalette = edge.waterType.colorPalette {
+                    if let index = WaterType.allCases.firstIndex(of: edge.waterType), let colorPalette = edge.waterType.colorPalette {
                         
                         self.selectedWaterTypePopUp.selectItem(at: index)
                         

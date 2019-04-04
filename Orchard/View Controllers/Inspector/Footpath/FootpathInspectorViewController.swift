@@ -232,7 +232,7 @@ extension FootpathInspectorViewController {
                         self.selectedFootpathTypePopUp.addItem(withTitle: footpathType.name)
                     }
                     
-                    if let footpathType = node.footpathType, let index = FootpathType.allCases.index(of: footpathType), let colorPalette = footpathType.colorPalette {
+                    if let footpathType = node.footpathType, let index = FootpathType.allCases.firstIndex(of: footpathType), let colorPalette = footpathType.colorPalette {
                         
                         self.selectedFootpathTypePopUp.selectItem(at: index)
                         

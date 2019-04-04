@@ -109,7 +109,7 @@ extension WaterBuildUtilitiesViewController {
                     self.waterTypePopUp.addItem(withTitle: waterType.name)
                 }
                 
-                if let index = WaterType.allCases.index(of: tool.waterType), let colorPalette = tool.waterType.colorPalette {
+                if let index = WaterType.allCases.firstIndex(of: tool.waterType), let colorPalette = tool.waterType.colorPalette {
                     
                     self.waterTypePopUp.selectItem(at: index)
                     

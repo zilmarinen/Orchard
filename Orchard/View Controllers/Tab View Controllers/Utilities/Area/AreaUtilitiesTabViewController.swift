@@ -77,9 +77,12 @@ extension AreaUtilitiesTabViewController {
                     
                     guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint") else { break }
                     
-                    let utility = AreaBuildUtility(colorPalette: colorPalette, other: colorPalette)
+                    let floor = AreaNodeFloor(colorPalette: colorPalette, floorType: .plain)
                     
-                    viewController.viewModel.state = .build(editor: editor, utility: utility)
+                    let internalEdgeFace = AreaNodeEdgeFace(colorPalette: colorPalette, material: .concrete)
+                    let externalEdgeFace = AreaNodeEdgeFace(colorPalette: colorPalette, material: .concrete)
+                    
+                    viewController.viewModel.state = .build(editor: editor, tool: (externalEdges: true, edgeType: AreaNodeEdgeType.wall, floor: floor, internalEdgeFace: internalEdgeFace, externalEdgeFace: externalEdgeFace))
                     
                 default: break
                 }

@@ -15,7 +15,7 @@ class AreaUtilitiesViewController: NSViewController {
     
     @IBOutlet weak var gridHiddenButton: NSButton!
     
-    @IBOutlet weak var gridWallRenderStateButton: NSButton!
+    @IBOutlet weak var gridEdgeRenderStateButton: NSButton!
     
     @IBOutlet weak var buildButton: NSButton!
     @IBOutlet weak var architectureButton: NSButton!
@@ -45,9 +45,9 @@ class AreaUtilitiesViewController: NSViewController {
                 
                 tabViewController?.viewModel.state = .paint(editor: editor)
                 
-            case gridWallRenderStateButton:
+            case gridEdgeRenderStateButton:
                 
-                editor.meadow.scene.world.areas.wallRenderState = (sender.state == .off ? .cutaway : .raised)
+                editor.meadow.scene.world.areas.renderState = (sender.state == .off ? .cutaway : .raised)
                 
             default: break
             }
@@ -95,7 +95,7 @@ extension AreaUtilitiesViewController {
                 self.chunkCount.integerValue = editor.meadow.scene.world.areas.totalChildren
                 self.gridHiddenButton.state = (editor.meadow.scene.world.areas.isHidden ? .off : .on)
                 
-                self.gridWallRenderStateButton.state = (editor.meadow.scene.world.areas.wallRenderState == .cutaway ? .off : .on)
+                self.gridEdgeRenderStateButton.state = (editor.meadow.scene.world.areas.renderState == .cutaway ? .off : .on)
                 
                 switch tabViewController.viewModel.state {
                     

@@ -54,7 +54,13 @@ extension InspectorTabViewController {
                 
                 if let node = inspectable.node {
                     
-                    inspectable.tile = node.observer as? AreaTile
+                    inspectable.edge = node.child(at: 0) as? AreaNodeEdge
+                }
+                
+                if let edge = inspectable.edge {
+                    
+                    inspectable.node = edge.observer as? AreaNode
+                    inspectable.tile = inspectable.node?.observer as? AreaTile
                     inspectable.chunk = inspectable.tile?.observer as? AreaChunk
                 }
                 

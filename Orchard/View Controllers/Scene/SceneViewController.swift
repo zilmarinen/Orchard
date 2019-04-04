@@ -113,7 +113,10 @@ extension SceneViewController {
                 
             case .editor(let editor):
                 
-                self.keyboardCallbackReference = editor.meadow.input.keyboard.subscribe(self.stateDidChange(from:to:))
+                if self.keyboardCallbackReference == nil {
+                
+                    self.keyboardCallbackReference = editor.meadow.input.keyboard.subscribe(self.stateDidChange(from:to:))
+                }
                 
                 editor.meadow.scene.delegate = self
                 
@@ -130,35 +133,32 @@ extension SceneViewController: KeyboardObserver {
     
     func stateDidChange(from: SceneView.KeyboardState?, to: SceneView.KeyboardState) {
         
-        DispatchQueue.main.async {
+        switch self.viewModel.state {
             
-            switch self.viewModel.state {
+        case .editor(let editor):
+            
+            switch editor.meadow.scene.cameraJib.model.state {
                 
-            case .editor(let editor):
+            case .focus(let vector, var edge, let zoom):
                 
-                switch editor.meadow.scene.cameraJib.model.state {
+                switch to {
                     
-                case .focus(let vector, var edge, let zoom):
+                case .keyDown(let key):
                     
-                    switch to {
+                    switch key {
                         
-                    case .keyDown(let key):
-                        
-                        switch key {
-                            
-                        case .q: edge = (GridEdge(rawValue: edge.rawValue + 1) ?? GridEdge.north)
-                        case .e: edge = (GridEdge(rawValue: edge.rawValue - 1) ?? GridEdge.west)
-                            
-                        default: break
-                        }
-                        
-                        editor.meadow.scene.cameraJib.model.state = .focus(vector: vector, edge: edge, zoom: zoom)
+                    case .q: edge = (GridEdge(rawValue: edge.rawValue + 1) ?? GridEdge.north)
+                    case .e: edge = (GridEdge(rawValue: edge.rawValue - 1) ?? GridEdge.west)
                         
                     default: break
                     }
+                    
+                    editor.meadow.scene.cameraJib.model.state = .focus(vector: vector, edge: edge, zoom: zoom)
+                    
+                default: break
                 }
-            default: break
             }
+        default: break
         }
     }
 }

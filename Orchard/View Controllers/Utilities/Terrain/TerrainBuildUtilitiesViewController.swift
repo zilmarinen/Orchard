@@ -109,7 +109,7 @@ extension TerrainBuildUtilitiesViewController {
                     self.terrainTypePopUp.addItem(withTitle: terrainType.name)
                 }
                 
-                if let index = TerrainType.allCases.index(of: tool.terrainType), let colorPalette = tool.terrainType.colorPalette {
+                if let index = TerrainType.allCases.firstIndex(of: tool.terrainType), let colorPalette = tool.terrainType.colorPalette {
                     
                     self.terrainTypePopUp.selectItem(at: index)
                     

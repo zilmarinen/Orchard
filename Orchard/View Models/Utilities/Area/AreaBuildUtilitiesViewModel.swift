@@ -9,14 +9,12 @@
 import Meadow
 import THRUtilities
 
-typealias AreaBuildUtility = (colorPalette: ColorPalette, other: ColorPalette)
-
 extension AreaBuildUtilitiesViewController {
     
     enum ViewState: THRUtilities.State {
         
         case empty(editor: Editor?)
-        case build(editor: Editor, utility: AreaBuildUtility)
+        case build(editor: Editor, tool: (externalEdges: Bool, edgeType: AreaNodeEdgeType, floor: AreaNodeFloor, internalEdgeFace: AreaNodeEdgeFace, externalEdgeFace: AreaNodeEdgeFace))
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             
