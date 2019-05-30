@@ -265,10 +265,7 @@ extension WaterInspectorViewController {
                     
                     self.edgeHiddenButton.state = (edge.isHidden ? .off : .on)
                     
-                    if let index = GridEdge.Edges.firstIndex(of: edge.edge) {
-                        
-                        self.selectedEdgePopUp.selectItem(at: index)
-                    }
+                    self.selectedEdgePopUp.selectItem(at: edge.edge.rawValue)
                     
                     self.waterLevelStepper.maxValue = Double(World.ceiling)
                     self.waterLevelStepper.minValue = Double(World.floor + 1)

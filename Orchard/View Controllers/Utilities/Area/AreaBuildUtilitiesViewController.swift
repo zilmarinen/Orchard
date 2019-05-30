@@ -125,7 +125,7 @@ class AreaBuildUtilitiesViewController: NSViewController {
         return AreaBuildUtilitiesViewModel(initialState: .empty(editor: nil))
     }()
     
-    var graticuleIdentifier: SceneView.Graticule.CallbackReference?
+    var graticuleIdentifier: SceneKitView.Graticule.CallbackReference?
 }
 
 extension AreaBuildUtilitiesViewController {
@@ -273,7 +273,7 @@ extension AreaBuildUtilitiesViewController {
 
 extension AreaBuildUtilitiesViewController: GraticuleObserver {
     
-    func stateDidChange(from: SceneView.GraticuleState?, to: SceneView.GraticuleState) {
+    func stateDidChange(from: SceneKitView.GraticuleState?, to: SceneKitView.GraticuleState) {
         
         switch self.viewModel.state {
             

@@ -9,14 +9,12 @@
 import Meadow
 import THRUtilities
 
-typealias PropBuildUtility = (prop: PropPrototype, colorPalette: ColorPalette)
-
 extension PropBuildUtilitiesViewController {
     
     enum ViewState: THRUtilities.State {
         
         case empty(editor: Editor?)
-        case build(editor: Editor, utility: PropBuildUtility)
+        case build(editor: Editor, tool: (propType: PropType, propList: PropList, prop: PropPrototype, rotation: GridEdge, colorPalette: ColorPalette))
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

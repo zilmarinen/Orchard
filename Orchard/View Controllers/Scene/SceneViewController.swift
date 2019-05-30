@@ -11,14 +11,14 @@ import SceneKit
 
 class SceneViewController: NSViewController {
 
-    @IBOutlet weak var sceneView: SceneView!
+    @IBOutlet weak var sceneView: SceneKitView!
     
     lazy var viewModel = {
         
         return SceneViewModel(initialState: .empty(editor: nil))
     }()
     
-    var keyboardCallbackReference: SceneView.Keyboard.CallbackReference?
+    var keyboardCallbackReference: SceneKitView.Keyboard.CallbackReference?
 }
 
 extension SceneViewController {
@@ -31,9 +31,9 @@ extension SceneViewController {
     }
 }
 
-extension SceneViewController: SceneGraphUpdatable {
+extension SceneViewController: SceneRendererDelegate {
     
-    func update(deltaTime: TimeInterval) {
+    func update(deltaTime: TimeInterval, frameTime: TimeInterval) {
         
         switch viewModel.state {
             
@@ -106,6 +106,8 @@ extension SceneViewController {
                 
                 guard let editor = editor else { break }
                 
+                editor.meadow.delegate = nil
+                
                 if let reference = self.keyboardCallbackReference {
                     
                     editor.meadow.input.keyboard.unsubscribe(reference)
@@ -113,17 +115,12 @@ extension SceneViewController {
                 
             case .editor(let editor):
                 
+                editor.meadow.delegate = self
+                
                 if self.keyboardCallbackReference == nil {
                 
                     self.keyboardCallbackReference = editor.meadow.input.keyboard.subscribe(self.stateDidChange(from:to:))
                 }
-                
-                editor.meadow.scene.delegate = self
-                
-                editor.meadow.sceneView.viewModel.state = .scene(meadow: editor.meadow)
-                
-                editor.meadow.sceneView.showsStatistics = true
-                editor.meadow.sceneView.isPlaying = true
             }
         }
     }
@@ -131,7 +128,7 @@ extension SceneViewController {
 
 extension SceneViewController: KeyboardObserver {
     
-    func stateDidChange(from: SceneView.KeyboardState?, to: SceneView.KeyboardState) {
+    func stateDidChange(from: SceneKitView.KeyboardState?, to: SceneKitView.KeyboardState) {
         
         switch self.viewModel.state {
             

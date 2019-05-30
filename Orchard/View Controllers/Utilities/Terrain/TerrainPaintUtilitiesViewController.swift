@@ -49,7 +49,7 @@ class TerrainPaintUtilitiesViewController: NSViewController {
         return TerrainPaintUtilitiesViewModel(initialState: .empty(editor: nil))
     }()
     
-    var graticuleIdentifier: SceneView.Graticule.CallbackReference?
+    var graticuleIdentifier: SceneKitView.Graticule.CallbackReference?
 }
 
 extension TerrainPaintUtilitiesViewController {
@@ -122,7 +122,7 @@ extension TerrainPaintUtilitiesViewController {
 
 extension TerrainPaintUtilitiesViewController: GraticuleObserver {
     
-    func stateDidChange(from: SceneView.GraticuleState?, to: SceneView.GraticuleState) {
+    func stateDidChange(from: SceneKitView.GraticuleState?, to: SceneKitView.GraticuleState) {
             
         switch self.viewModel.state {
             

@@ -353,10 +353,7 @@ extension AreaInspectorViewController {
                     
                     self.edgeHiddenButton.state = (edge.isHidden ? .off : .on)
                     
-                    if let index = GridEdge.Edges.firstIndex(of: edge.edge) {
-                        
-                        self.selectedEdgePopUp.selectItem(at: index)
-                    }
+                    self.selectedEdgePopUp.selectItem(at: edge.edge.rawValue)
                     
                     AreaNodeEdgeType.allCases.forEach { edgeType in
                         

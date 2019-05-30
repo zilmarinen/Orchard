@@ -15,13 +15,13 @@ class InspectorSceneView: SCNView {
 
     let inspectable: SCNNode
 
-    let cameraJib: CameraJib
+    let cameraJib: SceneKitCamera
     
     required init?(coder decoder: NSCoder) {
         
         inspectable = SCNNode()
         
-        cameraJib = CameraJib()
+        cameraJib = SceneKitCamera()
         
         super.init(coder: decoder)
         

@@ -93,7 +93,7 @@ class FootpathBuildUtilitiesViewController: NSViewController {
         return FootpathBuildUtilitiesViewModel(initialState: .empty(editor: nil))
     }()
     
-    var graticuleIdentifier: SceneView.Graticule.CallbackReference?
+    var graticuleIdentifier: SceneKitView.Graticule.CallbackReference?
 }
 
 extension FootpathBuildUtilitiesViewController {
@@ -164,9 +164,9 @@ extension FootpathBuildUtilitiesViewController {
                     self.selectedEdgePopUp.addItem(withTitle: edge.description)
                 }
                 
-                if let edge = tool.slope?.edge, let index = GridEdge.Edges.firstIndex(of: edge) {
+                if let edge = tool.slope?.edge {
                     
-                    self.selectedEdgePopUp.selectItem(at: index)
+                    self.selectedEdgePopUp.selectItem(at: edge.rawValue)
                 }
             }
         }
@@ -175,7 +175,7 @@ extension FootpathBuildUtilitiesViewController {
 
 extension FootpathBuildUtilitiesViewController: GraticuleObserver {
     
-    func stateDidChange(from: SceneView.GraticuleState?, to: SceneView.GraticuleState) {
+    func stateDidChange(from: SceneKitView.GraticuleState?, to: SceneKitView.GraticuleState) {
     
         switch self.viewModel.state {
             

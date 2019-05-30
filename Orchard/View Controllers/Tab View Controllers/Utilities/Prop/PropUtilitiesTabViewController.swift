@@ -63,11 +63,9 @@ extension PropUtilitiesTabViewController {
                     
                 case .empty:
                     
-                    guard let prop = PropsMaster.shared?.props.children.first, let colorPalette = ArtDirector.shared?.palettes.children.first else { break }
+                    guard let propList = PropsMaster.shared?.lists.children.first, let prop = propList.child(at: 0), let colorPalette = ArtDirector.shared?.palette(named: "Blueprint") else { break }
                     
-                    let utility = PropBuildUtility(prop: prop, colorPalette: colorPalette)
-                    
-                    viewController.viewModel.state = .build(editor: editor, utility: utility)
+                    viewController.viewModel.state = .build(editor: editor, tool: (propType: propList.type, propList: propList, prop: prop, rotation: .north, colorPalette: colorPalette))
                     
                 default: break
                 }

@@ -114,7 +114,7 @@ extension SidebarTabViewController {
                     
                     inspectorTabViewController.viewModel.state = .water(editor: editor, inspectable: (editor.meadow.scene.world.water, child as? WaterChunk, child as? WaterTile, child as? WaterNode, child as? WaterNodeEdge))
                     
-                case is Scene.Type:
+                case is SceneKitScene.Type:
                     
                     inspectorTabViewController.viewModel.state = .scene(editor: editor)
                     
