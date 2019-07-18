@@ -9,8 +9,7 @@ target 'Orchard' do
 
 	pod 'Meadow', :path => '../Meadow'
 	pod 'THRUtilities', :path => '../../3Squared/THR/THRUtilities'
-	pod 'PeakResult', :path => '../../3Squared/Peak/PeakResult'
-	pod 'PeakOperation', :path => '../../3Squared/Peak/PeakOperation'
+	pod 'PeakOperation'
 
   	target 'Orchard-Tests' do
     

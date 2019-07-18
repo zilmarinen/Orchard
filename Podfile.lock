@@ -1,38 +1,32 @@
 PODS:
   - Meadow (0.1):
     - Meadow/Core (= 0.1)
-    - THRUtilities
-  - Meadow/Core (0.1):
-    - THRUtilities
-  - PeakOperation (2.1.1):
-    - PeakResult
-  - PeakResult (2.1.1)
+  - Meadow/Core (0.1)
+  - PeakOperation (4.0.0)
   - THRUtilities (1.7.5):
     - THRUtilities/Core (= 1.7.5)
   - THRUtilities/Core (1.7.5)
 
 DEPENDENCIES:
   - Meadow (from `../Meadow`)
-  - PeakOperation (from `../../3Squared/Peak/PeakOperation`)
-  - PeakResult (from `../../3Squared/Peak/PeakResult`)
+  - PeakOperation
   - THRUtilities (from `../../3Squared/THR/THRUtilities`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - PeakOperation
 
 EXTERNAL SOURCES:
   Meadow:
     :path: "../Meadow"
-  PeakOperation:
-    :path: "../../3Squared/Peak/PeakOperation"
-  PeakResult:
-    :path: "../../3Squared/Peak/PeakResult"
   THRUtilities:
     :path: "../../3Squared/THR/THRUtilities"
 
 SPEC CHECKSUMS:
-  Meadow: 3897d02650c141647a543dc61a8fa5f5eb6fd241
-  PeakOperation: 332344a68bad1ba5be44887b30ed81d45bd6ac31
-  PeakResult: c5208c79e568f78236cace292ae82c7d55f6f192
+  Meadow: 7c030003a496586cec7682178f123b2c8c347481
+  PeakOperation: 68825bedc2199bacba9d0fff14fd183078e16b59
   THRUtilities: 95c0994ed3f0acf284e309ae1619fa7d1b1255ae
 
-PODFILE CHECKSUM: 5929c1af51e19239d708bf18c81ce79499ae3dd2
+PODFILE CHECKSUM: 1580ca17f49764152a98c4bee83d484609c03586
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.7.4

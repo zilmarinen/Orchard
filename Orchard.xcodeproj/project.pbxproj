@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		067D210C49D9AD130E911337 /* libPods-OrchardTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95616876E66A90764CB82BEE /* libPods-OrchardTests.a */; };
 		1803165D20B6F2DF009D367F /* TerrainInspectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1803165C20B6F2DF009D367F /* TerrainInspectorViewModel.swift */; };
 		1805DF2220C912FF00F333C6 /* InspectorSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1805DF2120C912FF00F333C6 /* InspectorSceneView.swift */; };
 		1820662C20B05BDB00D0356D /* AreaInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1820662B20B05BDB00D0356D /* AreaInspectorViewController.swift */; };
@@ -210,7 +209,6 @@
 		18FCFAF120B2D34000EBCBBB /* SceneInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneInspectorViewController.swift; sourceTree = "<group>"; };
 		569504FABC2C1C147277D036 /* Pods-Orchard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orchard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Orchard/Pods-Orchard.debug.xcconfig"; sourceTree = "<group>"; };
 		625DF7EC8D7148586F17ACD0 /* Pods-Orchard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orchard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Orchard/Pods-Orchard.release.xcconfig"; sourceTree = "<group>"; };
-		95616876E66A90764CB82BEE /* libPods-OrchardTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OrchardTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1E0C2F266DFD52AD0D3ABD5 /* Pods-Orchard-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orchard-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Orchard-Tests/Pods-Orchard-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		BEC913C8FBAB8126A50226D5 /* libPods-Orchard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Orchard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C5F3F31A6B581BE781291C /* Pods-OrchardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OrchardTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OrchardTests/Pods-OrchardTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -230,7 +228,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				067D210C49D9AD130E911337 /* libPods-OrchardTests.a in Frameworks */,
 				BA07A3D5ED20566BF813225B /* libPods-Orchard-Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -846,7 +843,6 @@
 				181EDA2322103C47002CD162 /* MetalKit.framework */,
 				18866766220B23EB00FFE6F6 /* libMeadow.a */,
 				BEC913C8FBAB8126A50226D5 /* libPods-Orchard.a */,
-				95616876E66A90764CB82BEE /* libPods-OrchardTests.a */,
 				0179D21FEE16CD532608FE07 /* libPods-Orchard-Tests.a */,
 			);
 			name = Frameworks;
@@ -980,13 +976,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Orchard/Pods-Orchard-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/Meadow/Meadow.bundle",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Orchard/Pods-Orchard-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Meadow.bundle",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Orchard/Pods-Orchard-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

@@ -13,12 +13,18 @@ class SceneViewController: NSViewController {
 
     @IBOutlet weak var sceneView: SceneKitView!
     
+    @IBOutlet weak var xCoordinateLabel: NSTextField!
+    @IBOutlet weak var yCoordinateLabel: NSTextField!
+    @IBOutlet weak var zCoordinateLabel: NSTextField!
+    
     lazy var viewModel = {
         
         return SceneViewModel(initialState: .empty(editor: nil))
     }()
     
     var keyboardCallbackReference: SceneKitView.Keyboard.CallbackReference?
+    
+    var graticuleIdentifier: SceneKitView.Graticule.CallbackReference?
 }
 
 extension SceneViewController {
@@ -83,10 +89,13 @@ extension SceneViewController: SceneRendererDelegate {
                     
                     offset = SCNVector3(x: offset.x * MDWFloat(deltaTime * 2.0), y: 0.0, z: offset.z * MDWFloat(deltaTime * 2.0))
                     
-                    editor.meadow.scene.cameraJib.model.state = .focus(vector: vector + offset, edge: edge, zoom: zoom)
+                    //FIXME
+                    //editor.meadow.scene.cameraJib.model.state = .focus(vector: vector + offset, edge: edge, zoom: zoom)
                     
                 default: break
                 }
+            
+            default: break
             }
             
         default: break
@@ -113,15 +122,52 @@ extension SceneViewController {
                     editor.meadow.input.keyboard.unsubscribe(reference)
                 }
                 
+                if let graticuleIdentifier = self.graticuleIdentifier {
+                    
+                    editor.meadow.input.graticule.unsubscribe(graticuleIdentifier)
+                }
+                
+                self.graticuleIdentifier = nil
+                
             case .editor(let editor):
                 
                 editor.meadow.delegate = self
+                editor.meadow.input.cursor.tracksIdleEvents = true
+                
+                if self.graticuleIdentifier == nil {
+                    
+                    self.graticuleIdentifier = editor.meadow.input.graticule.subscribe(self.stateDidChange(from:to:))
+                }
                 
                 if self.keyboardCallbackReference == nil {
                 
                     self.keyboardCallbackReference = editor.meadow.input.keyboard.subscribe(self.stateDidChange(from:to:))
                 }
             }
+        }
+    }
+}
+
+extension SceneViewController: GraticuleObserver {
+    
+    func stateDidChange(from: SceneKitView.GraticuleState?, to: SceneKitView.GraticuleState) {
+        
+        switch self.viewModel.state {
+            
+        case .editor(let editor):
+            
+            switch to {
+                
+            case .tracking(_, let end, _, _):
+                
+                self.xCoordinateLabel.integerValue = end.coordinate.x
+                self.yCoordinateLabel.integerValue = end.coordinate.y
+                self.zCoordinateLabel.integerValue = end.coordinate.z
+                
+            default: break
+            }
+            
+        default: break
         }
     }
 }
@@ -150,11 +196,15 @@ extension SceneViewController: KeyboardObserver {
                     default: break
                     }
                     
-                    editor.meadow.scene.cameraJib.model.state = .focus(vector: vector, edge: edge, zoom: zoom)
+                    //FIXME
+                    //editor.meadow.scene.cameraJib.model.state = .focus(vector: vector, edge: edge, zoom: zoom)
                     
                 default: break
                 }
+                
+            default: break
             }
+            
         default: break
         }
     }
