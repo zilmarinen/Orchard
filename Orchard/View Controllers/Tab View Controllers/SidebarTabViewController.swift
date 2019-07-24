@@ -68,59 +68,66 @@ extension SidebarTabViewController {
                 
             case .inspector(let editor, let child):
                 
-                switch type(of: child) {
-
-                case is Area.Type,
-                     is AreaChunk.Type,
-                     is AreaTile.Type,
-                     is AreaNode<AreaNodeEdge>.Type,
-                     is AreaNodeEdge.Type:
+                switch editor.meadow.scene.model.state {
                     
-                    inspectorTabViewController.viewModel.state = .area(editor: editor, inspectable: (editor.meadow.scene.world.areas, child as? AreaChunk, child as? AreaTile, child as? AreaNode, child as? AreaNodeEdge))
+                case .scene(let world):
                     
-                case is Foliage.Type,
-                     is FoliageChunk.Type,
-                     is FoliageTile.Type,
-                     is FoliageNode.Type:
+                    switch type(of: child) {
+                        
+                    case is Area.Type,
+                         is AreaChunk.Type,
+                         is AreaTile.Type,
+                         is AreaNode<AreaNodeEdge>.Type,
+                         is AreaNodeEdge.Type:
+                        
+                        inspectorTabViewController.viewModel.state = .area(editor: editor, inspectable: (world.areas, child as? AreaChunk, child as? AreaTile, child as? AreaNode, child as? AreaNodeEdge))
+                        
+                    case is Foliage.Type,
+                         is FoliageChunk.Type,
+                         is FoliageTile.Type,
+                         is FoliageNode.Type:
+                        
+                        inspectorTabViewController.viewModel.state = .foliage(editor: editor, inspectable: (world.foliage, child as? FoliageChunk, child as? FoliageTile, child as? FoliageNode))
+                        
+                    case is Footpath.Type,
+                         is FootpathChunk.Type,
+                         is FootpathTile.Type,
+                         is FootpathNode.Type:
+                        
+                        inspectorTabViewController.viewModel.state = .footpath(editor: editor, inspectable: (world.footpaths, child as? FootpathChunk, child as? FootpathTile, child as? FootpathNode))
+                        
+                    case is Props.Type,
+                         is Prop.Type:
+                        
+                        inspectorTabViewController.viewModel.state = .prop(editor: editor, inspectable: (props: world.props, child as? Prop))
+                        
+                    case is Terrain.Type,
+                         is TerrainChunk.Type,
+                         is TerrainTile.Type,
+                         is TerrainNode<TerrainNodeEdge<TerrainNodeEdgeLayer>>.Type,
+                         is TerrainNodeEdge<TerrainNodeEdgeLayer>.Type,
+                         is TerrainNodeEdgeLayer.Type:
+                        
+                        inspectorTabViewController.viewModel.state = .terrain(editor: editor, inspectable: (world.terrain, child as? TerrainChunk, child as? TerrainTile, child as? TerrainNode, child as? TerrainNodeEdge, child as? TerrainNodeEdgeLayer))
+                        
+                    case is Water.Type,
+                         is WaterChunk.Type,
+                         is WaterTile.Type,
+                         is WaterNode<WaterNodeEdge>.Type,
+                         is WaterNodeEdge.Type:
+                        
+                        inspectorTabViewController.viewModel.state = .water(editor: editor, inspectable: (world.water, child as? WaterChunk, child as? WaterTile, child as? WaterNode, child as? WaterNodeEdge))
+                        
+                    case is SceneKitScene.Type:
+                        
+                        inspectorTabViewController.viewModel.state = .scene(editor: editor)
+                        
+                    default:
+                        
+                        inspectorTabViewController.viewModel.state = .empty
+                    }
                     
-                    inspectorTabViewController.viewModel.state = .foliage(editor: editor, inspectable: (editor.meadow.scene.world.foliage, child as? FoliageChunk, child as? FoliageTile, child as? FoliageNode))
-                    
-                case is Footpath.Type,
-                     is FootpathChunk.Type,
-                     is FootpathTile.Type,
-                     is FootpathNode.Type:
-                    
-                    inspectorTabViewController.viewModel.state = .footpath(editor: editor, inspectable: (editor.meadow.scene.world.footpaths, child as? FootpathChunk, child as? FootpathTile, child as? FootpathNode))
-                    
-                case is Props.Type,
-                     is Prop.Type:
-                    
-                    inspectorTabViewController.viewModel.state = .prop(editor: editor, inspectable: (props: editor.meadow.scene.world.props, child as? Prop))
-                    
-                case is Terrain.Type,
-                     is TerrainChunk.Type,
-                     is TerrainTile.Type,
-                     is TerrainNode<TerrainNodeEdge<TerrainNodeEdgeLayer>>.Type,
-                     is TerrainNodeEdge<TerrainNodeEdgeLayer>.Type,
-                     is TerrainNodeEdgeLayer.Type:
-                    
-                    inspectorTabViewController.viewModel.state = .terrain(editor: editor, inspectable: (editor.meadow.scene.world.terrain, child as? TerrainChunk, child as? TerrainTile, child as? TerrainNode, child as? TerrainNodeEdge, child as? TerrainNodeEdgeLayer))
-                    
-                case is Water.Type,
-                     is WaterChunk.Type,
-                     is WaterTile.Type,
-                     is WaterNode<WaterNodeEdge>.Type,
-                     is WaterNodeEdge.Type:
-                    
-                    inspectorTabViewController.viewModel.state = .water(editor: editor, inspectable: (editor.meadow.scene.world.water, child as? WaterChunk, child as? WaterTile, child as? WaterNode, child as? WaterNodeEdge))
-                    
-                case is SceneKitScene.Type:
-                    
-                    inspectorTabViewController.viewModel.state = .scene(editor: editor)
-                    
-                default:
-                    
-                    inspectorTabViewController.viewModel.state = .empty
+                default: break
                 }
                 
             case .utility(let editor):

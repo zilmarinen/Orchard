@@ -16,7 +16,7 @@ class OrchardViewController: NSViewController {
         
         let input = Input(cursor: SceneKitView.Cursor(), graticule: SceneKitView.Graticule(), keyboard: SceneKitView.Keyboard())
         
-        let meadow = Meadow(input: input, scene: SceneKitScene(observer: self), view: self.sceneViewController!.sceneView)
+        let meadow = Meadow(input: input, view: self.sceneViewController!.sceneView, observer: self)
         
         return OrchardViewModel(initialState: .editor(editor: (meadow: meadow, delegate: self)))
     }()
@@ -59,6 +59,8 @@ extension OrchardViewController {
                 
             case .editor(let editor):
                 
+                print("OrchardViewController -> editor")
+                
                 self.sceneGraphViewController?.delegate = self
                 self.sceneGraphViewController?.viewModel.state = .sceneGraph(scene: editor.meadow.scene, child: editor.meadow.scene)
                 
@@ -66,9 +68,20 @@ extension OrchardViewController {
                 
                 self.sidebarViewController?.viewModel.state = .inspector(editor: editor, child: editor.meadow.scene)
                 
-            case .loading(let editor, let intermediate):
+                switch editor.meadow.scene.model.state {
+                    
+                case .empty:
+                    
+                    editor.meadow.scene.model.show(world: World())
+                    
+                default: break
+                }
                 
-                editor.meadow.scene.load(intermediates: [intermediate])
+            case .loading(let editor, let map):
+                
+                print("OrchardViewController -> loading")
+                
+                editor.meadow.scene.model.load(map: map)
                 
                 self.viewModel.state = .editor(editor: editor)
             }

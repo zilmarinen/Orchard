@@ -45,56 +45,60 @@ extension SceneViewController: SceneRendererDelegate {
             
         case .editor(let editor):
             
-            switch editor.meadow.scene.cameraJib.model.state {
+            switch editor.meadow.scene.model.state {
                 
-            case .focus(let vector, let edge, var zoom):
+            case .scene(let world):
                 
-                switch editor.meadow.input.keyboard.state {
+                switch editor.meadow.scene.cameraJib.model.state {
                     
-                case .keysHeld(let keys):
+                case .focus(let vector, let edge, var zoom):
                     
-                    var offset = SCNVector3Zero
-                    
-                    keys.forEach { key in
+                    switch editor.meadow.input.keyboard.state {
                         
-                        switch key {
+                    case .keysHeld(let keys):
+                        
+                        var offset = SCNVector3Zero
+                        
+                        keys.forEach { key in
                             
-                        case .w:
-                            
-                            offset += editor.meadow.scene.cameraJib.worldFront
-                            
-                        case .a:
-                            
-                            offset += SCNVector3.negate(vector: editor.meadow.scene.cameraJib.worldRight)
-                            
-                        case .s:
-                            
-                            offset += SCNVector3.negate(vector: editor.meadow.scene.cameraJib.worldFront)
-                            
-                        case .d:
-                            
-                            offset += editor.meadow.scene.cameraJib.worldRight
-                            
-                        case .z:
-                            
-                            zoom += -Axis.unitY
-                            
-                        case .x:
-                            
-                            zoom += Axis.unitY
-                            
-                        default: break
+                            switch key {
+                                
+                            case .w:
+                                
+                                offset += editor.meadow.scene.cameraJib.worldFront
+                                
+                            case .a:
+                                
+                                offset += SCNVector3.negate(vector: editor.meadow.scene.cameraJib.worldRight)
+                                
+                            case .s:
+                                
+                                offset += SCNVector3.negate(vector: editor.meadow.scene.cameraJib.worldFront)
+                                
+                            case .d:
+                                
+                                offset += editor.meadow.scene.cameraJib.worldRight
+                                
+                            case .z:
+                                
+                                zoom += -Axis.unitY
+                                
+                            case .x:
+                                
+                                zoom += Axis.unitY
+                                
+                            default: break
+                            }
                         }
+                        
+                        editor.meadow.scene.cameraJib.model.state = .focus(node: world, edge: edge, zoom: zoom)
+                        
+                    default: break
                     }
-                    
-                    offset = SCNVector3(x: offset.x * MDWFloat(deltaTime * 2.0), y: 0.0, z: offset.z * MDWFloat(deltaTime * 2.0))
-                    
-                    //FIXME
-                    //editor.meadow.scene.cameraJib.model.state = .focus(vector: vector + offset, edge: edge, zoom: zoom)
                     
                 default: break
                 }
-            
+                
             default: break
             }
             
@@ -115,12 +119,12 @@ extension SceneViewController {
                 
                 guard let editor = editor else { break }
                 
-                editor.meadow.delegate = nil
-                
                 if let reference = self.keyboardCallbackReference {
                     
                     editor.meadow.input.keyboard.unsubscribe(reference)
                 }
+                
+                self.keyboardCallbackReference = nil
                 
                 if let graticuleIdentifier = self.graticuleIdentifier {
                     
@@ -131,7 +135,6 @@ extension SceneViewController {
                 
             case .editor(let editor):
                 
-                editor.meadow.delegate = self
                 editor.meadow.input.cursor.tracksIdleEvents = true
                 
                 if self.graticuleIdentifier == nil {
@@ -154,7 +157,7 @@ extension SceneViewController: GraticuleObserver {
         
         switch self.viewModel.state {
             
-        case .editor(let editor):
+        case .editor:
             
             switch to {
                 
@@ -182,7 +185,7 @@ extension SceneViewController: KeyboardObserver {
             
             switch editor.meadow.scene.cameraJib.model.state {
                 
-            case .focus(let vector, var edge, let zoom):
+            case .focus(let node, var edge, let zoom):
                 
                 switch to {
                     
@@ -196,8 +199,7 @@ extension SceneViewController: KeyboardObserver {
                     default: break
                     }
                     
-                    //FIXME
-                    //editor.meadow.scene.cameraJib.model.state = .focus(vector: vector, edge: edge, zoom: zoom)
+                    editor.meadow.scene.cameraJib.model.state = .focus(node: node, edge: edge, zoom: zoom)
                     
                 default: break
                 }

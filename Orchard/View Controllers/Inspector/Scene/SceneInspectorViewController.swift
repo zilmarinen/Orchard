@@ -21,11 +21,18 @@ class SceneInspectorViewController: NSViewController {
             
         case .scene(let editor):
             
-            let selectedColor = ArtDirector.shared?.colors.children[sender.indexOfSelectedItem]
-            
-            editor.meadow.scene.world.floor.color = selectedColor
-            
-            viewModel.state = .scene(editor: editor)
+            switch editor.meadow.scene.model.state {
+                
+            case .scene(let world):
+                
+                let selectedColor = ArtDirector.shared?.colors.children[sender.indexOfSelectedItem]
+                
+                world.floor.color = selectedColor
+                
+                viewModel.state = .scene(editor: editor)
+                
+            default: break
+            }
             
         default: break
         }
@@ -71,28 +78,35 @@ extension SceneInspectorViewController {
                 
             case .scene(let editor):
                 
-                self.clearColorPopUp.removeAllItems()
-                
-                self.nameTextField.stringValue = editor.meadow.scene.rootNode.name ?? ""
-                
-                if let colorCount = ArtDirector.shared?.colors.children.count {
+                switch editor.meadow.scene.model.state {
                     
-                    for index in 0..<colorCount {
+                case .scene(let world):
+                    
+                    self.clearColorPopUp.removeAllItems()
+                    
+                    self.nameTextField.stringValue = editor.meadow.scene.rootNode.name ?? ""
+                    
+                    if let colorCount = ArtDirector.shared?.colors.children.count {
                         
-                        if let color = ArtDirector.shared?.colors.children[index] {
+                        for index in 0..<colorCount {
                             
-                            self.clearColorPopUp.addItem(withTitle: color.name)
-                            
-                            self.clearColorPopUp.lastItem?.set(color: color.color)
+                            if let color = ArtDirector.shared?.colors.children[index] {
+                                
+                                self.clearColorPopUp.addItem(withTitle: color.name)
+                                
+                                self.clearColorPopUp.lastItem?.set(color: color.color)
+                            }
                         }
                     }
-                }
-                
-                if let floorColor = editor.meadow.scene.world.floor.color, let index = ArtDirector.shared?.colors.children.index(of: floorColor) {
                     
-                    self.clearColorPopUp.selectItem(at: index)
+                    if let floorColor = world.floor.color, let index = ArtDirector.shared?.colors.children.index(of: floorColor) {
+                        
+                        self.clearColorPopUp.selectItem(at: index)
+                        
+                        self.clearColorPaletteView.color = floorColor
+                    }
                     
-                    self.clearColorPaletteView.color = floorColor
+                default: break
                 }
                 
             default: break

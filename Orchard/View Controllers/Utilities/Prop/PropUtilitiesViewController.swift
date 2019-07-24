@@ -23,20 +23,27 @@ class PropUtilitiesViewController: NSViewController {
             
         case .area(let editor):
             
-            switch sender {
+            switch editor.meadow.scene.model.state {
                 
-            case propsHiddenButton:
+            case .scene(let world):
                 
-                editor.meadow.scene.world.props.isHidden = sender.state == .off
+                switch sender {
+                    
+                case propsHiddenButton:
+                    
+                    world.props.isHidden = sender.state == .off
+                    
+                case buildButton:
+                    
+                    tabViewController?.viewModel.state = .build(editor: editor)
+                    
+                default: break
+                }
                 
-            case buildButton:
-                
-                tabViewController?.viewModel.state = .build(editor: editor)
+                viewModel.state = .area(editor: editor)
                 
             default: break
             }
-            
-            viewModel.state = .area(editor: editor)
             
         default: break
         }
@@ -76,14 +83,21 @@ extension PropUtilitiesViewController {
                 
             case .area(let editor):
                 
-                self.propCount.integerValue = editor.meadow.scene.world.areas.totalChildren
-                self.propsHiddenButton.state = (editor.meadow.scene.world.props.isHidden ? .off : .on)
-                
-                switch tabViewController.viewModel.state {
+                switch editor.meadow.scene.model.state {
                     
-                case .empty:
+                case .scene(let world):
                     
-                    tabViewController.viewModel.state = .build(editor: editor)
+                    self.propCount.integerValue = world.areas.totalChildren
+                    self.propsHiddenButton.state = (world.props.isHidden ? .off : .on)
+                    
+                    switch tabViewController.viewModel.state {
+                        
+                    case .empty:
+                        
+                        tabViewController.viewModel.state = .build(editor: editor)
+                        
+                    default: break
+                    }
                     
                 default: break
                 }

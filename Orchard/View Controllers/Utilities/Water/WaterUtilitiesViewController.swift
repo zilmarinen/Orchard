@@ -23,20 +23,27 @@ class WaterUtilitiesViewController: NSViewController {
             
         case .water(let editor):
             
-            switch sender {
+            switch editor.meadow.scene.model.state {
                 
-            case gridHiddenButton:
+            case .scene(let world):
                 
-                editor.meadow.scene.world.water.isHidden = sender.state == .off
+                switch sender {
+                    
+                case gridHiddenButton:
+                    
+                    world.water.isHidden = sender.state == .off
+                    
+                case buildButton:
+                    
+                    tabViewController?.viewModel.state = .build(editor: editor)
+                    
+                default: break
+                }
                 
-            case buildButton:
-                
-                tabViewController?.viewModel.state = .build(editor: editor)
+                viewModel.state = .water(editor: editor)
                 
             default: break
             }
-            
-            viewModel.state = .water(editor: editor)
             
         default: break
         }
@@ -76,14 +83,21 @@ extension WaterUtilitiesViewController {
                 
             case .water(let editor):
                 
-                self.chunkCount.integerValue = editor.meadow.scene.world.water.totalChildren
-                self.gridHiddenButton.state = (editor.meadow.scene.world.water.isHidden ? .off : .on)
-                
-                switch tabViewController.viewModel.state {
+                switch editor.meadow.scene.model.state {
                     
-                case .empty:
+                case .scene(let world):
                     
-                    tabViewController.viewModel.state = .build(editor: editor)
+                    self.chunkCount.integerValue = world.water.totalChildren
+                    self.gridHiddenButton.state = (world.water.isHidden ? .off : .on)
+                    
+                    switch tabViewController.viewModel.state {
+                        
+                    case .empty:
+                        
+                        tabViewController.viewModel.state = .build(editor: editor)
+                        
+                    default: break
+                    }
                     
                 default: break
                 }

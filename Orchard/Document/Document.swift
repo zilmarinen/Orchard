@@ -71,9 +71,11 @@ class Document: NSDocument {
                 
                 let decoder = JSONDecoder()
                 
-                let intermediate = try decoder.decode(SceneIntermediate.self, from: data)
+                let intermediate = try decoder.decode(MapIntermediate.self, from: data)
                 
-                viewController.viewModel.state = .loading(editor: editor, intermediate: intermediate)
+                let map = Map(name: intermediate.name, intermediate: intermediate.world)
+                
+                viewController.viewModel.state = .loading(editor: editor, map: map)
             }
             catch {
                 

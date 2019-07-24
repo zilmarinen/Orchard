@@ -27,32 +27,39 @@ class AreaUtilitiesViewController: NSViewController {
             
         case .area(let editor):
             
-            switch sender {
+            switch editor.meadow.scene.model.state {
                 
-            case gridHiddenButton:
+            case .scene(let world):
                 
-                editor.meadow.scene.world.areas.isHidden = sender.state == .off
+                switch sender {
+                    
+                case gridHiddenButton:
+                    
+                    world.areas.isHidden = sender.state == .off
+                    
+                case buildButton:
+                    
+                    tabViewController?.viewModel.state = .build(editor: editor)
+                    
+                case architectureButton:
+                    
+                    tabViewController?.viewModel.state = .architecture(editor: editor)
+                    
+                case paintButton:
+                    
+                    tabViewController?.viewModel.state = .paint(editor: editor)
+                    
+                case gridEdgeRenderStateButton:
+                    
+                    world.areas.renderState = (sender.state == .off ? .cutaway : .raised)
+                    
+                default: break
+                }
                 
-            case buildButton:
-                
-                tabViewController?.viewModel.state = .build(editor: editor)
-                
-            case architectureButton:
-                
-                tabViewController?.viewModel.state = .architecture(editor: editor)
-                
-            case paintButton:
-                
-                tabViewController?.viewModel.state = .paint(editor: editor)
-                
-            case gridEdgeRenderStateButton:
-                
-                editor.meadow.scene.world.areas.renderState = (sender.state == .off ? .cutaway : .raised)
+                viewModel.state = .area(editor: editor)
                 
             default: break
             }
-            
-            viewModel.state = .area(editor: editor)
             
         default: break
         }
@@ -92,16 +99,23 @@ extension AreaUtilitiesViewController {
                 
             case .area(let editor):
                 
-                self.chunkCount.integerValue = editor.meadow.scene.world.areas.totalChildren
-                self.gridHiddenButton.state = (editor.meadow.scene.world.areas.isHidden ? .off : .on)
-                
-                self.gridEdgeRenderStateButton.state = (editor.meadow.scene.world.areas.renderState == .cutaway ? .off : .on)
-                
-                switch tabViewController.viewModel.state {
+                switch editor.meadow.scene.model.state {
                     
-                case .empty:
+                case .scene(let world):
                     
-                    tabViewController.viewModel.state = .build(editor: editor)
+                    self.chunkCount.integerValue = world.areas.totalChildren
+                    self.gridHiddenButton.state = (world.areas.isHidden ? .off : .on)
+                    
+                    self.gridEdgeRenderStateButton.state = (world.areas.renderState == .cutaway ? .off : .on)
+                    
+                    switch tabViewController.viewModel.state {
+                        
+                    case .empty:
+                        
+                        tabViewController.viewModel.state = .build(editor: editor)
+                        
+                    default: break
+                    }
                     
                 default: break
                 }

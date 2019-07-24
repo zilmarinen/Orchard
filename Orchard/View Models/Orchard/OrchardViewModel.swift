@@ -16,7 +16,7 @@ extension OrchardViewController {
     enum ViewState: THRUtilities.State {
         
         case editor(editor: Editor)
-        case loading(editor: Editor, intermediate: SceneIntermediate)
+        case loading(editor: Editor, map: Map)
         
         func shouldTransition(to newState: ViewState) -> THRUtilities.Should<ViewState> {
             

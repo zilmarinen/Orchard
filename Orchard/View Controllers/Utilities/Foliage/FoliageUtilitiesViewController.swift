@@ -24,24 +24,31 @@ class FoliageUtilitiesViewController: NSViewController {
             
         case .foliage(let editor):
             
-            switch sender {
+            switch editor.meadow.scene.model.state {
                 
-            case gridHiddenButton:
+            case .scene(let world):
                 
-                editor.meadow.scene.world.foliage.isHidden = sender.state == .off
+                switch sender {
+                    
+                case gridHiddenButton:
+                    
+                    world.foliage.isHidden = sender.state == .off
+                    
+                case buildButton:
+                    
+                    tabViewController?.viewModel.state = .build(editor: editor)
+                    
+                case paintButton:
+                    
+                    tabViewController?.viewModel.state = .paint(editor: editor)
+                    
+                default: break
+                }
                 
-            case buildButton:
-                
-                tabViewController?.viewModel.state = .build(editor: editor)
-                
-            case paintButton:
-                
-                tabViewController?.viewModel.state = .paint(editor: editor)
+                viewModel.state = .foliage(editor: editor)
                 
             default: break
             }
-            
-            viewModel.state = .foliage(editor: editor)
             
         default: break
         }
@@ -77,14 +84,21 @@ extension FoliageUtilitiesViewController {
                 
             case .foliage(let editor):
                 
-                self.chunkCount.integerValue = editor.meadow.scene.world.foliage.totalChildren
-                self.gridHiddenButton.state = (editor.meadow.scene.world.foliage.isHidden ? .off : .on)
-                
-                switch tabViewController.viewModel.state {
+                switch editor.meadow.scene.model.state {
                     
-                case .empty:
+                case .scene(let world):
                     
-                    tabViewController.viewModel.state = .build(editor: editor)
+                    self.chunkCount.integerValue = world.foliage.totalChildren
+                    self.gridHiddenButton.state = (world.foliage.isHidden ? .off : .on)
+                    
+                    switch tabViewController.viewModel.state {
+                        
+                    case .empty:
+                        
+                        tabViewController.viewModel.state = .build(editor: editor)
+                        
+                    default: break
+                    }
                     
                 default: break
                 }

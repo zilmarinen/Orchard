@@ -25,28 +25,35 @@ class TerrainUtilitiesViewController: NSViewController {
             
         case .terrain(let editor):
             
-            switch sender {
+            switch editor.meadow.scene.model.state {
                 
-            case gridHiddenButton:
+            case .scene(let world):
                 
-                editor.meadow.scene.world.terrain.isHidden = sender.state == .off
+                switch sender {
+                    
+                case gridHiddenButton:
+                    
+                    world.terrain.isHidden = sender.state == .off
+                    
+                case buildButton:
+                    
+                    tabViewController?.viewModel.state = .build(editor: editor)
+                    
+                case terraformButton:
+                    
+                    tabViewController?.viewModel.state = .terraform(editor: editor)
+                    
+                case paintButton:
+                    
+                    tabViewController?.viewModel.state = .paint(editor: editor)
+                    
+                default: break
+                }
                 
-            case buildButton:
-                
-                tabViewController?.viewModel.state = .build(editor: editor)
-                
-            case terraformButton:
-                
-                tabViewController?.viewModel.state = .terraform(editor: editor)
-                
-            case paintButton:
-                
-                tabViewController?.viewModel.state = .paint(editor: editor)
+                viewModel.state = .terrain(editor: editor)
                 
             default: break
             }
-            
-            viewModel.state = .terrain(editor: editor)
             
         default: break
         }
@@ -86,14 +93,21 @@ extension TerrainUtilitiesViewController {
             
             case .terrain(let editor):
                 
-                self.chunkCount.integerValue = editor.meadow.scene.world.terrain.totalChildren
-                self.gridHiddenButton.state = (editor.meadow.scene.world.terrain.isHidden ? .off : .on)
-                
-                switch tabViewController.viewModel.state {
+                switch editor.meadow.scene.model.state {
                     
-                case .empty:
+                case .scene(let world):
                     
-                    tabViewController.viewModel.state = .build(editor: editor)
+                    self.chunkCount.integerValue = world.terrain.totalChildren
+                    self.gridHiddenButton.state = (world.terrain.isHidden ? .off : .on)
+                    
+                    switch tabViewController.viewModel.state {
+                        
+                    case .empty:
+                        
+                        tabViewController.viewModel.state = .build(editor: editor)
+                        
+                    default: break
+                    }
                     
                 default: break
                 }

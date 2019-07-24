@@ -24,24 +24,31 @@ class FootpathUtilitiesViewController: NSViewController {
             
         case .footpath(let editor):
             
-            switch sender {
+            switch editor.meadow.scene.model.state {
                 
-            case gridHiddenButton:
+            case .scene(let world):
                 
-                editor.meadow.scene.world.footpaths.isHidden = sender.state == .off
+                switch sender {
+                    
+                case gridHiddenButton:
+                    
+                    world.footpaths.isHidden = sender.state == .off
+                    
+                case buildButton:
+                    
+                    tabViewController?.viewModel.state = .build(editor: editor, tool: (footpathType: FootpathType.asphalt, slope: nil))
+                    
+                case paintButton:
+                    
+                    tabViewController?.viewModel.state = .paint(editor: editor, tool: (FootpathType.asphalt))
+                    
+                default: break
+                }
                 
-            case buildButton:
-                
-                tabViewController?.viewModel.state = .build(editor: editor, tool: (footpathType: FootpathType.asphalt, slope: nil))
-                
-            case paintButton:
-                
-                tabViewController?.viewModel.state = .paint(editor: editor, tool: (FootpathType.asphalt))
+                viewModel.state = .footpath(editor: editor)
                 
             default: break
             }
-            
-            viewModel.state = .footpath(editor: editor)
             
         default: break
         }
@@ -77,14 +84,21 @@ extension FootpathUtilitiesViewController {
                 
             case .footpath(let editor):
                 
-                self.chunkCount.integerValue = editor.meadow.scene.world.footpaths.totalChildren
-                self.gridHiddenButton.state = (editor.meadow.scene.world.footpaths.isHidden ? .off : .on)
-                
-                switch tabViewController.viewModel.state {
+                switch editor.meadow.scene.model.state {
                     
-                case .empty:
+                case .scene(let world):
                     
-                    tabViewController.viewModel.state = .build(editor: editor, tool: (footpathType: FootpathType.asphalt, slope: nil))
+                    self.chunkCount.integerValue = world.footpaths.totalChildren
+                    self.gridHiddenButton.state = (world.footpaths.isHidden ? .off : .on)
+                    
+                    switch tabViewController.viewModel.state {
+                        
+                    case .empty:
+                        
+                        tabViewController.viewModel.state = .build(editor: editor, tool: (footpathType: FootpathType.asphalt, slope: nil))
+                        
+                    default: break
+                    }
                     
                 default: break
                 }

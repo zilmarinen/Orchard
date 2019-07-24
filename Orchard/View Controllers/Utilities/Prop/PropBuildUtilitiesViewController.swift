@@ -108,16 +108,23 @@ extension PropBuildUtilitiesViewController {
                 
                 guard let editor = editor else { break }
                 
-                editor.meadow.scene.world.blueprint.clear()
-                
-                editor.meadow.input.cursor.tracksIdleEvents = false
-                
-                if let graticuleIdentifier = self.graticuleIdentifier {
+                switch editor.meadow.scene.model.state {
                     
-                    editor.meadow.input.graticule.unsubscribe(graticuleIdentifier)
+                case .scene(let world):
+                    
+                    world.blueprint.clear()
+                    
+                    editor.meadow.input.cursor.tracksIdleEvents = false
+                    
+                    if let graticuleIdentifier = self.graticuleIdentifier {
+                        
+                        editor.meadow.input.graticule.unsubscribe(graticuleIdentifier)
+                    }
+                    
+                    self.graticuleIdentifier = nil
+                    
+                default: break
                 }
-                
-                self.graticuleIdentifier = nil
                 
             case .build(let editor, let tool):
                 
@@ -205,59 +212,66 @@ extension PropBuildUtilitiesViewController: GraticuleObserver {
             
         case .build(let editor, let tool):
             
-            switch to {
+            switch editor.meadow.scene.model.state {
                 
-            case .up(_, let end, _, let inputType):
+            case .scene(let world):
                 
-                if inputType == .left {
+                switch to {
                     
-                    let prop = editor.meadow.scene.world.props.add(prototype: tool.prop, coordinate: end.coordinate, rotation: tool.rotation)
+                case .up(_, let end, _, let inputType):
                     
-                    prop?.colorPalette = tool.colorPalette
-                }
-                
-            case .tracking(_, let end, _, _):
-                
-                editor.meadow.scene.world.blueprint.clear()
-                
-                guard editor.meadow.scene.world.terrain.find(node: end.coordinate) != nil else { break }
-                
-                var meshFaces: [MeshFace] = []
-                
-                var color = tool.colorPalette.primary
-                
-                let footprint = Footprint(coordinate: end.coordinate, rotation: tool.rotation, nodes: tool.prop.footprint.nodes)
-                
-                if editor.meadow.scene.world.props.find(prop: footprint) != nil {
-                    
-                    color = tool.colorPalette.tertiary
-                }
-                else {
-                    
-                    color = tool.colorPalette.secondary
-                }
-                
-                footprint.nodes.forEach { footprintNode in
-                    
-                    let lowerPolytope = Polytope(x: MDWFloat(footprintNode.coordinate.x), y0: footprintNode.coordinate.y, y1: footprintNode.coordinate.y, y2: footprintNode.coordinate.y, y3: footprintNode.coordinate.y, z: MDWFloat(footprintNode.coordinate.z))
-                    
-                    let upperPolytope = Polytope.translate(polytope: lowerPolytope, translation: SCNVector3(x: 0.0, y: Axis.unitY, z: 0.0))
-                    
-                    let polyhedron = Polyhedron(upperPolytope: upperPolytope, lowerPolytope: lowerPolytope)
-                    
-                    footprintNode.edges.forEach { edge in
+                    if inputType == .left {
                         
-                        let corners = GridCorner.corners(edge: edge)
+                        let prop = world.props.add(prototype: tool.prop, coordinate: end.coordinate, rotation: tool.rotation)
                         
-                        let normal = GridEdge.normal(edge: edge)
-                        
-                        meshFaces.append(MeshFace.apex(corners: corners, polytope: polyhedron.upperPolytope, color: color.vector))
-                        
-                        meshFaces.append(contentsOf: MeshFace.edge(corners: corners, polyhedron: polyhedron, normal: normal, color: color.vector))
+                        prop?.colorPalette = tool.colorPalette
                     }
+                    
+                case .tracking(_, let end, _, _):
+                    
+                    world.blueprint.clear()
+                    
+                    guard world.terrain.find(node: end.coordinate) != nil else { break }
+                    
+                    var meshFaces: [MeshFace] = []
+                    
+                    var color = tool.colorPalette.primary
+                    
+                    let footprint = Footprint(coordinate: end.coordinate, rotation: tool.rotation, nodes: tool.prop.footprint.nodes)
+                    
+                    if world.props.find(prop: footprint) != nil {
+                        
+                        color = tool.colorPalette.tertiary
+                    }
+                    else {
+                        
+                        color = tool.colorPalette.secondary
+                    }
+                    
+                    footprint.nodes.forEach { footprintNode in
+                        
+                        let lowerPolytope = Polytope(x: MDWFloat(footprintNode.coordinate.x), y0: footprintNode.coordinate.y, y1: footprintNode.coordinate.y, y2: footprintNode.coordinate.y, y3: footprintNode.coordinate.y, z: MDWFloat(footprintNode.coordinate.z))
+                        
+                        let upperPolytope = Polytope.translate(polytope: lowerPolytope, translation: SCNVector3(x: 0.0, y: Axis.unitY, z: 0.0))
+                        
+                        let polyhedron = Polyhedron(upperPolytope: upperPolytope, lowerPolytope: lowerPolytope)
+                        
+                        footprintNode.edges.forEach { edge in
+                            
+                            let corners = GridCorner.corners(edge: edge)
+                            
+                            let normal = GridEdge.normal(edge: edge)
+                            
+                            meshFaces.append(MeshFace.apex(corners: corners, polytope: polyhedron.upperPolytope, color: color.vector))
+                            
+                            meshFaces.append(contentsOf: MeshFace.edge(corners: corners, polyhedron: polyhedron, normal: normal, color: color.vector))
+                        }
+                    }
+                    
+                    world.blueprint.add(mesh: Mesh(faces: meshFaces))
+                    
+                default: break
                 }
-                
-                editor.meadow.scene.world.blueprint.add(mesh: Mesh(faces: meshFaces))
                 
             default: break
             }

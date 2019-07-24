@@ -150,16 +150,23 @@ extension AreaBuildUtilitiesViewController {
                 
                 guard let editor = editor else { break }
                 
-                editor.meadow.scene.world.blueprint.clear()
-                
-                editor.meadow.input.cursor.tracksIdleEvents = false
-                
-                if let graticuleIdentifier = self.graticuleIdentifier {
+                switch editor.meadow.scene.model.state {
                     
-                    editor.meadow.input.graticule.unsubscribe(graticuleIdentifier)
+                case .scene(let world):
+                    
+                    world.blueprint.clear()
+                    
+                    editor.meadow.input.cursor.tracksIdleEvents = false
+                    
+                    if let graticuleIdentifier = self.graticuleIdentifier {
+                        
+                        editor.meadow.input.graticule.unsubscribe(graticuleIdentifier)
+                    }
+                    
+                    self.graticuleIdentifier = nil
+                    
+                default: break
                 }
-                
-                self.graticuleIdentifier = nil
                 
             case .build(let editor, let tool):
                 
@@ -279,121 +286,128 @@ extension AreaBuildUtilitiesViewController: GraticuleObserver {
             
         case .build(let editor, let tool):
             
-            switch to {
+            switch editor.meadow.scene.model.state {
                 
-            case .tracking(let start, let end, _, let inputType):
+            case .scene(let world):
                 
-                editor.meadow.scene.world.blueprint.clear()
-                
-                guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint") else { break }
-                
-                var meshFaces: [MeshFace] = []
-                
-                var color = colorPalette.primary
-                
-                switch inputType {
+                switch to {
                     
-                case .left: color = colorPalette.secondary
-                case .right: color = colorPalette.tertiary
+                case .tracking(let start, let end, _, let inputType):
                     
-                default: break
-                }
+                    world.blueprint.clear()
                     
-                let minimumX = min(start.coordinate.x, end.coordinate.x)
-                let maximumX = max(start.coordinate.x, end.coordinate.x)
-                let minimumZ = min(start.coordinate.z, end.coordinate.z)
-                let maximumZ = max(start.coordinate.z, end.coordinate.z)
-                
-                for x in minimumX...maximumX {
+                    guard let colorPalette = ArtDirector.shared?.palette(named: "Blueprint") else { break }
                     
-                    for z in minimumZ...maximumZ {
+                    var meshFaces: [MeshFace] = []
+                    
+                    var color = colorPalette.primary
+                    
+                    switch inputType {
                         
-                        let coordinate = Coordinate(x: x, y: World.floor, z: z)
+                    case .left: color = colorPalette.secondary
+                    case .right: color = colorPalette.tertiary
                         
-                        if let terrainNode = editor.meadow.scene.world.terrain.find(node: coordinate) {
+                    default: break
+                    }
+                    
+                    let minimumX = min(start.coordinate.x, end.coordinate.x)
+                    let maximumX = max(start.coordinate.x, end.coordinate.x)
+                    let minimumZ = min(start.coordinate.z, end.coordinate.z)
+                    let maximumZ = max(start.coordinate.z, end.coordinate.z)
+                    
+                    for x in minimumX...maximumX {
                         
-                            let lowerPolytope = terrainNode.polyhedron.upperPolytope
+                        for z in minimumZ...maximumZ {
                             
-                            let upperPolytope = Polytope.translate(polytope: lowerPolytope, translation: SCNVector3(x: 0.0, y: Axis.unitY * MDWFloat(AreaNodeEdge.edgeHeight), z: 0.0))
+                            let coordinate = Coordinate(x: x, y: World.floor, z: z)
                             
-                            let polyhedron = Polyhedron(upperPolytope: upperPolytope, lowerPolytope: lowerPolytope)
+                            if let terrainNode = world.terrain.find(node: coordinate) {
+                                
+                                let lowerPolytope = terrainNode.polyhedron.upperPolytope
+                                
+                                let upperPolytope = Polytope.translate(polytope: lowerPolytope, translation: SCNVector3(x: 0.0, y: Axis.unitY * MDWFloat(AreaNodeEdge.edgeHeight), z: 0.0))
+                                
+                                let polyhedron = Polyhedron(upperPolytope: upperPolytope, lowerPolytope: lowerPolytope)
+                                
+                                GridEdge.Edges.forEach { edge in
+                                    
+                                    let corners = GridCorner.corners(edge: edge)
+                                    
+                                    let normal = GridEdge.normal(edge: edge)
+                                    
+                                    meshFaces.append(MeshFace.apex(corners: corners, polytope: polyhedron.upperPolytope, color: color.vector))
+                                    
+                                    meshFaces.append(contentsOf: MeshFace.edge(corners: corners, polyhedron: polyhedron, normal: normal, color: color.vector))
+                                }
+                            }
+                        }
+                    }
+                    
+                    world.blueprint.add(mesh: Mesh(faces: meshFaces))
+                    
+                case .up(let start, let end, _, let inputType):
+                    
+                    let minimumX = min(start.coordinate.x, end.coordinate.x)
+                    let maximumX = max(start.coordinate.x, end.coordinate.x)
+                    let minimumZ = min(start.coordinate.z, end.coordinate.z)
+                    let maximumZ = max(start.coordinate.z, end.coordinate.z)
+                    
+                    for x in minimumX...maximumX {
+                        
+                        for z in minimumZ...maximumZ {
+                            
+                            let coordinate = Coordinate(x: x, y: start.coordinate.y, z: z)
                             
                             GridEdge.Edges.forEach { edge in
                                 
-                                let corners = GridCorner.corners(edge: edge)
-                                
-                                let normal = GridEdge.normal(edge: edge)
-                                
-                                meshFaces.append(MeshFace.apex(corners: corners, polytope: polyhedron.upperPolytope, color: color.vector))
-                                
-                                meshFaces.append(contentsOf: MeshFace.edge(corners: corners, polyhedron: polyhedron, normal: normal, color: color.vector))
-                            }
-                        }
-                    }
-                }
-                
-                editor.meadow.scene.world.blueprint.add(mesh: Mesh(faces: meshFaces))
-                
-            case .up(let start, let end, _, let inputType):
-                
-                let minimumX = min(start.coordinate.x, end.coordinate.x)
-                let maximumX = max(start.coordinate.x, end.coordinate.x)
-                let minimumZ = min(start.coordinate.z, end.coordinate.z)
-                let maximumZ = max(start.coordinate.z, end.coordinate.z)
-                
-                for x in minimumX...maximumX {
-                    
-                    for z in minimumZ...maximumZ {
-                        
-                        let coordinate = Coordinate(x: x, y: start.coordinate.y, z: z)
-                        
-                        GridEdge.Edges.forEach { edge in
-                            
-                            switch inputType {
-                                
-                            case .left:
-                                
-                                if editor.meadow.scene.world.terrain.find(node: coordinate) != nil {
+                                switch inputType {
                                     
-                                    let areaNode = editor.meadow.scene.world.areas.add(node: coordinate)
+                                case .left:
                                     
-                                    areaNode?.floor = tool.floor
-                                    
-                                    if tool.externalEdges {
+                                    if world.terrain.find(node: coordinate) != nil {
                                         
-                                        if x == minimumX {
-                                            
-                                            let _ = areaNode?.add(edge: .east, edgeType: tool.edgeType, internalEdgeFace: tool.internalEdgeFace, externalEdgeFace: tool.externalEdgeFace)
-                                        }
+                                        let areaNode = world.areas.add(node: coordinate)
                                         
-                                        if x == maximumX {
-                                            
-                                            let _ = areaNode?.add(edge: .west, edgeType: tool.edgeType, internalEdgeFace: tool.internalEdgeFace, externalEdgeFace: tool.externalEdgeFace)
-                                        }
+                                        areaNode?.floor = tool.floor
                                         
-                                        if z == minimumZ {
+                                        if tool.externalEdges {
                                             
-                                            let _ = areaNode?.add(edge: .south, edgeType: tool.edgeType, internalEdgeFace: tool.internalEdgeFace, externalEdgeFace: tool.externalEdgeFace)
-                                        }
-                                        
-                                        if z == maximumZ {
+                                            if x == minimumX {
+                                                
+                                                let _ = areaNode?.add(edge: .east, edgeType: tool.edgeType, internalEdgeFace: tool.internalEdgeFace, externalEdgeFace: tool.externalEdgeFace)
+                                            }
                                             
-                                            let _ = areaNode?.add(edge: .north, edgeType: tool.edgeType, internalEdgeFace: tool.internalEdgeFace, externalEdgeFace: tool.externalEdgeFace)
+                                            if x == maximumX {
+                                                
+                                                let _ = areaNode?.add(edge: .west, edgeType: tool.edgeType, internalEdgeFace: tool.internalEdgeFace, externalEdgeFace: tool.externalEdgeFace)
+                                            }
+                                            
+                                            if z == minimumZ {
+                                                
+                                                let _ = areaNode?.add(edge: .south, edgeType: tool.edgeType, internalEdgeFace: tool.internalEdgeFace, externalEdgeFace: tool.externalEdgeFace)
+                                            }
+                                            
+                                            if z == maximumZ {
+                                                
+                                                let _ = areaNode?.add(edge: .north, edgeType: tool.edgeType, internalEdgeFace: tool.internalEdgeFace, externalEdgeFace: tool.externalEdgeFace)
+                                            }
                                         }
                                     }
-                                }
-                                
-                            case .right:
-                                
-                                if let areaNode = editor.meadow.scene.world.areas.find(node: coordinate) {
                                     
-                                    editor.meadow.scene.world.areas.remove(node: areaNode)
+                                case .right:
+                                    
+                                    if let areaNode = world.areas.find(node: coordinate) {
+                                        
+                                        world.areas.remove(node: areaNode)
+                                    }
+                                    
+                                default: break
                                 }
-                                
-                            default: break
                             }
                         }
                     }
+                    
+                default: break
                 }
                 
             default: break
