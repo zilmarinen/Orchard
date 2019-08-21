@@ -20,7 +20,7 @@ class FoliageUtilitiesViewController: NSViewController {
     
     @IBAction func button(_ sender: NSButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .foliage(let editor):
             
@@ -36,16 +36,16 @@ class FoliageUtilitiesViewController: NSViewController {
                     
                 case buildButton:
                     
-                    tabViewController?.viewModel.state = .build(editor: editor)
+                    tabViewController?.stateObserver.state = .build(editor: editor)
                     
                 case paintButton:
                     
-                    tabViewController?.viewModel.state = .paint(editor: editor)
+                    tabViewController?.stateObserver.state = .paint(editor: editor)
                     
                 default: break
                 }
                 
-                viewModel.state = .foliage(editor: editor)
+                stateObserver.state = .foliage(editor: editor)
                 
             default: break
             }
@@ -56,7 +56,7 @@ class FoliageUtilitiesViewController: NSViewController {
     
     var tabViewController: FoliageUtilitiesTabViewController?
     
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return FoliageUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
@@ -68,7 +68,7 @@ extension FoliageUtilitiesViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -91,11 +91,11 @@ extension FoliageUtilitiesViewController {
                     self.chunkCount.integerValue = world.foliage.totalChildren
                     self.gridHiddenButton.state = (world.foliage.isHidden ? .off : .on)
                     
-                    switch tabViewController.viewModel.state {
+                    switch tabViewController.stateObserver.state {
                         
                     case .empty:
                         
-                        tabViewController.viewModel.state = .build(editor: editor)
+                        tabViewController.stateObserver.state = .build(editor: editor)
                         
                     default: break
                     }

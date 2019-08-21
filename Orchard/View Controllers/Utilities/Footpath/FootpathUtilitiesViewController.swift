@@ -20,7 +20,7 @@ class FootpathUtilitiesViewController: NSViewController {
     
     @IBAction func button(_ sender: NSButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .footpath(let editor):
             
@@ -36,16 +36,16 @@ class FootpathUtilitiesViewController: NSViewController {
                     
                 case buildButton:
                     
-                    tabViewController?.viewModel.state = .build(editor: editor, tool: (footpathType: FootpathType.asphalt, slope: nil))
+                    tabViewController?.stateObserver.state = .build(editor: editor, tool: (footpathType: FootpathType.asphalt, slope: nil))
                     
                 case paintButton:
                     
-                    tabViewController?.viewModel.state = .paint(editor: editor, tool: (FootpathType.asphalt))
+                    tabViewController?.stateObserver.state = .paint(editor: editor, tool: (FootpathType.asphalt))
                     
                 default: break
                 }
                 
-                viewModel.state = .footpath(editor: editor)
+                stateObserver.state = .footpath(editor: editor)
                 
             default: break
             }
@@ -56,7 +56,7 @@ class FootpathUtilitiesViewController: NSViewController {
 
     var tabViewController: FootpathUtilitiesTabViewController?
     
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return FootpathUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
@@ -68,7 +68,7 @@ extension FootpathUtilitiesViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -91,11 +91,11 @@ extension FootpathUtilitiesViewController {
                     self.chunkCount.integerValue = world.footpaths.totalChildren
                     self.gridHiddenButton.state = (world.footpaths.isHidden ? .off : .on)
                     
-                    switch tabViewController.viewModel.state {
+                    switch tabViewController.stateObserver.state {
                         
                     case .empty:
                         
-                        tabViewController.viewModel.state = .build(editor: editor, tool: (footpathType: FootpathType.asphalt, slope: nil))
+                        tabViewController.stateObserver.state = .build(editor: editor, tool: (footpathType: FootpathType.asphalt, slope: nil))
                         
                     default: break
                     }

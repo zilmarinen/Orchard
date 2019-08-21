@@ -1,5 +1,5 @@
 //
-//  AreaInspectorViewModel.swift
+//  AreaInspectorstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 25/05/2018.
@@ -24,7 +24,7 @@ extension AreaInspectorViewController {
         }
     }
     
-    class AreaInspectorStateObserver: BaseViewModel<ViewState> {
+    class AreaInspectorStateObserver: BasestateObserver<ViewState> {
         
     }
 }

@@ -1,5 +1,5 @@
 //
-//  SceneGraphViewModel.swift
+//  SceneGraphstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 31/08/2018.
@@ -22,7 +22,7 @@ extension SceneGraphViewController {
         }
     }
     
-    class SceneGraphStateObserver: BaseViewModel<ViewState> {
+    class SceneGraphStateObserver: BasestateObserver<ViewState> {
         
     }
 }

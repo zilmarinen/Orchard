@@ -1,5 +1,5 @@
 //
-//  InspectorTabViewModel.swift
+//  InspectorTabstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 20/05/2018.
@@ -50,7 +50,7 @@ extension InspectorTabViewController {
         }
     }
     
-    class InspectorTabStateObserver: BaseViewModel<ViewState> {
+    class InspectorTabStateObserver: BasestateObserver<ViewState> {
         
     }
 }

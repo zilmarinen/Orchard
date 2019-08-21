@@ -1,5 +1,5 @@
 //
-//  UtilitiesTabViewModel.swift
+//  UtilitiesTabstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 25/05/2018.
@@ -47,7 +47,7 @@ extension UtilitiesTabViewController {
         }
     }
     
-    class UtilitiesTabStateObserver: BaseViewModel<ViewState> {
+    class UtilitiesTabStateObserver: BasestateObserver<ViewState> {
         
     }
 }

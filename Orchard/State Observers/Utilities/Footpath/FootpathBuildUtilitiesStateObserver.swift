@@ -1,5 +1,5 @@
 //
-//  FootpathBuildUtilitiesViewModel.swift
+//  FootpathBuildUtilitiesstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 23/10/2018.
@@ -22,7 +22,7 @@ extension FootpathBuildUtilitiesViewController {
         }
     }
     
-    class FootpathBuildUtilitiesStateObserver: BaseViewModel<ViewState> {
+    class FootpathBuildUtilitiesStateObserver: BasestateObserver<ViewState> {
         
     }
 }

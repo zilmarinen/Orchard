@@ -53,7 +53,7 @@ class WaterInspectorViewController: NSViewController {
     
     @IBAction func button(_ sender: NSButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .water(let editor, let inspectable):
             
@@ -90,7 +90,7 @@ class WaterInspectorViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .water(editor: editor, inspectable: inspectable)
+            stateObserver.state = .water(editor: editor, inspectable: inspectable)
             
         default: break
         }
@@ -98,7 +98,7 @@ class WaterInspectorViewController: NSViewController {
     
     @IBAction func popUp(_ sender: NSPopUpButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .water(let editor, let inspectable):
             
@@ -108,7 +108,7 @@ class WaterInspectorViewController: NSViewController {
                 
                 guard let tile = inspectable.tile, let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? WaterNode else { break }
                 
-                viewModel.state = .water(editor: editor, inspectable: (grid: inspectable.grid, chunk: inspectable.chunk, tile: tile, node: selectedNode, edge: selectedNode.child(at: 0) as? WaterNodeEdge))
+                stateObserver.state = .water(editor: editor, inspectable: (grid: inspectable.grid, chunk: inspectable.chunk, tile: tile, node: selectedNode, edge: selectedNode.child(at: 0) as? WaterNodeEdge))
                 
                 editor.delegate.sceneGraph(didSelectChild: selectedNode, atIndex: sender.indexOfSelectedItem)
                 
@@ -118,7 +118,7 @@ class WaterInspectorViewController: NSViewController {
                 
                 let edge = inspectable.node?.find(edge: gridEdge)
                 
-                viewModel.state = .water(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, inspectable.node, edge))
+                stateObserver.state = .water(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, inspectable.node, edge))
                 
             case selectedWaterTypePopUp:
                 
@@ -126,7 +126,7 @@ class WaterInspectorViewController: NSViewController {
                 
                 edge.waterType = selectedWaterType
                 
-                viewModel.state = .water(editor: editor, inspectable: inspectable)
+                stateObserver.state = .water(editor: editor, inspectable: inspectable)
                 
             default: break
             }
@@ -137,7 +137,7 @@ class WaterInspectorViewController: NSViewController {
     
     @IBAction func stepper(_ sender: NSStepper) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .water(let editor, let inspectable):
             
@@ -152,7 +152,7 @@ class WaterInspectorViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .water(editor: editor, inspectable: inspectable)
+            stateObserver.state = .water(editor: editor, inspectable: inspectable)
             
         default: break
         }
@@ -160,7 +160,7 @@ class WaterInspectorViewController: NSViewController {
     
     @IBAction func textField(_ sender: NSTextField) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .water(let editor, let inspectable):
             
@@ -175,13 +175,13 @@ class WaterInspectorViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .water(editor: editor, inspectable: inspectable)
+            stateObserver.state = .water(editor: editor, inspectable: inspectable)
             
         default: break
         }
     }
 
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return WaterInspectorStateObserver(initialState: .empty)
     }()
@@ -193,7 +193,7 @@ extension WaterInspectorViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 

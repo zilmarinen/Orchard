@@ -1,5 +1,5 @@
 //
-//  AreaArchitectureUtilitiesViewModel.swift
+//  AreaArchitectureUtilitiesstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 23/10/2018.
@@ -24,7 +24,7 @@ extension AreaArchitectureUtilitiesViewController {
         }
     }
     
-    class AreaArchitectureUtilitiesStateObserver: BaseViewModel<ViewState> {
+    class AreaArchitectureUtilitiesStateObserver: BasestateObserver<ViewState> {
         
     }
 }

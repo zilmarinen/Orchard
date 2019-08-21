@@ -1,5 +1,5 @@
 //
-//  TerrainPaintUtilitiesViewModel.swift
+//  TerrainPaintUtilitiesstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 25/05/2018.
@@ -28,7 +28,7 @@ extension TerrainPaintUtilitiesViewController {
         }
     }
     
-    class TerrainPaintUtilitiesStateObserver: BaseViewModel<ViewState> {
+    class TerrainPaintUtilitiesStateObserver: BasestateObserver<ViewState> {
         
     }
 }

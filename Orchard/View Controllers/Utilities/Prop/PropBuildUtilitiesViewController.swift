@@ -25,7 +25,7 @@ class PropBuildUtilitiesViewController: NSViewController {
     
     @IBAction func popUp(_ sender: NSPopUpButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .build(let editor, var tool):
             
@@ -72,13 +72,13 @@ class PropBuildUtilitiesViewController: NSViewController {
             default: break
             }
          
-            viewModel.state = .build(editor: editor, tool: tool)
+            stateObserver.state = .build(editor: editor, tool: tool)
             
         default: break
         }
     }
 
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return PropBuildUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
@@ -92,7 +92,7 @@ extension PropBuildUtilitiesViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -208,7 +208,7 @@ extension PropBuildUtilitiesViewController: GraticuleObserver {
     
     func stateDidChange(from: SceneKitView.GraticuleState?, to: SceneKitView.GraticuleState) {
         
-        switch self.viewModel.state {
+        switch self.stateObserver.state {
             
         case .build(let editor, let tool):
             

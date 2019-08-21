@@ -18,7 +18,7 @@ class SidebarViewController: NSViewController {
     
     @IBAction func button(_ sender: NSButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .inspector(let editor, let child):
             
@@ -26,7 +26,7 @@ class SidebarViewController: NSViewController {
                 
             case utilitiesButton:
                 
-                viewModel.state = .utility(editor: editor, child: child)
+                stateObserver.state = .utility(editor: editor, child: child)
                 
             default: break
             }
@@ -37,7 +37,7 @@ class SidebarViewController: NSViewController {
                 
             case inspectorButton:
                 
-                viewModel.state = .inspector(editor: editor, child: child)
+                stateObserver.state = .inspector(editor: editor, child: child)
                 
             default: break
             }
@@ -46,7 +46,7 @@ class SidebarViewController: NSViewController {
         }
     }
     
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return SidebarStateObserver(initialState: .empty(editor: nil))
     }()
@@ -58,7 +58,7 @@ extension SidebarViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -74,15 +74,15 @@ extension SidebarViewController {
                 
             case .empty(let editor):
                 
-                tabViewController.viewModel.state = .empty(editor: editor)
+                tabViewController.stateObserver.state = .empty(editor: editor)
                 
             case .inspector(let editor, let child):
                 
-                tabViewController.viewModel.state = .inspector(editor: editor, child: child)
+                tabViewController.stateObserver.state = .inspector(editor: editor, child: child)
                 
             case .utility(let editor, _):
                 
-                tabViewController.viewModel.state = .utility(editor: editor)
+                tabViewController.stateObserver.state = .utility(editor: editor)
             }
         }
     }

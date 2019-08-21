@@ -17,7 +17,7 @@ class SceneInspectorViewController: NSViewController {
     
     @IBAction func popUp(_ sender: NSPopUpButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .scene(let editor):
             
@@ -29,7 +29,7 @@ class SceneInspectorViewController: NSViewController {
                 
                 world.floor.color = selectedColor
                 
-                viewModel.state = .scene(editor: editor)
+                stateObserver.state = .scene(editor: editor)
                 
             default: break
             }
@@ -40,19 +40,19 @@ class SceneInspectorViewController: NSViewController {
     
     @IBAction func textField(_ textField: NSTextField) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .scene(let editor):
             
             editor.meadow.scene.rootNode.name = textField.stringValue
             
-            viewModel.state = .scene(editor: editor)
+            stateObserver.state = .scene(editor: editor)
             
         default: break
         }
     }
     
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return SceneInspectorStateObserver(initialState: .empty)
     }()
@@ -64,7 +64,7 @@ extension SceneInspectorViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 

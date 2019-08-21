@@ -1,5 +1,5 @@
 //
-//  FoliageInspectorViewModel.swift
+//  FoliageInspectorstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 25/05/2018.
@@ -24,7 +24,7 @@ extension FoliageInspectorViewController {
         }
     }
     
-    class FoliageInspectorStateObserver: BaseViewModel<ViewState> {
+    class FoliageInspectorStateObserver: BasestateObserver<ViewState> {
         
     }
 }

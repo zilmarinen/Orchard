@@ -40,7 +40,7 @@ class FoliageInspectorViewController: NSViewController {
     
     @IBAction func button(_ sender: NSButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .foliage(let editor, let inspectable):
             
@@ -71,7 +71,7 @@ class FoliageInspectorViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .foliage(editor: editor, inspectable: inspectable)
+            stateObserver.state = .foliage(editor: editor, inspectable: inspectable)
             
         default: break
         }
@@ -79,7 +79,7 @@ class FoliageInspectorViewController: NSViewController {
     
     @IBAction func popUp(_ sender: NSPopUpButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .foliage(let editor, let inspectable):
             
@@ -89,7 +89,7 @@ class FoliageInspectorViewController: NSViewController {
                 
                 guard let tile = inspectable.tile, let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? FoliageNode else { break }
                 
-                viewModel.state = .foliage(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, tile, selectedNode))
+                stateObserver.state = .foliage(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, tile, selectedNode))
                 
                 editor.delegate.sceneGraph(didSelectChild: selectedNode, atIndex: sender.indexOfSelectedItem)
                 
@@ -100,7 +100,7 @@ class FoliageInspectorViewController: NSViewController {
         }
     }
 
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return FoliageInspectorStateObserver(initialState: .empty)
     }()
@@ -112,7 +112,7 @@ extension FoliageInspectorViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  FoliageUtilitiesTabViewModel.swift
+//  FoliageUtilitiesTabstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 28/05/2018.
@@ -35,7 +35,7 @@ extension FoliageUtilitiesTabViewController {
         }
     }
     
-    class FoliageUtilitiesTabStateObserver: BaseViewModel<ViewState> {
+    class FoliageUtilitiesTabStateObserver: BasestateObserver<ViewState> {
         
     }
 }

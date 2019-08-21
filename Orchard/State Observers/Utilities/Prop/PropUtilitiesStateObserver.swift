@@ -1,5 +1,5 @@
 //
-//  PropUtilitiesViewModel.swift
+//  PropUtilitiesstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 14/11/2018.
@@ -22,7 +22,7 @@ extension PropUtilitiesViewController {
         }
     }
     
-    class PropUtilitiesStateObserver: BaseViewModel<ViewState> {
+    class PropUtilitiesStateObserver: BasestateObserver<ViewState> {
         
     }
 }

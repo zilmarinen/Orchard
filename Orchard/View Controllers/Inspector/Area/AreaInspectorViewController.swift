@@ -69,7 +69,7 @@ class AreaInspectorViewController: NSViewController {
     
     @IBAction func button(_ sender: NSButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .area(let editor, let inspectable):
             
@@ -133,7 +133,7 @@ class AreaInspectorViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .area(editor: editor, inspectable: inspectable)
+            stateObserver.state = .area(editor: editor, inspectable: inspectable)
             
         default: break
         }
@@ -141,7 +141,7 @@ class AreaInspectorViewController: NSViewController {
     
     @IBAction func popUp(_ sender: NSPopUpButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .area(let editor, let inspectable):
             
@@ -151,7 +151,7 @@ class AreaInspectorViewController: NSViewController {
                 
                 guard let tile = inspectable.tile, let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? AreaNode else { break }
                 
-                viewModel.state = .area(editor: editor, inspectable: (grid: inspectable.grid, chunk: inspectable.chunk, tile: tile, node: selectedNode, edge: selectedNode.child(at: 0) as? AreaNodeEdge))
+                stateObserver.state = .area(editor: editor, inspectable: (grid: inspectable.grid, chunk: inspectable.chunk, tile: tile, node: selectedNode, edge: selectedNode.child(at: 0) as? AreaNodeEdge))
                 
                 editor.delegate.sceneGraph(didSelectChild: selectedNode, atIndex: sender.indexOfSelectedItem)
                 
@@ -161,7 +161,7 @@ class AreaInspectorViewController: NSViewController {
                 
                 let edge = inspectable.node?.find(edge: gridEdge)
                 
-                viewModel.state = .area(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, inspectable.node, edge))
+                stateObserver.state = .area(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, inspectable.node, edge))
                 
             case floorColorPalettePopUp,
                  floorTypePopUp:
@@ -170,7 +170,7 @@ class AreaInspectorViewController: NSViewController {
                 
                 node.floor = AreaNodeFloor(colorPalette: colorPalette, floorType: floorType)
                 
-                viewModel.state = .area(editor: editor, inspectable: inspectable)
+                stateObserver.state = .area(editor: editor, inspectable: inspectable)
                 
             case internalMaterialPopUp,
                  internalColorPalettePopUp:
@@ -179,7 +179,7 @@ class AreaInspectorViewController: NSViewController {
                 
                 edge.internalEdgeFace = AreaNodeEdgeFace(colorPalette: colorPalette, material: material)
                 
-                viewModel.state = .area(editor: editor, inspectable: inspectable)
+                stateObserver.state = .area(editor: editor, inspectable: inspectable)
                 
             case externalMaterialPopUp,
                  externalColorPalettePopUp:
@@ -188,7 +188,7 @@ class AreaInspectorViewController: NSViewController {
                 
                 edge.externalEdgeFace = AreaNodeEdgeFace(colorPalette: colorPalette, material: material)
                 
-                viewModel.state = .area(editor: editor, inspectable: inspectable)
+                stateObserver.state = .area(editor: editor, inspectable: inspectable)
                 
             case edgeTypePopUp:
                 
@@ -210,7 +210,7 @@ class AreaInspectorViewController: NSViewController {
                     }
                 }
                 
-                viewModel.state = .area(editor: editor, inspectable: inspectable)
+                stateObserver.state = .area(editor: editor, inspectable: inspectable)
                 
             default: break
             }
@@ -219,7 +219,7 @@ class AreaInspectorViewController: NSViewController {
         }
     }
 
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return AreaInspectorStateObserver(initialState: .empty)
     }()
@@ -231,7 +231,7 @@ extension AreaInspectorViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 

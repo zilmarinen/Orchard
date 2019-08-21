@@ -12,7 +12,7 @@ import SceneKit
 
 class FootpathPaintUtilitiesViewController: NSViewController {
     
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return FootpathPaintUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()

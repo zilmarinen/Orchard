@@ -10,7 +10,7 @@ import Cocoa
 
 class UtilitiesTabViewController: NSTabViewController {
 
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return UtilitiesTabStateObserver(initialState: .empty(editor: nil))
     }()
@@ -22,7 +22,7 @@ extension UtilitiesTabViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -42,37 +42,37 @@ extension UtilitiesTabViewController {
                     
                     guard let viewController = viewController as? AreaUtilitiesViewController else { break }
                     
-                    viewController.viewModel.state = .empty(editor: editor)
+                    viewController.stateObserver.state = .empty(editor: editor)
                     
                 case .foliage(let editor):
                     
                     guard let viewController = viewController as? FoliageUtilitiesViewController else { break }
                     
-                    viewController.viewModel.state = .empty(editor: editor)
+                    viewController.stateObserver.state = .empty(editor: editor)
                     
                 case .footpath(let editor):
                     
                     guard let viewController = viewController as? FootpathUtilitiesViewController else { break }
                     
-                    viewController.viewModel.state = .empty(editor: editor)
+                    viewController.stateObserver.state = .empty(editor: editor)
                     
                 case .prop(let editor):
                     
                     guard let viewController = viewController as? PropUtilitiesViewController else { break}
                     
-                    viewController.viewModel.state = .empty(editor: editor)
+                    viewController.stateObserver.state = .empty(editor: editor)
                     
                 case .terrain(let editor):
                     
                     guard let viewController = viewController as? TerrainUtilitiesViewController else { break }
                     
-                    viewController.viewModel.state = .empty(editor: editor)
+                    viewController.stateObserver.state = .empty(editor: editor)
                     
                 case .water(let editor):
                     
                     guard let viewController = viewController as? WaterUtilitiesViewController else { break }
                     
-                    viewController.viewModel.state = .empty(editor: editor)
+                    viewController.stateObserver.state = .empty(editor: editor)
                     
                 default: break
                 }
@@ -88,37 +88,37 @@ extension UtilitiesTabViewController {
                 
                 guard let viewController = viewController as? AreaUtilitiesViewController else { break }
                 
-                viewController.viewModel.state = .area(editor: editor)
+                viewController.stateObserver.state = .area(editor: editor)
                 
             case .foliage(let editor):
                 
                 guard let viewController = viewController as? FoliageUtilitiesViewController else { break }
                 
-                viewController.viewModel.state = .foliage(editor: editor)
+                viewController.stateObserver.state = .foliage(editor: editor)
                 
             case .footpath(let editor):
                 
                 guard let viewController = viewController as? FootpathUtilitiesViewController else { break }
                 
-                viewController.viewModel.state = .footpath(editor: editor)
+                viewController.stateObserver.state = .footpath(editor: editor)
                 
             case .prop(let editor):
                 
                 guard let viewController = viewController as? PropUtilitiesViewController else { break }
                 
-                viewController.viewModel.state = .area(editor: editor)
+                viewController.stateObserver.state = .area(editor: editor)
                 
             case .terrain(let editor):
                 
                 guard let viewController = viewController as? TerrainUtilitiesViewController else { break }
                 
-                viewController.viewModel.state = .terrain(editor: editor)
+                viewController.stateObserver.state = .terrain(editor: editor)
                 
             case .water(let editor):
                 
                 guard let viewController = viewController as? WaterUtilitiesViewController else { break }
                 
-                viewController.viewModel.state = .water(editor: editor)
+                viewController.stateObserver.state = .water(editor: editor)
                 
             default: break
             }

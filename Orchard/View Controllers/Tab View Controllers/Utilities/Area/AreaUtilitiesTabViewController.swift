@@ -11,7 +11,7 @@ import Meadow
 
 class AreaUtilitiesTabViewController: NSTabViewController {
     
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return AreaUtilitiesTabStateObserver(initialState: .empty(editor: nil))
     }()
@@ -23,7 +23,7 @@ extension AreaUtilitiesTabViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -43,19 +43,19 @@ extension AreaUtilitiesTabViewController {
                     
                     guard let viewController = viewController as? AreaBuildUtilitiesViewController else { break }
                     
-                    viewController.viewModel.state = .empty(editor: editor)
+                    viewController.stateObserver.state = .empty(editor: editor)
                     
                 case .architecture(let editor):
                     
                     guard let viewController = viewController as? AreaArchitectureUtilitiesViewController else { break }
                     
-                    viewController.viewModel.state = .empty(editor: editor)
+                    viewController.stateObserver.state = .empty(editor: editor)
                     
                 case .paint(let editor):
                     
                     guard let viewController = viewController as? AreaPaintUtilitiesViewController else { break }
                     
-                    viewController.viewModel.state = .empty(editor: editor)
+                    viewController.stateObserver.state = .empty(editor: editor)
                     
                 default: break
                 }
@@ -71,7 +71,7 @@ extension AreaUtilitiesTabViewController {
                 
                 guard let viewController = viewController as? AreaBuildUtilitiesViewController else { break }
                 
-                switch viewController.viewModel.state {
+                switch viewController.stateObserver.state {
                     
                 case .empty:
                     
@@ -82,7 +82,7 @@ extension AreaUtilitiesTabViewController {
                     let internalEdgeFace = AreaNodeEdgeFace(colorPalette: colorPalette, material: .concrete)
                     let externalEdgeFace = AreaNodeEdgeFace(colorPalette: colorPalette, material: .concrete)
                     
-                    viewController.viewModel.state = .build(editor: editor, tool: (externalEdges: true, edgeType: AreaNodeEdgeType.wall, floor: floor, internalEdgeFace: internalEdgeFace, externalEdgeFace: externalEdgeFace))
+                    viewController.stateObserver.state = .build(editor: editor, tool: (externalEdges: true, edgeType: AreaNodeEdgeType.wall, floor: floor, internalEdgeFace: internalEdgeFace, externalEdgeFace: externalEdgeFace))
                     
                 default: break
                 }
@@ -91,13 +91,13 @@ extension AreaUtilitiesTabViewController {
                 
                 guard let viewController = viewController as? AreaArchitectureUtilitiesViewController else { break }
                 
-                switch viewController.viewModel.state {
+                switch viewController.stateObserver.state {
                     
                 case .empty:
                     
                     let utility = AreaArchitectureUtility(colorPalette: editor, other: editor)
                     
-                    viewController.viewModel.state = .architecture(editor: editor, utility: utility)
+                    viewController.stateObserver.state = .architecture(editor: editor, utility: utility)
                     
                 default: break
                 }
@@ -106,7 +106,7 @@ extension AreaUtilitiesTabViewController {
             
                 guard let viewController = viewController as? AreaPaintUtilitiesViewController else { break }
                 
-                switch viewController.viewModel.state {
+                switch viewController.stateObserver.state {
                     
                 case .empty:
                     
@@ -114,7 +114,7 @@ extension AreaUtilitiesTabViewController {
                     
                     let utility = AreaPaintUtility(floorColorPalette: colorPalette, externalColorPalette: colorPalette, internalColorPalette: colorPalette)
                     
-                    viewController.viewModel.state = .paint(editor: editor, utility: utility)
+                    viewController.stateObserver.state = .paint(editor: editor, utility: utility)
                     
                 default: break
                 }

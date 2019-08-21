@@ -69,7 +69,7 @@ class TerrainInspectorViewController: NSViewController {
     
     @IBAction func button(_ sender: NSButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .terrain(let editor, let inspectable):
             
@@ -112,7 +112,7 @@ class TerrainInspectorViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .terrain(editor: editor, inspectable: inspectable)
+            stateObserver.state = .terrain(editor: editor, inspectable: inspectable)
             
         default: break
         }
@@ -120,7 +120,7 @@ class TerrainInspectorViewController: NSViewController {
     
     @IBAction func popUp(_ sender: NSPopUpButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .terrain(let editor, let inspectable):
             
@@ -130,7 +130,7 @@ class TerrainInspectorViewController: NSViewController {
                 
                 guard let tile = inspectable.tile, let node = tile.child(at: sender.indexOfSelectedItem) as? TerrainNode, let edge = node.child(at: 0) as? TerrainNodeEdge else { break }
                 
-                viewModel.state = .terrain(editor: editor,inspectable: (inspectable.grid, inspectable.chunk, tile, node, edge, edge.child(at: 0) as? TerrainNodeEdgeLayer))
+                stateObserver.state = .terrain(editor: editor,inspectable: (inspectable.grid, inspectable.chunk, tile, node, edge, edge.child(at: 0) as? TerrainNodeEdgeLayer))
                 
                 editor.delegate.sceneGraph(didSelectChild: node, atIndex: sender.indexOfSelectedItem)
                 
@@ -138,13 +138,13 @@ class TerrainInspectorViewController: NSViewController {
                 
                 guard let gridEdge = GridEdge(rawValue: sender.indexOfSelectedItem), let edge = inspectable.node?.find(edge: gridEdge) else { break }
                 
-                viewModel.state = .terrain(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, inspectable.node, edge, edge.child(at: 0) as? TerrainNodeEdgeLayer))
+                stateObserver.state = .terrain(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, inspectable.node, edge, edge.child(at: 0) as? TerrainNodeEdgeLayer))
                 
             case selectedLayerPopUp:
                 
                 guard let layer = inspectable.edge?.child(at: sender.indexOfSelectedItem) as? TerrainNodeEdgeLayer else { break }
                 
-                viewModel.state = .terrain(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, inspectable.node, inspectable.edge, layer))
+                stateObserver.state = .terrain(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, inspectable.tile, inspectable.node, inspectable.edge, layer))
                 
             case selectedTerrainTypePopUp:
                 
@@ -152,7 +152,7 @@ class TerrainInspectorViewController: NSViewController {
                 
                 layer.terrainType = terrainType
                 
-                viewModel.state = .terrain(editor: editor, inspectable: inspectable)
+                stateObserver.state = .terrain(editor: editor, inspectable: inspectable)
                 
             default: break
             }
@@ -163,7 +163,7 @@ class TerrainInspectorViewController: NSViewController {
     
     @IBAction func stepper(_ sender: NSStepper) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .terrain(let editor, let inspectable):
             
@@ -188,7 +188,7 @@ class TerrainInspectorViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .terrain(editor: editor, inspectable: inspectable)
+            stateObserver.state = .terrain(editor: editor, inspectable: inspectable)
             
         default: break
         }
@@ -196,7 +196,7 @@ class TerrainInspectorViewController: NSViewController {
     
     @IBAction func textField(_ sender: NSTextField) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .terrain(let editor, let inspectable):
             
@@ -221,13 +221,13 @@ class TerrainInspectorViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .terrain(editor: editor, inspectable: inspectable)
+            stateObserver.state = .terrain(editor: editor, inspectable: inspectable)
             
         default: break
         }
     }
     
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return TerrainInspectorStateObserver(initialState: .empty)
     }()
@@ -239,7 +239,7 @@ extension TerrainInspectorViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 

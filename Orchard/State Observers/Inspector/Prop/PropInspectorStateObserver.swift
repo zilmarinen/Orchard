@@ -1,5 +1,5 @@
 //
-//  PropInspectorViewModel.swift
+//  PropInspectorstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 14/11/2018.
@@ -24,7 +24,7 @@ extension PropInspectorViewController {
         }
     }
     
-    class PropInspectorStateObserver: BaseViewModel<ViewState> {
+    class PropInspectorStateObserver: BasestateObserver<ViewState> {
         
     }
 }

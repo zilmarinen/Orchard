@@ -1,5 +1,5 @@
 //
-//  OrchardViewModel.swift
+//  OrchardstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 31/08/2018.
@@ -24,7 +24,7 @@ extension OrchardViewController {
         }
     }
     
-    class OrchardStateObserver: BaseViewModel<ViewState> {
+    class OrchardStateObserver: BasestateObserver<ViewState> {
         
         
     }

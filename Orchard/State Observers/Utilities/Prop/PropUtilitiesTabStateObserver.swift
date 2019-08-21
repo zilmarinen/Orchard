@@ -1,5 +1,5 @@
 //
-//  PropUtilitiesTabViewModel.swift
+//  PropUtilitiesTabstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 14/11/2018.
@@ -32,7 +32,7 @@ extension PropUtilitiesTabViewController {
         }
     }
     
-    class PropUtilitiesTabStateObserver: BaseViewModel<ViewState> {
+    class PropUtilitiesTabStateObserver: BasestateObserver<ViewState> {
         
     }
 }

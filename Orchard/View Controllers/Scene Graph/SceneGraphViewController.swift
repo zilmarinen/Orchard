@@ -20,7 +20,7 @@ class SceneGraphViewController: NSViewController {
     
     var delegate: SceneGraphDelegate?
     
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return SceneGraphStateObserver(initialState: .empty)
     }()
@@ -37,7 +37,7 @@ extension SceneGraphViewController {
         
         outlineView.register(NSNib(nibNamed: NSNib.Name(SceneGraphCell.cellIdentifier), bundle: nil), forIdentifier: NSUserInterfaceItemIdentifier(SceneGraphCell.cellIdentifier))
     
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -78,11 +78,11 @@ extension SceneGraphViewController {
         
         guard let child = sender.item(atRow: index) as? SceneGraphChild else { return }
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .sceneGraph(let scene, _):
             
-            viewModel.state = .sceneGraph(scene: scene, child: child)
+            stateObserver.state = .sceneGraph(scene: scene, child: child)
             
             delegate.sceneGraph(didSelectChild: child, atIndex: index)
             
@@ -92,7 +92,7 @@ extension SceneGraphViewController {
  
     func sceneGraph(numberOfChildrenOfItem item: Any?) -> Int {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .sceneGraph:
             
@@ -124,7 +124,7 @@ extension SceneGraphViewController: NSOutlineViewDataSource {
             return item.child(at: index)!
         }
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .sceneGraph(let scene, _): return scene
             

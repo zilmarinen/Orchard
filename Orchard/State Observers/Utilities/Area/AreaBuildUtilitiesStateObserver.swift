@@ -1,5 +1,5 @@
 //
-//  AreaBuildUtilitiesViewModel.swift
+//  AreaBuildUtilitiesstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 23/10/2018.
@@ -22,7 +22,7 @@ extension AreaBuildUtilitiesViewController {
         }
     }
     
-    class AreaBuildUtilitiesStateObserver: BaseViewModel<ViewState> {
+    class AreaBuildUtilitiesStateObserver: BasestateObserver<ViewState> {
         
     }
 }

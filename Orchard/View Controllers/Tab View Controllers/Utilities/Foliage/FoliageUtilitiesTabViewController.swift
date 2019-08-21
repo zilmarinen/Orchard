@@ -10,7 +10,7 @@ import Cocoa
 
 class FoliageUtilitiesTabViewController: NSTabViewController {
 
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return FoliageUtilitiesTabStateObserver(initialState: .empty(editor: nil))
     }()
@@ -22,7 +22,7 @@ extension FoliageUtilitiesTabViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -42,13 +42,13 @@ extension FoliageUtilitiesTabViewController {
                     
                     guard let viewController = viewController as? FoliageBuildUtilitiesViewController else { break }
                     
-                    viewController.viewModel.state = .empty(editor: editor)
+                    viewController.stateObserver.state = .empty(editor: editor)
                     
                 case .paint(let editor):
                     
                     guard let viewController = viewController as? FoliagePaintUtilitiesViewController else { break }
                     
-                    viewController.viewModel.state = .empty(editor: editor)
+                    viewController.stateObserver.state = .empty(editor: editor)
                     
                 default: break
                 }
@@ -64,11 +64,11 @@ extension FoliageUtilitiesTabViewController {
                 
                 guard let viewController = viewController as? FoliageBuildUtilitiesViewController else { break }
                 
-                switch viewController.viewModel.state {
+                switch viewController.stateObserver.state {
                     
                 case .empty:
                     
-                    viewController.viewModel.state = .build(editor: editor)
+                    viewController.stateObserver.state = .build(editor: editor)
                     
                 default: break
                 }
@@ -77,11 +77,11 @@ extension FoliageUtilitiesTabViewController {
                 
                 guard let viewController = viewController as? FoliagePaintUtilitiesViewController else { break }
                 
-                switch viewController.viewModel.state {
+                switch viewController.stateObserver.state {
                     
                 case .empty:
                     
-                    viewController.viewModel.state = .paint(editor: editor)
+                    viewController.stateObserver.state = .paint(editor: editor)
                     
                 default: break
                 }

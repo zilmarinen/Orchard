@@ -12,7 +12,7 @@ import THRUtilities
 
 class OrchardViewController: NSViewController {
     
-    lazy var viewModel: OrchardStateObserver = {
+    lazy var stateObserver: OrchardStateObserver = {
         
         let input = Input(cursor: SceneKitView.Cursor(), graticule: SceneKitView.Graticule(), keyboard: SceneKitView.Keyboard())
         
@@ -45,7 +45,7 @@ extension OrchardViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -62,11 +62,11 @@ extension OrchardViewController {
                 print("OrchardViewController -> editor")
                 
                 self.sceneGraphViewController?.delegate = self
-                self.sceneGraphViewController?.viewModel.state = .sceneGraph(scene: editor.meadow.scene, child: editor.meadow.scene)
+                self.sceneGraphViewController?.stateObserver.state = .sceneGraph(scene: editor.meadow.scene, child: editor.meadow.scene)
                 
-                self.sceneViewController?.viewModel.state = .editor(editor: editor)
+                self.sceneViewController?.stateObserver.state = .editor(editor: editor)
                 
-                self.sidebarViewController?.viewModel.state = .inspector(editor: editor, child: editor.meadow.scene)
+                self.sidebarViewController?.stateObserver.state = .inspector(editor: editor, child: editor.meadow.scene)
                 
                 switch editor.meadow.scene.model.state {
                     
@@ -83,7 +83,7 @@ extension OrchardViewController {
                 
                 editor.meadow.scene.model.load(map: map)
                 
-                self.viewModel.state = .editor(editor: editor)
+                self.stateObserver.state = .editor(editor: editor)
             }
         }
     }
@@ -93,11 +93,11 @@ extension OrchardViewController: SceneGraphDelegate {
     
     func sceneGraph(didSelectChild child: SceneGraphChild, atIndex index: Int) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .editor(let editor):
             
-            sidebarViewController?.viewModel.state = .inspector(editor: editor, child: child)
+            sidebarViewController?.stateObserver.state = .inspector(editor: editor, child: child)
         
         default: break
         }
@@ -108,26 +108,26 @@ extension OrchardViewController: SceneGraphObserver {
     
     func child(didBecomeDirty child: SceneGraphChild) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .editor(let editor):
             
             guard let sceneGraphViewController = sceneGraphViewController, let sidebarViewController = sidebarViewController else { break }
             
-            switch sceneGraphViewController.viewModel.state {
+            switch sceneGraphViewController.stateObserver.state {
                 
             case .sceneGraph(_, let child):
                 
-                sceneGraphViewController.viewModel.state = .sceneGraph(scene: editor.meadow.scene, child: child)
+                sceneGraphViewController.stateObserver.state = .sceneGraph(scene: editor.meadow.scene, child: child)
                 
             default: break
             }
             
-            switch sidebarViewController.viewModel.state {
+            switch sidebarViewController.stateObserver.state {
                 
             case .inspector(_, let child):
                 
-                sidebarViewController.viewModel.state = .inspector(editor: editor, child: child)
+                sidebarViewController.stateObserver.state = .inspector(editor: editor, child: child)
                 
             default: break
             }

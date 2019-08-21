@@ -1,5 +1,5 @@
 //
-//  SidebarTabViewModel.swift
+//  SidebarTabstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 30/05/2018.
@@ -40,7 +40,7 @@ extension SidebarTabViewController {
         }
     }
     
-    class SidebarTabStateObserver: BaseViewModel<ViewState> {
+    class SidebarTabStateObserver: BasestateObserver<ViewState> {
         
     }
 }

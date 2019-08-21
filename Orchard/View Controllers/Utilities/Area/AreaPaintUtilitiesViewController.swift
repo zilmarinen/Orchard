@@ -23,7 +23,7 @@ class AreaPaintUtilitiesViewController: NSViewController {
     
     @IBAction func popUp(_ sender: NSPopUpButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .paint(let editor, var utility):
             
@@ -32,13 +32,13 @@ class AreaPaintUtilitiesViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .paint(editor: editor, utility: utility)
+            stateObserver.state = .paint(editor: editor, utility: utility)
             
         default: break
         }
     }
     
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return AreaPaintUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
@@ -50,7 +50,7 @@ extension AreaPaintUtilitiesViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 

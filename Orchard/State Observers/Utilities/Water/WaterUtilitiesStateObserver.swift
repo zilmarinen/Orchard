@@ -1,5 +1,5 @@
 //
-//  WaterUtilitiesViewModel.swift
+//  WaterUtilitiesstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 28/05/2018.
@@ -22,7 +22,7 @@ extension WaterUtilitiesViewController {
         }
     }
     
-    class WaterUtilitiesStateObserver: BaseViewModel<WaterUtilitiesViewController.ViewState> {
+    class WaterUtilitiesStateObserver: BasestateObserver<WaterUtilitiesViewController.ViewState> {
         
     }
 }

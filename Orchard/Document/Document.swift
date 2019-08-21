@@ -38,7 +38,7 @@ class Document: NSDocument {
         
         guard let viewController = windowController.contentViewController as? OrchardViewController else { fatalError("Invalid view controller hierarchy") }
         
-        switch viewController.viewModel.state {
+        switch viewController.stateObserver.state {
             
         case .editor(let editor):
             
@@ -63,7 +63,7 @@ class Document: NSDocument {
         
         guard let viewController = windowController.contentViewController as? OrchardViewController else { fatalError("Invalid view controller hierarchy") }
         
-        switch viewController.viewModel.state {
+        switch viewController.stateObserver.state {
             
         case .editor(let editor):
             
@@ -75,7 +75,7 @@ class Document: NSDocument {
                 
                 let map = Map(name: intermediate.name, intermediate: intermediate.world)
                 
-                viewController.viewModel.state = .loading(editor: editor, map: map)
+                viewController.stateObserver.state = .loading(editor: editor, map: map)
             }
             catch {
                 

@@ -10,7 +10,7 @@ import Cocoa
 
 class FootpathUtilitiesTabViewController: NSTabViewController {
 
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return FootpathUtilitiesTabStateObserver(initialState: .empty(editor: nil))
     }()
@@ -22,7 +22,7 @@ extension FootpathUtilitiesTabViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -42,13 +42,13 @@ extension FootpathUtilitiesTabViewController {
                     
                     guard let viewController = viewController as? FootpathBuildUtilitiesViewController else { break }
                     
-                    viewController.viewModel.state = .empty(editor: editor)
+                    viewController.stateObserver.state = .empty(editor: editor)
                     
                 case .paint(let editor, _):
                     
                     guard let viewController = viewController as? FootpathPaintUtilitiesViewController else { break }
                     
-                    viewController.viewModel.state = .empty(editor: editor)
+                    viewController.stateObserver.state = .empty(editor: editor)
                     
                 default: break
                 }
@@ -64,11 +64,11 @@ extension FootpathUtilitiesTabViewController {
                 
                 guard let viewController = viewController as? FootpathBuildUtilitiesViewController else { break }
                 
-                switch viewController.viewModel.state {
+                switch viewController.stateObserver.state {
                     
                 case .empty:
                     
-                    viewController.viewModel.state = .build(editor: editor, tool: tool)
+                    viewController.stateObserver.state = .build(editor: editor, tool: tool)
                     
                 default: break
                 }
@@ -77,11 +77,11 @@ extension FootpathUtilitiesTabViewController {
                 
                 guard let viewController = viewController as? FootpathPaintUtilitiesViewController else { break }
                 
-                switch viewController.viewModel.state {
+                switch viewController.stateObserver.state {
                     
                 case .empty:
                     
-                    viewController.viewModel.state = .paint(editor: editor, tool: tool)
+                    viewController.stateObserver.state = .paint(editor: editor, tool: tool)
                     
                 default: break
                 }

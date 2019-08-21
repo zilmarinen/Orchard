@@ -12,7 +12,7 @@ import SceneKit
 
 class AreaArchitectureUtilitiesViewController: NSViewController {
     
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return AreaArchitectureUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
@@ -24,7 +24,7 @@ extension AreaArchitectureUtilitiesViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 

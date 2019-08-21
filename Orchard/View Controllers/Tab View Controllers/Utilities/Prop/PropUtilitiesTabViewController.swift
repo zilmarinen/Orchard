@@ -11,7 +11,7 @@ import Meadow
 
 class PropUtilitiesTabViewController: NSTabViewController {
     
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return PropUtilitiesTabStateObserver(initialState: .empty(editor: nil))
     }()
@@ -23,7 +23,7 @@ extension PropUtilitiesTabViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -43,7 +43,7 @@ extension PropUtilitiesTabViewController {
                     
                     guard let viewController = viewController as? PropBuildUtilitiesViewController else { break }
                     
-                    viewController.viewModel.state = .empty(editor: editor)
+                    viewController.stateObserver.state = .empty(editor: editor)
                     
                 default: break
                 }
@@ -59,13 +59,13 @@ extension PropUtilitiesTabViewController {
                 
                 guard let viewController = viewController as? PropBuildUtilitiesViewController else { break }
                 
-                switch viewController.viewModel.state {
+                switch viewController.stateObserver.state {
                     
                 case .empty:
                     
                     guard let propList = PropsMaster.shared?.lists.children.first, let prop = propList.child(at: 0), let colorPalette = ArtDirector.shared?.palette(named: "Blueprint") else { break }
                     
-                    viewController.viewModel.state = .build(editor: editor, tool: (propType: propList.type, propList: propList, prop: prop, rotation: .north, colorPalette: colorPalette))
+                    viewController.stateObserver.state = .build(editor: editor, tool: (propType: propList.type, propList: propList, prop: prop, rotation: .north, colorPalette: colorPalette))
                     
                 default: break
                 }

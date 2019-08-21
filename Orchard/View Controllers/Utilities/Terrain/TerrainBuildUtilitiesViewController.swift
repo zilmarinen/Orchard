@@ -19,7 +19,7 @@ class TerrainBuildUtilitiesViewController: NSViewController {
     
     @IBAction func popUp(_ sender: NSPopUpButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .build(let editor, let tool):
             
@@ -29,13 +29,13 @@ class TerrainBuildUtilitiesViewController: NSViewController {
                 
                 guard let toolType = ToolType(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                viewModel.state = .build(editor: editor, tool: (toolType: toolType, terrainType: tool.terrainType))
+                stateObserver.state = .build(editor: editor, tool: (toolType: toolType, terrainType: tool.terrainType))
                 
             case terrainTypePopUp:
                 
                 guard let terrainType = TerrainType(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                viewModel.state = .build(editor: editor, tool: (toolType: tool.toolType, terrainType: terrainType))
+                stateObserver.state = .build(editor: editor, tool: (toolType: tool.toolType, terrainType: terrainType))
                 
             default: break
             }
@@ -44,7 +44,7 @@ class TerrainBuildUtilitiesViewController: NSViewController {
         }
     }
     
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return TerrainBuildUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
@@ -58,7 +58,7 @@ extension TerrainBuildUtilitiesViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -131,7 +131,7 @@ extension TerrainBuildUtilitiesViewController: GraticuleObserver {
     
     func stateDidChange(from: SceneKitView.GraticuleState?, to: SceneKitView.GraticuleState) {
             
-        switch self.viewModel.state {
+        switch self.stateObserver.state {
             
         case .build(let editor, let tool):
             

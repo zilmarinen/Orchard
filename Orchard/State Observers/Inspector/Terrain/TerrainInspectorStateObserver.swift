@@ -1,5 +1,5 @@
 //
-//  TerrainInspectorViewModel.swift
+//  TerrainInspectorstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 24/05/2018.
@@ -24,7 +24,7 @@ extension TerrainInspectorViewController {
         }
     }
     
-    class TerrainInspectorStateObserver: BaseViewModel<ViewState> {
+    class TerrainInspectorStateObserver: BasestateObserver<ViewState> {
         
     }
 }

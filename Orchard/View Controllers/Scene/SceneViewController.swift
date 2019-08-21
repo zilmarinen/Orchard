@@ -17,7 +17,7 @@ class SceneViewController: NSViewController {
     @IBOutlet weak var yCoordinateLabel: NSTextField!
     @IBOutlet weak var zCoordinateLabel: NSTextField!
     
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return SceneStateObserver(initialState: .empty(editor: nil))
     }()
@@ -33,7 +33,7 @@ extension SceneViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -41,7 +41,7 @@ extension SceneViewController: SceneRendererDelegate {
     
     func update(deltaTime: TimeInterval, frameTime: TimeInterval) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .editor(let editor):
             
@@ -155,7 +155,7 @@ extension SceneViewController: GraticuleObserver {
     
     func stateDidChange(from: SceneKitView.GraticuleState?, to: SceneKitView.GraticuleState) {
         
-        switch self.viewModel.state {
+        switch self.stateObserver.state {
             
         case .editor:
             
@@ -179,7 +179,7 @@ extension SceneViewController: KeyboardObserver {
     
     func stateDidChange(from: SceneKitView.KeyboardState?, to: SceneKitView.KeyboardState) {
         
-        switch self.viewModel.state {
+        switch self.stateObserver.state {
             
         case .editor(let editor):
             

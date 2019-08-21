@@ -1,5 +1,5 @@
 //
-//  FootpathPaintUtilitiesViewModel.swift
+//  FootpathPaintUtilitiesstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 23/10/2018.
@@ -22,7 +22,7 @@ extension FootpathPaintUtilitiesViewController {
         }
     }
     
-    class FootpathPaintUtilitiesStateObserver: BaseViewModel<ViewState> {
+    class FootpathPaintUtilitiesStateObserver: BasestateObserver<ViewState> {
         
     }
 }

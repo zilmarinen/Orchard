@@ -19,7 +19,7 @@ class TerrainPaintUtilitiesViewController: NSViewController {
     
     @IBAction func popUp(_ sender: NSPopUpButton) {
      
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .paint(let editor, let tool):
             
@@ -29,13 +29,13 @@ class TerrainPaintUtilitiesViewController: NSViewController {
                 
                 guard let toolType = ToolType(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                viewModel.state = .paint(editor: editor, tool: (toolType: toolType, terrainType: tool.terrainType))
+                stateObserver.state = .paint(editor: editor, tool: (toolType: toolType, terrainType: tool.terrainType))
                 
             case terrainTypePopUp:
                 
                 guard let terrainType = TerrainType(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                viewModel.state = .paint(editor: editor, tool: (toolType: tool.toolType, terrainType: terrainType))
+                stateObserver.state = .paint(editor: editor, tool: (toolType: tool.toolType, terrainType: terrainType))
                 
             default: break
             }
@@ -44,7 +44,7 @@ class TerrainPaintUtilitiesViewController: NSViewController {
         }
     }
     
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return TerrainPaintUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
@@ -58,7 +58,7 @@ extension TerrainPaintUtilitiesViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -131,7 +131,7 @@ extension TerrainPaintUtilitiesViewController: GraticuleObserver {
     
     func stateDidChange(from: SceneKitView.GraticuleState?, to: SceneKitView.GraticuleState) {
             
-        switch self.viewModel.state {
+        switch self.stateObserver.state {
             
         case .paint(let editor, let tool):
             

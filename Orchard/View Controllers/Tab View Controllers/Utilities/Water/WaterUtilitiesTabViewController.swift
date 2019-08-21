@@ -11,7 +11,7 @@ import Meadow
 
 class WaterUtilitiesTabViewController: NSTabViewController {
 
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return WaterUtilitiesTabStateObserver(initialState: .empty(editor: nil))
     }()
@@ -23,7 +23,7 @@ extension WaterUtilitiesTabViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -43,7 +43,7 @@ extension WaterUtilitiesTabViewController {
                     
                     guard let viewController = viewController as? WaterBuildUtilitiesViewController else { break }
                     
-                    viewController.viewModel.state = .empty(editor: editor)
+                    viewController.stateObserver.state = .empty(editor: editor)
                     
                 default: break
                 }
@@ -59,11 +59,11 @@ extension WaterUtilitiesTabViewController {
                 
                 guard let viewController = viewController as? WaterBuildUtilitiesViewController else { break }
                 
-                switch viewController.viewModel.state {
+                switch viewController.stateObserver.state {
                     
                 case .empty:
                     
-                    viewController.viewModel.state = .build(editor: editor, tool: (toolType: .tile, waterType: WaterType.water))
+                    viewController.stateObserver.state = .build(editor: editor, tool: (toolType: .tile, waterType: WaterType.water))
                     
                 default: break
                 }

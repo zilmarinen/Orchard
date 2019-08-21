@@ -12,7 +12,7 @@ import SceneKit
 
 class FoliagePaintUtilitiesViewController: NSViewController {
     
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return FoliagePaintUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()

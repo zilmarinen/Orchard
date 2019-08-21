@@ -1,5 +1,5 @@
 //
-//  WaterBuildUtilitiesViewModel.swift
+//  WaterBuildUtilitiesstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 18/10/2018.
@@ -28,7 +28,7 @@ extension WaterBuildUtilitiesViewController {
         }
     }
     
-    class WaterBuildUtilitiesStateObserver: BaseViewModel<ViewState> {
+    class WaterBuildUtilitiesStateObserver: BasestateObserver<ViewState> {
         
     }
 }

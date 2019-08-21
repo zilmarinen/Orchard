@@ -21,7 +21,7 @@ class TerrainUtilitiesViewController: NSViewController {
     
     @IBAction func button(_ sender: NSButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .terrain(let editor):
             
@@ -37,20 +37,20 @@ class TerrainUtilitiesViewController: NSViewController {
                     
                 case buildButton:
                     
-                    tabViewController?.viewModel.state = .build(editor: editor)
+                    tabViewController?.stateObserver.state = .build(editor: editor)
                     
                 case terraformButton:
                     
-                    tabViewController?.viewModel.state = .terraform(editor: editor)
+                    tabViewController?.stateObserver.state = .terraform(editor: editor)
                     
                 case paintButton:
                     
-                    tabViewController?.viewModel.state = .paint(editor: editor)
+                    tabViewController?.stateObserver.state = .paint(editor: editor)
                     
                 default: break
                 }
                 
-                viewModel.state = .terrain(editor: editor)
+                stateObserver.state = .terrain(editor: editor)
                 
             default: break
             }
@@ -61,7 +61,7 @@ class TerrainUtilitiesViewController: NSViewController {
     
     var tabViewController: TerrainUtilitiesTabViewController?
     
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return TerrainUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
@@ -73,7 +73,7 @@ extension TerrainUtilitiesViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -89,7 +89,7 @@ extension TerrainUtilitiesViewController {
                 
             case .empty(let editor):
                 
-                tabViewController.viewModel.state = .empty(editor: editor)
+                tabViewController.stateObserver.state = .empty(editor: editor)
             
             case .terrain(let editor):
                 
@@ -100,11 +100,11 @@ extension TerrainUtilitiesViewController {
                     self.chunkCount.integerValue = world.terrain.totalChildren
                     self.gridHiddenButton.state = (world.terrain.isHidden ? .off : .on)
                     
-                    switch tabViewController.viewModel.state {
+                    switch tabViewController.stateObserver.state {
                         
                     case .empty:
                         
-                        tabViewController.viewModel.state = .build(editor: editor)
+                        tabViewController.stateObserver.state = .build(editor: editor)
                         
                     default: break
                     }

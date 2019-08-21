@@ -50,7 +50,7 @@ class FootpathInspectorViewController: NSViewController {
     
     @IBAction func button(_ sender: NSButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .footpath(let editor, let inspectable):
             
@@ -99,7 +99,7 @@ class FootpathInspectorViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .footpath(editor: editor, inspectable: inspectable)
+            stateObserver.state = .footpath(editor: editor, inspectable: inspectable)
             
         default: break
         }
@@ -107,7 +107,7 @@ class FootpathInspectorViewController: NSViewController {
     
     @IBAction func popUp(_ sender: NSPopUpButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .footpath(let editor, let inspectable):
             
@@ -117,7 +117,7 @@ class FootpathInspectorViewController: NSViewController {
                 
                 guard let tile = inspectable.tile, let selectedNode = tile.child(at: sender.indexOfSelectedItem) as? FootpathNode else { break }
                 
-                viewModel.state = .footpath(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, tile, selectedNode))
+                stateObserver.state = .footpath(editor: editor, inspectable: (inspectable.grid, inspectable.chunk, tile, selectedNode))
                 
                 editor.delegate.sceneGraph(didSelectChild: selectedNode, atIndex: sender.indexOfSelectedItem)
                 
@@ -127,7 +127,7 @@ class FootpathInspectorViewController: NSViewController {
                 
                 node.footpathType = selectedFootpathType
                 
-                viewModel.state = .footpath(editor: editor, inspectable: inspectable)
+                stateObserver.state = .footpath(editor: editor, inspectable: inspectable)
                 
             case selectedSlopeEdgePopUp:
                 
@@ -146,7 +146,7 @@ class FootpathInspectorViewController: NSViewController {
                     node.slope = nil
                 }
                 
-                viewModel.state = .footpath(editor: editor, inspectable: inspectable)
+                stateObserver.state = .footpath(editor: editor, inspectable: inspectable)
                 
             default: break
             }
@@ -155,7 +155,7 @@ class FootpathInspectorViewController: NSViewController {
         }
     }
 
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return FootpathInspectorStateObserver(initialState: .empty)
     }()
@@ -167,7 +167,7 @@ extension FootpathInspectorViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 

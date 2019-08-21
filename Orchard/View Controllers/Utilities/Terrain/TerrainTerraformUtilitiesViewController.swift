@@ -22,13 +22,13 @@ class TerrainTerraformUtilitiesViewController: NSViewController {
     
     @IBAction func popUp(_ sender: NSPopUpButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .terraform(let editor, let tool):
             
             guard let toolType = ToolType(rawValue: sender.indexOfSelectedItem) else { break }
             
-            viewModel.state = .terraform(editor: editor, tool: (toolType: toolType, reticule: tool.reticule))
+            stateObserver.state = .terraform(editor: editor, tool: (toolType: toolType, reticule: tool.reticule))
             
         default: break
         }
@@ -36,7 +36,7 @@ class TerrainTerraformUtilitiesViewController: NSViewController {
     
     @IBAction func stepper(_ sender: NSStepper) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .terraform(let editor, var tool):
             
@@ -53,13 +53,13 @@ class TerrainTerraformUtilitiesViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .terraform(editor: editor, tool: tool)
+            stateObserver.state = .terraform(editor: editor, tool: tool)
             
         default: break
         }
     }
     
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return TerrainTerraformUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
@@ -73,7 +73,7 @@ extension TerrainTerraformUtilitiesViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -148,7 +148,7 @@ extension TerrainTerraformUtilitiesViewController: GraticuleObserver {
     
     func stateDidChange(from: SceneKitView.GraticuleState?, to: SceneKitView.GraticuleState) {
             
-        switch self.viewModel.state {
+        switch self.stateObserver.state {
             
         case .terraform(let editor, let tool):
             

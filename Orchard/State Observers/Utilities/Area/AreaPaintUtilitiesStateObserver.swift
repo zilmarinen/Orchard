@@ -1,5 +1,5 @@
 //
-//  AreaPaintUtilitiesViewModel.swift
+//  AreaPaintUtilitiesstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 23/10/2018.
@@ -24,7 +24,7 @@ extension AreaPaintUtilitiesViewController {
         }
     }
     
-    class AreaPaintUtilitiesStateObserver: BaseViewModel<ViewState> {
+    class AreaPaintUtilitiesStateObserver: BasestateObserver<ViewState> {
         
     }
 }

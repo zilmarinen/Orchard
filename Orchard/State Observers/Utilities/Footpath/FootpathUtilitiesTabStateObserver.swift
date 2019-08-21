@@ -1,5 +1,5 @@
 //
-//  FootpathUtilitiesTabViewModel.swift
+//  FootpathUtilitiesTabstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 28/05/2018.
@@ -35,7 +35,7 @@ extension FootpathUtilitiesTabViewController {
         }
     }
     
-    class FootpathUtilitiesTabStateObserver: BaseViewModel<ViewState> {
+    class FootpathUtilitiesTabStateObserver: BasestateObserver<ViewState> {
         
     }
 }

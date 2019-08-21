@@ -37,7 +37,7 @@ class PropInspectorViewController: NSViewController {
     
     @IBAction func button(_ sender: NSButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .prop(let editor, let inspectable):
             
@@ -56,7 +56,7 @@ class PropInspectorViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .prop(editor: editor, inspectable: inspectable)
+            stateObserver.state = .prop(editor: editor, inspectable: inspectable)
             
         default: break
         }
@@ -64,7 +64,7 @@ class PropInspectorViewController: NSViewController {
     
     @IBAction func popUp(_ sender: NSPopUpButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .prop(let editor, let inspectable):
             
@@ -79,13 +79,13 @@ class PropInspectorViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .prop(editor: editor, inspectable: inspectable)
+            stateObserver.state = .prop(editor: editor, inspectable: inspectable)
             
         default: break
         }
     }
 
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return PropInspectorStateObserver(initialState: .empty)
     }()
@@ -97,7 +97,7 @@ extension PropInspectorViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 

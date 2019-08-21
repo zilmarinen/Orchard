@@ -19,7 +19,7 @@ class WaterBuildUtilitiesViewController: NSViewController {
     
     @IBAction func popUp(_ sender: NSPopUpButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .build(let editor, let tool):
             
@@ -29,13 +29,13 @@ class WaterBuildUtilitiesViewController: NSViewController {
                 
                 guard let toolType = ToolType(rawValue: sender.indexOfSelectedItem) else { break }
                 
-                viewModel.state = .build(editor: editor, tool: (toolType: toolType, waterType: tool.waterType))
+                stateObserver.state = .build(editor: editor, tool: (toolType: toolType, waterType: tool.waterType))
             
             case waterTypePopUp:
             
                 guard let waterType = WaterType(rawValue: sender.indexOfSelectedItem) else { break }
             
-                viewModel.state = .build(editor: editor, tool: (toolType: tool.toolType, waterType: waterType))
+                stateObserver.state = .build(editor: editor, tool: (toolType: tool.toolType, waterType: waterType))
                 
             default: break
             }
@@ -44,7 +44,7 @@ class WaterBuildUtilitiesViewController: NSViewController {
         }
     }
     
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return WaterBuildUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
@@ -58,7 +58,7 @@ extension WaterBuildUtilitiesViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -131,7 +131,7 @@ extension WaterBuildUtilitiesViewController: GraticuleObserver {
     
     func stateDidChange(from: SceneKitView.GraticuleState?, to: SceneKitView.GraticuleState) {
             
-        switch self.viewModel.state {
+        switch self.stateObserver.state {
             
         case .build(let editor, let tool):
             

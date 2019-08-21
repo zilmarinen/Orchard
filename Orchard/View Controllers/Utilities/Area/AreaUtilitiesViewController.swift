@@ -23,7 +23,7 @@ class AreaUtilitiesViewController: NSViewController {
     
     @IBAction func button(_ sender: NSButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .area(let editor):
             
@@ -39,15 +39,15 @@ class AreaUtilitiesViewController: NSViewController {
                     
                 case buildButton:
                     
-                    tabViewController?.viewModel.state = .build(editor: editor)
+                    tabViewController?.stateObserver.state = .build(editor: editor)
                     
                 case architectureButton:
                     
-                    tabViewController?.viewModel.state = .architecture(editor: editor)
+                    tabViewController?.stateObserver.state = .architecture(editor: editor)
                     
                 case paintButton:
                     
-                    tabViewController?.viewModel.state = .paint(editor: editor)
+                    tabViewController?.stateObserver.state = .paint(editor: editor)
                     
                 case gridEdgeRenderStateButton:
                     
@@ -56,7 +56,7 @@ class AreaUtilitiesViewController: NSViewController {
                 default: break
                 }
                 
-                viewModel.state = .area(editor: editor)
+                stateObserver.state = .area(editor: editor)
                 
             default: break
             }
@@ -67,7 +67,7 @@ class AreaUtilitiesViewController: NSViewController {
 
     var tabViewController: AreaUtilitiesTabViewController?
     
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return AreaUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
@@ -79,7 +79,7 @@ extension AreaUtilitiesViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -95,7 +95,7 @@ extension AreaUtilitiesViewController {
                 
             case .empty(let editor):
                 
-                tabViewController.viewModel.state = .empty(editor: editor)
+                tabViewController.stateObserver.state = .empty(editor: editor)
                 
             case .area(let editor):
                 
@@ -108,11 +108,11 @@ extension AreaUtilitiesViewController {
                     
                     self.gridEdgeRenderStateButton.state = (world.areas.renderState == .cutaway ? .off : .on)
                     
-                    switch tabViewController.viewModel.state {
+                    switch tabViewController.stateObserver.state {
                         
                     case .empty:
                         
-                        tabViewController.viewModel.state = .build(editor: editor)
+                        tabViewController.stateObserver.state = .build(editor: editor)
                         
                     default: break
                     }

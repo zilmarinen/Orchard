@@ -1,5 +1,5 @@
 //
-//  AreaUtilitiesTabViewModel.swift
+//  AreaUtilitiesTabstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 28/05/2018.
@@ -38,7 +38,7 @@ extension AreaUtilitiesTabViewController {
         }
     }
     
-    class AreaUtilitiesTabStateObserver: BaseViewModel<ViewState> {
+    class AreaUtilitiesTabStateObserver: BasestateObserver<ViewState> {
         
     }
 }

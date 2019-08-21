@@ -1,5 +1,5 @@
 //
-//  FoliagePaintUtilitiesViewModel.swift
+//  FoliagePaintUtilitiesstateObserver.swift
 //  Orchard
 //
 //  Created by Zack Brown on 23/10/2018.
@@ -22,7 +22,7 @@ extension FoliagePaintUtilitiesViewController {
         }
     }
     
-    class FoliagePaintUtilitiesStateObserver: BaseViewModel<ViewState> {
+    class FoliagePaintUtilitiesStateObserver: BasestateObserver<ViewState> {
         
     }
 }

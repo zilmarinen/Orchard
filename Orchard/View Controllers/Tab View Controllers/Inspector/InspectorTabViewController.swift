@@ -10,7 +10,7 @@ import Meadow
 
 class InspectorTabViewController: NSTabViewController {
     
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return InspectorTabStateObserver(initialState: .empty)
     }()
@@ -22,7 +22,7 @@ extension InspectorTabViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -64,7 +64,7 @@ extension InspectorTabViewController {
                     inspectable.chunk = inspectable.tile?.observer as? AreaChunk
                 }
                 
-                viewController.viewModel.state = .area(editor: editor, inspectable: inspectable)
+                viewController.stateObserver.state = .area(editor: editor, inspectable: inspectable)
                 
             case .foliage(let editor, var inspectable):
                 
@@ -86,7 +86,7 @@ extension InspectorTabViewController {
                     inspectable.chunk = inspectable.tile?.observer as? FoliageChunk
                 }
                 
-                viewController.viewModel.state = .foliage(editor: editor, inspectable: inspectable)
+                viewController.stateObserver.state = .foliage(editor: editor, inspectable: inspectable)
                 
             case .footpath(let editor, var inspectable):
                 
@@ -108,19 +108,19 @@ extension InspectorTabViewController {
                     inspectable.chunk = inspectable.tile?.observer as? FootpathChunk
                 }
                 
-                viewController.viewModel.state = .footpath(editor: editor, inspectable: inspectable)
+                viewController.stateObserver.state = .footpath(editor: editor, inspectable: inspectable)
                 
             case .prop(let editor, let inspectable):
                 
                 guard let viewController = viewController as? PropInspectorViewController else { break }
                 
-                viewController.viewModel.state = .prop(editor: editor, inspectable: inspectable)
+                viewController.stateObserver.state = .prop(editor: editor, inspectable: inspectable)
                 
             case.scene(let editor):
                 
                 guard let viewController = viewController as? SceneInspectorViewController else { break }
                 
-                viewController.viewModel.state = .scene(editor: editor)
+                viewController.stateObserver.state = .scene(editor: editor)
                 
             case.terrain(let editor, var inspectable):
                 
@@ -154,7 +154,7 @@ extension InspectorTabViewController {
                     inspectable.chunk = inspectable.tile?.observer as? TerrainChunk
                 }
                 
-                viewController.viewModel.state = .terrain(editor: editor, inspectable: inspectable)
+                viewController.stateObserver.state = .terrain(editor: editor, inspectable: inspectable)
                 
             case .water(let editor, var inspectable):
                 
@@ -183,7 +183,7 @@ extension InspectorTabViewController {
                     inspectable.chunk = inspectable.tile?.observer as? WaterChunk
                 }
                 
-                viewController.viewModel.state = .water(editor: editor, inspectable: inspectable)
+                viewController.stateObserver.state = .water(editor: editor, inspectable: inspectable)
                 
             default: break
             }

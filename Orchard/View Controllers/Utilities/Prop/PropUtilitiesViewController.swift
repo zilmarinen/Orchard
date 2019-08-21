@@ -19,7 +19,7 @@ class PropUtilitiesViewController: NSViewController {
     
     @IBAction func button(_ sender: NSButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .area(let editor):
             
@@ -35,12 +35,12 @@ class PropUtilitiesViewController: NSViewController {
                     
                 case buildButton:
                     
-                    tabViewController?.viewModel.state = .build(editor: editor)
+                    tabViewController?.stateObserver.state = .build(editor: editor)
                     
                 default: break
                 }
                 
-                viewModel.state = .area(editor: editor)
+                stateObserver.state = .area(editor: editor)
                 
             default: break
             }
@@ -51,7 +51,7 @@ class PropUtilitiesViewController: NSViewController {
     
     var tabViewController: PropUtilitiesTabViewController?
 
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return PropUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
@@ -63,7 +63,7 @@ extension PropUtilitiesViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -79,7 +79,7 @@ extension PropUtilitiesViewController {
                 
             case .empty(let editor):
                 
-                tabViewController.viewModel.state = .empty(editor: editor)
+                tabViewController.stateObserver.state = .empty(editor: editor)
                 
             case .area(let editor):
                 
@@ -90,11 +90,11 @@ extension PropUtilitiesViewController {
                     self.propCount.integerValue = world.areas.totalChildren
                     self.propsHiddenButton.state = (world.props.isHidden ? .off : .on)
                     
-                    switch tabViewController.viewModel.state {
+                    switch tabViewController.stateObserver.state {
                         
                     case .empty:
                         
-                        tabViewController.viewModel.state = .build(editor: editor)
+                        tabViewController.stateObserver.state = .build(editor: editor)
                         
                     default: break
                     }

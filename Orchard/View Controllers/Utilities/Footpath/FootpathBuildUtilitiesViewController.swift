@@ -23,7 +23,7 @@ class FootpathBuildUtilitiesViewController: NSViewController {
     
     @IBAction func button(_ sender: NSButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .build(let editor, var tool):
             
@@ -53,7 +53,7 @@ class FootpathBuildUtilitiesViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .build(editor: editor, tool: tool)
+            stateObserver.state = .build(editor: editor, tool: tool)
             
         default: break
         }
@@ -61,7 +61,7 @@ class FootpathBuildUtilitiesViewController: NSViewController {
     
     @IBAction func popUp(_ sender: NSPopUpButton) {
         
-        switch viewModel.state {
+        switch stateObserver.state {
             
         case .build(let editor, var tool):
             
@@ -82,13 +82,13 @@ class FootpathBuildUtilitiesViewController: NSViewController {
             default: break
             }
             
-            viewModel.state = .build(editor: editor, tool: tool)
+            stateObserver.state = .build(editor: editor, tool: tool)
             
         default: break
         }
     }
 
-    lazy var viewModel = {
+    lazy var stateObserver = {
         
         return FootpathBuildUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
@@ -102,7 +102,7 @@ extension FootpathBuildUtilitiesViewController {
         
         super.viewDidLoad()
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        stateObserver.subscribe(stateDidChange(from:to:))
     }
 }
 
@@ -184,7 +184,7 @@ extension FootpathBuildUtilitiesViewController: GraticuleObserver {
     
     func stateDidChange(from: SceneKitView.GraticuleState?, to: SceneKitView.GraticuleState) {
     
-        switch self.viewModel.state {
+        switch self.stateObserver.state {
             
         case .build(let editor, let tool):
             
