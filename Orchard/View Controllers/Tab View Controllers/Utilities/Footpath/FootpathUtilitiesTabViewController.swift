@@ -12,7 +12,7 @@ class FootpathUtilitiesTabViewController: NSTabViewController {
 
     lazy var viewModel = {
         
-        return FootpathUtilitiesTabViewModel(initialState: .empty(editor: nil))
+        return FootpathUtilitiesTabStateObserver(initialState: .empty(editor: nil))
     }()
 }
 

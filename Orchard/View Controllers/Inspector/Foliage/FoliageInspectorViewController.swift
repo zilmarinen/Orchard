@@ -102,7 +102,7 @@ class FoliageInspectorViewController: NSViewController {
 
     lazy var viewModel = {
         
-        return FoliageInspectorViewModel(initialState: .empty)
+        return FoliageInspectorStateObserver(initialState: .empty)
     }()
 }
 

@@ -19,7 +19,7 @@ class SceneViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return SceneViewModel(initialState: .empty(editor: nil))
+        return SceneStateObserver(initialState: .empty(editor: nil))
     }()
     
     var keyboardCallbackReference: SceneKitView.Keyboard.CallbackReference?

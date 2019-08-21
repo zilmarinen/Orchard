@@ -3,37 +3,37 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1803165D20B6F2DF009D367F /* TerrainInspectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1803165C20B6F2DF009D367F /* TerrainInspectorViewModel.swift */; };
+		1803165D20B6F2DF009D367F /* TerrainInspectorStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1803165C20B6F2DF009D367F /* TerrainInspectorStateObserver.swift */; };
 		1805DF2220C912FF00F333C6 /* InspectorSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1805DF2120C912FF00F333C6 /* InspectorSceneView.swift */; };
 		1820662C20B05BDB00D0356D /* AreaInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1820662B20B05BDB00D0356D /* AreaInspectorViewController.swift */; };
 		1820662F20B05BE600D0356D /* FoliageInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1820662D20B05BE600D0356D /* FoliageInspectorViewController.swift */; };
 		1820663220B05C0000D0356D /* FootpathInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1820663120B05C0000D0356D /* FootpathInspectorViewController.swift */; };
 		1820663420B05C0B00D0356D /* TerrainInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1820663320B05C0B00D0356D /* TerrainInspectorViewController.swift */; };
 		1820663620B05C1700D0356D /* WaterInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1820663520B05C1700D0356D /* WaterInspectorViewController.swift */; };
-		1822D3B020BE8784004A1156 /* SidebarTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1822D3AF20BE8784004A1156 /* SidebarTabViewModel.swift */; };
-		1822D3B220BE8F11004A1156 /* SidebarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1822D3B120BE8F11004A1156 /* SidebarViewModel.swift */; };
+		1822D3B020BE8784004A1156 /* SidebarTabStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1822D3AF20BE8784004A1156 /* SidebarTabStateObserver.swift */; };
+		1822D3B220BE8F11004A1156 /* SidebarStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1822D3B120BE8F11004A1156 /* SidebarStateObserver.swift */; };
 		182AFA2021709A510009AD0D /* NSMenuItem+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182AFA1F21709A510009AD0D /* NSMenuItem+Color.swift */; };
-		1832994421788D8100485907 /* WaterBuildUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1832994321788D8100485907 /* WaterBuildUtilitiesViewModel.swift */; };
+		1832994421788D8100485907 /* WaterBuildUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1832994321788D8100485907 /* WaterBuildUtilitiesStateObserver.swift */; };
 		1832994621788DAD00485907 /* WaterBuildUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1832994521788DAD00485907 /* WaterBuildUtilitiesViewController.swift */; };
 		1837ADEE20ADD0C9006802CA /* WindowSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1837ADED20ADD0C9006802CA /* WindowSplitViewController.swift */; };
 		185E588420A9C6F300139565 /* SceneGraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185E588320A9C6F300139565 /* SceneGraphCell.swift */; };
 		185E588620A9C71300139565 /* SceneGraphCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185E588520A9C71300139565 /* SceneGraphCell.xib */; };
 		186A27C8217EFE1C00CBC156 /* AreaBuildUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27C7217EFE1C00CBC156 /* AreaBuildUtilitiesViewController.swift */; };
-		186A27CA217F008200CBC156 /* AreaBuildUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27C9217F008200CBC156 /* AreaBuildUtilitiesViewModel.swift */; };
+		186A27CA217F008200CBC156 /* AreaBuildUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27C9217F008200CBC156 /* AreaBuildUtilitiesStateObserver.swift */; };
 		186A27CC217F0CD100CBC156 /* AreaArchitectureUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27CB217F0CD100CBC156 /* AreaArchitectureUtilitiesViewController.swift */; };
 		186A27CE217F0CE100CBC156 /* AreaPaintUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27CD217F0CE100CBC156 /* AreaPaintUtilitiesViewController.swift */; };
-		186A27D0217F115300CBC156 /* AreaArchitectureUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27CF217F115300CBC156 /* AreaArchitectureUtilitiesViewModel.swift */; };
-		186A27D2217F115C00CBC156 /* AreaPaintUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27D1217F115C00CBC156 /* AreaPaintUtilitiesViewModel.swift */; };
-		186A27D4217F3AC400CBC156 /* FootpathBuildUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27D3217F3AC400CBC156 /* FootpathBuildUtilitiesViewModel.swift */; };
+		186A27D0217F115300CBC156 /* AreaArchitectureUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27CF217F115300CBC156 /* AreaArchitectureUtilitiesStateObserver.swift */; };
+		186A27D2217F115C00CBC156 /* AreaPaintUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27D1217F115C00CBC156 /* AreaPaintUtilitiesStateObserver.swift */; };
+		186A27D4217F3AC400CBC156 /* FootpathBuildUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27D3217F3AC400CBC156 /* FootpathBuildUtilitiesStateObserver.swift */; };
 		186A27D6217F3AF500CBC156 /* FootpathBuildUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27D5217F3AF500CBC156 /* FootpathBuildUtilitiesViewController.swift */; };
 		186A27D8217F5DFD00CBC156 /* FoliageBuildUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27D7217F5DFD00CBC156 /* FoliageBuildUtilitiesViewController.swift */; };
-		186A27DA217F5E1700CBC156 /* FoliageBuildUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27D9217F5E1700CBC156 /* FoliageBuildUtilitiesViewModel.swift */; };
-		186A27DC217F5E8700CBC156 /* FootpathPaintUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27DB217F5E8700CBC156 /* FootpathPaintUtilitiesViewModel.swift */; };
-		186A27DE217F5EC300CBC156 /* FoliagePaintUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27DD217F5EC300CBC156 /* FoliagePaintUtilitiesViewModel.swift */; };
+		186A27DA217F5E1700CBC156 /* FoliageBuildUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27D9217F5E1700CBC156 /* FoliageBuildUtilitiesStateObserver.swift */; };
+		186A27DC217F5E8700CBC156 /* FootpathPaintUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27DB217F5E8700CBC156 /* FootpathPaintUtilitiesStateObserver.swift */; };
+		186A27DE217F5EC300CBC156 /* FoliagePaintUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27DD217F5EC300CBC156 /* FoliagePaintUtilitiesStateObserver.swift */; };
 		186A27E0217F5EF500CBC156 /* FoliagePaintUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27DF217F5EF500CBC156 /* FoliagePaintUtilitiesViewController.swift */; };
 		186A27E2217F5F0D00CBC156 /* FootpathPaintUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27E1217F5F0D00CBC156 /* FootpathPaintUtilitiesViewController.swift */; };
 		1871220720932094002488E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871220620932094002488E0 /* AppDelegate.swift */; };
@@ -41,40 +41,40 @@
 		1871220B20932095002488E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1871220A20932095002488E0 /* Assets.xcassets */; };
 		1871220E20932095002488E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1871220C20932095002488E0 /* Main.storyboard */; };
 		1871221A20932095002488E0 /* OrchardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871221920932095002488E0 /* OrchardTests.swift */; };
-		18733D9E2139392000491CB7 /* OrchardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18733D9D2139392000491CB7 /* OrchardViewModel.swift */; };
-		18733DA12139470C00491CB7 /* SceneGraphViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18733DA02139470C00491CB7 /* SceneGraphViewModel.swift */; };
-		18733DA421394F1900491CB7 /* SceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18733DA321394F1900491CB7 /* SceneViewModel.swift */; };
+		18733D9E2139392000491CB7 /* OrchardStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18733D9D2139392000491CB7 /* OrchardStateObserver.swift */; };
+		18733DA12139470C00491CB7 /* SceneGraphStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18733DA02139470C00491CB7 /* SceneGraphStateObserver.swift */; };
+		18733DA421394F1900491CB7 /* SceneStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18733DA321394F1900491CB7 /* SceneStateObserver.swift */; };
 		1884F8A520B0548F0023AA0B /* InspectorTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884F8A420B0548F0023AA0B /* InspectorTabViewController.swift */; };
 		18866768220B241600FFE6F6 /* libPods-Orchard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEC913C8FBAB8126A50226D5 /* libPods-Orchard.a */; };
 		18873B892111B6510010B52C /* ColorPaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18873B882111B6510010B52C /* ColorPaletteView.swift */; };
 		188E38EB20B57CC0001A6C3A /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E38E920B57CC0001A6C3A /* Document.swift */; };
-		189256B920B7FFE400FD9364 /* AreaInspectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256B820B7FFE400FD9364 /* AreaInspectorViewModel.swift */; };
-		189256BB20B7FFEF00FD9364 /* FoliageInspectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256BA20B7FFEF00FD9364 /* FoliageInspectorViewModel.swift */; };
-		189256BD20B7FFF700FD9364 /* FootpathInspectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256BC20B7FFF700FD9364 /* FootpathInspectorViewModel.swift */; };
-		189256BF20B8000700FD9364 /* WaterInspectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256BE20B8000700FD9364 /* WaterInspectorViewModel.swift */; };
-		189256C220B800A000FD9364 /* SceneInspectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256C120B800A000FD9364 /* SceneInspectorViewModel.swift */; };
+		189256B920B7FFE400FD9364 /* AreaInspectorStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256B820B7FFE400FD9364 /* AreaInspectorStateObserver.swift */; };
+		189256BB20B7FFEF00FD9364 /* FoliageInspectorStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256BA20B7FFEF00FD9364 /* FoliageInspectorStateObserver.swift */; };
+		189256BD20B7FFF700FD9364 /* FootpathInspectorStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256BC20B7FFF700FD9364 /* FootpathInspectorStateObserver.swift */; };
+		189256BF20B8000700FD9364 /* WaterInspectorStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256BE20B8000700FD9364 /* WaterInspectorStateObserver.swift */; };
+		189256C220B800A000FD9364 /* SceneInspectorStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256C120B800A000FD9364 /* SceneInspectorStateObserver.swift */; };
 		189256C420B84DCF00FD9364 /* TerrainUtilitiesTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256C320B84DCF00FD9364 /* TerrainUtilitiesTabViewController.swift */; };
-		189256C620B84DFB00FD9364 /* TerrainUtilitiesTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256C520B84DFA00FD9364 /* TerrainUtilitiesTabViewModel.swift */; };
+		189256C620B84DFB00FD9364 /* TerrainUtilitiesTabStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256C520B84DFA00FD9364 /* TerrainUtilitiesTabStateObserver.swift */; };
 		189256C820B8524200FD9364 /* TerrainBuildUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256C720B8524200FD9364 /* TerrainBuildUtilitiesViewController.swift */; };
-		189256CA20B8525500FD9364 /* TerrainBuildUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256C920B8525500FD9364 /* TerrainBuildUtilitiesViewModel.swift */; };
+		189256CA20B8525500FD9364 /* TerrainBuildUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256C920B8525500FD9364 /* TerrainBuildUtilitiesStateObserver.swift */; };
 		189256CC20B8551800FD9364 /* TerrainTerraformUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256CB20B8551800FD9364 /* TerrainTerraformUtilitiesViewController.swift */; };
 		189256CE20B8552600FD9364 /* TerrainPaintUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256CD20B8552600FD9364 /* TerrainPaintUtilitiesViewController.swift */; };
-		189256D020B8554500FD9364 /* TerrainTerraformUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256CF20B8554500FD9364 /* TerrainTerraformUtilitiesViewModel.swift */; };
-		189256D220B8554F00FD9364 /* TerrainPaintUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256D120B8554F00FD9364 /* TerrainPaintUtilitiesViewModel.swift */; };
-		189256D420B8583200FD9364 /* UtilitiesTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256D320B8583200FD9364 /* UtilitiesTabViewModel.swift */; };
-		189256D620B85BA900FD9364 /* TerrainUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256D520B85BA900FD9364 /* TerrainUtilitiesViewModel.swift */; };
-		18B13D2C20BC3474007437DC /* AreaUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D2B20BC3474007437DC /* AreaUtilitiesViewModel.swift */; };
-		18B13D2E20BC347D007437DC /* FoliageUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D2D20BC347D007437DC /* FoliageUtilitiesViewModel.swift */; };
-		18B13D3020BC3488007437DC /* FootpathUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D2F20BC3488007437DC /* FootpathUtilitiesViewModel.swift */; };
-		18B13D3220BC3490007437DC /* WaterUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D3120BC3490007437DC /* WaterUtilitiesViewModel.swift */; };
+		189256D020B8554500FD9364 /* TerrainTerraformUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256CF20B8554500FD9364 /* TerrainTerraformUtilitiesStateObserver.swift */; };
+		189256D220B8554F00FD9364 /* TerrainPaintUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256D120B8554F00FD9364 /* TerrainPaintUtilitiesStateObserver.swift */; };
+		189256D420B8583200FD9364 /* UtilitiesTabStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256D320B8583200FD9364 /* UtilitiesTabStateObserver.swift */; };
+		189256D620B85BA900FD9364 /* TerrainUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256D520B85BA900FD9364 /* TerrainUtilitiesStateObserver.swift */; };
+		18B13D2C20BC3474007437DC /* AreaUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D2B20BC3474007437DC /* AreaUtilitiesStateObserver.swift */; };
+		18B13D2E20BC347D007437DC /* FoliageUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D2D20BC347D007437DC /* FoliageUtilitiesStateObserver.swift */; };
+		18B13D3020BC3488007437DC /* FootpathUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D2F20BC3488007437DC /* FootpathUtilitiesStateObserver.swift */; };
+		18B13D3220BC3490007437DC /* WaterUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D3120BC3490007437DC /* WaterUtilitiesStateObserver.swift */; };
 		18B13D3420BC353F007437DC /* AreaUtilitiesTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D3320BC353F007437DC /* AreaUtilitiesTabViewController.swift */; };
 		18B13D3720BC354C007437DC /* FoliageUtilitiesTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D3520BC354C007437DC /* FoliageUtilitiesTabViewController.swift */; };
 		18B13D3A20BC3560007437DC /* FootpathUtilitiesTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D3920BC3560007437DC /* FootpathUtilitiesTabViewController.swift */; };
 		18B13D3D20BC358D007437DC /* WaterUtilitiesTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D3B20BC358D007437DC /* WaterUtilitiesTabViewController.swift */; };
-		18B13D4020BC35E3007437DC /* AreaUtilitiesTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D3F20BC35E3007437DC /* AreaUtilitiesTabViewModel.swift */; };
-		18B13D4220BC35EE007437DC /* FoliageUtilitiesTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D4120BC35EE007437DC /* FoliageUtilitiesTabViewModel.swift */; };
-		18B13D4420BC35F8007437DC /* FootpathUtilitiesTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D4320BC35F8007437DC /* FootpathUtilitiesTabViewModel.swift */; };
-		18B13D4620BC3602007437DC /* WaterUtilitiesTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D4520BC3602007437DC /* WaterUtilitiesTabViewModel.swift */; };
+		18B13D4020BC35E3007437DC /* AreaUtilitiesTabStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D3F20BC35E3007437DC /* AreaUtilitiesTabStateObserver.swift */; };
+		18B13D4220BC35EE007437DC /* FoliageUtilitiesTabStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D4120BC35EE007437DC /* FoliageUtilitiesTabStateObserver.swift */; };
+		18B13D4420BC35F8007437DC /* FootpathUtilitiesTabStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D4320BC35F8007437DC /* FootpathUtilitiesTabStateObserver.swift */; };
+		18B13D4620BC3602007437DC /* WaterUtilitiesTabStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D4520BC3602007437DC /* WaterUtilitiesTabStateObserver.swift */; };
 		18B4885220B1AC880032E832 /* AreaUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4885120B1AC880032E832 /* AreaUtilitiesViewController.swift */; };
 		18B4885420B1AC980032E832 /* FoliageUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4885320B1AC980032E832 /* FoliageUtilitiesViewController.swift */; };
 		18B4885620B1ACA60032E832 /* FootpathUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4885520B1ACA60032E832 /* FootpathUtilitiesViewController.swift */; };
@@ -83,7 +83,7 @@
 		18B4885C20B1AD190032E832 /* UtilitiesTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4885B20B1AD190032E832 /* UtilitiesTabViewController.swift */; };
 		18B4885E20B1AD960032E832 /* SidebarTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4885D20B1AD960032E832 /* SidebarTabViewController.swift */; };
 		18B4886120B1ADC20032E832 /* SidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4886020B1ADC20032E832 /* SidebarViewController.swift */; };
-		18B4887420B1BD7F0032E832 /* InspectorTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4887320B1BD7F0032E832 /* InspectorTabViewModel.swift */; };
+		18B4887420B1BD7F0032E832 /* InspectorTabStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4887320B1BD7F0032E832 /* InspectorTabStateObserver.swift */; };
 		18C7732120A728D5006F3EA8 /* OrchardWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C7732020A728D5006F3EA8 /* OrchardWindowController.swift */; };
 		18C7732320A72EDA006F3EA8 /* SceneGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C7732220A72EDA006F3EA8 /* SceneGraphViewController.swift */; };
 		18C7732620A738DD006F3EA8 /* OrchardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C7732520A738DD006F3EA8 /* OrchardViewController.swift */; };
@@ -91,10 +91,10 @@
 		18F6482E219C1BE800CE3267 /* PropUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F6482D219C1BE800CE3267 /* PropUtilitiesViewController.swift */; };
 		18F64830219C1C1300CE3267 /* PropBuildUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F6482F219C1C1300CE3267 /* PropBuildUtilitiesViewController.swift */; };
 		18F64832219C1C3900CE3267 /* PropUtilitiesTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F64831219C1C3900CE3267 /* PropUtilitiesTabViewController.swift */; };
-		18F6483D219C1CF400CE3267 /* PropInspectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F6483C219C1CF400CE3267 /* PropInspectorViewModel.swift */; };
-		18F64840219C1D7100CE3267 /* PropUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F6483F219C1D7100CE3267 /* PropUtilitiesViewModel.swift */; };
-		18F64842219C1D8C00CE3267 /* PropUtilitiesTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F64841219C1D8C00CE3267 /* PropUtilitiesTabViewModel.swift */; };
-		18F64844219C1DB000CE3267 /* PropBuildUtilitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F64843219C1DB000CE3267 /* PropBuildUtilitiesViewModel.swift */; };
+		18F6483D219C1CF400CE3267 /* PropInspectorStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F6483C219C1CF400CE3267 /* PropInspectorStateObserver.swift */; };
+		18F64840219C1D7100CE3267 /* PropUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F6483F219C1D7100CE3267 /* PropUtilitiesStateObserver.swift */; };
+		18F64842219C1D8C00CE3267 /* PropUtilitiesTabStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F64841219C1D8C00CE3267 /* PropUtilitiesTabStateObserver.swift */; };
+		18F64844219C1DB000CE3267 /* PropBuildUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F64843219C1DB000CE3267 /* PropBuildUtilitiesStateObserver.swift */; };
 		18FCFAF220B2D34000EBCBBB /* SceneInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCFAF120B2D34000EBCBBB /* SceneInspectorViewController.swift */; };
 		BA07A3D5ED20566BF813225B /* libPods-Orchard-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0179D21FEE16CD532608FE07 /* libPods-Orchard-Tests.a */; };
 /* End PBXBuildFile section */
@@ -112,7 +112,7 @@
 /* Begin PBXFileReference section */
 		0179D21FEE16CD532608FE07 /* libPods-Orchard-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Orchard-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EC9B9EA3D57D1579AF7465E /* Pods-OrchardTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OrchardTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OrchardTests/Pods-OrchardTests.release.xcconfig"; sourceTree = "<group>"; };
-		1803165C20B6F2DF009D367F /* TerrainInspectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainInspectorViewModel.swift; sourceTree = "<group>"; };
+		1803165C20B6F2DF009D367F /* TerrainInspectorStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainInspectorStateObserver.swift; sourceTree = "<group>"; };
 		1805DF2120C912FF00F333C6 /* InspectorSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorSceneView.swift; sourceTree = "<group>"; };
 		181EDA2322103C47002CD162 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		1820662B20B05BDB00D0356D /* AreaInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaInspectorViewController.swift; sourceTree = "<group>"; };
@@ -120,26 +120,26 @@
 		1820663120B05C0000D0356D /* FootpathInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathInspectorViewController.swift; sourceTree = "<group>"; };
 		1820663320B05C0B00D0356D /* TerrainInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainInspectorViewController.swift; sourceTree = "<group>"; };
 		1820663520B05C1700D0356D /* WaterInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterInspectorViewController.swift; sourceTree = "<group>"; };
-		1822D3AF20BE8784004A1156 /* SidebarTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarTabViewModel.swift; sourceTree = "<group>"; };
-		1822D3B120BE8F11004A1156 /* SidebarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewModel.swift; sourceTree = "<group>"; };
+		1822D3AF20BE8784004A1156 /* SidebarTabStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarTabStateObserver.swift; sourceTree = "<group>"; };
+		1822D3B120BE8F11004A1156 /* SidebarStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarStateObserver.swift; sourceTree = "<group>"; };
 		182AFA1F21709A510009AD0D /* NSMenuItem+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMenuItem+Color.swift"; sourceTree = "<group>"; };
-		1832994321788D8100485907 /* WaterBuildUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterBuildUtilitiesViewModel.swift; sourceTree = "<group>"; };
+		1832994321788D8100485907 /* WaterBuildUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterBuildUtilitiesStateObserver.swift; sourceTree = "<group>"; };
 		1832994521788DAD00485907 /* WaterBuildUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterBuildUtilitiesViewController.swift; sourceTree = "<group>"; };
 		1837ADED20ADD0C9006802CA /* WindowSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSplitViewController.swift; sourceTree = "<group>"; };
 		185E588320A9C6F300139565 /* SceneGraphCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGraphCell.swift; sourceTree = "<group>"; };
 		185E588520A9C71300139565 /* SceneGraphCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SceneGraphCell.xib; sourceTree = "<group>"; };
 		186A27C7217EFE1C00CBC156 /* AreaBuildUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaBuildUtilitiesViewController.swift; sourceTree = "<group>"; };
-		186A27C9217F008200CBC156 /* AreaBuildUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaBuildUtilitiesViewModel.swift; sourceTree = "<group>"; };
+		186A27C9217F008200CBC156 /* AreaBuildUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaBuildUtilitiesStateObserver.swift; sourceTree = "<group>"; };
 		186A27CB217F0CD100CBC156 /* AreaArchitectureUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaArchitectureUtilitiesViewController.swift; sourceTree = "<group>"; };
 		186A27CD217F0CE100CBC156 /* AreaPaintUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaPaintUtilitiesViewController.swift; sourceTree = "<group>"; };
-		186A27CF217F115300CBC156 /* AreaArchitectureUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaArchitectureUtilitiesViewModel.swift; sourceTree = "<group>"; };
-		186A27D1217F115C00CBC156 /* AreaPaintUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaPaintUtilitiesViewModel.swift; sourceTree = "<group>"; };
-		186A27D3217F3AC400CBC156 /* FootpathBuildUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathBuildUtilitiesViewModel.swift; sourceTree = "<group>"; };
+		186A27CF217F115300CBC156 /* AreaArchitectureUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaArchitectureUtilitiesStateObserver.swift; sourceTree = "<group>"; };
+		186A27D1217F115C00CBC156 /* AreaPaintUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaPaintUtilitiesStateObserver.swift; sourceTree = "<group>"; };
+		186A27D3217F3AC400CBC156 /* FootpathBuildUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathBuildUtilitiesStateObserver.swift; sourceTree = "<group>"; };
 		186A27D5217F3AF500CBC156 /* FootpathBuildUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathBuildUtilitiesViewController.swift; sourceTree = "<group>"; };
 		186A27D7217F5DFD00CBC156 /* FoliageBuildUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageBuildUtilitiesViewController.swift; sourceTree = "<group>"; };
-		186A27D9217F5E1700CBC156 /* FoliageBuildUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageBuildUtilitiesViewModel.swift; sourceTree = "<group>"; };
-		186A27DB217F5E8700CBC156 /* FootpathPaintUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathPaintUtilitiesViewModel.swift; sourceTree = "<group>"; };
-		186A27DD217F5EC300CBC156 /* FoliagePaintUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliagePaintUtilitiesViewModel.swift; sourceTree = "<group>"; };
+		186A27D9217F5E1700CBC156 /* FoliageBuildUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageBuildUtilitiesStateObserver.swift; sourceTree = "<group>"; };
+		186A27DB217F5E8700CBC156 /* FootpathPaintUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathPaintUtilitiesStateObserver.swift; sourceTree = "<group>"; };
+		186A27DD217F5EC300CBC156 /* FoliagePaintUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliagePaintUtilitiesStateObserver.swift; sourceTree = "<group>"; };
 		186A27DF217F5EF500CBC156 /* FoliagePaintUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliagePaintUtilitiesViewController.swift; sourceTree = "<group>"; };
 		186A27E1217F5F0D00CBC156 /* FootpathPaintUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathPaintUtilitiesViewController.swift; sourceTree = "<group>"; };
 		1871220320932094002488E0 /* Orchard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Orchard.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -152,40 +152,40 @@
 		1871221520932095002488E0 /* Orchard-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Orchard-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1871221920932095002488E0 /* OrchardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrchardTests.swift; sourceTree = "<group>"; };
 		1871221B20932095002488E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		18733D9D2139392000491CB7 /* OrchardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrchardViewModel.swift; sourceTree = "<group>"; };
-		18733DA02139470C00491CB7 /* SceneGraphViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGraphViewModel.swift; sourceTree = "<group>"; };
-		18733DA321394F1900491CB7 /* SceneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneViewModel.swift; sourceTree = "<group>"; };
+		18733D9D2139392000491CB7 /* OrchardStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrchardStateObserver.swift; sourceTree = "<group>"; };
+		18733DA02139470C00491CB7 /* SceneGraphStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGraphStateObserver.swift; sourceTree = "<group>"; };
+		18733DA321394F1900491CB7 /* SceneStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneStateObserver.swift; sourceTree = "<group>"; };
 		1884F8A420B0548F0023AA0B /* InspectorTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorTabViewController.swift; sourceTree = "<group>"; };
 		18866766220B23EB00FFE6F6 /* libMeadow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libMeadow.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		18873B882111B6510010B52C /* ColorPaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPaletteView.swift; sourceTree = "<group>"; };
 		188E38E920B57CC0001A6C3A /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
-		189256B820B7FFE400FD9364 /* AreaInspectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaInspectorViewModel.swift; sourceTree = "<group>"; };
-		189256BA20B7FFEF00FD9364 /* FoliageInspectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageInspectorViewModel.swift; sourceTree = "<group>"; };
-		189256BC20B7FFF700FD9364 /* FootpathInspectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathInspectorViewModel.swift; sourceTree = "<group>"; };
-		189256BE20B8000700FD9364 /* WaterInspectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterInspectorViewModel.swift; sourceTree = "<group>"; };
-		189256C120B800A000FD9364 /* SceneInspectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneInspectorViewModel.swift; sourceTree = "<group>"; };
+		189256B820B7FFE400FD9364 /* AreaInspectorStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaInspectorStateObserver.swift; sourceTree = "<group>"; };
+		189256BA20B7FFEF00FD9364 /* FoliageInspectorStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageInspectorStateObserver.swift; sourceTree = "<group>"; };
+		189256BC20B7FFF700FD9364 /* FootpathInspectorStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathInspectorStateObserver.swift; sourceTree = "<group>"; };
+		189256BE20B8000700FD9364 /* WaterInspectorStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterInspectorStateObserver.swift; sourceTree = "<group>"; };
+		189256C120B800A000FD9364 /* SceneInspectorStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneInspectorStateObserver.swift; sourceTree = "<group>"; };
 		189256C320B84DCF00FD9364 /* TerrainUtilitiesTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainUtilitiesTabViewController.swift; sourceTree = "<group>"; };
-		189256C520B84DFA00FD9364 /* TerrainUtilitiesTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainUtilitiesTabViewModel.swift; sourceTree = "<group>"; };
+		189256C520B84DFA00FD9364 /* TerrainUtilitiesTabStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainUtilitiesTabStateObserver.swift; sourceTree = "<group>"; };
 		189256C720B8524200FD9364 /* TerrainBuildUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainBuildUtilitiesViewController.swift; sourceTree = "<group>"; };
-		189256C920B8525500FD9364 /* TerrainBuildUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainBuildUtilitiesViewModel.swift; sourceTree = "<group>"; };
+		189256C920B8525500FD9364 /* TerrainBuildUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainBuildUtilitiesStateObserver.swift; sourceTree = "<group>"; };
 		189256CB20B8551800FD9364 /* TerrainTerraformUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainTerraformUtilitiesViewController.swift; sourceTree = "<group>"; };
 		189256CD20B8552600FD9364 /* TerrainPaintUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainPaintUtilitiesViewController.swift; sourceTree = "<group>"; };
-		189256CF20B8554500FD9364 /* TerrainTerraformUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainTerraformUtilitiesViewModel.swift; sourceTree = "<group>"; };
-		189256D120B8554F00FD9364 /* TerrainPaintUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainPaintUtilitiesViewModel.swift; sourceTree = "<group>"; };
-		189256D320B8583200FD9364 /* UtilitiesTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilitiesTabViewModel.swift; sourceTree = "<group>"; };
-		189256D520B85BA900FD9364 /* TerrainUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainUtilitiesViewModel.swift; sourceTree = "<group>"; };
-		18B13D2B20BC3474007437DC /* AreaUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaUtilitiesViewModel.swift; sourceTree = "<group>"; };
-		18B13D2D20BC347D007437DC /* FoliageUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageUtilitiesViewModel.swift; sourceTree = "<group>"; };
-		18B13D2F20BC3488007437DC /* FootpathUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathUtilitiesViewModel.swift; sourceTree = "<group>"; };
-		18B13D3120BC3490007437DC /* WaterUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterUtilitiesViewModel.swift; sourceTree = "<group>"; };
+		189256CF20B8554500FD9364 /* TerrainTerraformUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainTerraformUtilitiesStateObserver.swift; sourceTree = "<group>"; };
+		189256D120B8554F00FD9364 /* TerrainPaintUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainPaintUtilitiesStateObserver.swift; sourceTree = "<group>"; };
+		189256D320B8583200FD9364 /* UtilitiesTabStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilitiesTabStateObserver.swift; sourceTree = "<group>"; };
+		189256D520B85BA900FD9364 /* TerrainUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainUtilitiesStateObserver.swift; sourceTree = "<group>"; };
+		18B13D2B20BC3474007437DC /* AreaUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaUtilitiesStateObserver.swift; sourceTree = "<group>"; };
+		18B13D2D20BC347D007437DC /* FoliageUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageUtilitiesStateObserver.swift; sourceTree = "<group>"; };
+		18B13D2F20BC3488007437DC /* FootpathUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathUtilitiesStateObserver.swift; sourceTree = "<group>"; };
+		18B13D3120BC3490007437DC /* WaterUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterUtilitiesStateObserver.swift; sourceTree = "<group>"; };
 		18B13D3320BC353F007437DC /* AreaUtilitiesTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaUtilitiesTabViewController.swift; sourceTree = "<group>"; };
 		18B13D3520BC354C007437DC /* FoliageUtilitiesTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageUtilitiesTabViewController.swift; sourceTree = "<group>"; };
 		18B13D3920BC3560007437DC /* FootpathUtilitiesTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathUtilitiesTabViewController.swift; sourceTree = "<group>"; };
 		18B13D3B20BC358D007437DC /* WaterUtilitiesTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterUtilitiesTabViewController.swift; sourceTree = "<group>"; };
-		18B13D3F20BC35E3007437DC /* AreaUtilitiesTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaUtilitiesTabViewModel.swift; sourceTree = "<group>"; };
-		18B13D4120BC35EE007437DC /* FoliageUtilitiesTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageUtilitiesTabViewModel.swift; sourceTree = "<group>"; };
-		18B13D4320BC35F8007437DC /* FootpathUtilitiesTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathUtilitiesTabViewModel.swift; sourceTree = "<group>"; };
-		18B13D4520BC3602007437DC /* WaterUtilitiesTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterUtilitiesTabViewModel.swift; sourceTree = "<group>"; };
+		18B13D3F20BC35E3007437DC /* AreaUtilitiesTabStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaUtilitiesTabStateObserver.swift; sourceTree = "<group>"; };
+		18B13D4120BC35EE007437DC /* FoliageUtilitiesTabStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageUtilitiesTabStateObserver.swift; sourceTree = "<group>"; };
+		18B13D4320BC35F8007437DC /* FootpathUtilitiesTabStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathUtilitiesTabStateObserver.swift; sourceTree = "<group>"; };
+		18B13D4520BC3602007437DC /* WaterUtilitiesTabStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterUtilitiesTabStateObserver.swift; sourceTree = "<group>"; };
 		18B4885120B1AC880032E832 /* AreaUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaUtilitiesViewController.swift; sourceTree = "<group>"; };
 		18B4885320B1AC980032E832 /* FoliageUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageUtilitiesViewController.swift; sourceTree = "<group>"; };
 		18B4885520B1ACA60032E832 /* FootpathUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathUtilitiesViewController.swift; sourceTree = "<group>"; };
@@ -194,7 +194,7 @@
 		18B4885B20B1AD190032E832 /* UtilitiesTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilitiesTabViewController.swift; sourceTree = "<group>"; };
 		18B4885D20B1AD960032E832 /* SidebarTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarTabViewController.swift; sourceTree = "<group>"; };
 		18B4886020B1ADC20032E832 /* SidebarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewController.swift; sourceTree = "<group>"; };
-		18B4887320B1BD7F0032E832 /* InspectorTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorTabViewModel.swift; sourceTree = "<group>"; };
+		18B4887320B1BD7F0032E832 /* InspectorTabStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorTabStateObserver.swift; sourceTree = "<group>"; };
 		18C7732020A728D5006F3EA8 /* OrchardWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrchardWindowController.swift; sourceTree = "<group>"; };
 		18C7732220A72EDA006F3EA8 /* SceneGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGraphViewController.swift; sourceTree = "<group>"; };
 		18C7732520A738DD006F3EA8 /* OrchardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrchardViewController.swift; sourceTree = "<group>"; };
@@ -202,10 +202,10 @@
 		18F6482D219C1BE800CE3267 /* PropUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropUtilitiesViewController.swift; sourceTree = "<group>"; };
 		18F6482F219C1C1300CE3267 /* PropBuildUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropBuildUtilitiesViewController.swift; sourceTree = "<group>"; };
 		18F64831219C1C3900CE3267 /* PropUtilitiesTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropUtilitiesTabViewController.swift; sourceTree = "<group>"; };
-		18F6483C219C1CF400CE3267 /* PropInspectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropInspectorViewModel.swift; sourceTree = "<group>"; };
-		18F6483F219C1D7100CE3267 /* PropUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropUtilitiesViewModel.swift; sourceTree = "<group>"; };
-		18F64841219C1D8C00CE3267 /* PropUtilitiesTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropUtilitiesTabViewModel.swift; sourceTree = "<group>"; };
-		18F64843219C1DB000CE3267 /* PropBuildUtilitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropBuildUtilitiesViewModel.swift; sourceTree = "<group>"; };
+		18F6483C219C1CF400CE3267 /* PropInspectorStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropInspectorStateObserver.swift; sourceTree = "<group>"; };
+		18F6483F219C1D7100CE3267 /* PropUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropUtilitiesStateObserver.swift; sourceTree = "<group>"; };
+		18F64841219C1D8C00CE3267 /* PropUtilitiesTabStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropUtilitiesTabStateObserver.swift; sourceTree = "<group>"; };
+		18F64843219C1DB000CE3267 /* PropBuildUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropBuildUtilitiesStateObserver.swift; sourceTree = "<group>"; };
 		18FCFAF120B2D34000EBCBBB /* SceneInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneInspectorViewController.swift; sourceTree = "<group>"; };
 		569504FABC2C1C147277D036 /* Pods-Orchard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orchard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Orchard/Pods-Orchard.debug.xcconfig"; sourceTree = "<group>"; };
 		625DF7EC8D7148586F17ACD0 /* Pods-Orchard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orchard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Orchard/Pods-Orchard.release.xcconfig"; sourceTree = "<group>"; };
@@ -326,8 +326,8 @@
 		1822D3AE20BE876A004A1156 /* Sidebar */ = {
 			isa = PBXGroup;
 			children = (
-				1822D3AF20BE8784004A1156 /* SidebarTabViewModel.swift */,
-				1822D3B120BE8F11004A1156 /* SidebarViewModel.swift */,
+				1822D3AF20BE8784004A1156 /* SidebarTabStateObserver.swift */,
+				1822D3B120BE8F11004A1156 /* SidebarStateObserver.swift */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
@@ -411,7 +411,7 @@
 				18496C622093243900992AF3 /* Storyboards */,
 				18496C61209323FE00992AF3 /* Supporting */,
 				18496C632093244900992AF3 /* View Controllers */,
-				18B4886420B1BD110032E832 /* View Models */,
+				18B4886420B1BD110032E832 /* State Observers */,
 				18C7732420A73564006F3EA8 /* Views */,
 				18C7731F20A728A7006F3EA8 /* Window Controllers */,
 			);
@@ -430,7 +430,7 @@
 		18733D9C2139391400491CB7 /* Orchard */ = {
 			isa = PBXGroup;
 			children = (
-				18733D9D2139392000491CB7 /* OrchardViewModel.swift */,
+				18733D9D2139392000491CB7 /* OrchardStateObserver.swift */,
 			);
 			path = Orchard;
 			sourceTree = "<group>";
@@ -438,7 +438,7 @@
 		18733D9F213946BE00491CB7 /* Scene Graph */ = {
 			isa = PBXGroup;
 			children = (
-				18733DA02139470C00491CB7 /* SceneGraphViewModel.swift */,
+				18733DA02139470C00491CB7 /* SceneGraphStateObserver.swift */,
 			);
 			path = "Scene Graph";
 			sourceTree = "<group>";
@@ -446,7 +446,7 @@
 		18733DA221394F0B00491CB7 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				18733DA321394F1900491CB7 /* SceneViewModel.swift */,
+				18733DA321394F1900491CB7 /* SceneStateObserver.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -470,7 +470,7 @@
 		189256C020B8009300FD9364 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				189256C120B800A000FD9364 /* SceneInspectorViewModel.swift */,
+				189256C120B800A000FD9364 /* SceneInspectorStateObserver.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -547,7 +547,7 @@
 			path = Sidebar;
 			sourceTree = "<group>";
 		};
-		18B4886420B1BD110032E832 /* View Models */ = {
+		18B4886420B1BD110032E832 /* State Observers */ = {
 			isa = PBXGroup;
 			children = (
 				18B4886520B1BD1C0032E832 /* Inspector */,
@@ -557,7 +557,7 @@
 				1822D3AE20BE876A004A1156 /* Sidebar */,
 				18B4886620B1BD230032E832 /* Utilities */,
 			);
-			path = "View Models";
+			path = "State Observers";
 			sourceTree = "<group>";
 		};
 		18B4886520B1BD1C0032E832 /* Inspector */ = {
@@ -567,7 +567,7 @@
 				18B4886B20B1BD370032E832 /* Area */,
 				18B4886A20B1BD340032E832 /* Foliage */,
 				18B4886920B1BD320032E832 /* Footpath */,
-				18B4887320B1BD7F0032E832 /* InspectorTabViewModel.swift */,
+				18B4887320B1BD7F0032E832 /* InspectorTabStateObserver.swift */,
 				189256C020B8009300FD9364 /* Scene */,
 				18B4886820B1BD2F0032E832 /* Terrain */,
 				18B4886720B1BD2D0032E832 /* Water */,
@@ -584,7 +584,7 @@
 				18B4886E20B1BD490032E832 /* Footpath */,
 				18B4886D20B1BD460032E832 /* Terrain */,
 				18B4886C20B1BD430032E832 /* Water */,
-				189256D320B8583200FD9364 /* UtilitiesTabViewModel.swift */,
+				189256D320B8583200FD9364 /* UtilitiesTabStateObserver.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -592,7 +592,7 @@
 		18B4886720B1BD2D0032E832 /* Water */ = {
 			isa = PBXGroup;
 			children = (
-				189256BE20B8000700FD9364 /* WaterInspectorViewModel.swift */,
+				189256BE20B8000700FD9364 /* WaterInspectorStateObserver.swift */,
 			);
 			path = Water;
 			sourceTree = "<group>";
@@ -600,7 +600,7 @@
 		18B4886820B1BD2F0032E832 /* Terrain */ = {
 			isa = PBXGroup;
 			children = (
-				1803165C20B6F2DF009D367F /* TerrainInspectorViewModel.swift */,
+				1803165C20B6F2DF009D367F /* TerrainInspectorStateObserver.swift */,
 			);
 			path = Terrain;
 			sourceTree = "<group>";
@@ -608,7 +608,7 @@
 		18B4886920B1BD320032E832 /* Footpath */ = {
 			isa = PBXGroup;
 			children = (
-				189256BC20B7FFF700FD9364 /* FootpathInspectorViewModel.swift */,
+				189256BC20B7FFF700FD9364 /* FootpathInspectorStateObserver.swift */,
 			);
 			path = Footpath;
 			sourceTree = "<group>";
@@ -616,7 +616,7 @@
 		18B4886A20B1BD340032E832 /* Foliage */ = {
 			isa = PBXGroup;
 			children = (
-				189256BA20B7FFEF00FD9364 /* FoliageInspectorViewModel.swift */,
+				189256BA20B7FFEF00FD9364 /* FoliageInspectorStateObserver.swift */,
 			);
 			path = Foliage;
 			sourceTree = "<group>";
@@ -624,7 +624,7 @@
 		18B4886B20B1BD370032E832 /* Area */ = {
 			isa = PBXGroup;
 			children = (
-				189256B820B7FFE400FD9364 /* AreaInspectorViewModel.swift */,
+				189256B820B7FFE400FD9364 /* AreaInspectorStateObserver.swift */,
 			);
 			path = Area;
 			sourceTree = "<group>";
@@ -632,9 +632,9 @@
 		18B4886C20B1BD430032E832 /* Water */ = {
 			isa = PBXGroup;
 			children = (
-				18B13D3120BC3490007437DC /* WaterUtilitiesViewModel.swift */,
-				18B13D4520BC3602007437DC /* WaterUtilitiesTabViewModel.swift */,
-				1832994321788D8100485907 /* WaterBuildUtilitiesViewModel.swift */,
+				18B13D3120BC3490007437DC /* WaterUtilitiesStateObserver.swift */,
+				18B13D4520BC3602007437DC /* WaterUtilitiesTabStateObserver.swift */,
+				1832994321788D8100485907 /* WaterBuildUtilitiesStateObserver.swift */,
 			);
 			path = Water;
 			sourceTree = "<group>";
@@ -642,11 +642,11 @@
 		18B4886D20B1BD460032E832 /* Terrain */ = {
 			isa = PBXGroup;
 			children = (
-				189256C920B8525500FD9364 /* TerrainBuildUtilitiesViewModel.swift */,
-				189256D120B8554F00FD9364 /* TerrainPaintUtilitiesViewModel.swift */,
-				189256CF20B8554500FD9364 /* TerrainTerraformUtilitiesViewModel.swift */,
-				189256C520B84DFA00FD9364 /* TerrainUtilitiesTabViewModel.swift */,
-				189256D520B85BA900FD9364 /* TerrainUtilitiesViewModel.swift */,
+				189256C920B8525500FD9364 /* TerrainBuildUtilitiesStateObserver.swift */,
+				189256D120B8554F00FD9364 /* TerrainPaintUtilitiesStateObserver.swift */,
+				189256CF20B8554500FD9364 /* TerrainTerraformUtilitiesStateObserver.swift */,
+				189256C520B84DFA00FD9364 /* TerrainUtilitiesTabStateObserver.swift */,
+				189256D520B85BA900FD9364 /* TerrainUtilitiesStateObserver.swift */,
 			);
 			path = Terrain;
 			sourceTree = "<group>";
@@ -654,10 +654,10 @@
 		18B4886E20B1BD490032E832 /* Footpath */ = {
 			isa = PBXGroup;
 			children = (
-				18B13D2F20BC3488007437DC /* FootpathUtilitiesViewModel.swift */,
-				18B13D4320BC35F8007437DC /* FootpathUtilitiesTabViewModel.swift */,
-				186A27D3217F3AC400CBC156 /* FootpathBuildUtilitiesViewModel.swift */,
-				186A27DB217F5E8700CBC156 /* FootpathPaintUtilitiesViewModel.swift */,
+				18B13D2F20BC3488007437DC /* FootpathUtilitiesStateObserver.swift */,
+				18B13D4320BC35F8007437DC /* FootpathUtilitiesTabStateObserver.swift */,
+				186A27D3217F3AC400CBC156 /* FootpathBuildUtilitiesStateObserver.swift */,
+				186A27DB217F5E8700CBC156 /* FootpathPaintUtilitiesStateObserver.swift */,
 			);
 			path = Footpath;
 			sourceTree = "<group>";
@@ -665,10 +665,10 @@
 		18B4886F20B1BD4B0032E832 /* Foliage */ = {
 			isa = PBXGroup;
 			children = (
-				18B13D2D20BC347D007437DC /* FoliageUtilitiesViewModel.swift */,
-				18B13D4120BC35EE007437DC /* FoliageUtilitiesTabViewModel.swift */,
-				186A27D9217F5E1700CBC156 /* FoliageBuildUtilitiesViewModel.swift */,
-				186A27DD217F5EC300CBC156 /* FoliagePaintUtilitiesViewModel.swift */,
+				18B13D2D20BC347D007437DC /* FoliageUtilitiesStateObserver.swift */,
+				18B13D4120BC35EE007437DC /* FoliageUtilitiesTabStateObserver.swift */,
+				186A27D9217F5E1700CBC156 /* FoliageBuildUtilitiesStateObserver.swift */,
+				186A27DD217F5EC300CBC156 /* FoliagePaintUtilitiesStateObserver.swift */,
 			);
 			path = Foliage;
 			sourceTree = "<group>";
@@ -676,11 +676,11 @@
 		18B4887020B1BD4E0032E832 /* Area */ = {
 			isa = PBXGroup;
 			children = (
-				18B13D2B20BC3474007437DC /* AreaUtilitiesViewModel.swift */,
-				18B13D3F20BC35E3007437DC /* AreaUtilitiesTabViewModel.swift */,
-				186A27C9217F008200CBC156 /* AreaBuildUtilitiesViewModel.swift */,
-				186A27CF217F115300CBC156 /* AreaArchitectureUtilitiesViewModel.swift */,
-				186A27D1217F115C00CBC156 /* AreaPaintUtilitiesViewModel.swift */,
+				18B13D2B20BC3474007437DC /* AreaUtilitiesStateObserver.swift */,
+				18B13D3F20BC35E3007437DC /* AreaUtilitiesTabStateObserver.swift */,
+				186A27C9217F008200CBC156 /* AreaBuildUtilitiesStateObserver.swift */,
+				186A27CF217F115300CBC156 /* AreaArchitectureUtilitiesStateObserver.swift */,
+				186A27D1217F115C00CBC156 /* AreaPaintUtilitiesStateObserver.swift */,
 			);
 			path = Area;
 			sourceTree = "<group>";
@@ -801,7 +801,7 @@
 		18F6483B219C1CE500CE3267 /* Prop */ = {
 			isa = PBXGroup;
 			children = (
-				18F6483C219C1CF400CE3267 /* PropInspectorViewModel.swift */,
+				18F6483C219C1CF400CE3267 /* PropInspectorStateObserver.swift */,
 			);
 			path = Prop;
 			sourceTree = "<group>";
@@ -809,9 +809,9 @@
 		18F6483E219C1D5600CE3267 /* Prop */ = {
 			isa = PBXGroup;
 			children = (
-				18F6483F219C1D7100CE3267 /* PropUtilitiesViewModel.swift */,
-				18F64841219C1D8C00CE3267 /* PropUtilitiesTabViewModel.swift */,
-				18F64843219C1DB000CE3267 /* PropBuildUtilitiesViewModel.swift */,
+				18F6483F219C1D7100CE3267 /* PropUtilitiesStateObserver.swift */,
+				18F64841219C1D8C00CE3267 /* PropUtilitiesTabStateObserver.swift */,
+				18F64843219C1DB000CE3267 /* PropBuildUtilitiesStateObserver.swift */,
 			);
 			path = Prop;
 			sourceTree = "<group>";
@@ -1013,7 +1013,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				186A27DE217F5EC300CBC156 /* FoliagePaintUtilitiesViewModel.swift in Sources */,
+				186A27DE217F5EC300CBC156 /* FoliagePaintUtilitiesStateObserver.swift in Sources */,
 				189256C820B8524200FD9364 /* TerrainBuildUtilitiesViewController.swift in Sources */,
 				18F64832219C1C3900CE3267 /* PropUtilitiesTabViewController.swift in Sources */,
 				18B4885220B1AC880032E832 /* AreaUtilitiesViewController.swift in Sources */,
@@ -1024,77 +1024,77 @@
 				18B13D3A20BC3560007437DC /* FootpathUtilitiesTabViewController.swift in Sources */,
 				18F6482B219C1BBA00CE3267 /* PropInspectorViewController.swift in Sources */,
 				1805DF2220C912FF00F333C6 /* InspectorSceneView.swift in Sources */,
-				186A27CA217F008200CBC156 /* AreaBuildUtilitiesViewModel.swift in Sources */,
-				18B13D3220BC3490007437DC /* WaterUtilitiesViewModel.swift in Sources */,
-				186A27D4217F3AC400CBC156 /* FootpathBuildUtilitiesViewModel.swift in Sources */,
+				186A27CA217F008200CBC156 /* AreaBuildUtilitiesStateObserver.swift in Sources */,
+				18B13D3220BC3490007437DC /* WaterUtilitiesStateObserver.swift in Sources */,
+				186A27D4217F3AC400CBC156 /* FootpathBuildUtilitiesStateObserver.swift in Sources */,
 				1820662C20B05BDB00D0356D /* AreaInspectorViewController.swift in Sources */,
 				18B13D3420BC353F007437DC /* AreaUtilitiesTabViewController.swift in Sources */,
-				189256CA20B8525500FD9364 /* TerrainBuildUtilitiesViewModel.swift in Sources */,
+				189256CA20B8525500FD9364 /* TerrainBuildUtilitiesStateObserver.swift in Sources */,
 				189256CE20B8552600FD9364 /* TerrainPaintUtilitiesViewController.swift in Sources */,
 				1820663620B05C1700D0356D /* WaterInspectorViewController.swift in Sources */,
-				18F64844219C1DB000CE3267 /* PropBuildUtilitiesViewModel.swift in Sources */,
-				18F6483D219C1CF400CE3267 /* PropInspectorViewModel.swift in Sources */,
+				18F64844219C1DB000CE3267 /* PropBuildUtilitiesStateObserver.swift in Sources */,
+				18F6483D219C1CF400CE3267 /* PropInspectorStateObserver.swift in Sources */,
 				186A27E2217F5F0D00CBC156 /* FootpathPaintUtilitiesViewController.swift in Sources */,
-				189256C220B800A000FD9364 /* SceneInspectorViewModel.swift in Sources */,
+				189256C220B800A000FD9364 /* SceneInspectorStateObserver.swift in Sources */,
 				186A27D8217F5DFD00CBC156 /* FoliageBuildUtilitiesViewController.swift in Sources */,
 				189256CC20B8551800FD9364 /* TerrainTerraformUtilitiesViewController.swift in Sources */,
-				189256D020B8554500FD9364 /* TerrainTerraformUtilitiesViewModel.swift in Sources */,
-				1832994421788D8100485907 /* WaterBuildUtilitiesViewModel.swift in Sources */,
+				189256D020B8554500FD9364 /* TerrainTerraformUtilitiesStateObserver.swift in Sources */,
+				1832994421788D8100485907 /* WaterBuildUtilitiesStateObserver.swift in Sources */,
 				18B4885820B1ACB50032E832 /* TerrainUtilitiesViewController.swift in Sources */,
 				18B4885A20B1ACC20032E832 /* WaterUtilitiesViewController.swift in Sources */,
-				18B13D4420BC35F8007437DC /* FootpathUtilitiesTabViewModel.swift in Sources */,
-				189256D220B8554F00FD9364 /* TerrainPaintUtilitiesViewModel.swift in Sources */,
+				18B13D4420BC35F8007437DC /* FootpathUtilitiesTabStateObserver.swift in Sources */,
+				189256D220B8554F00FD9364 /* TerrainPaintUtilitiesStateObserver.swift in Sources */,
 				18C7732620A738DD006F3EA8 /* OrchardViewController.swift in Sources */,
 				1837ADEE20ADD0C9006802CA /* WindowSplitViewController.swift in Sources */,
 				18B4886120B1ADC20032E832 /* SidebarViewController.swift in Sources */,
 				188E38EB20B57CC0001A6C3A /* Document.swift in Sources */,
-				186A27D2217F115C00CBC156 /* AreaPaintUtilitiesViewModel.swift in Sources */,
+				186A27D2217F115C00CBC156 /* AreaPaintUtilitiesStateObserver.swift in Sources */,
 				1820662F20B05BE600D0356D /* FoliageInspectorViewController.swift in Sources */,
-				18F64842219C1D8C00CE3267 /* PropUtilitiesTabViewModel.swift in Sources */,
+				18F64842219C1D8C00CE3267 /* PropUtilitiesTabStateObserver.swift in Sources */,
 				1820663420B05C0B00D0356D /* TerrainInspectorViewController.swift in Sources */,
 				1820663220B05C0000D0356D /* FootpathInspectorViewController.swift in Sources */,
 				186A27CC217F0CD100CBC156 /* AreaArchitectureUtilitiesViewController.swift in Sources */,
-				18B13D4020BC35E3007437DC /* AreaUtilitiesTabViewModel.swift in Sources */,
+				18B13D4020BC35E3007437DC /* AreaUtilitiesTabStateObserver.swift in Sources */,
 				18F6482E219C1BE800CE3267 /* PropUtilitiesViewController.swift in Sources */,
 				182AFA2021709A510009AD0D /* NSMenuItem+Color.swift in Sources */,
 				186A27D6217F3AF500CBC156 /* FootpathBuildUtilitiesViewController.swift in Sources */,
-				189256B920B7FFE400FD9364 /* AreaInspectorViewModel.swift in Sources */,
+				189256B920B7FFE400FD9364 /* AreaInspectorStateObserver.swift in Sources */,
 				185E588420A9C6F300139565 /* SceneGraphCell.swift in Sources */,
 				18FCFAF220B2D34000EBCBBB /* SceneInspectorViewController.swift in Sources */,
-				18733DA12139470C00491CB7 /* SceneGraphViewModel.swift in Sources */,
-				189256BB20B7FFEF00FD9364 /* FoliageInspectorViewModel.swift in Sources */,
+				18733DA12139470C00491CB7 /* SceneGraphStateObserver.swift in Sources */,
+				189256BB20B7FFEF00FD9364 /* FoliageInspectorStateObserver.swift in Sources */,
 				18B4885C20B1AD190032E832 /* UtilitiesTabViewController.swift in Sources */,
 				18B13D3D20BC358D007437DC /* WaterUtilitiesTabViewController.swift in Sources */,
-				18B4887420B1BD7F0032E832 /* InspectorTabViewModel.swift in Sources */,
+				18B4887420B1BD7F0032E832 /* InspectorTabStateObserver.swift in Sources */,
 				18B4885E20B1AD960032E832 /* SidebarTabViewController.swift in Sources */,
-				186A27DA217F5E1700CBC156 /* FoliageBuildUtilitiesViewModel.swift in Sources */,
+				186A27DA217F5E1700CBC156 /* FoliageBuildUtilitiesStateObserver.swift in Sources */,
 				18F64830219C1C1300CE3267 /* PropBuildUtilitiesViewController.swift in Sources */,
-				189256D620B85BA900FD9364 /* TerrainUtilitiesViewModel.swift in Sources */,
-				18B13D4220BC35EE007437DC /* FoliageUtilitiesTabViewModel.swift in Sources */,
-				18B13D3020BC3488007437DC /* FootpathUtilitiesViewModel.swift in Sources */,
+				189256D620B85BA900FD9364 /* TerrainUtilitiesStateObserver.swift in Sources */,
+				18B13D4220BC35EE007437DC /* FoliageUtilitiesTabStateObserver.swift in Sources */,
+				18B13D3020BC3488007437DC /* FootpathUtilitiesStateObserver.swift in Sources */,
 				18C7732320A72EDA006F3EA8 /* SceneGraphViewController.swift in Sources */,
-				18F64840219C1D7100CE3267 /* PropUtilitiesViewModel.swift in Sources */,
-				1822D3B220BE8F11004A1156 /* SidebarViewModel.swift in Sources */,
-				18733DA421394F1900491CB7 /* SceneViewModel.swift in Sources */,
-				18B13D4620BC3602007437DC /* WaterUtilitiesTabViewModel.swift in Sources */,
-				18733D9E2139392000491CB7 /* OrchardViewModel.swift in Sources */,
-				189256D420B8583200FD9364 /* UtilitiesTabViewModel.swift in Sources */,
-				189256C620B84DFB00FD9364 /* TerrainUtilitiesTabViewModel.swift in Sources */,
-				186A27DC217F5E8700CBC156 /* FootpathPaintUtilitiesViewModel.swift in Sources */,
+				18F64840219C1D7100CE3267 /* PropUtilitiesStateObserver.swift in Sources */,
+				1822D3B220BE8F11004A1156 /* SidebarStateObserver.swift in Sources */,
+				18733DA421394F1900491CB7 /* SceneStateObserver.swift in Sources */,
+				18B13D4620BC3602007437DC /* WaterUtilitiesTabStateObserver.swift in Sources */,
+				18733D9E2139392000491CB7 /* OrchardStateObserver.swift in Sources */,
+				189256D420B8583200FD9364 /* UtilitiesTabStateObserver.swift in Sources */,
+				189256C620B84DFB00FD9364 /* TerrainUtilitiesTabStateObserver.swift in Sources */,
+				186A27DC217F5E8700CBC156 /* FootpathPaintUtilitiesStateObserver.swift in Sources */,
 				186A27C8217EFE1C00CBC156 /* AreaBuildUtilitiesViewController.swift in Sources */,
-				186A27D0217F115300CBC156 /* AreaArchitectureUtilitiesViewModel.swift in Sources */,
-				18B13D2E20BC347D007437DC /* FoliageUtilitiesViewModel.swift in Sources */,
+				186A27D0217F115300CBC156 /* AreaArchitectureUtilitiesStateObserver.swift in Sources */,
+				18B13D2E20BC347D007437DC /* FoliageUtilitiesStateObserver.swift in Sources */,
 				18C7732120A728D5006F3EA8 /* OrchardWindowController.swift in Sources */,
 				186A27E0217F5EF500CBC156 /* FoliagePaintUtilitiesViewController.swift in Sources */,
 				1871220920932094002488E0 /* SceneViewController.swift in Sources */,
 				18B13D3720BC354C007437DC /* FoliageUtilitiesTabViewController.swift in Sources */,
-				18B13D2C20BC3474007437DC /* AreaUtilitiesViewModel.swift in Sources */,
+				18B13D2C20BC3474007437DC /* AreaUtilitiesStateObserver.swift in Sources */,
 				1832994621788DAD00485907 /* WaterBuildUtilitiesViewController.swift in Sources */,
-				1803165D20B6F2DF009D367F /* TerrainInspectorViewModel.swift in Sources */,
-				189256BD20B7FFF700FD9364 /* FootpathInspectorViewModel.swift in Sources */,
-				189256BF20B8000700FD9364 /* WaterInspectorViewModel.swift in Sources */,
+				1803165D20B6F2DF009D367F /* TerrainInspectorStateObserver.swift in Sources */,
+				189256BD20B7FFF700FD9364 /* FootpathInspectorStateObserver.swift in Sources */,
+				189256BF20B8000700FD9364 /* WaterInspectorStateObserver.swift in Sources */,
 				189256C420B84DCF00FD9364 /* TerrainUtilitiesTabViewController.swift in Sources */,
-				1822D3B020BE8784004A1156 /* SidebarTabViewModel.swift in Sources */,
+				1822D3B020BE8784004A1156 /* SidebarTabStateObserver.swift in Sources */,
 				1884F8A520B0548F0023AA0B /* InspectorTabViewController.swift in Sources */,
 				1871220720932094002488E0 /* AppDelegate.swift in Sources */,
 			);

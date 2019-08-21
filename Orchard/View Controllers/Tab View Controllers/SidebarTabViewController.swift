@@ -23,7 +23,7 @@ class SidebarTabViewController: NSTabViewController {
 
     lazy var viewModel = {
         
-        return SidebarTabViewModel(initialState: .empty(editor: nil))
+        return SidebarTabStateObserver(initialState: .empty(editor: nil))
     }()
 }
 

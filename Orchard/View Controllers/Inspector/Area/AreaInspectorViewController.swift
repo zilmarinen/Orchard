@@ -221,7 +221,7 @@ class AreaInspectorViewController: NSViewController {
 
     lazy var viewModel = {
         
-        return AreaInspectorViewModel(initialState: .empty)
+        return AreaInspectorStateObserver(initialState: .empty)
     }()
 }
 

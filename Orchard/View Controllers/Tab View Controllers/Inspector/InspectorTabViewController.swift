@@ -12,7 +12,7 @@ class InspectorTabViewController: NSTabViewController {
     
     lazy var viewModel = {
         
-        return InspectorTabViewModel(initialState: .empty)
+        return InspectorTabStateObserver(initialState: .empty)
     }()
 }
 

@@ -63,7 +63,7 @@ class TerrainUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return TerrainUtilitiesViewModel(initialState: .empty(editor: nil))
+        return TerrainUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
 }
 

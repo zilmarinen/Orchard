@@ -13,7 +13,7 @@ class PropUtilitiesTabViewController: NSTabViewController {
     
     lazy var viewModel = {
         
-        return PropUtilitiesTabViewModel(initialState: .empty(editor: nil))
+        return PropUtilitiesTabStateObserver(initialState: .empty(editor: nil))
     }()
 }
 

@@ -14,7 +14,7 @@ class AreaArchitectureUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return AreaArchitectureUtilitiesViewModel(initialState: .empty(editor: nil))
+        return AreaArchitectureUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
 }
 

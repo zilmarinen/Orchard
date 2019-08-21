@@ -58,7 +58,7 @@ class FootpathUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return FootpathUtilitiesViewModel(initialState: .empty(editor: nil))
+        return FootpathUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
 }
 

@@ -13,7 +13,7 @@ class TerrainUtilitiesTabViewController: NSTabViewController {
 
     lazy var viewModel = {
         
-        return TerrainUtilitiesTabViewModel(initialState: .empty(editor: nil))
+        return TerrainUtilitiesTabStateObserver(initialState: .empty(editor: nil))
     }()
 }
 

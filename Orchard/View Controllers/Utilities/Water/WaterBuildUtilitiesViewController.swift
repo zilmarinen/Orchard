@@ -46,7 +46,7 @@ class WaterBuildUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return WaterBuildUtilitiesViewModel(initialState: .empty(editor: nil))
+        return WaterBuildUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
     
     var graticuleIdentifier: SceneKitView.Graticule.CallbackReference?

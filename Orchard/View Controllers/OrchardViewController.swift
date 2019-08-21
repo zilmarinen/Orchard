@@ -12,13 +12,13 @@ import THRUtilities
 
 class OrchardViewController: NSViewController {
     
-    lazy var viewModel: OrchardViewModel = {
+    lazy var viewModel: OrchardStateObserver = {
         
         let input = Input(cursor: SceneKitView.Cursor(), graticule: SceneKitView.Graticule(), keyboard: SceneKitView.Keyboard())
         
         let meadow = Meadow(input: input, view: self.sceneViewController!.sceneView, observer: self)
         
-        return OrchardViewModel(initialState: .editor(editor: (meadow: meadow, delegate: self)))
+        return OrchardStateObserver(initialState: .editor(editor: (meadow: meadow, delegate: self)))
     }()
     
     var splitViewController: WindowSplitViewController?

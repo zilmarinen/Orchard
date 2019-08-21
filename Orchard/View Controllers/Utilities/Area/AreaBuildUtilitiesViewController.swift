@@ -122,7 +122,7 @@ class AreaBuildUtilitiesViewController: NSViewController {
 
     lazy var viewModel = {
         
-        return AreaBuildUtilitiesViewModel(initialState: .empty(editor: nil))
+        return AreaBuildUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
     
     var graticuleIdentifier: SceneKitView.Graticule.CallbackReference?

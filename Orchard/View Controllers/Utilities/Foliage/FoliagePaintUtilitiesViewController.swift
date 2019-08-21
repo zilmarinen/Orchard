@@ -14,6 +14,6 @@ class FoliagePaintUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return FoliagePaintUtilitiesViewModel(initialState: .empty(editor: nil))
+        return FoliagePaintUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
 }

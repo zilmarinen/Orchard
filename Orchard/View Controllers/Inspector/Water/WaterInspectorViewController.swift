@@ -183,7 +183,7 @@ class WaterInspectorViewController: NSViewController {
 
     lazy var viewModel = {
         
-        return WaterInspectorViewModel(initialState: .empty)
+        return WaterInspectorStateObserver(initialState: .empty)
     }()
 }
 

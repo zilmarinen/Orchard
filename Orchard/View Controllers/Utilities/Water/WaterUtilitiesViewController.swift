@@ -53,7 +53,7 @@ class WaterUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return WaterUtilitiesViewModel(initialState: .empty(editor: nil))
+        return WaterUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
 }
 

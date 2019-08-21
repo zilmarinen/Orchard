@@ -80,7 +80,7 @@ class PropBuildUtilitiesViewController: NSViewController {
 
     lazy var viewModel = {
         
-        return PropBuildUtilitiesViewModel(initialState: .empty(editor: nil))
+        return PropBuildUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
     
     var graticuleIdentifier: SceneKitView.Graticule.CallbackReference?

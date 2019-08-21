@@ -90,7 +90,7 @@ class FootpathBuildUtilitiesViewController: NSViewController {
 
     lazy var viewModel = {
         
-        return FootpathBuildUtilitiesViewModel(initialState: .empty(editor: nil))
+        return FootpathBuildUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
     
     var graticuleIdentifier: SceneKitView.Graticule.CallbackReference?

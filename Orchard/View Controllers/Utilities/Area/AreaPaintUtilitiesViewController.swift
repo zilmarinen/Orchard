@@ -40,7 +40,7 @@ class AreaPaintUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return AreaPaintUtilitiesViewModel(initialState: .empty(editor: nil))
+        return AreaPaintUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
 }
 

@@ -229,7 +229,7 @@ class TerrainInspectorViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return TerrainInspectorViewModel(initialState: .empty)
+        return TerrainInspectorStateObserver(initialState: .empty)
     }()
 }
 

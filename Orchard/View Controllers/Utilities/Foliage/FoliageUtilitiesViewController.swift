@@ -58,7 +58,7 @@ class FoliageUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return FoliageUtilitiesViewModel(initialState: .empty(editor: nil))
+        return FoliageUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
 }
 

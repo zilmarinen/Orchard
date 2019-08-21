@@ -69,7 +69,7 @@ class AreaUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return AreaUtilitiesViewModel(initialState: .empty(editor: nil))
+        return AreaUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
 }
 

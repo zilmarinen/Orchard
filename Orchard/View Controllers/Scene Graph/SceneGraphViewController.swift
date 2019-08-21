@@ -22,7 +22,7 @@ class SceneGraphViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return SceneGraphViewModel(initialState: .empty)
+        return SceneGraphStateObserver(initialState: .empty)
     }()
 }
 

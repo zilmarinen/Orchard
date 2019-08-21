@@ -157,7 +157,7 @@ class FootpathInspectorViewController: NSViewController {
 
     lazy var viewModel = {
         
-        return FootpathInspectorViewModel(initialState: .empty)
+        return FootpathInspectorStateObserver(initialState: .empty)
     }()
 }
 

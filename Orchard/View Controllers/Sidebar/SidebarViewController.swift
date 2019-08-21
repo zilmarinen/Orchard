@@ -48,7 +48,7 @@ class SidebarViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return SidebarViewModel(initialState: .empty(editor: nil))
+        return SidebarStateObserver(initialState: .empty(editor: nil))
     }()
 }
 

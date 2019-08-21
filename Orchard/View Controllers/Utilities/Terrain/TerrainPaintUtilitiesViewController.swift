@@ -46,7 +46,7 @@ class TerrainPaintUtilitiesViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return TerrainPaintUtilitiesViewModel(initialState: .empty(editor: nil))
+        return TerrainPaintUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
     
     var graticuleIdentifier: SceneKitView.Graticule.CallbackReference?

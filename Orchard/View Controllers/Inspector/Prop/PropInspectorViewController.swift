@@ -87,7 +87,7 @@ class PropInspectorViewController: NSViewController {
 
     lazy var viewModel = {
         
-        return PropInspectorViewModel(initialState: .empty)
+        return PropInspectorStateObserver(initialState: .empty)
     }()
 }
 

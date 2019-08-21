@@ -54,7 +54,7 @@ class SceneInspectorViewController: NSViewController {
     
     lazy var viewModel = {
         
-        return SceneInspectorViewModel(initialState: .empty)
+        return SceneInspectorStateObserver(initialState: .empty)
     }()
 }
 

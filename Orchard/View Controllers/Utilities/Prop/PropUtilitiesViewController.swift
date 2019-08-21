@@ -53,7 +53,7 @@ class PropUtilitiesViewController: NSViewController {
 
     lazy var viewModel = {
         
-        return PropUtilitiesViewModel(initialState: .empty(editor: nil))
+        return PropUtilitiesStateObserver(initialState: .empty(editor: nil))
     }()
 }
 
