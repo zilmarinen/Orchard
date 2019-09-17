@@ -45,56 +45,51 @@ extension SceneViewController: SceneRendererDelegate {
             
         case .editor(let editor):
             
-            switch editor.meadow.scene.model.state {
+            switch editor.meadow.scene.cameraJib.model.state {
                 
-            case .scene(let world):
+            case .orbit(let vector, let edge, var zoom):
                 
-                switch editor.meadow.scene.cameraJib.model.state {
+                let forward = SCNVector3(x: editor.meadow.scene.cameraJib.worldFront.x, y: 0.0, z: editor.meadow.scene.cameraJib.worldFront.z)
+                
+                var offset = SCNVector3.Zero
+                
+                switch editor.meadow.input.keyboard.state {
                     
-                case .focus(let vector, let edge, var zoom):
+                case .keysHeld(let keys):
                     
-                    switch editor.meadow.input.keyboard.state {
+                    keys.forEach { key in
                         
-                    case .keysHeld(let keys):
-                        
-                        var offset = SCNVector3Zero
-                        
-                        keys.forEach { key in
+                        switch key {
                             
-                            switch key {
-                                
-                            case .w:
-                                
-                                offset += editor.meadow.scene.cameraJib.worldFront
-                                
-                            case .a:
-                                
-                                offset += SCNVector3.negate(vector: editor.meadow.scene.cameraJib.worldRight)
-                                
-                            case .s:
-                                
-                                offset += SCNVector3.negate(vector: editor.meadow.scene.cameraJib.worldFront)
-                                
-                            case .d:
-                                
-                                offset += editor.meadow.scene.cameraJib.worldRight
-                                
-                            case .z:
-                                
-                                zoom += -Axis.unitY
-                                
-                            case .x:
-                                
-                                zoom += Axis.unitY
-                                
-                            default: break
-                            }
+                        case .w:
+                            
+                            offset += forward
+                            
+                        case .a:
+                            
+                            offset += SCNVector3.negate(vector: editor.meadow.scene.cameraJib.worldRight)
+                            
+                        case .s:
+                            
+                            offset += SCNVector3.negate(vector: forward)
+                            
+                        case .d:
+                            
+                            offset += editor.meadow.scene.cameraJib.worldRight
+                            
+                        case .z:
+                            
+                            zoom += -Axis.unitY
+                            
+                        case .x:
+                            
+                            zoom += Axis.unitY
+                            
+                        default: break
                         }
-                        
-                        editor.meadow.scene.cameraJib.model.state = .focus(node: world, edge: edge, zoom: zoom)
-                        
-                    default: break
                     }
+                    
+                    editor.meadow.scene.cameraJib.model.state = .orbit(vector: vector + offset, edge: edge, zoom: zoom)
                     
                 default: break
                 }
@@ -185,7 +180,7 @@ extension SceneViewController: KeyboardObserver {
             
             switch editor.meadow.scene.cameraJib.model.state {
                 
-            case .focus(let node, var edge, let zoom):
+            case .orbit(let vector, var edge, let zoom):
                 
                 switch to {
                     
@@ -193,13 +188,18 @@ extension SceneViewController: KeyboardObserver {
                     
                     switch key {
                         
-                    case .q: edge = (GridEdge(rawValue: edge.rawValue + 1) ?? GridEdge.north)
-                    case .e: edge = (GridEdge(rawValue: edge.rawValue - 1) ?? GridEdge.west)
+                    case .q:
+                        
+                        edge = (GridEdge(rawValue: edge.rawValue + 1) ?? GridEdge.north)
+                        
+                    case .e:
+                        
+                        edge = (GridEdge(rawValue: edge.rawValue - 1) ?? GridEdge.west)
                         
                     default: break
                     }
                     
-                    editor.meadow.scene.cameraJib.model.state = .focus(node: node, edge: edge, zoom: zoom)
+                    editor.meadow.scene.cameraJib.model.state = .orbit(vector: vector, edge: edge, zoom: zoom)
                     
                 default: break
                 }

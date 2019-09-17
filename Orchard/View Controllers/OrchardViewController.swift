@@ -16,7 +16,7 @@ class OrchardViewController: NSViewController {
         
         let input = Input(cursor: SceneKitView.Cursor(), graticule: SceneKitView.Graticule(), keyboard: SceneKitView.Keyboard())
         
-        let meadow = Meadow(input: input, view: self.sceneViewController!.sceneView, observer: self)
+        let meadow = Meadow(input: input, view: self.sceneViewController!.sceneView, observer: self, delegate: self)
         
         return OrchardStateObserver(initialState: .editor(editor: (meadow: meadow, delegate: self)))
     }()
@@ -59,8 +59,6 @@ extension OrchardViewController {
                 
             case .editor(let editor):
                 
-                print("OrchardViewController -> editor")
-                
                 self.sceneGraphViewController?.delegate = self
                 self.sceneGraphViewController?.stateObserver.state = .sceneGraph(scene: editor.meadow.scene, child: editor.meadow.scene)
                 
@@ -72,14 +70,16 @@ extension OrchardViewController {
                     
                 case .empty:
                     
-                    editor.meadow.scene.model.show(world: World())
+                    let world = World()
+                    
+                    editor.meadow.scene.model.show(world: world)
+                    
+                    editor.meadow.scene.cameraJib.model.state = .orbit(vector: world.position, edge: .north, zoom: SceneKitCamera.maximumZoomLevel)
                     
                 default: break
                 }
                 
             case .loading(let editor, let map):
-                
-                print("OrchardViewController -> loading")
                 
                 editor.meadow.scene.model.load(map: map)
                 
@@ -132,6 +132,21 @@ extension OrchardViewController: SceneGraphObserver {
             default: break
             }
         
+        default: break
+        }
+    }
+}
+
+extension OrchardViewController: SceneRendererDelegate {
+    
+    func update(deltaTime: TimeInterval, frameTime: TimeInterval) {
+        
+        switch stateObserver.state {
+            
+        case .editor:
+            
+            sceneViewController?.update(deltaTime: deltaTime, frameTime: frameTime)
+            
         default: break
         }
     }
