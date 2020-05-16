@@ -8,13 +8,8 @@ target 'Orchard' do
 	inherit! :search_paths
 
 	pod 'Meadow', :path => '../Meadow'
+	pod 'Pasture', :path => '../Pasture'
+	pod 'Terrace', :path => '../Terrace'
 	pod 'THRUtilities', :path => '../../3Squared/THR/THRUtilities'
-	pod 'PeakOperation'
-
-  	target 'Orchard-Tests' do
-    
-    	inherit! :search_paths
-    
-  	end
 
 end

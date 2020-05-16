@@ -10,16 +10,13 @@ import Meadow
 
 class Document: NSDocument {
     
-    let windowController: OrchardWindowController
+    let coordinator: WindowCoordinator
 
     override init() {
         
-        self.windowController = NSStoryboard.main!.instantiateController(withIdentifier: OrchardWindowController.sceneIdentifier) as! OrchardWindowController
+        let controller = NSStoryboard.main!.instantiateController(withIdentifier: OrchardWindowController.sceneIdentifier) as! OrchardWindowController
         
-        if let screen = self.windowController.window?.screen {
-        
-            self.windowController.window?.setFrame(screen.visibleFrame, display: true, animate: true)
-        }
+        self.coordinator = WindowCoordinator(controller: controller)
         
         super.init()
     }
@@ -31,58 +28,48 @@ class Document: NSDocument {
     
     override func makeWindowControllers() {
         
-        self.addWindowController(windowController)
+        self.addWindowController(coordinator.controller)
+        
+        coordinator.start(with: Meadow())
     }
     
-    override func data(ofType typeName: String) throws -> Data {
+    override func fileWrapper(ofType typeName: String) throws -> FileWrapper {
         
-        guard let viewController = windowController.contentViewController as? OrchardViewController else { fatalError("Invalid view controller hierarchy") }
+        guard let meadow = coordinator.meadow else { throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": "Unable to find valid instance of meadow."]) }
+     
+        let encoder = JSONEncoder()
         
-        switch viewController.stateObserver.state {
+        var wrappers: [String : FileWrapper] = [:]
+        
+        let data = try encoder.encode(meadow)
+        
+        wrappers["world.meadow"] = FileWrapper(regularFileWithContents: data)
+        
+        return FileWrapper(directoryWithFileWrappers: wrappers)
+    }
+    
+    override func read(from fileWrapper: FileWrapper, ofType typeName: String) throws {
+        
+        do {
             
-        case .editor(let editor):
+            let meadowWrapper = fileWrapper.fileWrappers?.first { return !$0.value.isDirectory }?.value
             
-            do {
+            let data = meadowWrapper?.regularFileContents
+            
+            if meadowWrapper == nil || data == nil {
                 
-                let encoder = JSONEncoder()
-                
-                let data = try encoder.encode(editor.meadow.scene)
-                
-                return data
+                throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": "Unable to find .meadow in file wrapper."])
             }
-            catch {
-                
-                throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": error])
-            }
             
-        default: throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": "Invalid view model state"])
+            let decoder = JSONDecoder()
+            
+            let json = try decoder.decode(MeadowJSON.self, from: data!)
+            
+            coordinator.start(with: Meadow(json: json))
         }
-    }
-    
-    override func read(from data: Data, ofType typeName: String) throws {
-        
-        guard let viewController = windowController.contentViewController as? OrchardViewController else { fatalError("Invalid view controller hierarchy") }
-        
-        switch viewController.stateObserver.state {
+        catch {
             
-        case .editor(let editor):
-            
-            do {
-                
-                let decoder = JSONDecoder()
-                
-                let intermediate = try decoder.decode(MapIntermediate.self, from: data)
-                
-                let map = Map(name: intermediate.name, intermediate: intermediate.world)
-                
-                viewController.stateObserver.state = .loading(editor: editor, map: map)
-            }
-            catch {
-                
-                throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": error])
-            }
-            
-        default: break
+            throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": error])
         }
     }
 }

@@ -6,7 +6,7 @@
 //  Copyright © 2018 Script Orchard. All rights reserved.
 //
 
-import Cocoa
+import AppKit
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
