@@ -1,24 +1,18 @@
 PODS:
   - Meadow (0.1):
-    - Meadow/Core (= 0.1)
     - Pasture
-  - Meadow/Core (0.1):
-    - Pasture
+    - Terrace
   - Pasture (0.1):
     - Pasture/Core (= 0.1)
   - Pasture/Core (0.1)
   - Terrace (0.1):
     - Terrace/Core (= 0.1)
   - Terrace/Core (0.1)
-  - THRUtilities (1.7.5):
-    - THRUtilities/Core (= 1.7.5)
-  - THRUtilities/Core (1.7.5)
 
 DEPENDENCIES:
   - Meadow (from `../Meadow`)
   - Pasture (from `../Pasture`)
   - Terrace (from `../Terrace`)
-  - THRUtilities (from `../../3Squared/THR/THRUtilities`)
 
 EXTERNAL SOURCES:
   Meadow:
@@ -27,15 +21,12 @@ EXTERNAL SOURCES:
     :path: "../Pasture"
   Terrace:
     :path: "../Terrace"
-  THRUtilities:
-    :path: "../../3Squared/THR/THRUtilities"
 
 SPEC CHECKSUMS:
-  Meadow: 21f8e81fab8869da78d4336f46ac8d498eee7572
+  Meadow: 7cc31eb61747100226ee8b39ba03eddb142f914e
   Pasture: a49f933d4866c7a3ee7413322648fc6f3a479172
   Terrace: 76c2ba0146f94bec782193635b1ce7552ce6c59f
-  THRUtilities: 95c0994ed3f0acf284e309ae1619fa7d1b1255ae
 
-PODFILE CHECKSUM: 7b20b85ace66fac16be576612f8cf37976b380a6
+PODFILE CHECKSUM: 41ff590b4c07d62b86b6dc2804510133844f11dc
 
 COCOAPODS: 1.9.1

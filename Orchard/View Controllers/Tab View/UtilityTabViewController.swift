@@ -31,6 +31,19 @@ extension UtilityTabViewController {
         
         DispatchQueue.main.async {
          
+            let viewController = self.children[to.tab.rawValue]
+            
+            switch to {
+                
+            case .terrain(let node):
+                
+                guard let viewController = viewController as? TerrainUtilityViewController else { fatalError("Invalid view controller hierarchy") }
+                
+                viewController.inspector = TerrainInspector(node: node)
+                
+            default: break
+            }
+            
             self.selectedTabViewItemIndex = to.tab.rawValue
         }
     }

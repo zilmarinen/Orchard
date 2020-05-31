@@ -6,7 +6,7 @@
 //  Copyright © 2018 Script Orchard. All rights reserved.
 //
 
-import THRUtilities
+import Terrace
 
 class SidebarViewController: NSViewController {
     
@@ -43,7 +43,7 @@ extension SidebarViewController: SegueHandlerType {
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         
-        switch segueIdentifier(forSegue: segue) {
+        switch segueIdentifier(for: segue) {
             
         case .embedTabView:
             

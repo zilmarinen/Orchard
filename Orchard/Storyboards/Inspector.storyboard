@@ -92,7 +92,7 @@
                                                                                 <textField key="contentView" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f08-Oq-cvt">
                                                                                     <rect key="frame" x="37" y="25" width="35" height="14"/>
                                                                                     <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" title="Name" id="pMt-WE-1bE">
-                                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                     </textFieldCell>
@@ -102,17 +102,20 @@
                                                                                 <textField key="contentView" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0ch-e9-4sK">
                                                                                     <rect key="frame" x="76" y="25" width="358" height="19"/>
                                                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Meadow" drawsBackground="YES" id="UuP-L1-wQS">
-                                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                     </textFieldCell>
+                                                                                    <connections>
+                                                                                        <action selector="textField:" target="eDd-n9-YzB" id="p64-Vn-ZxO"/>
+                                                                                    </connections>
                                                                                 </textField>
                                                                             </gridCell>
                                                                             <gridCell row="VKO-Xa-ThG" column="jrX-sy-FSj" id="gTM-k6-1n5">
                                                                                 <textField key="contentView" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AiM-4b-OHE">
                                                                                     <rect key="frame" x="5" y="0.0" width="67" height="14"/>
                                                                                     <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" title="Background" id="Kab-aU-u3x">
-                                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                     </textFieldCell>

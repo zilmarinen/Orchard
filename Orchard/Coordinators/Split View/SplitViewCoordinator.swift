@@ -6,6 +6,7 @@
 //  Copyright © 2020 Script Orchard. All rights reserved.
 //
 
+import Meadow
 import Terrace
 
 class SplitViewCoordinator: Coordinator<SplitViewController> {
@@ -72,5 +73,15 @@ extension SplitViewCoordinator {
         let panel = (sender.selectedSegment == 0 ? SplitViewController.Panel.sceneGraph : SplitViewController.Panel.inspector)
         
         controller.toggle(panel: panel)
+    }
+}
+
+extension SplitViewCoordinator: SceneGraphObserver {
+
+    func focus(node: SceneGraphNode) {
+        
+        sceneGraphCoordinator.focus(node: node)
+        sceneViewCoordinator.focus(node: node)
+        sidebarCoordinator.focus(node: node)
     }
 }

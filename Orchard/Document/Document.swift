@@ -11,6 +11,8 @@ import Meadow
 class Document: NSDocument {
     
     let coordinator: WindowCoordinator
+    
+    var json: MeadowJSON?
 
     override init() {
         
@@ -30,13 +32,15 @@ class Document: NSDocument {
         
         self.addWindowController(coordinator.controller)
         
-        coordinator.start(with: Meadow())
+        coordinator.start(with: json)
+        
+        json = nil
     }
     
     override func fileWrapper(ofType typeName: String) throws -> FileWrapper {
         
-        guard let meadow = coordinator.meadow else { throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": "Unable to find valid instance of meadow."]) }
-     
+        guard let meadow = coordinator.meadow else { throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": "Unable to find valid instance of Meadow."]) }
+        
         let encoder = JSONEncoder()
         
         var wrappers: [String : FileWrapper] = [:]
@@ -63,9 +67,7 @@ class Document: NSDocument {
             
             let decoder = JSONDecoder()
             
-            let json = try decoder.decode(MeadowJSON.self, from: data!)
-            
-            coordinator.start(with: Meadow(json: json))
+            self.json = try decoder.decode(MeadowJSON.self, from: data!)
         }
         catch {
             

@@ -60,8 +60,11 @@ extension SidebarTabViewCoordinator {
         
         self.controller.viewModel.toggle(tab: tab)
     }
+}
+
+extension SidebarTabViewCoordinator: SceneGraphObserver {
     
-    override func didSelect(node: SceneGraphNode) {
+    func focus(node: SceneGraphNode) {
         
         guard let node = node as? SceneGraphIdentifiable else { return }
         

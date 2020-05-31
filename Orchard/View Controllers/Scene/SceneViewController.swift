@@ -8,10 +8,30 @@
 
 import Meadow
 import SceneKit
+import Terrace
 
 class SceneViewController: NSViewController {
 
-    @IBOutlet weak var sceneView: SCNView!
+    @IBOutlet weak var sceneView: SceneView!
+    @IBOutlet weak var pathControl: NSPathControl!
     
     weak var coordinator: SceneViewCoordinator?
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        do {
+            
+            guard let device = sceneView.device else { fatalError("Invalid device for SceneView") }
+            
+            guard let path = Meadow.bundle?.path(forResource: "Meadow", ofType: "metallib") else { fatalError("Missing required Meadow.metallib") }
+            
+            Stage.shaderLibrary = try device.makeLibrary(filepath: path)
+        }
+        catch {
+            
+            fatalError("Unable to make Meadow.metallib default device program library: \(error)")
+        }
+    }
 }

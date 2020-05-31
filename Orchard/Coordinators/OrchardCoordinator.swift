@@ -39,6 +39,10 @@ class OrchardCoordinator: Coordinator<OrchardViewController> {
         super.start(with: option)
         
         start(child: splitViewCoordinator, with: option)
+        
+        guard let option = option as? SceneGraphNode else { return }
+        
+        splitViewCoordinator.focus(node: option)
     }
 }
 
@@ -46,8 +50,6 @@ extension OrchardCoordinator {
     
     override func didSelect(node: SceneGraphNode) {
         
-        splitViewCoordinator.sidebarCoordinator.didSelect(node: node)
-        
-        splitViewCoordinator.sceneGraphCoordinator.controller.outlineView.reloadItem(node, reloadChildren: true)
+        splitViewCoordinator.focus(node: node)
     }
 }

@@ -24,9 +24,9 @@ class UtilityTabViewCoordinator: Coordinator<UtilityTabViewController> {
     }
 }
 
-extension UtilityTabViewCoordinator {
+extension UtilityTabViewCoordinator: SceneGraphObserver {
     
-    override func didSelect(node: SceneGraphNode) {
+    func focus(node: SceneGraphNode) {
         
         self.controller.viewModel.select(node: node)
     }

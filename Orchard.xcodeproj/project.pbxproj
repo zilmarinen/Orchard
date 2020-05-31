@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18087D56247539A800D02BCF /* TerrainUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18087D55247539A800D02BCF /* TerrainUtilityViewController.swift */; };
+		18087D58247539FE00D02BCF /* AreaUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18087D57247539FE00D02BCF /* AreaUtilityViewController.swift */; };
+		18087D5A24753A0900D02BCF /* FoliageUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18087D5924753A0900D02BCF /* FoliageUtilityViewController.swift */; };
+		18087D5C24753A1300D02BCF /* FootpathUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18087D5B24753A1300D02BCF /* FootpathUtilityViewController.swift */; };
+		18087D5E24753A2000D02BCF /* PropUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18087D5D24753A2000D02BCF /* PropUtilityViewController.swift */; };
+		18087D6024753A3100D02BCF /* WaterUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18087D5F24753A3100D02BCF /* WaterUtilityViewController.swift */; };
 		181EDFAB2452C6800030D23C /* Responder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181EDFAA2452C6800030D23C /* Responder.swift */; };
 		181EDFAE2452D9FF0030D23C /* SidebarTabViewController+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181EDFAD2452D9FF0030D23C /* SidebarTabViewController+ViewModel.swift */; };
 		181EDFB22452F35F0030D23C /* MeadowInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181EDFB12452F35F0030D23C /* MeadowInspectorViewController.swift */; };
@@ -16,6 +22,7 @@
 		182315A524472AEE00426181 /* SplitViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182315A424472AEE00426181 /* SplitViewCoordinator.swift */; };
 		182AFA2021709A510009AD0D /* NSMenuItem+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182AFA1F21709A510009AD0D /* NSMenuItem+Color.swift */; };
 		1837ADEE20ADD0C9006802CA /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1837ADED20ADD0C9006802CA /* SplitViewController.swift */; };
+		183B9A0E247E549B00A73B78 /* Meadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B9A0D247E549B00A73B78 /* Meadow.swift */; };
 		184E62CE244D85F100D2B6F8 /* OrchardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E62CD244D85F100D2B6F8 /* OrchardCoordinator.swift */; };
 		184E62D3244D9C7F00D2B6F8 /* SidebarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E62D2244D9C7F00D2B6F8 /* SidebarCoordinator.swift */; };
 		184E62D6244D9C9300D2B6F8 /* SceneGraphCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E62D5244D9C9300D2B6F8 /* SceneGraphCoordinator.swift */; };
@@ -28,12 +35,12 @@
 		184E62E7244DB05600D2B6F8 /* UtilityTabViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E62E6244DB05600D2B6F8 /* UtilityTabViewCoordinator.swift */; };
 		184E62E9244DC54200D2B6F8 /* Inspector.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 184E62E8244DC54200D2B6F8 /* Inspector.storyboard */; };
 		184E62EB244DC54B00D2B6F8 /* Utility.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 184E62EA244DC54B00D2B6F8 /* Utility.storyboard */; };
-		185172B7246402E0006C9223 /* Floor.metal in Sources */ = {isa = PBXBuildFile; fileRef = 185172B6246402E0006C9223 /* Floor.metal */; };
+		18625F06247FFA55000ED41E /* SceneGraphObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18625F05247FFA55000ED41E /* SceneGraphObserver.swift */; };
+		18625F0A2480F068000ED41E /* SceneGraphIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18625F092480F068000ED41E /* SceneGraphIdentifiable.swift */; };
 		1871220720932094002488E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871220620932094002488E0 /* AppDelegate.swift */; };
 		1871220920932094002488E0 /* SceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871220820932094002488E0 /* SceneViewController.swift */; };
 		1871220B20932095002488E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1871220A20932095002488E0 /* Assets.xcassets */; };
 		1871220E20932095002488E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1871220C20932095002488E0 /* Main.storyboard */; };
-		18866768220B241600FFE6F6 /* libPods-Orchard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEC913C8FBAB8126A50226D5 /* libPods-Orchard.a */; };
 		188E38EB20B57CC0001A6C3A /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E38E920B57CC0001A6C3A /* Document.swift */; };
 		189A6022246D416700DD68A7 /* MeadowInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189A6021246D416700DD68A7 /* MeadowInspector.swift */; };
 		18B4886120B1ADC20032E832 /* SidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4886020B1ADC20032E832 /* SidebarViewController.swift */; };
@@ -49,11 +56,19 @@
 		18C7732320A72EDA006F3EA8 /* SceneGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C7732220A72EDA006F3EA8 /* SceneGraphViewController.swift */; };
 		18C7732620A738DD006F3EA8 /* OrchardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C7732520A738DD006F3EA8 /* OrchardViewController.swift */; };
 		18EFF9FB24446DD400FA2CFE /* WindowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EFF9FA24446DD400FA2CFE /* WindowCoordinator.swift */; };
+		18FEA8282478183A00E524EF /* MeadowJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FEA8272478183A00E524EF /* MeadowJSON.swift */; };
+		30B88DF072FB3A90AEB81AF0 /* libPods-Orchard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9EB0DFD1E8E58558E3F1AD /* libPods-Orchard.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0179D21FEE16CD532608FE07 /* libPods-Orchard-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Orchard-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EC9B9EA3D57D1579AF7465E /* Pods-OrchardTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OrchardTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OrchardTests/Pods-OrchardTests.release.xcconfig"; sourceTree = "<group>"; };
+		18087D55247539A800D02BCF /* TerrainUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainUtilityViewController.swift; sourceTree = "<group>"; };
+		18087D57247539FE00D02BCF /* AreaUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaUtilityViewController.swift; sourceTree = "<group>"; };
+		18087D5924753A0900D02BCF /* FoliageUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageUtilityViewController.swift; sourceTree = "<group>"; };
+		18087D5B24753A1300D02BCF /* FootpathUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathUtilityViewController.swift; sourceTree = "<group>"; };
+		18087D5D24753A2000D02BCF /* PropUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropUtilityViewController.swift; sourceTree = "<group>"; };
+		18087D5F24753A3100D02BCF /* WaterUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterUtilityViewController.swift; sourceTree = "<group>"; };
 		181EDA2322103C47002CD162 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		181EDFAA2452C6800030D23C /* Responder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Responder.swift; sourceTree = "<group>"; };
 		181EDFAD2452D9FF0030D23C /* SidebarTabViewController+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SidebarTabViewController+ViewModel.swift"; sourceTree = "<group>"; };
@@ -64,6 +79,7 @@
 		182315A424472AEE00426181 /* SplitViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewCoordinator.swift; sourceTree = "<group>"; };
 		182AFA1F21709A510009AD0D /* NSMenuItem+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMenuItem+Color.swift"; sourceTree = "<group>"; };
 		1837ADED20ADD0C9006802CA /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
+		183B9A0D247E549B00A73B78 /* Meadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meadow.swift; sourceTree = "<group>"; };
 		184E62CD244D85F100D2B6F8 /* OrchardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrchardCoordinator.swift; sourceTree = "<group>"; };
 		184E62D2244D9C7F00D2B6F8 /* SidebarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarCoordinator.swift; sourceTree = "<group>"; };
 		184E62D5244D9C9300D2B6F8 /* SceneGraphCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGraphCoordinator.swift; sourceTree = "<group>"; };
@@ -76,7 +92,8 @@
 		184E62E6244DB05600D2B6F8 /* UtilityTabViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityTabViewCoordinator.swift; sourceTree = "<group>"; };
 		184E62E8244DC54200D2B6F8 /* Inspector.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Inspector.storyboard; sourceTree = "<group>"; };
 		184E62EA244DC54B00D2B6F8 /* Utility.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Utility.storyboard; sourceTree = "<group>"; };
-		185172B6246402E0006C9223 /* Floor.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Floor.metal; sourceTree = "<group>"; };
+		18625F05247FFA55000ED41E /* SceneGraphObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGraphObserver.swift; sourceTree = "<group>"; };
+		18625F092480F068000ED41E /* SceneGraphIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGraphIdentifiable.swift; sourceTree = "<group>"; };
 		1871220320932094002488E0 /* Orchard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Orchard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1871220620932094002488E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1871220820932094002488E0 /* SceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneViewController.swift; sourceTree = "<group>"; };
@@ -100,10 +117,11 @@
 		18C7732220A72EDA006F3EA8 /* SceneGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGraphViewController.swift; sourceTree = "<group>"; };
 		18C7732520A738DD006F3EA8 /* OrchardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrchardViewController.swift; sourceTree = "<group>"; };
 		18EFF9FA24446DD400FA2CFE /* WindowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCoordinator.swift; sourceTree = "<group>"; };
+		18FEA8272478183A00E524EF /* MeadowJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeadowJSON.swift; sourceTree = "<group>"; };
 		569504FABC2C1C147277D036 /* Pods-Orchard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orchard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Orchard/Pods-Orchard.debug.xcconfig"; sourceTree = "<group>"; };
 		625DF7EC8D7148586F17ACD0 /* Pods-Orchard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orchard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Orchard/Pods-Orchard.release.xcconfig"; sourceTree = "<group>"; };
+		7E9EB0DFD1E8E58558E3F1AD /* libPods-Orchard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Orchard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1E0C2F266DFD52AD0D3ABD5 /* Pods-Orchard-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orchard-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Orchard-Tests/Pods-Orchard-Tests.release.xcconfig"; sourceTree = "<group>"; };
-		BEC913C8FBAB8126A50226D5 /* libPods-Orchard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Orchard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C5F3F31A6B581BE781291C /* Pods-OrchardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OrchardTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OrchardTests/Pods-OrchardTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F260B429956BB954840CEEDE /* Pods-Orchard-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orchard-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Orchard-Tests/Pods-Orchard-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,7 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18866768220B241600FFE6F6 /* libPods-Orchard.a in Frameworks */,
+				30B88DF072FB3A90AEB81AF0 /* libPods-Orchard.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +172,12 @@
 		181EDFB02452F33F0030D23C /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				18087D57247539FE00D02BCF /* AreaUtilityViewController.swift */,
+				18087D5924753A0900D02BCF /* FoliageUtilityViewController.swift */,
+				18087D5B24753A1300D02BCF /* FootpathUtilityViewController.swift */,
+				18087D5D24753A2000D02BCF /* PropUtilityViewController.swift */,
+				18087D55247539A800D02BCF /* TerrainUtilityViewController.swift */,
+				18087D5F24753A3100D02BCF /* WaterUtilityViewController.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -187,7 +211,10 @@
 		182AFA1E21709A400009AD0D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				183B9A0D247E549B00A73B78 /* Meadow.swift */,
+				18FEA8272478183A00E524EF /* MeadowJSON.swift */,
 				182AFA1F21709A510009AD0D /* NSMenuItem+Color.swift */,
+				18625F092480F068000ED41E /* SceneGraphIdentifiable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -287,12 +314,12 @@
 			path = "Tab View";
 			sourceTree = "<group>";
 		};
-		185172B5246402D5006C9223 /* Shaders */ = {
+		18625F04247FFA42000ED41E /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				185172B6246402E0006C9223 /* Floor.metal */,
+				18625F05247FFA55000ED41E /* SceneGraphObserver.swift */,
 			);
-			path = Shaders;
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		187121FA20932094002488E0 = {
@@ -316,12 +343,11 @@
 		1871220520932094002488E0 /* Orchard */ = {
 			isa = PBXGroup;
 			children = (
-				185172B5246402D5006C9223 /* Shaders */,
-				18B56735245846B300B79DA9 /* Inspectable */,
 				1871220A20932095002488E0 /* Assets.xcassets */,
 				18EFF9F724446CC500FA2CFE /* Coordinators */,
 				188E38E820B57CAC001A6C3A /* Document */,
 				182AFA1E21709A400009AD0D /* Extensions */,
+				18B56735245846B300B79DA9 /* Inspectable */,
 				181EDFA92452C6720030D23C /* Responder */,
 				18496C622093243900992AF3 /* Storyboards */,
 				18496C61209323FE00992AF3 /* Supporting */,
@@ -377,6 +403,7 @@
 		18EFF9F724446CC500FA2CFE /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				18625F04247FFA42000ED41E /* Protocols */,
 				184E62CD244D85F100D2B6F8 /* OrchardCoordinator.swift */,
 				184E62D7244D9C9A00D2B6F8 /* Scene */,
 				184E62D4244D9C8600D2B6F8 /* Scene Graph */,
@@ -406,8 +433,8 @@
 			children = (
 				181EDA2322103C47002CD162 /* MetalKit.framework */,
 				18866766220B23EB00FFE6F6 /* libMeadow.a */,
-				BEC913C8FBAB8126A50226D5 /* libPods-Orchard.a */,
 				0179D21FEE16CD532608FE07 /* libPods-Orchard-Tests.a */,
+				7E9EB0DFD1E8E58558E3F1AD /* libPods-Orchard.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -423,7 +450,7 @@
 				187121FF20932094002488E0 /* Sources */,
 				1871220020932094002488E0 /* Frameworks */,
 				1871220120932094002488E0 /* Resources */,
-				E55DA60BBA69A2377ECE7D55 /* [CP] Copy Pods Resources */,
+				D910F102CA747066FD85CF9E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -487,7 +514,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		E55DA60BBA69A2377ECE7D55 /* [CP] Copy Pods Resources */ = {
+		D910F102CA747066FD85CF9E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -531,6 +558,7 @@
 			files = (
 				184E62D6244D9C9300D2B6F8 /* SceneGraphCoordinator.swift in Sources */,
 				18C7732620A738DD006F3EA8 /* OrchardViewController.swift in Sources */,
+				18087D58247539FE00D02BCF /* AreaUtilityViewController.swift in Sources */,
 				184E62E3244DAE9E00D2B6F8 /* SidebarTabViewCoordinator.swift in Sources */,
 				1837ADEE20ADD0C9006802CA /* SplitViewController.swift in Sources */,
 				184E62E0244DADB200D2B6F8 /* UtilityTabViewController.swift in Sources */,
@@ -543,25 +571,33 @@
 				18EFF9FB24446DD400FA2CFE /* WindowCoordinator.swift in Sources */,
 				18B5672F2456E01700B79DA9 /* TerrainInspectorViewController.swift in Sources */,
 				184E62DC244DACCA00D2B6F8 /* SidebarTabViewController.swift in Sources */,
+				18087D6024753A3100D02BCF /* WaterUtilityViewController.swift in Sources */,
 				18B4886120B1ADC20032E832 /* SidebarViewController.swift in Sources */,
 				181EDFAE2452D9FF0030D23C /* SidebarTabViewController+ViewModel.swift in Sources */,
 				188E38EB20B57CC0001A6C3A /* Document.swift in Sources */,
 				182AFA2021709A510009AD0D /* NSMenuItem+Color.swift in Sources */,
 				184E62E7244DB05600D2B6F8 /* UtilityTabViewCoordinator.swift in Sources */,
+				18087D56247539A800D02BCF /* TerrainUtilityViewController.swift in Sources */,
 				181EDFB82453312E0030D23C /* ActorsInspectorViewController.swift in Sources */,
 				18B567292456E00100B79DA9 /* AreaInspectorViewController.swift in Sources */,
 				18B567312456E01E00B79DA9 /* WaterInspectorViewController.swift in Sources */,
+				18087D5E24753A2000D02BCF /* PropUtilityViewController.swift in Sources */,
 				184E62E5244DB04900D2B6F8 /* InspectorTabViewCoordinator.swift in Sources */,
 				18C7732320A72EDA006F3EA8 /* SceneGraphViewController.swift in Sources */,
+				183B9A0E247E549B00A73B78 /* Meadow.swift in Sources */,
 				182315A524472AEE00426181 /* SplitViewCoordinator.swift in Sources */,
+				18625F06247FFA55000ED41E /* SceneGraphObserver.swift in Sources */,
 				18C7732120A728D5006F3EA8 /* OrchardWindowController.swift in Sources */,
 				181EDFB42452F9EA0030D23C /* InspectorTabViewController+ViewModel.swift in Sources */,
 				1871220920932094002488E0 /* SceneViewController.swift in Sources */,
 				184E62D3244D9C7F00D2B6F8 /* SidebarCoordinator.swift in Sources */,
 				181EDFB22452F35F0030D23C /* MeadowInspectorViewController.swift in Sources */,
-				185172B7246402E0006C9223 /* Floor.metal in Sources */,
 				18B56737245846C300B79DA9 /* Inspector.swift in Sources */,
+				18087D5C24753A1300D02BCF /* FootpathUtilityViewController.swift in Sources */,
 				184E62CE244D85F100D2B6F8 /* OrchardCoordinator.swift in Sources */,
+				18087D5A24753A0900D02BCF /* FoliageUtilityViewController.swift in Sources */,
+				18FEA8282478183A00E524EF /* MeadowJSON.swift in Sources */,
+				18625F0A2480F068000ED41E /* SceneGraphIdentifiable.swift in Sources */,
 				189A6022246D416700DD68A7 /* MeadowInspector.swift in Sources */,
 				181EDFAB2452C6800030D23C /* Responder.swift in Sources */,
 				1871220720932094002488E0 /* AppDelegate.swift in Sources */,
@@ -717,6 +753,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.Orchard";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -735,6 +772,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.Orchard";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

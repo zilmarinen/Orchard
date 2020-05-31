@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
         <plugIn identifier="com.apple.SceneKitIBPlugin" version="16096"/>
         <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
@@ -229,7 +228,7 @@
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2c7-tg-UhC">
                                             <rect key="frame" x="6" y="8" width="268" height="14"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Scene Graph" id="K0I-BX-KRb">
+                                            <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Scene Graph" id="K0I-BX-KRb">
                                                 <font key="font" metaFont="message" size="11"/>
                                                 <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -296,7 +295,7 @@
                                                                         <constraint firstAttribute="width" secondItem="tWV-Tk-kQR" secondAttribute="height" multiplier="1:1" id="VE8-ai-mOD"/>
                                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="14" id="bHY-T5-FLY"/>
                                                                     </constraints>
-                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="grid_icon" id="8bc-Qv-smd"/>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="meadow_icon" id="8bc-Qv-smd"/>
                                                                 </imageView>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZuK-13-Pcl">
                                                                     <rect key="frame" x="34" y="5" width="84" height="14"/>
@@ -430,6 +429,15 @@
                                     <rect key="frame" x="0.0" y="0.0" width="500" height="67"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
+                                        <pathControl verticalHuggingPriority="750" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rI7-tS-4a7">
+                                            <rect key="frame" x="4" y="4" width="492" height="20"/>
+                                            <pathCell key="cell" controlSize="small" selectable="YES" enabled="NO" alignment="left" placeholderString="" id="ZGv-A7-ZVQ">
+                                                <font key="font" metaFont="system" size="10"/>
+                                                <url key="url" string="Scene">
+                                                    <url key="baseURL" string="file:///"/>
+                                                </url>
+                                            </pathCell>
+                                        </pathControl>
                                         <box boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="7Mp-dC-InA" userLabel="Separator">
                                             <rect key="frame" x="0.0" y="0.0" width="500" height="1"/>
                                             <view key="contentView" id="Clg-cb-xlA">
@@ -443,8 +451,11 @@
                                         </box>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="rI7-tS-4a7" firstAttribute="centerX" secondItem="H0t-0n-Ujg" secondAttribute="centerX" id="9ak-6Q-GXt"/>
                                         <constraint firstItem="7Mp-dC-InA" firstAttribute="centerX" secondItem="H0t-0n-Ujg" secondAttribute="centerX" id="A30-Ct-T6g"/>
+                                        <constraint firstItem="rI7-tS-4a7" firstAttribute="leading" secondItem="H0t-0n-Ujg" secondAttribute="leading" constant="4" id="HYa-y6-jLz"/>
                                         <constraint firstItem="7Mp-dC-InA" firstAttribute="width" secondItem="H0t-0n-Ujg" secondAttribute="width" id="KFK-Wb-9KM"/>
+                                        <constraint firstAttribute="bottom" secondItem="rI7-tS-4a7" secondAttribute="bottom" constant="4" id="nDe-2P-9fS"/>
                                         <constraint firstAttribute="bottom" secondItem="7Mp-dC-InA" secondAttribute="bottom" id="vTT-TR-lWl"/>
                                     </constraints>
                                 </view>
@@ -453,7 +464,7 @@
                                 </constraints>
                                 <color key="fillColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </box>
-                            <sceneView preferredRenderingAPI="1" translatesAutoresizingMaskIntoConstraints="NO" id="cwi-RL-2bX">
+                            <sceneView preferredRenderingAPI="1" translatesAutoresizingMaskIntoConstraints="NO" id="cwi-RL-2bX" customClass="SceneView" customModule="Terrace">
                                 <rect key="frame" x="0.0" y="0.0" width="500" height="553"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="500" id="Rs6-lq-maf"/>
@@ -473,6 +484,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="pathControl" destination="rI7-tS-4a7" id="R31-b8-fNB"/>
                         <outlet property="sceneView" destination="cwi-RL-2bX" id="Hlk-dG-jjG"/>
                     </connections>
                 </viewController>
@@ -514,7 +526,7 @@
                                                         <constraint firstAttribute="width" constant="30" id="CGQ-E2-Gdg"/>
                                                         <constraint firstAttribute="width" secondItem="GHg-UK-Kwq" secondAttribute="height" multiplier="1:1" id="Xef-Uz-lhp"/>
                                                     </constraints>
-                                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="grid_icon" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="CLT-iS-vhe">
+                                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="meadow_icon" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="CLT-iS-vhe">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
@@ -524,7 +536,7 @@
                                                 </button>
                                                 <button toolTip="Show the Utility panel" translatesAutoresizingMaskIntoConstraints="NO" id="1Xv-Dy-8xl" userLabel="Utilities Button">
                                                     <rect key="frame" x="46" y="5" width="30" height="20"/>
-                                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="grid_icon" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="Smz-MZ-gkT">
+                                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="meadow_icon" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="Smz-MZ-gkT">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
@@ -659,8 +671,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="grid_icon" width="20" height="20"/>
         <image name="left_panel_toggle" width="20" height="15"/>
+        <image name="meadow_icon" width="20" height="20"/>
         <image name="right_panel_toggle" width="20" height="15"/>
     </resources>
 </document>

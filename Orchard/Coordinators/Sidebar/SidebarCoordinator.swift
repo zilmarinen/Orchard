@@ -48,9 +48,12 @@ extension SidebarCoordinator {
         
         self.tabViewCoordinator.toggle(tab: tab)
     }
+}
+
+extension SidebarCoordinator: SceneGraphObserver {
     
-    override func didSelect(node: SceneGraphNode) {
+    func focus(node: SceneGraphNode) {
         
-        self.tabViewCoordinator.didSelect(node: node)
+        self.tabViewCoordinator.focus(node: node)
     }
 }

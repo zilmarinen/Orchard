@@ -24,9 +24,9 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
     }
 }
 
-extension InspectorTabViewCoordinator {
+extension InspectorTabViewCoordinator: SceneGraphObserver {
     
-    override func didSelect(node: SceneGraphNode) {
+    func focus(node: SceneGraphNode) {
         
         self.controller.viewModel.select(node: node)
     }

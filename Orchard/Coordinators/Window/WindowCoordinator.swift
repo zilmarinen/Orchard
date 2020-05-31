@@ -11,6 +11,8 @@ import Terrace
 
 class WindowCoordinator: Coordinator<OrchardWindowController> {
     
+    var meadow: Meadow?
+    
     lazy var orchardCoordinator: OrchardCoordinator = {
         
         guard let viewController = controller.contentViewController as? OrchardViewController else { fatalError("Invalid view controller hierarchy") }
@@ -21,8 +23,6 @@ class WindowCoordinator: Coordinator<OrchardWindowController> {
         
         return coordinator
     }()
-    
-    weak var meadow: Meadow?
     
     override init(controller: OrchardWindowController) {
         
@@ -38,13 +38,11 @@ class WindowCoordinator: Coordinator<OrchardWindowController> {
     
     override func start(with option: StartOption?) {
         
-        guard let meadow = option as? Meadow else { fatalError("Invalid start option for window.") }
-        
-        self.meadow = meadow
-        
         super.start(with: option)
         
-        start(child: orchardCoordinator, with: option)
+        meadow = Meadow(json: option as? MeadowJSON)
+        
+        start(child: orchardCoordinator, with: meadow)
         
         if let screen = controller.window?.screen {
         

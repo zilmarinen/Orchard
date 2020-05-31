@@ -7,6 +7,7 @@
 //
 
 import AppKit
+import Meadow
 
 class MeadowInspectorViewController: NSViewController, Inspector {
     
@@ -17,7 +18,14 @@ class MeadowInspectorViewController: NSViewController, Inspector {
         
         guard let inspectable = inspector?.inspectable else { return }
         
-        inspectable.floor.backgroundColor = colorWell.color
+        inspectable.floor.backgroundColor = Color(color: sender.color)
+    }
+    
+    @IBAction func textField(_ textField: NSTextField) {
+        
+        guard let inspectable = inspector?.inspectable else { return }
+        
+        inspectable.name = textField.stringValue
     }
     
     var inspector: MeadowInspector? {
@@ -46,6 +54,6 @@ extension MeadowInspectorViewController {
         
         nameTextField.stringValue = inspectable.name ?? ""
         
-        colorWell.color = inspectable.floor.backgroundColor
+        colorWell.color = inspectable.floor.backgroundColor.color
     }
 }

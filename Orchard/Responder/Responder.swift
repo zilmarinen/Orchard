@@ -18,5 +18,6 @@ import Terrace
     func toggle(tab: SidebarTabViewController.ViewState.Tab) { responder?.toggle(tab: tab) }
     
     //MARK: Scene Graph
+    
     func didSelect(node: SceneGraphNode) { responder?.didSelect(node: node) }
 }

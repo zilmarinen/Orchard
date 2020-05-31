@@ -10,6 +10,5 @@ target 'Orchard' do
 	pod 'Meadow', :path => '../Meadow'
 	pod 'Pasture', :path => '../Pasture'
 	pod 'Terrace', :path => '../Terrace'
-	pod 'THRUtilities', :path => '../../3Squared/THR/THRUtilities'
 
 end

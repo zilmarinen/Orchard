@@ -8,7 +8,7 @@
 
 import Meadow
 import SceneKit
-import THRUtilities
+import Terrace
 
 class OrchardViewController: NSViewController {
     
@@ -19,14 +19,14 @@ class OrchardViewController: NSViewController {
 
 extension OrchardViewController: SegueHandlerType {
     
-    enum SegueIdentifier: String {
+    enum SegueIdentifier: NSStoryboardSegue.Identifier {
         
         case embedSplitView
     }
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         
-        switch segueIdentifier(forSegue: segue) {
+        switch segueIdentifier(for: segue) {
             
         case .embedSplitView:
             

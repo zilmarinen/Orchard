@@ -32,3 +32,11 @@ class SceneGraphCoordinator: Coordinator<SceneGraphViewController> {
         controller.treeController.content = meadow
     }
 }
+
+extension SceneGraphCoordinator: SceneGraphObserver {
+    
+    func focus(node: SceneGraphNode) {
+        
+        controller.outlineView.reloadItem(node, reloadChildren: true)
+    }
+}
