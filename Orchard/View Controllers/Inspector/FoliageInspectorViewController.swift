@@ -8,6 +8,34 @@
 
 import AppKit
 
-class FoliageInspectorViewController: NSViewController {
+class FoliageInspectorViewController: NSViewController, Inspector {
     
+    weak var coordinator: FoliageInspectorCoordinator?
+
+    var inspector: FoliageInspector? {
+        
+        didSet {
+            
+            guard self.isViewLoaded else { return }
+            
+            update()
+        }
+    }
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        update()
+    }
+}
+
+extension FoliageInspectorViewController {
+    
+    func update() {
+        
+        guard let inspectable = inspector?.inspectable else { return }
+        
+        //
+    }
 }

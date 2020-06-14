@@ -7,6 +7,7 @@
 //
 
 import Meadow
+import Terrace
 
 extension SceneGraphIdentifiable {
     

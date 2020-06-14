@@ -38,13 +38,18 @@ struct TerrainInspector {
             
             guard let tile = node as? TerrainTile<TerrainEdge>, let chunk = tile.ancestor as? TerrainChunk, let terrain = chunk.ancestor as? Terrain else { return nil }
             
-            self.inspectable = (grid: terrain, chunk: chunk, tile: tile, edge: nil, layer: nil)
+            let edge = tile.children.first as? TerrainEdge
+            let layer = edge?.children.last as? TerrainLayer
+            
+            self.inspectable = (grid: terrain, chunk: chunk, tile: tile, edge: edge, layer: layer)
             
         case .edge:
             
             guard let edge = node as? TerrainEdge, let tile = edge.ancestor as? TerrainTile<TerrainEdge>, let chunk = tile.ancestor as? TerrainChunk, let terrain = chunk.ancestor as? Terrain else { return nil }
             
-            self.inspectable = (grid: terrain, chunk: chunk, tile: tile, edge: edge, layer: nil)
+            let layer = edge.children.last as? TerrainLayer
+            
+            self.inspectable = (grid: terrain, chunk: chunk, tile: tile, edge: edge, layer: layer)
             
         case .layer:
             

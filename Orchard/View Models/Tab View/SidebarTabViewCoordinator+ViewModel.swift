@@ -1,5 +1,5 @@
 //
-//  SidebarTabViewController+ViewModel.swift
+//  SidebarTabViewCoordinator+ViewModel.swift
 //  Orchard
 //
 //  Created by Zack Brown on 24/04/2020.
@@ -9,7 +9,7 @@
 import Meadow
 import Terrace
 
-extension SidebarTabViewController {
+extension SidebarTabViewCoordinator {
     
     enum ViewState: State {
         

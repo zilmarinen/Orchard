@@ -1,5 +1,5 @@
 //
-//  InspectorTabViewController+ViewModel.swift
+//  UtilityTabViewCoordinator+ViewModel.swift
 //  Orchard
 //
 //  Created by Zack Brown on 24/04/2020.
@@ -9,29 +9,25 @@
 import Meadow
 import Terrace
 
-extension InspectorTabViewController {
+extension UtilityTabViewCoordinator {
     
     enum ViewState: State {
         
         enum Tab: Int {
             
             case empty
-            case actors
             case area
             case foliage
             case footpath
-            case meadow
             case props
             case terrain
             case water
         }
         
         case empty
-        case actors(SceneGraphIdentifiable)
         case area(SceneGraphIdentifiable)
         case foliage(SceneGraphIdentifiable)
         case footpath(SceneGraphIdentifiable)
-        case meadow(SceneGraphIdentifiable)
         case props(SceneGraphIdentifiable)
         case terrain(SceneGraphIdentifiable)
         case water(SceneGraphIdentifiable)
@@ -46,11 +42,9 @@ extension InspectorTabViewController {
             switch self {
                 
             case .empty: return .empty
-            case .actors: return .actors
             case .area: return .area
             case .foliage: return .foliage
             case .footpath: return .footpath
-            case .meadow: return .meadow
             case .props: return .props
             case .terrain: return .terrain
             case .water: return .water
@@ -71,11 +65,9 @@ extension InspectorTabViewController {
             
             switch node.category {
                 
-            case .actors: self.state = .actors(node)
             case .area: self.state = .area(node)
             case .foliage: self.state = .foliage(node)
             case .footpath: self.state = .footpath(node)
-            case .meadow: self.state = .meadow(node)
             case .props: self.state = .props(node)
             case .terrain: self.state = .terrain(node)
             case .water: self.state = .water(node)

@@ -44,7 +44,7 @@ class SidebarCoordinator: Coordinator<SidebarViewController> {
 
 extension SidebarCoordinator {
     
-    override func toggle(tab: SidebarTabViewController.ViewState.Tab) {
+    override func toggle(tab: SidebarTabViewCoordinator.ViewState.Tab) {
         
         self.tabViewCoordinator.toggle(tab: tab)
     }

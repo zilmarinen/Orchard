@@ -15,7 +15,7 @@ import Terrace
     //MARK: Window
     
     func toggle(panel: SplitViewController.Panel) { responder?.toggle(panel: panel) }
-    func toggle(tab: SidebarTabViewController.ViewState.Tab) { responder?.toggle(tab: tab) }
+    func toggle(tab: SidebarTabViewCoordinator.ViewState.Tab) { responder?.toggle(tab: tab) }
     
     //MARK: Scene Graph
     

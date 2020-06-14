@@ -7,6 +7,7 @@
 //
 
 import Meadow
+import Pasture
 import Terrace
 import SceneKit
 
@@ -40,31 +41,40 @@ class SceneViewCoordinator: Coordinator<SceneViewController> {
         controller.sceneView.autoenablesDefaultLighting = true
         controller.sceneView.isPlaying = true
         
-        let n0 = SCNNode(geometry: SCNBox(width: 0.5, height: 1, length: 0.5, chamferRadius: 0))
-        let n1 = SCNNode(geometry: SCNBox(width: 0.5, height: 1, length: 0.5, chamferRadius: 0))
-        let n2 = SCNNode(geometry: SCNBox(width: 0.5, height: 1, length: 0.5, chamferRadius: 0))
+        scene.camera.observer.focus(node: scene.meadow)
         
-        n0.position = SCNVector3(x: 0.0, y: 0.5, z: 0.0)
-        n1.position = SCNVector3(x: 1.0, y: 0.5, z: 0.0)
-        n2.position = SCNVector3(x: 2.0, y: 0.5, z: 0.0)
+        let width = 5
+        let depth = 5
         
-        n0.geometry?.firstMaterial?.diffuse.contents = MDWColor.systemPink
-        n1.geometry?.firstMaterial?.diffuse.contents = MDWColor.systemOrange
-        n2.geometry?.firstMaterial?.diffuse.contents = MDWColor.systemPurple
-        
-        controller.sceneView.scene?.rootNode.addChildNode(n0)
-        controller.sceneView.scene?.rootNode.addChildNode(n1)
-        controller.sceneView.scene?.rootNode.addChildNode(n2)
-        
-        scene.camera.observer.focus(node: n0)
-        
-        for x in 0..<2 {
+        for x in 0..<width {
             
-            for z in 0..<2 {
-        
-                meadow.terrain.add(tile: Coordinate(x: x, y: 0, z: z)) { layer in
-        
-                    //layer.color = TerrainLayer.Color(primary: .systemPink, secondary: .systemOrange)
+            for z in 0..<depth {
+                
+                let coordinate = Coordinate(x: x, y: 0, z: z)
+                
+                meadow.terrain.add(tile: coordinate).children.forEach { edge in
+                
+                    if let edge = edge as? TerrainEdge {
+                        
+                        edge.topLayer?.set(elevation: 1)
+                        edge.topLayer?.terrainType = .bedrock
+                        
+                        let _ = edge.addLayer()
+                        
+                        edge.topLayer?.set(elevation: 2)
+                        edge.topLayer?.terrainType = .grass
+                    }
+                }
+                
+                if x >= 1 && x < (width - 1) && z >= 1 && z < (depth - 1) {
+
+                    meadow.water.add(tile: coordinate).children.forEach { edge in
+                        
+                        if let edge = edge as? WaterEdge {
+                            
+                            edge.topLayer?.set(elevation: 3)
+                        }
+                    }
                 }
             }
         }

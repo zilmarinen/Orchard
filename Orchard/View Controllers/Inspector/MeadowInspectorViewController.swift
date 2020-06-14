@@ -7,9 +7,11 @@
 //
 
 import AppKit
-import Meadow
+import Pasture
 
 class MeadowInspectorViewController: NSViewController, Inspector {
+    
+    weak var coordinator: MeadowInspectorCoordinator?
     
     @IBOutlet weak var nameTextField: NSTextField!
     @IBOutlet weak var colorWell: NSColorWell!

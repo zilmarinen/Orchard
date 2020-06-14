@@ -8,6 +8,34 @@
 
 import AppKit
 
-class AreaInspectorViewController: NSViewController {
+class AreaInspectorViewController: NSViewController, Inspector {
     
+    weak var coordinator: AreaInspectorCoordinator?
+
+    var inspector: AreaInspector? {
+            
+        didSet {
+            
+            guard self.isViewLoaded else { return }
+            
+            update()
+        }
+    }
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        update()
+    }
+}
+
+extension AreaInspectorViewController {
+    
+    func update() {
+        
+        guard let inspectable = inspector?.inspectable else { return }
+        
+        //
+    }
 }

@@ -11,6 +11,11 @@ import Terrace
 
 class SidebarTabViewCoordinator: Coordinator<SidebarTabViewController> {
     
+    lazy var viewModel: ViewModel = {
+        
+        return ViewModel(initialState: .empty)
+    }()
+    
     lazy var inspectorTabViewCoordinator: InspectorTabViewCoordinator = {
        
         guard let viewController = controller.inspectorTabViewController else { fatalError("Invalid view controller hierarchy") }
@@ -51,14 +56,48 @@ class SidebarTabViewCoordinator: Coordinator<SidebarTabViewController> {
         
         start(child: inspectorTabViewCoordinator, with: option)
         start(child: utilityTabViewCoordinator, with: option)
+        
+        viewModel.subscribe(stateDidChange(from:to:))
     }
 }
 
 extension SidebarTabViewCoordinator {
     
-    override func toggle(tab: SidebarTabViewController.ViewState.Tab) {
+    func stateDidChange(from: ViewState?, to: ViewState) {
         
-        self.controller.viewModel.toggle(tab: tab)
+        DispatchQueue.main.async {
+            
+            switch to {
+                
+            case .empty:
+                
+                self.controller.selectedTabViewItemIndex = to.tab.rawValue
+                
+            case .inspector(let node):
+                
+                self.controller.selectedTabViewItemIndex = to.tab.rawValue
+                
+                self.utilityTabViewCoordinator.viewModel.clear()
+                
+                self.inspectorTabViewCoordinator.viewModel.select(node: node)
+                
+            case .utility(let node):
+                
+                self.controller.selectedTabViewItemIndex = to.tab.rawValue
+                
+                self.utilityTabViewCoordinator.viewModel.clear()
+                
+                self.inspectorTabViewCoordinator.viewModel.select(node: node)
+            }
+        }
+    }
+}
+
+extension SidebarTabViewCoordinator {
+    
+    override func toggle(tab: SidebarTabViewCoordinator.ViewState.Tab) {
+        
+        self.viewModel.toggle(tab: tab)
     }
 }
 
@@ -68,6 +107,6 @@ extension SidebarTabViewCoordinator: SceneGraphObserver {
         
         guard let node = node as? SceneGraphIdentifiable else { return }
         
-        self.controller.viewModel.select(node: node)
+        self.viewModel.select(node: node)
     }
 }

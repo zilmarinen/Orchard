@@ -17,22 +17,19 @@ class OrchardViewController: NSViewController {
     var splitViewController: SplitViewController?
 }
 
-extension OrchardViewController: SegueHandlerType {
-    
-    enum SegueIdentifier: NSStoryboardSegue.Identifier {
-        
-        case embedSplitView
-    }
+extension OrchardViewController {
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         
-        switch segueIdentifier(for: segue) {
+        switch segue.identifier {
             
-        case .embedSplitView:
+        case "embedSplitView":
             
             guard let splitViewController = segue.destinationController as? SplitViewController else { fatalError("Invalid segue destination") }
             
             self.splitViewController = splitViewController
+            
+        default: break
         }
     }
 }

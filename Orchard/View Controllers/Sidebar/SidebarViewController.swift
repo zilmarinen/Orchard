@@ -34,22 +34,19 @@ class SidebarViewController: NSViewController {
     var tabViewController: SidebarTabViewController?
 }
 
-extension SidebarViewController: SegueHandlerType {
-    
-    enum SegueIdentifier: String {
-        
-        case embedTabView
-    }
+extension SidebarViewController {
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         
-        switch segueIdentifier(for: segue) {
+        switch segue.identifier {
             
-        case .embedTabView:
+        case "embedTabView":
             
             guard let tabViewController = segue.destinationController as? SidebarTabViewController else { fatalError("Invalid segue destination") }
             
             self.tabViewController = tabViewController
+            
+        default: break;
         }
     }
 }
