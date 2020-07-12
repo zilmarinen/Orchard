@@ -12,7 +12,7 @@ struct TerrainInspector {
     
     let node: SceneGraphIdentifiable
     
-    let inspectable: (grid: Terrain, chunk: TerrainChunk?, tile: TerrainTile<TerrainEdge>?, edge: TerrainEdge?, layer: TerrainLayer?)
+    let inspectable: (grid: Terrain, chunk: TerrainChunk?, tile: TerrainTile?, edge: TerrainEdge?, layer: TerrainLayer?)
     
     init?(node: SceneGraphIdentifiable) {
         
@@ -36,7 +36,7 @@ struct TerrainInspector {
             
         case .tile:
             
-            guard let tile = node as? TerrainTile<TerrainEdge>, let chunk = tile.ancestor as? TerrainChunk, let terrain = chunk.ancestor as? Terrain else { return nil }
+            guard let tile = node as? TerrainTile, let chunk = tile.ancestor as? TerrainChunk, let terrain = chunk.ancestor as? Terrain else { return nil }
             
             let edge = tile.children.first as? TerrainEdge
             let layer = edge?.children.last as? TerrainLayer
@@ -45,7 +45,7 @@ struct TerrainInspector {
             
         case .edge:
             
-            guard let edge = node as? TerrainEdge, let tile = edge.ancestor as? TerrainTile<TerrainEdge>, let chunk = tile.ancestor as? TerrainChunk, let terrain = chunk.ancestor as? Terrain else { return nil }
+            guard let edge = node as? TerrainEdge, let tile = edge.ancestor as? TerrainTile, let chunk = tile.ancestor as? TerrainChunk, let terrain = chunk.ancestor as? Terrain else { return nil }
             
             let layer = edge.children.last as? TerrainLayer
             
@@ -53,7 +53,7 @@ struct TerrainInspector {
             
         case .layer:
             
-            guard let layer = node as? TerrainLayer, let edge = layer.ancestor as? TerrainEdge, let tile = edge.ancestor as? TerrainTile<TerrainEdge>, let chunk = tile.ancestor as? TerrainChunk, let terrain = chunk.ancestor as? Terrain else { return nil }
+            guard let layer = node as? TerrainLayer, let edge = layer.ancestor as? TerrainEdge, let tile = edge.ancestor as? TerrainTile, let chunk = tile.ancestor as? TerrainChunk, let terrain = chunk.ancestor as? Terrain else { return nil }
             
             self.inspectable = (grid: terrain, chunk: chunk, tile: tile, edge: edge, layer: layer)
             

@@ -43,8 +43,47 @@ class SceneViewCoordinator: Coordinator<SceneViewController> {
         
         scene.camera.observer.focus(node: scene.meadow)
         
-        let width = 5
-        let depth = 5
+        /*
+        let width = [0, 1, 2, 3, 4]
+        let depth = [0, 1, 2, 3, 4]
+        
+        for x in width {
+            
+            for z in depth {
+            
+                let coordinate = Coordinate(x: x, y: 0, z: z)
+                
+                meadow.terrain.add(tile: coordinate).children.forEach { edge in
+                
+                    if let edge = edge as? TerrainEdge {
+                        
+                        edge.topLayer?.set(elevation: 1)
+                        edge.topLayer?.terrainType = .bedrock
+                        
+                        let _ = edge.addLayer()
+
+                        edge.topLayer?.set(elevation: 2)
+                        edge.topLayer?.terrainType = .dirt
+
+                        let _ = edge.addLayer()
+
+                        edge.topLayer?.set(elevation: 3)
+                        edge.topLayer?.terrainType = .grass
+                    }
+                }
+                
+                meadow.water.add(tile: coordinate).children.forEach { edge in
+
+                    if let edge = edge as? WaterEdge {
+
+                        edge.topLayer?.set(elevation: 5)
+                    }
+                }
+            }
+        }*/
+        
+        let width = 7
+        let depth = 7
         
         for x in 0..<width {
             
@@ -60,19 +99,38 @@ class SceneViewCoordinator: Coordinator<SceneViewController> {
                         edge.topLayer?.terrainType = .bedrock
                         
                         let _ = edge.addLayer()
-                        
+
                         edge.topLayer?.set(elevation: 2)
-                        edge.topLayer?.terrainType = .grass
+                        edge.topLayer?.terrainType = .dirt
+                        
+                        if x != 3 {
+                            
+                            let _ = edge.addLayer()
+
+                            edge.topLayer?.set(elevation: (z >= 4 ? 10 : 4))
+                            edge.topLayer?.terrainType = .grass
+                        }
                     }
                 }
                 
-                if x >= 1 && x < (width - 1) && z >= 1 && z < (depth - 1) {
-
+                if x == 3 {
+                    
                     meadow.water.add(tile: coordinate).children.forEach { edge in
-                        
+
                         if let edge = edge as? WaterEdge {
+
+                            edge.topLayer?.set(elevation: (z >= 4 ? 10 : 4))
+                        }
+                    }
+                }
+                
+                if (x > 0 && (x + 1) < width) && z == 1 {
+                    
+                    meadow.footpath.add(tile: coordinate).children.forEach { edge in
+                        
+                        if let edge = edge as? FootpathEdge {
                             
-                            edge.topLayer?.set(elevation: 3)
+                            edge.topLayer?.set(elevation: 4)
                         }
                     }
                 }

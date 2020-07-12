@@ -12,7 +12,7 @@ struct FootpathInspector {
     
     let node: SceneGraphIdentifiable
     
-    let inspectable: (grid: Footpath, chunk: FootpathChunk?, tile: FootpathTile<FootpathEdge>?, edge: FootpathEdge?, layer: FootpathLayer?)
+    let inspectable: (grid: Footpath, chunk: FootpathChunk?, tile: FootpathTile?, edge: FootpathEdge?, layer: FootpathLayer?)
     
     init?(node: SceneGraphIdentifiable) {
         
@@ -36,7 +36,7 @@ struct FootpathInspector {
             
         case .tile:
             
-            guard let tile = node as? FootpathTile<FootpathEdge>, let chunk = tile.ancestor as? FootpathChunk, let Footpath = chunk.ancestor as? Footpath else { return nil }
+            guard let tile = node as? FootpathTile, let chunk = tile.ancestor as? FootpathChunk, let Footpath = chunk.ancestor as? Footpath else { return nil }
             
             let edge = tile.children.first as? FootpathEdge
             let layer = edge?.children.last as? FootpathLayer
@@ -45,7 +45,7 @@ struct FootpathInspector {
             
         case .edge:
             
-            guard let edge = node as? FootpathEdge, let tile = edge.ancestor as? FootpathTile<FootpathEdge>, let chunk = tile.ancestor as? FootpathChunk, let Footpath = chunk.ancestor as? Footpath else { return nil }
+            guard let edge = node as? FootpathEdge, let tile = edge.ancestor as? FootpathTile, let chunk = tile.ancestor as? FootpathChunk, let Footpath = chunk.ancestor as? Footpath else { return nil }
             
             let layer = edge.children.last as? FootpathLayer
             
@@ -53,7 +53,7 @@ struct FootpathInspector {
             
         case .layer:
             
-            guard let layer = node as? FootpathLayer, let edge = layer.ancestor as? FootpathEdge, let tile = edge.ancestor as? FootpathTile<FootpathEdge>, let chunk = tile.ancestor as? FootpathChunk, let Footpath = chunk.ancestor as? Footpath else { return nil }
+            guard let layer = node as? FootpathLayer, let edge = layer.ancestor as? FootpathEdge, let tile = edge.ancestor as? FootpathTile, let chunk = tile.ancestor as? FootpathChunk, let Footpath = chunk.ancestor as? Footpath else { return nil }
             
             self.inspectable = (grid: Footpath, chunk: chunk, tile: tile, edge: edge, layer: layer)
             

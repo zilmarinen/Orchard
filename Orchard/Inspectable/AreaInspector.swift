@@ -12,7 +12,7 @@ struct AreaInspector {
     
     let node: SceneGraphIdentifiable
     
-    let inspectable: (grid: Area, chunk: AreaChunk?, tile: AreaTile<AreaEdge>?, edge: AreaEdge?, layer: AreaLayer?)
+    let inspectable: (grid: Area, chunk: AreaChunk?, tile: AreaTile?, edge: AreaEdge?, layer: AreaLayer?)
     
     init?(node: SceneGraphIdentifiable) {
         
@@ -36,7 +36,7 @@ struct AreaInspector {
             
         case .tile:
             
-            guard let tile = node as? AreaTile<AreaEdge>, let chunk = tile.ancestor as? AreaChunk, let Area = chunk.ancestor as? Area else { return nil }
+            guard let tile = node as? AreaTile, let chunk = tile.ancestor as? AreaChunk, let Area = chunk.ancestor as? Area else { return nil }
             
             let edge = tile.children.first as? AreaEdge
             let layer = edge?.children.last as? AreaLayer
@@ -45,7 +45,7 @@ struct AreaInspector {
             
         case .edge:
             
-            guard let edge = node as? AreaEdge, let tile = edge.ancestor as? AreaTile<AreaEdge>, let chunk = tile.ancestor as? AreaChunk, let Area = chunk.ancestor as? Area else { return nil }
+            guard let edge = node as? AreaEdge, let tile = edge.ancestor as? AreaTile, let chunk = tile.ancestor as? AreaChunk, let Area = chunk.ancestor as? Area else { return nil }
             
             let layer = edge.children.last as? AreaLayer
             
@@ -53,7 +53,7 @@ struct AreaInspector {
             
         case .layer:
             
-            guard let layer = node as? AreaLayer, let edge = layer.ancestor as? AreaEdge, let tile = edge.ancestor as? AreaTile<AreaEdge>, let chunk = tile.ancestor as? AreaChunk, let Area = chunk.ancestor as? Area else { return nil }
+            guard let layer = node as? AreaLayer, let edge = layer.ancestor as? AreaEdge, let tile = edge.ancestor as? AreaTile, let chunk = tile.ancestor as? AreaChunk, let Area = chunk.ancestor as? Area else { return nil }
             
             self.inspectable = (grid: Area, chunk: chunk, tile: tile, edge: edge, layer: layer)
             

@@ -12,7 +12,7 @@ struct WaterInspector {
     
     let node: SceneGraphIdentifiable
     
-    let inspectable: (grid: Water, chunk: WaterChunk?, tile: WaterTile<WaterEdge>?, edge: WaterEdge?, layer: WaterLayer?)
+    let inspectable: (grid: Water, chunk: WaterChunk?, tile: WaterTile?, edge: WaterEdge?, layer: WaterLayer?)
     
     init?(node: SceneGraphIdentifiable) {
         
@@ -36,7 +36,7 @@ struct WaterInspector {
             
         case .tile:
             
-            guard let tile = node as? WaterTile<WaterEdge>, let chunk = tile.ancestor as? WaterChunk, let Water = chunk.ancestor as? Water else { return nil }
+            guard let tile = node as? WaterTile, let chunk = tile.ancestor as? WaterChunk, let Water = chunk.ancestor as? Water else { return nil }
             
             let edge = tile.children.first as? WaterEdge
             let layer = edge?.children.last as? WaterLayer
@@ -45,7 +45,7 @@ struct WaterInspector {
             
         case .edge:
             
-            guard let edge = node as? WaterEdge, let tile = edge.ancestor as? WaterTile<WaterEdge>, let chunk = tile.ancestor as? WaterChunk, let Water = chunk.ancestor as? Water else { return nil }
+            guard let edge = node as? WaterEdge, let tile = edge.ancestor as? WaterTile, let chunk = tile.ancestor as? WaterChunk, let Water = chunk.ancestor as? Water else { return nil }
             
             let layer = edge.children.last as? WaterLayer
             
@@ -53,7 +53,7 @@ struct WaterInspector {
             
         case .layer:
             
-            guard let layer = node as? WaterLayer, let edge = layer.ancestor as? WaterEdge, let tile = edge.ancestor as? WaterTile<WaterEdge>, let chunk = tile.ancestor as? WaterChunk, let Water = chunk.ancestor as? Water else { return nil }
+            guard let layer = node as? WaterLayer, let edge = layer.ancestor as? WaterEdge, let tile = edge.ancestor as? WaterTile, let chunk = tile.ancestor as? WaterChunk, let Water = chunk.ancestor as? Water else { return nil }
             
             self.inspectable = (grid: Water, chunk: chunk, tile: tile, edge: edge, layer: layer)
             
