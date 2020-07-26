@@ -89,7 +89,7 @@ class WaterInspectorViewController: NSViewController {
             
         case edgePopUp:
             
-            guard let tile = inspectable.tile, let cardinal = Cardinal(rawValue: sender.indexOfSelectedItem), let edge = tile.find(edge: cardinal) else { return }
+            guard let tile = inspectable.tile, let edge = tile.find(edge: tile.joints[sender.indexOfSelectedItem]) else { return }
             
             self.coordinator?.didSelect(node: edge)
             
@@ -169,16 +169,16 @@ extension WaterInspectorViewController {
         
         self.edgePopUp.removeAllItems()
         
-        for cardinal in Cardinal.allCases {
+        self.edgePopUp.removeAllItems()
+        
+        for identifier in tile.joints {
             
-            guard let edge = tile.find(edge: cardinal) else { continue }
-            
-            self.edgePopUp.addItem(withTitle: edge.cardinal.description)
+            self.edgePopUp.addItem(withTitle: "\(identifier)")
         }
         
         guard let edge = inspectable.edge else { return }
         
-        self.edgePopUp.selectItem(at: edge.cardinal.rawValue)
+        self.edgePopUp.selectItem(withTitle: "\(edge.identifier)")
         
         self.layerCountLabel.integerValue = edge.childCount
         self.edgeRenderingButton.state = (edge.isHidden ? .off : .on)

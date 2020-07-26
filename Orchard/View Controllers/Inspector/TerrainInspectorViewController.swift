@@ -89,8 +89,8 @@ class TerrainInspectorViewController: NSViewController, Inspector {
             
         case edgePopUp:
             
-            guard let tile = inspectable.tile, let cardinal = Cardinal(rawValue: sender.indexOfSelectedItem), let edge = tile.find(edge: cardinal) else { return }
-            
+            guard let tile = inspectable.tile, let edge = tile.find(edge: tile.joints[sender.indexOfSelectedItem]) else { return }
+            print("selecting: \(edge.identifier) at index: \(sender.indexOfSelectedItem)")
             self.coordinator?.didSelect(node: edge)
             
         case layerPopUp:
@@ -169,16 +169,14 @@ extension TerrainInspectorViewController {
         
         self.edgePopUp.removeAllItems()
         
-        for cardinal in Cardinal.allCases {
+        for identifier in tile.joints {
             
-            guard let edge = tile.find(edge: cardinal) else { continue }
-            
-            self.edgePopUp.addItem(withTitle: edge.cardinal.description)
+            self.edgePopUp.addItem(withTitle: "\(identifier)")
         }
         
         guard let edge = inspectable.edge else { return }
         
-        self.edgePopUp.selectItem(at: edge.cardinal.rawValue)
+        self.edgePopUp.selectItem(withTitle: "\(edge.identifier)")
         
         self.layerCountLabel.integerValue = edge.childCount
         self.edgeRenderingButton.state = (edge.isHidden ? .off : .on)

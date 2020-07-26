@@ -27,7 +27,7 @@ class MeadowInspectorCoordinator: Coordinator<MeadowInspectorViewController> {
         
         super.start(with: option)
         
-        guard let node = option as? SceneGraphIdentifiable else { fatalError("INvalid start option for Meadow Inspector Coordinator") }
+        guard let node = option as? SceneGraphIdentifiable else { fatalError("Invalid start option for Meadow Inspector Coordinator") }
         
         self.controller.inspector = MeadowInspector(node: node)
     }
