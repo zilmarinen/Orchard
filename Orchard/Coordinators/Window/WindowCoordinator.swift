@@ -40,7 +40,9 @@ class WindowCoordinator: Coordinator<OrchardWindowController> {
         
         super.start(with: option)
         
-        meadow = Meadow(json: option as? MeadowJSON)
+        guard let json = option as? Document.DocumentJSON else { fatalError("Invalid start option for window coordinator.") }
+        
+        meadow = Meadow(graph: json.graph, json: json.meadow)
         
         start(child: orchardCoordinator, with: meadow)
         

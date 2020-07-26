@@ -7,12 +7,19 @@
 //
 
 import Meadow
+import Terrace
 
 class Document: NSDocument {
     
+    struct DocumentJSON: StartOption, Decodable {
+        
+        let graph: Graph
+        let meadow: MeadowJSON?
+    }
+    
     let coordinator: WindowCoordinator
     
-    var json: MeadowJSON?
+    var json: DocumentJSON?
 
     override init() {
         
@@ -32,6 +39,11 @@ class Document: NSDocument {
         
         self.addWindowController(coordinator.controller)
         
+        if json == nil {
+        
+            json = DocumentJSON(graph: Graph(rings: 7, size: 1.0, iterations: 1), meadow: nil)
+        }
+        
         coordinator.start(with: json)
         
         json = nil
@@ -45,9 +57,11 @@ class Document: NSDocument {
         
         var wrappers: [String : FileWrapper] = [:]
         
-        let data = try encoder.encode(meadow)
+        let meadowData = try encoder.encode(meadow)
+        let graphData = try encoder.encode(meadow.graph)
         
-        wrappers["world.meadow"] = FileWrapper(regularFileWithContents: data)
+        wrappers["world.meadow"] = FileWrapper(regularFileWithContents: meadowData)
+        wrappers["scene.graph"] = FileWrapper(regularFileWithContents: graphData)
         
         return FileWrapper(directoryWithFileWrappers: wrappers)
     }
@@ -56,18 +70,20 @@ class Document: NSDocument {
         
         do {
             
-            let meadowWrapper = fileWrapper.fileWrappers?.first { return !$0.value.isDirectory }?.value
+            let graphWrapper = fileWrapper.fileWrappers?.first { $0.key.hasSuffix(".graph") }?.value
+            let meadowWrapper = fileWrapper.fileWrappers?.first { $0.key.hasSuffix(".meadow") }?.value
             
-            let data = meadowWrapper?.regularFileContents
-            
-            if meadowWrapper == nil || data == nil {
+            guard let graphData = graphWrapper?.regularFileContents, let meadowData = meadowWrapper?.regularFileContents else {
                 
-                throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": "Unable to find .meadow in file wrapper."])
+                throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": "Unable to load contents of file wrapper."])
             }
             
             let decoder = JSONDecoder()
             
-            self.json = try decoder.decode(MeadowJSON.self, from: data!)
+            let graph = try decoder.decode(Graph.self, from: graphData)
+            let meadowJSON = try decoder.decode(MeadowJSON.self, from: meadowData)
+            
+            self.json = DocumentJSON(graph: graph, meadow: meadowJSON)
         }
         catch {
             
