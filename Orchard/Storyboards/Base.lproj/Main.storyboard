@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
-        <plugIn identifier="com.apple.SceneKitIBPlugin" version="16096"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <plugIn identifier="com.apple.SceneKitIBPlugin" version="16097.2"/>
         <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -484,8 +484,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="_sceneView" destination="cwi-RL-2bX" id="UhU-Qb-eTf"/>
                         <outlet property="pathControl" destination="rI7-tS-4a7" id="R31-b8-fNB"/>
-                        <outlet property="sceneView" destination="cwi-RL-2bX" id="Hlk-dG-jjG"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -574,7 +574,7 @@
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="rOc-h5-9EI">
                                 <rect key="frame" x="0.0" y="0.0" width="280" height="233"/>
                                 <connections>
-                                    <segue destination="8Zf-VP-X53" kind="embed" identifier="embedTabView" id="oeB-TZ-3dv"/>
+                                    <segue destination="8Zf-VP-X53" kind="embed" identifier="embedTabView" id="dEd-Aw-USd"/>
                                 </connections>
                             </containerView>
                         </subviews>

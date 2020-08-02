@@ -1,17 +1,17 @@
 //
-//  TerrainUtilityViewController.swift
+//  FoliageUtilityViewController.swift
 //  Orchard
 //
-//  Created by Zack Brown on 20/05/2020.
+//  Created by Zack Brown on 31/07/2020.
 //  Copyright © 2020 Script Orchard. All rights reserved.
 //
 
 import Meadow
 import AppKit
 
-class TerrainUtilityViewController: NSViewController, Inspector {
+class FoliageUtilityViewController: NSViewController, Inspector {
     
-    @IBOutlet weak var terrainBox: NSBox!
+    @IBOutlet weak var gridBox: NSBox!
     
     @IBOutlet weak var chunkCountLabel: NSTextField!
     
@@ -31,7 +31,7 @@ class TerrainUtilityViewController: NSViewController, Inspector {
         }
     }
     
-    var inspector: TerrainInspector? {
+    var inspector: FoliageInspector? {
         
         didSet {
             
@@ -49,7 +49,7 @@ class TerrainUtilityViewController: NSViewController, Inspector {
     }
 }
 
-extension TerrainUtilityViewController {
+extension FoliageUtilityViewController {
 
     func update() {
     

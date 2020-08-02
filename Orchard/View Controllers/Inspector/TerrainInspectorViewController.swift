@@ -90,7 +90,7 @@ class TerrainInspectorViewController: NSViewController, Inspector {
         case edgePopUp:
             
             guard let tile = inspectable.tile, let edge = tile.find(edge: tile.joints[sender.indexOfSelectedItem]) else { return }
-            print("selecting: \(edge.identifier) at index: \(sender.indexOfSelectedItem)")
+            
             self.coordinator?.didSelect(node: edge)
             
         case layerPopUp:

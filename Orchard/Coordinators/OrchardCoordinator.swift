@@ -48,6 +48,9 @@ class OrchardCoordinator: Coordinator<OrchardViewController> {
 
 extension OrchardCoordinator {
     
+    override var sceneView: SceneView? { splitViewCoordinator.controller.sceneViewController?._sceneView }
+    override var scene: Scene? { sceneView?.scene }
+    
     override func didSelect(node: SceneGraphNode) {
         
         splitViewCoordinator.focus(node: node)

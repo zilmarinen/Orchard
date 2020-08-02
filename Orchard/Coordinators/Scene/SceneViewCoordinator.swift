@@ -31,86 +31,86 @@ class SceneViewCoordinator: Coordinator<SceneViewController> {
         
         let scene = Scene(meadow: meadow)
         
-        controller.sceneView.scene = scene
-        controller.sceneView.delegate = scene
-        controller.sceneView.allowsCameraControl = true
-        controller.sceneView.showsStatistics = true
-        controller.sceneView.backgroundColor = .black
-        controller.sceneView.autoenablesDefaultLighting = true
-        controller.sceneView.isPlaying = true
+        controller._sceneView.scene = scene
+        controller._sceneView.delegate = scene
+        controller._sceneView.allowsCameraControl = true
+        controller._sceneView.showsStatistics = true
+        controller._sceneView.backgroundColor = meadow.backgroundColor.color
+        controller._sceneView.autoenablesDefaultLighting = true
+        controller._sceneView.isPlaying = true
         
         scene.camera.observer.focus(node: scene.meadow)
         
-//        let n0 = SCNNode(geometry: SCNBox(width: 0.25, height: 1, length: 0.25, chamferRadius: 0))
+        let n0 = SCNNode(geometry: SCNBox(width: 0.0625, height: 0.25, length: 0.0625, chamferRadius: 0))
+
+        n0.position = SCNVector3(x: 0.0, y: CGFloat(World.Axis.y(value: World.Constants.floor + 4)) + 0.125, z: 0.0)
+        n0.geometry?.firstMaterial?.diffuse.contents = SKColor.systemPink
+
+        scene.rootNode.addChildNode(n0)
+        return
+        guard let totalQuads = scene.meadow.terrain.graph?.totalQuads else { return }
+
+        for index in 0..<totalQuads {
+
+            let bodyOfWater = (index > 20 && index < 50)
+            let abode = (index < 20)
+            let footpath = (index > 50 && index < 80)
+            let foliage = (index > 80 && index < 90)
+
+            scene.meadow.terrain.add(tile: index)?.children.forEach { child in
+
+                if let child = child as? TerrainEdge {
+
+                    child.topLayer?.terrainType = .bedrock
+
+                    let _ = child.addLayer()
+
+                    child.topLayer?.terrainType = .grass
+                    child.topLayer?.set(elevation: (bodyOfWater ? 2 : 4))
+                }
+            }
+
+            if bodyOfWater {
+
+                scene.meadow.water.add(tile: index)?.children.forEach { child in
+
+                    if let child = child as? WaterEdge {
+
+                        child.topLayer?.set(elevation: 4)
+                    }
+                }
+            }
+
+            if abode {
+
+                scene.meadow.area.add(tile: index)?.children.forEach { child in
+
+                    if let child = child as? AreaEdge {
+
+                        child.topLayer?.set(elevation: 4)
+                    }
+                }
+            }
+
+            if footpath {
+
+                scene.meadow.footpath.add(tile: index)?.children.forEach { child in
+
+                    if let child = child as? FootpathEdge {
+
+                        child.topLayer?.set(elevation: 4)
+                    }
+                }
+            }
+
+//            if foliage {
 //
-//        n0.position = SCNVector3(x: 0.0, y: CGFloat(World.Axis.y(value: World.Constants.floor + 4)) + 0.5, z: 0.0)
-//        n0.geometry?.firstMaterial?.diffuse.contents = SKColor.systemPink
+//                if let tile = scene.meadow.foliage.add(tile: index) {
 //
-//        scene.rootNode.addChildNode(n0)
-        
-//        guard let totalQuads = scene.meadow.terrain.graph?.totalQuads else { return }
-//
-//        for index in 0..<totalQuads {
-//
-//            let bodyOfWater = (index > 20 && index < 50)
-//            let abode = (index < 20)
-//            let footpath = (index > 50 && index < 70)
-//            let foliage = (index > 70 && index < 90)
-//
-//            scene.meadow.terrain.add(tile: index)?.children.forEach { child in
-//
-//                if let child = child as? TerrainEdge {
-//
-//                    child.topLayer?.terrainType = .bedrock
-//
-//                    let _ = child.addLayer()
-//
-//                    child.topLayer?.terrainType = .grass
-//                    child.topLayer?.set(elevation: (bodyOfWater ? 2 : 4))
+//                    //
 //                }
 //            }
-//
-//            if bodyOfWater {
-//
-//                scene.meadow.water.add(tile: index)?.children.forEach { child in
-//
-//                    if let child = child as? WaterEdge {
-//
-//                        child.topLayer?.set(elevation: 4)
-//                    }
-//                }
-//            }
-//
-//            if abode {
-//
-//                scene.meadow.area.add(tile: index)?.children.forEach { child in
-//
-//                    if let child = child as? AreaEdge {
-//
-//                        child.topLayer?.set(elevation: 4)
-//                    }
-//                }
-//            }
-//
-//            if footpath {
-//
-//                scene.meadow.footpath.add(tile: index)?.children.forEach { child in
-//
-//                    if let child = child as? FootpathEdge {
-//
-//                        child.topLayer?.set(elevation: 4)
-//                    }
-//                }
-//            }
-//
-////            if foliage {
-////
-////                if let tile = scene.meadow.foliage.add(tile: index) {
-////
-////                    //
-////                }
-////            }
-//        }
+        }
     }
 }
 
@@ -118,11 +118,17 @@ extension SceneViewCoordinator: SceneGraphObserver {
     
     func focus(node: SceneGraphNode) {
         
-        guard let scene = controller.sceneView.scene as? Scene else { return }
+        guard let scene = scene else { return }
+        
+        controller._sceneView.backgroundColor = scene.meadow.backgroundColor.color
         
         if let node = node as? SCNNode {
             
             scene.camera.observer.focus(node: node)
+        }
+        else if let node = node as? Tile {
+            
+            scene.camera.observer.focus(vector: SCNVector3(vector: node.centre))
         }
         
         var items: [NSPathControlItem] = []

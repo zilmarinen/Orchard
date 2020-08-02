@@ -20,4 +20,8 @@ import Terrace
     //MARK: Scene Graph
     
     func didSelect(node: SceneGraphNode) { responder?.didSelect(node: node) }
+    
+    //MARK: Scene
+    var scene: Scene? { responder?.scene }
+    var sceneView: SceneView? { responder?.sceneView }
 }

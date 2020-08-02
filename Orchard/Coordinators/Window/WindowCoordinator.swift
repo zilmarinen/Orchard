@@ -11,8 +11,6 @@ import Terrace
 
 class WindowCoordinator: Coordinator<OrchardWindowController> {
     
-    var meadow: Meadow?
-    
     lazy var orchardCoordinator: OrchardCoordinator = {
         
         guard let viewController = controller.contentViewController as? OrchardViewController else { fatalError("Invalid view controller hierarchy") }
@@ -42,7 +40,7 @@ class WindowCoordinator: Coordinator<OrchardWindowController> {
         
         guard let json = option as? Document.DocumentJSON else { fatalError("Invalid start option for window coordinator.") }
         
-        meadow = Meadow(graph: json.graph, json: json.meadow)
+        let meadow = Meadow(graph: json.graph, json: json.meadow)
         
         start(child: orchardCoordinator, with: meadow)
         

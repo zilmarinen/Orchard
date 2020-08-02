@@ -53,42 +53,33 @@ class SidebarTabViewCoordinator: Coordinator<SidebarTabViewController> {
     override func start(with option: StartOption?) {
         
         super.start(with: option)
-        
-        start(child: inspectorTabViewCoordinator, with: option)
-        start(child: utilityTabViewCoordinator, with: option)
-        
+        print("start: SidebarTabViewCoordinator")
         viewModel.subscribe(stateDidChange(from:to:))
     }
 }
 
 extension SidebarTabViewCoordinator {
     
-    func stateDidChange(from: ViewState?, to: ViewState) {
+    func stateDidChange(from previousState: ViewState?, to currentState: ViewState) {
         
         DispatchQueue.main.async {
             
-            switch to {
-                
-            case .empty:
-                
-                self.controller.selectedTabViewItemIndex = to.tab.rawValue
+            self.stopChildren()
+            
+            switch currentState {
                 
             case .inspector(let node):
                 
-                self.controller.selectedTabViewItemIndex = to.tab.rawValue
-                
-                self.utilityTabViewCoordinator.viewModel.clear()
-                
-                self.inspectorTabViewCoordinator.viewModel.select(node: node)
+                self.start(child: self.inspectorTabViewCoordinator, with: node)
                 
             case .utility(let node):
                 
-                self.controller.selectedTabViewItemIndex = to.tab.rawValue
+                self.start(child: self.utilityTabViewCoordinator, with: node)
                 
-                self.utilityTabViewCoordinator.viewModel.clear()
-                
-                self.inspectorTabViewCoordinator.viewModel.select(node: node)
+            default: break
             }
+            
+            self.controller.selectedTabViewItemIndex = currentState.tab.rawValue
         }
     }
 }

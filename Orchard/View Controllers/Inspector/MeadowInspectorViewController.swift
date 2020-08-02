@@ -18,9 +18,13 @@ class MeadowInspectorViewController: NSViewController, Inspector {
     
     @IBAction func colorWell(_ sender: NSColorWell) {
         
+        guard let scene = coordinator?.scene else { return }
+        
+        scene.meadow.backgroundColor = Color(color: sender.color)
+        
         guard let inspectable = inspector?.inspectable else { return }
         
-        //inspectable.floor.backgroundColor = Color(color: sender.color)
+        coordinator?.didSelect(node: inspectable)
     }
     
     @IBAction func textField(_ textField: NSTextField) {
@@ -56,6 +60,8 @@ extension MeadowInspectorViewController {
         
         nameTextField.stringValue = inspectable.name ?? ""
         
-        //colorWell.color = inspectable.floor.backgroundColor.color
+        guard let scene = coordinator?.scene else { return }
+        
+        colorWell.color = scene.meadow.backgroundColor.color
     }
 }

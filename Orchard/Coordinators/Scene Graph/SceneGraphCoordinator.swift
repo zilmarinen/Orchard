@@ -36,7 +36,7 @@ class SceneGraphCoordinator: Coordinator<SceneGraphViewController> {
 extension SceneGraphCoordinator: SceneGraphObserver {
     
     func focus(node: SceneGraphNode) {
-        print("focus")
+        
         controller.outlineView.reloadItem(node, reloadChildren: true)
     }
 }

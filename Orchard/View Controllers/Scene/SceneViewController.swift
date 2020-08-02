@@ -12,7 +12,7 @@ import Terrace
 
 class SceneViewController: NSViewController {
 
-    @IBOutlet weak var sceneView: SceneView!
+    @IBOutlet weak var _sceneView: SceneView!
     @IBOutlet weak var pathControl: NSPathControl!
     
     weak var coordinator: SceneViewCoordinator?
@@ -23,7 +23,7 @@ class SceneViewController: NSViewController {
         
         do {
             
-            guard let device = sceneView.device else { fatalError("Invalid device for SceneView") }
+            guard let device = _sceneView.device else { fatalError("Invalid device for SceneView") }
             
             guard let path = Meadow.bundle?.path(forResource: "Meadow", ofType: "metallib") else { fatalError("Missing required Meadow.metallib") }
             

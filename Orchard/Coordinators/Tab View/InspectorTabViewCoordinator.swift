@@ -97,49 +97,60 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
     override func start(with option: StartOption?) {
         
         super.start(with: option)
-        
+        print("start: InspectorTabViewCoordinator")
         viewModel.subscribe(stateDidChange(from:to:))
+        
+        guard let node = option as? SceneGraphIdentifiable else { return }
+        
+        viewModel.select(node: node)
+    }
+    
+    override func stop(then completion: CoordinatorCompletionBlock?) {
+        print("stop: InspectorTabViewCoordinator")
+        viewModel.clear()
+        
+        completion?()
     }
 }
 
 extension InspectorTabViewCoordinator {
     
-    func stateDidChange(from: ViewState?, to: ViewState) {
+    func stateDidChange(from previousState: ViewState?, to currentState: ViewState) {
         
         DispatchQueue.main.async {
          
             self.stopChildren()
             
-            switch to {
+            switch currentState {
                 
             case .area(let node):
                 
-                self.areaInspectorCoordinator.start(with: node)
+                self.start(child: self.areaInspectorCoordinator, with: node)
                 
             case .foliage(let node):
                 
-                self.foliageInspectorCoordinator.start(with: node)
+                self.start(child: self.foliageInspectorCoordinator, with: node)
                 
             case .footpath(let node):
                 
-                self.footpathInspectorCoordinator.start(with: node)
+                self.start(child: self.footpathInspectorCoordinator, with: node)
                 
             case .meadow(let node):
                 
-                self.meadowInspectorCoordinator.start(with: node)
+                self.start(child: self.meadowInspectorCoordinator, with: node)
                 
             case .terrain(let node):
                 
-                self.terrainInspectorCoordinator.start(with: node)
+                self.start(child: self.terrainInspectorCoordinator, with: node)
                 
             case .water(let node):
                 
-                self.waterInspectorCoordinator.start(with: node)
+                self.start(child: self.waterInspectorCoordinator, with: node)
                 
             default: break
             }
             
-            self.controller.selectedTabViewItemIndex = to.tab.rawValue
+            self.controller.selectedTabViewItemIndex = currentState.tab.rawValue
         }
     }
 }

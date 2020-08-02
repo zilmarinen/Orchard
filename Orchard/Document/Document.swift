@@ -40,8 +40,12 @@ class Document: NSDocument {
         self.addWindowController(coordinator.controller)
         
         if json == nil {
+            
+            let plotter = HexGraph(rings: 7, size: 1.0)
+            
+            let graph = Graph(plotter: plotter, resolver: plotter)
         
-            json = DocumentJSON(graph: Graph(rings: 7, size: 1.0, iterations: 1), meadow: nil)
+            json = DocumentJSON(graph: graph, meadow: nil)
         }
         
         coordinator.start(with: json)
@@ -51,7 +55,7 @@ class Document: NSDocument {
     
     override func fileWrapper(ofType typeName: String) throws -> FileWrapper {
         
-        guard let meadow = coordinator.meadow else { throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": "Unable to find valid instance of Meadow."]) }
+        guard let meadow = coordinator.orchardCoordinator.scene?.meadow else { throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": "Unable to find valid instance of Meadow."]) }
         
         let encoder = JSONEncoder()
         

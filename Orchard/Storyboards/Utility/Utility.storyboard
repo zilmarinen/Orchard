@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="J9Z-Dy-urW">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="J9Z-Dy-urW">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -54,7 +53,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NF6-9w-wCb">
                                 <rect key="frame" x="190" y="23" width="71" height="14"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="No Selection" id="k0k-DF-ukr">
-                                    <font key="font" metaFont="menu" size="11"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -154,10 +153,10 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="equalSpacing" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5bX-En-M7q">
-                                                    <rect key="frame" x="0.0" y="234" width="450" height="66"/>
+                                                    <rect key="frame" x="0.0" y="176" width="450" height="124"/>
                                                     <subviews>
                                                         <box borderType="none" title="Terrain" translatesAutoresizingMaskIntoConstraints="NO" id="eGq-CY-P1N">
-                                                            <rect key="frame" x="-3" y="0.0" width="456" height="62"/>
+                                                            <rect key="frame" x="-3" y="58" width="456" height="62"/>
                                                             <view key="contentView" id="xsN-v1-eIg">
                                                                 <rect key="frame" x="0.0" y="0.0" width="456" height="48"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -187,7 +186,7 @@
                                                                                 <textField key="contentView" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="G2p-Fs-z7E">
                                                                                     <rect key="frame" x="76" y="21" width="358" height="14"/>
                                                                                     <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" title="0" id="wHc-K2-c5c">
-                                                                                        <font key="font" metaFont="menu" size="11"/>
+                                                                                        <font key="font" metaFont="message" size="11"/>
                                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                     </textFieldCell>
@@ -208,7 +207,7 @@
                                                                                     <rect key="frame" x="75" y="-2" width="359" height="18"/>
                                                                                     <buttonCell key="cell" type="check" title="Enabled" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="zZP-32-qaK">
                                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                                        <font key="font" metaFont="menu" size="11"/>
+                                                                                        <font key="font" metaFont="message" size="11"/>
                                                                                     </buttonCell>
                                                                                     <connections>
                                                                                         <action selector="button:" target="hTU-Sw-BJ5" id="Ah1-ea-RPa"/>
@@ -233,24 +232,106 @@
                                                             </view>
                                                             <font key="titleFont" size="11" name="HelveticaNeue-Bold"/>
                                                         </box>
+                                                        <box boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="etE-8T-NhG">
+                                                            <rect key="frame" x="0.0" y="4" width="450" height="50"/>
+                                                            <view key="contentView" id="T6u-Jf-f0a">
+                                                                <rect key="frame" x="0.0" y="0.0" width="450" height="50"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                <subviews>
+                                                                    <stackView distribution="equalCentering" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vz9-E7-EZA">
+                                                                        <rect key="frame" x="201" y="6" width="48" height="44"/>
+                                                                        <subviews>
+                                                                            <button id="Kc8-fe-Y9r">
+                                                                                <rect key="frame" x="14" y="12" width="20" height="20"/>
+                                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="terrain_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Nkn-oU-ZRT">
+                                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                                    <font key="font" metaFont="system"/>
+                                                                                </buttonCell>
+                                                                                <connections>
+                                                                                    <action selector="button:" target="hTU-Sw-BJ5" id="zZe-ge-dqO"/>
+                                                                                </connections>
+                                                                            </button>
+                                                                            <button id="di4-vH-6w4">
+                                                                                <rect key="frame" x="0.0" y="12" width="20" height="20"/>
+                                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="terrain_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="pMH-vR-a3O">
+                                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                                    <font key="font" metaFont="system"/>
+                                                                                </buttonCell>
+                                                                                <connections>
+                                                                                    <action selector="button:" target="hTU-Sw-BJ5" id="bEk-uG-Fvk"/>
+                                                                                </connections>
+                                                                            </button>
+                                                                            <button translatesAutoresizingMaskIntoConstraints="NO" id="0qD-AY-FfU">
+                                                                                <rect key="frame" x="28" y="12" width="20" height="20"/>
+                                                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="terrain_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="puw-74-Q6X">
+                                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                                    <font key="font" metaFont="system"/>
+                                                                                </buttonCell>
+                                                                                <connections>
+                                                                                    <action selector="button:" target="hTU-Sw-BJ5" id="Whb-qH-xWa"/>
+                                                                                </connections>
+                                                                            </button>
+                                                                        </subviews>
+                                                                        <visibilityPriorities>
+                                                                            <integer value="1000"/>
+                                                                            <integer value="1000"/>
+                                                                            <integer value="1000"/>
+                                                                        </visibilityPriorities>
+                                                                        <customSpacing>
+                                                                            <real value="3.4028234663852886e+38"/>
+                                                                            <real value="3.4028234663852886e+38"/>
+                                                                            <real value="3.4028234663852886e+38"/>
+                                                                        </customSpacing>
+                                                                    </stackView>
+                                                                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="TBP-hw-n49">
+                                                                        <rect key="frame" x="0.0" y="-1" width="450" height="5"/>
+                                                                    </box>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstItem="TBP-hw-n49" firstAttribute="centerX" secondItem="T6u-Jf-f0a" secondAttribute="centerX" id="7wd-mC-dRd"/>
+                                                                    <constraint firstItem="Vz9-E7-EZA" firstAttribute="top" secondItem="T6u-Jf-f0a" secondAttribute="top" id="AmE-dU-L9T"/>
+                                                                    <constraint firstItem="Vz9-E7-EZA" firstAttribute="centerX" secondItem="T6u-Jf-f0a" secondAttribute="centerX" id="HMH-qe-7SD"/>
+                                                                    <constraint firstItem="Vz9-E7-EZA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="T6u-Jf-f0a" secondAttribute="leading" constant="12" id="adW-ig-2nM"/>
+                                                                    <constraint firstItem="TBP-hw-n49" firstAttribute="width" secondItem="T6u-Jf-f0a" secondAttribute="width" id="jTs-dC-x5a"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="TBP-hw-n49" secondAttribute="bottom" constant="1" id="tJF-ni-Png"/>
+                                                                    <constraint firstItem="TBP-hw-n49" firstAttribute="top" secondItem="Vz9-E7-EZA" secondAttribute="bottom" constant="4" id="uvT-jA-YoT"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <color key="fillColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </box>
                                                     </subviews>
                                                     <edgeInsets key="edgeInsets" left="0.0" right="0.0" top="4" bottom="4"/>
                                                     <constraints>
+                                                        <constraint firstItem="etE-8T-NhG" firstAttribute="width" secondItem="eGq-CY-P1N" secondAttribute="width" id="9Qb-uf-W2t"/>
                                                         <constraint firstItem="eGq-CY-P1N" firstAttribute="width" secondItem="5bX-En-M7q" secondAttribute="width" id="wrl-Gh-hhI"/>
                                                     </constraints>
                                                     <visibilityPriorities>
                                                         <integer value="1000"/>
+                                                        <integer value="1000"/>
                                                     </visibilityPriorities>
                                                     <customSpacing>
                                                         <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
                                                     </customSpacing>
                                                 </stackView>
+                                                <containerView translatesAutoresizingMaskIntoConstraints="NO" id="EgK-gj-UqY">
+                                                    <rect key="frame" x="0.0" y="0.0" width="450" height="176"/>
+                                                    <connections>
+                                                        <segue destination="LWd-A8-7Sa" kind="embed" identifier="embedTabView" id="GDg-un-C5O"/>
+                                                    </connections>
+                                                </containerView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5bX-En-M7q" secondAttribute="bottom" id="1xG-yv-mji"/>
                                                 <constraint firstItem="5bX-En-M7q" firstAttribute="centerX" secondItem="wzO-L7-N8n" secondAttribute="centerX" id="3IZ-Yt-c14"/>
+                                                <constraint firstItem="EgK-gj-UqY" firstAttribute="centerX" secondItem="wzO-L7-N8n" secondAttribute="centerX" id="4Ao-hL-8Kk"/>
+                                                <constraint firstAttribute="bottom" secondItem="EgK-gj-UqY" secondAttribute="bottom" id="7QP-Gw-hbi"/>
+                                                <constraint firstItem="EgK-gj-UqY" firstAttribute="width" secondItem="wzO-L7-N8n" secondAttribute="width" id="Rdj-0j-4ej"/>
                                                 <constraint firstItem="5bX-En-M7q" firstAttribute="width" secondItem="wzO-L7-N8n" secondAttribute="width" id="cUd-re-fB3"/>
                                                 <constraint firstItem="5bX-En-M7q" firstAttribute="top" secondItem="wzO-L7-N8n" secondAttribute="top" id="jWT-b4-8rC"/>
+                                                <constraint firstItem="EgK-gj-UqY" firstAttribute="top" secondItem="5bX-En-M7q" secondAttribute="bottom" id="k6R-vP-0ep"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -273,14 +354,28 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="buildButton" destination="Kc8-fe-Y9r" id="WJe-2G-kEF"/>
                         <outlet property="chunkCountLabel" destination="G2p-Fs-z7E" id="rX1-yj-0Kz"/>
+                        <outlet property="gridBox" destination="eGq-CY-P1N" id="71U-m3-Rjx"/>
                         <outlet property="gridRenderingButton" destination="az2-mb-ruO" id="egF-rq-VAl"/>
-                        <outlet property="terrainBox" destination="eGq-CY-P1N" id="luu-Tf-7xN"/>
+                        <outlet property="paintButton" destination="di4-vH-6w4" id="2j0-zV-ytt"/>
+                        <outlet property="terraformButton" destination="0qD-AY-FfU" id="5SB-hL-IFC"/>
                     </connections>
                 </viewController>
                 <customObject id="hK6-TQ-9iC" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2918" y="630"/>
         </scene>
+        <!--Terrain-->
+        <scene sceneID="76S-Je-SsB">
+            <objects>
+                <controllerPlaceholder storyboardName="Terrain" id="LWd-A8-7Sa" sceneMemberID="viewController"/>
+                <customObject id="36C-qm-RBf" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2919" y="958"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="terrain_icon" width="20" height="20"/>
+    </resources>
 </document>
