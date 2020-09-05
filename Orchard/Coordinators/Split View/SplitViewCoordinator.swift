@@ -59,7 +59,7 @@ class SplitViewCoordinator: Coordinator<SplitViewController> {
     override func start(with option: StartOption?) {
         
         super.start(with: option)
-        print("start: SplitViewCoordinator")
+        
         start(child: sceneGraphCoordinator, with: option)
         start(child: sceneViewCoordinator, with: option)
         start(child: sidebarCoordinator, with: option)

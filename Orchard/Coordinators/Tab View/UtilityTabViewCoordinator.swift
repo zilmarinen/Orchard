@@ -42,7 +42,7 @@ class UtilityTabViewCoordinator: Coordinator<UtilityTabViewController> {
     override func start(with option: StartOption?) {
         
         super.start(with: option)
-        print("start: UtilityTabViewCoordinator")
+        
         viewModel.subscribe(stateDidChange(from:to:))
         
         guard let node = option as? SceneGraphIdentifiable else { return }
@@ -51,7 +51,7 @@ class UtilityTabViewCoordinator: Coordinator<UtilityTabViewController> {
     }
     
     override func stop(then completion: CoordinatorCompletionBlock?) {
-        print("stop: UtilityTabViewCoordinator")
+        
         viewModel.clear()
         
         completion?()

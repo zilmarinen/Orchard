@@ -41,12 +41,9 @@ class SceneViewCoordinator: Coordinator<SceneViewController> {
         
         scene.camera.observer.focus(node: scene.meadow)
         
-        let n0 = SCNNode(geometry: SCNBox(width: 0.0625, height: 0.25, length: 0.0625, chamferRadius: 0))
-
-        n0.position = SCNVector3(x: 0.0, y: CGFloat(World.Axis.y(value: World.Constants.floor + 4)) + 0.125, z: 0.0)
-        n0.geometry?.firstMaterial?.diffuse.contents = SKColor.systemPink
-
-        scene.rootNode.addChildNode(n0)
+        //
+        /// TODO : remove all code below this line
+        //
         return
         guard let totalQuads = scene.meadow.terrain.graph?.totalQuads else { return }
 

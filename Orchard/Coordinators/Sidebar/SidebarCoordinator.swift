@@ -37,7 +37,7 @@ class SidebarCoordinator: Coordinator<SidebarViewController> {
     override func start(with option: StartOption?) {
         
         super.start(with: option)
-        print("start: SidebarCoordinator")
+        
         start(child: tabViewCoordinator, with: option)
     }
 }

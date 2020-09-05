@@ -41,9 +41,11 @@ class Document: NSDocument {
         
         if json == nil {
             
-            let plotter = HexGraph(rings: 7, size: 1.0)
+            let plotter = HexGraph(rings: 3, size: 1.0)
             
-            let graph = Graph(plotter: plotter, resolver: plotter)
+            let resolver = LaplacianResolver(iterations: 1)
+            
+            let graph = Graph(plotter: plotter, resolver: resolver)
         
             json = DocumentJSON(graph: graph, meadow: nil)
         }

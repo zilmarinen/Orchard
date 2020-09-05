@@ -10,17 +10,6 @@ import Meadow
 import Terrace
 
 class TerrainUtilityCoordinator: Coordinator<TerrainUtilityViewController> {
-    
-    lazy var tabViewCoordinator: TerrainUtilityTabViewCoordinator = {
-        
-        guard let viewController = controller.tabViewController else { fatalError("Invalid view controller hierarchy") }
-        
-        let coordinator = TerrainUtilityTabViewCoordinator(controller: viewController)
-        
-        coordinator.parent = self
-        
-        return coordinator
-    }()
 
     override init(controller: TerrainUtilityViewController) {
         
@@ -37,11 +26,16 @@ class TerrainUtilityCoordinator: Coordinator<TerrainUtilityViewController> {
     override func start(with option: StartOption?) {
         
         super.start(with: option)
-        print("start: TerrainUtilityCoordinator")
-        start(child: tabViewCoordinator, with: option)
         
-        guard let node = option as? SceneGraphIdentifiable else { return }
+        guard let node = option as? SceneGraphIdentifiable, let inspector = TerrainInspector(node: node) else { return }
         
-        controller.inspector = TerrainInspector(node: node)
+        controller.viewModel.start(inspector: inspector)
+    }
+    
+    override func stop(then completion: CoordinatorCompletionBlock?) {
+        
+        self.controller.viewModel.stop()
+        
+        completion?()
     }
 }

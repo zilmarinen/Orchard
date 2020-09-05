@@ -53,7 +53,7 @@ class SidebarTabViewCoordinator: Coordinator<SidebarTabViewController> {
     override func start(with option: StartOption?) {
         
         super.start(with: option)
-        print("start: SidebarTabViewCoordinator")
+        
         viewModel.subscribe(stateDidChange(from:to:))
     }
 }

@@ -97,7 +97,7 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
     override func start(with option: StartOption?) {
         
         super.start(with: option)
-        print("start: InspectorTabViewCoordinator")
+        
         viewModel.subscribe(stateDidChange(from:to:))
         
         guard let node = option as? SceneGraphIdentifiable else { return }
@@ -106,7 +106,7 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
     }
     
     override func stop(then completion: CoordinatorCompletionBlock?) {
-        print("stop: InspectorTabViewCoordinator")
+        
         viewModel.clear()
         
         completion?()
