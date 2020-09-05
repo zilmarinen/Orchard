@@ -6,18 +6,19 @@
 //  Copyright © 2018 Script Orchard. All rights reserved.
 //
 
-import Cocoa
+import AppKit
+import Meadow
 
 class OrchardWindowController: NSWindowController {
     
     static let sceneIdentifier = NSStoryboard.SceneIdentifier("OrchardWindowController")
+    
+    weak var coordinator: WindowCoordinator?
 
     @IBAction func segmentedControl(_ sender: NSSegmentedControl) {
         
-        guard let orchardViewController = contentViewController as? OrchardViewController, let splitViewController = orchardViewController.splitViewController else { return }
+        let panel = (sender.selectedSegment == 0 ? SplitViewController.Panel.sceneGraph : SplitViewController.Panel.inspector)
         
-        let panel = (sender.selectedSegment == 0 ? WindowSplitViewController.Panel.sceneGraph : WindowSplitViewController.Panel.utilities)
-        
-        splitViewController.toggle(panel: panel)
+        coordinator?.toggle(panel: panel)
     }
 }

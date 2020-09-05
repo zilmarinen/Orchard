@@ -3,145 +3,112 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1803165D20B6F2DF009D367F /* TerrainInspectorStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1803165C20B6F2DF009D367F /* TerrainInspectorStateObserver.swift */; };
-		1805DF2220C912FF00F333C6 /* InspectorSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1805DF2120C912FF00F333C6 /* InspectorSceneView.swift */; };
-		1820662C20B05BDB00D0356D /* AreaInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1820662B20B05BDB00D0356D /* AreaInspectorViewController.swift */; };
-		1820662F20B05BE600D0356D /* FoliageInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1820662D20B05BE600D0356D /* FoliageInspectorViewController.swift */; };
-		1820663220B05C0000D0356D /* FootpathInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1820663120B05C0000D0356D /* FootpathInspectorViewController.swift */; };
-		1820663420B05C0B00D0356D /* TerrainInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1820663320B05C0B00D0356D /* TerrainInspectorViewController.swift */; };
-		1820663620B05C1700D0356D /* WaterInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1820663520B05C1700D0356D /* WaterInspectorViewController.swift */; };
-		1822D3B020BE8784004A1156 /* SidebarTabStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1822D3AF20BE8784004A1156 /* SidebarTabStateObserver.swift */; };
-		1822D3B220BE8F11004A1156 /* SidebarStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1822D3B120BE8F11004A1156 /* SidebarStateObserver.swift */; };
+		18087D56247539A800D02BCF /* TerrainUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18087D55247539A800D02BCF /* TerrainUtilityViewController.swift */; };
+		18087D5E24753A2000D02BCF /* PropUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18087D5D24753A2000D02BCF /* PropUtilityViewController.swift */; };
+		180A3AB124FFBA2C0068ED7F /* TerrainUtilityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A3AB024FFBA2C0068ED7F /* TerrainUtilityViewModel.swift */; };
+		181EDFAB2452C6800030D23C /* Responder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181EDFAA2452C6800030D23C /* Responder.swift */; };
+		181EDFAE2452D9FF0030D23C /* SidebarTabViewCoordinator+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181EDFAD2452D9FF0030D23C /* SidebarTabViewCoordinator+ViewModel.swift */; };
+		181EDFB22452F35F0030D23C /* MeadowInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181EDFB12452F35F0030D23C /* MeadowInspectorViewController.swift */; };
+		181EDFB42452F9EA0030D23C /* InspectorTabViewCoordinator+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181EDFB32452F9EA0030D23C /* InspectorTabViewCoordinator+ViewModel.swift */; };
+		181EDFB62452FA4B0030D23C /* UtilityTabViewCoordinator+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181EDFB52452FA4B0030D23C /* UtilityTabViewCoordinator+ViewModel.swift */; };
+		181EDFB82453312E0030D23C /* ActorsInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181EDFB72453312E0030D23C /* ActorsInspectorViewController.swift */; };
+		182315A524472AEE00426181 /* SplitViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182315A424472AEE00426181 /* SplitViewCoordinator.swift */; };
 		182AFA2021709A510009AD0D /* NSMenuItem+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182AFA1F21709A510009AD0D /* NSMenuItem+Color.swift */; };
-		1832994421788D8100485907 /* WaterBuildUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1832994321788D8100485907 /* WaterBuildUtilitiesStateObserver.swift */; };
-		1832994621788DAD00485907 /* WaterBuildUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1832994521788DAD00485907 /* WaterBuildUtilitiesViewController.swift */; };
-		1837ADEE20ADD0C9006802CA /* WindowSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1837ADED20ADD0C9006802CA /* WindowSplitViewController.swift */; };
-		185E588420A9C6F300139565 /* SceneGraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185E588320A9C6F300139565 /* SceneGraphCell.swift */; };
-		185E588620A9C71300139565 /* SceneGraphCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185E588520A9C71300139565 /* SceneGraphCell.xib */; };
-		186A27C8217EFE1C00CBC156 /* AreaBuildUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27C7217EFE1C00CBC156 /* AreaBuildUtilitiesViewController.swift */; };
-		186A27CA217F008200CBC156 /* AreaBuildUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27C9217F008200CBC156 /* AreaBuildUtilitiesStateObserver.swift */; };
-		186A27CC217F0CD100CBC156 /* AreaArchitectureUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27CB217F0CD100CBC156 /* AreaArchitectureUtilitiesViewController.swift */; };
-		186A27CE217F0CE100CBC156 /* AreaPaintUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27CD217F0CE100CBC156 /* AreaPaintUtilitiesViewController.swift */; };
-		186A27D0217F115300CBC156 /* AreaArchitectureUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27CF217F115300CBC156 /* AreaArchitectureUtilitiesStateObserver.swift */; };
-		186A27D2217F115C00CBC156 /* AreaPaintUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27D1217F115C00CBC156 /* AreaPaintUtilitiesStateObserver.swift */; };
-		186A27D4217F3AC400CBC156 /* FootpathBuildUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27D3217F3AC400CBC156 /* FootpathBuildUtilitiesStateObserver.swift */; };
-		186A27D6217F3AF500CBC156 /* FootpathBuildUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27D5217F3AF500CBC156 /* FootpathBuildUtilitiesViewController.swift */; };
-		186A27D8217F5DFD00CBC156 /* FoliageBuildUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27D7217F5DFD00CBC156 /* FoliageBuildUtilitiesViewController.swift */; };
-		186A27DA217F5E1700CBC156 /* FoliageBuildUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27D9217F5E1700CBC156 /* FoliageBuildUtilitiesStateObserver.swift */; };
-		186A27DC217F5E8700CBC156 /* FootpathPaintUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27DB217F5E8700CBC156 /* FootpathPaintUtilitiesStateObserver.swift */; };
-		186A27DE217F5EC300CBC156 /* FoliagePaintUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27DD217F5EC300CBC156 /* FoliagePaintUtilitiesStateObserver.swift */; };
-		186A27E0217F5EF500CBC156 /* FoliagePaintUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27DF217F5EF500CBC156 /* FoliagePaintUtilitiesViewController.swift */; };
-		186A27E2217F5F0D00CBC156 /* FootpathPaintUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27E1217F5F0D00CBC156 /* FootpathPaintUtilitiesViewController.swift */; };
+		1837ADEE20ADD0C9006802CA /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1837ADED20ADD0C9006802CA /* SplitViewController.swift */; };
+		184E62CE244D85F100D2B6F8 /* OrchardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E62CD244D85F100D2B6F8 /* OrchardCoordinator.swift */; };
+		184E62D3244D9C7F00D2B6F8 /* SidebarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E62D2244D9C7F00D2B6F8 /* SidebarCoordinator.swift */; };
+		184E62D6244D9C9300D2B6F8 /* SceneGraphCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E62D5244D9C9300D2B6F8 /* SceneGraphCoordinator.swift */; };
+		184E62D9244D9CA400D2B6F8 /* SceneViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E62D8244D9CA400D2B6F8 /* SceneViewCoordinator.swift */; };
+		184E62DC244DACCA00D2B6F8 /* SidebarTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E62DB244DACCA00D2B6F8 /* SidebarTabViewController.swift */; };
+		184E62DE244DADA700D2B6F8 /* InspectorTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E62DD244DADA700D2B6F8 /* InspectorTabViewController.swift */; };
+		184E62E0244DADB200D2B6F8 /* UtilityTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E62DF244DADB200D2B6F8 /* UtilityTabViewController.swift */; };
+		184E62E3244DAE9E00D2B6F8 /* SidebarTabViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E62E2244DAE9E00D2B6F8 /* SidebarTabViewCoordinator.swift */; };
+		184E62E5244DB04900D2B6F8 /* InspectorTabViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E62E4244DB04900D2B6F8 /* InspectorTabViewCoordinator.swift */; };
+		184E62E7244DB05600D2B6F8 /* UtilityTabViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E62E6244DB05600D2B6F8 /* UtilityTabViewCoordinator.swift */; };
+		184E62E9244DC54200D2B6F8 /* Inspector.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 184E62E8244DC54200D2B6F8 /* Inspector.storyboard */; };
+		184E62EB244DC54B00D2B6F8 /* Utility.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 184E62EA244DC54B00D2B6F8 /* Utility.storyboard */; };
+		185827782493F72C0097CDBD /* AreaInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185827772493F72C0097CDBD /* AreaInspector.swift */; };
+		1858277A2493F75F0097CDBD /* FootpathInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185827792493F75F0097CDBD /* FootpathInspector.swift */; };
+		1858277C2493F7790097CDBD /* FoliageInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858277B2493F7790097CDBD /* FoliageInspector.swift */; };
+		1858277E2493F7BF0097CDBD /* AreaInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858277D2493F7BF0097CDBD /* AreaInspectorCoordinator.swift */; };
+		185827802493F7C80097CDBD /* FoliageInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858277F2493F7C80097CDBD /* FoliageInspectorCoordinator.swift */; };
+		185827822493F7D30097CDBD /* FootpathInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185827812493F7D30097CDBD /* FootpathInspectorCoordinator.swift */; };
+		18625F06247FFA55000ED41E /* SceneGraphObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18625F05247FFA55000ED41E /* SceneGraphObserver.swift */; };
+		18625F0A2480F068000ED41E /* SceneGraphIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18625F092480F068000ED41E /* SceneGraphIdentifiable.swift */; };
+		1865E00E2493788E009C8F43 /* WaterInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1865E00D2493788E009C8F43 /* WaterInspector.swift */; };
+		1865E01024937A02009C8F43 /* WaterInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1865E00F24937A02009C8F43 /* WaterInspectorCoordinator.swift */; };
 		1871220720932094002488E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871220620932094002488E0 /* AppDelegate.swift */; };
 		1871220920932094002488E0 /* SceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871220820932094002488E0 /* SceneViewController.swift */; };
 		1871220B20932095002488E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1871220A20932095002488E0 /* Assets.xcassets */; };
 		1871220E20932095002488E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1871220C20932095002488E0 /* Main.storyboard */; };
-		1871221A20932095002488E0 /* OrchardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871221920932095002488E0 /* OrchardTests.swift */; };
-		18733D9E2139392000491CB7 /* OrchardStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18733D9D2139392000491CB7 /* OrchardStateObserver.swift */; };
-		18733DA12139470C00491CB7 /* SceneGraphStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18733DA02139470C00491CB7 /* SceneGraphStateObserver.swift */; };
-		18733DA421394F1900491CB7 /* SceneStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18733DA321394F1900491CB7 /* SceneStateObserver.swift */; };
-		1884F8A520B0548F0023AA0B /* InspectorTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884F8A420B0548F0023AA0B /* InspectorTabViewController.swift */; };
-		18866768220B241600FFE6F6 /* libPods-Orchard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEC913C8FBAB8126A50226D5 /* libPods-Orchard.a */; };
-		18873B892111B6510010B52C /* ColorPaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18873B882111B6510010B52C /* ColorPaletteView.swift */; };
 		188E38EB20B57CC0001A6C3A /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E38E920B57CC0001A6C3A /* Document.swift */; };
-		189256B920B7FFE400FD9364 /* AreaInspectorStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256B820B7FFE400FD9364 /* AreaInspectorStateObserver.swift */; };
-		189256BB20B7FFEF00FD9364 /* FoliageInspectorStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256BA20B7FFEF00FD9364 /* FoliageInspectorStateObserver.swift */; };
-		189256BD20B7FFF700FD9364 /* FootpathInspectorStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256BC20B7FFF700FD9364 /* FootpathInspectorStateObserver.swift */; };
-		189256BF20B8000700FD9364 /* WaterInspectorStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256BE20B8000700FD9364 /* WaterInspectorStateObserver.swift */; };
-		189256C220B800A000FD9364 /* SceneInspectorStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256C120B800A000FD9364 /* SceneInspectorStateObserver.swift */; };
-		189256C420B84DCF00FD9364 /* TerrainUtilitiesTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256C320B84DCF00FD9364 /* TerrainUtilitiesTabViewController.swift */; };
-		189256C620B84DFB00FD9364 /* TerrainUtilitiesTabStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256C520B84DFA00FD9364 /* TerrainUtilitiesTabStateObserver.swift */; };
-		189256C820B8524200FD9364 /* TerrainBuildUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256C720B8524200FD9364 /* TerrainBuildUtilitiesViewController.swift */; };
-		189256CA20B8525500FD9364 /* TerrainBuildUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256C920B8525500FD9364 /* TerrainBuildUtilitiesStateObserver.swift */; };
-		189256CC20B8551800FD9364 /* TerrainTerraformUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256CB20B8551800FD9364 /* TerrainTerraformUtilitiesViewController.swift */; };
-		189256CE20B8552600FD9364 /* TerrainPaintUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256CD20B8552600FD9364 /* TerrainPaintUtilitiesViewController.swift */; };
-		189256D020B8554500FD9364 /* TerrainTerraformUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256CF20B8554500FD9364 /* TerrainTerraformUtilitiesStateObserver.swift */; };
-		189256D220B8554F00FD9364 /* TerrainPaintUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256D120B8554F00FD9364 /* TerrainPaintUtilitiesStateObserver.swift */; };
-		189256D420B8583200FD9364 /* UtilitiesTabStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256D320B8583200FD9364 /* UtilitiesTabStateObserver.swift */; };
-		189256D620B85BA900FD9364 /* TerrainUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189256D520B85BA900FD9364 /* TerrainUtilitiesStateObserver.swift */; };
-		18B13D2C20BC3474007437DC /* AreaUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D2B20BC3474007437DC /* AreaUtilitiesStateObserver.swift */; };
-		18B13D2E20BC347D007437DC /* FoliageUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D2D20BC347D007437DC /* FoliageUtilitiesStateObserver.swift */; };
-		18B13D3020BC3488007437DC /* FootpathUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D2F20BC3488007437DC /* FootpathUtilitiesStateObserver.swift */; };
-		18B13D3220BC3490007437DC /* WaterUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D3120BC3490007437DC /* WaterUtilitiesStateObserver.swift */; };
-		18B13D3420BC353F007437DC /* AreaUtilitiesTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D3320BC353F007437DC /* AreaUtilitiesTabViewController.swift */; };
-		18B13D3720BC354C007437DC /* FoliageUtilitiesTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D3520BC354C007437DC /* FoliageUtilitiesTabViewController.swift */; };
-		18B13D3A20BC3560007437DC /* FootpathUtilitiesTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D3920BC3560007437DC /* FootpathUtilitiesTabViewController.swift */; };
-		18B13D3D20BC358D007437DC /* WaterUtilitiesTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D3B20BC358D007437DC /* WaterUtilitiesTabViewController.swift */; };
-		18B13D4020BC35E3007437DC /* AreaUtilitiesTabStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D3F20BC35E3007437DC /* AreaUtilitiesTabStateObserver.swift */; };
-		18B13D4220BC35EE007437DC /* FoliageUtilitiesTabStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D4120BC35EE007437DC /* FoliageUtilitiesTabStateObserver.swift */; };
-		18B13D4420BC35F8007437DC /* FootpathUtilitiesTabStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D4320BC35F8007437DC /* FootpathUtilitiesTabStateObserver.swift */; };
-		18B13D4620BC3602007437DC /* WaterUtilitiesTabStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B13D4520BC3602007437DC /* WaterUtilitiesTabStateObserver.swift */; };
-		18B4885220B1AC880032E832 /* AreaUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4885120B1AC880032E832 /* AreaUtilitiesViewController.swift */; };
-		18B4885420B1AC980032E832 /* FoliageUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4885320B1AC980032E832 /* FoliageUtilitiesViewController.swift */; };
-		18B4885620B1ACA60032E832 /* FootpathUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4885520B1ACA60032E832 /* FootpathUtilitiesViewController.swift */; };
-		18B4885820B1ACB50032E832 /* TerrainUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4885720B1ACB50032E832 /* TerrainUtilitiesViewController.swift */; };
-		18B4885A20B1ACC20032E832 /* WaterUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4885920B1ACC20032E832 /* WaterUtilitiesViewController.swift */; };
-		18B4885C20B1AD190032E832 /* UtilitiesTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4885B20B1AD190032E832 /* UtilitiesTabViewController.swift */; };
-		18B4885E20B1AD960032E832 /* SidebarTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4885D20B1AD960032E832 /* SidebarTabViewController.swift */; };
+		189A6022246D416700DD68A7 /* MeadowInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189A6021246D416700DD68A7 /* MeadowInspector.swift */; };
 		18B4886120B1ADC20032E832 /* SidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4886020B1ADC20032E832 /* SidebarViewController.swift */; };
-		18B4887420B1BD7F0032E832 /* InspectorTabStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B4887320B1BD7F0032E832 /* InspectorTabStateObserver.swift */; };
+		18B567292456E00100B79DA9 /* AreaInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B567282456E00100B79DA9 /* AreaInspectorViewController.swift */; };
+		18B5672B2456E00700B79DA9 /* FoliageInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B5672A2456E00700B79DA9 /* FoliageInspectorViewController.swift */; };
+		18B5672D2456E00F00B79DA9 /* FootpathInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B5672C2456E00F00B79DA9 /* FootpathInspectorViewController.swift */; };
+		18B5672F2456E01700B79DA9 /* TerrainInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B5672E2456E01700B79DA9 /* TerrainInspectorViewController.swift */; };
+		18B567312456E01E00B79DA9 /* WaterInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B567302456E01E00B79DA9 /* WaterInspectorViewController.swift */; };
+		18B567342456E03500B79DA9 /* PropInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B567332456E03500B79DA9 /* PropInspectorViewController.swift */; };
+		18B56737245846C300B79DA9 /* Inspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B56736245846C300B79DA9 /* Inspector.swift */; };
+		18B56739245846DB00B79DA9 /* TerrainInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B56738245846DB00B79DA9 /* TerrainInspector.swift */; };
+		18C68434248E49A5007F7FBB /* TerrainInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C68433248E49A5007F7FBB /* TerrainInspectorCoordinator.swift */; };
 		18C7732120A728D5006F3EA8 /* OrchardWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C7732020A728D5006F3EA8 /* OrchardWindowController.swift */; };
 		18C7732320A72EDA006F3EA8 /* SceneGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C7732220A72EDA006F3EA8 /* SceneGraphViewController.swift */; };
 		18C7732620A738DD006F3EA8 /* OrchardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C7732520A738DD006F3EA8 /* OrchardViewController.swift */; };
-		18F6482B219C1BBA00CE3267 /* PropInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F6482A219C1BBA00CE3267 /* PropInspectorViewController.swift */; };
-		18F6482E219C1BE800CE3267 /* PropUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F6482D219C1BE800CE3267 /* PropUtilitiesViewController.swift */; };
-		18F64830219C1C1300CE3267 /* PropBuildUtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F6482F219C1C1300CE3267 /* PropBuildUtilitiesViewController.swift */; };
-		18F64832219C1C3900CE3267 /* PropUtilitiesTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F64831219C1C3900CE3267 /* PropUtilitiesTabViewController.swift */; };
-		18F6483D219C1CF400CE3267 /* PropInspectorStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F6483C219C1CF400CE3267 /* PropInspectorStateObserver.swift */; };
-		18F64840219C1D7100CE3267 /* PropUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F6483F219C1D7100CE3267 /* PropUtilitiesStateObserver.swift */; };
-		18F64842219C1D8C00CE3267 /* PropUtilitiesTabStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F64841219C1D8C00CE3267 /* PropUtilitiesTabStateObserver.swift */; };
-		18F64844219C1DB000CE3267 /* PropBuildUtilitiesStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F64843219C1DB000CE3267 /* PropBuildUtilitiesStateObserver.swift */; };
-		18FCFAF220B2D34000EBCBBB /* SceneInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCFAF120B2D34000EBCBBB /* SceneInspectorViewController.swift */; };
-		BA07A3D5ED20566BF813225B /* libPods-Orchard-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0179D21FEE16CD532608FE07 /* libPods-Orchard-Tests.a */; };
+		18E0577524D40EEE00F8C79E /* TerrainUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E0577424D40EEE00F8C79E /* TerrainUtilityCoordinator.swift */; };
+		18E0577B24D4124100F8C79E /* AreaUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E0577A24D4124100F8C79E /* AreaUtilityViewController.swift */; };
+		18E0577D24D4124A00F8C79E /* FoliageUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E0577C24D4124A00F8C79E /* FoliageUtilityViewController.swift */; };
+		18E0577F24D4125200F8C79E /* FootpathUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E0577E24D4125200F8C79E /* FootpathUtilityViewController.swift */; };
+		18E0578124D4125900F8C79E /* WaterUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E0578024D4125900F8C79E /* WaterUtilityViewController.swift */; };
+		18EFF9FB24446DD400FA2CFE /* WindowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EFF9FA24446DD400FA2CFE /* WindowCoordinator.swift */; };
+		18F7B4F2248E7AFF00890694 /* MeadowInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F7B4F1248E7AFF00890694 /* MeadowInspectorCoordinator.swift */; };
+		18FEA8282478183A00E524EF /* MeadowJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FEA8272478183A00E524EF /* MeadowJSON.swift */; };
+		30B88DF072FB3A90AEB81AF0 /* libPods-Orchard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9EB0DFD1E8E58558E3F1AD /* libPods-Orchard.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		1871221620932095002488E0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 187121FB20932094002488E0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1871220220932094002488E0;
-			remoteInfo = Orchard;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0179D21FEE16CD532608FE07 /* libPods-Orchard-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Orchard-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EC9B9EA3D57D1579AF7465E /* Pods-OrchardTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OrchardTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OrchardTests/Pods-OrchardTests.release.xcconfig"; sourceTree = "<group>"; };
-		1803165C20B6F2DF009D367F /* TerrainInspectorStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainInspectorStateObserver.swift; sourceTree = "<group>"; };
-		1805DF2120C912FF00F333C6 /* InspectorSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorSceneView.swift; sourceTree = "<group>"; };
+		18087D55247539A800D02BCF /* TerrainUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainUtilityViewController.swift; sourceTree = "<group>"; };
+		18087D5D24753A2000D02BCF /* PropUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropUtilityViewController.swift; sourceTree = "<group>"; };
+		180A3AB024FFBA2C0068ED7F /* TerrainUtilityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainUtilityViewModel.swift; sourceTree = "<group>"; };
 		181EDA2322103C47002CD162 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
-		1820662B20B05BDB00D0356D /* AreaInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaInspectorViewController.swift; sourceTree = "<group>"; };
-		1820662D20B05BE600D0356D /* FoliageInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageInspectorViewController.swift; sourceTree = "<group>"; };
-		1820663120B05C0000D0356D /* FootpathInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathInspectorViewController.swift; sourceTree = "<group>"; };
-		1820663320B05C0B00D0356D /* TerrainInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainInspectorViewController.swift; sourceTree = "<group>"; };
-		1820663520B05C1700D0356D /* WaterInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterInspectorViewController.swift; sourceTree = "<group>"; };
-		1822D3AF20BE8784004A1156 /* SidebarTabStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarTabStateObserver.swift; sourceTree = "<group>"; };
-		1822D3B120BE8F11004A1156 /* SidebarStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarStateObserver.swift; sourceTree = "<group>"; };
+		181EDFAA2452C6800030D23C /* Responder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Responder.swift; sourceTree = "<group>"; };
+		181EDFAD2452D9FF0030D23C /* SidebarTabViewCoordinator+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SidebarTabViewCoordinator+ViewModel.swift"; sourceTree = "<group>"; };
+		181EDFB12452F35F0030D23C /* MeadowInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeadowInspectorViewController.swift; sourceTree = "<group>"; };
+		181EDFB32452F9EA0030D23C /* InspectorTabViewCoordinator+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InspectorTabViewCoordinator+ViewModel.swift"; sourceTree = "<group>"; };
+		181EDFB52452FA4B0030D23C /* UtilityTabViewCoordinator+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UtilityTabViewCoordinator+ViewModel.swift"; sourceTree = "<group>"; };
+		181EDFB72453312E0030D23C /* ActorsInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorsInspectorViewController.swift; sourceTree = "<group>"; };
+		182315A424472AEE00426181 /* SplitViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewCoordinator.swift; sourceTree = "<group>"; };
 		182AFA1F21709A510009AD0D /* NSMenuItem+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMenuItem+Color.swift"; sourceTree = "<group>"; };
-		1832994321788D8100485907 /* WaterBuildUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterBuildUtilitiesStateObserver.swift; sourceTree = "<group>"; };
-		1832994521788DAD00485907 /* WaterBuildUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterBuildUtilitiesViewController.swift; sourceTree = "<group>"; };
-		1837ADED20ADD0C9006802CA /* WindowSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSplitViewController.swift; sourceTree = "<group>"; };
-		185E588320A9C6F300139565 /* SceneGraphCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGraphCell.swift; sourceTree = "<group>"; };
-		185E588520A9C71300139565 /* SceneGraphCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SceneGraphCell.xib; sourceTree = "<group>"; };
-		186A27C7217EFE1C00CBC156 /* AreaBuildUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaBuildUtilitiesViewController.swift; sourceTree = "<group>"; };
-		186A27C9217F008200CBC156 /* AreaBuildUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaBuildUtilitiesStateObserver.swift; sourceTree = "<group>"; };
-		186A27CB217F0CD100CBC156 /* AreaArchitectureUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaArchitectureUtilitiesViewController.swift; sourceTree = "<group>"; };
-		186A27CD217F0CE100CBC156 /* AreaPaintUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaPaintUtilitiesViewController.swift; sourceTree = "<group>"; };
-		186A27CF217F115300CBC156 /* AreaArchitectureUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaArchitectureUtilitiesStateObserver.swift; sourceTree = "<group>"; };
-		186A27D1217F115C00CBC156 /* AreaPaintUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaPaintUtilitiesStateObserver.swift; sourceTree = "<group>"; };
-		186A27D3217F3AC400CBC156 /* FootpathBuildUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathBuildUtilitiesStateObserver.swift; sourceTree = "<group>"; };
-		186A27D5217F3AF500CBC156 /* FootpathBuildUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathBuildUtilitiesViewController.swift; sourceTree = "<group>"; };
-		186A27D7217F5DFD00CBC156 /* FoliageBuildUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageBuildUtilitiesViewController.swift; sourceTree = "<group>"; };
-		186A27D9217F5E1700CBC156 /* FoliageBuildUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageBuildUtilitiesStateObserver.swift; sourceTree = "<group>"; };
-		186A27DB217F5E8700CBC156 /* FootpathPaintUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathPaintUtilitiesStateObserver.swift; sourceTree = "<group>"; };
-		186A27DD217F5EC300CBC156 /* FoliagePaintUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliagePaintUtilitiesStateObserver.swift; sourceTree = "<group>"; };
-		186A27DF217F5EF500CBC156 /* FoliagePaintUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliagePaintUtilitiesViewController.swift; sourceTree = "<group>"; };
-		186A27E1217F5F0D00CBC156 /* FootpathPaintUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathPaintUtilitiesViewController.swift; sourceTree = "<group>"; };
+		1837ADED20ADD0C9006802CA /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
+		184E62CD244D85F100D2B6F8 /* OrchardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrchardCoordinator.swift; sourceTree = "<group>"; };
+		184E62D2244D9C7F00D2B6F8 /* SidebarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarCoordinator.swift; sourceTree = "<group>"; };
+		184E62D5244D9C9300D2B6F8 /* SceneGraphCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGraphCoordinator.swift; sourceTree = "<group>"; };
+		184E62D8244D9CA400D2B6F8 /* SceneViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneViewCoordinator.swift; sourceTree = "<group>"; };
+		184E62DB244DACCA00D2B6F8 /* SidebarTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarTabViewController.swift; sourceTree = "<group>"; };
+		184E62DD244DADA700D2B6F8 /* InspectorTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorTabViewController.swift; sourceTree = "<group>"; };
+		184E62DF244DADB200D2B6F8 /* UtilityTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityTabViewController.swift; sourceTree = "<group>"; };
+		184E62E2244DAE9E00D2B6F8 /* SidebarTabViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarTabViewCoordinator.swift; sourceTree = "<group>"; };
+		184E62E4244DB04900D2B6F8 /* InspectorTabViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorTabViewCoordinator.swift; sourceTree = "<group>"; };
+		184E62E6244DB05600D2B6F8 /* UtilityTabViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityTabViewCoordinator.swift; sourceTree = "<group>"; };
+		184E62E8244DC54200D2B6F8 /* Inspector.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Inspector.storyboard; sourceTree = "<group>"; };
+		184E62EA244DC54B00D2B6F8 /* Utility.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Utility.storyboard; sourceTree = "<group>"; };
+		185827772493F72C0097CDBD /* AreaInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaInspector.swift; sourceTree = "<group>"; };
+		185827792493F75F0097CDBD /* FootpathInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathInspector.swift; sourceTree = "<group>"; };
+		1858277B2493F7790097CDBD /* FoliageInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageInspector.swift; sourceTree = "<group>"; };
+		1858277D2493F7BF0097CDBD /* AreaInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaInspectorCoordinator.swift; sourceTree = "<group>"; };
+		1858277F2493F7C80097CDBD /* FoliageInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageInspectorCoordinator.swift; sourceTree = "<group>"; };
+		185827812493F7D30097CDBD /* FootpathInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathInspectorCoordinator.swift; sourceTree = "<group>"; };
+		18625F05247FFA55000ED41E /* SceneGraphObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGraphObserver.swift; sourceTree = "<group>"; };
+		18625F092480F068000ED41E /* SceneGraphIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGraphIdentifiable.swift; sourceTree = "<group>"; };
+		1865E00D2493788E009C8F43 /* WaterInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterInspector.swift; sourceTree = "<group>"; };
+		1865E00F24937A02009C8F43 /* WaterInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterInspectorCoordinator.swift; sourceTree = "<group>"; };
 		1871220320932094002488E0 /* Orchard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Orchard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1871220620932094002488E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1871220820932094002488E0 /* SceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneViewController.swift; sourceTree = "<group>"; };
@@ -149,68 +116,34 @@
 		1871220D20932095002488E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1871220F20932095002488E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1871221020932095002488E0 /* Orchard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Orchard.entitlements; sourceTree = "<group>"; };
-		1871221520932095002488E0 /* Orchard-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Orchard-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1871221920932095002488E0 /* OrchardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrchardTests.swift; sourceTree = "<group>"; };
-		1871221B20932095002488E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		18733D9D2139392000491CB7 /* OrchardStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrchardStateObserver.swift; sourceTree = "<group>"; };
-		18733DA02139470C00491CB7 /* SceneGraphStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGraphStateObserver.swift; sourceTree = "<group>"; };
-		18733DA321394F1900491CB7 /* SceneStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneStateObserver.swift; sourceTree = "<group>"; };
-		1884F8A420B0548F0023AA0B /* InspectorTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorTabViewController.swift; sourceTree = "<group>"; };
 		18866766220B23EB00FFE6F6 /* libMeadow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libMeadow.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		18873B882111B6510010B52C /* ColorPaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPaletteView.swift; sourceTree = "<group>"; };
 		188E38E920B57CC0001A6C3A /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
-		189256B820B7FFE400FD9364 /* AreaInspectorStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaInspectorStateObserver.swift; sourceTree = "<group>"; };
-		189256BA20B7FFEF00FD9364 /* FoliageInspectorStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageInspectorStateObserver.swift; sourceTree = "<group>"; };
-		189256BC20B7FFF700FD9364 /* FootpathInspectorStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathInspectorStateObserver.swift; sourceTree = "<group>"; };
-		189256BE20B8000700FD9364 /* WaterInspectorStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterInspectorStateObserver.swift; sourceTree = "<group>"; };
-		189256C120B800A000FD9364 /* SceneInspectorStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneInspectorStateObserver.swift; sourceTree = "<group>"; };
-		189256C320B84DCF00FD9364 /* TerrainUtilitiesTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainUtilitiesTabViewController.swift; sourceTree = "<group>"; };
-		189256C520B84DFA00FD9364 /* TerrainUtilitiesTabStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainUtilitiesTabStateObserver.swift; sourceTree = "<group>"; };
-		189256C720B8524200FD9364 /* TerrainBuildUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainBuildUtilitiesViewController.swift; sourceTree = "<group>"; };
-		189256C920B8525500FD9364 /* TerrainBuildUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainBuildUtilitiesStateObserver.swift; sourceTree = "<group>"; };
-		189256CB20B8551800FD9364 /* TerrainTerraformUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainTerraformUtilitiesViewController.swift; sourceTree = "<group>"; };
-		189256CD20B8552600FD9364 /* TerrainPaintUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainPaintUtilitiesViewController.swift; sourceTree = "<group>"; };
-		189256CF20B8554500FD9364 /* TerrainTerraformUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainTerraformUtilitiesStateObserver.swift; sourceTree = "<group>"; };
-		189256D120B8554F00FD9364 /* TerrainPaintUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainPaintUtilitiesStateObserver.swift; sourceTree = "<group>"; };
-		189256D320B8583200FD9364 /* UtilitiesTabStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilitiesTabStateObserver.swift; sourceTree = "<group>"; };
-		189256D520B85BA900FD9364 /* TerrainUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainUtilitiesStateObserver.swift; sourceTree = "<group>"; };
-		18B13D2B20BC3474007437DC /* AreaUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaUtilitiesStateObserver.swift; sourceTree = "<group>"; };
-		18B13D2D20BC347D007437DC /* FoliageUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageUtilitiesStateObserver.swift; sourceTree = "<group>"; };
-		18B13D2F20BC3488007437DC /* FootpathUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathUtilitiesStateObserver.swift; sourceTree = "<group>"; };
-		18B13D3120BC3490007437DC /* WaterUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterUtilitiesStateObserver.swift; sourceTree = "<group>"; };
-		18B13D3320BC353F007437DC /* AreaUtilitiesTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaUtilitiesTabViewController.swift; sourceTree = "<group>"; };
-		18B13D3520BC354C007437DC /* FoliageUtilitiesTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageUtilitiesTabViewController.swift; sourceTree = "<group>"; };
-		18B13D3920BC3560007437DC /* FootpathUtilitiesTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathUtilitiesTabViewController.swift; sourceTree = "<group>"; };
-		18B13D3B20BC358D007437DC /* WaterUtilitiesTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterUtilitiesTabViewController.swift; sourceTree = "<group>"; };
-		18B13D3F20BC35E3007437DC /* AreaUtilitiesTabStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaUtilitiesTabStateObserver.swift; sourceTree = "<group>"; };
-		18B13D4120BC35EE007437DC /* FoliageUtilitiesTabStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageUtilitiesTabStateObserver.swift; sourceTree = "<group>"; };
-		18B13D4320BC35F8007437DC /* FootpathUtilitiesTabStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathUtilitiesTabStateObserver.swift; sourceTree = "<group>"; };
-		18B13D4520BC3602007437DC /* WaterUtilitiesTabStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterUtilitiesTabStateObserver.swift; sourceTree = "<group>"; };
-		18B4885120B1AC880032E832 /* AreaUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaUtilitiesViewController.swift; sourceTree = "<group>"; };
-		18B4885320B1AC980032E832 /* FoliageUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageUtilitiesViewController.swift; sourceTree = "<group>"; };
-		18B4885520B1ACA60032E832 /* FootpathUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathUtilitiesViewController.swift; sourceTree = "<group>"; };
-		18B4885720B1ACB50032E832 /* TerrainUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainUtilitiesViewController.swift; sourceTree = "<group>"; };
-		18B4885920B1ACC20032E832 /* WaterUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterUtilitiesViewController.swift; sourceTree = "<group>"; };
-		18B4885B20B1AD190032E832 /* UtilitiesTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilitiesTabViewController.swift; sourceTree = "<group>"; };
-		18B4885D20B1AD960032E832 /* SidebarTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarTabViewController.swift; sourceTree = "<group>"; };
+		189A6021246D416700DD68A7 /* MeadowInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeadowInspector.swift; sourceTree = "<group>"; };
 		18B4886020B1ADC20032E832 /* SidebarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewController.swift; sourceTree = "<group>"; };
-		18B4887320B1BD7F0032E832 /* InspectorTabStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorTabStateObserver.swift; sourceTree = "<group>"; };
+		18B567282456E00100B79DA9 /* AreaInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaInspectorViewController.swift; sourceTree = "<group>"; };
+		18B5672A2456E00700B79DA9 /* FoliageInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageInspectorViewController.swift; sourceTree = "<group>"; };
+		18B5672C2456E00F00B79DA9 /* FootpathInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathInspectorViewController.swift; sourceTree = "<group>"; };
+		18B5672E2456E01700B79DA9 /* TerrainInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainInspectorViewController.swift; sourceTree = "<group>"; };
+		18B567302456E01E00B79DA9 /* WaterInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterInspectorViewController.swift; sourceTree = "<group>"; };
+		18B567332456E03500B79DA9 /* PropInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropInspectorViewController.swift; sourceTree = "<group>"; };
+		18B56736245846C300B79DA9 /* Inspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inspector.swift; sourceTree = "<group>"; };
+		18B56738245846DB00B79DA9 /* TerrainInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainInspector.swift; sourceTree = "<group>"; };
+		18C68433248E49A5007F7FBB /* TerrainInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainInspectorCoordinator.swift; sourceTree = "<group>"; };
 		18C7732020A728D5006F3EA8 /* OrchardWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrchardWindowController.swift; sourceTree = "<group>"; };
 		18C7732220A72EDA006F3EA8 /* SceneGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGraphViewController.swift; sourceTree = "<group>"; };
 		18C7732520A738DD006F3EA8 /* OrchardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrchardViewController.swift; sourceTree = "<group>"; };
-		18F6482A219C1BBA00CE3267 /* PropInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropInspectorViewController.swift; sourceTree = "<group>"; };
-		18F6482D219C1BE800CE3267 /* PropUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropUtilitiesViewController.swift; sourceTree = "<group>"; };
-		18F6482F219C1C1300CE3267 /* PropBuildUtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropBuildUtilitiesViewController.swift; sourceTree = "<group>"; };
-		18F64831219C1C3900CE3267 /* PropUtilitiesTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropUtilitiesTabViewController.swift; sourceTree = "<group>"; };
-		18F6483C219C1CF400CE3267 /* PropInspectorStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropInspectorStateObserver.swift; sourceTree = "<group>"; };
-		18F6483F219C1D7100CE3267 /* PropUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropUtilitiesStateObserver.swift; sourceTree = "<group>"; };
-		18F64841219C1D8C00CE3267 /* PropUtilitiesTabStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropUtilitiesTabStateObserver.swift; sourceTree = "<group>"; };
-		18F64843219C1DB000CE3267 /* PropBuildUtilitiesStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropBuildUtilitiesStateObserver.swift; sourceTree = "<group>"; };
-		18FCFAF120B2D34000EBCBBB /* SceneInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneInspectorViewController.swift; sourceTree = "<group>"; };
+		18E0577424D40EEE00F8C79E /* TerrainUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainUtilityCoordinator.swift; sourceTree = "<group>"; };
+		18E0577A24D4124100F8C79E /* AreaUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaUtilityViewController.swift; sourceTree = "<group>"; };
+		18E0577C24D4124A00F8C79E /* FoliageUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageUtilityViewController.swift; sourceTree = "<group>"; };
+		18E0577E24D4125200F8C79E /* FootpathUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathUtilityViewController.swift; sourceTree = "<group>"; };
+		18E0578024D4125900F8C79E /* WaterUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterUtilityViewController.swift; sourceTree = "<group>"; };
+		18EFF9FA24446DD400FA2CFE /* WindowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCoordinator.swift; sourceTree = "<group>"; };
+		18F7B4F1248E7AFF00890694 /* MeadowInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeadowInspectorCoordinator.swift; sourceTree = "<group>"; };
+		18FEA8272478183A00E524EF /* MeadowJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeadowJSON.swift; sourceTree = "<group>"; };
 		569504FABC2C1C147277D036 /* Pods-Orchard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orchard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Orchard/Pods-Orchard.debug.xcconfig"; sourceTree = "<group>"; };
 		625DF7EC8D7148586F17ACD0 /* Pods-Orchard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orchard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Orchard/Pods-Orchard.release.xcconfig"; sourceTree = "<group>"; };
+		7E9EB0DFD1E8E58558E3F1AD /* libPods-Orchard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Orchard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1E0C2F266DFD52AD0D3ABD5 /* Pods-Orchard-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orchard-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Orchard-Tests/Pods-Orchard-Tests.release.xcconfig"; sourceTree = "<group>"; };
-		BEC913C8FBAB8126A50226D5 /* libPods-Orchard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Orchard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C5F3F31A6B581BE781291C /* Pods-OrchardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OrchardTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OrchardTests/Pods-OrchardTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F260B429956BB954840CEEDE /* Pods-Orchard-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Orchard-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Orchard-Tests/Pods-Orchard-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -220,51 +153,74 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18866768220B241600FFE6F6 /* libPods-Orchard.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1871221220932095002488E0 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BA07A3D5ED20566BF813225B /* libPods-Orchard-Tests.a in Frameworks */,
+				30B88DF072FB3A90AEB81AF0 /* libPods-Orchard.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1805DF2020C912C200F333C6 /* Inspector Scene View */ = {
+		180A3AAF24FFBA160068ED7F /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				1805DF2120C912FF00F333C6 /* InspectorSceneView.swift */,
+				180A3AB024FFBA2C0068ED7F /* TerrainUtilityViewModel.swift */,
 			);
-			path = "Inspector Scene View";
+			path = Utility;
 			sourceTree = "<group>";
 		};
-		1820662220B05B6C00D0356D /* Inspector */ = {
+		181EDFA92452C6720030D23C /* Responder */ = {
 			isa = PBXGroup;
 			children = (
-				1820662A20B05BAB00D0356D /* Area */,
-				1820662920B05BA900D0356D /* Foliage */,
-				1820662820B05BA700D0356D /* Footpath */,
-				18F64829219C1B9700CE3267 /* Prop */,
-				18FCFAF020B2D32F00EBCBBB /* Scene */,
-				1820662720B05BA400D0356D /* Terrain */,
-				1820662620B05BA200D0356D /* Water */,
+				181EDFAA2452C6800030D23C /* Responder.swift */,
+			);
+			path = Responder;
+			sourceTree = "<group>";
+		};
+		181EDFAC2452D9DD0030D23C /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				180A3AAF24FFBA160068ED7F /* Utility */,
+				181EDFB9245331AD0030D23C /* Tab View */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		181EDFAF2452F3390030D23C /* Inspector */ = {
+			isa = PBXGroup;
+			children = (
+				181EDFB72453312E0030D23C /* ActorsInspectorViewController.swift */,
+				18B567282456E00100B79DA9 /* AreaInspectorViewController.swift */,
+				18B5672A2456E00700B79DA9 /* FoliageInspectorViewController.swift */,
+				18B5672C2456E00F00B79DA9 /* FootpathInspectorViewController.swift */,
+				181EDFB12452F35F0030D23C /* MeadowInspectorViewController.swift */,
+				18B567332456E03500B79DA9 /* PropInspectorViewController.swift */,
+				18B5672E2456E01700B79DA9 /* TerrainInspectorViewController.swift */,
+				18B567302456E01E00B79DA9 /* WaterInspectorViewController.swift */,
 			);
 			path = Inspector;
 			sourceTree = "<group>";
 		};
-		1820662320B05B7400D0356D /* Tab View Controllers */ = {
+		181EDFB02452F33F0030D23C /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				18F64833219C1C7200CE3267 /* Inspector */,
-				18B4885D20B1AD960032E832 /* SidebarTabViewController.swift */,
-				18F64834219C1C7B00CE3267 /* Utilities */,
+				18087D55247539A800D02BCF /* TerrainUtilityViewController.swift */,
+				18087D5D24753A2000D02BCF /* PropUtilityViewController.swift */,
+				18E0577A24D4124100F8C79E /* AreaUtilityViewController.swift */,
+				18E0577C24D4124A00F8C79E /* FoliageUtilityViewController.swift */,
+				18E0577E24D4125200F8C79E /* FootpathUtilityViewController.swift */,
+				18E0578024D4125900F8C79E /* WaterUtilityViewController.swift */,
 			);
-			path = "Tab View Controllers";
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		181EDFB9245331AD0030D23C /* Tab View */ = {
+			isa = PBXGroup;
+			children = (
+				181EDFB52452FA4B0030D23C /* UtilityTabViewCoordinator+ViewModel.swift */,
+				181EDFAD2452D9FF0030D23C /* SidebarTabViewCoordinator+ViewModel.swift */,
+				181EDFB32452F9EA0030D23C /* InspectorTabViewCoordinator+ViewModel.swift */,
+			);
+			path = "Tab View";
 			sourceTree = "<group>";
 		};
 		1820662420B05B8200D0356D /* Scene */ = {
@@ -283,59 +239,12 @@
 			path = "Scene Graph";
 			sourceTree = "<group>";
 		};
-		1820662620B05BA200D0356D /* Water */ = {
-			isa = PBXGroup;
-			children = (
-				1820663520B05C1700D0356D /* WaterInspectorViewController.swift */,
-			);
-			path = Water;
-			sourceTree = "<group>";
-		};
-		1820662720B05BA400D0356D /* Terrain */ = {
-			isa = PBXGroup;
-			children = (
-				1820663320B05C0B00D0356D /* TerrainInspectorViewController.swift */,
-			);
-			path = Terrain;
-			sourceTree = "<group>";
-		};
-		1820662820B05BA700D0356D /* Footpath */ = {
-			isa = PBXGroup;
-			children = (
-				1820663120B05C0000D0356D /* FootpathInspectorViewController.swift */,
-			);
-			path = Footpath;
-			sourceTree = "<group>";
-		};
-		1820662920B05BA900D0356D /* Foliage */ = {
-			isa = PBXGroup;
-			children = (
-				1820662D20B05BE600D0356D /* FoliageInspectorViewController.swift */,
-			);
-			path = Foliage;
-			sourceTree = "<group>";
-		};
-		1820662A20B05BAB00D0356D /* Area */ = {
-			isa = PBXGroup;
-			children = (
-				1820662B20B05BDB00D0356D /* AreaInspectorViewController.swift */,
-			);
-			path = Area;
-			sourceTree = "<group>";
-		};
-		1822D3AE20BE876A004A1156 /* Sidebar */ = {
-			isa = PBXGroup;
-			children = (
-				1822D3AF20BE8784004A1156 /* SidebarTabStateObserver.swift */,
-				1822D3B120BE8F11004A1156 /* SidebarStateObserver.swift */,
-			);
-			path = Sidebar;
-			sourceTree = "<group>";
-		};
 		182AFA1E21709A400009AD0D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				18FEA8272478183A00E524EF /* MeadowJSON.swift */,
 				182AFA1F21709A510009AD0D /* NSMenuItem+Color.swift */,
+				18625F092480F068000ED41E /* SceneGraphIdentifiable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -353,7 +262,9 @@
 		18496C622093243900992AF3 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				184E62E8244DC54200D2B6F8 /* Inspector.storyboard */,
 				1871220C20932095002488E0 /* Main.storyboard */,
+				184E62EA244DC54B00D2B6F8 /* Utility.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -361,32 +272,90 @@
 		18496C632093244900992AF3 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				18B4885F20B1ADAB0032E832 /* Sidebar */,
-				1820662220B05B6C00D0356D /* Inspector */,
+				181EDFAF2452F3390030D23C /* Inspector */,
 				18C7732520A738DD006F3EA8 /* OrchardViewController.swift */,
 				1820662420B05B8200D0356D /* Scene */,
 				1820662520B05B8800D0356D /* Scene Graph */,
-				18E6BACE20AF287C004E799B /* Split View Controllers */,
-				1820662320B05B7400D0356D /* Tab View Controllers */,
-				18B4884B20B1ABFA0032E832 /* Utilities */,
+				18B4885F20B1ADAB0032E832 /* Sidebar */,
+				18E6BACE20AF287C004E799B /* Split View */,
+				184E62DA244DAC3A00D2B6F8 /* Tab View */,
+				181EDFB02452F33F0030D23C /* Utility */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
 		};
-		185E588220A9C6D600139565 /* Scene Graph */ = {
+		184E62CF244D9C2B00D2B6F8 /* Window */ = {
 			isa = PBXGroup;
 			children = (
-				185E588320A9C6F300139565 /* SceneGraphCell.swift */,
-				185E588520A9C71300139565 /* SceneGraphCell.xib */,
+				18EFF9FA24446DD400FA2CFE /* WindowCoordinator.swift */,
+			);
+			path = Window;
+			sourceTree = "<group>";
+		};
+		184E62D0244D9C3300D2B6F8 /* Split View */ = {
+			isa = PBXGroup;
+			children = (
+				182315A424472AEE00426181 /* SplitViewCoordinator.swift */,
+			);
+			path = "Split View";
+			sourceTree = "<group>";
+		};
+		184E62D1244D9C5400D2B6F8 /* Sidebar */ = {
+			isa = PBXGroup;
+			children = (
+				184E62D2244D9C7F00D2B6F8 /* SidebarCoordinator.swift */,
+			);
+			path = Sidebar;
+			sourceTree = "<group>";
+		};
+		184E62D4244D9C8600D2B6F8 /* Scene Graph */ = {
+			isa = PBXGroup;
+			children = (
+				184E62D5244D9C9300D2B6F8 /* SceneGraphCoordinator.swift */,
 			);
 			path = "Scene Graph";
+			sourceTree = "<group>";
+		};
+		184E62D7244D9C9A00D2B6F8 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				184E62D8244D9CA400D2B6F8 /* SceneViewCoordinator.swift */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		184E62DA244DAC3A00D2B6F8 /* Tab View */ = {
+			isa = PBXGroup;
+			children = (
+				184E62DF244DADB200D2B6F8 /* UtilityTabViewController.swift */,
+				184E62DB244DACCA00D2B6F8 /* SidebarTabViewController.swift */,
+				184E62DD244DADA700D2B6F8 /* InspectorTabViewController.swift */,
+			);
+			path = "Tab View";
+			sourceTree = "<group>";
+		};
+		184E62E1244DAE8F00D2B6F8 /* Tab View */ = {
+			isa = PBXGroup;
+			children = (
+				184E62E6244DB05600D2B6F8 /* UtilityTabViewCoordinator.swift */,
+				184E62E2244DAE9E00D2B6F8 /* SidebarTabViewCoordinator.swift */,
+				184E62E4244DB04900D2B6F8 /* InspectorTabViewCoordinator.swift */,
+			);
+			path = "Tab View";
+			sourceTree = "<group>";
+		};
+		18625F04247FFA42000ED41E /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				18625F05247FFA55000ED41E /* SceneGraphObserver.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		187121FA20932094002488E0 = {
 			isa = PBXGroup;
 			children = (
 				1871220520932094002488E0 /* Orchard */,
-				1871221820932095002488E0 /* Orchard Tests */,
 				1871220420932094002488E0 /* Products */,
 				28B6BA7A38378D07A4AA6F9C /* Pods */,
 				428DBAAD587453FEBFF7B21A /* Frameworks */,
@@ -397,7 +366,6 @@
 			isa = PBXGroup;
 			children = (
 				1871220320932094002488E0 /* Orchard.app */,
-				1871221520932095002488E0 /* Orchard-Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -405,58 +373,19 @@
 		1871220520932094002488E0 /* Orchard */ = {
 			isa = PBXGroup;
 			children = (
-				182AFA1E21709A400009AD0D /* Extensions */,
 				1871220A20932095002488E0 /* Assets.xcassets */,
+				18EFF9F724446CC500FA2CFE /* Coordinators */,
 				188E38E820B57CAC001A6C3A /* Document */,
+				182AFA1E21709A400009AD0D /* Extensions */,
+				18B56735245846B300B79DA9 /* Inspectable */,
+				181EDFA92452C6720030D23C /* Responder */,
 				18496C622093243900992AF3 /* Storyboards */,
 				18496C61209323FE00992AF3 /* Supporting */,
 				18496C632093244900992AF3 /* View Controllers */,
-				18B4886420B1BD110032E832 /* State Observers */,
-				18C7732420A73564006F3EA8 /* Views */,
+				181EDFAC2452D9DD0030D23C /* View Models */,
 				18C7731F20A728A7006F3EA8 /* Window Controllers */,
 			);
 			path = Orchard;
-			sourceTree = "<group>";
-		};
-		1871221820932095002488E0 /* Orchard Tests */ = {
-			isa = PBXGroup;
-			children = (
-				1871221920932095002488E0 /* OrchardTests.swift */,
-				1871221B20932095002488E0 /* Info.plist */,
-			);
-			path = "Orchard Tests";
-			sourceTree = "<group>";
-		};
-		18733D9C2139391400491CB7 /* Orchard */ = {
-			isa = PBXGroup;
-			children = (
-				18733D9D2139392000491CB7 /* OrchardStateObserver.swift */,
-			);
-			path = Orchard;
-			sourceTree = "<group>";
-		};
-		18733D9F213946BE00491CB7 /* Scene Graph */ = {
-			isa = PBXGroup;
-			children = (
-				18733DA02139470C00491CB7 /* SceneGraphStateObserver.swift */,
-			);
-			path = "Scene Graph";
-			sourceTree = "<group>";
-		};
-		18733DA221394F0B00491CB7 /* Scene */ = {
-			isa = PBXGroup;
-			children = (
-				18733DA321394F1900491CB7 /* SceneStateObserver.swift */,
-			);
-			path = Scene;
-			sourceTree = "<group>";
-		};
-		18873B872111B6400010B52C /* Color Palette View */ = {
-			isa = PBXGroup;
-			children = (
-				18873B882111B6510010B52C /* ColorPaletteView.swift */,
-			);
-			path = "Color Palette View";
 			sourceTree = "<group>";
 		};
 		188E38E820B57CAC001A6C3A /* Document */ = {
@@ -467,78 +396,6 @@
 			path = Document;
 			sourceTree = "<group>";
 		};
-		189256C020B8009300FD9364 /* Scene */ = {
-			isa = PBXGroup;
-			children = (
-				189256C120B800A000FD9364 /* SceneInspectorStateObserver.swift */,
-			);
-			path = Scene;
-			sourceTree = "<group>";
-		};
-		18B4884B20B1ABFA0032E832 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				18B4885020B1AC0D0032E832 /* Area */,
-				18B4884F20B1AC0B0032E832 /* Foliage */,
-				18B4884E20B1AC080032E832 /* Footpath */,
-				18F6482C219C1BD700CE3267 /* Prop */,
-				18B4884D20B1AC060032E832 /* Terrain */,
-				18B4884C20B1AC040032E832 /* Water */,
-			);
-			path = Utilities;
-			sourceTree = "<group>";
-		};
-		18B4884C20B1AC040032E832 /* Water */ = {
-			isa = PBXGroup;
-			children = (
-				18B4885920B1ACC20032E832 /* WaterUtilitiesViewController.swift */,
-				1832994521788DAD00485907 /* WaterBuildUtilitiesViewController.swift */,
-			);
-			path = Water;
-			sourceTree = "<group>";
-		};
-		18B4884D20B1AC060032E832 /* Terrain */ = {
-			isa = PBXGroup;
-			children = (
-				18B4885720B1ACB50032E832 /* TerrainUtilitiesViewController.swift */,
-				189256C720B8524200FD9364 /* TerrainBuildUtilitiesViewController.swift */,
-				189256CB20B8551800FD9364 /* TerrainTerraformUtilitiesViewController.swift */,
-				189256CD20B8552600FD9364 /* TerrainPaintUtilitiesViewController.swift */,
-			);
-			path = Terrain;
-			sourceTree = "<group>";
-		};
-		18B4884E20B1AC080032E832 /* Footpath */ = {
-			isa = PBXGroup;
-			children = (
-				18B4885520B1ACA60032E832 /* FootpathUtilitiesViewController.swift */,
-				186A27D5217F3AF500CBC156 /* FootpathBuildUtilitiesViewController.swift */,
-				186A27E1217F5F0D00CBC156 /* FootpathPaintUtilitiesViewController.swift */,
-			);
-			path = Footpath;
-			sourceTree = "<group>";
-		};
-		18B4884F20B1AC0B0032E832 /* Foliage */ = {
-			isa = PBXGroup;
-			children = (
-				18B4885320B1AC980032E832 /* FoliageUtilitiesViewController.swift */,
-				186A27D7217F5DFD00CBC156 /* FoliageBuildUtilitiesViewController.swift */,
-				186A27DF217F5EF500CBC156 /* FoliagePaintUtilitiesViewController.swift */,
-			);
-			path = Foliage;
-			sourceTree = "<group>";
-		};
-		18B4885020B1AC0D0032E832 /* Area */ = {
-			isa = PBXGroup;
-			children = (
-				18B4885120B1AC880032E832 /* AreaUtilitiesViewController.swift */,
-				186A27C7217EFE1C00CBC156 /* AreaBuildUtilitiesViewController.swift */,
-				186A27CB217F0CD100CBC156 /* AreaArchitectureUtilitiesViewController.swift */,
-				186A27CD217F0CE100CBC156 /* AreaPaintUtilitiesViewController.swift */,
-			);
-			path = Area;
-			sourceTree = "<group>";
-		};
 		18B4885F20B1ADAB0032E832 /* Sidebar */ = {
 			isa = PBXGroup;
 			children = (
@@ -547,142 +404,31 @@
 			path = Sidebar;
 			sourceTree = "<group>";
 		};
-		18B4886420B1BD110032E832 /* State Observers */ = {
+		18B56735245846B300B79DA9 /* Inspectable */ = {
 			isa = PBXGroup;
 			children = (
-				18B4886520B1BD1C0032E832 /* Inspector */,
-				18733D9C2139391400491CB7 /* Orchard */,
-				18733DA221394F0B00491CB7 /* Scene */,
-				18733D9F213946BE00491CB7 /* Scene Graph */,
-				1822D3AE20BE876A004A1156 /* Sidebar */,
-				18B4886620B1BD230032E832 /* Utilities */,
+				18B56736245846C300B79DA9 /* Inspector.swift */,
+				18B56738245846DB00B79DA9 /* TerrainInspector.swift */,
+				189A6021246D416700DD68A7 /* MeadowInspector.swift */,
+				1865E00D2493788E009C8F43 /* WaterInspector.swift */,
+				185827772493F72C0097CDBD /* AreaInspector.swift */,
+				185827792493F75F0097CDBD /* FootpathInspector.swift */,
+				1858277B2493F7790097CDBD /* FoliageInspector.swift */,
 			);
-			path = "State Observers";
+			path = Inspectable;
 			sourceTree = "<group>";
 		};
-		18B4886520B1BD1C0032E832 /* Inspector */ = {
+		18C68432248E4690007F7FBB /* Inspector */ = {
 			isa = PBXGroup;
 			children = (
-				18F6483B219C1CE500CE3267 /* Prop */,
-				18B4886B20B1BD370032E832 /* Area */,
-				18B4886A20B1BD340032E832 /* Foliage */,
-				18B4886920B1BD320032E832 /* Footpath */,
-				18B4887320B1BD7F0032E832 /* InspectorTabStateObserver.swift */,
-				189256C020B8009300FD9364 /* Scene */,
-				18B4886820B1BD2F0032E832 /* Terrain */,
-				18B4886720B1BD2D0032E832 /* Water */,
+				18C68433248E49A5007F7FBB /* TerrainInspectorCoordinator.swift */,
+				18F7B4F1248E7AFF00890694 /* MeadowInspectorCoordinator.swift */,
+				1865E00F24937A02009C8F43 /* WaterInspectorCoordinator.swift */,
+				1858277D2493F7BF0097CDBD /* AreaInspectorCoordinator.swift */,
+				1858277F2493F7C80097CDBD /* FoliageInspectorCoordinator.swift */,
+				185827812493F7D30097CDBD /* FootpathInspectorCoordinator.swift */,
 			);
 			path = Inspector;
-			sourceTree = "<group>";
-		};
-		18B4886620B1BD230032E832 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				18F6483E219C1D5600CE3267 /* Prop */,
-				18B4887020B1BD4E0032E832 /* Area */,
-				18B4886F20B1BD4B0032E832 /* Foliage */,
-				18B4886E20B1BD490032E832 /* Footpath */,
-				18B4886D20B1BD460032E832 /* Terrain */,
-				18B4886C20B1BD430032E832 /* Water */,
-				189256D320B8583200FD9364 /* UtilitiesTabStateObserver.swift */,
-			);
-			path = Utilities;
-			sourceTree = "<group>";
-		};
-		18B4886720B1BD2D0032E832 /* Water */ = {
-			isa = PBXGroup;
-			children = (
-				189256BE20B8000700FD9364 /* WaterInspectorStateObserver.swift */,
-			);
-			path = Water;
-			sourceTree = "<group>";
-		};
-		18B4886820B1BD2F0032E832 /* Terrain */ = {
-			isa = PBXGroup;
-			children = (
-				1803165C20B6F2DF009D367F /* TerrainInspectorStateObserver.swift */,
-			);
-			path = Terrain;
-			sourceTree = "<group>";
-		};
-		18B4886920B1BD320032E832 /* Footpath */ = {
-			isa = PBXGroup;
-			children = (
-				189256BC20B7FFF700FD9364 /* FootpathInspectorStateObserver.swift */,
-			);
-			path = Footpath;
-			sourceTree = "<group>";
-		};
-		18B4886A20B1BD340032E832 /* Foliage */ = {
-			isa = PBXGroup;
-			children = (
-				189256BA20B7FFEF00FD9364 /* FoliageInspectorStateObserver.swift */,
-			);
-			path = Foliage;
-			sourceTree = "<group>";
-		};
-		18B4886B20B1BD370032E832 /* Area */ = {
-			isa = PBXGroup;
-			children = (
-				189256B820B7FFE400FD9364 /* AreaInspectorStateObserver.swift */,
-			);
-			path = Area;
-			sourceTree = "<group>";
-		};
-		18B4886C20B1BD430032E832 /* Water */ = {
-			isa = PBXGroup;
-			children = (
-				18B13D3120BC3490007437DC /* WaterUtilitiesStateObserver.swift */,
-				18B13D4520BC3602007437DC /* WaterUtilitiesTabStateObserver.swift */,
-				1832994321788D8100485907 /* WaterBuildUtilitiesStateObserver.swift */,
-			);
-			path = Water;
-			sourceTree = "<group>";
-		};
-		18B4886D20B1BD460032E832 /* Terrain */ = {
-			isa = PBXGroup;
-			children = (
-				189256C920B8525500FD9364 /* TerrainBuildUtilitiesStateObserver.swift */,
-				189256D120B8554F00FD9364 /* TerrainPaintUtilitiesStateObserver.swift */,
-				189256CF20B8554500FD9364 /* TerrainTerraformUtilitiesStateObserver.swift */,
-				189256C520B84DFA00FD9364 /* TerrainUtilitiesTabStateObserver.swift */,
-				189256D520B85BA900FD9364 /* TerrainUtilitiesStateObserver.swift */,
-			);
-			path = Terrain;
-			sourceTree = "<group>";
-		};
-		18B4886E20B1BD490032E832 /* Footpath */ = {
-			isa = PBXGroup;
-			children = (
-				18B13D2F20BC3488007437DC /* FootpathUtilitiesStateObserver.swift */,
-				18B13D4320BC35F8007437DC /* FootpathUtilitiesTabStateObserver.swift */,
-				186A27D3217F3AC400CBC156 /* FootpathBuildUtilitiesStateObserver.swift */,
-				186A27DB217F5E8700CBC156 /* FootpathPaintUtilitiesStateObserver.swift */,
-			);
-			path = Footpath;
-			sourceTree = "<group>";
-		};
-		18B4886F20B1BD4B0032E832 /* Foliage */ = {
-			isa = PBXGroup;
-			children = (
-				18B13D2D20BC347D007437DC /* FoliageUtilitiesStateObserver.swift */,
-				18B13D4120BC35EE007437DC /* FoliageUtilitiesTabStateObserver.swift */,
-				186A27D9217F5E1700CBC156 /* FoliageBuildUtilitiesStateObserver.swift */,
-				186A27DD217F5EC300CBC156 /* FoliagePaintUtilitiesStateObserver.swift */,
-			);
-			path = Foliage;
-			sourceTree = "<group>";
-		};
-		18B4887020B1BD4E0032E832 /* Area */ = {
-			isa = PBXGroup;
-			children = (
-				18B13D2B20BC3474007437DC /* AreaUtilitiesStateObserver.swift */,
-				18B13D3F20BC35E3007437DC /* AreaUtilitiesTabStateObserver.swift */,
-				186A27C9217F008200CBC156 /* AreaBuildUtilitiesStateObserver.swift */,
-				186A27CF217F115300CBC156 /* AreaArchitectureUtilitiesStateObserver.swift */,
-				186A27D1217F115C00CBC156 /* AreaPaintUtilitiesStateObserver.swift */,
-			);
-			path = Area;
 			sourceTree = "<group>";
 		};
 		18C7731F20A728A7006F3EA8 /* Window Controllers */ = {
@@ -693,135 +439,37 @@
 			path = "Window Controllers";
 			sourceTree = "<group>";
 		};
-		18C7732420A73564006F3EA8 /* Views */ = {
+		18E0577324D40EDA00F8C79E /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				18873B872111B6400010B52C /* Color Palette View */,
-				1805DF2020C912C200F333C6 /* Inspector Scene View */,
-				185E588220A9C6D600139565 /* Scene Graph */,
+				18E0577424D40EEE00F8C79E /* TerrainUtilityCoordinator.swift */,
 			);
-			path = Views;
+			path = Utility;
 			sourceTree = "<group>";
 		};
-		18E6BACE20AF287C004E799B /* Split View Controllers */ = {
+		18E6BACE20AF287C004E799B /* Split View */ = {
 			isa = PBXGroup;
 			children = (
-				1837ADED20ADD0C9006802CA /* WindowSplitViewController.swift */,
+				1837ADED20ADD0C9006802CA /* SplitViewController.swift */,
 			);
-			path = "Split View Controllers";
+			path = "Split View";
 			sourceTree = "<group>";
 		};
-		18F64829219C1B9700CE3267 /* Prop */ = {
+		18EFF9F724446CC500FA2CFE /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
-				18F6482A219C1BBA00CE3267 /* PropInspectorViewController.swift */,
+				18E0577324D40EDA00F8C79E /* Utility */,
+				18C68432248E4690007F7FBB /* Inspector */,
+				18625F04247FFA42000ED41E /* Protocols */,
+				184E62CD244D85F100D2B6F8 /* OrchardCoordinator.swift */,
+				184E62D7244D9C9A00D2B6F8 /* Scene */,
+				184E62D4244D9C8600D2B6F8 /* Scene Graph */,
+				184E62D1244D9C5400D2B6F8 /* Sidebar */,
+				184E62D0244D9C3300D2B6F8 /* Split View */,
+				184E62E1244DAE8F00D2B6F8 /* Tab View */,
+				184E62CF244D9C2B00D2B6F8 /* Window */,
 			);
-			path = Prop;
-			sourceTree = "<group>";
-		};
-		18F6482C219C1BD700CE3267 /* Prop */ = {
-			isa = PBXGroup;
-			children = (
-				18F6482D219C1BE800CE3267 /* PropUtilitiesViewController.swift */,
-				18F6482F219C1C1300CE3267 /* PropBuildUtilitiesViewController.swift */,
-			);
-			path = Prop;
-			sourceTree = "<group>";
-		};
-		18F64833219C1C7200CE3267 /* Inspector */ = {
-			isa = PBXGroup;
-			children = (
-				1884F8A420B0548F0023AA0B /* InspectorTabViewController.swift */,
-			);
-			path = Inspector;
-			sourceTree = "<group>";
-		};
-		18F64834219C1C7B00CE3267 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				18F64835219C1C8900CE3267 /* Area */,
-				18F64836219C1C8F00CE3267 /* Foliage */,
-				18F64837219C1C9600CE3267 /* Footpath */,
-				18F64838219C1C9D00CE3267 /* Prop */,
-				18F64839219C1CA400CE3267 /* Terrain */,
-				18B4885B20B1AD190032E832 /* UtilitiesTabViewController.swift */,
-				18F6483A219C1CAC00CE3267 /* Water */,
-			);
-			path = Utilities;
-			sourceTree = "<group>";
-		};
-		18F64835219C1C8900CE3267 /* Area */ = {
-			isa = PBXGroup;
-			children = (
-				18B13D3320BC353F007437DC /* AreaUtilitiesTabViewController.swift */,
-			);
-			path = Area;
-			sourceTree = "<group>";
-		};
-		18F64836219C1C8F00CE3267 /* Foliage */ = {
-			isa = PBXGroup;
-			children = (
-				18B13D3520BC354C007437DC /* FoliageUtilitiesTabViewController.swift */,
-			);
-			path = Foliage;
-			sourceTree = "<group>";
-		};
-		18F64837219C1C9600CE3267 /* Footpath */ = {
-			isa = PBXGroup;
-			children = (
-				18B13D3920BC3560007437DC /* FootpathUtilitiesTabViewController.swift */,
-			);
-			path = Footpath;
-			sourceTree = "<group>";
-		};
-		18F64838219C1C9D00CE3267 /* Prop */ = {
-			isa = PBXGroup;
-			children = (
-				18F64831219C1C3900CE3267 /* PropUtilitiesTabViewController.swift */,
-			);
-			path = Prop;
-			sourceTree = "<group>";
-		};
-		18F64839219C1CA400CE3267 /* Terrain */ = {
-			isa = PBXGroup;
-			children = (
-				189256C320B84DCF00FD9364 /* TerrainUtilitiesTabViewController.swift */,
-			);
-			path = Terrain;
-			sourceTree = "<group>";
-		};
-		18F6483A219C1CAC00CE3267 /* Water */ = {
-			isa = PBXGroup;
-			children = (
-				18B13D3B20BC358D007437DC /* WaterUtilitiesTabViewController.swift */,
-			);
-			path = Water;
-			sourceTree = "<group>";
-		};
-		18F6483B219C1CE500CE3267 /* Prop */ = {
-			isa = PBXGroup;
-			children = (
-				18F6483C219C1CF400CE3267 /* PropInspectorStateObserver.swift */,
-			);
-			path = Prop;
-			sourceTree = "<group>";
-		};
-		18F6483E219C1D5600CE3267 /* Prop */ = {
-			isa = PBXGroup;
-			children = (
-				18F6483F219C1D7100CE3267 /* PropUtilitiesStateObserver.swift */,
-				18F64841219C1D8C00CE3267 /* PropUtilitiesTabStateObserver.swift */,
-				18F64843219C1DB000CE3267 /* PropBuildUtilitiesStateObserver.swift */,
-			);
-			path = Prop;
-			sourceTree = "<group>";
-		};
-		18FCFAF020B2D32F00EBCBBB /* Scene */ = {
-			isa = PBXGroup;
-			children = (
-				18FCFAF120B2D34000EBCBBB /* SceneInspectorViewController.swift */,
-			);
-			path = Scene;
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
 		28B6BA7A38378D07A4AA6F9C /* Pods */ = {
@@ -842,8 +490,8 @@
 			children = (
 				181EDA2322103C47002CD162 /* MetalKit.framework */,
 				18866766220B23EB00FFE6F6 /* libMeadow.a */,
-				BEC913C8FBAB8126A50226D5 /* libPods-Orchard.a */,
 				0179D21FEE16CD532608FE07 /* libPods-Orchard-Tests.a */,
+				7E9EB0DFD1E8E58558E3F1AD /* libPods-Orchard.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -859,7 +507,7 @@
 				187121FF20932094002488E0 /* Sources */,
 				1871220020932094002488E0 /* Frameworks */,
 				1871220120932094002488E0 /* Resources */,
-				E55DA60BBA69A2377ECE7D55 /* [CP] Copy Pods Resources */,
+				D910F102CA747066FD85CF9E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -870,25 +518,6 @@
 			productReference = 1871220320932094002488E0 /* Orchard.app */;
 			productType = "com.apple.product-type.application";
 		};
-		1871221420932095002488E0 /* Orchard-Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1871222120932095002488E0 /* Build configuration list for PBXNativeTarget "Orchard-Tests" */;
-			buildPhases = (
-				31EF69CD4B55E2EA2152C8F8 /* [CP] Check Pods Manifest.lock */,
-				1871221120932095002488E0 /* Sources */,
-				1871221220932095002488E0 /* Frameworks */,
-				1871221320932095002488E0 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1871221720932095002488E0 /* PBXTargetDependency */,
-			);
-			name = "Orchard-Tests";
-			productName = OrchardTests;
-			productReference = 1871221520932095002488E0 /* Orchard-Tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -896,7 +525,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Script Orchard";
 				TargetAttributes = {
 					1871220220932094002488E0 = {
@@ -906,10 +535,6 @@
 								enabled = 0;
 							};
 						};
-					};
-					1871221420932095002488E0 = {
-						CreatedOnToolsVersion = 9.3;
-						TestTargetID = 1871220220932094002488E0;
 					};
 				};
 			};
@@ -927,7 +552,6 @@
 			projectRoot = "";
 			targets = (
 				1871220220932094002488E0 /* Orchard */,
-				1871221420932095002488E0 /* Orchard-Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -937,51 +561,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				185E588620A9C71300139565 /* SceneGraphCell.xib in Resources */,
 				1871220B20932095002488E0 /* Assets.xcassets in Resources */,
+				184E62EB244DC54B00D2B6F8 /* Utility.storyboard in Resources */,
+				184E62E9244DC54200D2B6F8 /* Inspector.storyboard in Resources */,
 				1871220E20932095002488E0 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1871221320932095002488E0 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		31EF69CD4B55E2EA2152C8F8 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Orchard-Tests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E55DA60BBA69A2377ECE7D55 /* [CP] Copy Pods Resources */ = {
+		D910F102CA747066FD85CF9E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Orchard/Pods-Orchard-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Orchard/Pods-Orchard-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1013,110 +611,67 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				186A27DE217F5EC300CBC156 /* FoliagePaintUtilitiesStateObserver.swift in Sources */,
-				189256C820B8524200FD9364 /* TerrainBuildUtilitiesViewController.swift in Sources */,
-				18F64832219C1C3900CE3267 /* PropUtilitiesTabViewController.swift in Sources */,
-				18B4885220B1AC880032E832 /* AreaUtilitiesViewController.swift in Sources */,
-				18873B892111B6510010B52C /* ColorPaletteView.swift in Sources */,
-				18B4885420B1AC980032E832 /* FoliageUtilitiesViewController.swift in Sources */,
-				18B4885620B1ACA60032E832 /* FootpathUtilitiesViewController.swift in Sources */,
-				186A27CE217F0CE100CBC156 /* AreaPaintUtilitiesViewController.swift in Sources */,
-				18B13D3A20BC3560007437DC /* FootpathUtilitiesTabViewController.swift in Sources */,
-				18F6482B219C1BBA00CE3267 /* PropInspectorViewController.swift in Sources */,
-				1805DF2220C912FF00F333C6 /* InspectorSceneView.swift in Sources */,
-				186A27CA217F008200CBC156 /* AreaBuildUtilitiesStateObserver.swift in Sources */,
-				18B13D3220BC3490007437DC /* WaterUtilitiesStateObserver.swift in Sources */,
-				186A27D4217F3AC400CBC156 /* FootpathBuildUtilitiesStateObserver.swift in Sources */,
-				1820662C20B05BDB00D0356D /* AreaInspectorViewController.swift in Sources */,
-				18B13D3420BC353F007437DC /* AreaUtilitiesTabViewController.swift in Sources */,
-				189256CA20B8525500FD9364 /* TerrainBuildUtilitiesStateObserver.swift in Sources */,
-				189256CE20B8552600FD9364 /* TerrainPaintUtilitiesViewController.swift in Sources */,
-				1820663620B05C1700D0356D /* WaterInspectorViewController.swift in Sources */,
-				18F64844219C1DB000CE3267 /* PropBuildUtilitiesStateObserver.swift in Sources */,
-				18F6483D219C1CF400CE3267 /* PropInspectorStateObserver.swift in Sources */,
-				186A27E2217F5F0D00CBC156 /* FootpathPaintUtilitiesViewController.swift in Sources */,
-				189256C220B800A000FD9364 /* SceneInspectorStateObserver.swift in Sources */,
-				186A27D8217F5DFD00CBC156 /* FoliageBuildUtilitiesViewController.swift in Sources */,
-				189256CC20B8551800FD9364 /* TerrainTerraformUtilitiesViewController.swift in Sources */,
-				189256D020B8554500FD9364 /* TerrainTerraformUtilitiesStateObserver.swift in Sources */,
-				1832994421788D8100485907 /* WaterBuildUtilitiesStateObserver.swift in Sources */,
-				18B4885820B1ACB50032E832 /* TerrainUtilitiesViewController.swift in Sources */,
-				18B4885A20B1ACC20032E832 /* WaterUtilitiesViewController.swift in Sources */,
-				18B13D4420BC35F8007437DC /* FootpathUtilitiesTabStateObserver.swift in Sources */,
-				189256D220B8554F00FD9364 /* TerrainPaintUtilitiesStateObserver.swift in Sources */,
+				184E62D6244D9C9300D2B6F8 /* SceneGraphCoordinator.swift in Sources */,
 				18C7732620A738DD006F3EA8 /* OrchardViewController.swift in Sources */,
-				1837ADEE20ADD0C9006802CA /* WindowSplitViewController.swift in Sources */,
+				18E0577D24D4124A00F8C79E /* FoliageUtilityViewController.swift in Sources */,
+				184E62E3244DAE9E00D2B6F8 /* SidebarTabViewCoordinator.swift in Sources */,
+				1837ADEE20ADD0C9006802CA /* SplitViewController.swift in Sources */,
+				184E62E0244DADB200D2B6F8 /* UtilityTabViewController.swift in Sources */,
+				18C68434248E49A5007F7FBB /* TerrainInspectorCoordinator.swift in Sources */,
+				18B56739245846DB00B79DA9 /* TerrainInspector.swift in Sources */,
+				184E62D9244D9CA400D2B6F8 /* SceneViewCoordinator.swift in Sources */,
+				18B5672B2456E00700B79DA9 /* FoliageInspectorViewController.swift in Sources */,
+				18B567342456E03500B79DA9 /* PropInspectorViewController.swift in Sources */,
+				1858277C2493F7790097CDBD /* FoliageInspector.swift in Sources */,
+				18F7B4F2248E7AFF00890694 /* MeadowInspectorCoordinator.swift in Sources */,
+				184E62DE244DADA700D2B6F8 /* InspectorTabViewController.swift in Sources */,
+				185827822493F7D30097CDBD /* FootpathInspectorCoordinator.swift in Sources */,
+				181EDFB62452FA4B0030D23C /* UtilityTabViewCoordinator+ViewModel.swift in Sources */,
+				1858277E2493F7BF0097CDBD /* AreaInspectorCoordinator.swift in Sources */,
+				18EFF9FB24446DD400FA2CFE /* WindowCoordinator.swift in Sources */,
+				18B5672F2456E01700B79DA9 /* TerrainInspectorViewController.swift in Sources */,
+				185827782493F72C0097CDBD /* AreaInspector.swift in Sources */,
+				180A3AB124FFBA2C0068ED7F /* TerrainUtilityViewModel.swift in Sources */,
+				184E62DC244DACCA00D2B6F8 /* SidebarTabViewController.swift in Sources */,
+				18E0578124D4125900F8C79E /* WaterUtilityViewController.swift in Sources */,
 				18B4886120B1ADC20032E832 /* SidebarViewController.swift in Sources */,
+				181EDFAE2452D9FF0030D23C /* SidebarTabViewCoordinator+ViewModel.swift in Sources */,
 				188E38EB20B57CC0001A6C3A /* Document.swift in Sources */,
-				186A27D2217F115C00CBC156 /* AreaPaintUtilitiesStateObserver.swift in Sources */,
-				1820662F20B05BE600D0356D /* FoliageInspectorViewController.swift in Sources */,
-				18F64842219C1D8C00CE3267 /* PropUtilitiesTabStateObserver.swift in Sources */,
-				1820663420B05C0B00D0356D /* TerrainInspectorViewController.swift in Sources */,
-				1820663220B05C0000D0356D /* FootpathInspectorViewController.swift in Sources */,
-				186A27CC217F0CD100CBC156 /* AreaArchitectureUtilitiesViewController.swift in Sources */,
-				18B13D4020BC35E3007437DC /* AreaUtilitiesTabStateObserver.swift in Sources */,
-				18F6482E219C1BE800CE3267 /* PropUtilitiesViewController.swift in Sources */,
 				182AFA2021709A510009AD0D /* NSMenuItem+Color.swift in Sources */,
-				186A27D6217F3AF500CBC156 /* FootpathBuildUtilitiesViewController.swift in Sources */,
-				189256B920B7FFE400FD9364 /* AreaInspectorStateObserver.swift in Sources */,
-				185E588420A9C6F300139565 /* SceneGraphCell.swift in Sources */,
-				18FCFAF220B2D34000EBCBBB /* SceneInspectorViewController.swift in Sources */,
-				18733DA12139470C00491CB7 /* SceneGraphStateObserver.swift in Sources */,
-				189256BB20B7FFEF00FD9364 /* FoliageInspectorStateObserver.swift in Sources */,
-				18B4885C20B1AD190032E832 /* UtilitiesTabViewController.swift in Sources */,
-				18B13D3D20BC358D007437DC /* WaterUtilitiesTabViewController.swift in Sources */,
-				18B4887420B1BD7F0032E832 /* InspectorTabStateObserver.swift in Sources */,
-				18B4885E20B1AD960032E832 /* SidebarTabViewController.swift in Sources */,
-				186A27DA217F5E1700CBC156 /* FoliageBuildUtilitiesStateObserver.swift in Sources */,
-				18F64830219C1C1300CE3267 /* PropBuildUtilitiesViewController.swift in Sources */,
-				189256D620B85BA900FD9364 /* TerrainUtilitiesStateObserver.swift in Sources */,
-				18B13D4220BC35EE007437DC /* FoliageUtilitiesTabStateObserver.swift in Sources */,
-				18B13D3020BC3488007437DC /* FootpathUtilitiesStateObserver.swift in Sources */,
+				184E62E7244DB05600D2B6F8 /* UtilityTabViewCoordinator.swift in Sources */,
+				18087D56247539A800D02BCF /* TerrainUtilityViewController.swift in Sources */,
+				181EDFB82453312E0030D23C /* ActorsInspectorViewController.swift in Sources */,
+				1865E01024937A02009C8F43 /* WaterInspectorCoordinator.swift in Sources */,
+				18E0577B24D4124100F8C79E /* AreaUtilityViewController.swift in Sources */,
+				1865E00E2493788E009C8F43 /* WaterInspector.swift in Sources */,
+				18B567292456E00100B79DA9 /* AreaInspectorViewController.swift in Sources */,
+				18B567312456E01E00B79DA9 /* WaterInspectorViewController.swift in Sources */,
+				18087D5E24753A2000D02BCF /* PropUtilityViewController.swift in Sources */,
+				184E62E5244DB04900D2B6F8 /* InspectorTabViewCoordinator.swift in Sources */,
 				18C7732320A72EDA006F3EA8 /* SceneGraphViewController.swift in Sources */,
-				18F64840219C1D7100CE3267 /* PropUtilitiesStateObserver.swift in Sources */,
-				1822D3B220BE8F11004A1156 /* SidebarStateObserver.swift in Sources */,
-				18733DA421394F1900491CB7 /* SceneStateObserver.swift in Sources */,
-				18B13D4620BC3602007437DC /* WaterUtilitiesTabStateObserver.swift in Sources */,
-				18733D9E2139392000491CB7 /* OrchardStateObserver.swift in Sources */,
-				189256D420B8583200FD9364 /* UtilitiesTabStateObserver.swift in Sources */,
-				189256C620B84DFB00FD9364 /* TerrainUtilitiesTabStateObserver.swift in Sources */,
-				186A27DC217F5E8700CBC156 /* FootpathPaintUtilitiesStateObserver.swift in Sources */,
-				186A27C8217EFE1C00CBC156 /* AreaBuildUtilitiesViewController.swift in Sources */,
-				186A27D0217F115300CBC156 /* AreaArchitectureUtilitiesStateObserver.swift in Sources */,
-				18B13D2E20BC347D007437DC /* FoliageUtilitiesStateObserver.swift in Sources */,
+				182315A524472AEE00426181 /* SplitViewCoordinator.swift in Sources */,
+				18625F06247FFA55000ED41E /* SceneGraphObserver.swift in Sources */,
 				18C7732120A728D5006F3EA8 /* OrchardWindowController.swift in Sources */,
-				186A27E0217F5EF500CBC156 /* FoliagePaintUtilitiesViewController.swift in Sources */,
+				181EDFB42452F9EA0030D23C /* InspectorTabViewCoordinator+ViewModel.swift in Sources */,
+				18E0577524D40EEE00F8C79E /* TerrainUtilityCoordinator.swift in Sources */,
 				1871220920932094002488E0 /* SceneViewController.swift in Sources */,
-				18B13D3720BC354C007437DC /* FoliageUtilitiesTabViewController.swift in Sources */,
-				18B13D2C20BC3474007437DC /* AreaUtilitiesStateObserver.swift in Sources */,
-				1832994621788DAD00485907 /* WaterBuildUtilitiesViewController.swift in Sources */,
-				1803165D20B6F2DF009D367F /* TerrainInspectorStateObserver.swift in Sources */,
-				189256BD20B7FFF700FD9364 /* FootpathInspectorStateObserver.swift in Sources */,
-				189256BF20B8000700FD9364 /* WaterInspectorStateObserver.swift in Sources */,
-				189256C420B84DCF00FD9364 /* TerrainUtilitiesTabViewController.swift in Sources */,
-				1822D3B020BE8784004A1156 /* SidebarTabStateObserver.swift in Sources */,
-				1884F8A520B0548F0023AA0B /* InspectorTabViewController.swift in Sources */,
+				185827802493F7C80097CDBD /* FoliageInspectorCoordinator.swift in Sources */,
+				184E62D3244D9C7F00D2B6F8 /* SidebarCoordinator.swift in Sources */,
+				1858277A2493F75F0097CDBD /* FootpathInspector.swift in Sources */,
+				181EDFB22452F35F0030D23C /* MeadowInspectorViewController.swift in Sources */,
+				18B56737245846C300B79DA9 /* Inspector.swift in Sources */,
+				18E0577F24D4125200F8C79E /* FootpathUtilityViewController.swift in Sources */,
+				184E62CE244D85F100D2B6F8 /* OrchardCoordinator.swift in Sources */,
+				18FEA8282478183A00E524EF /* MeadowJSON.swift in Sources */,
+				18625F0A2480F068000ED41E /* SceneGraphIdentifiable.swift in Sources */,
+				189A6022246D416700DD68A7 /* MeadowInspector.swift in Sources */,
+				181EDFAB2452C6800030D23C /* Responder.swift in Sources */,
 				1871220720932094002488E0 /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1871221120932095002488E0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1871221A20932095002488E0 /* OrchardTests.swift in Sources */,
+				18B5672D2456E00F00B79DA9 /* FootpathInspectorViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		1871221720932095002488E0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1871220220932094002488E0 /* Orchard */;
-			targetProxy = 1871221620932095002488E0 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1871220C20932095002488E0 /* Main.storyboard */ = {
@@ -1256,13 +811,16 @@
 			baseConfigurationReference = 569504FABC2C1C147277D036 /* Pods-Orchard.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = P6JHS6DJWA;
 				INFOPLIST_FILE = Orchard/Supporting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.Orchard";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1273,57 +831,18 @@
 			baseConfigurationReference = 625DF7EC8D7148586F17ACD0 /* Pods-Orchard.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = P6JHS6DJWA;
 				INFOPLIST_FILE = Orchard/Supporting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.Orchard";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		1871222220932095002488E0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F260B429956BB954840CEEDE /* Pods-Orchard-Tests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = OrchardTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.OrchardTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Orchard.app/Contents/MacOS/Orchard";
-			};
-			name = Debug;
-		};
-		1871222320932095002488E0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A1E0C2F266DFD52AD0D3ABD5 /* Pods-Orchard-Tests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = OrchardTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.OrchardTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Orchard.app/Contents/MacOS/Orchard";
 			};
 			name = Release;
 		};
@@ -1344,15 +863,6 @@
 			buildConfigurations = (
 				1871221F20932095002488E0 /* Debug */,
 				1871222020932095002488E0 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1871222120932095002488E0 /* Build configuration list for PBXNativeTarget "Orchard-Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1871222220932095002488E0 /* Debug */,
-				1871222320932095002488E0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

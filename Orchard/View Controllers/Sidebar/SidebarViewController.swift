@@ -6,104 +6,47 @@
 //  Copyright © 2018 Script Orchard. All rights reserved.
 //
 
-import Meadow
-import THRUtilities
+import Terrace
 
 class SidebarViewController: NSViewController {
-
-    var tabViewController: SidebarTabViewController?
     
     @IBOutlet weak var inspectorButton: NSButton!
-    @IBOutlet weak var utilitiesButton: NSButton!
+    @IBOutlet weak var utilityButton: NSButton!
     
     @IBAction func button(_ sender: NSButton) {
         
-        switch stateObserver.state {
+        switch sender {
             
-        case .inspector(let editor, let child):
+        case inspectorButton:
             
-            switch sender {
-                
-            case utilitiesButton:
-                
-                stateObserver.state = .utility(editor: editor, child: child)
-                
-            default: break
-            }
+            coordinator?.toggle(tab: .inspector)
             
-        case .utility(let editor, let child):
+        case utilityButton:
             
-            switch sender {
-                
-            case inspectorButton:
-                
-                stateObserver.state = .inspector(editor: editor, child: child)
-                
-            default: break
-            }
+            coordinator?.toggle(tab: .utility)
             
         default: break
         }
     }
     
-    lazy var stateObserver = {
-        
-        return SidebarStateObserver(initialState: .empty(editor: nil))
-    }()
+    weak var coordinator: SidebarCoordinator?
+    
+    var tabViewController: SidebarTabViewController?
 }
 
 extension SidebarViewController {
-    
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        
-        stateObserver.subscribe(stateDidChange(from:to:))
-    }
-}
-
-extension SidebarViewController {
-    
-    func stateDidChange(from: ViewState?, to: ViewState) {
-        
-        DispatchQueue.main.async {
-            
-            guard let tabViewController = self.tabViewController else { return }
-            
-            switch to {
-                
-            case .empty(let editor):
-                
-                tabViewController.stateObserver.state = .empty(editor: editor)
-                
-            case .inspector(let editor, let child):
-                
-                tabViewController.stateObserver.state = .inspector(editor: editor, child: child)
-                
-            case .utility(let editor, _):
-                
-                tabViewController.stateObserver.state = .utility(editor: editor)
-            }
-        }
-    }
-}
-
-extension SidebarViewController: SegueHandlerType {
-    
-    enum SegueIdentifier: String {
-        
-        case embedTabView
-    }
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         
-        switch segueIdentifier(forSegue: segue) {
+        switch segue.identifier {
             
-        case .embedTabView:
+        case "embedTabView":
             
             guard let tabViewController = segue.destinationController as? SidebarTabViewController else { fatalError("Invalid segue destination") }
             
             self.tabViewController = tabViewController
+            
+        default: break;
         }
     }
 }

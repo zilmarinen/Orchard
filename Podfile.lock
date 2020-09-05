@@ -1,32 +1,32 @@
 PODS:
   - Meadow (0.1):
-    - Meadow/Core (= 0.1)
-  - Meadow/Core (0.1)
-  - PeakOperation (4.0.0)
-  - THRUtilities (1.7.5):
-    - THRUtilities/Core (= 1.7.5)
-  - THRUtilities/Core (1.7.5)
+    - Pasture
+    - Terrace
+  - Pasture (0.1):
+    - Pasture/Core (= 0.1)
+  - Pasture/Core (0.1)
+  - Terrace (0.1):
+    - Terrace/Core (= 0.1)
+  - Terrace/Core (0.1)
 
 DEPENDENCIES:
   - Meadow (from `../Meadow`)
-  - PeakOperation
-  - THRUtilities (from `../../3Squared/THR/THRUtilities`)
-
-SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - PeakOperation
+  - Pasture (from `../Pasture`)
+  - Terrace (from `../Terrace`)
 
 EXTERNAL SOURCES:
   Meadow:
     :path: "../Meadow"
-  THRUtilities:
-    :path: "../../3Squared/THR/THRUtilities"
+  Pasture:
+    :path: "../Pasture"
+  Terrace:
+    :path: "../Terrace"
 
 SPEC CHECKSUMS:
-  Meadow: 7c030003a496586cec7682178f123b2c8c347481
-  PeakOperation: 68825bedc2199bacba9d0fff14fd183078e16b59
-  THRUtilities: 95c0994ed3f0acf284e309ae1619fa7d1b1255ae
+  Meadow: 5c812407d94720976645836f5f873c3c68281cbc
+  Pasture: a49f933d4866c7a3ee7413322648fc6f3a479172
+  Terrace: 76c2ba0146f94bec782193635b1ce7552ce6c59f
 
-PODFILE CHECKSUM: 1580ca17f49764152a98c4bee83d484609c03586
+PODFILE CHECKSUM: d679a7c1c58a0fcad901c6aa92e035bcda80d981
 
-COCOAPODS: 1.7.4
+COCOAPODS: 1.9.3
