@@ -32,17 +32,15 @@ class FoliageInspectorCoordinator: Coordinator<FoliageInspectorViewController> {
         guard let node = option as? SceneGraphIdentifiable else { fatalError("Invalid start option for Foliage Inspector Coordinator") }
         
         self.controller.inspector = FoliageInspector(node: node)
-
-        guard let sceneView = sceneView else { return }
         
-        cursorObserver = sceneView.cursorObserver.subscribe(stateDidChange(from:to:))
+        cursorObserver = sceneView?.cursorObserver.subscribe(stateDidChange(from:to:))
     }
     
     override func stop(then completion: CoordinatorCompletionBlock?) {
         
-        if let cursorObserver = cursorObserver, let sceneView = sceneView {
+        if let cursorObserver = cursorObserver {
             
-            sceneView.cursorObserver.unsubscribe(cursorObserver)
+            sceneView?.cursorObserver.unsubscribe(cursorObserver)
         }
         
         self.controller.inspector = nil
@@ -51,19 +49,19 @@ class FoliageInspectorCoordinator: Coordinator<FoliageInspectorViewController> {
     }
 }
 
-extension FoliageInspectorCoordinator: StateHandler {
+extension FoliageInspectorCoordinator {
     
     func stateDidChange(from previousState: SceneView.CursorState?, to currentState: SceneView.CursorState) {
         
         DispatchQueue.main.async {
             
-            guard let sceneView = self.sceneView else { return }
-            
             switch currentState {
                 
             case .down(let position, _):
                 
-                if let hit = sceneView.hitTest(point: position.start, category: SceneGraphNodeCategory.foliage), let quad = hit.quad, let node = sceneView.scene?.meadow.foliage.find(tile: quad.i) {
+                if let hit = self.sceneView?.hitTest(point: position.start, category: .foliage),
+                    let quad = hit.quad,
+                    let node = self.sceneView?.scene?.meadow.foliage.find(tile: quad.i) {
                     
                     self.didSelect(node: node)
                 }

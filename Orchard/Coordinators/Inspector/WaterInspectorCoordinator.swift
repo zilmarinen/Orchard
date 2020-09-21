@@ -33,16 +33,14 @@ class WaterInspectorCoordinator: Coordinator<WaterInspectorViewController> {
         
         self.controller.inspector = WaterInspector(node: node)
         
-        guard let sceneView = sceneView else { return }
-                
-        cursorObserver = sceneView.cursorObserver.subscribe(stateDidChange(from:to:))
+        cursorObserver = sceneView?.cursorObserver.subscribe(stateDidChange(from:to:))
     }
         
     override func stop(then completion: CoordinatorCompletionBlock?) {
         
-        if let cursorObserver = cursorObserver, let sceneView = sceneView {
+        if let cursorObserver = cursorObserver {
             
-            sceneView.cursorObserver.unsubscribe(cursorObserver)
+            sceneView?.cursorObserver.unsubscribe(cursorObserver)
         }
         
         self.controller.inspector = nil
@@ -51,22 +49,20 @@ class WaterInspectorCoordinator: Coordinator<WaterInspectorViewController> {
     }
 }
 
-extension WaterInspectorCoordinator: StateHandler {
+extension WaterInspectorCoordinator {
     
     func stateDidChange(from previousState: SceneView.CursorState?, to currentState: SceneView.CursorState) {
         
         DispatchQueue.main.async {
             
-            guard let sceneView = self.sceneView else { return }
-            
             switch currentState {
                 
             case .down(let position, _):
                 
-                guard let hit = sceneView.hitTest(point: position.start, category: SceneGraphNodeCategory.water),
+                guard let hit = self.sceneView?.hitTest(point: position.start, category: .water),
                     let quad = hit.quad,
                     let joint = hit.joint,
-                    let node = sceneView.scene?.meadow.water.find(tile: quad.i),
+                    let node = self.sceneView?.scene?.meadow.water.find(tile: quad.i),
                     let layer = node.find(edge: joint.i)?.topLayer else { return }
                                 
                 self.didSelect(node: layer)

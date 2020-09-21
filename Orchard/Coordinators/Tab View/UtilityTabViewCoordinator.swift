@@ -16,11 +16,44 @@ class UtilityTabViewCoordinator: Coordinator<UtilityTabViewController> {
         return ViewModel(initialState: .empty)
     }()
     
+    lazy var areaUtilityCoordinator: AreaUtilityCoordinator = {
+        
+        guard let viewController = self.controller.children[ViewState.Tab.area.rawValue] as? AreaUtilityViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = AreaUtilityCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
+    
+    lazy var footpathUtilityCoordinator: FootpathUtilityCoordinator = {
+        
+        guard let viewController = self.controller.children[ViewState.Tab.footpath.rawValue] as? FootpathUtilityViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = FootpathUtilityCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
+    
     lazy var terrainUtilityCoordinator: TerrainUtilityCoordinator = {
         
         guard let viewController = self.controller.children[ViewState.Tab.terrain.rawValue] as? TerrainUtilityViewController else { fatalError("Invalid view controller hierarchy") }
         
         let coordinator = TerrainUtilityCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
+    
+    lazy var waterUtilityCoordinator: WaterUtilityCoordinator = {
+        
+        guard let viewController = self.controller.children[ViewState.Tab.water.rawValue] as? WaterUtilityViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = WaterUtilityCoordinator(controller: viewController)
         
         coordinator.parent = self
         
@@ -32,6 +65,8 @@ class UtilityTabViewCoordinator: Coordinator<UtilityTabViewController> {
         super.init(controller: controller)
         
         controller.coordinator = self
+        
+        viewModel.subscribe(stateDidChange(from:to:))
     }
     
     required init?(coder: NSCoder) {
@@ -43,16 +78,14 @@ class UtilityTabViewCoordinator: Coordinator<UtilityTabViewController> {
         
         super.start(with: option)
         
-        viewModel.subscribe(stateDidChange(from:to:))
-        
-        guard let node = option as? SceneGraphIdentifiable else { return }
-        
-        viewModel.select(node: node)
+        viewModel.start(with: option)
     }
     
     override func stop(then completion: CoordinatorCompletionBlock?) {
         
-        viewModel.clear()
+        stopChildren()
+        
+        viewModel.stop()
         
         completion?()
     }
@@ -68,9 +101,21 @@ extension UtilityTabViewCoordinator {
          
             switch currentState {
                 
+            case .area(let node):
+                
+                self.start(child: self.areaUtilityCoordinator, with: node)
+                
+            case .footpath(let node):
+                
+                self.start(child: self.footpathUtilityCoordinator, with: node)
+                
             case .terrain(let node):
                 
                 self.start(child: self.terrainUtilityCoordinator, with: node)
+                
+            case .water(let node):
+                
+                self.start(child: self.waterUtilityCoordinator, with: node)
                 
             default: break
             }

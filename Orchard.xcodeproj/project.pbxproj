@@ -7,9 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1804D3F92510ACB100AC30DC /* WaterUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804D3F82510ACB100AC30DC /* WaterUtilityCoordinator.swift */; };
+		1804D3FB2510ACBB00AC30DC /* WaterBuildUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804D3FA2510ACBB00AC30DC /* WaterBuildUtilityCoordinator.swift */; };
+		1804D3FD2510ACC600AC30DC /* WaterPaintUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804D3FC2510ACC600AC30DC /* WaterPaintUtilityCoordinator.swift */; };
+		1804D4002510ACDD00AC30DC /* WaterUtilityCoordinator+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804D3FF2510ACDD00AC30DC /* WaterUtilityCoordinator+ViewModel.swift */; };
+		1804D4022510ACE600AC30DC /* WaterBuildUtilityCoordinator+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804D4012510ACE600AC30DC /* WaterBuildUtilityCoordinator+ViewModel.swift */; };
+		1804D4042510ACEF00AC30DC /* WaterPaintUtilityCoordinator+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804D4032510ACEF00AC30DC /* WaterPaintUtilityCoordinator+ViewModel.swift */; };
+		1804D4072511FDA400AC30DC /* FootpathUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804D4062511FDA400AC30DC /* FootpathUtilityCoordinator.swift */; };
+		1804D4092511FDB500AC30DC /* FootpathBuildUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804D4082511FDB500AC30DC /* FootpathBuildUtilityCoordinator.swift */; };
+		1804D40B2511FDBE00AC30DC /* FootpathPaintUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804D40A2511FDBE00AC30DC /* FootpathPaintUtilityCoordinator.swift */; };
+		1804D40E2511FE1A00AC30DC /* FootpathUtilityCoordinator+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804D40D2511FE1A00AC30DC /* FootpathUtilityCoordinator+ViewModel.swift */; };
+		1804D4102511FE2300AC30DC /* FootpathBuildUtilityCoordinator+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804D40F2511FE2300AC30DC /* FootpathBuildUtilityCoordinator+ViewModel.swift */; };
+		1804D4122511FE2D00AC30DC /* FootpathPaintUtilityCoordinator+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804D4112511FE2D00AC30DC /* FootpathPaintUtilityCoordinator+ViewModel.swift */; };
 		18087D56247539A800D02BCF /* TerrainUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18087D55247539A800D02BCF /* TerrainUtilityViewController.swift */; };
 		18087D5E24753A2000D02BCF /* PropUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18087D5D24753A2000D02BCF /* PropUtilityViewController.swift */; };
-		180A3AB124FFBA2C0068ED7F /* TerrainUtilityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A3AB024FFBA2C0068ED7F /* TerrainUtilityViewModel.swift */; };
+		180A3AB124FFBA2C0068ED7F /* TerrainUtilityCoordinator+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A3AB024FFBA2C0068ED7F /* TerrainUtilityCoordinator+ViewModel.swift */; };
+		1812B49725076EE700DC7A69 /* TerrainBuildUtilityCoordinator+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B49625076EE700DC7A69 /* TerrainBuildUtilityCoordinator+ViewModel.swift */; };
+		1812B4992507777A00DC7A69 /* TerrainPaintUtilityCoordinator+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B4982507777A00DC7A69 /* TerrainPaintUtilityCoordinator+ViewModel.swift */; };
+		1812B49B250777A400DC7A69 /* TerrainPaintUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B49A250777A400DC7A69 /* TerrainPaintUtilityCoordinator.swift */; };
+		1812B49D250777DF00DC7A69 /* TerrainTerraformUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B49C250777DF00DC7A69 /* TerrainTerraformUtilityCoordinator.swift */; };
+		1812B4A02507780900DC7A69 /* TerrainTerraformUtilityCoordinator+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B49F2507780900DC7A69 /* TerrainTerraformUtilityCoordinator+ViewModel.swift */; };
+		1814F6DB2512391C00593837 /* AreaUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814F6DA2512391C00593837 /* AreaUtilityCoordinator.swift */; };
+		1814F6DD2512392400593837 /* AreaBuildUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814F6DC2512392400593837 /* AreaBuildUtilityCoordinator.swift */; };
+		1814F6DF2512393000593837 /* AreaPaintUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814F6DE2512393000593837 /* AreaPaintUtilityCoordinator.swift */; };
+		1814F6E225123A6000593837 /* AreaUtilityCoordinator+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814F6E125123A6000593837 /* AreaUtilityCoordinator+ViewModel.swift */; };
+		1814F6E425123A6900593837 /* AreaBuildUtilityCoordinator+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814F6E325123A6900593837 /* AreaBuildUtilityCoordinator+ViewModel.swift */; };
+		1814F6E625123A7200593837 /* AreaPaintUtilityCoordinator+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814F6E525123A7200593837 /* AreaPaintUtilityCoordinator+ViewModel.swift */; };
 		181EDFAB2452C6800030D23C /* Responder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181EDFAA2452C6800030D23C /* Responder.swift */; };
 		181EDFAE2452D9FF0030D23C /* SidebarTabViewCoordinator+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181EDFAD2452D9FF0030D23C /* SidebarTabViewCoordinator+ViewModel.swift */; };
 		181EDFB22452F35F0030D23C /* MeadowInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181EDFB12452F35F0030D23C /* MeadowInspectorViewController.swift */; };
@@ -18,6 +41,7 @@
 		181EDFB82453312E0030D23C /* ActorsInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181EDFB72453312E0030D23C /* ActorsInspectorViewController.swift */; };
 		182315A524472AEE00426181 /* SplitViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182315A424472AEE00426181 /* SplitViewCoordinator.swift */; };
 		182AFA2021709A510009AD0D /* NSMenuItem+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182AFA1F21709A510009AD0D /* NSMenuItem+Color.swift */; };
+		183254DD2507698400709AB8 /* TerrainBuildUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183254DC2507698400709AB8 /* TerrainBuildUtilityCoordinator.swift */; };
 		1837ADEE20ADD0C9006802CA /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1837ADED20ADD0C9006802CA /* SplitViewController.swift */; };
 		184E62CE244D85F100D2B6F8 /* OrchardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E62CD244D85F100D2B6F8 /* OrchardCoordinator.swift */; };
 		184E62D3244D9C7F00D2B6F8 /* SidebarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E62D2244D9C7F00D2B6F8 /* SidebarCoordinator.swift */; };
@@ -74,9 +98,32 @@
 /* Begin PBXFileReference section */
 		0179D21FEE16CD532608FE07 /* libPods-Orchard-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Orchard-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EC9B9EA3D57D1579AF7465E /* Pods-OrchardTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OrchardTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OrchardTests/Pods-OrchardTests.release.xcconfig"; sourceTree = "<group>"; };
+		1804D3F82510ACB100AC30DC /* WaterUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterUtilityCoordinator.swift; sourceTree = "<group>"; };
+		1804D3FA2510ACBB00AC30DC /* WaterBuildUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterBuildUtilityCoordinator.swift; sourceTree = "<group>"; };
+		1804D3FC2510ACC600AC30DC /* WaterPaintUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterPaintUtilityCoordinator.swift; sourceTree = "<group>"; };
+		1804D3FF2510ACDD00AC30DC /* WaterUtilityCoordinator+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WaterUtilityCoordinator+ViewModel.swift"; sourceTree = "<group>"; };
+		1804D4012510ACE600AC30DC /* WaterBuildUtilityCoordinator+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WaterBuildUtilityCoordinator+ViewModel.swift"; sourceTree = "<group>"; };
+		1804D4032510ACEF00AC30DC /* WaterPaintUtilityCoordinator+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WaterPaintUtilityCoordinator+ViewModel.swift"; sourceTree = "<group>"; };
+		1804D4062511FDA400AC30DC /* FootpathUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathUtilityCoordinator.swift; sourceTree = "<group>"; };
+		1804D4082511FDB500AC30DC /* FootpathBuildUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathBuildUtilityCoordinator.swift; sourceTree = "<group>"; };
+		1804D40A2511FDBE00AC30DC /* FootpathPaintUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathPaintUtilityCoordinator.swift; sourceTree = "<group>"; };
+		1804D40D2511FE1A00AC30DC /* FootpathUtilityCoordinator+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FootpathUtilityCoordinator+ViewModel.swift"; sourceTree = "<group>"; };
+		1804D40F2511FE2300AC30DC /* FootpathBuildUtilityCoordinator+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FootpathBuildUtilityCoordinator+ViewModel.swift"; sourceTree = "<group>"; };
+		1804D4112511FE2D00AC30DC /* FootpathPaintUtilityCoordinator+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FootpathPaintUtilityCoordinator+ViewModel.swift"; sourceTree = "<group>"; };
 		18087D55247539A800D02BCF /* TerrainUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainUtilityViewController.swift; sourceTree = "<group>"; };
 		18087D5D24753A2000D02BCF /* PropUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropUtilityViewController.swift; sourceTree = "<group>"; };
-		180A3AB024FFBA2C0068ED7F /* TerrainUtilityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainUtilityViewModel.swift; sourceTree = "<group>"; };
+		180A3AB024FFBA2C0068ED7F /* TerrainUtilityCoordinator+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TerrainUtilityCoordinator+ViewModel.swift"; sourceTree = "<group>"; };
+		1812B49625076EE700DC7A69 /* TerrainBuildUtilityCoordinator+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TerrainBuildUtilityCoordinator+ViewModel.swift"; sourceTree = "<group>"; };
+		1812B4982507777A00DC7A69 /* TerrainPaintUtilityCoordinator+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TerrainPaintUtilityCoordinator+ViewModel.swift"; sourceTree = "<group>"; };
+		1812B49A250777A400DC7A69 /* TerrainPaintUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainPaintUtilityCoordinator.swift; sourceTree = "<group>"; };
+		1812B49C250777DF00DC7A69 /* TerrainTerraformUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainTerraformUtilityCoordinator.swift; sourceTree = "<group>"; };
+		1812B49F2507780900DC7A69 /* TerrainTerraformUtilityCoordinator+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TerrainTerraformUtilityCoordinator+ViewModel.swift"; sourceTree = "<group>"; };
+		1814F6DA2512391C00593837 /* AreaUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaUtilityCoordinator.swift; sourceTree = "<group>"; };
+		1814F6DC2512392400593837 /* AreaBuildUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaBuildUtilityCoordinator.swift; sourceTree = "<group>"; };
+		1814F6DE2512393000593837 /* AreaPaintUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaPaintUtilityCoordinator.swift; sourceTree = "<group>"; };
+		1814F6E125123A6000593837 /* AreaUtilityCoordinator+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AreaUtilityCoordinator+ViewModel.swift"; sourceTree = "<group>"; };
+		1814F6E325123A6900593837 /* AreaBuildUtilityCoordinator+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AreaBuildUtilityCoordinator+ViewModel.swift"; sourceTree = "<group>"; };
+		1814F6E525123A7200593837 /* AreaPaintUtilityCoordinator+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AreaPaintUtilityCoordinator+ViewModel.swift"; sourceTree = "<group>"; };
 		181EDA2322103C47002CD162 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		181EDFAA2452C6800030D23C /* Responder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Responder.swift; sourceTree = "<group>"; };
 		181EDFAD2452D9FF0030D23C /* SidebarTabViewCoordinator+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SidebarTabViewCoordinator+ViewModel.swift"; sourceTree = "<group>"; };
@@ -86,6 +133,7 @@
 		181EDFB72453312E0030D23C /* ActorsInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorsInspectorViewController.swift; sourceTree = "<group>"; };
 		182315A424472AEE00426181 /* SplitViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewCoordinator.swift; sourceTree = "<group>"; };
 		182AFA1F21709A510009AD0D /* NSMenuItem+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMenuItem+Color.swift"; sourceTree = "<group>"; };
+		183254DC2507698400709AB8 /* TerrainBuildUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainBuildUtilityCoordinator.swift; sourceTree = "<group>"; };
 		1837ADED20ADD0C9006802CA /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		184E62CD244D85F100D2B6F8 /* OrchardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrchardCoordinator.swift; sourceTree = "<group>"; };
 		184E62D2244D9C7F00D2B6F8 /* SidebarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarCoordinator.swift; sourceTree = "<group>"; };
@@ -160,12 +208,86 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1804D3F72510ACA200AC30DC /* Water */ = {
+			isa = PBXGroup;
+			children = (
+				1804D3F82510ACB100AC30DC /* WaterUtilityCoordinator.swift */,
+				1804D3FA2510ACBB00AC30DC /* WaterBuildUtilityCoordinator.swift */,
+				1804D3FC2510ACC600AC30DC /* WaterPaintUtilityCoordinator.swift */,
+			);
+			path = Water;
+			sourceTree = "<group>";
+		};
+		1804D3FE2510ACCE00AC30DC /* Water */ = {
+			isa = PBXGroup;
+			children = (
+				1804D3FF2510ACDD00AC30DC /* WaterUtilityCoordinator+ViewModel.swift */,
+				1804D4012510ACE600AC30DC /* WaterBuildUtilityCoordinator+ViewModel.swift */,
+				1804D4032510ACEF00AC30DC /* WaterPaintUtilityCoordinator+ViewModel.swift */,
+			);
+			path = Water;
+			sourceTree = "<group>";
+		};
+		1804D4052511FD9100AC30DC /* Footpath */ = {
+			isa = PBXGroup;
+			children = (
+				1804D4062511FDA400AC30DC /* FootpathUtilityCoordinator.swift */,
+				1804D4082511FDB500AC30DC /* FootpathBuildUtilityCoordinator.swift */,
+				1804D40A2511FDBE00AC30DC /* FootpathPaintUtilityCoordinator.swift */,
+			);
+			path = Footpath;
+			sourceTree = "<group>";
+		};
+		1804D40C2511FDF000AC30DC /* Footpath */ = {
+			isa = PBXGroup;
+			children = (
+				1804D40D2511FE1A00AC30DC /* FootpathUtilityCoordinator+ViewModel.swift */,
+				1804D40F2511FE2300AC30DC /* FootpathBuildUtilityCoordinator+ViewModel.swift */,
+				1804D4112511FE2D00AC30DC /* FootpathPaintUtilityCoordinator+ViewModel.swift */,
+			);
+			path = Footpath;
+			sourceTree = "<group>";
+		};
 		180A3AAF24FFBA160068ED7F /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				180A3AB024FFBA2C0068ED7F /* TerrainUtilityViewModel.swift */,
+				1814F6E025123A5200593837 /* Area */,
+				1804D40C2511FDF000AC30DC /* Footpath */,
+				1804D3FE2510ACCE00AC30DC /* Water */,
+				1812B49E250777FA00DC7A69 /* Terrain */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		1812B49E250777FA00DC7A69 /* Terrain */ = {
+			isa = PBXGroup;
+			children = (
+				180A3AB024FFBA2C0068ED7F /* TerrainUtilityCoordinator+ViewModel.swift */,
+				1812B49625076EE700DC7A69 /* TerrainBuildUtilityCoordinator+ViewModel.swift */,
+				1812B4982507777A00DC7A69 /* TerrainPaintUtilityCoordinator+ViewModel.swift */,
+				1812B49F2507780900DC7A69 /* TerrainTerraformUtilityCoordinator+ViewModel.swift */,
+			);
+			path = Terrain;
+			sourceTree = "<group>";
+		};
+		1814F6D92512391000593837 /* Area */ = {
+			isa = PBXGroup;
+			children = (
+				1814F6DA2512391C00593837 /* AreaUtilityCoordinator.swift */,
+				1814F6DC2512392400593837 /* AreaBuildUtilityCoordinator.swift */,
+				1814F6DE2512393000593837 /* AreaPaintUtilityCoordinator.swift */,
+			);
+			path = Area;
+			sourceTree = "<group>";
+		};
+		1814F6E025123A5200593837 /* Area */ = {
+			isa = PBXGroup;
+			children = (
+				1814F6E125123A6000593837 /* AreaUtilityCoordinator+ViewModel.swift */,
+				1814F6E325123A6900593837 /* AreaBuildUtilityCoordinator+ViewModel.swift */,
+				1814F6E525123A7200593837 /* AreaPaintUtilityCoordinator+ViewModel.swift */,
+			);
+			path = Area;
 			sourceTree = "<group>";
 		};
 		181EDFA92452C6720030D23C /* Responder */ = {
@@ -247,6 +369,17 @@
 				18625F092480F068000ED41E /* SceneGraphIdentifiable.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		183254DB2507696C00709AB8 /* Terrain */ = {
+			isa = PBXGroup;
+			children = (
+				18E0577424D40EEE00F8C79E /* TerrainUtilityCoordinator.swift */,
+				183254DC2507698400709AB8 /* TerrainBuildUtilityCoordinator.swift */,
+				1812B49A250777A400DC7A69 /* TerrainPaintUtilityCoordinator.swift */,
+				1812B49C250777DF00DC7A69 /* TerrainTerraformUtilityCoordinator.swift */,
+			);
+			path = Terrain;
 			sourceTree = "<group>";
 		};
 		18496C61209323FE00992AF3 /* Supporting */ = {
@@ -442,7 +575,10 @@
 		18E0577324D40EDA00F8C79E /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				18E0577424D40EEE00F8C79E /* TerrainUtilityCoordinator.swift */,
+				1814F6D92512391000593837 /* Area */,
+				1804D4052511FD9100AC30DC /* Footpath */,
+				1804D3F72510ACA200AC30DC /* Water */,
+				183254DB2507696C00709AB8 /* Terrain */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -525,7 +661,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Script Orchard";
 				TargetAttributes = {
 					1871220220932094002488E0 = {
@@ -611,15 +747,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1812B49D250777DF00DC7A69 /* TerrainTerraformUtilityCoordinator.swift in Sources */,
 				184E62D6244D9C9300D2B6F8 /* SceneGraphCoordinator.swift in Sources */,
+				1804D3FD2510ACC600AC30DC /* WaterPaintUtilityCoordinator.swift in Sources */,
 				18C7732620A738DD006F3EA8 /* OrchardViewController.swift in Sources */,
+				1804D4002510ACDD00AC30DC /* WaterUtilityCoordinator+ViewModel.swift in Sources */,
+				1804D4042510ACEF00AC30DC /* WaterPaintUtilityCoordinator+ViewModel.swift in Sources */,
+				1804D3FB2510ACBB00AC30DC /* WaterBuildUtilityCoordinator.swift in Sources */,
 				18E0577D24D4124A00F8C79E /* FoliageUtilityViewController.swift in Sources */,
+				1804D4072511FDA400AC30DC /* FootpathUtilityCoordinator.swift in Sources */,
 				184E62E3244DAE9E00D2B6F8 /* SidebarTabViewCoordinator.swift in Sources */,
 				1837ADEE20ADD0C9006802CA /* SplitViewController.swift in Sources */,
 				184E62E0244DADB200D2B6F8 /* UtilityTabViewController.swift in Sources */,
 				18C68434248E49A5007F7FBB /* TerrainInspectorCoordinator.swift in Sources */,
 				18B56739245846DB00B79DA9 /* TerrainInspector.swift in Sources */,
+				1814F6E425123A6900593837 /* AreaBuildUtilityCoordinator+ViewModel.swift in Sources */,
 				184E62D9244D9CA400D2B6F8 /* SceneViewCoordinator.swift in Sources */,
+				1812B49725076EE700DC7A69 /* TerrainBuildUtilityCoordinator+ViewModel.swift in Sources */,
 				18B5672B2456E00700B79DA9 /* FoliageInspectorViewController.swift in Sources */,
 				18B567342456E03500B79DA9 /* PropInspectorViewController.swift in Sources */,
 				1858277C2493F7790097CDBD /* FoliageInspector.swift in Sources */,
@@ -628,40 +772,56 @@
 				185827822493F7D30097CDBD /* FootpathInspectorCoordinator.swift in Sources */,
 				181EDFB62452FA4B0030D23C /* UtilityTabViewCoordinator+ViewModel.swift in Sources */,
 				1858277E2493F7BF0097CDBD /* AreaInspectorCoordinator.swift in Sources */,
+				1814F6E225123A6000593837 /* AreaUtilityCoordinator+ViewModel.swift in Sources */,
 				18EFF9FB24446DD400FA2CFE /* WindowCoordinator.swift in Sources */,
 				18B5672F2456E01700B79DA9 /* TerrainInspectorViewController.swift in Sources */,
+				1804D4122511FE2D00AC30DC /* FootpathPaintUtilityCoordinator+ViewModel.swift in Sources */,
 				185827782493F72C0097CDBD /* AreaInspector.swift in Sources */,
-				180A3AB124FFBA2C0068ED7F /* TerrainUtilityViewModel.swift in Sources */,
+				1804D4092511FDB500AC30DC /* FootpathBuildUtilityCoordinator.swift in Sources */,
+				1812B4A02507780900DC7A69 /* TerrainTerraformUtilityCoordinator+ViewModel.swift in Sources */,
+				180A3AB124FFBA2C0068ED7F /* TerrainUtilityCoordinator+ViewModel.swift in Sources */,
 				184E62DC244DACCA00D2B6F8 /* SidebarTabViewController.swift in Sources */,
+				183254DD2507698400709AB8 /* TerrainBuildUtilityCoordinator.swift in Sources */,
 				18E0578124D4125900F8C79E /* WaterUtilityViewController.swift in Sources */,
 				18B4886120B1ADC20032E832 /* SidebarViewController.swift in Sources */,
 				181EDFAE2452D9FF0030D23C /* SidebarTabViewCoordinator+ViewModel.swift in Sources */,
+				1814F6E625123A7200593837 /* AreaPaintUtilityCoordinator+ViewModel.swift in Sources */,
 				188E38EB20B57CC0001A6C3A /* Document.swift in Sources */,
 				182AFA2021709A510009AD0D /* NSMenuItem+Color.swift in Sources */,
 				184E62E7244DB05600D2B6F8 /* UtilityTabViewCoordinator.swift in Sources */,
 				18087D56247539A800D02BCF /* TerrainUtilityViewController.swift in Sources */,
 				181EDFB82453312E0030D23C /* ActorsInspectorViewController.swift in Sources */,
 				1865E01024937A02009C8F43 /* WaterInspectorCoordinator.swift in Sources */,
+				1804D40B2511FDBE00AC30DC /* FootpathPaintUtilityCoordinator.swift in Sources */,
 				18E0577B24D4124100F8C79E /* AreaUtilityViewController.swift in Sources */,
 				1865E00E2493788E009C8F43 /* WaterInspector.swift in Sources */,
 				18B567292456E00100B79DA9 /* AreaInspectorViewController.swift in Sources */,
 				18B567312456E01E00B79DA9 /* WaterInspectorViewController.swift in Sources */,
+				1812B4992507777A00DC7A69 /* TerrainPaintUtilityCoordinator+ViewModel.swift in Sources */,
 				18087D5E24753A2000D02BCF /* PropUtilityViewController.swift in Sources */,
 				184E62E5244DB04900D2B6F8 /* InspectorTabViewCoordinator.swift in Sources */,
 				18C7732320A72EDA006F3EA8 /* SceneGraphViewController.swift in Sources */,
 				182315A524472AEE00426181 /* SplitViewCoordinator.swift in Sources */,
 				18625F06247FFA55000ED41E /* SceneGraphObserver.swift in Sources */,
+				1804D4102511FE2300AC30DC /* FootpathBuildUtilityCoordinator+ViewModel.swift in Sources */,
 				18C7732120A728D5006F3EA8 /* OrchardWindowController.swift in Sources */,
 				181EDFB42452F9EA0030D23C /* InspectorTabViewCoordinator+ViewModel.swift in Sources */,
+				1814F6DB2512391C00593837 /* AreaUtilityCoordinator.swift in Sources */,
+				1812B49B250777A400DC7A69 /* TerrainPaintUtilityCoordinator.swift in Sources */,
 				18E0577524D40EEE00F8C79E /* TerrainUtilityCoordinator.swift in Sources */,
 				1871220920932094002488E0 /* SceneViewController.swift in Sources */,
 				185827802493F7C80097CDBD /* FoliageInspectorCoordinator.swift in Sources */,
+				1814F6DF2512393000593837 /* AreaPaintUtilityCoordinator.swift in Sources */,
+				1804D3F92510ACB100AC30DC /* WaterUtilityCoordinator.swift in Sources */,
 				184E62D3244D9C7F00D2B6F8 /* SidebarCoordinator.swift in Sources */,
 				1858277A2493F75F0097CDBD /* FootpathInspector.swift in Sources */,
 				181EDFB22452F35F0030D23C /* MeadowInspectorViewController.swift in Sources */,
+				1804D40E2511FE1A00AC30DC /* FootpathUtilityCoordinator+ViewModel.swift in Sources */,
+				1814F6DD2512392400593837 /* AreaBuildUtilityCoordinator.swift in Sources */,
 				18B56737245846C300B79DA9 /* Inspector.swift in Sources */,
 				18E0577F24D4125200F8C79E /* FootpathUtilityViewController.swift in Sources */,
 				184E62CE244D85F100D2B6F8 /* OrchardCoordinator.swift in Sources */,
+				1804D4022510ACE600AC30DC /* WaterBuildUtilityCoordinator+ViewModel.swift in Sources */,
 				18FEA8282478183A00E524EF /* MeadowJSON.swift in Sources */,
 				18625F0A2480F068000ED41E /* SceneGraphIdentifiable.swift in Sources */,
 				189A6022246D416700DD68A7 /* MeadowInspector.swift in Sources */,
@@ -711,6 +871,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -775,6 +936,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -815,6 +977,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = P6JHS6DJWA;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Orchard/Supporting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -835,6 +998,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = P6JHS6DJWA;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Orchard/Supporting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

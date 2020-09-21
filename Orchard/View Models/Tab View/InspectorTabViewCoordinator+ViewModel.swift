@@ -27,14 +27,14 @@ extension InspectorTabViewCoordinator {
         }
         
         case empty
-        case actors(SceneGraphIdentifiable)
-        case area(SceneGraphIdentifiable)
-        case foliage(SceneGraphIdentifiable)
-        case footpath(SceneGraphIdentifiable)
-        case meadow(SceneGraphIdentifiable)
-        case props(SceneGraphIdentifiable)
-        case terrain(SceneGraphIdentifiable)
-        case water(SceneGraphIdentifiable)
+        case actors(node: SceneGraphIdentifiable)
+        case area(node: SceneGraphIdentifiable)
+        case foliage(node: SceneGraphIdentifiable)
+        case footpath(node: SceneGraphIdentifiable)
+        case meadow(node: SceneGraphIdentifiable)
+        case props(node: SceneGraphIdentifiable)
+        case terrain(node: SceneGraphIdentifiable)
+        case water(node: SceneGraphIdentifiable)
         
         func shouldTransition(to newState: ViewState) -> Should<ViewState> {
             
@@ -60,7 +60,14 @@ extension InspectorTabViewCoordinator {
     
     class ViewModel: StateObserver<ViewState> {
         
-        func clear() {
+        func start(with option: StartOption?) {
+            
+            guard let node = option as? SceneGraphIdentifiable else { return }
+            
+            select(node: node)
+        }
+        
+        func stop() {
             
             state = .empty
         }
@@ -71,14 +78,14 @@ extension InspectorTabViewCoordinator {
             
             switch node.category {
                 
-            case .actors: self.state = .actors(node)
-            case .area: self.state = .area(node)
-            case .foliage: self.state = .foliage(node)
-            case .footpath: self.state = .footpath(node)
-            case .meadow: self.state = .meadow(node)
-            case .props: self.state = .props(node)
-            case .terrain: self.state = .terrain(node)
-            case .water: self.state = .water(node)
+            case .actors: self.state = .actors(node: node)
+            case .area: self.state = .area(node: node)
+            case .foliage: self.state = .foliage(node: node)
+            case .footpath: self.state = .footpath(node: node)
+            case .meadow: self.state = .meadow(node: node)
+            case .props: self.state = .props(node: node)
+            case .terrain: self.state = .terrain(node: node)
+            case .water: self.state = .water(node: node)
                 
             default: break
             }

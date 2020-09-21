@@ -9,54 +9,79 @@
 import Meadow
 import AppKit
 
-class WaterUtilityViewController: NSViewController, Inspector {
+class WaterUtilityViewController: NSViewController {
+    
+    weak var coordinator: WaterUtilityCoordinator?
     
     @IBOutlet weak var gridBox: NSBox!
+    @IBOutlet weak var buildBox: NSBox!
+    @IBOutlet weak var paintBox: NSBox!
     
     @IBOutlet weak var chunkCountLabel: NSTextField!
     
     @IBOutlet weak var gridRenderingButton: NSButton!
+    
+    @IBOutlet weak var utilityTypePopUp: NSPopUpButton!
+    
+    //
+    /// Build
+    //
+    
+    @IBOutlet weak var buildToolTypePopUp: NSPopUpButton!
+    @IBOutlet weak var buildTypePopUp: NSPopUpButton!
+    
+    //
+    /// Paint
+    //
+    
+    @IBOutlet weak var paintToolTypePopUp: NSPopUpButton!
+    @IBOutlet weak var paintTypePopUp: NSPopUpButton!
 
     @IBAction func button(_ sender: NSButton) {
-        
-        guard let inspectable = inspector?.inspectable else { return }
         
         switch sender {
             
         case gridRenderingButton:
             
-            inspectable.grid.isHidden = sender.state == .off
+            switch coordinator?.viewModel.state {
+                
+            case .build(let inspector, _, _),
+                 .paint(let inspector, _, _):
+                
+                inspector.inspectable.grid.isHidden = sender.state == .off
+                
+            default: break
+            }
             
         default: break
         }
     }
     
-    var inspector: WaterInspector? {
+    @IBAction func popUp(_ sender: NSPopUpButton) {
         
-        didSet {
+        switch sender {
             
-            guard self.isViewLoaded else { return }
+        case utilityTypePopUp:
             
-            update()
+            guard let utility = WaterUtilityCoordinator.Utility(rawValue: sender.indexOfSelectedItem) else { return }
+            
+            coordinator?.viewModel.switch(utility: utility)
+            
+        case buildToolTypePopUp,
+             paintToolTypePopUp:
+            
+            guard let toolType = WaterUtilityCoordinator.ToolType(rawValue: sender.indexOfSelectedItem) else { return }
+            
+            coordinator?.viewModel.set(toolType: toolType)
+            
+        case buildTypePopUp,
+             paintTypePopUp:
+            
+            guard let waterType = WaterType(rawValue: sender.indexOfSelectedItem) else { return }
+            
+            coordinator?.viewModel.set(waterType: waterType)
+            
+        default: break
         }
     }
-    
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        
-        update()
-    }
 }
-
-extension WaterUtilityViewController {
-
-    func update() {
-    
-        guard let inspectable = inspector?.inspectable else { return }
-        
-        self.chunkCountLabel.integerValue = inspectable.grid.childCount
-        self.gridRenderingButton.state = (inspectable.grid.isHidden ? .off : .on)
-    }
-}
-

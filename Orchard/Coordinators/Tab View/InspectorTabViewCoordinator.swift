@@ -87,6 +87,8 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         super.init(controller: controller)
         
         controller.coordinator = self
+        
+        viewModel.subscribe(stateDidChange(from:to:))
     }
     
     required init?(coder: NSCoder) {
@@ -98,16 +100,14 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         
         super.start(with: option)
         
-        viewModel.subscribe(stateDidChange(from:to:))
-        
-        guard let node = option as? SceneGraphIdentifiable else { return }
-        
-        viewModel.select(node: node)
+        viewModel.start(with: option)
     }
     
     override func stop(then completion: CoordinatorCompletionBlock?) {
         
-        viewModel.clear()
+        stopChildren()
+        
+        viewModel.stop()
         
         completion?()
     }

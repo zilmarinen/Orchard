@@ -44,13 +44,13 @@ class SceneViewCoordinator: Coordinator<SceneViewController> {
         //
         /// TODO : remove all code below this line
         //
-        return
+        
         guard let totalQuads = scene.meadow.terrain.graph?.totalQuads else { return }
 
         for index in 0..<totalQuads {
 
             let bodyOfWater = (index > 20 && index < 50)
-            let abode = (index < 20)
+            let area = (index < 20)
             let footpath = (index > 50 && index < 80)
             let foliage = (index > 80 && index < 90)
 
@@ -78,7 +78,7 @@ class SceneViewCoordinator: Coordinator<SceneViewController> {
                 }
             }
 
-            if abode {
+            if area {
 
                 scene.meadow.area.add(tile: index)?.children.forEach { child in
 

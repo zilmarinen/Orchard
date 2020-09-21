@@ -11,11 +11,6 @@ import AppKit
 
 class TerrainUtilityViewController: NSViewController {
     
-    lazy var viewModel: ViewModel = {
-        
-        return ViewModel(initialState: .empty)
-    }()
-    
     weak var coordinator: TerrainUtilityCoordinator?
     
     @IBOutlet weak var gridBox: NSBox!
@@ -27,19 +22,21 @@ class TerrainUtilityViewController: NSViewController {
     
     @IBOutlet weak var gridRenderingButton: NSButton!
     
+    @IBOutlet weak var utilityTypePopUp: NSPopUpButton!
+    
     //
     /// Build
     //
     
     @IBOutlet weak var buildToolTypePopUp: NSPopUpButton!
-    @IBOutlet weak var buildTerrainTypePopUp: NSPopUpButton!
+    @IBOutlet weak var buildTypePopUp: NSPopUpButton!
     
     //
     /// Paint
     //
     
     @IBOutlet weak var paintToolTypePopUp: NSPopUpButton!
-    @IBOutlet weak var paintTerrainTypePopUp: NSPopUpButton!
+    @IBOutlet weak var paintTypePopUp: NSPopUpButton!
     
     //
     /// Terraform
@@ -51,7 +48,16 @@ class TerrainUtilityViewController: NSViewController {
             
         case gridRenderingButton:
             
-            print("")
+            switch coordinator?.viewModel.state {
+                
+            case .build(let inspector, _, _),
+                 .paint(let inspector, _, _),
+                 .terraform(let inspector):
+                
+                inspector.inspectable.grid.isHidden = sender.state == .off
+                
+            default: break
+            }
             
         default: break
         }
@@ -61,29 +67,27 @@ class TerrainUtilityViewController: NSViewController {
         
         switch sender {
             
-        case buildToolTypePopUp:
+        case utilityTypePopUp:
             
-            print("")
+            guard let utility = TerrainUtilityCoordinator.Utility(rawValue: sender.indexOfSelectedItem) else { return }
+            
+            coordinator?.viewModel.switch(utility: utility)
+            
+        case buildToolTypePopUp,
+             paintToolTypePopUp:
+            
+            guard let toolType = TerrainUtilityCoordinator.ToolType(rawValue: sender.indexOfSelectedItem) else { return }
+            
+            coordinator?.viewModel.set(toolType: toolType)
+            
+        case buildTypePopUp,
+             paintTypePopUp:
+            
+            guard let terrainType = TerrainType(rawValue: sender.indexOfSelectedItem) else { return }
+            
+            coordinator?.viewModel.set(terrainType: terrainType)
             
         default: break
-        }
-    }
-    
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        
-        viewModel.subscribe(stateDidChange(from:to:))
-    }
-}
-
-extension TerrainUtilityViewController {
-    
-    func stateDidChange(from previousState: ViewState?, to currentState: ViewState) {
-    
-        DispatchQueue.main.async {
-            
-            //
         }
     }
 }

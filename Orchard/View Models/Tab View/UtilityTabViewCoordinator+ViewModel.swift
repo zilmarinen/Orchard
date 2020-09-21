@@ -25,12 +25,12 @@ extension UtilityTabViewCoordinator {
         }
         
         case empty
-        case area(SceneGraphIdentifiable)
-        case foliage(SceneGraphIdentifiable)
-        case footpath(SceneGraphIdentifiable)
-        case props(SceneGraphIdentifiable)
-        case terrain(SceneGraphIdentifiable)
-        case water(SceneGraphIdentifiable)
+        case area(node: SceneGraphIdentifiable)
+        case foliage(node: SceneGraphIdentifiable)
+        case footpath(node: SceneGraphIdentifiable)
+        case props(node: SceneGraphIdentifiable)
+        case terrain(node: SceneGraphIdentifiable)
+        case water(node: SceneGraphIdentifiable)
         
         func shouldTransition(to newState: ViewState) -> Should<ViewState> {
             
@@ -54,26 +54,26 @@ extension UtilityTabViewCoordinator {
     
     class ViewModel: StateObserver<ViewState> {
         
-        func clear() {
+        func start(with option: StartOption?) {
             
-            state = .empty
-        }
-        
-        func select(node: SceneGraphNode) {
-            
-            guard let node = node as? SceneGraphIdentifiable else { return }
+            guard let node = option as? SceneGraphIdentifiable else { return }
             
             switch node.category {
                 
-            case .area: self.state = .area(node)
-            case .foliage: self.state = .foliage(node)
-            case .footpath: self.state = .footpath(node)
-            case .props: self.state = .props(node)
-            case .terrain: self.state = .terrain(node)
-            case .water: self.state = .water(node)
+            case .area: self.state = .area(node: node)
+            case .foliage: self.state = .foliage(node: node)
+            case .footpath: self.state = .footpath(node: node)
+            case .props: self.state = .props(node: node)
+            case .terrain: self.state = .terrain(node: node)
+            case .water: self.state = .water(node: node)
                 
             default: break
             }
+        }
+        
+        func stop() {
+            
+            state = .empty
         }
     }
 }

@@ -42,6 +42,18 @@ extension SidebarTabViewCoordinator {
     
     class ViewModel: StateObserver<ViewState> {
         
+        func start(with option: StartOption?) {
+            
+            guard let node = option as? SceneGraphIdentifiable else { return }
+            
+            select(node: node)
+        }
+        
+        func stop() {
+            
+            state = .empty
+        }
+        
         func toggle(tab: ViewState.Tab) {
             
             switch tab {

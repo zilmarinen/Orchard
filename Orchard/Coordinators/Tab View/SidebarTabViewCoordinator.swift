@@ -43,6 +43,8 @@ class SidebarTabViewCoordinator: Coordinator<SidebarTabViewController> {
         super.init(controller: controller)
         
         controller.coordinator = self
+        
+        viewModel.subscribe(stateDidChange(from:to:))
     }
     
     required init?(coder: NSCoder) {
@@ -54,7 +56,16 @@ class SidebarTabViewCoordinator: Coordinator<SidebarTabViewController> {
         
         super.start(with: option)
         
-        viewModel.subscribe(stateDidChange(from:to:))
+        viewModel.start(with: option)
+    }
+    
+    override func stop(then completion: CoordinatorCompletionBlock?) {
+        
+        stopChildren()
+        
+        viewModel.stop()
+        
+        completion?()
     }
 }
 
