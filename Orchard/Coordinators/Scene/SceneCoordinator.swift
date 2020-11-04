@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import Meadow
 
 class SceneCoordinator: Coordinator<SceneViewController> {
     
@@ -25,6 +26,12 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         
         super.start(with: option)
         
+        guard let scene = option as? Scene else { fatalError("Invalid start option") }
+        
+        controller.sceneView.backgroundColor = scene.backgroundColor.color
+        controller.sceneView.scene = scene
+        controller.sceneView.delegate = scene
+        
         let item = NSPathControlItem()
         
         item.title = "Meadow"
@@ -36,6 +43,5 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         item1.image = NSImage(named: "meadow_icon")
         
         controller.pathControl.pathItems = [item, item1]
-        controller.sceneView.backgroundColor = .black
     }
 }

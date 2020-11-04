@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Meadow",
+        "repositoryURL": "git@bitbucket.org:scriptorchard/meadow.git",
+        "state": {
+          "branch": "feature/rewrite",
+          "revision": "cde953ae4e751ba64e0a848526bf6fcf6d66c071",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

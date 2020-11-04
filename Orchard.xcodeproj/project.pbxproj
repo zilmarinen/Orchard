@@ -3,15 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		189F19D1255293A4002B892B /* Meadow in Frameworks */ = {isa = PBXBuildFile; productRef = 189F19D0255293A4002B892B /* Meadow */; };
 		18D3A16725515D3A00031CA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3A16625515D3A00031CA7 /* AppDelegate.swift */; };
 		18D3A16B25515D3A00031CA7 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3A16A25515D3A00031CA7 /* Document.swift */; };
 		18D3A16D25515D3C00031CA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D3A16C25515D3C00031CA7 /* Assets.xcassets */; };
 		18D3A17025515D3C00031CA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18D3A16E25515D3C00031CA7 /* Main.storyboard */; };
 		18D3A1802551652000031CA7 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3A17F2551652000031CA7 /* WindowController.swift */; };
+		18F4F5DC2552BC85007AC940 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4F5DB2552BC85007AC940 /* Scene.swift */; };
 		18FB382C25516F5A0036CA95 /* WindowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB382B25516F5A0036CA95 /* WindowCoordinator.swift */; };
 		18FB382F2551752B0036CA95 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB382E2551752B0036CA95 /* Coordinator.swift */; };
 		18FB38352551778A0036CA95 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB38342551778A0036CA95 /* SplitViewController.swift */; };
@@ -33,6 +35,7 @@
 		18D3A17125515D3C00031CA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18D3A17225515D3C00031CA7 /* Orchard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Orchard.entitlements; sourceTree = "<group>"; };
 		18D3A17F2551652000031CA7 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		18F4F5DB2552BC85007AC940 /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		18FB382B25516F5A0036CA95 /* WindowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCoordinator.swift; sourceTree = "<group>"; };
 		18FB382E2551752B0036CA95 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		18FB38342551778A0036CA95 /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
@@ -50,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				189F19D1255293A4002B892B /* Meadow in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +88,7 @@
 		18D3A16525515D3A00031CA7 /* Orchard */ = {
 			isa = PBXGroup;
 			children = (
+				18F4F5DA2552BC74007AC940 /* Extensions */,
 				18D3A16625515D3A00031CA7 /* AppDelegate.swift */,
 				18D3A16C25515D3C00031CA7 /* Assets.xcassets */,
 				18D3A17E2551650800031CA7 /* Controllers */,
@@ -105,6 +110,14 @@
 				18FB3826255167850036CA95 /* Window */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		18F4F5DA2552BC74007AC940 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				18F4F5DB2552BC85007AC940 /* Scene.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		18FB38242551674F0036CA95 /* Storyboards */ = {
@@ -240,6 +253,9 @@
 			dependencies = (
 			);
 			name = Orchard;
+			packageProductDependencies = (
+				189F19D0255293A4002B892B /* Meadow */,
+			);
 			productName = Orchard;
 			productReference = 18D3A16325515D3A00031CA7 /* Orchard.app */;
 			productType = "com.apple.product-type.application";
@@ -267,6 +283,9 @@
 				Base,
 			);
 			mainGroup = 18D3A15A25515D3A00031CA7;
+			packageReferences = (
+				189F19CF255293A4002B892B /* XCRemoteSwiftPackageReference "meadow" */,
+			);
 			productRefGroup = 18D3A16425515D3A00031CA7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -297,6 +316,7 @@
 				18FB3842255178ED0036CA95 /* SceneViewController.swift in Sources */,
 				18FB383F255178D30036CA95 /* SceneGraphViewController.swift in Sources */,
 				18FB383B255177AC0036CA95 /* SplitViewCoordinator.swift in Sources */,
+				18F4F5DC2552BC85007AC940 /* Scene.swift in Sources */,
 				18FB3852255179420036CA95 /* InspectorCoordinator.swift in Sources */,
 				18D3A1802551652000031CA7 /* WindowController.swift in Sources */,
 				18D3A16725515D3A00031CA7 /* AppDelegate.swift in Sources */,
@@ -502,6 +522,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		189F19CF255293A4002B892B /* XCRemoteSwiftPackageReference "meadow" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@bitbucket.org:scriptorchard/meadow.git";
+			requirement = {
+				branch = feature/rewrite;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		189F19D0255293A4002B892B /* Meadow */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 189F19CF255293A4002B892B /* XCRemoteSwiftPackageReference "meadow" */;
+			productName = Meadow;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 18D3A15B25515D3A00031CA7 /* Project object */;
 }

@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import Meadow
 
 class WindowCoordinator: Coordinator<WindowController> {
     
@@ -36,7 +37,9 @@ class WindowCoordinator: Coordinator<WindowController> {
         
         super.start(with: option)
         
-        start(child: splitViewCoordinator, with: option)
+        let scene = (option as? Scene) ?? Scene(meadow: Meadow())
+        
+        start(child: splitViewCoordinator, with: scene)
     }
     
     override func stop(then completion: CoordinatorCompletionBlock?) {
