@@ -2,34 +2,32 @@
 //  WindowCoordinator.swift
 //  Orchard
 //
-//  Created by Zack Brown on 13/04/2020.
-//  Copyright © 2020 Script Orchard. All rights reserved.
+//  Created by Zack Brown on 03/11/2020.
 //
 
-import Meadow
-import Terrace
+import Cocoa
 
-class WindowCoordinator: Coordinator<OrchardWindowController> {
+class WindowCoordinator: Coordinator<WindowController> {
     
-    lazy var orchardCoordinator: OrchardCoordinator = {
+    lazy var splitViewCoordinator: SplitViewCoordinator = {
         
-        guard let viewController = controller.contentViewController as? OrchardViewController else { fatalError("Invalid view controller hierarchy") }
-       
-        let coordinator = OrchardCoordinator(controller: viewController)
+        guard let viewController = controller.splitViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = SplitViewCoordinator(controller: viewController)
         
         coordinator.parent = self
         
         return coordinator
     }()
     
-    override init(controller: OrchardWindowController) {
+    override init(controller: WindowController) {
         
         super.init(controller: controller)
         
         controller.coordinator = self
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         
         fatalError("init(coder:) has not been implemented")
     }
@@ -38,23 +36,19 @@ class WindowCoordinator: Coordinator<OrchardWindowController> {
         
         super.start(with: option)
         
-        guard let json = option as? Document.DocumentJSON else { fatalError("Invalid start option for window coordinator.") }
+        start(child: splitViewCoordinator, with: option)
+    }
+    
+    override func stop(then completion: CoordinatorCompletionBlock?) {
         
-        let meadow = Meadow(graph: json.graph, json: json.meadow)
-        
-        start(child: orchardCoordinator, with: meadow)
-        
-        if let screen = controller.window?.screen {
-        
-            controller.window?.setFrame(screen.visibleFrame, display: true, animate: true)
-        }
+        stop(child: splitViewCoordinator)
     }
 }
 
 extension WindowCoordinator {
     
     override func toggle(panel: SplitViewController.Panel) {
-        
-        orchardCoordinator.splitViewCoordinator.controller.toggle(panel: panel)
+     
+        splitViewCoordinator.controller.toggle(panel: panel)
     }
 }

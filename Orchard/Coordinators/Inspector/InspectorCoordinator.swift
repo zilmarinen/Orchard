@@ -1,5 +1,5 @@
 //
-//  SceneGraphCoordinator.swift
+//  InspectorCoordinator.swift
 //  Orchard
 //
 //  Created by Zack Brown on 03/11/2020.
@@ -7,9 +7,9 @@
 
 import Cocoa
 
-class SceneGraphCoordinator: Coordinator<SceneGraphViewController> {
+class InspectorCoordinator: Coordinator<InspectorViewController> {
     
-    override init(controller: SceneGraphViewController) {
+    override init(controller: InspectorViewController) {
         
         super.init(controller: controller)
         
@@ -25,6 +25,6 @@ class SceneGraphCoordinator: Coordinator<SceneGraphViewController> {
         
         super.start(with: option)
         
-        //
+        controller.inspectorButton.contentTintColor = .systemPink
     }
 }
