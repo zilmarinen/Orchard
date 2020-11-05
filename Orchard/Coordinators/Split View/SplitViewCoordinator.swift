@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import Meadow
 
 class SplitViewCoordinator: Coordinator<SplitViewController> {
     
@@ -31,16 +32,18 @@ class SplitViewCoordinator: Coordinator<SplitViewController> {
         return coordinator
     }()
     
-    lazy var inspectorCoordinator: InspectorCoordinator = {
+    lazy var sidebarCoordinator: SidebarCoordinator = {
        
-        guard let viewController = controller.inspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        guard let viewController = controller.sidebarViewController else { fatalError("Invalid view controller hierarchy") }
         
-        let coordinator = InspectorCoordinator(controller: viewController)
+        let coordinator = SidebarCoordinator(controller: viewController)
         
         coordinator.parent = self
         
         return coordinator
     }()
+    
+    weak var focus: SceneGraphNode?
     
     override init(controller: SplitViewController) {
         
@@ -54,19 +57,37 @@ class SplitViewCoordinator: Coordinator<SplitViewController> {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func start(with option: StartOption?) {
+    override func start(with option: SceneGraphNode?) {
         
         super.start(with: option)
         
+        guard let scene = option as? Scene else { fatalError("Invalid start option") }
+        
+        focus = scene
+        
         start(child: sceneGraphCoordinator, with: option)
         start(child: sceneCoordinator, with: option)
-        start(child: inspectorCoordinator, with: option)
+        start(child: sidebarCoordinator, with: option)
     }
     
     override func stop(then completion: CoordinatorCompletionBlock?) {
         
         stop(child: sceneGraphCoordinator)
         stop(child: sceneCoordinator)
-        stop(child: inspectorCoordinator)
+        stop(child: sidebarCoordinator)
+    }
+}
+
+extension SplitViewCoordinator {
+    
+    override var selectedNode: SceneGraphNode? { focus }
+    
+    override func didSelect(node: SceneGraphNode) {
+        
+        focus = node
+        
+        sceneGraphCoordinator.focus(node: node)
+        sceneCoordinator.focus(node: node)
+        sidebarCoordinator.focus(node: node)
     }
 }

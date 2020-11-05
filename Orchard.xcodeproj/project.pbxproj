@@ -7,26 +7,57 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1807F82A255426B0008388DC /* Inspector.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1807F829255426B0008388DC /* Inspector.storyboard */; };
+		1807F82D255426B9008388DC /* Utility.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1807F82C255426B9008388DC /* Utility.storyboard */; };
+		1807F83325542878008388DC /* SidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F83225542878008388DC /* SidebarViewController.swift */; };
+		1807F8382554289A008388DC /* SidebarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F8372554289A008388DC /* SidebarCoordinator.swift */; };
+		1807F83B25542955008388DC /* SidebarTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F83A25542955008388DC /* SidebarTabViewController.swift */; };
+		1807F83E25542961008388DC /* InspectorTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F83D25542961008388DC /* InspectorTabViewController.swift */; };
+		1807F84125542971008388DC /* UtilityTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F84025542971008388DC /* UtilityTabViewController.swift */; };
+		1807F845255429AA008388DC /* SidebarTabViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F844255429AA008388DC /* SidebarTabViewCoordinator.swift */; };
+		1807F849255429B8008388DC /* InspectorTabViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F848255429B8008388DC /* InspectorTabViewCoordinator.swift */; };
+		1807F84C255429C4008388DC /* UtilityTabViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F84B255429C4008388DC /* UtilityTabViewCoordinator.swift */; };
+		1807F85725542E50008388DC /* TerrainUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F85625542E50008388DC /* TerrainUtilityViewController.swift */; };
+		1807F85A25542E67008388DC /* TerrainUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F85925542E67008388DC /* TerrainUtilityCoordinator.swift */; };
+		1807F863255446F4008388DC /* TerrainUtilityTabViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F862255446F4008388DC /* TerrainUtilityTabViewCoordinator.swift */; };
+		1807F86625544717008388DC /* TerrainUtilityTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F86525544717008388DC /* TerrainUtilityTabViewController.swift */; };
+		1807F86A255448B1008388DC /* TerrainBuildUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F869255448B1008388DC /* TerrainBuildUtilityCoordinator.swift */; };
+		1807F86E255448D7008388DC /* TerrainBuildUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F86D255448D7008388DC /* TerrainBuildUtilityViewController.swift */; };
+		1808EBDF2553F60E00484BEC /* NSResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1808EBDE2553F60E00484BEC /* NSResponder.swift */; };
 		189F19D1255293A4002B892B /* Meadow in Frameworks */ = {isa = PBXBuildFile; productRef = 189F19D0255293A4002B892B /* Meadow */; };
 		18D3A16725515D3A00031CA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3A16625515D3A00031CA7 /* AppDelegate.swift */; };
 		18D3A16B25515D3A00031CA7 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3A16A25515D3A00031CA7 /* Document.swift */; };
 		18D3A16D25515D3C00031CA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D3A16C25515D3C00031CA7 /* Assets.xcassets */; };
 		18D3A17025515D3C00031CA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18D3A16E25515D3C00031CA7 /* Main.storyboard */; };
 		18D3A1802551652000031CA7 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3A17F2551652000031CA7 /* WindowController.swift */; };
-		18F4F5DC2552BC85007AC940 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4F5DB2552BC85007AC940 /* Scene.swift */; };
 		18FB382C25516F5A0036CA95 /* WindowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB382B25516F5A0036CA95 /* WindowCoordinator.swift */; };
 		18FB382F2551752B0036CA95 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB382E2551752B0036CA95 /* Coordinator.swift */; };
 		18FB38352551778A0036CA95 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB38342551778A0036CA95 /* SplitViewController.swift */; };
 		18FB383B255177AC0036CA95 /* SplitViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB383A255177AC0036CA95 /* SplitViewCoordinator.swift */; };
 		18FB383F255178D30036CA95 /* SceneGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB383E255178D30036CA95 /* SceneGraphViewController.swift */; };
 		18FB3842255178ED0036CA95 /* SceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB3841255178ED0036CA95 /* SceneViewController.swift */; };
-		18FB3845255179070036CA95 /* InspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB3844255179070036CA95 /* InspectorViewController.swift */; };
 		18FB384B2551792E0036CA95 /* SceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB384A2551792E0036CA95 /* SceneCoordinator.swift */; };
 		18FB384F255179380036CA95 /* SceneGraphCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB384E255179380036CA95 /* SceneGraphCoordinator.swift */; };
-		18FB3852255179420036CA95 /* InspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB3851255179420036CA95 /* InspectorCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1807F829255426B0008388DC /* Inspector.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Inspector.storyboard; sourceTree = "<group>"; };
+		1807F82C255426B9008388DC /* Utility.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Utility.storyboard; sourceTree = "<group>"; };
+		1807F83225542878008388DC /* SidebarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewController.swift; sourceTree = "<group>"; };
+		1807F8372554289A008388DC /* SidebarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarCoordinator.swift; sourceTree = "<group>"; };
+		1807F83A25542955008388DC /* SidebarTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarTabViewController.swift; sourceTree = "<group>"; };
+		1807F83D25542961008388DC /* InspectorTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorTabViewController.swift; sourceTree = "<group>"; };
+		1807F84025542971008388DC /* UtilityTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityTabViewController.swift; sourceTree = "<group>"; };
+		1807F844255429AA008388DC /* SidebarTabViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarTabViewCoordinator.swift; sourceTree = "<group>"; };
+		1807F848255429B8008388DC /* InspectorTabViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorTabViewCoordinator.swift; sourceTree = "<group>"; };
+		1807F84B255429C4008388DC /* UtilityTabViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityTabViewCoordinator.swift; sourceTree = "<group>"; };
+		1807F85625542E50008388DC /* TerrainUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainUtilityViewController.swift; sourceTree = "<group>"; };
+		1807F85925542E67008388DC /* TerrainUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainUtilityCoordinator.swift; sourceTree = "<group>"; };
+		1807F862255446F4008388DC /* TerrainUtilityTabViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainUtilityTabViewCoordinator.swift; sourceTree = "<group>"; };
+		1807F86525544717008388DC /* TerrainUtilityTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainUtilityTabViewController.swift; sourceTree = "<group>"; };
+		1807F869255448B1008388DC /* TerrainBuildUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainBuildUtilityCoordinator.swift; sourceTree = "<group>"; };
+		1807F86D255448D7008388DC /* TerrainBuildUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainBuildUtilityViewController.swift; sourceTree = "<group>"; };
+		1808EBDE2553F60E00484BEC /* NSResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSResponder.swift; sourceTree = "<group>"; };
 		18D3A16325515D3A00031CA7 /* Orchard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Orchard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18D3A16625515D3A00031CA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18D3A16A25515D3A00031CA7 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -35,17 +66,14 @@
 		18D3A17125515D3C00031CA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18D3A17225515D3C00031CA7 /* Orchard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Orchard.entitlements; sourceTree = "<group>"; };
 		18D3A17F2551652000031CA7 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
-		18F4F5DB2552BC85007AC940 /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		18FB382B25516F5A0036CA95 /* WindowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCoordinator.swift; sourceTree = "<group>"; };
 		18FB382E2551752B0036CA95 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		18FB38342551778A0036CA95 /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		18FB383A255177AC0036CA95 /* SplitViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewCoordinator.swift; sourceTree = "<group>"; };
 		18FB383E255178D30036CA95 /* SceneGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGraphViewController.swift; sourceTree = "<group>"; };
 		18FB3841255178ED0036CA95 /* SceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneViewController.swift; sourceTree = "<group>"; };
-		18FB3844255179070036CA95 /* InspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorViewController.swift; sourceTree = "<group>"; };
 		18FB384A2551792E0036CA95 /* SceneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinator.swift; sourceTree = "<group>"; };
 		18FB384E255179380036CA95 /* SceneGraphCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGraphCoordinator.swift; sourceTree = "<group>"; };
-		18FB3851255179420036CA95 /* InspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +88,92 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1807F82F255427DF008388DC /* Tab View */ = {
+			isa = PBXGroup;
+			children = (
+				1807F83A25542955008388DC /* SidebarTabViewController.swift */,
+				1807F83D25542961008388DC /* InspectorTabViewController.swift */,
+				1807F84025542971008388DC /* UtilityTabViewController.swift */,
+				1807F86525544717008388DC /* TerrainUtilityTabViewController.swift */,
+			);
+			path = "Tab View";
+			sourceTree = "<group>";
+		};
+		1807F83125542860008388DC /* Sidebar */ = {
+			isa = PBXGroup;
+			children = (
+				1807F83225542878008388DC /* SidebarViewController.swift */,
+			);
+			path = Sidebar;
+			sourceTree = "<group>";
+		};
+		1807F83625542891008388DC /* Sidebar */ = {
+			isa = PBXGroup;
+			children = (
+				1807F8372554289A008388DC /* SidebarCoordinator.swift */,
+			);
+			path = Sidebar;
+			sourceTree = "<group>";
+		};
+		1807F84325542998008388DC /* Tab View */ = {
+			isa = PBXGroup;
+			children = (
+				1807F844255429AA008388DC /* SidebarTabViewCoordinator.swift */,
+				1807F848255429B8008388DC /* InspectorTabViewCoordinator.swift */,
+				1807F84B255429C4008388DC /* UtilityTabViewCoordinator.swift */,
+				1807F862255446F4008388DC /* TerrainUtilityTabViewCoordinator.swift */,
+			);
+			path = "Tab View";
+			sourceTree = "<group>";
+		};
+		1807F85125542DE9008388DC /* Inspector */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Inspector;
+			sourceTree = "<group>";
+		};
+		1807F85225542DEE008388DC /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				1807F85525542E40008388DC /* Terrain */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		1807F85325542DF3008388DC /* Inspector */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Inspector;
+			sourceTree = "<group>";
+		};
+		1807F85425542DF8008388DC /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				1807F86825544894008388DC /* Terrain */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		1807F85525542E40008388DC /* Terrain */ = {
+			isa = PBXGroup;
+			children = (
+				1807F85625542E50008388DC /* TerrainUtilityViewController.swift */,
+				1807F86D255448D7008388DC /* TerrainBuildUtilityViewController.swift */,
+			);
+			path = Terrain;
+			sourceTree = "<group>";
+		};
+		1807F86825544894008388DC /* Terrain */ = {
+			isa = PBXGroup;
+			children = (
+				1807F85925542E67008388DC /* TerrainUtilityCoordinator.swift */,
+				1807F869255448B1008388DC /* TerrainBuildUtilityCoordinator.swift */,
+			);
+			path = Terrain;
+			sourceTree = "<group>";
+		};
 		181002612551951800FFE101 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -103,7 +217,10 @@
 		18D3A17E2551650800031CA7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				18FB3829255167980036CA95 /* Inspector */,
+				1807F85225542DEE008388DC /* Utility */,
+				1807F85125542DE9008388DC /* Inspector */,
+				1807F83125542860008388DC /* Sidebar */,
+				1807F82F255427DF008388DC /* Tab View */,
 				18FB3828255167940036CA95 /* Scene */,
 				18FB38272551678D0036CA95 /* Scene Graph */,
 				18FB38332551777B0036CA95 /* Split View */,
@@ -115,7 +232,7 @@
 		18F4F5DA2552BC74007AC940 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				18F4F5DB2552BC85007AC940 /* Scene.swift */,
+				1808EBDE2553F60E00484BEC /* NSResponder.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -124,6 +241,8 @@
 			isa = PBXGroup;
 			children = (
 				18D3A16E25515D3C00031CA7 /* Main.storyboard */,
+				1807F829255426B0008388DC /* Inspector.storyboard */,
+				1807F82C255426B9008388DC /* Utility.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -131,8 +250,11 @@
 		18FB3825255167790036CA95 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				1807F85425542DF8008388DC /* Utility */,
+				1807F85325542DF3008388DC /* Inspector */,
+				1807F84325542998008388DC /* Tab View */,
+				1807F83625542891008388DC /* Sidebar */,
 				18FB38312551752E0036CA95 /* Coordinator */,
-				18FB3849255179230036CA95 /* Inspector */,
 				18FB3847255179160036CA95 /* Scene */,
 				18FB38482551791C0036CA95 /* Scene Graph */,
 				18FB3839255177A20036CA95 /* Split View */,
@@ -163,14 +285,6 @@
 				18FB3841255178ED0036CA95 /* SceneViewController.swift */,
 			);
 			path = Scene;
-			sourceTree = "<group>";
-		};
-		18FB3829255167980036CA95 /* Inspector */ = {
-			isa = PBXGroup;
-			children = (
-				18FB3844255179070036CA95 /* InspectorViewController.swift */,
-			);
-			path = Inspector;
 			sourceTree = "<group>";
 		};
 		18FB382A255167B40036CA95 /* Document */ = {
@@ -227,14 +341,6 @@
 				18FB384E255179380036CA95 /* SceneGraphCoordinator.swift */,
 			);
 			path = "Scene Graph";
-			sourceTree = "<group>";
-		};
-		18FB3849255179230036CA95 /* Inspector */ = {
-			isa = PBXGroup;
-			children = (
-				18FB3851255179420036CA95 /* InspectorCoordinator.swift */,
-			);
-			path = Inspector;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,6 +407,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				18D3A16D25515D3C00031CA7 /* Assets.xcassets in Resources */,
+				1807F82D255426B9008388DC /* Utility.storyboard in Resources */,
+				1807F82A255426B0008388DC /* Inspector.storyboard in Resources */,
 				18D3A17025515D3C00031CA7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,20 +420,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18FB3845255179070036CA95 /* InspectorViewController.swift in Sources */,
+				1807F863255446F4008388DC /* TerrainUtilityTabViewCoordinator.swift in Sources */,
 				18FB3842255178ED0036CA95 /* SceneViewController.swift in Sources */,
+				1807F8382554289A008388DC /* SidebarCoordinator.swift in Sources */,
 				18FB383F255178D30036CA95 /* SceneGraphViewController.swift in Sources */,
+				1807F86E255448D7008388DC /* TerrainBuildUtilityViewController.swift in Sources */,
 				18FB383B255177AC0036CA95 /* SplitViewCoordinator.swift in Sources */,
-				18F4F5DC2552BC85007AC940 /* Scene.swift in Sources */,
-				18FB3852255179420036CA95 /* InspectorCoordinator.swift in Sources */,
+				1807F85725542E50008388DC /* TerrainUtilityViewController.swift in Sources */,
+				1808EBDF2553F60E00484BEC /* NSResponder.swift in Sources */,
+				1807F86625544717008388DC /* TerrainUtilityTabViewController.swift in Sources */,
+				1807F83B25542955008388DC /* SidebarTabViewController.swift in Sources */,
+				1807F84C255429C4008388DC /* UtilityTabViewCoordinator.swift in Sources */,
+				1807F849255429B8008388DC /* InspectorTabViewCoordinator.swift in Sources */,
+				1807F83E25542961008388DC /* InspectorTabViewController.swift in Sources */,
 				18D3A1802551652000031CA7 /* WindowController.swift in Sources */,
 				18D3A16725515D3A00031CA7 /* AppDelegate.swift in Sources */,
+				1807F85A25542E67008388DC /* TerrainUtilityCoordinator.swift in Sources */,
 				18FB384F255179380036CA95 /* SceneGraphCoordinator.swift in Sources */,
 				18FB382F2551752B0036CA95 /* Coordinator.swift in Sources */,
 				18FB382C25516F5A0036CA95 /* WindowCoordinator.swift in Sources */,
 				18D3A16B25515D3A00031CA7 /* Document.swift in Sources */,
+				1807F86A255448B1008388DC /* TerrainBuildUtilityCoordinator.swift in Sources */,
+				1807F845255429AA008388DC /* SidebarTabViewCoordinator.swift in Sources */,
 				18FB38352551778A0036CA95 /* SplitViewController.swift in Sources */,
 				18FB384B2551792E0036CA95 /* SceneCoordinator.swift in Sources */,
+				1807F83325542878008388DC /* SidebarViewController.swift in Sources */,
+				1807F84125542971008388DC /* UtilityTabViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,7 +593,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.test.Orchard;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.Orchard";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -494,7 +615,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.test.Orchard;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.Orchard";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};

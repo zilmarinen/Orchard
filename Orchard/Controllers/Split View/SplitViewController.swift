@@ -7,11 +7,6 @@
 
 import Cocoa
 
-@objc extension NSResponder {
-    
-    func toggle(panel: SplitViewController.Panel) { nextResponder?.toggle(panel: panel) }
-}
-
 class SplitViewController: NSSplitViewController {
     
     enum Constants {
@@ -24,7 +19,7 @@ class SplitViewController: NSSplitViewController {
         
         case sceneGraph
         case scene
-        case inspector
+        case sidebar
     }
     
     enum Divider: Int {
@@ -45,9 +40,9 @@ class SplitViewController: NSSplitViewController {
         return children.first { type(of: $0) == SceneViewController.self } as? SceneViewController
     }
     
-    var inspectorViewController: InspectorViewController? {
+    var sidebarViewController: SidebarViewController? {
         
-        return children.first { type(of: $0) == InspectorViewController.self } as? InspectorViewController
+        return children.first { type(of: $0) == SidebarViewController.self } as? SidebarViewController
     }
 }
 
@@ -65,7 +60,7 @@ extension SplitViewController {
             
             splitView.setPosition(width, ofDividerAt: Divider.left.rawValue)
             
-        case .inspector:
+        case .sidebar:
             
             splitView.setPosition((CGFloat(splitView.frame.width) - width), ofDividerAt: Divider.right.rawValue)
             

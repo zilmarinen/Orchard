@@ -15,7 +15,7 @@ class WindowController: NSWindowController {
     
     @IBAction func segmentedControl(_ sender: NSSegmentedControl) {
         
-        let panel = sender.selectedSegment == 0 ? SplitViewController.Panel.sceneGraph : SplitViewController.Panel.inspector
+        let panel = sender.selectedSegment == 0 ? SplitViewController.Panel.sceneGraph : SplitViewController.Panel.sidebar
         
         coordinator?.toggle(panel: panel)
     }

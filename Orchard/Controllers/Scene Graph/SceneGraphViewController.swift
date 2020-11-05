@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import Meadow
 
 class SceneGraphViewController: NSViewController {
 
@@ -20,7 +21,7 @@ extension SceneGraphViewController {
     override func viewDidLoad() {
     
         super.viewDidLoad()
-    
+        
         outlineView.target = self
         outlineView.action = #selector(didSelectRow(sender:))
         outlineView.rowHeight = 18
@@ -30,9 +31,9 @@ extension SceneGraphViewController {
 extension SceneGraphViewController {
 
     @objc func didSelectRow(sender: NSOutlineView) {
+        
+        guard let node = treeController.selectedObjects.first as? SceneGraphNode else { return }
     
-        guard let node = treeController.selectedObjects.first else { return }
-    
-        //
+        coordinator?.didSelect(node: node)
     }
 }

@@ -22,7 +22,7 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func start(with option: StartOption?) {
+    override func start(with option: SceneGraphNode?) {
         
         super.start(with: option)
         
@@ -32,16 +32,33 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         controller.sceneView.scene = scene
         controller.sceneView.delegate = scene
         
-        let item = NSPathControlItem()
+        focus(node: scene)
+    }
+}
+
+extension SceneCoordinator {
+    
+    override func focus(node: SceneGraphNode) {
         
-        item.title = "Meadow"
-        item.image = NSImage(named: "meadow_icon")
+        print("SceneCoordinator: focus: \(node)")
         
-        let item1 = NSPathControlItem()
+        guard let node = node as? SceneGraphNode else { return }
         
-        item1.title = "Meadow"
-        item1.image = NSImage(named: "meadow_icon")
+        var items: [NSPathControlItem] = []
+        var parent: SceneGraphNode? = node
         
-        controller.pathControl.pathItems = [item, item1]
+        while parent != nil {
+            
+            let item = NSPathControlItem()
+            
+            item.title = node.name ?? "Meadow"
+            item.image = NSImage(named: "meadow_icon")
+            
+            items.append(item)
+            
+            parent = nil
+        }
+        
+        controller.pathControl.pathItems = items.reversed()
     }
 }

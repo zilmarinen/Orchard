@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import Meadow
 
 class SceneGraphCoordinator: Coordinator<SceneGraphViewController> {
     
@@ -21,10 +22,22 @@ class SceneGraphCoordinator: Coordinator<SceneGraphViewController> {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func start(with option: StartOption?) {
+    override func start(with option: SceneGraphNode?) {
         
         super.start(with: option)
         
-        //
+        guard let scene = option as? Scene else { fatalError("Invalid start option") }
+        
+        controller.treeController.content = scene
+        
+        focus(node: scene.meadow)
+    }
+}
+
+extension SceneGraphCoordinator {
+    
+    override func focus(node: SceneGraphNode) {
+        
+        print("SceneGraphCoordinator: focus: \(node)")
     }
 }

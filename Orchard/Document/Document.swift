@@ -51,7 +51,7 @@ class Document: NSDocument {
         
         let decoder = JSONDecoder()
         
-        self.scene = decoder.decode(Scene.self, from: sceneGraph)
+        self.scene = try decoder.decode(Scene.self, from: sceneGraph)
     }
     
     override func fileWrapper(ofType typeName: String) throws -> FileWrapper {

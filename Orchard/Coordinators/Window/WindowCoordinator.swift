@@ -33,11 +33,11 @@ class WindowCoordinator: Coordinator<WindowController> {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func start(with option: StartOption?) {
+    override func start(with option: SceneGraphNode?) {
         
         super.start(with: option)
         
-        let scene = (option as? Scene) ?? Scene(meadow: Meadow())
+        let scene = (option as? Scene) ?? Scene()
         
         start(child: splitViewCoordinator, with: scene)
     }

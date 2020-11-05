@@ -1,15 +1,16 @@
 //
-//  InspectorCoordinator.swift
+//  InspectorTabViewCoordinator.swift
 //  Orchard
 //
-//  Created by Zack Brown on 03/11/2020.
+//  Created by Zack Brown on 05/11/2020.
 //
 
 import Cocoa
+import Meadow
 
-class InspectorCoordinator: Coordinator<InspectorViewController> {
+class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
     
-    override init(controller: InspectorViewController) {
+    override init(controller: InspectorTabViewController) {
         
         super.init(controller: controller)
         
@@ -21,10 +22,10 @@ class InspectorCoordinator: Coordinator<InspectorViewController> {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func start(with option: StartOption?) {
+    override func start(with option: SceneGraphNode?) {
         
         super.start(with: option)
         
-        controller.inspectorButton.contentTintColor = .systemPink
+        //
     }
 }

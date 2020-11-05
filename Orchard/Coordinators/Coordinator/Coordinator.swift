@@ -7,10 +7,9 @@
 
 import Cocoa
 import Foundation
+import Meadow
 
 typealias CoordinatorCompletionBlock = () -> Void
-
-protocol StartOption {}
 
 protocol Coordinatable: AnyObject {
     
@@ -22,12 +21,12 @@ protocol Coordinatable: AnyObject {
     
     var children: [String: Coordinatable] { get }
     
-    func start(with option: StartOption?)
+    func start(with option: SceneGraphNode?)
     func stop(then completion: CoordinatorCompletionBlock?)
     func coordinator(didFinish coordinator: Coordinatable)
     
     func start(child coordinator: Coordinatable)
-    func start(child coordinator: Coordinatable, with option: StartOption?)
+    func start(child coordinator: Coordinatable, with option: SceneGraphNode?)
     
     func stop(child coordinator: Coordinatable)
     func stop(child coordinator: Coordinatable, then completion: CoordinatorCompletionBlock?)
@@ -60,7 +59,7 @@ open class Coordinator<T>: NSResponder, Coordinatable {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func start(with option: StartOption?) {}
+    func start(with option: SceneGraphNode?) {}
     
     func stop(then completion: CoordinatorCompletionBlock?) {
 
@@ -77,7 +76,7 @@ open class Coordinator<T>: NSResponder, Coordinatable {
         start(child: coordinator, with: nil)
     }
     
-    func start(child coordinator: Coordinatable, with option: StartOption?) {
+    func start(child coordinator: Coordinatable, with option: SceneGraphNode?) {
         
         children[coordinator.identifier] = coordinator
         
@@ -108,5 +107,5 @@ open class Coordinator<T>: NSResponder, Coordinatable {
         children.values.forEach { stop(child: $0) }
     }
     
-    var responder: NSResponder? { parent as? NSResponder }
+    public override var responder: NSResponder? { parent as? NSResponder }
 }
