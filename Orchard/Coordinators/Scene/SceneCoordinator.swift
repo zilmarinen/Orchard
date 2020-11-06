@@ -40,24 +40,33 @@ extension SceneCoordinator {
     
     override func focus(node: SceneGraphNode) {
         
-        print("SceneCoordinator: focus: \(node)")
-        
-        guard let node = node as? SceneGraphNode else { return }
-        
         var items: [NSPathControlItem] = []
-        var parent: SceneGraphNode? = node
         
-        while parent != nil {
+        if let node = node as? (SceneGraphNode & Soilable) {
             
-            let item = NSPathControlItem()
+            var parent: (SceneGraphNode & Soilable)? = node
             
-            item.title = node.name ?? "Meadow"
-            item.image = NSImage(named: "meadow_icon")
-            
-            items.append(item)
-            
-            parent = nil
+            while parent != nil {
+                
+                let item = NSPathControlItem()
+                
+                item.title = parent?.name ?? "Meadow"
+                item.image = NSImage(named: "meadow_icon")
+                
+                items.append(item)
+                
+                parent = parent?.ancestor as? (SceneGraphNode & Soilable)
+            }
         }
+        
+        guard let scene = controller.sceneView.scene as? Scene else { return }
+        
+        let item = NSPathControlItem()
+        
+        item.title = scene.name ?? "Scene"
+        item.image = NSImage(named: "meadow_icon")
+        
+        items.append(item)
         
         controller.pathControl.pathItems = items.reversed()
     }

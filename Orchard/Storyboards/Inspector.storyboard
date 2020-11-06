@@ -9,7 +9,7 @@
         <!--Inspector Tab View Controller-->
         <scene sceneID="rEK-fS-KtP">
             <objects>
-                <tabViewController selectedTabViewItemIndex="0" tabStyle="toolbar" id="4hC-2l-BMP" customClass="InspectorTabViewController" customModule="Orchard" customModuleProvider="target" sceneMemberID="viewController">
+                <tabViewController selectedTabViewItemIndex="0" tabStyle="unspecified" id="4hC-2l-BMP" customClass="InspectorTabViewController" customModule="Orchard" customModuleProvider="target" sceneMemberID="viewController">
                     <tabViewItems>
                         <tabViewItem identifier="" id="f7I-2V-g8M"/>
                         <tabViewItem identifier="" id="2Ao-tr-Y9q"/>

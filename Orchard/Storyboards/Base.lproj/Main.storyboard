@@ -692,7 +692,7 @@
                         <rect key="contentRect" x="196" y="165" width="1400" height="700"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="1400" height="700"/>
-                        <toolbar key="toolbar" implicitIdentifier="D602E028-C3E4-4CEA-A374-6AE660475048" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="4MP-tV-mxs">
+                        <toolbar key="toolbar" implicitIdentifier="D602E028-C3E4-4CEA-A374-6AE660475048" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconOnly" sizeMode="regular" id="4MP-tV-mxs">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="2gA-Jp-VTr"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarShowFontsItem" id="crI-U9-cMO"/>
@@ -895,7 +895,7 @@
         <!--Sidebar Tab View Controller-->
         <scene sceneID="Arl-xB-PLg">
             <objects>
-                <tabViewController selectedTabViewItemIndex="0" tabStyle="toolbar" id="czM-sH-rYJ" customClass="SidebarTabViewController" customModule="Orchard" customModuleProvider="target" sceneMemberID="viewController">
+                <tabViewController selectedTabViewItemIndex="0" tabStyle="unspecified" id="czM-sH-rYJ" customClass="SidebarTabViewController" customModule="Orchard" customModuleProvider="target" sceneMemberID="viewController">
                     <tabViewItems>
                         <tabViewItem id="RDU-dX-stH"/>
                         <tabViewItem id="wya-l9-DuZ"/>
