@@ -830,40 +830,50 @@
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ik9-4V-JgX">
                                 <rect key="frame" x="0.0" y="270" width="270" height="30"/>
                                 <subviews>
-                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="KIQ-EM-VxM">
-                                        <rect key="frame" x="107" y="5" width="20" height="20"/>
-                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="meadow_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Aad-pd-KXe">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="button:" target="qpG-fB-YfD" id="Kmg-RX-SuT"/>
-                                        </connections>
-                                    </button>
-                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="qyw-Ub-fEO">
-                                        <rect key="frame" x="143" y="5" width="20" height="20"/>
-                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="meadow_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="8Zj-NY-oG9">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="button:" target="qpG-fB-YfD" id="lHA-OX-5aJ"/>
-                                        </connections>
-                                    </button>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZEu-sQ-d8I">
+                                        <rect key="frame" x="111" y="5" width="48" height="20"/>
+                                        <subviews>
+                                            <button translatesAutoresizingMaskIntoConstraints="NO" id="KIQ-EM-VxM">
+                                                <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="meadow_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Aad-pd-KXe">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="button:" target="qpG-fB-YfD" id="Kmg-RX-SuT"/>
+                                                </connections>
+                                            </button>
+                                            <button translatesAutoresizingMaskIntoConstraints="NO" id="qyw-Ub-fEO">
+                                                <rect key="frame" x="28" y="0.0" width="20" height="20"/>
+                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="meadow_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="8Zj-NY-oG9">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="button:" target="qpG-fB-YfD" id="lHA-OX-5aJ"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
                                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="3JU-31-zdH">
                                         <rect key="frame" x="0.0" y="-2" width="270" height="5"/>
                                     </box>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="qyw-Ub-fEO" firstAttribute="leading" secondItem="Ik9-4V-JgX" secondAttribute="centerX" constant="8" id="30B-Ct-qBj"/>
+                                    <constraint firstItem="ZEu-sQ-d8I" firstAttribute="top" secondItem="Ik9-4V-JgX" secondAttribute="top" constant="5" id="6an-rY-1GS"/>
                                     <constraint firstAttribute="bottom" secondItem="3JU-31-zdH" secondAttribute="bottom" id="BKq-te-Jc7"/>
-                                    <constraint firstItem="KIQ-EM-VxM" firstAttribute="trailing" secondItem="Ik9-4V-JgX" secondAttribute="centerX" constant="-8" id="JbP-z7-hpg"/>
-                                    <constraint firstItem="qyw-Ub-fEO" firstAttribute="top" secondItem="Ik9-4V-JgX" secondAttribute="top" constant="5" id="PhI-BE-XIl"/>
-                                    <constraint firstItem="KIQ-EM-VxM" firstAttribute="centerY" secondItem="Ik9-4V-JgX" secondAttribute="centerY" id="YLC-c4-Amd"/>
+                                    <constraint firstItem="ZEu-sQ-d8I" firstAttribute="centerX" secondItem="Ik9-4V-JgX" secondAttribute="centerX" id="Deq-B8-bKD"/>
                                     <constraint firstItem="3JU-31-zdH" firstAttribute="width" secondItem="Ik9-4V-JgX" secondAttribute="width" id="bd0-5t-L2n"/>
-                                    <constraint firstItem="KIQ-EM-VxM" firstAttribute="top" secondItem="Ik9-4V-JgX" secondAttribute="top" constant="5" id="gSN-sR-Y9J"/>
                                     <constraint firstItem="3JU-31-zdH" firstAttribute="centerX" secondItem="Ik9-4V-JgX" secondAttribute="centerX" id="o8S-41-MQS"/>
-                                    <constraint firstItem="qyw-Ub-fEO" firstAttribute="centerY" secondItem="Ik9-4V-JgX" secondAttribute="centerY" id="q3E-bK-MCN"/>
+                                    <constraint firstItem="ZEu-sQ-d8I" firstAttribute="centerY" secondItem="Ik9-4V-JgX" secondAttribute="centerY" id="y6t-k8-7EK"/>
                                 </constraints>
                             </customView>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="ZOQ-bN-nN1">

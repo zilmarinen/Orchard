@@ -48,7 +48,7 @@ class SplitViewController: NSSplitViewController {
 
 extension SplitViewController {
     
-    override func toggle(panel: Panel) {
+    override func toggle(splitView panel: Panel) {
         
         let subview = splitView.subviews[panel.rawValue]
         

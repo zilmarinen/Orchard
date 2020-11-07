@@ -49,14 +49,14 @@ extension SidebarCoordinator {
     
     override func focus(node: SceneGraphNode) {
         
-        toggle(tab: .inspector)
+        toggle(sidebar: .inspector)
     }
     
-    override func toggle(tab: SidebarTabViewCoordinator.Tab) {
+    override func toggle(sidebar tab: SidebarTabViewCoordinator.Tab) {
         
-        tabViewCoordinator.toggle(tab: tab)
+        tabViewCoordinator.toggle(sidebar: tab)
         
-        controller.inspectorButton.contentTintColor = (tab == .inspector ? .systemPink : .systemGray)
-        controller.utilityButton.contentTintColor = (tab == .utility ? .systemPink : .systemGray)
+        controller.inspectorButton.contentTintColor = (tab == .inspector ? .alternateSelectedControlColor : .controlColor)
+        controller.utilityButton.contentTintColor = (tab == .utility ? .alternateSelectedControlColor : .controlColor)
     }
 }

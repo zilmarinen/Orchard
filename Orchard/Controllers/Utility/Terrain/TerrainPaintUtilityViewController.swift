@@ -1,13 +1,13 @@
 //
-//  TerrainBuildUtilityViewController.swift
+//  TerrainPaintUtilityViewController.swift
 //  Orchard
 //
-//  Created by Zack Brown on 05/11/2020.
+//  Created by Zack Brown on 06/11/2020.
 //
 
 import Cocoa
 
-class TerrainBuildUtilityViewController: NSViewController {
+class TerrainPaintUtilityViewController: NSViewController {
     
     @IBOutlet weak var typePopUp: NSPopUpButton! {
         
@@ -28,5 +28,5 @@ class TerrainBuildUtilityViewController: NSViewController {
         
     }
     
-    weak var coordinator: TerrainBuildUtilityCoordinator?
+    weak var coordinator: TerrainPaintUtilityCoordinator?
 }

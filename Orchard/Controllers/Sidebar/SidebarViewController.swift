@@ -27,11 +27,11 @@ class SidebarViewController: NSViewController {
         
         case inspectorButton:
             
-            coordinator?.toggle(tab: .inspector)
+            coordinator?.toggle(sidebar: .inspector)
             
         case utilityButton:
             
-            coordinator?.toggle(tab: .utility)
+            coordinator?.toggle(sidebar: .utility)
             
         default: break
         }

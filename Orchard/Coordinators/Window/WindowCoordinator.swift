@@ -50,8 +50,8 @@ class WindowCoordinator: Coordinator<WindowController> {
 
 extension WindowCoordinator {
     
-    override func toggle(panel: SplitViewController.Panel) {
+    override func toggle(splitView panel: SplitViewController.Panel) {
      
-        splitViewCoordinator.controller.toggle(panel: panel)
+        splitViewCoordinator.controller.toggle(splitView: panel)
     }
 }

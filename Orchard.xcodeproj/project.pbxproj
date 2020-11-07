@@ -24,6 +24,12 @@
 		1807F86A255448B1008388DC /* TerrainBuildUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F869255448B1008388DC /* TerrainBuildUtilityCoordinator.swift */; };
 		1807F86E255448D7008388DC /* TerrainBuildUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F86D255448D7008388DC /* TerrainBuildUtilityViewController.swift */; };
 		1808EBDF2553F60E00484BEC /* NSResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1808EBDE2553F60E00484BEC /* NSResponder.swift */; };
+		1851A16125557F850064539B /* TerrainPaintUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1851A16025557F850064539B /* TerrainPaintUtilityCoordinator.swift */; };
+		1851A16425557F9B0064539B /* TerrainPaintUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1851A16325557F9B0064539B /* TerrainPaintUtilityViewController.swift */; };
+		1870D16F2555434C00B39F8C /* TerrainInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870D16E2555434C00B39F8C /* TerrainInspectorViewController.swift */; };
+		1870D1722555437600B39F8C /* TerrainInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870D1712555437600B39F8C /* TerrainInspectorCoordinator.swift */; };
+		1870D1752555439900B39F8C /* SceneInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870D1742555439900B39F8C /* SceneInspectorViewController.swift */; };
+		1870D178255543AB00B39F8C /* SceneInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870D177255543AB00B39F8C /* SceneInspectorCoordinator.swift */; };
 		189F19D1255293A4002B892B /* Meadow in Frameworks */ = {isa = PBXBuildFile; productRef = 189F19D0255293A4002B892B /* Meadow */; };
 		18D3A16725515D3A00031CA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3A16625515D3A00031CA7 /* AppDelegate.swift */; };
 		18D3A16B25515D3A00031CA7 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3A16A25515D3A00031CA7 /* Document.swift */; };
@@ -58,6 +64,12 @@
 		1807F869255448B1008388DC /* TerrainBuildUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainBuildUtilityCoordinator.swift; sourceTree = "<group>"; };
 		1807F86D255448D7008388DC /* TerrainBuildUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainBuildUtilityViewController.swift; sourceTree = "<group>"; };
 		1808EBDE2553F60E00484BEC /* NSResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSResponder.swift; sourceTree = "<group>"; };
+		1851A16025557F850064539B /* TerrainPaintUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainPaintUtilityCoordinator.swift; sourceTree = "<group>"; };
+		1851A16325557F9B0064539B /* TerrainPaintUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainPaintUtilityViewController.swift; sourceTree = "<group>"; };
+		1870D16E2555434C00B39F8C /* TerrainInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainInspectorViewController.swift; sourceTree = "<group>"; };
+		1870D1712555437600B39F8C /* TerrainInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainInspectorCoordinator.swift; sourceTree = "<group>"; };
+		1870D1742555439900B39F8C /* SceneInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneInspectorViewController.swift; sourceTree = "<group>"; };
+		1870D177255543AB00B39F8C /* SceneInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneInspectorCoordinator.swift; sourceTree = "<group>"; };
 		18D3A16325515D3A00031CA7 /* Orchard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Orchard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18D3A16625515D3A00031CA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18D3A16A25515D3A00031CA7 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -129,6 +141,8 @@
 		1807F85125542DE9008388DC /* Inspector */ = {
 			isa = PBXGroup;
 			children = (
+				1870D16E2555434C00B39F8C /* TerrainInspectorViewController.swift */,
+				1870D1742555439900B39F8C /* SceneInspectorViewController.swift */,
 			);
 			path = Inspector;
 			sourceTree = "<group>";
@@ -144,6 +158,8 @@
 		1807F85325542DF3008388DC /* Inspector */ = {
 			isa = PBXGroup;
 			children = (
+				1870D1712555437600B39F8C /* TerrainInspectorCoordinator.swift */,
+				1870D177255543AB00B39F8C /* SceneInspectorCoordinator.swift */,
 			);
 			path = Inspector;
 			sourceTree = "<group>";
@@ -161,6 +177,7 @@
 			children = (
 				1807F85625542E50008388DC /* TerrainUtilityViewController.swift */,
 				1807F86D255448D7008388DC /* TerrainBuildUtilityViewController.swift */,
+				1851A16325557F9B0064539B /* TerrainPaintUtilityViewController.swift */,
 			);
 			path = Terrain;
 			sourceTree = "<group>";
@@ -170,6 +187,7 @@
 			children = (
 				1807F85925542E67008388DC /* TerrainUtilityCoordinator.swift */,
 				1807F869255448B1008388DC /* TerrainBuildUtilityCoordinator.swift */,
+				1851A16025557F850064539B /* TerrainPaintUtilityCoordinator.swift */,
 			);
 			path = Terrain;
 			sourceTree = "<group>";
@@ -217,13 +235,13 @@
 		18D3A17E2551650800031CA7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1807F85225542DEE008388DC /* Utility */,
 				1807F85125542DE9008388DC /* Inspector */,
-				1807F83125542860008388DC /* Sidebar */,
-				1807F82F255427DF008388DC /* Tab View */,
 				18FB3828255167940036CA95 /* Scene */,
 				18FB38272551678D0036CA95 /* Scene Graph */,
+				1807F83125542860008388DC /* Sidebar */,
 				18FB38332551777B0036CA95 /* Split View */,
+				1807F82F255427DF008388DC /* Tab View */,
+				1807F85225542DEE008388DC /* Utility */,
 				18FB3826255167850036CA95 /* Window */,
 			);
 			path = Controllers;
@@ -250,14 +268,14 @@
 		18FB3825255167790036CA95 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
-				1807F85425542DF8008388DC /* Utility */,
-				1807F85325542DF3008388DC /* Inspector */,
-				1807F84325542998008388DC /* Tab View */,
-				1807F83625542891008388DC /* Sidebar */,
 				18FB38312551752E0036CA95 /* Coordinator */,
+				1807F85325542DF3008388DC /* Inspector */,
 				18FB3847255179160036CA95 /* Scene */,
 				18FB38482551791C0036CA95 /* Scene Graph */,
+				1807F83625542891008388DC /* Sidebar */,
 				18FB3839255177A20036CA95 /* Split View */,
+				1807F84325542998008388DC /* Tab View */,
+				1807F85425542DF8008388DC /* Utility */,
 				18FB38382551779C0036CA95 /* Window */,
 			);
 			path = Coordinators;
@@ -425,12 +443,17 @@
 				1807F8382554289A008388DC /* SidebarCoordinator.swift in Sources */,
 				18FB383F255178D30036CA95 /* SceneGraphViewController.swift in Sources */,
 				1807F86E255448D7008388DC /* TerrainBuildUtilityViewController.swift in Sources */,
+				1870D16F2555434C00B39F8C /* TerrainInspectorViewController.swift in Sources */,
+				1851A16425557F9B0064539B /* TerrainPaintUtilityViewController.swift in Sources */,
 				18FB383B255177AC0036CA95 /* SplitViewCoordinator.swift in Sources */,
 				1807F85725542E50008388DC /* TerrainUtilityViewController.swift in Sources */,
+				1870D1722555437600B39F8C /* TerrainInspectorCoordinator.swift in Sources */,
+				1851A16125557F850064539B /* TerrainPaintUtilityCoordinator.swift in Sources */,
 				1808EBDF2553F60E00484BEC /* NSResponder.swift in Sources */,
 				1807F86625544717008388DC /* TerrainUtilityTabViewController.swift in Sources */,
 				1807F83B25542955008388DC /* SidebarTabViewController.swift in Sources */,
 				1807F84C255429C4008388DC /* UtilityTabViewCoordinator.swift in Sources */,
+				1870D178255543AB00B39F8C /* SceneInspectorCoordinator.swift in Sources */,
 				1807F849255429B8008388DC /* InspectorTabViewCoordinator.swift in Sources */,
 				1807F83E25542961008388DC /* InspectorTabViewController.swift in Sources */,
 				18D3A1802551652000031CA7 /* WindowController.swift in Sources */,
@@ -445,6 +468,7 @@
 				18FB38352551778A0036CA95 /* SplitViewController.swift in Sources */,
 				18FB384B2551792E0036CA95 /* SceneCoordinator.swift in Sources */,
 				1807F83325542878008388DC /* SidebarViewController.swift in Sources */,
+				1870D1752555439900B39F8C /* SceneInspectorViewController.swift in Sources */,
 				1807F84125542971008388DC /* UtilityTabViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

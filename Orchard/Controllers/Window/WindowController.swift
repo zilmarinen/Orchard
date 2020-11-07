@@ -17,6 +17,6 @@ class WindowController: NSWindowController {
         
         let panel = sender.selectedSegment == 0 ? SplitViewController.Panel.sceneGraph : SplitViewController.Panel.sidebar
         
-        coordinator?.toggle(panel: panel)
+        coordinator?.toggle(splitView: panel)
     }
 }

@@ -6,11 +6,11 @@
 //
 
 import Cocoa
-import SceneKit
 
 class TerrainUtilityViewController: NSViewController {
     
     @IBOutlet weak var buildButton: NSButton!
+    @IBOutlet weak var paintButton: NSButton!
     @IBOutlet weak var containerView: NSView!
     
     @IBOutlet weak var chunkCountLabel: NSTextField!
@@ -22,7 +22,11 @@ class TerrainUtilityViewController: NSViewController {
         
         case buildButton:
             
-            coordinator?.toggle(tab: .inspector)
+            coordinator?.toggle(terrain: .build)
+            
+        case paintButton:
+            
+            coordinator?.toggle(terrain: .paint)
             
         default: break
         }
@@ -48,5 +52,7 @@ class TerrainUtilityViewController: NSViewController {
         containerView.addConstraint(NSLayoutConstraint(item: container, attribute: .leading, relatedBy: .equal, toItem: viewController.view, attribute: .leading, multiplier: 1.0, constant: 0.0))
         containerView.addConstraint(NSLayoutConstraint(item: container, attribute: .bottom, relatedBy: .equal, toItem: viewController.view, attribute: .bottom, multiplier: 1.0, constant: 0.0))
         containerView.addConstraint(NSLayoutConstraint(item: container, attribute: .trailing, relatedBy: .equal, toItem: viewController.view, attribute: .trailing, multiplier: 1.0, constant: 0.0))
+        
+        coordinator?.toggle(terrain: .build)
     }
 }

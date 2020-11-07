@@ -61,7 +61,7 @@ class SidebarTabViewCoordinator: Coordinator<SidebarTabViewController> {
 
 extension SidebarTabViewCoordinator {
     
-    override func toggle(tab: Tab) {
+    override func toggle(sidebar tab: Tab) {
         
         stopChildren()
         

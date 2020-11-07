@@ -42,10 +42,41 @@ class UtilityTabViewCoordinator: Coordinator<UtilityTabViewController> {
     override func start(with option: SceneGraphNode?) {
         
         super.start(with: option)
-     
-        //TODO: Remove all below this line
-        guard let option = option as? Terrain else { return }
-        start(child: terrainUtilityCoordinator, with: option)
-        controller.selectedTabViewItemIndex = Tab.terrain.rawValue
+        
+        guard let category = option?.category else { return }
+        
+        switch SceneGraphCategory(rawValue: category) {
+        
+        case .terrain,
+             .terrainChunk,
+             .terrainTile:
+            
+            start(child: terrainUtilityCoordinator, with: option)
+            
+            controller.selectedTabViewItemIndex = Tab.terrain.rawValue
+            
+        default:
+            
+            controller.selectedTabViewItemIndex = Tab.empty.rawValue
+        }
+    }
+}
+
+extension UtilityTabViewCoordinator {
+    
+    override func toggle(utility tab: Tab) {
+        
+        stopChildren()
+        
+        switch tab {
+        
+        case .terrain:
+            
+            start(child: terrainUtilityCoordinator, with: selectedNode)
+            
+        default: break
+        }
+        
+        controller.selectedTabViewItemIndex = tab.rawValue
     }
 }

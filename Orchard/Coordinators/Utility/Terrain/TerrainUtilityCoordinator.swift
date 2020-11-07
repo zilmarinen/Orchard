@@ -46,5 +46,21 @@ class TerrainUtilityCoordinator: Coordinator<TerrainUtilityViewController> {
         super.start(with: option)
         
         start(child: tabViewCoordinator, with: option)
+        
+        if controller.isViewLoaded {
+            
+            toggle(terrain: .build)
+        }
+    }
+}
+
+extension TerrainUtilityCoordinator {
+    
+    override func toggle(terrain utility: TerrainUtilityTabViewCoordinator.Tab) {
+        
+        tabViewCoordinator.toggle(terrain: utility)
+        
+        controller.buildButton.contentTintColor = (utility == .build ? .alternateSelectedControlColor : .controlColor)
+        controller.paintButton.contentTintColor = (utility == .paint ? .alternateSelectedControlColor : .controlColor)
     }
 }
