@@ -13,9 +13,21 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
     @objc enum Tab: Int {
         
         case empty
+        case camera
         case scene
         case terrain
     }
+    
+    lazy var cameraInspectorCoordinator: CameraInspectorCoordinator = {
+       
+        guard let viewController = controller.children[Tab.camera.rawValue] as? CameraInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = CameraInspectorCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
     
     lazy var sceneInspectorCoordinator: SceneInspectorCoordinator = {
        
@@ -59,6 +71,10 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         
         switch SceneGraphCategory(rawValue: category) {
         
+        case .camera:
+            
+            toggle(inspector: .camera)
+        
         case .scene:
             
             toggle(inspector: .scene)
@@ -83,6 +99,10 @@ extension InspectorTabViewCoordinator {
         stopChildren()
         
         switch tab {
+        
+        case .camera:
+            
+            start(child: cameraInspectorCoordinator, with: selectedNode)
         
         case .scene:
             

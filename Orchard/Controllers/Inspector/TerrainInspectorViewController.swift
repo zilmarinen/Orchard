@@ -16,9 +16,27 @@ class TerrainInspectorViewController: NSViewController {
     @IBOutlet weak var chunkCountLabel: NSTextField!
     @IBOutlet weak var tileCountLabel: NSTextField!
     @IBOutlet weak var neighbourCountLabel: NSTextField!
+    
     @IBOutlet weak var gridRenderingButton: NSButton!
     @IBOutlet weak var chunkRenderingButton: NSButton!
     @IBOutlet weak var tileRenderingButton: NSButton!
+    
+    @IBOutlet weak var chunkCoordinateView: CoordinateView! {
+        
+        didSet {
+            
+            chunkCoordinateView.isEnabled = false
+        }
+    }
+    
+    @IBOutlet weak var tileCoordinateView: CoordinateView! {
+        
+        didSet {
+            
+            tileCoordinateView.xStepper.isEnabled = false
+            tileCoordinateView.zStepper.isEnabled = false
+        }
+    }
     
     @IBAction func button(_ sender: NSButton) {
         

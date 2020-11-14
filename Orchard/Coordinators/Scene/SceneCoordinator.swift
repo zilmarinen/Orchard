@@ -7,6 +7,7 @@
 
 import Cocoa
 import Meadow
+import SceneKit
 
 class SceneCoordinator: Coordinator<SceneViewController> {
     
@@ -28,11 +29,20 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         
         guard let scene = option as? Scene else { fatalError("Invalid start option") }
         
-        controller.sceneView.backgroundColor = scene.backgroundColor.color
+        controller.sceneView.backgroundColor = .systemPink//scene.backgroundColor.color
         controller.sceneView.scene = scene
         controller.sceneView.delegate = scene
+        controller.sceneView.isPlaying = true
+        controller.sceneView.allowsCameraControl = true
+        controller.sceneView.autoenablesDefaultLighting = true
         
         focus(node: scene)
+        
+        scene.meadow.terrain.add(tile: .zero)
+        scene.meadow.terrain.add(tile: Coordinate(x: 7, y: 0, z: 7))
+        
+        scene.camera.position = SCNVector3(x: 10, y: 10, z:10)
+        scene.camera.look(at: scene.meadow.position)
     }
 }
 
