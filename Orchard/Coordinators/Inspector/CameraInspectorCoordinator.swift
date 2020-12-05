@@ -8,7 +8,21 @@
 import Cocoa
 import Meadow
 
-class CameraInspectorCoordinator: Coordinator<CameraInspectorViewController> {
+class CameraInspectorCoordinator: Coordinator<CameraInspectorViewController>, Inspector {
+    
+    var inspectable: Camera? {
+        
+        guard let selectedNode = selectedNode else { return nil }
+        
+        switch Inspectable(node: selectedNode) {
+        
+        case .camera(let inspectable):
+            
+            return inspectable
+            
+        default: return nil
+        }
+    }
     
     override init(controller: CameraInspectorViewController) {
         
@@ -26,6 +40,16 @@ class CameraInspectorCoordinator: Coordinator<CameraInspectorViewController> {
         
         super.start(with: option)
         
-        //
+        refresh()
+    }
+}
+
+extension CameraInspectorCoordinator {
+    
+    func refresh() {
+        
+        guard controller.isViewLoaded, let inspectable = inspectable else { return }
+        
+        controller.orthographicProjectionButton.state = (inspectable.camera?.usesOrthographicProjection ?? false ? .on : .off)
     }
 }

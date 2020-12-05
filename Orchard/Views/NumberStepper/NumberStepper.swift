@@ -9,6 +9,8 @@ import Cocoa
 
 class NumberStepper: NSView {
     
+    var valueDidChange: ((NumberStepper, Int) -> Void)?
+    
     let textField = NSTextField()
     let stepper = NSStepper()
     
@@ -72,5 +74,7 @@ extension NumberStepper {
     @objc func stepper(sender: NSStepper) {
         
         textField.integerValue = stepper.integerValue
+        
+        valueDidChange?(self, stepper.integerValue)
     }
 }

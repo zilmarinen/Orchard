@@ -1,30 +1,30 @@
 //
-//  TerrainInspectorCoordinator.swift
+//  FootpathInspectorCoordinator.swift
 //  Orchard
 //
-//  Created by Zack Brown on 06/11/2020.
+//  Created by Zack Brown on 03/12/2020.
 //
 
 import Cocoa
 import Meadow
 
-class TerrainInspectorCoordinator: Coordinator<TerrainInspectorViewController>, Inspector {
+class FootpathInspectorCoordinator: Coordinator<FootpathInspectorViewController>, Inspector {
     
-    var inspectable: TerrainInspectable? {
+    var inspectable: FootpathInspectable? {
         
         guard let selectedNode = selectedNode else { return nil }
         
         switch Inspectable(node: selectedNode) {
         
-        case .terrain(let inspectable):
+        case .footpath(let inspectable):
             
-            return (inspectable.terrain, inspectable.chunk, inspectable.tile)
+            return (inspectable.footpath, inspectable.chunk, inspectable.tile)
             
         default: return nil
         }
     }
     
-    override init(controller: TerrainInspectorViewController) {
+    override init(controller: FootpathInspectorViewController) {
         
         super.init(controller: controller)
         
@@ -44,7 +44,7 @@ class TerrainInspectorCoordinator: Coordinator<TerrainInspectorViewController>, 
     }
 }
 
-extension TerrainInspectorCoordinator {
+extension FootpathInspectorCoordinator {
     
     func refresh() {
         
@@ -53,11 +53,11 @@ extension TerrainInspectorCoordinator {
         controller.chunkBox.isHidden = inspectable.chunk == nil
         controller.tileBox.isHidden = inspectable.tile == nil
         
-        controller.chunkCountLabel.integerValue = inspectable.terrain.children.count
+        controller.chunkCountLabel.integerValue = inspectable.footpath.children.count
         controller.tileCountLabel.integerValue = inspectable.chunk?.children.count ?? 0
         controller.neighbourCountLabel.integerValue = inspectable.tile?.children.count ?? 0
         
-        controller.gridRenderingButton.state = (inspectable.terrain.isHidden ? .off : .on)
+        controller.gridRenderingButton.state = (inspectable.footpath.isHidden ? .off : .on)
         controller.chunkRenderingButton.state = (inspectable.chunk?.isHidden ?? false ? .off : .on)
         controller.tileRenderingButton.state = (inspectable.tile?.isHidden ?? false ? .off : .on)
         

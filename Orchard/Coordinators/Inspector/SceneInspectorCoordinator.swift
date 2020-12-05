@@ -8,7 +8,21 @@
 import Cocoa
 import Meadow
 
-class SceneInspectorCoordinator: Coordinator<SceneInspectorViewController> {
+class SceneInspectorCoordinator: Coordinator<SceneInspectorViewController>, Inspector {
+    
+    var inspectable: Scene? {
+        
+        guard let selectedNode = selectedNode else { return nil }
+        
+        switch Inspectable(node: selectedNode) {
+        
+        case .scene(let inspectable):
+            
+            return inspectable
+            
+        default: return nil
+        }
+    }
     
     override init(controller: SceneInspectorViewController) {
         
@@ -26,6 +40,17 @@ class SceneInspectorCoordinator: Coordinator<SceneInspectorViewController> {
         
         super.start(with: option)
         
-        //
+        refresh()
+    }
+}
+
+extension SceneInspectorCoordinator {
+    
+    func refresh() {
+        
+        guard controller.isViewLoaded, let inspectable = inspectable else { return }
+        
+        controller.sceneNameLabel.stringValue = inspectable.name ?? ""
+        controller.backgroundColorWell.color = inspectable.backgroundColor.color
     }
 }

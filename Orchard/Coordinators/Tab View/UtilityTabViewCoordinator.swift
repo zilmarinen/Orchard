@@ -13,8 +13,20 @@ class UtilityTabViewCoordinator: Coordinator<UtilityTabViewController> {
     @objc enum Tab: Int {
         
         case empty
+        case footpath
         case terrain
     }
+    
+    lazy var footpathUtilityCoordinator: FootpathUtilityCoordinator = {
+       
+        guard let viewController = controller.children[Tab.footpath.rawValue] as? FootpathUtilityViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = FootpathUtilityCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
     
     lazy var terrainUtilityCoordinator: TerrainUtilityCoordinator = {
        
@@ -47,6 +59,14 @@ class UtilityTabViewCoordinator: Coordinator<UtilityTabViewController> {
         
         switch SceneGraphCategory(rawValue: category) {
         
+        case .footpath,
+             .footpathChunk,
+             .footpathTile:
+            
+            start(child: footpathUtilityCoordinator, with: option)
+            
+            controller.selectedTabViewItemIndex = Tab.footpath.rawValue
+        
         case .terrain,
              .terrainChunk,
              .terrainTile:
@@ -69,6 +89,10 @@ extension UtilityTabViewCoordinator {
         stopChildren()
         
         switch tab {
+        
+        case .footpath:
+            
+            start(child: footpathUtilityCoordinator, with: selectedNode)
         
         case .terrain:
             

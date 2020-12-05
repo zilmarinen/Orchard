@@ -1,13 +1,13 @@
 //
-//  TerrainUtilityViewController.swift
+//  FootpathUtilityViewController.swift
 //  Orchard
 //
-//  Created by Zack Brown on 05/11/2020.
+//  Created by Zack Brown on 03/12/2020.
 //
 
 import Cocoa
 
-class TerrainUtilityViewController: NSViewController {
+class FootpathUtilityViewController: NSViewController {
     
     @IBOutlet weak var buildButton: NSButton!
     @IBOutlet weak var paintButton: NSButton!
@@ -24,23 +24,23 @@ class TerrainUtilityViewController: NSViewController {
         
         case gridRenderingButton:
             
-            inspectable.terrain.isHidden = sender.state == .off
+            inspectable.footpath.isHidden = sender.state == .off
         
         case buildButton:
             
-            coordinator?.toggle(terrain: .build)
+            coordinator?.toggle(footpath: .build)
             
         case paintButton:
             
-            coordinator?.toggle(terrain: .paint)
+            coordinator?.toggle(footpath: .paint)
             
         default: break
         }
     }
     
-    weak var coordinator: TerrainUtilityCoordinator?
+    weak var coordinator: FootpathUtilityCoordinator?
     
-    var tabViewController: TerrainUtilityTabViewController?
+    var tabViewController: FootpathUtilityTabViewController?
     
     override func viewDidLoad() {
         
@@ -59,7 +59,7 @@ class TerrainUtilityViewController: NSViewController {
         container.addConstraint(NSLayoutConstraint(item: container, attribute: .bottom, relatedBy: .equal, toItem: viewController.view, attribute: .bottom, multiplier: 1.0, constant: 0.0))
         container.addConstraint(NSLayoutConstraint(item: container, attribute: .trailing, relatedBy: .equal, toItem: viewController.view, attribute: .trailing, multiplier: 1.0, constant: 0.0))
         
-        coordinator?.toggle(terrain: .build)
+        coordinator?.toggle(footpath: .build)
     }
     
     override func viewWillAppear() {
@@ -69,3 +69,4 @@ class TerrainUtilityViewController: NSViewController {
         coordinator?.refresh()
     }
 }
+

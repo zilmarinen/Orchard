@@ -6,12 +6,26 @@
 //
 
 import Cocoa
+import Meadow
 
 class CoordinateView: NSView {
+    
+    var valueDidChange: ((CoordinateView, Coordinate) -> Void)?
 
     let xStepper: NumberStepper
     let yStepper: NumberStepper
     let zStepper: NumberStepper
+    
+    var coordinate: Coordinate {
+        
+        get { Coordinate(x: xStepper.integerValue, y: yStepper.integerValue, z: zStepper.integerValue) }
+        set {
+            
+            xStepper.integerValue = newValue.x
+            yStepper.integerValue = newValue.y
+            zStepper.integerValue = newValue.z
+        }
+    }
     
     var isEnabled: Bool {
         
@@ -47,5 +61,24 @@ class CoordinateView: NSView {
         addConstraint(NSLayoutConstraint(item: self, attribute: .trailing, relatedBy: .equal, toItem: stackView, attribute: .trailing, multiplier: 1.0, constant: 0.0))
         
         addSubview(stackView)
+        
+        xStepper.valueDidChange = { [weak self] (_, value) in
+            
+            guard let self = self else { return }
+            
+            self.valueDidChange?(self, self.coordinate)
+        }
+        yStepper.valueDidChange = { [weak self] (_, value) in
+            
+            guard let self = self else { return }
+            
+            self.valueDidChange?(self, self.coordinate)
+        }
+        zStepper.valueDidChange = { [weak self] (_, value) in
+            
+            guard let self = self else { return }
+            
+            self.valueDidChange?(self, self.coordinate)
+        }
     }
 }

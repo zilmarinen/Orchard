@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
-        <plugIn identifier="com.apple.SceneKitIBPlugin" version="17156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.SceneKitIBPlugin" version="17506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -690,7 +690,7 @@
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="165" width="1400" height="700"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1440"/>
                         <value key="minSize" type="size" width="1400" height="700"/>
                         <toolbar key="toolbar" implicitIdentifier="D602E028-C3E4-4CEA-A374-6AE660475048" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconOnly" sizeMode="regular" id="4MP-tV-mxs">
                             <allowedToolbarItems>
@@ -702,8 +702,8 @@
                                 <toolbarItem implicitItemIdentifier="C2D9CC02-A6DB-4D36-BAEB-08C227291DAA" label="Custom View" paletteLabel="Custom View" sizingBehavior="auto" id="eGa-bx-Pl5">
                                     <nil key="toolTip"/>
                                     <segmentedControl key="view" verticalHuggingPriority="750" id="6wg-Pf-cff">
-                                        <rect key="frame" x="3" y="14" width="71" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <rect key="frame" x="1" y="14" width="75" height="23"/>
+                                        <autoresizingMask key="autoresizingMask"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedRounded" trackingMode="momentary" id="LxP-Zb-s1v">
                                             <font key="font" metaFont="system"/>
                                             <segments>
@@ -716,8 +716,30 @@
                                         </connections>
                                     </segmentedControl>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="1147B1D7-257D-4557-ABBD-D0577AA306DD" label="Custom View" paletteLabel="Custom View" sizingBehavior="auto" id="NK7-FS-tkK">
+                                    <nil key="toolTip"/>
+                                    <popUpButton key="view" verticalHuggingPriority="750" id="XrO-fN-N2k">
+                                        <rect key="frame" x="0.0" y="14" width="84" height="25"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <popUpButtonCell key="cell" type="roundTextured" title="Season" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="A6f-2F-T40" id="153-8p-kOW">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="menu"/>
+                                            <menu key="menu" id="0t3-v6-bP1">
+                                                <items>
+                                                    <menuItem title="Season" state="on" id="A6f-2F-T40"/>
+                                                    <menuItem title="Item 2" id="pEC-E6-3fy"/>
+                                                    <menuItem title="Item 3" id="K9d-Jy-Jqx"/>
+                                                </items>
+                                            </menu>
+                                        </popUpButtonCell>
+                                        <connections>
+                                            <action selector="popUp:" target="jGA-0Y-lOj" id="gu0-Mq-bJO"/>
+                                        </connections>
+                                    </popUpButton>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
+                                <toolbarItem reference="NK7-FS-tkK"/>
                                 <toolbarItem reference="PtB-Iu-vJS"/>
                                 <toolbarItem reference="eGa-bx-Pl5"/>
                             </defaultToolbarItems>
@@ -727,6 +749,7 @@
                         </connections>
                     </window>
                     <connections>
+                        <outlet property="seasonPopUp" destination="XrO-fN-N2k" id="Wwp-3f-pZX"/>
                         <segue destination="JOq-Ao-qLl" kind="relationship" relationship="window.shadowedContentViewController" id="30l-Es-mlc"/>
                     </connections>
                 </windowController>
@@ -985,7 +1008,7 @@
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="267" minWidth="40" maxWidth="1000" id="5lo-oM-sjq">
+                                                <tableColumn width="238" minWidth="40" maxWidth="1000" id="5lo-oM-sjq">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Scene Graph">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -998,7 +1021,7 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="LLD-wk-Eno">
-                                                            <rect key="frame" x="1" y="1" width="267" height="24"/>
+                                                            <rect key="frame" x="11" y="1" width="247" height="24"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dcW-ya-gKM">

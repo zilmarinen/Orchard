@@ -1,13 +1,13 @@
 //
-//  TerrainInspectorViewController.swift
+//  FootpathInspectorViewController.swift
 //  Orchard
 //
-//  Created by Zack Brown on 06/11/2020.
+//  Created by Zack Brown on 03/12/2020.
 //
 
 import Cocoa
 
-class TerrainInspectorViewController: NSViewController {
+class FootpathInspectorViewController: NSViewController {
     
     @IBOutlet weak var gridBox: NSBox!
     @IBOutlet weak var chunkBox: NSBox!
@@ -35,41 +35,18 @@ class TerrainInspectorViewController: NSViewController {
             
             tileCoordinateView.xStepper.isEnabled = false
             tileCoordinateView.zStepper.isEnabled = false
-            
-            tileCoordinateView.valueDidChange = { [weak self] (_, coordinate) in
-                
-                guard let self = self, let inspectable = self.coordinator?.inspectable else { return }
-                
-                inspectable.tile?.coordinate = coordinate
-                
-                inspectable.terrain.soil()
-            }
         }
     }
     
     @IBAction func button(_ sender: NSButton) {
         
-        guard let inspectable = coordinator?.inspectable else { return }
-        
         switch sender {
-        
-        case gridRenderingButton:
-            
-            inspectable.terrain.isHidden = sender.state == .off
-            
-        case chunkRenderingButton:
-            
-            inspectable.chunk?.isHidden = sender.state == .off
-            
-        case tileRenderingButton:
-            
-            inspectable.tile?.isHidden = sender.state == .off
             
         default: break
         }
     }
     
-    weak var coordinator: TerrainInspectorCoordinator?
+    weak var coordinator: FootpathInspectorCoordinator?
     
     override func viewWillAppear() {
         

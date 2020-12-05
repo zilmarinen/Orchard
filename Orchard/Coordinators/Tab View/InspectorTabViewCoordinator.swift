@@ -14,6 +14,7 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         
         case empty
         case camera
+        case footpath
         case scene
         case terrain
     }
@@ -23,6 +24,17 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         guard let viewController = controller.children[Tab.camera.rawValue] as? CameraInspectorViewController else { fatalError("Invalid view controller hierarchy") }
         
         let coordinator = CameraInspectorCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
+    
+    lazy var footpathInspectorCoordinator: FootpathInspectorCoordinator = {
+       
+        guard let viewController = controller.children[Tab.footpath.rawValue] as? FootpathInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = FootpathInspectorCoordinator(controller: viewController)
         
         coordinator.parent = self
         
@@ -75,6 +87,10 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
             
             toggle(inspector: .camera)
         
+        case .footpath:
+            
+            toggle(inspector: .footpath)
+            
         case .scene:
             
             toggle(inspector: .scene)
@@ -103,6 +119,10 @@ extension InspectorTabViewCoordinator {
         case .camera:
             
             start(child: cameraInspectorCoordinator, with: selectedNode)
+            
+        case .footpath:
+            
+            start(child: footpathInspectorCoordinator, with: selectedNode)
         
         case .scene:
             

@@ -29,7 +29,7 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         
         guard let scene = option as? Scene else { fatalError("Invalid start option") }
         
-        controller.sceneView.backgroundColor = .systemPink//scene.backgroundColor.color
+        controller.sceneView.backgroundColor = scene.backgroundColor.color
         controller.sceneView.scene = scene
         controller.sceneView.delegate = scene
         controller.sceneView.isPlaying = true
@@ -38,11 +38,92 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         
         focus(node: scene)
         
-        scene.meadow.terrain.add(tile: .zero)
-        scene.meadow.terrain.add(tile: Coordinate(x: 7, y: 0, z: 7))
+        scene.camera.camera?.usesOrthographicProjection = true
+        scene.camera.position = SCNVector3(x: 20, y: 20, z: 20)
+        scene.camera.look(at: SCNVector3(x: 4, y: 0, z: 4))
+        scene.camera.camera?.focalLength = 100
         
-        scene.camera.position = SCNVector3(x: 10, y: 10, z:10)
-        scene.camera.look(at: scene.meadow.position)
+        let width = 9
+        let depth = 9
+        
+        let band0 = 2
+        let baseType = TerrainTileType.dirt
+        
+        for x in 0..<width {
+            
+            for z in 0..<depth {
+                
+                var tileType = baseType.next
+                
+                if x < band0 || x >= (width - band0) || z < band0 || z >= (depth - band0) {
+                    
+                    tileType = baseType
+                }
+                
+                let _ = scene.meadow.terrain.add(tile: Coordinate(x: x, y: 0, z: z), layer: tileType)
+            }
+        }
+        
+        let x = 3
+        let z = 3
+        
+        //
+        //
+        //
+        
+        if let tile = scene.meadow.terrain.find(tile: Coordinate(x: x, y: 0, z: z)) {
+            
+            tile.layer.slope = .west
+        }
+        
+        if let tile = scene.meadow.terrain.find(tile: Coordinate(x: x, y: 0, z: z + 1)) {
+            
+            tile.layer.slope = .west
+        }
+        
+        //
+        //
+        //
+        
+        if let tile = scene.meadow.terrain.find(tile: Coordinate(x: x + 1, y: 0, z: z)) {
+            
+            tile.layer.slope = .west
+            tile.coordinate = Coordinate(x: tile.coordinate.x, y: 1, z: tile.coordinate.z)
+        }
+        
+        if let tile = scene.meadow.terrain.find(tile: Coordinate(x: x + 1, y: 0, z: z + 1)) {
+            
+            tile.layer.slope = .west
+            tile.coordinate = Coordinate(x: tile.coordinate.x, y: 1, z: tile.coordinate.z)
+        }
+        
+        //
+        //
+        //
+        
+        if let tile = scene.meadow.terrain.find(tile: Coordinate(x: x + 2, y: 0, z: z)) {
+            
+            tile.coordinate = Coordinate(x: tile.coordinate.x, y: 2, z: tile.coordinate.z)
+        }
+        
+        if let tile = scene.meadow.terrain.find(tile: Coordinate(x: x + 2, y: 0, z: z + 1)) {
+            
+            tile.coordinate = Coordinate(x: tile.coordinate.x, y: 2, z: tile.coordinate.z)
+        }
+        
+        //
+        //
+        //
+        
+        if let tile = scene.meadow.terrain.find(tile: Coordinate(x: x + 2, y: 0, z: z + 2)) {
+            
+            tile.coordinate = Coordinate(x: tile.coordinate.x, y: 2, z: tile.coordinate.z)
+        }
+        
+        if let tile = scene.meadow.terrain.find(tile: Coordinate(x: x, y: 0, z: z + 2)) {
+            
+            tile.layer.slope = .west
+        }
     }
 }
 

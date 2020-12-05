@@ -37,7 +37,7 @@ class WindowCoordinator: Coordinator<WindowController> {
         
         super.start(with: option)
         
-        let scene = (option as? Scene) ?? Scene()
+        let scene = (option as? Scene) ?? Scene(season: .spring)
         
         start(child: splitViewCoordinator, with: scene)
     }
@@ -49,6 +49,11 @@ class WindowCoordinator: Coordinator<WindowController> {
 }
 
 extension WindowCoordinator {
+    
+    override func toggle(season: Int) {
+        
+        splitViewCoordinator.toggle(season: season)
+    }
     
     override func toggle(splitView panel: SplitViewController.Panel) {
      

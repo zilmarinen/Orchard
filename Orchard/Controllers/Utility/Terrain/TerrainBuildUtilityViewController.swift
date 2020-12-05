@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import Meadow
 
 class TerrainBuildUtilityViewController: NSViewController {
     
@@ -15,11 +16,9 @@ class TerrainBuildUtilityViewController: NSViewController {
             
             typePopUp.removeAllItems()
             
-            let type = ["One", "Two"]
-            
-            type.forEach { t in
+            for terrainType in TerrainTileType.allCases {
                 
-                typePopUp.addItem(withTitle: t)
+                typePopUp.addItem(withTitle: terrainType.description)
             }
         }
     }

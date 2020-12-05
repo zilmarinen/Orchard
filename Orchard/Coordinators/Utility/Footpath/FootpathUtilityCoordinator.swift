@@ -1,49 +1,49 @@
 //
-//  TerrainUtilityCoordinator.swift
+//  FootpathUtilityCoordinator.swift
 //  Orchard
 //
-//  Created by Zack Brown on 05/11/2020.
+//  Created by Zack Brown on 03/12/2020.
 //
 
 import Cocoa
 import Meadow
 
-class TerrainUtilityCoordinator: Coordinator<TerrainUtilityViewController>, Inspector {
+class FootpathUtilityCoordinator: Coordinator<FootpathUtilityViewController>, Inspector {
     
     enum Constants {
         
         static let storyboard = NSStoryboard(name: NSStoryboard.Name("Utility"), bundle: nil)
-        static let tabViewIndentifier = NSStoryboard.SceneIdentifier("TerrainUtilityTabViewController")
+        static let tabViewIndentifier = NSStoryboard.SceneIdentifier("FootpathUtilityTabViewController")
         
         static let sceneGraphWrapperIdentifier = "scene.graph"
     }
     
-    lazy var tabViewCoordinator: TerrainUtilityTabViewCoordinator = {
+    lazy var tabViewCoordinator: FootpathUtilityTabViewCoordinator = {
         
-        guard let viewController = Constants.storyboard.instantiateController(withIdentifier: Constants.tabViewIndentifier) as? TerrainUtilityTabViewController else { fatalError("Invalid view controller hierarchy") }
+        guard let viewController = Constants.storyboard.instantiateController(withIdentifier: Constants.tabViewIndentifier) as? FootpathUtilityTabViewController else { fatalError("Invalid view controller hierarchy") }
         
-        let coordinator = TerrainUtilityTabViewCoordinator(controller: viewController)
+        let coordinator = FootpathUtilityTabViewCoordinator(controller: viewController)
         
         coordinator.parent = self
         
         return coordinator
     }()
     
-    var inspectable: TerrainInspectable? {
+    var inspectable: FootpathInspectable? {
         
         guard let selectedNode = selectedNode else { return nil }
         
         switch Inspectable(node: selectedNode) {
         
-        case .terrain(let inspectable):
+        case .footpath(let inspectable):
             
-            return (inspectable.terrain, inspectable.chunk, inspectable.tile)
+            return (inspectable.footpath, inspectable.chunk, inspectable.tile)
             
         default: return nil
         }
     }
     
-    override init(controller: TerrainUtilityViewController) {
+    override init(controller: FootpathUtilityViewController) {
         
         super.init(controller: controller)
         
@@ -63,32 +63,32 @@ class TerrainUtilityCoordinator: Coordinator<TerrainUtilityViewController>, Insp
         
         if controller.isViewLoaded {
             
-            toggle(terrain: .build)
+            toggle(footpath: .build)
             
             refresh()
         }
     }
 }
 
-extension TerrainUtilityCoordinator {
+extension FootpathUtilityCoordinator {
     
-    override func toggle(terrain utility: TerrainUtilityTabViewCoordinator.Tab) {
+    override func toggle(footpath utility: FootpathUtilityTabViewCoordinator.Tab) {
         
-        tabViewCoordinator.toggle(terrain: utility)
+        tabViewCoordinator.toggle(footpath: utility)
         
         controller.buildButton.contentTintColor = (utility == .build ? .alternateSelectedControlColor : .controlColor)
         controller.paintButton.contentTintColor = (utility == .paint ? .alternateSelectedControlColor : .controlColor)
     }
 }
 
-extension TerrainUtilityCoordinator {
+extension FootpathUtilityCoordinator {
     
     func refresh() {
         
         guard controller.isViewLoaded, let inspectable = inspectable else { return }
         
-        controller.chunkCountLabel.integerValue = inspectable.terrain.children.count
+        controller.chunkCountLabel.integerValue = inspectable.footpath.children.count
         
-        controller.gridRenderingButton.state = (inspectable.terrain.isHidden ? .off : .on)
+        controller.gridRenderingButton.state = (inspectable.footpath.isHidden ? .off : .on)
     }
 }

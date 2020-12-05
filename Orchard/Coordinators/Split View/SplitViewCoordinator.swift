@@ -90,4 +90,20 @@ extension SplitViewCoordinator {
         sceneCoordinator.focus(node: node)
         sidebarCoordinator.focus(node: node)
     }
+    
+    override func didSetScene(backgroundColor: MDWColor) {
+        
+        sceneCoordinator.controller.sceneView.backgroundColor = backgroundColor
+    }
+    
+    override func toggle(season: Int) {
+        
+        guard let season = Season(rawValue: season) else { return }
+        
+        guard let scene = sceneCoordinator.controller.sceneView.scene as? Scene else { return }
+        
+        scene.meadow.world = World(season: season)
+        
+        scene.meadow.soil()
+    }
 }
