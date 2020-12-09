@@ -12,7 +12,6 @@ class Document: NSDocument {
     
     enum Constants {
         
-        static let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
         static let windowIndentifier = NSStoryboard.SceneIdentifier("WindowController")
         
         static let sceneGraphWrapperIdentifier = "scene.graph"
@@ -24,7 +23,7 @@ class Document: NSDocument {
 
     override init() {
         
-        guard let windowController = Constants.storyboard.instantiateController(withIdentifier: Constants.windowIndentifier) as? WindowController else { fatalError("Invalid view controller hierarchy") }
+        guard let windowController = NSStoryboard.main.instantiateController(withIdentifier: Constants.windowIndentifier) as? WindowController else { fatalError("Invalid view controller hierarchy") }
         
         coordinator = WindowCoordinator(controller: windowController)
         

@@ -27,6 +27,8 @@ class SceneInspectorViewController: NSViewController {
         inspectable.backgroundColor = Color(red: Double(sender.color.redComponent), green: Double(sender.color.greenComponent), blue: Double(sender.color.blueComponent), alpha: Double(sender.color.alphaComponent))
         
         coordinator?.didSetScene(backgroundColor: sender.color)
+        
+        coordinator?.refresh()
     }
     
     weak var coordinator: SceneInspectorCoordinator?

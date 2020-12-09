@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import Meadow
 
 class TerrainInspectorViewController: NSViewController {
     
@@ -20,6 +21,33 @@ class TerrainInspectorViewController: NSViewController {
     @IBOutlet weak var gridRenderingButton: NSButton!
     @IBOutlet weak var chunkRenderingButton: NSButton!
     @IBOutlet weak var tileRenderingButton: NSButton!
+    
+    @IBOutlet weak var typePopUp: NSPopUpButton! {
+        
+        didSet {
+            
+            typePopUp.removeAllItems()
+            
+            for terrainType in TerrainTileType.allCases {
+                
+                typePopUp.addItem(withTitle: terrainType.description)
+            }
+        }
+    }
+    
+    @IBOutlet weak var slopeButton: NSButton!
+    @IBOutlet weak var directionPopUp: NSPopUpButton! {
+        
+        didSet {
+            
+            directionPopUp.removeAllItems()
+            
+            for cardinal in Cardinal.allCases {
+                
+                directionPopUp.addItem(withTitle: cardinal.description)
+            }
+        }
+    }
     
     @IBOutlet weak var chunkCoordinateView: CoordinateView! {
         
@@ -41,8 +69,6 @@ class TerrainInspectorViewController: NSViewController {
                 guard let self = self, let inspectable = self.coordinator?.inspectable else { return }
                 
                 inspectable.tile?.coordinate = coordinate
-                
-                inspectable.terrain.soil()
             }
         }
     }
@@ -65,8 +91,49 @@ class TerrainInspectorViewController: NSViewController {
             
             inspectable.tile?.isHidden = sender.state == .off
             
+        case slopeButton:
+            
+            switch slopeButton.state {
+            
+            case .on:
+                
+                guard let cardinal = Cardinal(rawValue: directionPopUp.indexOfSelectedItem) else { return }
+                
+                inspectable.tile?.slope = cardinal
+                
+            default:
+                
+                inspectable.tile?.slope = nil
+            }
+            
         default: break
         }
+        
+        coordinator?.refresh()
+    }
+    
+    @IBAction func popUp(_ sender: NSPopUpButton) {
+        
+        guard let inspectable = coordinator?.inspectable else { return }
+        
+        switch sender {
+        
+        case typePopUp:
+            
+            guard let tileType = TerrainTileType(rawValue: typePopUp.indexOfSelectedItem) else { return }
+            
+            inspectable.tile?.tileType = tileType
+            
+        case directionPopUp:
+            
+            guard let cardinal = Cardinal(rawValue: directionPopUp.indexOfSelectedItem) else { return }
+            
+            inspectable.tile?.slope = cardinal
+            
+        default: break
+        }
+        
+        coordinator?.refresh()
     }
     
     weak var coordinator: TerrainInspectorCoordinator?

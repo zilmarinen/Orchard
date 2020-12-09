@@ -11,4 +11,3 @@ class FootpathUtilityTabViewController: NSTabViewController {
     
     weak var coordinator: FootpathUtilityTabViewCoordinator?
 }
-

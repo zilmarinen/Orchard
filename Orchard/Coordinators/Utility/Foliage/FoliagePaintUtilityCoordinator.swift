@@ -1,16 +1,16 @@
 //
-//  FootpathPaintUtilityCoordinator.swift
+//  FoliagePaintUtilityCoordinator.swift
 //  Orchard
 //
-//  Created by Zack Brown on 03/12/2020.
+//  Created by Zack Brown on 07/12/2020.
 //
 
 import Cocoa
 import Meadow
 
-class FootpathPaintUtilityCoordinator: Coordinator<FootpathPaintUtilityViewController> {
+class FoliagePaintUtilityCoordinator: Coordinator<FoliagePaintUtilityViewController> {
     
-    override init(controller: FootpathPaintUtilityViewController) {
+    override init(controller: FoliagePaintUtilityViewController) {
         
         super.init(controller: controller)
         

@@ -1,38 +1,38 @@
 //
-//  TerrainUtilityCoordinator.swift
+//  AreaUtilityCoordinator.swift
 //  Orchard
 //
-//  Created by Zack Brown on 05/11/2020.
+//  Created by Zack Brown on 08/12/2020.
 //
 
 import Cocoa
 import Meadow
 
-class TerrainUtilityCoordinator: Coordinator<TerrainUtilityViewController>, Inspector {
+class AreaUtilityCoordinator: Coordinator<AreaUtilityViewController>, Inspector {
     
     enum Constants {
         
-        static let tabViewIndentifier = NSStoryboard.SceneIdentifier("TerrainUtilityTabViewController")
+        static let tabViewIndentifier = NSStoryboard.SceneIdentifier("AreaUtilityTabViewController")
     }
     
-    lazy var tabViewCoordinator: TerrainUtilityTabViewCoordinator = {
+    lazy var tabViewCoordinator: AreaUtilityTabViewCoordinator = {
         
-        guard let viewController = NSStoryboard.utility.instantiateController(withIdentifier: Constants.tabViewIndentifier) as? TerrainUtilityTabViewController else { fatalError("Invalid view controller hierarchy") }
+        guard let viewController = NSStoryboard.utility.instantiateController(withIdentifier: Constants.tabViewIndentifier) as? AreaUtilityTabViewController else { fatalError("Invalid view controller hierarchy") }
         
-        let coordinator = TerrainUtilityTabViewCoordinator(controller: viewController)
+        let coordinator = AreaUtilityTabViewCoordinator(controller: viewController)
         
         coordinator.parent = self
         
         return coordinator
     }()
     
-    var inspectable: TerrainInspectable? {
+    var inspectable: AreaInspectable? {
         
         guard let selectedNode = selectedNode else { return nil }
         
         switch Inspectable(node: selectedNode) {
         
-        case .terrain(let inspectable):
+        case .area(let inspectable):
             
             return inspectable
             
@@ -40,7 +40,7 @@ class TerrainUtilityCoordinator: Coordinator<TerrainUtilityViewController>, Insp
         }
     }
     
-    override init(controller: TerrainUtilityViewController) {
+    override init(controller: AreaUtilityViewController) {
         
         super.init(controller: controller)
         
@@ -60,32 +60,32 @@ class TerrainUtilityCoordinator: Coordinator<TerrainUtilityViewController>, Insp
         
         if controller.isViewLoaded {
             
-            toggle(terrain: .build)
+            toggle(area: .build)
             
             refresh()
         }
     }
 }
 
-extension TerrainUtilityCoordinator {
+extension AreaUtilityCoordinator {
     
-    override func toggle(terrain utility: TerrainUtilityTabViewCoordinator.Tab) {
+    override func toggle(area utility: AreaUtilityTabViewCoordinator.Tab) {
         
-        tabViewCoordinator.toggle(terrain: utility)
+        tabViewCoordinator.toggle(area: utility)
         
         controller.buildButton.contentTintColor = (utility == .build ? .alternateSelectedControlColor : .controlColor)
         controller.paintButton.contentTintColor = (utility == .paint ? .alternateSelectedControlColor : .controlColor)
     }
 }
 
-extension TerrainUtilityCoordinator {
+extension AreaUtilityCoordinator {
     
     func refresh() {
         
         guard controller.isViewLoaded, let inspectable = inspectable else { return }
         
-        controller.chunkCountLabel.integerValue = inspectable.terrain.children.count
+        controller.chunkCountLabel.integerValue = inspectable.area.children.count
         
-        controller.gridRenderingButton.state = (inspectable.terrain.isHidden ? .off : .on)
+        controller.gridRenderingButton.state = (inspectable.area.isHidden ? .off : .on)
     }
 }

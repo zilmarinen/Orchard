@@ -1,22 +1,22 @@
 //
-//  FootpathInspectorCoordinator.swift
+//  AreaInspectorCoordinator.swift
 //  Orchard
 //
-//  Created by Zack Brown on 03/12/2020.
+//  Created by Zack Brown on 08/12/2020.
 //
 
 import Cocoa
 import Meadow
 
-class FootpathInspectorCoordinator: Coordinator<FootpathInspectorViewController>, Inspector {
+class AreaInspectorCoordinator: Coordinator<AreaInspectorViewController>, Inspector {
     
-    var inspectable: FootpathInspectable? {
+    var inspectable: AreaInspectable? {
         
         guard let selectedNode = selectedNode else { return nil }
         
         switch Inspectable(node: selectedNode) {
         
-        case .footpath(let inspectable):
+        case .area(let inspectable):
             
             return inspectable
             
@@ -24,7 +24,7 @@ class FootpathInspectorCoordinator: Coordinator<FootpathInspectorViewController>
         }
     }
     
-    override init(controller: FootpathInspectorViewController) {
+    override init(controller: AreaInspectorViewController) {
         
         super.init(controller: controller)
         
@@ -44,7 +44,7 @@ class FootpathInspectorCoordinator: Coordinator<FootpathInspectorViewController>
     }
 }
 
-extension FootpathInspectorCoordinator {
+extension AreaInspectorCoordinator {
     
     func refresh() {
         
@@ -53,8 +53,8 @@ extension FootpathInspectorCoordinator {
         controller.chunkBox.isHidden = inspectable.chunk == nil
         controller.tileBox.isHidden = inspectable.tile == nil
         
-        controller.chunkCountLabel.integerValue = inspectable.footpath.children.count
-        controller.gridRenderingButton.state = (inspectable.footpath.isHidden ? .off : .on)
+        controller.chunkCountLabel.integerValue = inspectable.area.children.count
+        controller.gridRenderingButton.state = (inspectable.area.isHidden ? .off : .on)
         
         guard let chunk = inspectable.chunk else { return }
         

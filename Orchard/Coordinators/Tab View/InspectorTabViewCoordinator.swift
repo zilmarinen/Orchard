@@ -13,11 +13,26 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
     @objc enum Tab: Int {
         
         case empty
+        case area
         case camera
+        case foliage
         case footpath
+        case portals
+        case props
         case scene
         case terrain
     }
+    
+    lazy var areaInspectorCoordinator: AreaInspectorCoordinator = {
+       
+        guard let viewController = controller.children[Tab.area.rawValue] as? AreaInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = AreaInspectorCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
     
     lazy var cameraInspectorCoordinator: CameraInspectorCoordinator = {
        
@@ -30,11 +45,44 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         return coordinator
     }()
     
+    lazy var foliageInspectorCoordinator: FoliageInspectorCoordinator = {
+       
+        guard let viewController = controller.children[Tab.foliage.rawValue] as? FoliageInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = FoliageInspectorCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
+    
     lazy var footpathInspectorCoordinator: FootpathInspectorCoordinator = {
        
         guard let viewController = controller.children[Tab.footpath.rawValue] as? FootpathInspectorViewController else { fatalError("Invalid view controller hierarchy") }
         
         let coordinator = FootpathInspectorCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
+    
+    lazy var portalInspectorCoordinator: PortalInspectorCoordinator = {
+       
+        guard let viewController = controller.children[Tab.portals.rawValue] as? PortalInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = PortalInspectorCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
+    
+    lazy var propsInspectorCoordinator: PropsInspectorCoordinator = {
+       
+        guard let viewController = controller.children[Tab.props.rawValue] as? PropsInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = PropsInspectorCoordinator(controller: viewController)
         
         coordinator.parent = self
         
@@ -83,13 +131,37 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         
         switch SceneGraphCategory(rawValue: category) {
         
+        case .area,
+             .areaChunk,
+             .areaTile:
+            
+            toggle(inspector: .area)
+        
         case .camera:
             
             toggle(inspector: .camera)
+            
+        case .foliage,
+             .foliageChunk,
+             .foliageTile:
+            
+            toggle(inspector: .foliage)
         
-        case .footpath:
+        case .footpath,
+             .foliageChunk,
+             .footpathTile:
             
             toggle(inspector: .footpath)
+            
+        case .portals,
+             .portal:
+            
+            toggle(inspector: .portals)
+            
+        case .props,
+             .prop:
+            
+            toggle(inspector: .props)
             
         case .scene:
             
@@ -116,13 +188,29 @@ extension InspectorTabViewCoordinator {
         
         switch tab {
         
+        case .area:
+            
+            start(child: areaInspectorCoordinator, with: selectedNode)
+        
         case .camera:
             
             start(child: cameraInspectorCoordinator, with: selectedNode)
             
+        case .foliage:
+            
+            start(child: foliageInspectorCoordinator, with: selectedNode)
+            
         case .footpath:
             
             start(child: footpathInspectorCoordinator, with: selectedNode)
+            
+        case .portals:
+            
+            start(child: portalInspectorCoordinator, with: selectedNode)
+            
+        case .props:
+            
+            start(child: propsInspectorCoordinator, with: selectedNode)
         
         case .scene:
             

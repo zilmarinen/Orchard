@@ -29,4 +29,3 @@ class FootpathBuildUtilityCoordinator: Coordinator<FootpathBuildUtilityViewContr
         //
     }
 }
-

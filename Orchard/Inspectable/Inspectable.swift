@@ -7,13 +7,21 @@
 
 import Meadow
 
+typealias AreaInspectable = (area: Area, chunk: AreaChunk?, tile: AreaTile?)
+typealias FoliageInspectable = (foliage: Foliage, chunk: FoliageChunk?, tile: FoliageTile?)
 typealias FootpathInspectable = (footpath: Footpath, chunk: FootpathChunk?, tile: FootpathTile?)
+typealias PortalsInspectable = (portals: Portals, portal: Portal?)
+typealias PropsInspectable = (props: Props, prop: Prop?)
 typealias TerrainInspectable = (terrain: Terrain, chunk: TerrainChunk?, tile: TerrainTile?)
 
 enum Inspectable {
     
+    case area(AreaInspectable)
     case camera(Camera)
+    case foliage(FoliageInspectable)
     case footpath(FootpathInspectable)
+    case portals(PortalsInspectable)
+    case props(PropsInspectable)
     case scene(Scene)
     case terrain(TerrainInspectable)
     
@@ -21,11 +29,63 @@ enum Inspectable {
         
         switch SceneGraphCategory(rawValue: node.category) {
         
+        case .area:
+            
+            guard let area = node as? Area else { return nil }
+            
+            let chunk = area.children.first as? AreaChunk
+            let tile = chunk?.children.first as? AreaTile
+            
+            self = .area((area: area, chunk: chunk, tile: tile))
+            
+        case .areaChunk:
+            
+            guard let chunk = node as? AreaChunk,
+                  let area = chunk.ancestor as? Area else { return nil }
+            
+            let tile = chunk.children.first as? AreaTile
+            
+            self = .area((area: area, chunk: chunk, tile: tile))
+            
+        case .areaTile:
+            
+            guard let tile = node as? AreaTile,
+                  let chunk = tile.ancestor as? AreaChunk,
+                  let area = chunk.ancestor as? Area else { return nil }
+            
+            self = .area((area: area, chunk: chunk, tile: tile))
+        
         case .camera:
             
             guard let camera = node as? Camera else { return nil }
             
             self = .camera(camera)
+            
+        case .foliage:
+            
+            guard let foliage = node as? Foliage else { return nil }
+            
+            let chunk = foliage.children.first as? FoliageChunk
+            let tile = chunk?.children.first as? FoliageTile
+            
+            self = .foliage((foliage: foliage, chunk: chunk, tile: tile))
+            
+        case .foliageChunk:
+            
+            guard let chunk = node as? FoliageChunk,
+                  let foliage = chunk.ancestor as? Foliage else { return nil }
+            
+            let tile = chunk.children.first as? FoliageTile
+            
+            self = .foliage((foliage: foliage, chunk: chunk, tile: tile))
+            
+        case .foliageTile:
+            
+            guard let tile = node as? FoliageTile,
+                  let chunk = tile.ancestor as? FoliageChunk,
+                  let foliage = chunk.ancestor as? Foliage else { return nil }
+            
+            self = .foliage((foliage: foliage, chunk: chunk, tile: tile))
             
         case .footpath:
             
@@ -52,6 +112,36 @@ enum Inspectable {
                   let footpath = chunk.ancestor as? Footpath else { return nil }
             
             self = .footpath((footpath: footpath, chunk: chunk, tile: tile))
+            
+        case .portals:
+            
+            guard let portals = node as? Portals else { return nil }
+            
+            let portal = portals.children.first as? Portal
+            
+            self = .portals((portals: portals, portal: portal))
+            
+        case .portal:
+            
+            guard let portal = node as? Portal,
+                  let portals = portal.ancestor as? Portals else { return nil }
+            
+            self = .portals((portals: portals, portal: portal))
+            
+        case .props:
+            
+            guard let props = node as? Props else { return nil }
+            
+            let prop = props.children.first as? Prop
+            
+            self = .props((props: props, prop: prop))
+            
+        case .prop:
+            
+            guard let prop = node as? Prop,
+                  let props = prop.ancestor as? Props else { return nil }
+            
+            self = .props((props: props, prop: prop))
             
         case .scene:
             

@@ -32,7 +32,7 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         controller.sceneView.backgroundColor = scene.backgroundColor.color
         controller.sceneView.scene = scene
         controller.sceneView.delegate = scene
-        controller.sceneView.isPlaying = true
+        controller.sceneView.play(nil)
         controller.sceneView.allowsCameraControl = true
         controller.sceneView.autoenablesDefaultLighting = true
         
@@ -43,11 +43,11 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         scene.camera.look(at: SCNVector3(x: 4, y: 0, z: 4))
         scene.camera.camera?.focalLength = 100
         
-        let width = 9
-        let depth = 9
+        let width = 12
+        let depth = 12
         
         let band0 = 2
-        let baseType = TerrainTileType.dirt
+        let baseType = TerrainTileType.sand
         
         for x in 0..<width {
             
@@ -60,7 +60,10 @@ class SceneCoordinator: Coordinator<SceneViewController> {
                     tileType = baseType
                 }
                 
-                let _ = scene.meadow.terrain.add(tile: Coordinate(x: x, y: 0, z: z), layer: tileType)
+                _ = scene.meadow.terrain.add(tile: Coordinate(x: x, y: 0, z: z)) { tile in
+                    
+                    tile.tileType = tileType
+                }
             }
         }
         
@@ -73,12 +76,12 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         
         if let tile = scene.meadow.terrain.find(tile: Coordinate(x: x, y: 0, z: z)) {
             
-            tile.layer.slope = .west
+            tile.slope = .west
         }
         
         if let tile = scene.meadow.terrain.find(tile: Coordinate(x: x, y: 0, z: z + 1)) {
             
-            tile.layer.slope = .west
+            tile.slope = .west
         }
         
         //
@@ -87,13 +90,13 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         
         if let tile = scene.meadow.terrain.find(tile: Coordinate(x: x + 1, y: 0, z: z)) {
             
-            tile.layer.slope = .west
+            tile.slope = .west
             tile.coordinate = Coordinate(x: tile.coordinate.x, y: 1, z: tile.coordinate.z)
         }
         
         if let tile = scene.meadow.terrain.find(tile: Coordinate(x: x + 1, y: 0, z: z + 1)) {
             
-            tile.layer.slope = .west
+            tile.slope = .west
             tile.coordinate = Coordinate(x: tile.coordinate.x, y: 1, z: tile.coordinate.z)
         }
         
@@ -122,7 +125,7 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         
         if let tile = scene.meadow.terrain.find(tile: Coordinate(x: x, y: 0, z: z + 2)) {
             
-            tile.layer.slope = .west
+            tile.slope = .west
         }
     }
 }

@@ -1,14 +1,14 @@
 //
-//  FootpathInspectorViewController.swift
+//  AreaInspectorViewController.swift
 //  Orchard
 //
-//  Created by Zack Brown on 03/12/2020.
+//  Created by Zack Brown on 08/12/2020.
 //
 
 import Cocoa
 import Meadow
 
-class FootpathInspectorViewController: NSViewController {
+class AreaInspectorViewController: NSViewController {
     
     @IBOutlet weak var gridBox: NSBox!
     @IBOutlet weak var chunkBox: NSBox!
@@ -28,9 +28,9 @@ class FootpathInspectorViewController: NSViewController {
             
             typePopUp.removeAllItems()
             
-            for footpathType in FootpathTileType.allCases {
+            for areaType in AreaTileType.allCases {
                 
-                typePopUp.addItem(withTitle: footpathType.description)
+                typePopUp.addItem(withTitle: areaType.description)
             }
         }
     }
@@ -63,6 +63,13 @@ class FootpathInspectorViewController: NSViewController {
             
             tileCoordinateView.xStepper.isEnabled = false
             tileCoordinateView.zStepper.isEnabled = false
+            
+            tileCoordinateView.valueDidChange = { [weak self] (_, coordinate) in
+                
+                guard let self = self, let inspectable = self.coordinator?.inspectable else { return }
+                
+                inspectable.tile?.coordinate = coordinate
+            }
         }
     }
     
@@ -74,7 +81,7 @@ class FootpathInspectorViewController: NSViewController {
         
         case gridRenderingButton:
             
-            inspectable.footpath.isHidden = sender.state == .off
+            inspectable.area.isHidden = sender.state == .off
             
         case chunkRenderingButton:
             
@@ -113,7 +120,7 @@ class FootpathInspectorViewController: NSViewController {
         
         case typePopUp:
             
-            guard let tileType = FootpathTileType(rawValue: typePopUp.indexOfSelectedItem) else { return }
+            guard let tileType = AreaTileType(rawValue: typePopUp.indexOfSelectedItem) else { return }
             
             inspectable.tile?.tileType = tileType
             
@@ -129,7 +136,7 @@ class FootpathInspectorViewController: NSViewController {
         coordinator?.refresh()
     }
     
-    weak var coordinator: FootpathInspectorCoordinator?
+    weak var coordinator: AreaInspectorCoordinator?
     
     override func viewWillAppear() {
         
@@ -138,3 +145,4 @@ class FootpathInspectorViewController: NSViewController {
         coordinator?.refresh()
     }
 }
+

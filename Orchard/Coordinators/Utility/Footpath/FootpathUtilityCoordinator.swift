@@ -12,15 +12,12 @@ class FootpathUtilityCoordinator: Coordinator<FootpathUtilityViewController>, In
     
     enum Constants {
         
-        static let storyboard = NSStoryboard(name: NSStoryboard.Name("Utility"), bundle: nil)
         static let tabViewIndentifier = NSStoryboard.SceneIdentifier("FootpathUtilityTabViewController")
-        
-        static let sceneGraphWrapperIdentifier = "scene.graph"
     }
     
     lazy var tabViewCoordinator: FootpathUtilityTabViewCoordinator = {
         
-        guard let viewController = Constants.storyboard.instantiateController(withIdentifier: Constants.tabViewIndentifier) as? FootpathUtilityTabViewController else { fatalError("Invalid view controller hierarchy") }
+        guard let viewController = NSStoryboard.utility.instantiateController(withIdentifier: Constants.tabViewIndentifier) as? FootpathUtilityTabViewController else { fatalError("Invalid view controller hierarchy") }
         
         let coordinator = FootpathUtilityTabViewCoordinator(controller: viewController)
         
@@ -37,7 +34,7 @@ class FootpathUtilityCoordinator: Coordinator<FootpathUtilityViewController>, In
         
         case .footpath(let inspectable):
             
-            return (inspectable.footpath, inspectable.chunk, inspectable.tile)
+            return inspectable
             
         default: return nil
         }
