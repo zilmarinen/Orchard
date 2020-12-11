@@ -80,6 +80,8 @@ class SplitViewCoordinator: Coordinator<SplitViewController> {
 
 extension SplitViewCoordinator {
     
+    override var sceneView: SceneView? { sceneCoordinator.controller._sceneView }
+    
     override var selectedNode: SceneGraphNode? { focus }
     
     override func didSelect(node: SceneGraphNode) {
@@ -93,14 +95,13 @@ extension SplitViewCoordinator {
     
     override func didSetScene(backgroundColor: MDWColor) {
         
-        sceneCoordinator.controller.sceneView.backgroundColor = backgroundColor
+        sceneView?.backgroundColor = backgroundColor
     }
     
     override func toggle(season: Int) {
         
-        guard let season = Season(rawValue: season) else { return }
-        
-        guard let scene = sceneCoordinator.controller.sceneView.scene as? Scene else { return }
+        guard let season = Season(rawValue: season),
+              let scene = sceneView?.scene as? Scene else { return }
         
         scene.meadow.world = World(season: season)
         

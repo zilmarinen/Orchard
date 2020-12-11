@@ -39,6 +39,15 @@ class WindowCoordinator: Coordinator<WindowController> {
         
         let scene = (option as? Scene) ?? Scene(season: .spring)
         
+        if option == nil {
+            
+            _ = scene.meadow.terrain.add(tile: .zero)
+            _ = scene.meadow.terrain.add(tile: .forward)
+            _ = scene.meadow.terrain.add(tile: .left)
+            _ = scene.meadow.terrain.add(tile: .backward)
+            _ = scene.meadow.terrain.add(tile: .right)
+        }
+        
         start(child: splitViewCoordinator, with: scene)
     }
     

@@ -9,7 +9,10 @@ import Cocoa
 import Meadow
 import SceneKit
 
-class SceneCoordinator: Coordinator<SceneViewController> {
+class SceneCoordinator: Coordinator<SceneViewController>, KeyboardObservable, MouseObservable {
+    
+    var keyboardObserver: UUID?
+    var mouseObserver: UUID?
     
     override init(controller: SceneViewController) {
         
@@ -27,105 +30,51 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         
         super.start(with: option)
         
-        guard let scene = option as? Scene else { fatalError("Invalid start option") }
+        guard let scene = option as? Scene,
+              let sceneView = sceneView else { fatalError("Invalid start option") }
         
-        controller.sceneView.backgroundColor = scene.backgroundColor.color
-        controller.sceneView.scene = scene
-        controller.sceneView.delegate = scene
-        controller.sceneView.play(nil)
-        controller.sceneView.allowsCameraControl = true
-        controller.sceneView.autoenablesDefaultLighting = true
+        sceneView.backgroundColor = scene.backgroundColor.color
+        sceneView.scene = scene
+        sceneView.delegate = self
+        sceneView.play(nil)
+        sceneView.allowsCameraControl = true
+        sceneView.autoenablesDefaultLighting = true
         
         focus(node: scene)
         
         scene.camera.camera?.usesOrthographicProjection = true
         scene.camera.position = SCNVector3(x: 20, y: 20, z: 20)
-        scene.camera.look(at: SCNVector3(x: 4, y: 0, z: 4))
-        scene.camera.camera?.focalLength = 100
+        scene.camera.look(at: SCNVector3(x: 0, y: 0, z: 0))
         
-        let width = 12
-        let depth = 12
+        subscribeToKeyboardEvents()
+        subscribeToMouseEvents()
+    }
+    
+    override func stop(then completion: CoordinatorCompletionBlock?) {
         
-        let band0 = 2
-        let baseType = TerrainTileType.sand
+        unsubscribeFromKeyboardEvents()
+        unsubscribeFromMouseEvents()
         
-        for x in 0..<width {
+        super.stop(then: completion)
+    }
+}
+
+extension SceneCoordinator: SCNSceneRendererDelegate {
+
+    public func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        
+        guard let sceneView = sceneView,
+              let scene = sceneView.scene as? Scene else { return }
+        
+        scene.renderer(renderer, updateAtTime: time)
+        
+        switch sceneView.keyboardObserver.state {
+        
+        case .keysHeld(let keys):
             
-            for z in 0..<depth {
-                
-                var tileType = baseType.next
-                
-                if x < band0 || x >= (width - band0) || z < band0 || z >= (depth - band0) {
-                    
-                    tileType = baseType
-                }
-                
-                _ = scene.meadow.terrain.add(tile: Coordinate(x: x, y: 0, z: z)) { tile in
-                    
-                    tile.tileType = tileType
-                }
-            }
-        }
-        
-        let x = 3
-        let z = 3
-        
-        //
-        //
-        //
-        
-        if let tile = scene.meadow.terrain.find(tile: Coordinate(x: x, y: 0, z: z)) {
+            print("keys are held down: [\(keys)]")
             
-            tile.slope = .west
-        }
-        
-        if let tile = scene.meadow.terrain.find(tile: Coordinate(x: x, y: 0, z: z + 1)) {
-            
-            tile.slope = .west
-        }
-        
-        //
-        //
-        //
-        
-        if let tile = scene.meadow.terrain.find(tile: Coordinate(x: x + 1, y: 0, z: z)) {
-            
-            tile.slope = .west
-            tile.coordinate = Coordinate(x: tile.coordinate.x, y: 1, z: tile.coordinate.z)
-        }
-        
-        if let tile = scene.meadow.terrain.find(tile: Coordinate(x: x + 1, y: 0, z: z + 1)) {
-            
-            tile.slope = .west
-            tile.coordinate = Coordinate(x: tile.coordinate.x, y: 1, z: tile.coordinate.z)
-        }
-        
-        //
-        //
-        //
-        
-        if let tile = scene.meadow.terrain.find(tile: Coordinate(x: x + 2, y: 0, z: z)) {
-            
-            tile.coordinate = Coordinate(x: tile.coordinate.x, y: 2, z: tile.coordinate.z)
-        }
-        
-        if let tile = scene.meadow.terrain.find(tile: Coordinate(x: x + 2, y: 0, z: z + 1)) {
-            
-            tile.coordinate = Coordinate(x: tile.coordinate.x, y: 2, z: tile.coordinate.z)
-        }
-        
-        //
-        //
-        //
-        
-        if let tile = scene.meadow.terrain.find(tile: Coordinate(x: x + 2, y: 0, z: z + 2)) {
-            
-            tile.coordinate = Coordinate(x: tile.coordinate.x, y: 2, z: tile.coordinate.z)
-        }
-        
-        if let tile = scene.meadow.terrain.find(tile: Coordinate(x: x, y: 0, z: z + 2)) {
-            
-            tile.slope = .west
+        default: break
         }
     }
 }
@@ -145,7 +94,7 @@ extension SceneCoordinator {
                 let item = NSPathControlItem()
                 
                 item.title = parent?.name ?? "Meadow"
-                item.image = NSImage(named: "meadow_icon")
+                item.image = parent?.image
                 
                 items.append(item)
                 
@@ -153,15 +102,51 @@ extension SceneCoordinator {
             }
         }
         
-        guard let scene = controller.sceneView.scene as? Scene else { return }
+        guard let scene = sceneView?.scene as? Scene else { return }
         
         let item = NSPathControlItem()
         
         item.title = scene.name ?? "Scene"
-        item.image = NSImage(named: "meadow_icon")
+        item.image = NSImage(named: "scene_icon")
         
         items.append(item)
         
         controller.pathControl.pathItems = items.reversed()
+    }
+}
+
+extension SceneCoordinator {
+    
+    func stateDidChange(from previousState: SceneView.KeyboardState?, to currentState: SceneView.KeyboardState) {
+        
+        DispatchQueue.main.async {
+            
+            switch currentState {
+            
+            case .keyUp(let key):
+                
+                print("keyUp -> [\(key)]")
+                
+            default: break
+            }
+        }
+    }
+}
+
+extension SceneCoordinator {
+    
+    func stateDidChange(from previousState: SceneView.MouseState?, to currentState: SceneView.MouseState) {
+        
+        DispatchQueue.main.async {
+            
+            switch currentState {
+            
+            case .zoom(let position, let delta):
+                
+                print("mouseZoom -> [\(position)] - [\(delta)]")
+                
+            default: break
+            }
+        }
     }
 }

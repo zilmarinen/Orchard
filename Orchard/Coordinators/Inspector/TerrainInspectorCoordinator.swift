@@ -8,7 +8,9 @@
 import Cocoa
 import Meadow
 
-class TerrainInspectorCoordinator: Coordinator<TerrainInspectorViewController>, Inspector {
+class TerrainInspectorCoordinator: Coordinator<TerrainInspectorViewController>, Inspector, MouseObservable {
+    
+    var mouseObserver: UUID?
     
     var inspectable: TerrainInspectable? {
         
@@ -41,6 +43,15 @@ class TerrainInspectorCoordinator: Coordinator<TerrainInspectorViewController>, 
         super.start(with: option)
         
         refresh()
+        
+        subscribeToMouseEvents()
+    }
+    
+    override func stop(then completion: CoordinatorCompletionBlock?) {
+        
+        unsubscribeFromMouseEvents()
+        
+        super.stop(then: completion)
     }
 }
 
@@ -74,6 +85,31 @@ extension TerrainInspectorCoordinator {
         if let slope = tile.slope {
             
             controller.directionPopUp.selectItem(at: slope.rawValue)
+        }
+    }
+}
+
+extension TerrainInspectorCoordinator {
+    
+    func stateDidChange(from previousState: SceneView.MouseState?, to currentState: SceneView.MouseState) {
+        
+        DispatchQueue.main.async {
+            
+            switch currentState {
+            
+            case .down(let position, let type):
+                
+                guard let sceneView = self.sceneView,
+                      let hit = sceneView.hitTest(point: position.start, category: .terrainChunk) else { return }
+                
+                print("mouseDown -> [\(position)] - [\(type)")
+                print("hit: \(hit)")
+                
+            case .up(let position, let type): print("mouseUp -> [\(position)] - [\(type)")
+            case .tracking(let position, let type): print("mouseTracking -> [\(position)] - [\(type)")
+            case .idle(let position): print("mouseIdle -> [\(position)]")
+            case .zoom(let position, let delta): print("mouseZoom -> [\(position)] - [\(delta)]")
+            }
         }
     }
 }

@@ -815,7 +815,7 @@
                                     <constraint firstItem="cfj-9j-e8o" firstAttribute="top" secondItem="T2Z-NF-8dx" secondAttribute="top" constant="5" id="wq3-Ty-k8I"/>
                                 </constraints>
                             </customView>
-                            <sceneView preferredRenderingAPI="1" translatesAutoresizingMaskIntoConstraints="NO" id="PV9-5c-ft6">
+                            <sceneView preferredRenderingAPI="1" translatesAutoresizingMaskIntoConstraints="NO" id="PV9-5c-ft6" customClass="SceneView" customModule="Orchard" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="350" height="363"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="350" id="WSS-EO-AwE"/>
@@ -834,8 +834,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="_sceneView" destination="PV9-5c-ft6" id="Bgf-X1-ZSu"/>
                         <outlet property="pathControl" destination="cfj-9j-e8o" id="k50-hX-JTZ"/>
-                        <outlet property="sceneView" destination="PV9-5c-ft6" id="P0I-ST-wx6"/>
                     </connections>
                 </viewController>
                 <customObject id="xVn-qQ-0Vv" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -858,7 +858,11 @@
                                         <subviews>
                                             <button translatesAutoresizingMaskIntoConstraints="NO" id="KIQ-EM-VxM">
                                                 <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
-                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="meadow_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Aad-pd-KXe">
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="0SI-jg-8I9"/>
+                                                    <constraint firstAttribute="width" secondItem="KIQ-EM-VxM" secondAttribute="height" multiplier="1:1" id="4EF-dg-dSS"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="search_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Aad-pd-KXe">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
@@ -868,7 +872,10 @@
                                             </button>
                                             <button translatesAutoresizingMaskIntoConstraints="NO" id="qyw-Ub-fEO">
                                                 <rect key="frame" x="28" y="0.0" width="20" height="20"/>
-                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="meadow_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="8Zj-NY-oG9">
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="qyw-Ub-fEO" secondAttribute="height" multiplier="1:1" id="2mw-7O-qEb"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="utility_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="8Zj-NY-oG9">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
@@ -877,6 +884,9 @@
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="qyw-Ub-fEO" firstAttribute="width" secondItem="KIQ-EM-VxM" secondAttribute="width" id="ghf-Tn-fMv"/>
+                                        </constraints>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
@@ -1020,12 +1030,12 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView id="LLD-wk-Eno">
+                                                        <tableCellView misplaced="YES" id="LLD-wk-Eno">
                                                             <rect key="frame" x="11" y="1" width="247" height="24"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dcW-ya-gKM">
-                                                                    <rect key="frame" x="8" y="2" width="20" height="20"/>
+                                                                    <rect key="frame" x="8" y="2" width="132" height="132"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="14" id="c2h-zG-XxQ"/>
                                                                         <constraint firstAttribute="width" secondItem="dcW-ya-gKM" secondAttribute="height" multiplier="1:1" id="v0S-IP-6CB"/>
@@ -1033,7 +1043,7 @@
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="meadow_icon" id="sup-ZV-wEl"/>
                                                                 </imageView>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QKD-2K-sbW">
-                                                                    <rect key="frame" x="34" y="5" width="84" height="14"/>
+                                                                    <rect key="frame" x="146" y="61" width="84" height="14"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="uMO-cw-EEM">
                                                                         <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1132,7 +1142,9 @@
     </scenes>
     <resources>
         <image name="left_panel_toggle" width="20" height="15"/>
-        <image name="meadow_icon" width="20" height="20"/>
+        <image name="meadow_icon" width="132" height="132"/>
         <image name="right_panel_toggle" width="20" height="15"/>
+        <image name="search_icon" width="132" height="132"/>
+        <image name="utility_icon" width="132" height="132"/>
     </resources>
 </document>

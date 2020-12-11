@@ -63,6 +63,13 @@ class FootpathInspectorViewController: NSViewController {
             
             tileCoordinateView.xStepper.isEnabled = false
             tileCoordinateView.zStepper.isEnabled = false
+            
+            tileCoordinateView.valueDidChange = { [weak self] (stepper, coordinate) in
+                
+                guard let self = self, let inspectable = self.coordinator?.inspectable else { return }
+                
+                inspectable.tile?.coordinate = coordinate
+            }
         }
     }
     
@@ -99,6 +106,8 @@ class FootpathInspectorViewController: NSViewController {
                 inspectable.tile?.slope = nil
             }
             
+            inspectable.footpath.soil()
+            
         default: break
         }
         
@@ -125,6 +134,8 @@ class FootpathInspectorViewController: NSViewController {
             
         default: break
         }
+        
+        inspectable.footpath.soil()
         
         coordinator?.refresh()
     }

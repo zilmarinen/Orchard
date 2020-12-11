@@ -45,13 +45,13 @@ class NumberStepper: NSView {
         super.init(coder: coder)
         
         textField.controlSize = .small
-        textField.placeholderString = "0"
+        textField.integerValue = 0
         
         stepper.controlSize = .small
         stepper.target = self
         stepper.action = #selector(stepper(sender:))
         stepper.minValue = 0
-        stepper.maxValue = 7
+        stepper.maxValue = 35
         stepper.valueWraps = false
         
         let stackView = NSStackView(views: [textField, stepper])

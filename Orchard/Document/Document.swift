@@ -51,11 +51,12 @@ class Document: NSDocument {
         let decoder = JSONDecoder()
         
         self.scene = try decoder.decode(Scene.self, from: sceneGraph)
+        self.scene?.meadow.soil()
     }
     
     override func fileWrapper(ofType typeName: String) throws -> FileWrapper {
         
-        guard let scene = coordinator.splitViewCoordinator.sceneCoordinator.controller.sceneView.scene as? Scene else { throw NSError(domain: NSOSStatusErrorDomain, code: writErr, userInfo: nil) }
+        guard let scene = coordinator.splitViewCoordinator.sceneView?.scene as? Scene else { throw NSError(domain: NSOSStatusErrorDomain, code: writErr, userInfo: nil) }
         
         let encoder = JSONEncoder()
         

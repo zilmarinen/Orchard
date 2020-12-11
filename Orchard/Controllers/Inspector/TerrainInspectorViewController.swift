@@ -64,7 +64,7 @@ class TerrainInspectorViewController: NSViewController {
             tileCoordinateView.xStepper.isEnabled = false
             tileCoordinateView.zStepper.isEnabled = false
             
-            tileCoordinateView.valueDidChange = { [weak self] (_, coordinate) in
+            tileCoordinateView.valueDidChange = { [weak self] (stepper, coordinate) in
                 
                 guard let self = self, let inspectable = self.coordinator?.inspectable else { return }
                 
@@ -106,6 +106,8 @@ class TerrainInspectorViewController: NSViewController {
                 inspectable.tile?.slope = nil
             }
             
+            inspectable.terrain.soil()
+            
         default: break
         }
         
@@ -132,6 +134,8 @@ class TerrainInspectorViewController: NSViewController {
             
         default: break
         }
+        
+        inspectable.terrain.soil()
         
         coordinator?.refresh()
     }

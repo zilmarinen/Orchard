@@ -35,6 +35,13 @@ class FoliageInspectorViewController: NSViewController {
             
             tileCoordinateView.xStepper.isEnabled = false
             tileCoordinateView.zStepper.isEnabled = false
+            
+            tileCoordinateView.valueDidChange = { [weak self] (stepper, coordinate) in
+                
+                guard let self = self, let inspectable = self.coordinator?.inspectable else { return }
+                
+                inspectable.tile?.coordinate = coordinate
+            }
         }
     }
     

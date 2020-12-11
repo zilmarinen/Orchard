@@ -32,5 +32,6 @@ import Meadow
     
     var responder: NSResponder? { nextResponder }
     
+    var sceneView: SceneView? { responder?.sceneView }
     var selectedNode: SceneGraphNode? { responder?.selectedNode }
 }

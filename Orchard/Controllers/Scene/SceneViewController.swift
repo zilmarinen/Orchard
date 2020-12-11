@@ -11,7 +11,7 @@ import SceneKit
 class SceneViewController: NSViewController {
     
     @IBOutlet weak var pathControl: NSPathControl!
-    @IBOutlet weak var sceneView: SCNView!
+    @IBOutlet weak var _sceneView: SceneView!
     
     weak var coordinator: SceneCoordinator?
 }
