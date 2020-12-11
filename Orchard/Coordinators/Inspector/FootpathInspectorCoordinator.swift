@@ -2,16 +2,27 @@
 //  FootpathInspectorCoordinator.swift
 //  Orchard
 //
-//  Created by Zack Brown on 12/06/2020.
-//  Copyright © 2020 Script Orchard. All rights reserved.
+//  Created by Zack Brown on 03/12/2020.
 //
 
+import Cocoa
 import Meadow
-import Terrace
 
-class FootpathInspectorCoordinator: Coordinator<FootpathInspectorViewController> {
+class FootpathInspectorCoordinator: Coordinator<FootpathInspectorViewController>, Inspector {
     
-    var cursorObserver: UUID? = nil
+    var inspectable: FootpathInspectable? {
+        
+        guard let selectedNode = selectedNode else { return nil }
+        
+        switch Inspectable(node: selectedNode) {
+        
+        case .footpath(let inspectable):
+            
+            return inspectable
+            
+        default: return nil
+        }
+    }
     
     override init(controller: FootpathInspectorViewController) {
         
@@ -20,55 +31,49 @@ class FootpathInspectorCoordinator: Coordinator<FootpathInspectorViewController>
         controller.coordinator = self
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func start(with option: StartOption?) {
+    override func start(with option: SceneGraphNode?) {
         
         super.start(with: option)
         
-        guard let node = option as? SceneGraphIdentifiable else { fatalError("Invalid start option for Footpath Inspector Coordinator") }
-        
-        self.controller.inspector = FootpathInspector(node: node)
-        
-        cursorObserver = sceneView?.cursorObserver.subscribe(stateDidChange(from:to:))
-    }
-    
-    override func stop(then completion: CoordinatorCompletionBlock?) {
-        
-        if let cursorObserver = cursorObserver {
-            
-            sceneView?.cursorObserver.unsubscribe(cursorObserver)
-        }
-        
-        self.controller.inspector = nil
-        
-        completion?()
+        refresh()
     }
 }
 
 extension FootpathInspectorCoordinator {
     
-    func stateDidChange(from previousState: SceneView.CursorState?, to currentState: SceneView.CursorState) {
+    func refresh() {
         
-        DispatchQueue.main.async {
+        guard controller.isViewLoaded, let inspectable = inspectable else { return }
+        
+        controller.chunkBox.isHidden = inspectable.chunk == nil
+        controller.tileBox.isHidden = inspectable.tile == nil
+        
+        controller.chunkCountLabel.integerValue = inspectable.footpath.children.count
+        controller.gridRenderingButton.state = (inspectable.footpath.isHidden ? .off : .on)
+        
+        guard let chunk = inspectable.chunk else { return }
+        
+        controller.tileCountLabel.integerValue = chunk.children.count
+        controller.chunkRenderingButton.state = chunk.isHidden ? .off : .on
+        controller.chunkCoordinateView.coordinate = chunk.coordinate
+        
+        guard let tile = inspectable.tile else { return }
+        
+        controller.neighbourCountLabel.integerValue = tile.neighbours.count
+        controller.tileRenderingButton.state = tile.isHidden ? .off : .on
+        controller.tileCoordinateView.coordinate = tile.coordinate
+        controller.typePopUp.selectItem(at: tile.tileType.rawValue)
+        controller.slopeButton.state = (tile.slope == nil ? .off : .on)
+        controller.directionPopUp.isEnabled = tile.slope != nil
+        
+        if let slope = tile.slope {
             
-            switch currentState {
-                
-            case .down(let position, _):
-                
-                guard let hit = self.sceneView?.hitTest(point: position.start, category: .footpath),
-                    let quad = hit.quad,
-                    let joint = hit.joint,
-                    let node = self.sceneView?.scene?.meadow.footpath.find(tile: quad.i),
-                    let layer = node.find(edge: joint.i)?.topLayer else { return }
-                                
-                self.didSelect(node: layer)
-                
-            default: break
-            }
+            controller.directionPopUp.selectItem(at: slope.rawValue)
         }
     }
 }

@@ -2,89 +2,90 @@
 //  FootpathUtilityCoordinator.swift
 //  Orchard
 //
-//  Created by Zack Brown on 16/09/2020.
-//  Copyright © 2020 Script Orchard. All rights reserved.
+//  Created by Zack Brown on 03/12/2020.
 //
 
-import Terrace
+import Cocoa
+import Meadow
 
-class FootpathUtilityCoordinator: Coordinator<FootpathUtilityViewController> {
+class FootpathUtilityCoordinator: Coordinator<FootpathUtilityViewController>, Inspector {
     
-    lazy var viewModel: ViewModel = {
-           
-        return ViewModel(initialState: .empty)
-    }()
+    enum Constants {
+        
+        static let tabViewIndentifier = NSStoryboard.SceneIdentifier("FootpathUtilityTabViewController")
+    }
     
-    lazy var footpathBuildUtilityCoordinator: FootpathBuildUtilityCoordinator = {
-       
-        let coordinator = FootpathBuildUtilityCoordinator(controller: controller)
+    lazy var tabViewCoordinator: FootpathUtilityTabViewCoordinator = {
+        
+        guard let viewController = NSStoryboard.utility.instantiateController(withIdentifier: Constants.tabViewIndentifier) as? FootpathUtilityTabViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = FootpathUtilityTabViewCoordinator(controller: viewController)
         
         coordinator.parent = self
         
         return coordinator
     }()
     
-    lazy var footpathPaintUtilityCoordinator: FootpathPaintUtilityCoordinator = {
-       
-        let coordinator = FootpathPaintUtilityCoordinator(controller: controller)
+    var inspectable: FootpathInspectable? {
         
-        coordinator.parent = self
+        guard let selectedNode = selectedNode else { return nil }
         
-        return coordinator
-    }()
-
+        switch Inspectable(node: selectedNode) {
+        
+        case .footpath(let inspectable):
+            
+            return inspectable
+            
+        default: return nil
+        }
+    }
+    
     override init(controller: FootpathUtilityViewController) {
         
         super.init(controller: controller)
         
         controller.coordinator = self
-        
-        viewModel.subscribe(stateDidChange(from:to:))
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func start(with option: StartOption?) {
+    override func start(with option: SceneGraphNode?) {
         
         super.start(with: option)
         
-        viewModel.start(with: option)
-    }
-    
-    override func stop(then completion: CoordinatorCompletionBlock?) {
+        start(child: tabViewCoordinator, with: option)
         
-        stopChildren()
-        
-        viewModel.stop()
-        
-        completion?()
-    }
-}
-
-extension FootpathUtilityCoordinator {
-
-    func stateDidChange(from previousState: ViewState?, to currentState: ViewState) {
-
-        DispatchQueue.main.async {
-           
-            self.stopChildren()
-        
-            switch currentState {
-                
-            case .build:
-                
-                self.start(child: self.footpathBuildUtilityCoordinator, with: currentState)
-                
-            case .paint:
-                
-                self.start(child: self.footpathPaintUtilityCoordinator, with: currentState)
-                
-            default: break
-            }
+        if controller.isViewLoaded {
+            
+            toggle(footpath: .build)
+            
+            refresh()
         }
     }
 }
 
+extension FootpathUtilityCoordinator {
+    
+    override func toggle(footpath utility: FootpathUtilityTabViewCoordinator.Tab) {
+        
+        tabViewCoordinator.toggle(footpath: utility)
+        
+        controller.buildButton.contentTintColor = (utility == .build ? .alternateSelectedControlColor : .controlColor)
+        controller.paintButton.contentTintColor = (utility == .paint ? .alternateSelectedControlColor : .controlColor)
+    }
+}
+
+extension FootpathUtilityCoordinator {
+    
+    func refresh() {
+        
+        guard controller.isViewLoaded, let inspectable = inspectable else { return }
+        
+        controller.chunkCountLabel.integerValue = inspectable.footpath.children.count
+        
+        controller.gridRenderingButton.state = (inspectable.footpath.isHidden ? .off : .on)
+    }
+}

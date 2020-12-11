@@ -2,98 +2,70 @@
 //  Document.swift
 //  Orchard
 //
-//  Created by Zack Brown on 23/05/2018.
-//  Copyright © 2018 Script Orchard. All rights reserved.
+//  Created by Zack Brown on 03/11/2020.
 //
 
+import Cocoa
 import Meadow
-import Terrace
 
 class Document: NSDocument {
     
-    struct DocumentJSON: StartOption, Decodable {
+    enum Constants {
         
-        let graph: Graph
-        let meadow: MeadowJSON?
+        static let windowIndentifier = NSStoryboard.SceneIdentifier("WindowController")
+        
+        static let sceneGraphWrapperIdentifier = "scene.graph"
     }
     
     let coordinator: WindowCoordinator
     
-    var json: DocumentJSON?
+    var scene: Scene?
 
     override init() {
         
-        let controller = NSStoryboard.main!.instantiateController(withIdentifier: OrchardWindowController.sceneIdentifier) as! OrchardWindowController
+        guard let windowController = NSStoryboard.main.instantiateController(withIdentifier: Constants.windowIndentifier) as? WindowController else { fatalError("Invalid view controller hierarchy") }
         
-        self.coordinator = WindowCoordinator(controller: controller)
+        coordinator = WindowCoordinator(controller: windowController)
         
         super.init()
     }
-    
+
     override class var autosavesInPlace: Bool {
         
         return true
     }
-    
+
     override func makeWindowControllers() {
         
         self.addWindowController(coordinator.controller)
         
-        if json == nil {
-            
-            let plotter = HexGraph(rings: 3, size: 1.0)
-            
-            let resolver = LaplacianResolver(iterations: 1)
-            
-            let graph = Graph(plotter: plotter, resolver: resolver)
+        coordinator.start(with: scene)
         
-            json = DocumentJSON(graph: graph, meadow: nil)
-        }
+        scene = nil
+    }
+
+    override func read(from fileWrapper: FileWrapper, ofType typeName: String) throws {
         
-        coordinator.start(with: json)
+        guard let sceneGraph = fileWrapper.fileWrappers?.first(where: { $0.key == Constants.sceneGraphWrapperIdentifier })?.value.regularFileContents else { throw NSError(domain: NSOSStatusErrorDomain, code: readErr, userInfo: nil) }
         
-        json = nil
+        let decoder = JSONDecoder()
+        
+        self.scene = try decoder.decode(Scene.self, from: sceneGraph)
+        self.scene?.meadow.soil()
     }
     
     override func fileWrapper(ofType typeName: String) throws -> FileWrapper {
         
-        guard let meadow = coordinator.orchardCoordinator.scene?.meadow else { throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": "Unable to find valid instance of Meadow."]) }
+        guard let scene = coordinator.splitViewCoordinator.sceneView?.scene as? Scene else { throw NSError(domain: NSOSStatusErrorDomain, code: writErr, userInfo: nil) }
         
         let encoder = JSONEncoder()
         
         var wrappers: [String : FileWrapper] = [:]
         
-        let meadowData = try encoder.encode(meadow)
-        let graphData = try encoder.encode(meadow.graph)
+        let sceneGraph = try encoder.encode(scene)
         
-        wrappers["world.meadow"] = FileWrapper(regularFileWithContents: meadowData)
-        wrappers["scene.graph"] = FileWrapper(regularFileWithContents: graphData)
+        wrappers[Constants.sceneGraphWrapperIdentifier] = FileWrapper(regularFileWithContents: sceneGraph)
         
         return FileWrapper(directoryWithFileWrappers: wrappers)
-    }
-    
-    override func read(from fileWrapper: FileWrapper, ofType typeName: String) throws {
-        
-        do {
-            
-            let graphWrapper = fileWrapper.fileWrappers?.first { $0.key.hasSuffix(".graph") }?.value
-            let meadowWrapper = fileWrapper.fileWrappers?.first { $0.key.hasSuffix(".meadow") }?.value
-            
-            guard let graphData = graphWrapper?.regularFileContents, let meadowData = meadowWrapper?.regularFileContents else {
-                
-                throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": "Unable to load contents of file wrapper."])
-            }
-            
-            let decoder = JSONDecoder()
-            
-            let graph = try decoder.decode(Graph.self, from: graphData)
-            let meadowJSON = try decoder.decode(MeadowJSON.self, from: meadowData)
-            
-            self.json = DocumentJSON(graph: graph, meadow: meadowJSON)
-        }
-        catch {
-            
-            throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: ["Error": error])
-        }
     }
 }

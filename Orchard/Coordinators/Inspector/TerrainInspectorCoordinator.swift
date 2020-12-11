@@ -2,16 +2,29 @@
 //  TerrainInspectorCoordinator.swift
 //  Orchard
 //
-//  Created by Zack Brown on 08/06/2020.
-//  Copyright © 2020 Script Orchard. All rights reserved.
+//  Created by Zack Brown on 06/11/2020.
 //
 
+import Cocoa
 import Meadow
-import Terrace
 
-class TerrainInspectorCoordinator: Coordinator<TerrainInspectorViewController> {
+class TerrainInspectorCoordinator: Coordinator<TerrainInspectorViewController>, Inspector, MouseObservable {
     
-    var cursorObserver: UUID? = nil
+    var mouseObserver: UUID?
+    
+    var inspectable: TerrainInspectable? {
+        
+        guard let selectedNode = selectedNode else { return nil }
+        
+        switch Inspectable(node: selectedNode) {
+        
+        case .terrain(let inspectable):
+            
+            return inspectable
+            
+        default: return nil
+        }
+    }
     
     override init(controller: TerrainInspectorViewController) {
         
@@ -20,54 +33,82 @@ class TerrainInspectorCoordinator: Coordinator<TerrainInspectorViewController> {
         controller.coordinator = self
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func start(with option: StartOption?) {
+    override func start(with option: SceneGraphNode?) {
         
         super.start(with: option)
         
-        guard let node = option as? SceneGraphIdentifiable else { fatalError("Invalid start option for Terrain Inspector Coordinator") }
+        refresh()
         
-        self.controller.inspector = TerrainInspector(node: node)
-        
-        cursorObserver = sceneView?.cursorObserver.subscribe(stateDidChange(from:to:))
+        subscribeToMouseEvents()
     }
     
     override func stop(then completion: CoordinatorCompletionBlock?) {
         
-        if let cursorObserver = cursorObserver {
-            
-            sceneView?.cursorObserver.unsubscribe(cursorObserver)
-        }
+        unsubscribeFromMouseEvents()
         
-        self.controller.inspector = nil
-        
-        completion?()
+        super.stop(then: completion)
     }
 }
 
 extension TerrainInspectorCoordinator {
     
-    func stateDidChange(from previousState: SceneView.CursorState?, to currentState: SceneView.CursorState) {
+    func refresh() {
+        
+        guard controller.isViewLoaded, let inspectable = inspectable else { return }
+        
+        controller.chunkBox.isHidden = inspectable.chunk == nil
+        controller.tileBox.isHidden = inspectable.tile == nil
+        
+        controller.chunkCountLabel.integerValue = inspectable.terrain.children.count
+        controller.gridRenderingButton.state = (inspectable.terrain.isHidden ? .off : .on)
+        
+        guard let chunk = inspectable.chunk else { return }
+        
+        controller.tileCountLabel.integerValue = chunk.children.count
+        controller.chunkRenderingButton.state = chunk.isHidden ? .off : .on
+        controller.chunkCoordinateView.coordinate = chunk.coordinate
+        
+        guard let tile = inspectable.tile else { return }
+        
+        controller.neighbourCountLabel.integerValue = tile.neighbours.count
+        controller.tileRenderingButton.state = tile.isHidden ? .off : .on
+        controller.tileCoordinateView.coordinate = tile.coordinate
+        controller.typePopUp.selectItem(at: tile.tileType.rawValue)
+        controller.slopeButton.state = (tile.slope == nil ? .off : .on)
+        controller.directionPopUp.isEnabled = tile.slope != nil
+        
+        if let slope = tile.slope {
+            
+            controller.directionPopUp.selectItem(at: slope.rawValue)
+        }
+    }
+}
+
+extension TerrainInspectorCoordinator {
+    
+    func stateDidChange(from previousState: SceneView.MouseState?, to currentState: SceneView.MouseState) {
         
         DispatchQueue.main.async {
             
             switch currentState {
+            
+            case .down(let position, let type):
                 
-            case .down(let position, _):
+                guard let sceneView = self.sceneView,
+                      let hit = sceneView.hitTest(point: position.start, category: .terrainChunk) else { return }
                 
-                guard let hit = self.sceneView?.hitTest(point: position.start, category: .terrain),
-                    let quad = hit.quad,
-                    let joint = hit.joint,
-                    let node = self.sceneView?.scene?.meadow.terrain.find(tile: quad.i),
-                    let layer = node.find(edge: joint.i)?.topLayer else { return }
-                                
-                self.didSelect(node: layer)
+                print("mouseDown -> [\(position)] - [\(type)")
+                print("hit: \(hit)")
                 
-            default: break
+            case .up(let position, let type): print("mouseUp -> [\(position)] - [\(type)")
+            case .tracking(let position, let type): print("mouseTracking -> [\(position)] - [\(type)")
+            case .idle(let position): print("mouseIdle -> [\(position)]")
+            case .zoom(let position, let delta): print("mouseZoom -> [\(position)] - [\(delta)]")
             }
         }
     }

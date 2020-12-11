@@ -2,13 +2,14 @@
 //  Inspector.swift
 //  Orchard
 //
-//  Created by Zack Brown on 28/04/2020.
-//  Copyright © 2020 Script Orchard. All rights reserved.
+//  Created by Zack Brown on 04/12/2020.
 //
 
 protocol Inspector {
     
-    associatedtype Inspectable
+    associatedtype T
     
-    var inspector: Inspectable? { get set }
+    var inspectable: T? { get }
+    
+    func refresh()
 }

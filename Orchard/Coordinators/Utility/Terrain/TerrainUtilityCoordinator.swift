@@ -2,101 +2,90 @@
 //  TerrainUtilityCoordinator.swift
 //  Orchard
 //
-//  Created by Zack Brown on 31/07/2020.
-//  Copyright © 2020 Script Orchard. All rights reserved.
+//  Created by Zack Brown on 05/11/2020.
 //
 
-import Terrace
+import Cocoa
+import Meadow
 
-class TerrainUtilityCoordinator: Coordinator<TerrainUtilityViewController> {
+class TerrainUtilityCoordinator: Coordinator<TerrainUtilityViewController>, Inspector {
     
-    lazy var viewModel: ViewModel = {
-       
-        return ViewModel(initialState: .empty)
-    }()
+    enum Constants {
+        
+        static let tabViewIndentifier = NSStoryboard.SceneIdentifier("TerrainUtilityTabViewController")
+    }
     
-    lazy var terrainBuildUtilityCoordinator: TerrainBuildUtilityCoordinator = {
-       
-        let coordinator = TerrainBuildUtilityCoordinator(controller: controller)
+    lazy var tabViewCoordinator: TerrainUtilityTabViewCoordinator = {
+        
+        guard let viewController = NSStoryboard.utility.instantiateController(withIdentifier: Constants.tabViewIndentifier) as? TerrainUtilityTabViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = TerrainUtilityTabViewCoordinator(controller: viewController)
         
         coordinator.parent = self
         
         return coordinator
     }()
     
-    lazy var terrainPaintUtilityCoordinator: TerrainPaintUtilityCoordinator = {
-       
-        let coordinator = TerrainPaintUtilityCoordinator(controller: controller)
+    var inspectable: TerrainInspectable? {
         
-        coordinator.parent = self
+        guard let selectedNode = selectedNode else { return nil }
         
-        return coordinator
-    }()
+        switch Inspectable(node: selectedNode) {
+        
+        case .terrain(let inspectable):
+            
+            return inspectable
+            
+        default: return nil
+        }
+    }
     
-    lazy var terrainTerraformUtilityCoordinator: TerrainTerraformUtilityCoordinator = {
-       
-        let coordinator = TerrainTerraformUtilityCoordinator(controller: controller)
-        
-        coordinator.parent = self
-        
-        return coordinator
-    }()
-
     override init(controller: TerrainUtilityViewController) {
         
         super.init(controller: controller)
         
         controller.coordinator = self
-        
-        viewModel.subscribe(stateDidChange(from:to:))
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func start(with option: StartOption?) {
+    override func start(with option: SceneGraphNode?) {
         
         super.start(with: option)
         
-        viewModel.start(with: option)
-    }
-    
-    override func stop(then completion: CoordinatorCompletionBlock?) {
+        start(child: tabViewCoordinator, with: option)
         
-        stopChildren()
-        
-        viewModel.stop()
-        
-        completion?()
+        if controller.isViewLoaded {
+            
+            toggle(terrain: .build)
+            
+            refresh()
+        }
     }
 }
 
 extension TerrainUtilityCoordinator {
-
-    func stateDidChange(from previousState: ViewState?, to currentState: ViewState) {
-
-        DispatchQueue.main.async {
-           
-            self.stopChildren()
+    
+    override func toggle(terrain utility: TerrainUtilityTabViewCoordinator.Tab) {
         
-            switch currentState {
-                
-            case .build:
-                
-                self.start(child: self.terrainBuildUtilityCoordinator, with: currentState)
-                
-            case .paint:
-                
-                self.start(child: self.terrainPaintUtilityCoordinator, with: currentState)
-                
-            case .terraform:
-                
-                self.start(child: self.terrainTerraformUtilityCoordinator, with: currentState)
-                
-            default: break
-            }
-        }
+        tabViewCoordinator.toggle(terrain: utility)
+        
+        controller.buildButton.contentTintColor = (utility == .build ? .alternateSelectedControlColor : .controlColor)
+        controller.paintButton.contentTintColor = (utility == .paint ? .alternateSelectedControlColor : .controlColor)
+    }
+}
+
+extension TerrainUtilityCoordinator {
+    
+    func refresh() {
+        
+        guard controller.isViewLoaded, let inspectable = inspectable else { return }
+        
+        controller.chunkCountLabel.integerValue = inspectable.terrain.children.count
+        
+        controller.gridRenderingButton.state = (inspectable.terrain.isHidden ? .off : .on)
     }
 }

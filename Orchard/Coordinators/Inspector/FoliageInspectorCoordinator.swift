@@ -2,16 +2,27 @@
 //  FoliageInspectorCoordinator.swift
 //  Orchard
 //
-//  Created by Zack Brown on 12/06/2020.
-//  Copyright © 2020 Script Orchard. All rights reserved.
+//  Created by Zack Brown on 07/12/2020.
 //
 
+import Cocoa
 import Meadow
-import Terrace
 
-class FoliageInspectorCoordinator: Coordinator<FoliageInspectorViewController> {
+class FoliageInspectorCoordinator: Coordinator<FoliageInspectorViewController>, Inspector {
     
-    var cursorObserver: UUID? = nil
+    var inspectable: FoliageInspectable? {
+        
+        guard let selectedNode = selectedNode else { return nil }
+        
+        switch Inspectable(node: selectedNode) {
+        
+        case .foliage(let inspectable):
+            
+            return inspectable
+            
+        default: return nil
+        }
+    }
     
     override init(controller: FoliageInspectorViewController) {
         
@@ -20,55 +31,37 @@ class FoliageInspectorCoordinator: Coordinator<FoliageInspectorViewController> {
         controller.coordinator = self
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func start(with option: StartOption?) {
+    override func start(with option: SceneGraphNode?) {
         
         super.start(with: option)
         
-        guard let node = option as? SceneGraphIdentifiable else { fatalError("Invalid start option for Foliage Inspector Coordinator") }
-        
-        self.controller.inspector = FoliageInspector(node: node)
-        
-        cursorObserver = sceneView?.cursorObserver.subscribe(stateDidChange(from:to:))
-    }
-    
-    override func stop(then completion: CoordinatorCompletionBlock?) {
-        
-        if let cursorObserver = cursorObserver {
-            
-            sceneView?.cursorObserver.unsubscribe(cursorObserver)
-        }
-        
-        self.controller.inspector = nil
-        
-        completion?()
+        refresh()
     }
 }
 
 extension FoliageInspectorCoordinator {
     
-    func stateDidChange(from previousState: SceneView.CursorState?, to currentState: SceneView.CursorState) {
+    func refresh() {
         
-        DispatchQueue.main.async {
-            
-            switch currentState {
-                
-            case .down(let position, _):
-                
-                if let hit = self.sceneView?.hitTest(point: position.start, category: .foliage),
-                    let quad = hit.quad,
-                    let node = self.sceneView?.scene?.meadow.foliage.find(tile: quad.i) {
-                    
-                    self.didSelect(node: node)
-                }
-                
-            default: break
-            }
-        }
+        guard controller.isViewLoaded, let inspectable = inspectable else { return }
+        
+        controller.chunkBox.isHidden = inspectable.chunk == nil
+        controller.tileBox.isHidden = inspectable.tile == nil
+        
+        controller.chunkCountLabel.integerValue = inspectable.foliage.children.count
+        controller.tileCountLabel.integerValue = inspectable.chunk?.children.count ?? 0
+        controller.neighbourCountLabel.integerValue = inspectable.tile?.neighbours.count ?? 0
+        
+        controller.gridRenderingButton.state = (inspectable.foliage.isHidden ? .off : .on)
+        controller.chunkRenderingButton.state = (inspectable.chunk?.isHidden ?? false ? .off : .on)
+        controller.tileRenderingButton.state = (inspectable.tile?.isHidden ?? false ? .off : .on)
+        
+        controller.chunkCoordinateView.coordinate = inspectable.chunk?.coordinate ?? .zero
+        controller.tileCoordinateView.coordinate = inspectable.tile?.coordinate ?? .zero
     }
 }
-

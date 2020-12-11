@@ -2,23 +2,30 @@
 //  InspectorTabViewCoordinator.swift
 //  Orchard
 //
-//  Created by Zack Brown on 20/04/2020.
-//  Copyright © 2020 Script Orchard. All rights reserved.
+//  Created by Zack Brown on 05/11/2020.
 //
 
+import Cocoa
 import Meadow
-import Terrace
 
 class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
     
-    lazy var viewModel: ViewModel = {
+    @objc enum Tab: Int {
         
-        return ViewModel(initialState: .empty)
-    }()
+        case empty
+        case area
+        case camera
+        case foliage
+        case footpath
+        case portals
+        case props
+        case scene
+        case terrain
+    }
     
     lazy var areaInspectorCoordinator: AreaInspectorCoordinator = {
        
-        guard let viewController = self.controller.children[ViewState.Tab.area.rawValue] as? AreaInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        guard let viewController = controller.children[Tab.area.rawValue] as? AreaInspectorViewController else { fatalError("Invalid view controller hierarchy") }
         
         let coordinator = AreaInspectorCoordinator(controller: viewController)
         
@@ -27,9 +34,20 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         return coordinator
     }()
     
+    lazy var cameraInspectorCoordinator: CameraInspectorCoordinator = {
+       
+        guard let viewController = controller.children[Tab.camera.rawValue] as? CameraInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = CameraInspectorCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
+    
     lazy var foliageInspectorCoordinator: FoliageInspectorCoordinator = {
        
-        guard let viewController = self.controller.children[ViewState.Tab.foliage.rawValue] as? FoliageInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        guard let viewController = controller.children[Tab.foliage.rawValue] as? FoliageInspectorViewController else { fatalError("Invalid view controller hierarchy") }
         
         let coordinator = FoliageInspectorCoordinator(controller: viewController)
         
@@ -40,7 +58,7 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
     
     lazy var footpathInspectorCoordinator: FootpathInspectorCoordinator = {
        
-        guard let viewController = self.controller.children[ViewState.Tab.footpath.rawValue] as? FootpathInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        guard let viewController = controller.children[Tab.footpath.rawValue] as? FootpathInspectorViewController else { fatalError("Invalid view controller hierarchy") }
         
         let coordinator = FootpathInspectorCoordinator(controller: viewController)
         
@@ -49,11 +67,33 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         return coordinator
     }()
     
-    lazy var meadowInspectorCoordinator: MeadowInspectorCoordinator = {
+    lazy var portalInspectorCoordinator: PortalInspectorCoordinator = {
        
-        guard let viewController = self.controller.children[ViewState.Tab.meadow.rawValue] as? MeadowInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        guard let viewController = controller.children[Tab.portals.rawValue] as? PortalInspectorViewController else { fatalError("Invalid view controller hierarchy") }
         
-        let coordinator = MeadowInspectorCoordinator(controller: viewController)
+        let coordinator = PortalInspectorCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
+    
+    lazy var propsInspectorCoordinator: PropsInspectorCoordinator = {
+       
+        guard let viewController = controller.children[Tab.props.rawValue] as? PropsInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = PropsInspectorCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
+    
+    lazy var sceneInspectorCoordinator: SceneInspectorCoordinator = {
+       
+        guard let viewController = controller.children[Tab.scene.rawValue] as? SceneInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = SceneInspectorCoordinator(controller: viewController)
         
         coordinator.parent = self
         
@@ -62,7 +102,7 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
     
     lazy var terrainInspectorCoordinator: TerrainInspectorCoordinator = {
        
-        guard let viewController = self.controller.children[ViewState.Tab.terrain.rawValue] as? TerrainInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        guard let viewController = controller.children[Tab.terrain.rawValue] as? TerrainInspectorViewController else { fatalError("Invalid view controller hierarchy") }
         
         let coordinator = TerrainInspectorCoordinator(controller: viewController)
         
@@ -71,94 +111,118 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         return coordinator
     }()
     
-    lazy var waterInspectorCoordinator: WaterInspectorCoordinator = {
-       
-        guard let viewController = self.controller.children[ViewState.Tab.water.rawValue] as? WaterInspectorViewController else { fatalError("Invalid view controller hierarchy") }
-        
-        let coordinator = WaterInspectorCoordinator(controller: viewController)
-        
-        coordinator.parent = self
-        
-        return coordinator
-    }()
- 
     override init(controller: InspectorTabViewController) {
         
         super.init(controller: controller)
         
         controller.coordinator = self
-        
-        viewModel.subscribe(stateDidChange(from:to:))
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func start(with option: StartOption?) {
+    override func start(with option: SceneGraphNode?) {
         
         super.start(with: option)
         
-        viewModel.start(with: option)
-    }
-    
-    override func stop(then completion: CoordinatorCompletionBlock?) {
+        guard let category = option?.category else { return }
         
-        stopChildren()
+        switch SceneGraphCategory(rawValue: category) {
         
-        viewModel.stop()
+        case .area,
+             .areaChunk,
+             .areaTile:
+            
+            toggle(inspector: .area)
         
-        completion?()
+        case .camera:
+            
+            toggle(inspector: .camera)
+            
+        case .foliage,
+             .foliageChunk,
+             .foliageTile:
+            
+            toggle(inspector: .foliage)
+        
+        case .footpath,
+             .foliageChunk,
+             .footpathTile:
+            
+            toggle(inspector: .footpath)
+            
+        case .portals,
+             .portal:
+            
+            toggle(inspector: .portals)
+            
+        case .props,
+             .prop:
+            
+            toggle(inspector: .props)
+            
+        case .scene:
+            
+            toggle(inspector: .scene)
+            
+        case .terrain,
+             .terrainChunk,
+             .terrainTile:
+            
+            toggle(inspector: .terrain)
+            
+        default:
+            
+            toggle(inspector: .empty)
+        }
     }
 }
 
 extension InspectorTabViewCoordinator {
     
-    func stateDidChange(from previousState: ViewState?, to currentState: ViewState) {
+    override func toggle(inspector tab: Tab) {
         
-        DispatchQueue.main.async {
-         
-            self.stopChildren()
+        stopChildren()
+        
+        switch tab {
+        
+        case .area:
             
-            switch currentState {
-                
-            case .area(let node):
-                
-                self.start(child: self.areaInspectorCoordinator, with: node)
-                
-            case .foliage(let node):
-                
-                self.start(child: self.foliageInspectorCoordinator, with: node)
-                
-            case .footpath(let node):
-                
-                self.start(child: self.footpathInspectorCoordinator, with: node)
-                
-            case .meadow(let node):
-                
-                self.start(child: self.meadowInspectorCoordinator, with: node)
-                
-            case .terrain(let node):
-                
-                self.start(child: self.terrainInspectorCoordinator, with: node)
-                
-            case .water(let node):
-                
-                self.start(child: self.waterInspectorCoordinator, with: node)
-                
-            default: break
-            }
+            start(child: areaInspectorCoordinator, with: selectedNode)
+        
+        case .camera:
             
-            self.controller.selectedTabViewItemIndex = currentState.tab.rawValue
+            start(child: cameraInspectorCoordinator, with: selectedNode)
+            
+        case .foliage:
+            
+            start(child: foliageInspectorCoordinator, with: selectedNode)
+            
+        case .footpath:
+            
+            start(child: footpathInspectorCoordinator, with: selectedNode)
+            
+        case .portals:
+            
+            start(child: portalInspectorCoordinator, with: selectedNode)
+            
+        case .props:
+            
+            start(child: propsInspectorCoordinator, with: selectedNode)
+        
+        case .scene:
+            
+            start(child: sceneInspectorCoordinator, with: selectedNode)
+            
+        case .terrain:
+            
+            start(child: terrainInspectorCoordinator, with: selectedNode)
+            
+        default: break
         }
-    }
-}
-
-extension InspectorTabViewCoordinator: SceneGraphObserver {
-    
-    func focus(node: SceneGraphNode) {
         
-        self.viewModel.select(node: node)
+        controller.selectedTabViewItemIndex = tab.rawValue
     }
 }

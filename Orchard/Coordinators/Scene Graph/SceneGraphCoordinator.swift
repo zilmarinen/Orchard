@@ -2,15 +2,14 @@
 //  SceneGraphCoordinator.swift
 //  Orchard
 //
-//  Created by Zack Brown on 20/04/2020.
-//  Copyright © 2020 Script Orchard. All rights reserved.
+//  Created by Zack Brown on 03/11/2020.
 //
 
+import Cocoa
 import Meadow
-import Terrace
 
 class SceneGraphCoordinator: Coordinator<SceneGraphViewController> {
- 
+    
     override init(controller: SceneGraphViewController) {
         
         super.init(controller: controller)
@@ -18,25 +17,27 @@ class SceneGraphCoordinator: Coordinator<SceneGraphViewController> {
         controller.coordinator = self
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func start(with option: StartOption?) {
-        
-        guard let meadow = option as? Meadow else { fatalError("Invalid start option for scene graph.") }
+    override func start(with option: SceneGraphNode?) {
         
         super.start(with: option)
         
-        controller.treeController.content = meadow
+        guard let scene = option as? Scene else { fatalError("Invalid start option") }
+        
+        controller.treeController.content = scene
+        
+        focus(node: scene.meadow)
     }
 }
 
-extension SceneGraphCoordinator: SceneGraphObserver {
+extension SceneGraphCoordinator {
     
-    func focus(node: SceneGraphNode) {
+    override func focus(node: SceneGraphNode) {
         
-        controller.outlineView.reloadItem(node, reloadChildren: true)
+        print("SceneGraphCoordinator: focus: \(node)")
     }
 }

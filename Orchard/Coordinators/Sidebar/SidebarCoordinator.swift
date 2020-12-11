@@ -2,12 +2,11 @@
 //  SidebarCoordinator.swift
 //  Orchard
 //
-//  Created by Zack Brown on 20/04/2020.
-//  Copyright © 2020 Script Orchard. All rights reserved.
+//  Created by Zack Brown on 03/11/2020.
 //
 
+import Cocoa
 import Meadow
-import Terrace
 
 class SidebarCoordinator: Coordinator<SidebarViewController> {
     
@@ -29,31 +28,35 @@ class SidebarCoordinator: Coordinator<SidebarViewController> {
         controller.coordinator = self
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func start(with option: StartOption?) {
+    override func start(with option: SceneGraphNode?) {
         
         super.start(with: option)
         
+        guard let scene = option as? Scene else { fatalError("Invalid start option") }
+        
         start(child: tabViewCoordinator, with: option)
+        
+        focus(node: scene)
     }
 }
 
 extension SidebarCoordinator {
     
-    override func toggle(tab: SidebarTabViewCoordinator.ViewState.Tab) {
+    override func focus(node: SceneGraphNode) {
         
-        self.tabViewCoordinator.toggle(tab: tab)
+        toggle(sidebar: .inspector)
     }
-}
-
-extension SidebarCoordinator: SceneGraphObserver {
     
-    func focus(node: SceneGraphNode) {
+    override func toggle(sidebar tab: SidebarTabViewCoordinator.Tab) {
         
-        self.tabViewCoordinator.focus(node: node)
+        tabViewCoordinator.toggle(sidebar: tab)
+        
+        controller.inspectorButton.contentTintColor = (tab == .inspector ? .alternateSelectedControlColor : .controlColor)
+        controller.utilityButton.contentTintColor = (tab == .utility ? .alternateSelectedControlColor : .controlColor)
     }
 }

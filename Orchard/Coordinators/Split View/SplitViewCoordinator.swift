@@ -2,12 +2,11 @@
 //  SplitViewCoordinator.swift
 //  Orchard
 //
-//  Created by Zack Brown on 15/04/2020.
-//  Copyright © 2020 Script Orchard. All rights reserved.
+//  Created by Zack Brown on 03/11/2020.
 //
 
+import Cocoa
 import Meadow
-import Terrace
 
 class SplitViewCoordinator: Coordinator<SplitViewController> {
     
@@ -22,11 +21,11 @@ class SplitViewCoordinator: Coordinator<SplitViewController> {
         return coordinator
     }()
     
-    lazy var sceneViewCoordinator: SceneViewCoordinator = {
+    lazy var sceneCoordinator: SceneCoordinator = {
        
         guard let viewController = controller.sceneViewController else { fatalError("Invalid view controller hierarchy") }
         
-        let coordinator = SceneViewCoordinator(controller: viewController)
+        let coordinator = SceneCoordinator(controller: viewController)
         
         coordinator.parent = self
         
@@ -44,6 +43,8 @@ class SplitViewCoordinator: Coordinator<SplitViewController> {
         return coordinator
     }()
     
+    weak var focus: SceneGraphNode?
+    
     override init(controller: SplitViewController) {
         
         super.init(controller: controller)
@@ -51,37 +52,59 @@ class SplitViewCoordinator: Coordinator<SplitViewController> {
         controller.coordinator = self
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func start(with option: StartOption?) {
+    override func start(with option: SceneGraphNode?) {
         
         super.start(with: option)
         
+        guard let scene = option as? Scene else { fatalError("Invalid start option") }
+        
+        focus = scene
+        
         start(child: sceneGraphCoordinator, with: option)
-        start(child: sceneViewCoordinator, with: option)
+        start(child: sceneCoordinator, with: option)
         start(child: sidebarCoordinator, with: option)
+    }
+    
+    override func stop(then completion: CoordinatorCompletionBlock?) {
+        
+        stop(child: sceneGraphCoordinator)
+        stop(child: sceneCoordinator)
+        stop(child: sidebarCoordinator)
     }
 }
 
 extension SplitViewCoordinator {
     
-    func toggle(sender: NSSegmentedControl) {
+    override var sceneView: SceneView? { sceneCoordinator.controller._sceneView }
+    
+    override var selectedNode: SceneGraphNode? { focus }
+    
+    override func didSelect(node: SceneGraphNode) {
         
-        let panel = (sender.selectedSegment == 0 ? SplitViewController.Panel.sceneGraph : SplitViewController.Panel.inspector)
-        
-        controller.toggle(panel: panel)
-    }
-}
-
-extension SplitViewCoordinator: SceneGraphObserver {
-
-    func focus(node: SceneGraphNode) {
+        focus = node
         
         sceneGraphCoordinator.focus(node: node)
-        sceneViewCoordinator.focus(node: node)
+        sceneCoordinator.focus(node: node)
         sidebarCoordinator.focus(node: node)
+    }
+    
+    override func didSetScene(backgroundColor: MDWColor) {
+        
+        sceneView?.backgroundColor = backgroundColor
+    }
+    
+    override func toggle(season: Int) {
+        
+        guard let season = Season(rawValue: season),
+              let scene = sceneView?.scene as? Scene else { return }
+        
+        scene.meadow.world = World(season: season)
+        
+        scene.meadow.soil()
     }
 }
