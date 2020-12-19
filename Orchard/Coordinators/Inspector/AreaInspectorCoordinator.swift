@@ -8,7 +8,9 @@
 import Cocoa
 import Meadow
 
-class AreaInspectorCoordinator: Coordinator<AreaInspectorViewController>, Inspector {
+class AreaInspectorCoordinator: Coordinator<AreaInspectorViewController>, Inspector, MouseObservable {
+    
+    var mouseObserver: UUID?
     
     var inspectable: AreaInspectable? {
         
@@ -74,6 +76,31 @@ extension AreaInspectorCoordinator {
         if let slope = tile.slope {
             
             controller.directionPopUp.selectItem(at: slope.rawValue)
+        }
+    }
+}
+
+extension AreaInspectorCoordinator {
+    
+    func stateDidChange(from previousState: SceneView.MouseState?, to currentState: SceneView.MouseState) {
+        
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else { return }
+            
+            switch currentState {
+            
+            case .down(let position, _):
+                
+                guard let sceneView = self.sceneView,
+                      let scene = sceneView.scene as? Scene,
+                      let hit = sceneView.hitTest(point: position.start, category: [.area, .areaChunk]),
+                      let tile = scene.meadow.area.find(tile: Coordinate(vector: hit)) else { return }
+                
+                self.didSelect(node: tile)
+                
+            default: break
+            }
         }
     }
 }

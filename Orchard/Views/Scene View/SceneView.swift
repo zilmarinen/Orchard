@@ -103,42 +103,42 @@ extension SceneView {
         
         super.mouseDown(with: event)
         
-        mouseDown(event: event, type: .left)
+        mouseDown(event: event, clickType: .left)
     }
     
     public override func rightMouseDown(with event: NSEvent) {
         
         super.rightMouseDown(with: event)
         
-        mouseDown(event: event, type: .right)
+        mouseDown(event: event, clickType: .right)
     }
     
     public override func mouseUp(with event: NSEvent) {
         
         super.mouseUp(with: event)
         
-        mouseUp(event: event, type: .left)
+        mouseUp(event: event, clickType: .left)
     }
     
     public override func rightMouseUp(with event: NSEvent) {
         
         super.rightMouseUp(with: event)
         
-        mouseUp(event: event, type: .right)
+        mouseUp(event: event, clickType: .right)
     }
     
     public override func mouseDragged(with event: NSEvent) {
         
         super.mouseDragged(with: event)
         
-        mouseDragged(event: event, type: .left)
+        mouseDragged(event: event, clickType: .left)
     }
     
     public override func rightMouseDragged(with event: NSEvent) {
         
         super.rightMouseDragged(with: event)
         
-        mouseDragged(event: event, type: .right)
+        mouseDragged(event: event, clickType: .right)
     }
     
     public override func mouseMoved(with event: NSEvent) {
@@ -169,7 +169,7 @@ extension SceneView {
 
 extension SceneView {
     
-    func mouseDown(event: NSEvent, type: SceneView.MouseState.ClickType) {
+    func mouseDown(event: NSEvent, clickType: SceneView.MouseState.ClickType) {
         
         switch mouseObserver.state {
             
@@ -177,13 +177,13 @@ extension SceneView {
             
             let point = convert(event.locationInWindow, from: nil)
             
-            mouseObserver.state = .down(position: (start: point, end: point), type: type)
+            mouseObserver.state = .down(position: SceneView.MouseState.Click(start: point, end: point), clickType: clickType)
             
         default: break
         }
     }
     
-    func mouseUp(event: NSEvent, type: SceneView.MouseState.ClickType) {
+    func mouseUp(event: NSEvent, clickType: SceneView.MouseState.ClickType) {
      
         switch mouseObserver.state {
             
@@ -192,13 +192,13 @@ extension SceneView {
             
             let point = convert(event.locationInWindow, from: nil)
             
-            mouseObserver.state = .up(position: (start: position.start, end: point), type: type)
+            mouseObserver.state = .up(position: SceneView.MouseState.Click(start: position.start, end: point), clickType: clickType)
             
         default: break
         }
     }
     
-    func mouseDragged(event: NSEvent, type: SceneView.MouseState.ClickType) {
+    func mouseDragged(event: NSEvent, clickType: SceneView.MouseState.ClickType) {
         
         switch mouseObserver.state {
             
@@ -207,7 +207,7 @@ extension SceneView {
             
             let point = convert(event.locationInWindow, from: nil)
             
-            mouseObserver.state = .tracking(position: (start: position.start, end: point), type: type)
+            mouseObserver.state = .tracking(position: SceneView.MouseState.Click(start: position.start, end: point), clickType: clickType)
             
         default: break
         }
@@ -221,7 +221,7 @@ extension SceneView {
             
             let point = convert(event.locationInWindow, from: nil)
             
-            mouseObserver.state = .zoom(position: point, delta: event.magnification)
+            mouseObserver.state = .zoom(position: point, delta: Double(event.magnification))
             
         default: break
         }

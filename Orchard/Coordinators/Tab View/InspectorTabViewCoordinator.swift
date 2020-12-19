@@ -148,7 +148,7 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
             toggle(inspector: .foliage)
         
         case .footpath,
-             .foliageChunk,
+             .footpathChunk,
              .footpathTile:
             
             toggle(inspector: .footpath)

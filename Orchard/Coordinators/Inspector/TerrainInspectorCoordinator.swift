@@ -93,22 +93,22 @@ extension TerrainInspectorCoordinator {
     
     func stateDidChange(from previousState: SceneView.MouseState?, to currentState: SceneView.MouseState) {
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else { return }
             
             switch currentState {
             
-            case .down(let position, let type):
+            case .down(let position, _):
                 
                 guard let sceneView = self.sceneView,
-                      let hit = sceneView.hitTest(point: position.start, category: .terrainChunk) else { return }
+                      let scene = sceneView.scene as? Scene,
+                      let hit = sceneView.hitTest(point: position.start, category: [.terrain, .terrainChunk]),
+                      let tile = scene.meadow.terrain.find(tile: Coordinate(vector: hit)) else { return }
                 
-                print("mouseDown -> [\(position)] - [\(type)")
-                print("hit: \(hit)")
+                self.didSelect(node: tile)
                 
-            case .up(let position, let type): print("mouseUp -> [\(position)] - [\(type)")
-            case .tracking(let position, let type): print("mouseTracking -> [\(position)] - [\(type)")
-            case .idle(let position): print("mouseIdle -> [\(position)]")
-            case .zoom(let position, let delta): print("mouseZoom -> [\(position)] - [\(delta)]")
+            default: break
             }
         }
     }

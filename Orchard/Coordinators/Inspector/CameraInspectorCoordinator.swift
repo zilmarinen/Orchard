@@ -50,6 +50,6 @@ extension CameraInspectorCoordinator {
         
         guard controller.isViewLoaded, let inspectable = inspectable else { return }
         
-        controller.orthographicProjectionButton.state = (inspectable.camera?.usesOrthographicProjection ?? false ? .on : .off)
+        controller.orthographicProjectionButton.state = (inspectable.jig.camera?.usesOrthographicProjection ?? false ? .on : .off)
     }
 }

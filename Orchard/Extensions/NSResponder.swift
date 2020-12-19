@@ -10,8 +10,6 @@ import Meadow
 
 @objc extension NSResponder {
     
-    func didSetScene(backgroundColor: MDWColor) { responder?.didSetScene(backgroundColor: backgroundColor) }
-    
     func toggle(splitView panel: SplitViewController.Panel) { responder?.toggle(splitView: panel) }
     func toggle(sidebar tab: SidebarTabViewCoordinator.Tab) { responder?.toggle(sidebar: tab) }
     

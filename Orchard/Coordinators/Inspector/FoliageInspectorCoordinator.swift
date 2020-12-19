@@ -8,7 +8,9 @@
 import Cocoa
 import Meadow
 
-class FoliageInspectorCoordinator: Coordinator<FoliageInspectorViewController>, Inspector {
+class FoliageInspectorCoordinator: Coordinator<FoliageInspectorViewController>, Inspector, MouseObservable {
+    
+    var mouseObserver: UUID?
     
     var inspectable: FoliageInspectable? {
         
@@ -63,5 +65,30 @@ extension FoliageInspectorCoordinator {
         
         controller.chunkCoordinateView.coordinate = inspectable.chunk?.coordinate ?? .zero
         controller.tileCoordinateView.coordinate = inspectable.tile?.coordinate ?? .zero
+    }
+}
+
+extension FoliageInspectorCoordinator {
+    
+    func stateDidChange(from previousState: SceneView.MouseState?, to currentState: SceneView.MouseState) {
+        
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else { return }
+            
+            switch currentState {
+            
+            case .down(let position, _):
+                
+                guard let sceneView = self.sceneView,
+                      let scene = sceneView.scene as? Scene,
+                      let hit = sceneView.hitTest(point: position.start, category: [.terrain, .terrainChunk]),
+                      let tile = scene.meadow.foliage.find(tile: Coordinate(vector: hit)) else { return }
+                
+                self.didSelect(node: tile)
+                
+            default: break
+            }
+        }
     }
 }

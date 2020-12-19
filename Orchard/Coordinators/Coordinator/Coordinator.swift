@@ -1,6 +1,6 @@
 //
 //  Coordinator.swift
-//  Terrace
+//  Orchard
 //
 //  Created by Zack Brown on 14/04/2020.
 //
@@ -104,7 +104,12 @@ open class Coordinator<T>: NSResponder, Coordinatable {
     
     func stopChildren() {
         
-        children.values.forEach { stop(child: $0) }
+        children.values.forEach {
+            
+            $0.stopChildren()
+            
+            stop(child: $0)
+        }
     }
     
     public override var responder: NSResponder? { parent as? NSResponder }

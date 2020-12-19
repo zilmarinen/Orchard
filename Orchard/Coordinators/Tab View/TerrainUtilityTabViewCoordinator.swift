@@ -12,9 +12,21 @@ class TerrainUtilityTabViewCoordinator: Coordinator<TerrainUtilityTabViewControl
     
     @objc enum Tab: Int {
         
+        case adjust
         case build
         case paint
     }
+    
+    lazy var adjustUtilityCoordinator: TerrainAdjustUtilityCoordinator = {
+       
+        guard let viewController = controller.children[Tab.adjust.rawValue] as? TerrainAdjustUtilityViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = TerrainAdjustUtilityCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
     
     lazy var buildUtilityCoordinator: TerrainBuildUtilityCoordinator = {
        
@@ -65,6 +77,10 @@ extension TerrainUtilityTabViewCoordinator {
         stopChildren()
         
         switch utility {
+        
+        case .adjust:
+            
+            start(child: adjustUtilityCoordinator, with: selectedNode)
         
         case .build:
             

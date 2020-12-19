@@ -93,11 +93,6 @@ extension SplitViewCoordinator {
         sidebarCoordinator.focus(node: node)
     }
     
-    override func didSetScene(backgroundColor: MDWColor) {
-        
-        sceneView?.backgroundColor = backgroundColor
-    }
-    
     override func toggle(season: Int) {
         
         guard let season = Season(rawValue: season),

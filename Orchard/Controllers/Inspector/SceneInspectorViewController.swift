@@ -19,14 +19,33 @@ class SceneInspectorViewController: NSViewController {
     }
     
     @IBOutlet weak var backgroundColorWell: NSColorWell!
+    @IBOutlet weak var gridColorWell: NSColorWell!
+    
+    @IBOutlet weak var gridRenderingButton: NSButton!
+    
+    @IBAction func button(_ sender: NSButton) {
+        
+        guard let inspectable = coordinator?.inspectable else { return }
+        
+        inspectable.meadow.floor.drawGrid = sender.state == .on
+    }
     
     @IBAction func colorWell(_ sender: NSColorWell) {
      
         guard let inspectable = coordinator?.inspectable else { return }
         
-        inspectable.backgroundColor = Color(red: Double(sender.color.redComponent), green: Double(sender.color.greenComponent), blue: Double(sender.color.blueComponent), alpha: Double(sender.color.alphaComponent))
+        switch sender {
         
-        coordinator?.didSetScene(backgroundColor: sender.color)
+        case backgroundColorWell:
+            
+            inspectable.meadow.floor.backgroundColor = Color(red: Double(sender.color.redComponent), green: Double(sender.color.greenComponent), blue: Double(sender.color.blueComponent), alpha: Double(sender.color.alphaComponent))
+            
+        case gridColorWell:
+            
+            inspectable.meadow.floor.gridColor = Color(red: Double(sender.color.redComponent), green: Double(sender.color.greenComponent), blue: Double(sender.color.blueComponent), alpha: Double(sender.color.alphaComponent))
+            
+        default: break
+        }
         
         coordinator?.refresh()
     }

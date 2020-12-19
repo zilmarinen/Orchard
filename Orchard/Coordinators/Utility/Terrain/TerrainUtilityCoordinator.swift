@@ -73,6 +73,7 @@ extension TerrainUtilityCoordinator {
         
         tabViewCoordinator.toggle(terrain: utility)
         
+        controller.adjustButton.contentTintColor = (utility == .adjust ? .alternateSelectedControlColor : .controlColor)
         controller.buildButton.contentTintColor = (utility == .build ? .alternateSelectedControlColor : .controlColor)
         controller.paintButton.contentTintColor = (utility == .paint ? .alternateSelectedControlColor : .controlColor)
     }

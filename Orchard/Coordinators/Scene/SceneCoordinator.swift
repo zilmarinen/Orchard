@@ -14,6 +14,9 @@ class SceneCoordinator: Coordinator<SceneViewController>, KeyboardObservable, Mo
     var keyboardObserver: UUID?
     var mouseObserver: UUID?
     
+    let blueprint = SCNNode()
+    let focus = SCNNode()
+    
     override init(controller: SceneViewController) {
         
         super.init(controller: controller)
@@ -31,20 +34,22 @@ class SceneCoordinator: Coordinator<SceneViewController>, KeyboardObservable, Mo
         super.start(with: option)
         
         guard let scene = option as? Scene,
-              let sceneView = sceneView else { fatalError("Invalid start option") }
+              let sceneView = sceneView,
+              let device = sceneView.device else { fatalError("Invalid start option") }
         
-        sceneView.backgroundColor = scene.backgroundColor.color
+        scene.meadow.library = try? device.makeDefaultLibrary(bundle: Meadow.bundle)
+        scene.rootNode.addChildNode(blueprint)
+        scene.rootNode.addChildNode(focus)
+        
         sceneView.scene = scene
         sceneView.delegate = self
         sceneView.play(nil)
-        sceneView.allowsCameraControl = true
+        sceneView.allowsCameraControl = false
         sceneView.autoenablesDefaultLighting = true
         
-        focus(node: scene)
+        scene.camera.controller.focus(node: focus, ordinal: .northEast, zoom: 1.0)
         
-        scene.camera.camera?.usesOrthographicProjection = true
-        scene.camera.position = SCNVector3(x: 20, y: 20, z: 20)
-        scene.camera.look(at: SCNVector3(x: 0, y: 0, z: 0))
+        focus(node: scene)
         
         subscribeToKeyboardEvents()
         subscribeToMouseEvents()
@@ -72,7 +77,23 @@ extension SceneCoordinator: SCNSceneRendererDelegate {
         
         case .keysHeld(let keys):
             
-            print("keys are held down: [\(keys)]")
+            var vector = Vector.zero
+            
+            for key in keys {
+                
+                switch key {
+                
+                case .w: vector += Ordinal.southEast.vector
+                case .a: vector += Ordinal.northEast.vector
+                case .s: vector += Ordinal.northWest.vector
+                case .d: vector += Ordinal.southWest.vector
+                default: break
+                }
+            }
+            
+            let v0 = Vector(vector: focus.position)
+            
+            focus.position = SCNVector3(vector: (v0 + vector))
             
         default: break
         }
@@ -119,13 +140,29 @@ extension SceneCoordinator {
     
     func stateDidChange(from previousState: SceneView.KeyboardState?, to currentState: SceneView.KeyboardState) {
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else { return }
             
             switch currentState {
             
             case .keyUp(let key):
                 
-                print("keyUp -> [\(key)]")
+                guard let sceneView = self.sceneView,
+                      let scene = sceneView.scene as? Scene else { return }
+                
+                switch key {
+                
+                case .q:
+                    
+                    scene.camera.controller.rotate(direction: .anticlockwise)
+                    
+                case .e:
+                    
+                    scene.camera.controller.rotate(direction: .clockwise)
+                    
+                default: break
+                }
                 
             default: break
             }
@@ -137,13 +174,20 @@ extension SceneCoordinator {
     
     func stateDidChange(from previousState: SceneView.MouseState?, to currentState: SceneView.MouseState) {
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else { return }
             
             switch currentState {
             
-            case .zoom(let position, let delta):
+            case .zoom(_, let delta):
                 
-                print("mouseZoom -> [\(position)] - [\(delta)]")
+                guard let sceneView = self.sceneView,
+                      let scene = sceneView.scene as? Scene else { return }
+                
+                let direction: Camera.CameraController.Transform.Zoom = (delta > 0 ? .in(-delta) : .out(abs(delta)))
+                
+                scene.camera.controller.zoom(direction: direction)
                 
             default: break
             }

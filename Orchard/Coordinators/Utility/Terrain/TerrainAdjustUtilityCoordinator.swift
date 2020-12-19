@@ -1,18 +1,18 @@
 //
-//  TerrainPaintUtilityCoordinator.swift
+//  TerrainAdjustUtilityCoordinator.swift
 //  Orchard
 //
-//  Created by Zack Brown on 06/11/2020.
+//  Created by Zack Brown on 16/12/2020.
 //
 
 import Cocoa
 import Meadow
 
-class TerrainPaintUtilityCoordinator: Coordinator<TerrainPaintUtilityViewController>, MouseObservable {
+class TerrainAdjustUtilityCoordinator: Coordinator<TerrainAdjustUtilityViewController>, MouseObservable {
     
     var mouseObserver: UUID?
     
-    override init(controller: TerrainPaintUtilityViewController) {
+    override init(controller: TerrainAdjustUtilityViewController) {
         
         super.init(controller: controller)
         
@@ -39,7 +39,7 @@ class TerrainPaintUtilityCoordinator: Coordinator<TerrainPaintUtilityViewControl
     }
 }
 
-extension TerrainPaintUtilityCoordinator {
+extension TerrainAdjustUtilityCoordinator {
     
     func stateDidChange(from previousState: SceneView.MouseState?, to currentState: SceneView.MouseState) {
         

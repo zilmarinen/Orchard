@@ -17,7 +17,7 @@ class CameraInspectorViewController: NSViewController {
         
         guard let inspectable = coordinator?.inspectable else { return }
         
-        inspectable.camera?.usesOrthographicProjection = sender.state == .on
+        inspectable.jig.camera?.usesOrthographicProjection = sender.state == .on
         
         coordinator?.refresh()
     }

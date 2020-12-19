@@ -9,6 +9,7 @@ import Cocoa
 
 class TerrainUtilityViewController: NSViewController {
     
+    @IBOutlet weak var adjustButton: NSButton!
     @IBOutlet weak var buildButton: NSButton!
     @IBOutlet weak var paintButton: NSButton!
     @IBOutlet weak var containerView: NSView!
@@ -25,6 +26,10 @@ class TerrainUtilityViewController: NSViewController {
         case gridRenderingButton:
             
             inspectable.terrain.isHidden = sender.state == .off
+            
+        case adjustButton:
+            
+            coordinator?.toggle(terrain: .adjust)
         
         case buildButton:
             
