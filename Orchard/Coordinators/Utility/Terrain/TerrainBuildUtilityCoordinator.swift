@@ -49,26 +49,41 @@ extension TerrainBuildUtilityCoordinator {
             
             switch currentState {
             
-            case .tracking(let position, let clickType):
+            case .up(let position, let clickType):
                 
                 guard let sceneView = self.sceneView,
                       let scene = sceneView.scene as? Scene,
+                      let tileType = TerrainTileType(rawValue: self.controller.typePopUp.indexOfSelectedItem),
                       let startHit = sceneView.hitTest(point: position.start, category: [.floor, .terrain, .terrainChunk]),
-                      let endHit = sceneView.hitTest(point: position.end, category: [.floor, .terrain, .terrainChunk])else { return }
+                      let endHit = sceneView.hitTest(point: position.end, category: [.floor, .terrain, .terrainChunk]) else { return }
                 
-                let c0 = Coordinate(vector: startHit)
-                let c1 = Coordinate(vector: endHit)
-                print("c0: \(c0) - c1: \(c1)")
-                let minimumX = min(c0.x, c1.x)
-                let minimumZ = min(c0.y, c1.y)
-                let maximumX = max(c0.x, c1.x)
-                let maximumZ = max(c0.y, c1.y)
+                let selection = Selection(start: Coordinate(vector: startHit), end: Coordinate(vector: endHit))
                 
-                for x in minimumX..<maximumX {
+                print("selected:")
+                print("min: [\(selection.start.x), \(selection.start.z)]")
+                print("max: [\(selection.end.x), \(selection.end.z)]")
+                
+                for x in selection.start.x..<selection.end.x {
                     
-                    for z in minimumZ..<maximumZ {
+                    for z in selection.start.z..<selection.end.z {
                         
+                        let coordinate = Coordinate(x: x, y: self.controller.elevationStepper.integerValue, z: z)
                         
+                        switch clickType {
+                        
+                        case .left:
+                            
+                            _ = scene.meadow.terrain.add(tile: coordinate) { tile in
+                                
+                                tile.tileType = tileType
+                            }
+                            
+                        case .right:
+                            
+                            scene.meadow.terrain.remove(tile: coordinate)
+                            
+                        default: break
+                        }
                     }
                 }
                 

@@ -51,7 +51,6 @@ class Document: NSDocument {
         let decoder = JSONDecoder()
         
         self.scene = try decoder.decode(Scene.self, from: sceneGraph)
-        self.scene?.meadow.soil()
     }
     
     override func fileWrapper(ofType typeName: String) throws -> FileWrapper {

@@ -92,14 +92,4 @@ extension SplitViewCoordinator {
         sceneCoordinator.focus(node: node)
         sidebarCoordinator.focus(node: node)
     }
-    
-    override func toggle(season: Int) {
-        
-        guard let season = Season(rawValue: season),
-              let scene = sceneView?.scene as? Scene else { return }
-        
-        scene.meadow.world = World(season: season)
-        
-        scene.meadow.soil()
-    }
 }

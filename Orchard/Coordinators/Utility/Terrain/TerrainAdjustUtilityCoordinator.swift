@@ -48,6 +48,28 @@ extension TerrainAdjustUtilityCoordinator {
             guard let self = self else { return }
             
             switch currentState {
+            
+            case .up(let position, _):
+                
+                guard let sceneView = self.sceneView,
+                      let scene = sceneView.scene as? Scene,
+                      let startHit = sceneView.hitTest(point: position.start, category: [.floor, .terrain, .terrainChunk]),
+                      let endHit = sceneView.hitTest(point: position.end, category: [.floor, .terrain, .terrainChunk]) else { return }
+                
+                let selection = Selection(start: Coordinate(vector: startHit), end: Coordinate(vector: endHit))
+                
+                for x in selection.start.x..<selection.end.x {
+                    
+                    for z in selection.start.z..<selection.end.z {
+                        
+                        let coordinate = Coordinate(x: x, y: 0, z: z)
+                        
+                        if let tile = scene.meadow.terrain.find(tile: coordinate) {
+                            
+                            tile.coordinate = Coordinate(x: x, y: self.controller.elevationStepper.integerValue, z: z)
+                        }
+                    }
+                }
                 
             default: break
             }

@@ -26,8 +26,6 @@ import Meadow
     func didSelect(node: SceneGraphNode) { responder?.didSelect(node: node) }
     func focus(node: SceneGraphNode) { responder?.focus(node: node) }
     
-    func toggle(season: Int) { responder?.toggle(season: season) }
-    
     var responder: NSResponder? { nextResponder }
     
     var sceneView: SceneView? { responder?.sceneView }

@@ -23,8 +23,13 @@ class TerrainBuildUtilityViewController: NSViewController {
         }
     }
     
-    @IBAction func popUp(_ sender: NSPopUpButton) {
+    @IBOutlet weak var elevationStepper: NumberStepper! {
         
+        didSet {
+            
+            elevationStepper.maximumValue = World.Constants.ceiling
+            elevationStepper.minimumValue = 0
+        }
     }
     
     weak var coordinator: TerrainBuildUtilityCoordinator?

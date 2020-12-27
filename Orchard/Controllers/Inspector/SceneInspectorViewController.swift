@@ -18,6 +18,19 @@ class SceneInspectorViewController: NSViewController {
         }
     }
     
+    @IBOutlet weak var seasonPopUp: NSPopUpButton! {
+        
+        didSet {
+            
+            seasonPopUp.removeAllItems()
+            
+            for season in Season.allCases {
+                
+                seasonPopUp.addItem(withTitle: season.description)
+            }
+        }
+    }
+    
     @IBOutlet weak var backgroundColorWell: NSColorWell!
     @IBOutlet weak var gridColorWell: NSColorWell!
     
@@ -27,7 +40,7 @@ class SceneInspectorViewController: NSViewController {
         
         guard let inspectable = coordinator?.inspectable else { return }
         
-        inspectable.meadow.floor.drawGrid = sender.state == .on
+        inspectable.camera.floor.drawGrid = sender.state == .on
     }
     
     @IBAction func colorWell(_ sender: NSColorWell) {
@@ -38,16 +51,24 @@ class SceneInspectorViewController: NSViewController {
         
         case backgroundColorWell:
             
-            inspectable.meadow.floor.backgroundColor = Color(red: Double(sender.color.redComponent), green: Double(sender.color.greenComponent), blue: Double(sender.color.blueComponent), alpha: Double(sender.color.alphaComponent))
+            inspectable.camera.floor.backgroundColor = Color(red: Double(sender.color.redComponent), green: Double(sender.color.greenComponent), blue: Double(sender.color.blueComponent), alpha: Double(sender.color.alphaComponent))
             
         case gridColorWell:
             
-            inspectable.meadow.floor.gridColor = Color(red: Double(sender.color.redComponent), green: Double(sender.color.greenComponent), blue: Double(sender.color.blueComponent), alpha: Double(sender.color.alphaComponent))
+            inspectable.camera.floor.gridColor = Color(red: Double(sender.color.redComponent), green: Double(sender.color.greenComponent), blue: Double(sender.color.blueComponent), alpha: Double(sender.color.alphaComponent))
             
         default: break
         }
         
         coordinator?.refresh()
+    }
+    
+    @IBAction func popUp(_ sender: NSPopUpButton) {
+        
+        guard let inspectable = coordinator?.inspectable,
+              let season = Season(rawValue: sender.indexOfSelectedItem) else { return }
+        
+        inspectable.world = World(season: season)
     }
     
     weak var coordinator: SceneInspectorCoordinator?

@@ -23,9 +23,5 @@ class TerrainPaintUtilityViewController: NSViewController {
         }
     }
     
-    @IBAction func popUp(_ sender: NSPopUpButton) {
-        
-    }
-    
     weak var coordinator: TerrainPaintUtilityCoordinator?
 }

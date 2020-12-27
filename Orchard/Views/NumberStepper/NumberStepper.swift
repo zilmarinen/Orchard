@@ -14,6 +14,30 @@ class NumberStepper: NSView {
     let textField = NSTextField()
     let stepper = NSStepper()
     
+    var maximumValue: Int {
+        
+        get {
+            
+            Int(stepper.maxValue)
+        }
+        set {
+            
+            stepper.maxValue = Double(newValue)
+        }
+    }
+    
+    var minimumValue: Int {
+        
+        get {
+            
+            Int(stepper.minValue)
+        }
+        set {
+            
+            stepper.minValue = Double(newValue)
+        }
+    }
+    
     var integerValue: Int {
         
         get {

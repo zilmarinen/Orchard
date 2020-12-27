@@ -51,8 +51,9 @@ extension SceneInspectorCoordinator {
         guard controller.isViewLoaded, let inspectable = inspectable else { return }
         
         controller.sceneNameLabel.stringValue = inspectable.name ?? ""
-        controller.backgroundColorWell.color = inspectable.meadow.floor.backgroundColor.color
-        controller.gridColorWell.color = inspectable.meadow.floor.gridColor.color
-        controller.gridRenderingButton.state = inspectable.meadow.floor.drawGrid ? .on : .off
+        controller.seasonPopUp.selectItem(at: inspectable.world.season.rawValue)
+        controller.backgroundColorWell.color = inspectable.camera.floor.backgroundColor.color
+        controller.gridColorWell.color = inspectable.camera.floor.gridColor.color
+        controller.gridRenderingButton.state = inspectable.camera.floor.drawGrid ? .on : .off
     }
 }

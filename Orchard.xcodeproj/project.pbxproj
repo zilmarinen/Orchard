@@ -88,6 +88,7 @@
 		18B6353D257F7F01009C7429 /* AreaInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B6353C257F7F01009C7429 /* AreaInspectorCoordinator.swift */; };
 		18B94DB02578E0CA004FDE14 /* FootpathInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B94DAF2578E0CA004FDE14 /* FootpathInspectorCoordinator.swift */; };
 		18B94DB32578E0DD004FDE14 /* FootpathInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B94DB22578E0DD004FDE14 /* FootpathInspectorViewController.swift */; };
+		18C556502591ED590065C085 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C5564F2591ED590065C085 /* Selection.swift */; };
 		18D3A16725515D3A00031CA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3A16625515D3A00031CA7 /* AppDelegate.swift */; };
 		18D3A16B25515D3A00031CA7 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3A16A25515D3A00031CA7 /* Document.swift */; };
 		18D3A16D25515D3C00031CA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D3A16C25515D3C00031CA7 /* Assets.xcassets */; };
@@ -191,6 +192,7 @@
 		18B6353C257F7F01009C7429 /* AreaInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaInspectorCoordinator.swift; sourceTree = "<group>"; };
 		18B94DAF2578E0CA004FDE14 /* FootpathInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathInspectorCoordinator.swift; sourceTree = "<group>"; };
 		18B94DB22578E0DD004FDE14 /* FootpathInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathInspectorViewController.swift; sourceTree = "<group>"; };
+		18C5564F2591ED590065C085 /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
 		18D3A16325515D3A00031CA7 /* Orchard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Orchard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18D3A16625515D3A00031CA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18D3A16A25515D3A00031CA7 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -503,6 +505,14 @@
 			path = Props;
 			sourceTree = "<group>";
 		};
+		18C5564E2591ED4C0065C085 /* Selection */ = {
+			isa = PBXGroup;
+			children = (
+				18C5564F2591ED590065C085 /* Selection.swift */,
+			);
+			path = Selection;
+			sourceTree = "<group>";
+		};
 		18D3A15A25515D3A00031CA7 = {
 			isa = PBXGroup;
 			children = (
@@ -524,6 +534,7 @@
 		18D3A16525515D3A00031CA7 /* Orchard */ = {
 			isa = PBXGroup;
 			children = (
+				18C5564E2591ED4C0065C085 /* Selection */,
 				18D3A16625515D3A00031CA7 /* AppDelegate.swift */,
 				18D3A16C25515D3C00031CA7 /* Assets.xcassets */,
 				18D3A17E2551650800031CA7 /* Controllers */,
@@ -812,6 +823,7 @@
 				18B5493A2578E66F0014A93F /* FootpathBuildUtilityCoordinator.swift in Sources */,
 				18331785257E1CA0001CC0A3 /* FoliageBuildUtilityViewController.swift in Sources */,
 				18B6353D257F7F01009C7429 /* AreaInspectorCoordinator.swift in Sources */,
+				18C556502591ED590065C085 /* Selection.swift in Sources */,
 				18B5492F2578E5C20014A93F /* FootpathBuildUtilityViewController.swift in Sources */,
 				1870D178255543AB00B39F8C /* SceneInspectorCoordinator.swift in Sources */,
 				1807F849255429B8008388DC /* InspectorTabViewCoordinator.swift in Sources */,

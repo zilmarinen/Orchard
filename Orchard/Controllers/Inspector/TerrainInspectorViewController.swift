@@ -106,8 +106,6 @@ class TerrainInspectorViewController: NSViewController {
                 inspectable.tile?.slope = nil
             }
             
-            inspectable.terrain.soil()
-            
         default: break
         }
         
@@ -134,8 +132,6 @@ class TerrainInspectorViewController: NSViewController {
             
         default: break
         }
-        
-        inspectable.terrain.soil()
         
         coordinator?.refresh()
     }

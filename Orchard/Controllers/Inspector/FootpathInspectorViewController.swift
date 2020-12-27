@@ -106,8 +106,6 @@ class FootpathInspectorViewController: NSViewController {
                 inspectable.tile?.slope = nil
             }
             
-            inspectable.footpath.soil()
-            
         default: break
         }
         
@@ -134,8 +132,6 @@ class FootpathInspectorViewController: NSViewController {
             
         default: break
         }
-        
-        inspectable.footpath.soil()
         
         coordinator?.refresh()
     }

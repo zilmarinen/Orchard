@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
-        <plugIn identifier="com.apple.SceneKitIBPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.SceneKitIBPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -699,10 +699,10 @@
                                 <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="ZO4-ds-SAu"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="GyC-zP-iKV"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="PtB-Iu-vJS"/>
-                                <toolbarItem implicitItemIdentifier="C2D9CC02-A6DB-4D36-BAEB-08C227291DAA" label="Custom View" paletteLabel="Custom View" sizingBehavior="auto" id="eGa-bx-Pl5">
+                                <toolbarItem implicitItemIdentifier="C2D9CC02-A6DB-4D36-BAEB-08C227291DAA" label="Sidebar Toggle" paletteLabel="Sidebar Toggle" sizingBehavior="auto" id="eGa-bx-Pl5">
                                     <nil key="toolTip"/>
                                     <segmentedControl key="view" verticalHuggingPriority="750" id="6wg-Pf-cff">
-                                        <rect key="frame" x="1" y="14" width="75" height="23"/>
+                                        <rect key="frame" x="6" y="14" width="75" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedRounded" trackingMode="momentary" id="LxP-Zb-s1v">
                                             <font key="font" metaFont="system"/>
@@ -716,30 +716,8 @@
                                         </connections>
                                     </segmentedControl>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="1147B1D7-257D-4557-ABBD-D0577AA306DD" label="Custom View" paletteLabel="Custom View" sizingBehavior="auto" id="NK7-FS-tkK">
-                                    <nil key="toolTip"/>
-                                    <popUpButton key="view" verticalHuggingPriority="750" id="XrO-fN-N2k">
-                                        <rect key="frame" x="0.0" y="14" width="84" height="25"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <popUpButtonCell key="cell" type="roundTextured" title="Season" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="A6f-2F-T40" id="153-8p-kOW">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="menu"/>
-                                            <menu key="menu" id="0t3-v6-bP1">
-                                                <items>
-                                                    <menuItem title="Season" state="on" id="A6f-2F-T40"/>
-                                                    <menuItem title="Item 2" id="pEC-E6-3fy"/>
-                                                    <menuItem title="Item 3" id="K9d-Jy-Jqx"/>
-                                                </items>
-                                            </menu>
-                                        </popUpButtonCell>
-                                        <connections>
-                                            <action selector="popUp:" target="jGA-0Y-lOj" id="gu0-Mq-bJO"/>
-                                        </connections>
-                                    </popUpButton>
-                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
-                                <toolbarItem reference="NK7-FS-tkK"/>
                                 <toolbarItem reference="PtB-Iu-vJS"/>
                                 <toolbarItem reference="eGa-bx-Pl5"/>
                             </defaultToolbarItems>
@@ -749,7 +727,6 @@
                         </connections>
                     </window>
                     <connections>
-                        <outlet property="seasonPopUp" destination="XrO-fN-N2k" id="Wwp-3f-pZX"/>
                         <segue destination="JOq-Ao-qLl" kind="relationship" relationship="window.shadowedContentViewController" id="30l-Es-mlc"/>
                     </connections>
                 </windowController>

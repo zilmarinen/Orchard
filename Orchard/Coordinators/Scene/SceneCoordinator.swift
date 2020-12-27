@@ -14,7 +14,6 @@ class SceneCoordinator: Coordinator<SceneViewController>, KeyboardObservable, Mo
     var keyboardObserver: UUID?
     var mouseObserver: UUID?
     
-    let blueprint = SCNNode()
     let focus = SCNNode()
     
     override init(controller: SceneViewController) {
@@ -37,8 +36,7 @@ class SceneCoordinator: Coordinator<SceneViewController>, KeyboardObservable, Mo
               let sceneView = sceneView,
               let device = sceneView.device else { fatalError("Invalid start option") }
         
-        scene.meadow.library = try? device.makeDefaultLibrary(bundle: Meadow.bundle)
-        scene.rootNode.addChildNode(blueprint)
+        scene.library = try? device.makeDefaultLibrary(bundle: Meadow.bundle)
         scene.rootNode.addChildNode(focus)
         
         sceneView.scene = scene

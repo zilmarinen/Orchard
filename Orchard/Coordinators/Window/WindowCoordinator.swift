@@ -41,11 +41,46 @@ class WindowCoordinator: Coordinator<WindowController> {
         
         if option == nil {
             
-            _ = scene.meadow.terrain.add(tile: .zero)
-            _ = scene.meadow.terrain.add(tile: .forward)
-            _ = scene.meadow.terrain.add(tile: .left)
-            _ = scene.meadow.terrain.add(tile: .backward)
-            _ = scene.meadow.terrain.add(tile: .right)
+            let flag = false
+            
+            if flag {
+                
+                _ = scene.meadow.terrain.add(tile: .zero) { tile in
+
+                    tile.tileType = .sand
+                }
+                _ = scene.meadow.terrain.add(tile: .forward)
+                _ = scene.meadow.terrain.add(tile: .left)
+                _ = scene.meadow.terrain.add(tile: .backward)
+                _ = scene.meadow.terrain.add(tile: .right)
+
+                _ = scene.meadow.terrain.add(tile: Coordinate(x: 1, y: 0, z: 1))
+                _ = scene.meadow.terrain.add(tile: Coordinate(x: 1, y: 0, z: -1))
+                _ = scene.meadow.terrain.add(tile: Coordinate(x: -1, y: 0, z: 1))
+                _ = scene.meadow.terrain.add(tile: Coordinate(x: -1, y: 0, z: -1))
+
+                _ = scene.meadow.terrain.add(tile: Coordinate(x: 0, y: 0, z: 3))
+                _ = scene.meadow.terrain.add(tile: Coordinate(x: 0, y: 0, z: 4))
+            }
+            else {
+                
+                _ = scene.meadow.area.add(tile: .zero) { tile in
+                
+                    tile.tileType = .dirt
+                }
+                _ = scene.meadow.area.add(tile: .forward)
+                _ = scene.meadow.area.add(tile: .left)
+                _ = scene.meadow.area.add(tile: .backward)
+                _ = scene.meadow.area.add(tile: .right)
+                
+                _ = scene.meadow.area.add(tile: Coordinate(x: 1, y: 0, z: 1))
+                _ = scene.meadow.area.add(tile: Coordinate(x: 1, y: 0, z: -1))
+                _ = scene.meadow.area.add(tile: Coordinate(x: -1, y: 0, z: 1))
+                _ = scene.meadow.area.add(tile: Coordinate(x: -1, y: 0, z: -1))
+                
+                _ = scene.meadow.area.add(tile: Coordinate(x: 0, y: 0, z: 3))
+                _ = scene.meadow.area.add(tile: Coordinate(x: 0, y: 0, z: 4))
+            }
         }
         
         start(child: splitViewCoordinator, with: scene)
@@ -58,11 +93,6 @@ class WindowCoordinator: Coordinator<WindowController> {
 }
 
 extension WindowCoordinator {
-    
-    override func toggle(season: Int) {
-        
-        splitViewCoordinator.toggle(season: season)
-    }
     
     override func toggle(splitView panel: SplitViewController.Panel) {
      
