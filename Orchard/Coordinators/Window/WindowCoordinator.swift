@@ -41,7 +41,7 @@ class WindowCoordinator: Coordinator<WindowController> {
         
         if option == nil {
             
-            let flag = false
+            let flag = true
             
             if flag {
                 

@@ -28,7 +28,7 @@ class TerrainBuildUtilityCoordinator: Coordinator<TerrainBuildUtilityViewControl
         
         super.start(with: option)
         
-        subscribeToMouseEvents()
+        subscribeToMouseEvents(tracksIdleEvents: true)
     }
     
     override func stop(then completion: CoordinatorCompletionBlock?) {
@@ -49,6 +49,30 @@ extension TerrainBuildUtilityCoordinator {
             
             switch currentState {
             
+            case .idle(let position):
+                
+                guard let sceneView = self.sceneView,
+                      let scene = sceneView.scene as? Scene,
+                      let hit = sceneView.hitTest(point: position, category: [.floor, .terrain, .terrainChunk]) else { return }
+                
+                let bounds = GridBounds(start: Coordinate(vector: hit), end: Coordinate(vector: hit))
+                let elevation = self.controller.elevationStepper.integerValue
+                
+                scene.meadow.blueprint.controller.select(terrain: bounds, blueprintType: .select, elevation: elevation)
+            
+            case .tracking(let position, let clickType):
+                
+                guard let sceneView = self.sceneView,
+                      let scene = sceneView.scene as? Scene,
+                      let startHit = sceneView.hitTest(point: position.start, category: [.floor, .terrain, .terrainChunk]),
+                      let endHit = sceneView.hitTest(point: position.end, category: [.floor, .terrain, .terrainChunk]) else { return }
+                
+                let bounds = GridBounds(start: Coordinate(vector: startHit), end: Coordinate(vector: endHit))
+                let blueprintType: Blueprint.BlueprintType = clickType == .left ? .add : .remove
+                let elevation = self.controller.elevationStepper.integerValue
+                
+                scene.meadow.blueprint.controller.select(terrain: bounds, blueprintType: blueprintType, elevation: elevation)
+            
             case .up(let position, let clickType):
                 
                 guard let sceneView = self.sceneView,
@@ -57,35 +81,29 @@ extension TerrainBuildUtilityCoordinator {
                       let startHit = sceneView.hitTest(point: position.start, category: [.floor, .terrain, .terrainChunk]),
                       let endHit = sceneView.hitTest(point: position.end, category: [.floor, .terrain, .terrainChunk]) else { return }
                 
-                let selection = Selection(start: Coordinate(vector: startHit), end: Coordinate(vector: endHit))
+                let bounds = GridBounds(start: Coordinate(vector: startHit), end: Coordinate(vector: endHit))
+                let elevation = self.controller.elevationStepper.integerValue
                 
-                print("selected:")
-                print("min: [\(selection.start.x), \(selection.start.z)]")
-                print("max: [\(selection.end.x), \(selection.end.z)]")
-                
-                for x in selection.start.x..<selection.end.x {
+                bounds.enumerate(y: elevation) { coordinate in
                     
-                    for z in selection.start.z..<selection.end.z {
-                        
-                        let coordinate = Coordinate(x: x, y: self.controller.elevationStepper.integerValue, z: z)
-                        
-                        switch clickType {
-                        
-                        case .left:
+                    switch clickType {
+                    
+                    case .left:
+                    
+                        _ = scene.meadow.terrain.add(tile: coordinate) { tile in
                             
-                            _ = scene.meadow.terrain.add(tile: coordinate) { tile in
-                                
-                                tile.tileType = tileType
-                            }
-                            
-                        case .right:
-                            
-                            scene.meadow.terrain.remove(tile: coordinate)
-                            
-                        default: break
+                            tile.tileType = tileType
                         }
+                    
+                    case .right:
+                        
+                        scene.meadow.terrain.remove(tile: coordinate)
+                        
+                    default: break
                     }
                 }
+                
+                scene.meadow.blueprint.controller.clear()
                 
             default: break
             }

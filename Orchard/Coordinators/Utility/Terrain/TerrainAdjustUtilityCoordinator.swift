@@ -28,7 +28,7 @@ class TerrainAdjustUtilityCoordinator: Coordinator<TerrainAdjustUtilityViewContr
         
         super.start(with: option)
         
-        subscribeToMouseEvents()
+        subscribeToMouseEvents(tracksIdleEvents: true)
     }
     
     override func stop(then completion: CoordinatorCompletionBlock?) {
@@ -49,6 +49,29 @@ extension TerrainAdjustUtilityCoordinator {
             
             switch currentState {
             
+            case .idle(let position):
+                
+                guard let sceneView = self.sceneView,
+                      let scene = sceneView.scene as? Scene,
+                      let hit = sceneView.hitTest(point: position, category: [.floor, .terrain, .terrainChunk]) else { return }
+                
+                let bounds = GridBounds(start: Coordinate(vector: hit), end: Coordinate(vector: hit))
+                let elevation = self.controller.elevationStepper.integerValue
+                
+                scene.meadow.blueprint.controller.select(terrain: bounds, blueprintType: .select, elevation: elevation)
+            
+            case .tracking(let position, _):
+                
+                guard let sceneView = self.sceneView,
+                      let scene = sceneView.scene as? Scene,
+                      let startHit = sceneView.hitTest(point: position.start, category: [.floor, .terrain, .terrainChunk]),
+                      let endHit = sceneView.hitTest(point: position.end, category: [.floor, .terrain, .terrainChunk]) else { return }
+                
+                let bounds = GridBounds(start: Coordinate(vector: startHit), end: Coordinate(vector: endHit))
+                let elevation = self.controller.elevationStepper.integerValue
+                
+                scene.meadow.blueprint.controller.select(terrain: bounds, blueprintType: .select, elevation: elevation)
+            
             case .up(let position, _):
                 
                 guard let sceneView = self.sceneView,
@@ -56,20 +79,18 @@ extension TerrainAdjustUtilityCoordinator {
                       let startHit = sceneView.hitTest(point: position.start, category: [.floor, .terrain, .terrainChunk]),
                       let endHit = sceneView.hitTest(point: position.end, category: [.floor, .terrain, .terrainChunk]) else { return }
                 
-                let selection = Selection(start: Coordinate(vector: startHit), end: Coordinate(vector: endHit))
+                let bounds = GridBounds(start: Coordinate(vector: startHit), end: Coordinate(vector: endHit))
+                let elevation = self.controller.elevationStepper.integerValue
                 
-                for x in selection.start.x..<selection.end.x {
+                bounds.enumerate(y: elevation) { coordinate in
                     
-                    for z in selection.start.z..<selection.end.z {
+                    if let tile = scene.meadow.terrain.find(tile: coordinate) {
                         
-                        let coordinate = Coordinate(x: x, y: 0, z: z)
-                        
-                        if let tile = scene.meadow.terrain.find(tile: coordinate) {
-                            
-                            tile.coordinate = Coordinate(x: x, y: self.controller.elevationStepper.integerValue, z: z)
-                        }
+                        tile.coordinate = Coordinate(x: tile.coordinate.x, y: elevation, z: tile.coordinate.z)
                     }
                 }
+                
+                scene.meadow.blueprint.controller.clear()
                 
             default: break
             }

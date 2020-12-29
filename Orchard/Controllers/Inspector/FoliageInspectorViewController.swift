@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import Meadow
 
 class FoliageInspectorViewController: NSViewController {
     
@@ -35,6 +36,9 @@ class FoliageInspectorViewController: NSViewController {
             
             tileCoordinateView.xStepper.isEnabled = false
             tileCoordinateView.zStepper.isEnabled = false
+            
+            tileCoordinateView.yStepper.maximumValue = World.Constants.ceiling
+            tileCoordinateView.yStepper.minimumValue = World.Constants.floor
             
             tileCoordinateView.valueDidChange = { [weak self] (stepper, coordinate) in
                 

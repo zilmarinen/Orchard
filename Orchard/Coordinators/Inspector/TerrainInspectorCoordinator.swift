@@ -44,7 +44,7 @@ class TerrainInspectorCoordinator: Coordinator<TerrainInspectorViewController>, 
         
         refresh()
         
-        subscribeToMouseEvents()
+        subscribeToMouseEvents(tracksIdleEvents: false)
     }
     
     override func stop(then completion: CoordinatorCompletionBlock?) {

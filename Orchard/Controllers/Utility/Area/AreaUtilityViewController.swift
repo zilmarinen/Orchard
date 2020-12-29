@@ -9,6 +9,7 @@ import Cocoa
 
 class AreaUtilityViewController: NSViewController {
     
+    @IBOutlet weak var adjustButton: NSButton!
     @IBOutlet weak var buildButton: NSButton!
     @IBOutlet weak var paintButton: NSButton!
     @IBOutlet weak var containerView: NSView!
@@ -25,6 +26,10 @@ class AreaUtilityViewController: NSViewController {
         case gridRenderingButton:
             
             inspectable.area.isHidden = sender.state == .off
+            
+        case adjustButton:
+            
+            coordinator?.toggle(area: .adjust)
         
         case buildButton:
             

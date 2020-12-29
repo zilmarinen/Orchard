@@ -8,7 +8,9 @@
 import Cocoa
 import Meadow
 
-class PropsBuildUtilityCoordinator: Coordinator<PropsBuildUtilityViewController> {
+class PropsBuildUtilityCoordinator: Coordinator<PropsBuildUtilityViewController>, MouseObservable {
+    
+    var mouseObserver: UUID?
     
     override init(controller: PropsBuildUtilityViewController) {
         
@@ -26,6 +28,50 @@ class PropsBuildUtilityCoordinator: Coordinator<PropsBuildUtilityViewController>
         
         super.start(with: option)
         
-        //
+        subscribeToMouseEvents(tracksIdleEvents: false)
+    }
+    
+    override func stop(then completion: CoordinatorCompletionBlock?) {
+        
+        unsubscribeFromMouseEvents()
+        
+        super.stop(then: completion)
+    }
+}
+
+extension PropsBuildUtilityCoordinator {
+    
+    func stateDidChange(from previousState: SceneView.MouseState?, to currentState: SceneView.MouseState) {
+        
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else { return }
+            
+            switch currentState {
+            
+            case .tracking(let position, let clickType):
+                
+                guard let sceneView = self.sceneView,
+                      let scene = sceneView.scene as? Scene,
+                      let startHit = sceneView.hitTest(point: position.start, category: [.floor, .props, .prop]),
+                      let endHit = sceneView.hitTest(point: position.end, category: [.floor, .props, .prop]) else { return }
+                
+                let bounds = GridBounds(start: Coordinate(vector: startHit), end: Coordinate(vector: endHit))
+                let blueprintType: Blueprint.BlueprintType = clickType == .left ? .add : .remove
+                
+                scene.meadow.blueprint.controller.select(prop: bounds, blueprintType: blueprintType)
+            
+            case .up(let position, let clickType):
+                
+                guard let sceneView = self.sceneView,
+                      let scene = sceneView.scene as? Scene,
+                      let startHit = sceneView.hitTest(point: position.start, category: [.floor, .props, .prop]),
+                      let endHit = sceneView.hitTest(point: position.end, category: [.floor, .props, .prop]) else { return }
+                
+                scene.meadow.blueprint.controller.clear()
+                
+            default: break
+            }
+        }
     }
 }

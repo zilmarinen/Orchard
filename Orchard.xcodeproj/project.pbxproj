@@ -88,12 +88,13 @@
 		18B6353D257F7F01009C7429 /* AreaInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B6353C257F7F01009C7429 /* AreaInspectorCoordinator.swift */; };
 		18B94DB02578E0CA004FDE14 /* FootpathInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B94DAF2578E0CA004FDE14 /* FootpathInspectorCoordinator.swift */; };
 		18B94DB32578E0DD004FDE14 /* FootpathInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B94DB22578E0DD004FDE14 /* FootpathInspectorViewController.swift */; };
-		18C556502591ED590065C085 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C5564F2591ED590065C085 /* Selection.swift */; };
 		18D3A16725515D3A00031CA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3A16625515D3A00031CA7 /* AppDelegate.swift */; };
 		18D3A16B25515D3A00031CA7 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3A16A25515D3A00031CA7 /* Document.swift */; };
 		18D3A16D25515D3C00031CA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D3A16C25515D3C00031CA7 /* Assets.xcassets */; };
 		18D3A17025515D3C00031CA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18D3A16E25515D3C00031CA7 /* Main.storyboard */; };
 		18D3A1802551652000031CA7 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3A17F2551652000031CA7 /* WindowController.swift */; };
+		18E0C6452599F5C500A7127C /* AreaAdjustUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E0C6442599F5C500A7127C /* AreaAdjustUtilityCoordinator.swift */; };
+		18E0C6482599F5FE00A7127C /* AreaAdjustUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E0C6472599F5FE00A7127C /* AreaAdjustUtilityViewController.swift */; };
 		18FB382C25516F5A0036CA95 /* WindowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB382B25516F5A0036CA95 /* WindowCoordinator.swift */; };
 		18FB382F2551752B0036CA95 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB382E2551752B0036CA95 /* Coordinator.swift */; };
 		18FB38352551778A0036CA95 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB38342551778A0036CA95 /* SplitViewController.swift */; };
@@ -192,7 +193,6 @@
 		18B6353C257F7F01009C7429 /* AreaInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaInspectorCoordinator.swift; sourceTree = "<group>"; };
 		18B94DAF2578E0CA004FDE14 /* FootpathInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathInspectorCoordinator.swift; sourceTree = "<group>"; };
 		18B94DB22578E0DD004FDE14 /* FootpathInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathInspectorViewController.swift; sourceTree = "<group>"; };
-		18C5564F2591ED590065C085 /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
 		18D3A16325515D3A00031CA7 /* Orchard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Orchard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18D3A16625515D3A00031CA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18D3A16A25515D3A00031CA7 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -201,6 +201,8 @@
 		18D3A17125515D3C00031CA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18D3A17225515D3C00031CA7 /* Orchard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Orchard.entitlements; sourceTree = "<group>"; };
 		18D3A17F2551652000031CA7 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		18E0C6442599F5C500A7127C /* AreaAdjustUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaAdjustUtilityCoordinator.swift; sourceTree = "<group>"; };
+		18E0C6472599F5FE00A7127C /* AreaAdjustUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaAdjustUtilityViewController.swift; sourceTree = "<group>"; };
 		18FB382B25516F5A0036CA95 /* WindowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCoordinator.swift; sourceTree = "<group>"; };
 		18FB382E2551752B0036CA95 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		18FB38342551778A0036CA95 /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
@@ -295,10 +297,10 @@
 		1807F85225542DEE008388DC /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				18FE1EF5258129E500A6B3DD /* Portals */,
 				18B63508257F7E0D009C7429 /* Area */,
 				18331783257E1C91001CC0A3 /* Foliage */,
 				18B5492A2578E5500014A93F /* Footpath */,
+				18FE1EF5258129E500A6B3DD /* Portals */,
 				18B63509257F7E11009C7429 /* Props */,
 				1807F85525542E40008388DC /* Terrain */,
 			);
@@ -323,10 +325,10 @@
 		1807F85425542DF8008388DC /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				18FE1EFD25812A4D00A6B3DD /* Portals */,
 				18B6351D257F7E88009C7429 /* Area */,
 				18331794257E1CDC001CC0A3 /* Foliage */,
 				18B549342578E6520014A93F /* Footpath */,
+				18FE1EFD25812A4D00A6B3DD /* Portals */,
 				18B6351E257F7E8B009C7429 /* Props */,
 				1807F86825544894008388DC /* Terrain */,
 			);
@@ -336,10 +338,10 @@
 		1807F85525542E40008388DC /* Terrain */ = {
 			isa = PBXGroup;
 			children = (
-				1807F85625542E50008388DC /* TerrainUtilityViewController.swift */,
+				183F358D258A612B002C1C01 /* TerrainAdjustUtilityViewController.swift */,
 				1807F86D255448D7008388DC /* TerrainBuildUtilityViewController.swift */,
 				1851A16325557F9B0064539B /* TerrainPaintUtilityViewController.swift */,
-				183F358D258A612B002C1C01 /* TerrainAdjustUtilityViewController.swift */,
+				1807F85625542E50008388DC /* TerrainUtilityViewController.swift */,
 			);
 			path = Terrain;
 			sourceTree = "<group>";
@@ -347,10 +349,10 @@
 		1807F86825544894008388DC /* Terrain */ = {
 			isa = PBXGroup;
 			children = (
-				1807F85925542E67008388DC /* TerrainUtilityCoordinator.swift */,
+				183F358A258A610D002C1C01 /* TerrainAdjustUtilityCoordinator.swift */,
 				1807F869255448B1008388DC /* TerrainBuildUtilityCoordinator.swift */,
 				1851A16025557F850064539B /* TerrainPaintUtilityCoordinator.swift */,
-				183F358A258A610D002C1C01 /* TerrainAdjustUtilityCoordinator.swift */,
+				1807F85925542E67008388DC /* TerrainUtilityCoordinator.swift */,
 			);
 			path = Terrain;
 			sourceTree = "<group>";
@@ -448,9 +450,9 @@
 		18B5492A2578E5500014A93F /* Footpath */ = {
 			isa = PBXGroup;
 			children = (
-				18B5492B2578E5660014A93F /* FootpathUtilityViewController.swift */,
 				18B5492E2578E5C20014A93F /* FootpathBuildUtilityViewController.swift */,
 				18B549312578E5CF0014A93F /* FootpathPaintUtilityViewController.swift */,
+				18B5492B2578E5660014A93F /* FootpathUtilityViewController.swift */,
 			);
 			path = Footpath;
 			sourceTree = "<group>";
@@ -458,9 +460,9 @@
 		18B549342578E6520014A93F /* Footpath */ = {
 			isa = PBXGroup;
 			children = (
-				18B549352578E6630014A93F /* FootpathUtilityCoordinator.swift */,
 				18B549392578E66F0014A93F /* FootpathBuildUtilityCoordinator.swift */,
 				18B5493C2578E6770014A93F /* FootpathPaintUtilityCoordinator.swift */,
+				18B549352578E6630014A93F /* FootpathUtilityCoordinator.swift */,
 			);
 			path = Footpath;
 			sourceTree = "<group>";
@@ -468,9 +470,10 @@
 		18B63508257F7E0D009C7429 /* Area */ = {
 			isa = PBXGroup;
 			children = (
-				18B63514257F7E4A009C7429 /* AreaUtilityViewController.swift */,
+				18E0C6472599F5FE00A7127C /* AreaAdjustUtilityViewController.swift */,
 				18B63517257F7E52009C7429 /* AreaBuildUtilityViewController.swift */,
 				18B6351A257F7E5A009C7429 /* AreaPaintUtilityViewController.swift */,
+				18B63514257F7E4A009C7429 /* AreaUtilityViewController.swift */,
 			);
 			path = Area;
 			sourceTree = "<group>";
@@ -478,9 +481,9 @@
 		18B63509257F7E11009C7429 /* Props */ = {
 			isa = PBXGroup;
 			children = (
-				18B6350A257F7E28009C7429 /* PropsUtilityViewController.swift */,
 				18B6350E257F7E35009C7429 /* PropsBuildUtilityViewController.swift */,
 				18B63511257F7E43009C7429 /* PropsPaintUtilityViewController.swift */,
+				18B6350A257F7E28009C7429 /* PropsUtilityViewController.swift */,
 			);
 			path = Props;
 			sourceTree = "<group>";
@@ -488,9 +491,10 @@
 		18B6351D257F7E88009C7429 /* Area */ = {
 			isa = PBXGroup;
 			children = (
-				18B6351F257F7EA7009C7429 /* AreaUtilityCoordinator.swift */,
+				18E0C6442599F5C500A7127C /* AreaAdjustUtilityCoordinator.swift */,
 				18B63523257F7EB0009C7429 /* AreaBuildUtilityCoordinator.swift */,
 				18B63526257F7EB8009C7429 /* AreaPaintUtilityCoordinator.swift */,
+				18B6351F257F7EA7009C7429 /* AreaUtilityCoordinator.swift */,
 			);
 			path = Area;
 			sourceTree = "<group>";
@@ -498,19 +502,11 @@
 		18B6351E257F7E8B009C7429 /* Props */ = {
 			isa = PBXGroup;
 			children = (
-				18B63529257F7EC1009C7429 /* PropsUtilityCoordinator.swift */,
 				18B6352C257F7EC9009C7429 /* PropsBuildUtilityCoordinator.swift */,
 				18B6352F257F7ED0009C7429 /* PropsPaintUtilityCoordinator.swift */,
+				18B63529257F7EC1009C7429 /* PropsUtilityCoordinator.swift */,
 			);
 			path = Props;
-			sourceTree = "<group>";
-		};
-		18C5564E2591ED4C0065C085 /* Selection */ = {
-			isa = PBXGroup;
-			children = (
-				18C5564F2591ED590065C085 /* Selection.swift */,
-			);
-			path = Selection;
 			sourceTree = "<group>";
 		};
 		18D3A15A25515D3A00031CA7 = {
@@ -534,7 +530,6 @@
 		18D3A16525515D3A00031CA7 /* Orchard */ = {
 			isa = PBXGroup;
 			children = (
-				18C5564E2591ED4C0065C085 /* Selection */,
 				18D3A16625515D3A00031CA7 /* AppDelegate.swift */,
 				18D3A16C25515D3C00031CA7 /* Assets.xcassets */,
 				18D3A17E2551650800031CA7 /* Controllers */,
@@ -684,8 +679,8 @@
 		18FE1EF5258129E500A6B3DD /* Portals */ = {
 			isa = PBXGroup;
 			children = (
-				18FE1EF6258129F700A6B3DD /* PortalUtilityViewController.swift */,
 				18FE1EFA25812A0300A6B3DD /* PortalBuildUtilityViewController.swift */,
+				18FE1EF6258129F700A6B3DD /* PortalUtilityViewController.swift */,
 			);
 			path = Portals;
 			sourceTree = "<group>";
@@ -693,8 +688,8 @@
 		18FE1EFD25812A4D00A6B3DD /* Portals */ = {
 			isa = PBXGroup;
 			children = (
-				18FE1EFE25812A5F00A6B3DD /* PortalUtilityCoordinator.swift */,
 				18FE1F0225812A6A00A6B3DD /* PortalBuildUtilityCoordinator.swift */,
+				18FE1EFE25812A5F00A6B3DD /* PortalUtilityCoordinator.swift */,
 			);
 			path = Portals;
 			sourceTree = "<group>";
@@ -804,6 +799,8 @@
 				1851A16125557F850064539B /* TerrainPaintUtilityCoordinator.swift in Sources */,
 				189903642581232300958809 /* PortalInspectorViewController.swift in Sources */,
 				1833178C257E1CB5001CC0A3 /* FoliageUtilityViewController.swift in Sources */,
+				18E0C6452599F5C500A7127C /* AreaAdjustUtilityCoordinator.swift in Sources */,
+				18E0C6482599F5FE00A7127C /* AreaAdjustUtilityViewController.swift in Sources */,
 				18814F8B2583A496004689E5 /* MouseObservable.swift in Sources */,
 				1808EBDF2553F60E00484BEC /* NSResponder.swift in Sources */,
 				1807F86625544717008388DC /* TerrainUtilityTabViewController.swift in Sources */,
@@ -823,7 +820,6 @@
 				18B5493A2578E66F0014A93F /* FootpathBuildUtilityCoordinator.swift in Sources */,
 				18331785257E1CA0001CC0A3 /* FoliageBuildUtilityViewController.swift in Sources */,
 				18B6353D257F7F01009C7429 /* AreaInspectorCoordinator.swift in Sources */,
-				18C556502591ED590065C085 /* Selection.swift in Sources */,
 				18B5492F2578E5C20014A93F /* FootpathBuildUtilityViewController.swift in Sources */,
 				1870D178255543AB00B39F8C /* SceneInspectorCoordinator.swift in Sources */,
 				1807F849255429B8008388DC /* InspectorTabViewCoordinator.swift in Sources */,

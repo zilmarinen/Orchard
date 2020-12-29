@@ -23,9 +23,5 @@ class AreaPaintUtilityViewController: NSViewController {
         }
     }
     
-    @IBAction func popUp(_ sender: NSPopUpButton) {
-        
-    }
-    
     weak var coordinator: AreaPaintUtilityCoordinator?
 }

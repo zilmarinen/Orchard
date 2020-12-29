@@ -28,7 +28,7 @@ class TerrainPaintUtilityCoordinator: Coordinator<TerrainPaintUtilityViewControl
         
         super.start(with: option)
         
-        subscribeToMouseEvents()
+        subscribeToMouseEvents(tracksIdleEvents: true)
     }
     
     override func stop(then completion: CoordinatorCompletionBlock?) {
@@ -49,6 +49,27 @@ extension TerrainPaintUtilityCoordinator {
             
             switch currentState {
             
+            case .idle(let position):
+                
+                guard let sceneView = self.sceneView,
+                      let scene = sceneView.scene as? Scene,
+                      let hit = sceneView.hitTest(point: position, category: [.floor, .terrain, .terrainChunk]) else { return }
+                
+                let bounds = GridBounds(start: Coordinate(vector: hit), end: Coordinate(vector: hit))
+                
+                scene.meadow.blueprint.controller.select(terrain: bounds, blueprintType: .select)
+            
+            case .tracking(let position, _):
+                
+                guard let sceneView = self.sceneView,
+                      let scene = sceneView.scene as? Scene,
+                      let startHit = sceneView.hitTest(point: position.start, category: [.floor, .terrain, .terrainChunk]),
+                      let endHit = sceneView.hitTest(point: position.end, category: [.floor, .terrain, .terrainChunk]) else { return }
+                
+                let bounds = GridBounds(start: Coordinate(vector: startHit), end: Coordinate(vector: endHit))
+                
+                scene.meadow.blueprint.controller.select(terrain: bounds, blueprintType: .select)
+            
             case .up(let position, _):
                 
                 guard let sceneView = self.sceneView,
@@ -57,20 +78,17 @@ extension TerrainPaintUtilityCoordinator {
                       let startHit = sceneView.hitTest(point: position.start, category: [.floor, .terrain, .terrainChunk]),
                       let endHit = sceneView.hitTest(point: position.end, category: [.floor, .terrain, .terrainChunk]) else { return }
                 
-                let selection = Selection(start: Coordinate(vector: startHit), end: Coordinate(vector: endHit))
+                let bounds = GridBounds(start: Coordinate(vector: startHit), end: Coordinate(vector: endHit))
                 
-                for x in selection.start.x..<selection.end.x {
+                bounds.enumerate(y: 0) { coordinate in
                     
-                    for z in selection.start.z..<selection.end.z {
+                    if let tile = scene.meadow.terrain.find(tile: coordinate) {
                         
-                        let coordinate = Coordinate(x: x, y: 0, z: z)
-                        
-                        if let tile = scene.meadow.terrain.find(tile: coordinate) {
-                            
-                            tile.tileType = tileType
-                        }
+                        tile.tileType = tileType
                     }
                 }
+                
+                scene.meadow.blueprint.controller.clear()
                 
             default: break
             }

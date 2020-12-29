@@ -50,7 +50,7 @@ class SceneCoordinator: Coordinator<SceneViewController>, KeyboardObservable, Mo
         focus(node: scene)
         
         subscribeToKeyboardEvents()
-        subscribeToMouseEvents()
+        subscribeToMouseEvents(tracksIdleEvents: false)
     }
     
     override func stop(then completion: CoordinatorCompletionBlock?) {
@@ -131,6 +131,35 @@ extension SceneCoordinator {
         items.append(item)
         
         controller.pathControl.pathItems = items.reversed()
+        
+        switch Inspectable(node: node) {
+        
+        case .area(let inspectable):
+            
+            guard let chunk = inspectable.chunk else { return }
+            
+            scene.camera.controller.focus(node: chunk)
+        
+        case .foliage(let inspectable):
+            
+            guard let chunk = inspectable.chunk else { return }
+            
+            scene.camera.controller.focus(node: chunk)
+                
+        case .footpath(let inspectable):
+            
+            guard let chunk = inspectable.chunk else { return }
+            
+            scene.camera.controller.focus(node: chunk)
+                
+        case .terrain(let inspectable):
+            
+            guard let chunk = inspectable.chunk else { return }
+            
+            scene.camera.controller.focus(node: chunk)
+            
+        default: break
+        }
     }
 }
 

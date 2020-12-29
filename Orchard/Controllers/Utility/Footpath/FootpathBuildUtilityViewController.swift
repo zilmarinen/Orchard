@@ -23,9 +23,5 @@ class FootpathBuildUtilityViewController: NSViewController {
         }
     }
     
-    @IBAction func popUp(_ sender: NSPopUpButton) {
-        
-    }
-    
     weak var coordinator: FootpathBuildUtilityCoordinator?
 }

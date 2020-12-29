@@ -64,6 +64,9 @@ class AreaInspectorViewController: NSViewController {
             tileCoordinateView.xStepper.isEnabled = false
             tileCoordinateView.zStepper.isEnabled = false
             
+            tileCoordinateView.yStepper.maximumValue = World.Constants.ceiling
+            tileCoordinateView.yStepper.minimumValue = World.Constants.floor
+            
             tileCoordinateView.valueDidChange = { [weak self] (_, coordinate) in
                 
                 guard let self = self, let inspectable = self.coordinator?.inspectable else { return }

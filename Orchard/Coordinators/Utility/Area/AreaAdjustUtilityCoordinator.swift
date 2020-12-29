@@ -1,18 +1,18 @@
 //
-//  FoliageBuildUtilityCoordinator.swift
+//  AreaAdjustUtilityCoordinator.swift
 //  Orchard
 //
-//  Created by Zack Brown on 07/12/2020.
+//  Created by Zack Brown on 28/12/2020.
 //
 
 import Cocoa
 import Meadow
 
-class FoliageBuildUtilityCoordinator: Coordinator<FoliageBuildUtilityViewController>, MouseObservable {
+class AreaAdjustUtilityCoordinator: Coordinator<AreaAdjustUtilityViewController>, MouseObservable {
     
     var mouseObserver: UUID?
     
-    override init(controller: FoliageBuildUtilityViewController) {
+    override init(controller: AreaAdjustUtilityViewController) {
         
         super.init(controller: controller)
         
@@ -39,7 +39,7 @@ class FoliageBuildUtilityCoordinator: Coordinator<FoliageBuildUtilityViewControl
     }
 }
 
-extension FoliageBuildUtilityCoordinator {
+extension AreaAdjustUtilityCoordinator {
     
     func stateDidChange(from previousState: SceneView.MouseState?, to currentState: SceneView.MouseState) {
         
@@ -49,25 +49,23 @@ extension FoliageBuildUtilityCoordinator {
             
             switch currentState {
             
-            case .tracking(let position, let clickType):
+            case .tracking(let position, _):
                 
                 guard let sceneView = self.sceneView,
                       let scene = sceneView.scene as? Scene,
-                      let startHit = sceneView.hitTest(point: position.start, category: [.floor, .foliage, .foliageChunk]),
-                      let endHit = sceneView.hitTest(point: position.end, category: [.floor, .foliage, .foliageChunk]) else { return }
+                      let startHit = sceneView.hitTest(point: position.start, category: [.floor, .area, .areaChunk]),
+                      let endHit = sceneView.hitTest(point: position.end, category: [.floor, .area, .areaChunk]) else { return }
                 
                 let bounds = GridBounds(start: Coordinate(vector: startHit), end: Coordinate(vector: endHit))
-                let blueprintType: Blueprint.BlueprintType = clickType == .left ? .add : .remove
                 
-                scene.meadow.blueprint.controller.select(area: bounds, blueprintType: blueprintType)
+                scene.meadow.blueprint.controller.select(area: bounds, blueprintType: .select)
             
-            case .up(let position, let clickType):
+            case .up(let position, _):
                 
                 guard let sceneView = self.sceneView,
                       let scene = sceneView.scene as? Scene,
-                      let tileType = FoliageTileType(rawValue: self.controller.typePopUp.indexOfSelectedItem),
-                      let startHit = sceneView.hitTest(point: position.start, category: [.floor, .foliage, .foliageChunk]),
-                      let endHit = sceneView.hitTest(point: position.end, category: [.floor, .foliage, .foliageChunk]) else { return }
+                      let startHit = sceneView.hitTest(point: position.start, category: [.floor, .area, .areaChunk]),
+                      let endHit = sceneView.hitTest(point: position.end, category: [.floor, .area, .areaChunk]) else { return }
                 
                 scene.meadow.blueprint.controller.clear()
                 
@@ -76,3 +74,4 @@ extension FoliageBuildUtilityCoordinator {
         }
     }
 }
+

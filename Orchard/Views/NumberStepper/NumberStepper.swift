@@ -75,7 +75,7 @@ class NumberStepper: NSView {
         stepper.target = self
         stepper.action = #selector(stepper(sender:))
         stepper.minValue = 0
-        stepper.maxValue = 35
+        stepper.maxValue = 100
         stepper.valueWraps = false
         
         let stackView = NSStackView(views: [textField, stepper])

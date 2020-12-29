@@ -44,7 +44,7 @@ class FootpathInspectorCoordinator: Coordinator<FootpathInspectorViewController>
         
         refresh()
     
-        subscribeToMouseEvents()
+        subscribeToMouseEvents(tracksIdleEvents: false)
     }
     
     override func stop(then completion: CoordinatorCompletionBlock?) {

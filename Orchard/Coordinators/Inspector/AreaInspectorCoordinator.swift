@@ -44,7 +44,7 @@ class AreaInspectorCoordinator: Coordinator<AreaInspectorViewController>, Inspec
         
         refresh()
         
-        subscribeToMouseEvents()
+        subscribeToMouseEvents(tracksIdleEvents: false)
     }
     
     override func stop(then completion: CoordinatorCompletionBlock?) {

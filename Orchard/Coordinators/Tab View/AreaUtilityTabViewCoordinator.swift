@@ -12,9 +12,21 @@ class AreaUtilityTabViewCoordinator: Coordinator<AreaUtilityTabViewController> {
     
     @objc enum Tab: Int {
         
+        case adjust
         case build
         case paint
     }
+    
+    lazy var adjustUtilityCoordinator: AreaAdjustUtilityCoordinator = {
+       
+        guard let viewController = controller.children[Tab.adjust.rawValue] as? AreaAdjustUtilityViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = AreaAdjustUtilityCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
     
     lazy var buildUtilityCoordinator: AreaBuildUtilityCoordinator = {
        
@@ -65,6 +77,10 @@ extension AreaUtilityTabViewCoordinator {
         stopChildren()
         
         switch utility {
+        
+        case .adjust:
+            
+            start(child: adjustUtilityCoordinator, with: selectedNode)
         
         case .build:
             
