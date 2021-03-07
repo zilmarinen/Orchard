@@ -71,7 +71,7 @@ extension AreaInspectorCoordinator {
         
         controller.tileCountLabel.integerValue = chunk.children.count
         controller.chunkRenderingButton.state = chunk.isHidden ? .off : .on
-        controller.chunkCoordinateView.coordinate = chunk.coordinate
+        controller.chunkCoordinateView.coordinate = chunk.bounds.start
         
         guard let tile = inspectable.tile else { return }
         

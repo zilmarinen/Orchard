@@ -28,7 +28,7 @@ class FootpathPaintUtilityCoordinator: Coordinator<FootpathPaintUtilityViewContr
         
         super.start(with: option)
         
-        subscribeToMouseEvents(tracksIdleEvents: false)
+        subscribeToMouseEvents(tracksIdleEvents: true)
     }
     
     override func stop(then completion: CoordinatorCompletionBlock?) {
@@ -49,6 +49,16 @@ extension FootpathPaintUtilityCoordinator {
             
             switch currentState {
             
+            case .idle(let position):
+                
+                guard let sceneView = self.sceneView,
+                      let scene = sceneView.scene as? Scene,
+                      let hit = sceneView.hitTest(point: position, category: [.floor, .footpath, .footpathChunk]) else { return }
+                
+                let bounds = GridBounds(start: Coordinate(vector: hit), end: Coordinate(vector: hit))
+                
+                scene.meadow.blueprint.controller.select(footpath: bounds, blueprintType: .select)
+            
             case .tracking(let position, _):
                 
                 guard let sceneView = self.sceneView,
@@ -67,6 +77,16 @@ extension FootpathPaintUtilityCoordinator {
                       let tileType = FootpathTileType(rawValue: self.controller.typePopUp.indexOfSelectedItem),
                       let startHit = sceneView.hitTest(point: position.start, category: [.floor, .footpath, .footpathChunk]),
                       let endHit = sceneView.hitTest(point: position.end, category: [.floor, .footpath, .footpathChunk]) else { return }
+                
+                let bounds = GridBounds(start: Coordinate(vector: startHit), end: Coordinate(vector: endHit))
+                
+                bounds.enumerate(y: 0) { coordinate in
+                    
+                    if let tile = scene.meadow.footpath.find(tile: coordinate) {
+                        
+                        tile.tileType = tileType
+                    }
+                }
                 
                 scene.meadow.blueprint.controller.clear()
                 

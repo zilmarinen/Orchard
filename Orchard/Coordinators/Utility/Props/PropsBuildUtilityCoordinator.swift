@@ -28,7 +28,7 @@ class PropsBuildUtilityCoordinator: Coordinator<PropsBuildUtilityViewController>
         
         super.start(with: option)
         
-        subscribeToMouseEvents(tracksIdleEvents: false)
+        subscribeToMouseEvents(tracksIdleEvents: true)
     }
     
     override func stop(then completion: CoordinatorCompletionBlock?) {

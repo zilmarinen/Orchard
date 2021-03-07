@@ -1,24 +1,24 @@
 //
-//  TerrainInspectorCoordinator.swift
+//  BuildingInspectorCoordinator.swift
 //  Orchard
 //
-//  Created by Zack Brown on 06/11/2020.
+//  Created by Zack Brown on 01/02/2021.
 //
 
 import Cocoa
 import Meadow
 
-class TerrainInspectorCoordinator: Coordinator<TerrainInspectorViewController>, Inspector, MouseObservable {
+class BuildingInspectorCoordinator: Coordinator<BuildingInspectorViewController>, Inspector, MouseObservable {
     
     var mouseObserver: UUID?
     
-    var inspectable: TerrainInspectable? {
+    var inspectable: BuildingInspectable? {
         
         guard let selectedNode = selectedNode else { return nil }
         
         switch Inspectable(node: selectedNode) {
         
-        case .terrain(let inspectable):
+        case .buildings(let inspectable):
             
             return inspectable
             
@@ -26,7 +26,7 @@ class TerrainInspectorCoordinator: Coordinator<TerrainInspectorViewController>, 
         }
     }
     
-    override init(controller: TerrainInspectorViewController) {
+    override init(controller: BuildingInspectorViewController) {
         
         super.init(controller: controller)
         
@@ -55,7 +55,7 @@ class TerrainInspectorCoordinator: Coordinator<TerrainInspectorViewController>, 
     }
 }
 
-extension TerrainInspectorCoordinator {
+extension BuildingInspectorCoordinator {
     
     func refresh() {
         
@@ -63,9 +63,10 @@ extension TerrainInspectorCoordinator {
         
         controller.chunkBox.isHidden = inspectable.chunk == nil
         controller.tileBox.isHidden = inspectable.tile == nil
+        controller.layerBox.isHidden = inspectable.layer == nil
         
-        controller.chunkCountLabel.integerValue = inspectable.terrain.children.count
-        controller.gridRenderingButton.state = (inspectable.terrain.isHidden ? .off : .on)
+        controller.chunkCountLabel.integerValue = inspectable.buildings.children.count
+        controller.gridRenderingButton.state = (inspectable.buildings.isHidden ? .off : .on)
         
         guard let chunk = inspectable.chunk else { return }
         
@@ -75,21 +76,28 @@ extension TerrainInspectorCoordinator {
         
         guard let tile = inspectable.tile else { return }
         
+        controller.layerCountLabel.integerValue = tile.children.count
         controller.neighbourCountLabel.integerValue = tile.neighbours.count
         controller.tileRenderingButton.state = tile.isHidden ? .off : .on
         controller.tileCoordinateView.coordinate = tile.coordinate
-        controller.typePopUp.selectItem(at: tile.tileType.rawValue)
-        controller.slopeButton.state = (tile.slope == nil ? .off : .on)
-        controller.directionPopUp.isEnabled = tile.slope != nil
         
-        if let slope = tile.slope {
+        for index in 0..<tile.children.count {
             
-            controller.directionPopUp.selectItem(at: slope.rawValue)
+            controller.layerPopUp.addItem(withTitle: "Layer \(index + 1)")
         }
+        
+        guard let layer = inspectable.layer else { return }
+        
+        controller.layerRenderingButton.state = layer.isHidden ? .off : .on
+        controller.layerColorWell.color = layer.color.color
+        
+        guard let index = tile.index(of: layer) else { return }
+        
+        controller.layerPopUp.selectItem(at: index)
     }
 }
 
-extension TerrainInspectorCoordinator {
+extension BuildingInspectorCoordinator {
     
     func stateDidChange(from previousState: SceneView.MouseState?, to currentState: SceneView.MouseState) {
         
@@ -103,8 +111,8 @@ extension TerrainInspectorCoordinator {
                 
                 guard let sceneView = self.sceneView,
                       let scene = sceneView.scene as? Scene,
-                      let hit = sceneView.hitTest(point: position.start, category: [.terrain, .terrainChunk]),
-                      let tile = scene.meadow.terrain.find(tile: Coordinate(vector: hit)) else { return }
+                      let hit = sceneView.hitTest(point: position.start, category: [.buildings, .buildingChunk]),
+                      let tile = scene.meadow.buildings.find(tile: Coordinate(vector: hit)) else { return }
                 
                 self.didSelect(node: tile)
                 

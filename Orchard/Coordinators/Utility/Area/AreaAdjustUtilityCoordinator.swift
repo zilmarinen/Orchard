@@ -49,6 +49,16 @@ extension AreaAdjustUtilityCoordinator {
             
             switch currentState {
             
+            case .idle(let position):
+                
+                guard let sceneView = self.sceneView,
+                      let scene = sceneView.scene as? Scene,
+                      let hit = sceneView.hitTest(point: position, category: [.floor, .area, .areaChunk]) else { return }
+                
+                let bounds = GridBounds(start: Coordinate(vector: hit), end: Coordinate(vector: hit))
+                
+                scene.meadow.blueprint.controller.select(area: bounds, blueprintType: .select)
+            
             case .tracking(let position, _):
                 
                 guard let sceneView = self.sceneView,
@@ -66,6 +76,17 @@ extension AreaAdjustUtilityCoordinator {
                       let scene = sceneView.scene as? Scene,
                       let startHit = sceneView.hitTest(point: position.start, category: [.floor, .area, .areaChunk]),
                       let endHit = sceneView.hitTest(point: position.end, category: [.floor, .area, .areaChunk]) else { return }
+                
+                let bounds = GridBounds(start: Coordinate(vector: startHit), end: Coordinate(vector: endHit))
+                let elevation = self.controller.elevationStepper.integerValue
+                
+                bounds.enumerate(y: elevation) { coordinate in
+                    
+                    if let tile = scene.meadow.area.find(tile: coordinate) {
+                        
+                        tile.coordinate = Coordinate(x: tile.coordinate.x, y: elevation, z: tile.coordinate.z)
+                    }
+                }
                 
                 scene.meadow.blueprint.controller.clear()
                 

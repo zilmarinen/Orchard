@@ -1,18 +1,18 @@
 //
-//  PortalBuildUtilityCoordinator.swift
+//  BuildingsBuildUtilityCoordinator.swift
 //  Orchard
 //
-//  Created by Zack Brown on 09/12/2020.
+//  Created by Zack Brown on 01/02/2021.
 //
 
 import Cocoa
 import Meadow
 
-class PortalBuildUtilityCoordinator: Coordinator<PortalBuildUtilityViewController>, MouseObservable {
+class BuildingsBuildUtilityCoordinator: Coordinator<BuildingsBuildUtilityViewController>, MouseObservable {
     
     var mouseObserver: UUID?
     
-    override init(controller: PortalBuildUtilityViewController) {
+    override init(controller: BuildingsBuildUtilityViewController) {
         
         super.init(controller: controller)
         
@@ -39,7 +39,7 @@ class PortalBuildUtilityCoordinator: Coordinator<PortalBuildUtilityViewControlle
     }
 }
 
-extension PortalBuildUtilityCoordinator {
+extension BuildingsBuildUtilityCoordinator {
     
     func stateDidChange(from previousState: SceneView.MouseState?, to currentState: SceneView.MouseState) {
         
@@ -53,50 +53,55 @@ extension PortalBuildUtilityCoordinator {
                 
                 guard let sceneView = self.sceneView,
                       let scene = sceneView.scene as? Scene,
-                      let hit = sceneView.hitTest(point: position, category: [.terrain, .terrainChunk]) else { return }
+                      let hit = sceneView.hitTest(point: position, category: [.buildings, .buildingChunk, .terrain, .terrainChunk]) else { return }
                 
                 let bounds = GridBounds(start: Coordinate(vector: hit), end: Coordinate(vector: hit))
                 
-                scene.meadow.blueprint.controller.select(portal: bounds, blueprintType: .select)
-            
+                scene.meadow.blueprint.controller.select(footpath: bounds, blueprintType: .select)
+                
             case .tracking(let position, let clickType):
                 
                 guard let sceneView = self.sceneView,
                       let scene = sceneView.scene as? Scene,
-                      let hit = sceneView.hitTest(point: position.end, category: [.terrain, .terrainChunk]) else { return }
+                      let hit = sceneView.hitTest(point: position.start, category: [.buildings, .buildingChunk, .terrain, .terrainChunk]) else { return }
                 
                 let bounds = GridBounds(start: Coordinate(vector: hit), end: Coordinate(vector: hit))
                 let blueprintType: Blueprint.BlueprintType = clickType == .left ? .add : .remove
                 
-                scene.meadow.blueprint.controller.select(portal: bounds, blueprintType: blueprintType)
+                scene.meadow.blueprint.controller.select(building: bounds, blueprintType: blueprintType)
             
             case .up(let position, let clickType):
                 
                 guard let sceneView = self.sceneView,
                       let scene = sceneView.scene as? Scene,
-                      let hit = sceneView.hitTest(point: position.end, category: [.terrain, .terrainChunk]) else { return }
+                      let hit = sceneView.hitTest(point: position.start, category: [.buildings, .buildingChunk, .terrain, .terrainChunk]) else { return }
                 
                 let bounds = GridBounds(start: Coordinate(vector: hit), end: Coordinate(vector: hit))
                 
-                switch clickType {
-                
-                case .left:
+                bounds.enumerate(y: 0) { coordinate in
                     
-                    //TODO: set footprint
-                    let nodes: [FootprintNode] = [FootprintNode(coordinate: bounds.start, cardinals: [.north: false,
-                                                                                                      .south: true])]
+                    switch clickType {
                     
-                    let footprint = Footprint(coordinate: bounds.start, rotation: .east, nodes: nodes)
+                    case .left:
+                        
+                        guard let terrainTile = scene.meadow.terrain.find(tile: coordinate) else { break }
+                        
+                        _ = scene.meadow.buildings.add(layer: terrainTile.coordinate) { layer in
+                            
+                            let tile = layer.ancestor as? BuildingTile
+                            
+                            tile?.slope = terrainTile.slope
+                        }
                     
-                    _ = scene.meadow.portals.add(portal: footprint)
-                    
-                case .right:
-                    
-                    let node = GridNode(coordinate: bounds.start, cardinal: .east)
-                    
-                    scene.meadow.portals.remove(portal: node)
-                    
-                default: break
+                    case .right:
+                        
+                        if let tile = scene.meadow.buildings.find(tile: coordinate) {
+                            
+                            scene.meadow.buildings.remove(layer: coordinate, at: tile.childCount - 1)
+                        }
+                        
+                    default: break
+                    }
                 }
                 
                 scene.meadow.blueprint.controller.clear()

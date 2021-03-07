@@ -14,6 +14,7 @@ class UtilityTabViewCoordinator: Coordinator<UtilityTabViewController> {
         
         case empty
         case area
+        case buildings
         case foliage
         case footpath
         case portals
@@ -26,6 +27,17 @@ class UtilityTabViewCoordinator: Coordinator<UtilityTabViewController> {
         guard let viewController = controller.children[Tab.area.rawValue] as? AreaUtilityViewController else { fatalError("Invalid view controller hierarchy") }
         
         let coordinator = AreaUtilityCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
+    
+    lazy var buildingsUtilityCoordinator: BuildingsUtilityCoordinator = {
+       
+        guard let viewController = controller.children[Tab.buildings.rawValue] as? BuildingsUtilityViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = BuildingsUtilityCoordinator(controller: viewController)
         
         coordinator.parent = self
         
@@ -115,6 +127,15 @@ class UtilityTabViewCoordinator: Coordinator<UtilityTabViewController> {
             
             controller.selectedTabViewItemIndex = Tab.area.rawValue
             
+        case .buildings,
+             .buildingChunk,
+             .buildingTile,
+             .buildingLayer:
+            
+            start(child: buildingsUtilityCoordinator, with: option)
+            
+            controller.selectedTabViewItemIndex = Tab.buildings.rawValue
+            
         case .foliage,
              .foliageChunk,
              .foliageTile:
@@ -171,6 +192,10 @@ extension UtilityTabViewCoordinator {
         case .area:
             
             start(child: areaUtilityCoordinator, with: selectedNode)
+            
+        case .buildings:
+            
+            start(child: buildingsUtilityCoordinator, with: selectedNode)
             
         case .foliage:
             

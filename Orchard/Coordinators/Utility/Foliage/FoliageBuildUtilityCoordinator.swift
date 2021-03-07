@@ -28,7 +28,7 @@ class FoliageBuildUtilityCoordinator: Coordinator<FoliageBuildUtilityViewControl
         
         super.start(with: option)
         
-        subscribeToMouseEvents(tracksIdleEvents: false)
+        subscribeToMouseEvents(tracksIdleEvents: true)
     }
     
     override func stop(then completion: CoordinatorCompletionBlock?) {
@@ -49,25 +49,50 @@ extension FoliageBuildUtilityCoordinator {
             
             switch currentState {
             
+            case .idle(let position):
+                
+                guard let sceneView = self.sceneView,
+                      let scene = sceneView.scene as? Scene,
+                      let hit = sceneView.hitTest(point: position, category: [.terrain, .terrainChunk]) else { return }
+                
+                let bounds = GridBounds(start: Coordinate(vector: hit), end: Coordinate(vector: hit))
+                
+                scene.meadow.blueprint.controller.select(foliage: bounds, blueprintType: .select)
+            
             case .tracking(let position, let clickType):
                 
                 guard let sceneView = self.sceneView,
                       let scene = sceneView.scene as? Scene,
-                      let startHit = sceneView.hitTest(point: position.start, category: [.floor, .foliage, .foliageChunk]),
-                      let endHit = sceneView.hitTest(point: position.end, category: [.floor, .foliage, .foliageChunk]) else { return }
+                      let startHit = sceneView.hitTest(point: position.start, category: [.terrain, .terrainChunk]),
+                      let endHit = sceneView.hitTest(point: position.end, category: [.terrain, .terrainChunk]) else { return }
                 
                 let bounds = GridBounds(start: Coordinate(vector: startHit), end: Coordinate(vector: endHit))
                 let blueprintType: Blueprint.BlueprintType = clickType == .left ? .add : .remove
                 
-                scene.meadow.blueprint.controller.select(area: bounds, blueprintType: blueprintType)
+                scene.meadow.blueprint.controller.select(foliage: bounds, blueprintType: blueprintType)
             
             case .up(let position, let clickType):
                 
                 guard let sceneView = self.sceneView,
                       let scene = sceneView.scene as? Scene,
                       let tileType = FoliageTileType(rawValue: self.controller.typePopUp.indexOfSelectedItem),
-                      let startHit = sceneView.hitTest(point: position.start, category: [.floor, .foliage, .foliageChunk]),
-                      let endHit = sceneView.hitTest(point: position.end, category: [.floor, .foliage, .foliageChunk]) else { return }
+                      let startHit = sceneView.hitTest(point: position.start, category: [.terrain, .terrainChunk]),
+                      let endHit = sceneView.hitTest(point: position.end, category: [.terrain, .terrainChunk]) else { return }
+                
+                let bounds = GridBounds(start: Coordinate(vector: startHit), end: Coordinate(vector: endHit))
+                
+                switch clickType {
+                
+                case .left:
+                    
+                    _ = scene.meadow.foliage.add(tile: bounds.start)
+                    
+                case .right:
+                    
+                    scene.meadow.foliage.remove(tile: bounds.start)
+                    
+                default: break
+                }
                 
                 scene.meadow.blueprint.controller.clear()
                 

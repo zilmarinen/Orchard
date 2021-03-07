@@ -14,6 +14,7 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         
         case empty
         case area
+        case buildings
         case camera
         case foliage
         case footpath
@@ -28,6 +29,17 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         guard let viewController = controller.children[Tab.area.rawValue] as? AreaInspectorViewController else { fatalError("Invalid view controller hierarchy") }
         
         let coordinator = AreaInspectorCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
+    
+    lazy var buildingInspectorCoordinator: BuildingInspectorCoordinator = {
+       
+        guard let viewController = controller.children[Tab.buildings.rawValue] as? BuildingInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = BuildingInspectorCoordinator(controller: viewController)
         
         coordinator.parent = self
         
@@ -78,7 +90,7 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         return coordinator
     }()
     
-    lazy var propsInspectorCoordinator: PropsInspectorCoordinator = {
+    lazy var propInspectorCoordinator: PropsInspectorCoordinator = {
        
         guard let viewController = controller.children[Tab.props.rawValue] as? PropsInspectorViewController else { fatalError("Invalid view controller hierarchy") }
         
@@ -136,6 +148,13 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
              .areaTile:
             
             toggle(inspector: .area)
+            
+        case .buildings,
+             .buildingChunk,
+             .buildingTile,
+             .buildingLayer:
+            
+            toggle(inspector: .buildings)
         
         case .camera:
             
@@ -191,6 +210,10 @@ extension InspectorTabViewCoordinator {
         case .area:
             
             start(child: areaInspectorCoordinator, with: selectedNode)
+            
+        case .buildings:
+            
+            start(child: buildingInspectorCoordinator, with: selectedNode)
         
         case .camera:
             
@@ -210,7 +233,7 @@ extension InspectorTabViewCoordinator {
             
         case .props:
             
-            start(child: propsInspectorCoordinator, with: selectedNode)
+            start(child: propInspectorCoordinator, with: selectedNode)
         
         case .scene:
             

@@ -16,9 +16,9 @@ class FoliagePaintUtilityViewController: NSViewController {
             
             typePopUp.removeAllItems()
             
-            for footpathType in FootpathTileType.allCases {
+            for foliageType in FoliageTileType.allCases {
                 
-                typePopUp.addItem(withTitle: footpathType.description)
+                typePopUp.addItem(withTitle: foliageType.description)
             }
         }
     }

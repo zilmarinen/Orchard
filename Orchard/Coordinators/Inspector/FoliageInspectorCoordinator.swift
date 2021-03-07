@@ -63,7 +63,7 @@ extension FoliageInspectorCoordinator {
         controller.chunkRenderingButton.state = (inspectable.chunk?.isHidden ?? false ? .off : .on)
         controller.tileRenderingButton.state = (inspectable.tile?.isHidden ?? false ? .off : .on)
         
-        controller.chunkCoordinateView.coordinate = inspectable.chunk?.coordinate ?? .zero
+        controller.chunkCoordinateView.coordinate = inspectable.chunk?.bounds.start ?? .zero
         controller.tileCoordinateView.coordinate = inspectable.tile?.coordinate ?? .zero
     }
 }

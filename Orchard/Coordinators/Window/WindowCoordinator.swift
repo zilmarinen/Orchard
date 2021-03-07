@@ -39,51 +39,12 @@ class WindowCoordinator: Coordinator<WindowController> {
         
         let scene = (option as? Scene) ?? Scene(season: .spring)
         
+        start(child: splitViewCoordinator, with: scene)
+        
         if option == nil {
             
-            let flag = true
-            
-            if flag {
-                
-                _ = scene.meadow.terrain.add(tile: .zero) { tile in
-
-                    tile.tileType = .sand
-                }
-                _ = scene.meadow.terrain.add(tile: .forward)
-                _ = scene.meadow.terrain.add(tile: .left)
-                _ = scene.meadow.terrain.add(tile: .backward)
-                _ = scene.meadow.terrain.add(tile: .right)
-
-                _ = scene.meadow.terrain.add(tile: Coordinate(x: 1, y: 0, z: 1))
-                _ = scene.meadow.terrain.add(tile: Coordinate(x: 1, y: 0, z: -1))
-                _ = scene.meadow.terrain.add(tile: Coordinate(x: -1, y: 0, z: 1))
-                _ = scene.meadow.terrain.add(tile: Coordinate(x: -1, y: 0, z: -1))
-
-                _ = scene.meadow.terrain.add(tile: Coordinate(x: 0, y: 0, z: 3))
-                _ = scene.meadow.terrain.add(tile: Coordinate(x: 0, y: 0, z: 4))
-            }
-            else {
-                
-                _ = scene.meadow.area.add(tile: .zero) { tile in
-                
-                    tile.tileType = .dirt
-                }
-                _ = scene.meadow.area.add(tile: .forward)
-                _ = scene.meadow.area.add(tile: .left)
-                _ = scene.meadow.area.add(tile: .backward)
-                _ = scene.meadow.area.add(tile: .right)
-                
-                _ = scene.meadow.area.add(tile: Coordinate(x: 1, y: 0, z: 1))
-                _ = scene.meadow.area.add(tile: Coordinate(x: 1, y: 0, z: -1))
-                _ = scene.meadow.area.add(tile: Coordinate(x: -1, y: 0, z: 1))
-                _ = scene.meadow.area.add(tile: Coordinate(x: -1, y: 0, z: -1))
-                
-                _ = scene.meadow.area.add(tile: Coordinate(x: 0, y: 0, z: 3))
-                _ = scene.meadow.area.add(tile: Coordinate(x: 0, y: 0, z: 4))
-            }
+            setupDefault(scene: scene)
         }
-        
-        start(child: splitViewCoordinator, with: scene)
     }
     
     override func stop(then completion: CoordinatorCompletionBlock?) {
@@ -97,5 +58,26 @@ extension WindowCoordinator {
     override func toggle(splitView panel: SplitViewController.Panel) {
      
         splitViewCoordinator.controller.toggle(splitView: panel)
+    }
+}
+
+extension WindowCoordinator {
+    
+    func setupDefault(scene: Scene) {
+        
+        let coordinates: [Coordinate] = [.zero,
+                                         .forward,
+                                         .left,
+                                         .backward,
+                                         .right,
+                                         .forward + .left,
+                                         .forward + .right,
+                                         .backward + .left,
+                                         .backward + .right]
+        
+        for coordinate in coordinates {
+            
+            _ = scene.meadow.terrain.add(tile: coordinate)
+        }
     }
 }

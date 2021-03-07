@@ -17,6 +17,7 @@ import Meadow
     func toggle(utility tab: UtilityTabViewCoordinator.Tab) { responder?.toggle(utility: tab) }
     
     func toggle(area utility: AreaUtilityTabViewCoordinator.Tab) { responder?.toggle(area: utility) }
+    func toggle(buildings utility: BuildingsUtilityTabViewCoordinator.Tab) { responder?.toggle(buildings: utility) }
     func toggle(foliage utility: FoliageUtilityTabViewCoordinator.Tab) { responder?.toggle(foliage: utility) }
     func toggle(footpath utility: FootpathUtilityTabViewCoordinator.Tab) { responder?.toggle(footpath: utility) }
     func toggle(portals utility: PortalUtilityTabViewCoordinator.Tab) { responder?.toggle(portals: utility) }

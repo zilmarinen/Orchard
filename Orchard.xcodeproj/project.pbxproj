@@ -40,6 +40,12 @@
 		1851A16125557F850064539B /* TerrainPaintUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1851A16025557F850064539B /* TerrainPaintUtilityCoordinator.swift */; };
 		1851A16425557F9B0064539B /* TerrainPaintUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1851A16325557F9B0064539B /* TerrainPaintUtilityViewController.swift */; };
 		1859140A2558105A003618DB /* NumberStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185914092558105A003618DB /* NumberStepper.swift */; };
+		1859EB6A25C8194800E1314A /* BuildingsUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859EB6925C8194800E1314A /* BuildingsUtilityViewController.swift */; };
+		1859EB6D25C8195400E1314A /* BuildingsBuildUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859EB6C25C8195400E1314A /* BuildingsBuildUtilityViewController.swift */; };
+		1859EB7125C8197700E1314A /* BuildingsBuildUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859EB7025C8197700E1314A /* BuildingsBuildUtilityCoordinator.swift */; };
+		1859EB7425C8198400E1314A /* BuildingsUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859EB7325C8198400E1314A /* BuildingsUtilityCoordinator.swift */; };
+		1859EB7725C81A7600E1314A /* BuildingsUtilityTabViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859EB7625C81A7600E1314A /* BuildingsUtilityTabViewCoordinator.swift */; };
+		1859EB7B25C81ABC00E1314A /* BuildingsUtilityTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859EB7A25C81ABC00E1314A /* BuildingsUtilityTabViewController.swift */; };
 		185F87CC2556F71E008BFF30 /* CameraInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F87CB2556F71E008BFF30 /* CameraInspectorViewController.swift */; };
 		185F87CF2556F735008BFF30 /* CameraInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F87CE2556F735008BFF30 /* CameraInspectorCoordinator.swift */; };
 		185F87D32556FA84008BFF30 /* CoordinateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F87D22556FA84008BFF30 /* CoordinateView.swift */; };
@@ -95,6 +101,8 @@
 		18D3A1802551652000031CA7 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3A17F2551652000031CA7 /* WindowController.swift */; };
 		18E0C6452599F5C500A7127C /* AreaAdjustUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E0C6442599F5C500A7127C /* AreaAdjustUtilityCoordinator.swift */; };
 		18E0C6482599F5FE00A7127C /* AreaAdjustUtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E0C6472599F5FE00A7127C /* AreaAdjustUtilityViewController.swift */; };
+		18EA152625C8075600A9FADC /* BuildingInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EA152525C8075600A9FADC /* BuildingInspectorViewController.swift */; };
+		18EA152925C807D500A9FADC /* BuildingInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EA152825C807D500A9FADC /* BuildingInspectorCoordinator.swift */; };
 		18FB382C25516F5A0036CA95 /* WindowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB382B25516F5A0036CA95 /* WindowCoordinator.swift */; };
 		18FB382F2551752B0036CA95 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB382E2551752B0036CA95 /* Coordinator.swift */; };
 		18FB38352551778A0036CA95 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB38342551778A0036CA95 /* SplitViewController.swift */; };
@@ -145,6 +153,12 @@
 		1851A16025557F850064539B /* TerrainPaintUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainPaintUtilityCoordinator.swift; sourceTree = "<group>"; };
 		1851A16325557F9B0064539B /* TerrainPaintUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainPaintUtilityViewController.swift; sourceTree = "<group>"; };
 		185914092558105A003618DB /* NumberStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberStepper.swift; sourceTree = "<group>"; };
+		1859EB6925C8194800E1314A /* BuildingsUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingsUtilityViewController.swift; sourceTree = "<group>"; };
+		1859EB6C25C8195400E1314A /* BuildingsBuildUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingsBuildUtilityViewController.swift; sourceTree = "<group>"; };
+		1859EB7025C8197700E1314A /* BuildingsBuildUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingsBuildUtilityCoordinator.swift; sourceTree = "<group>"; };
+		1859EB7325C8198400E1314A /* BuildingsUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingsUtilityCoordinator.swift; sourceTree = "<group>"; };
+		1859EB7625C81A7600E1314A /* BuildingsUtilityTabViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingsUtilityTabViewCoordinator.swift; sourceTree = "<group>"; };
+		1859EB7A25C81ABC00E1314A /* BuildingsUtilityTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingsUtilityTabViewController.swift; sourceTree = "<group>"; };
 		185F87CB2556F71E008BFF30 /* CameraInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraInspectorViewController.swift; sourceTree = "<group>"; };
 		185F87CE2556F735008BFF30 /* CameraInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraInspectorCoordinator.swift; sourceTree = "<group>"; };
 		185F87D22556FA84008BFF30 /* CoordinateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateView.swift; sourceTree = "<group>"; };
@@ -203,6 +217,8 @@
 		18D3A17F2551652000031CA7 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		18E0C6442599F5C500A7127C /* AreaAdjustUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaAdjustUtilityCoordinator.swift; sourceTree = "<group>"; };
 		18E0C6472599F5FE00A7127C /* AreaAdjustUtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaAdjustUtilityViewController.swift; sourceTree = "<group>"; };
+		18EA152525C8075600A9FADC /* BuildingInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingInspectorViewController.swift; sourceTree = "<group>"; };
+		18EA152825C807D500A9FADC /* BuildingInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingInspectorCoordinator.swift; sourceTree = "<group>"; };
 		18FB382B25516F5A0036CA95 /* WindowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCoordinator.swift; sourceTree = "<group>"; };
 		18FB382E2551752B0036CA95 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		18FB38342551778A0036CA95 /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
@@ -235,14 +251,15 @@
 			isa = PBXGroup;
 			children = (
 				18B63502257F7DD5009C7429 /* AreaUtilityTabViewController.swift */,
+				1859EB7A25C81ABC00E1314A /* BuildingsUtilityTabViewController.swift */,
 				1833177D257E1C74001CC0A3 /* FoliageUtilityTabViewController.swift */,
 				18B549422578E6DE0014A93F /* FootpathUtilityTabViewController.swift */,
 				1807F83D25542961008388DC /* InspectorTabViewController.swift */,
+				18FE1EF2258129D100A6B3DD /* PortalUtilityTabViewController.swift */,
 				18B63505257F7DDE009C7429 /* PropsUtilityTabViewController.swift */,
 				1807F83A25542955008388DC /* SidebarTabViewController.swift */,
 				1807F86525544717008388DC /* TerrainUtilityTabViewController.swift */,
 				1807F84025542971008388DC /* UtilityTabViewController.swift */,
-				18FE1EF2258129D100A6B3DD /* PortalUtilityTabViewController.swift */,
 			);
 			path = "Tab View";
 			sourceTree = "<group>";
@@ -267,14 +284,15 @@
 			isa = PBXGroup;
 			children = (
 				18B63535257F7EE4009C7429 /* AreaUtilityTabViewCoordinator.swift */,
+				1859EB7625C81A7600E1314A /* BuildingsUtilityTabViewCoordinator.swift */,
 				18331791257E1CD8001CC0A3 /* FoliageUtilityTabViewCoordinator.swift */,
 				18B5493F2578E6B40014A93F /* FootpathUtilityTabViewCoordinator.swift */,
 				1807F848255429B8008388DC /* InspectorTabViewCoordinator.swift */,
+				18FE1F0525812B3800A6B3DD /* PortalUtilityTabViewCoordinator.swift */,
 				18B63532257F7EDB009C7429 /* PropsUtilityTabViewCoordinator.swift */,
 				1807F844255429AA008388DC /* SidebarTabViewCoordinator.swift */,
 				1807F862255446F4008388DC /* TerrainUtilityTabViewCoordinator.swift */,
 				1807F84B255429C4008388DC /* UtilityTabViewCoordinator.swift */,
-				18FE1F0525812B3800A6B3DD /* PortalUtilityTabViewCoordinator.swift */,
 			);
 			path = "Tab View";
 			sourceTree = "<group>";
@@ -283,13 +301,14 @@
 			isa = PBXGroup;
 			children = (
 				18B634FC257F7DA5009C7429 /* AreaInspectorViewController.swift */,
+				18EA152525C8075600A9FADC /* BuildingInspectorViewController.swift */,
 				185F87CB2556F71E008BFF30 /* CameraInspectorViewController.swift */,
 				18331780257E1C84001CC0A3 /* FoliageInspectorViewController.swift */,
 				18B94DB22578E0DD004FDE14 /* FootpathInspectorViewController.swift */,
+				189903632581232300958809 /* PortalInspectorViewController.swift */,
 				18B634FF257F7DB3009C7429 /* PropsInspectorViewController.swift */,
 				1870D1742555439900B39F8C /* SceneInspectorViewController.swift */,
 				1870D16E2555434C00B39F8C /* TerrainInspectorViewController.swift */,
-				189903632581232300958809 /* PortalInspectorViewController.swift */,
 			);
 			path = Inspector;
 			sourceTree = "<group>";
@@ -298,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				18B63508257F7E0D009C7429 /* Area */,
+				1859EB6825C8190B00E1314A /* Buildings */,
 				18331783257E1C91001CC0A3 /* Foliage */,
 				18B5492A2578E5500014A93F /* Footpath */,
 				18FE1EF5258129E500A6B3DD /* Portals */,
@@ -311,13 +331,14 @@
 			isa = PBXGroup;
 			children = (
 				18B6353C257F7F01009C7429 /* AreaInspectorCoordinator.swift */,
+				18EA152825C807D500A9FADC /* BuildingInspectorCoordinator.swift */,
 				185F87CE2556F735008BFF30 /* CameraInspectorCoordinator.swift */,
 				1833178E257E1CC5001CC0A3 /* FoliageInspectorCoordinator.swift */,
 				18B94DAF2578E0CA004FDE14 /* FootpathInspectorCoordinator.swift */,
+				189903662581236500958809 /* PortalInspectorCoordinator.swift */,
 				18B63538257F7EF9009C7429 /* PropsInspectorCoordinator.swift */,
 				1870D177255543AB00B39F8C /* SceneInspectorCoordinator.swift */,
 				1870D1712555437600B39F8C /* TerrainInspectorCoordinator.swift */,
-				189903662581236500958809 /* PortalInspectorCoordinator.swift */,
 			);
 			path = Inspector;
 			sourceTree = "<group>";
@@ -326,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				18B6351D257F7E88009C7429 /* Area */,
+				1859EB6F25C8195D00E1314A /* Buildings */,
 				18331794257E1CDC001CC0A3 /* Foliage */,
 				18B549342578E6520014A93F /* Footpath */,
 				18FE1EFD25812A4D00A6B3DD /* Portals */,
@@ -392,6 +414,24 @@
 				185914092558105A003618DB /* NumberStepper.swift */,
 			);
 			path = NumberStepper;
+			sourceTree = "<group>";
+		};
+		1859EB6825C8190B00E1314A /* Buildings */ = {
+			isa = PBXGroup;
+			children = (
+				1859EB6925C8194800E1314A /* BuildingsUtilityViewController.swift */,
+				1859EB6C25C8195400E1314A /* BuildingsBuildUtilityViewController.swift */,
+			);
+			path = Buildings;
+			sourceTree = "<group>";
+		};
+		1859EB6F25C8195D00E1314A /* Buildings */ = {
+			isa = PBXGroup;
+			children = (
+				1859EB7025C8197700E1314A /* BuildingsBuildUtilityCoordinator.swift */,
+				1859EB7325C8198400E1314A /* BuildingsUtilityCoordinator.swift */,
+			);
+			path = Buildings;
 			sourceTree = "<group>";
 		};
 		185F87D12556FA51008BFF30 /* Views */ = {
@@ -792,23 +832,29 @@
 				18814F7D25838A62004689E5 /* SceneView.swift in Sources */,
 				1807F85725542E50008388DC /* TerrainUtilityViewController.swift in Sources */,
 				18814F8525838D4A004689E5 /* MouseObserver.swift in Sources */,
+				1859EB7B25C81ABC00E1314A /* BuildingsUtilityTabViewController.swift in Sources */,
 				18B634FD257F7DA5009C7429 /* AreaInspectorViewController.swift in Sources */,
 				1870D1722555437600B39F8C /* TerrainInspectorCoordinator.swift in Sources */,
 				18331796257E1CE9001CC0A3 /* FoliageBuildUtilityCoordinator.swift in Sources */,
 				18B63524257F7EB0009C7429 /* AreaBuildUtilityCoordinator.swift in Sources */,
 				1851A16125557F850064539B /* TerrainPaintUtilityCoordinator.swift in Sources */,
+				1859EB6A25C8194800E1314A /* BuildingsUtilityViewController.swift in Sources */,
 				189903642581232300958809 /* PortalInspectorViewController.swift in Sources */,
 				1833178C257E1CB5001CC0A3 /* FoliageUtilityViewController.swift in Sources */,
+				1859EB7725C81A7600E1314A /* BuildingsUtilityTabViewCoordinator.swift in Sources */,
 				18E0C6452599F5C500A7127C /* AreaAdjustUtilityCoordinator.swift in Sources */,
 				18E0C6482599F5FE00A7127C /* AreaAdjustUtilityViewController.swift in Sources */,
 				18814F8B2583A496004689E5 /* MouseObservable.swift in Sources */,
 				1808EBDF2553F60E00484BEC /* NSResponder.swift in Sources */,
 				1807F86625544717008388DC /* TerrainUtilityTabViewController.swift in Sources */,
+				18EA152925C807D500A9FADC /* BuildingInspectorCoordinator.swift in Sources */,
+				1859EB6D25C8195400E1314A /* BuildingsBuildUtilityViewController.swift in Sources */,
 				18331789257E1CAB001CC0A3 /* FoliagePaintUtilityViewController.swift in Sources */,
 				18331781257E1C84001CC0A3 /* FoliageInspectorViewController.swift in Sources */,
 				189903672581236500958809 /* PortalInspectorCoordinator.swift in Sources */,
 				18B6351B257F7E5A009C7429 /* AreaPaintUtilityViewController.swift in Sources */,
 				18B6352A257F7EC1009C7429 /* PropsUtilityCoordinator.swift in Sources */,
+				1859EB7425C8198400E1314A /* BuildingsUtilityCoordinator.swift in Sources */,
 				18B63536257F7EE4009C7429 /* AreaUtilityTabViewCoordinator.swift in Sources */,
 				18814F882583A48A004689E5 /* KeyboardObservable.swift in Sources */,
 				1859140A2558105A003618DB /* NumberStepper.swift in Sources */,
@@ -823,6 +869,7 @@
 				18B5492F2578E5C20014A93F /* FootpathBuildUtilityViewController.swift in Sources */,
 				1870D178255543AB00B39F8C /* SceneInspectorCoordinator.swift in Sources */,
 				1807F849255429B8008388DC /* InspectorTabViewCoordinator.swift in Sources */,
+				1859EB7125C8197700E1314A /* BuildingsBuildUtilityCoordinator.swift in Sources */,
 				1807F83E25542961008388DC /* InspectorTabViewController.swift in Sources */,
 				18D3A1802551652000031CA7 /* WindowController.swift in Sources */,
 				18D3A16725515D3A00031CA7 /* AppDelegate.swift in Sources */,
@@ -850,6 +897,7 @@
 				186A22E625823E8E000FCB70 /* SceneGraphNode.swift in Sources */,
 				18FE1F0625812B3800A6B3DD /* PortalUtilityTabViewCoordinator.swift in Sources */,
 				18B63518257F7E52009C7429 /* AreaBuildUtilityViewController.swift in Sources */,
+				18EA152625C8075600A9FADC /* BuildingInspectorViewController.swift in Sources */,
 				1807F86A255448B1008388DC /* TerrainBuildUtilityCoordinator.swift in Sources */,
 				1807F845255429AA008388DC /* SidebarTabViewCoordinator.swift in Sources */,
 				185F87D32556FA84008BFF30 /* CoordinateView.swift in Sources */,

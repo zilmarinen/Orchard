@@ -8,6 +8,7 @@
 import Meadow
 
 typealias AreaInspectable = (area: Area, chunk: AreaChunk?, tile: AreaTile?)
+typealias BuildingInspectable = (buildings: Buildings, chunk: BuildingChunk?, tile: BuildingTile?, layer: BuildingLayer?)
 typealias FoliageInspectable = (foliage: Foliage, chunk: FoliageChunk?, tile: FoliageTile?)
 typealias FootpathInspectable = (footpath: Footpath, chunk: FootpathChunk?, tile: FootpathTile?)
 typealias PortalsInspectable = (portals: Portals, portal: Portal?)
@@ -17,6 +18,7 @@ typealias TerrainInspectable = (terrain: Terrain, chunk: TerrainChunk?, tile: Te
 enum Inspectable {
     
     case area(AreaInspectable)
+    case buildings(BuildingInspectable)
     case camera(Camera)
     case foliage(FoliageInspectable)
     case footpath(FootpathInspectable)
@@ -54,6 +56,45 @@ enum Inspectable {
                   let area = chunk.ancestor as? Area else { return nil }
             
             self = .area((area: area, chunk: chunk, tile: tile))
+            
+        case .buildings:
+            
+            guard let buildings = node as? Buildings else { return nil }
+            
+            let chunk = buildings.children.first as? BuildingChunk
+            let tile = chunk?.children.first as? BuildingTile
+            let layer = tile?.children.first as? BuildingLayer
+            
+            self = .buildings((buildings: buildings, chunk: chunk, tile: tile, layer: layer))
+            
+        case .buildingChunk:
+            
+            guard let chunk = node as? BuildingChunk,
+                  let buildings  = chunk.ancestor as? Buildings else { return nil }
+            
+            let tile = chunk.children.first as? BuildingTile
+            let layer = tile?.children.first as? BuildingLayer
+            
+            self = .buildings((buildings: buildings, chunk: chunk, tile: tile, layer: layer))
+            
+        case .buildingTile:
+            
+            guard let tile = node as? BuildingTile,
+                  let chunk = tile.ancestor as? BuildingChunk,
+                  let buildings = chunk.ancestor as? Buildings else { return nil }
+            
+            let layer = tile.children.first as? BuildingLayer
+            
+            self = .buildings((buildings: buildings, chunk: chunk, tile: tile, layer: layer))
+            
+        case .buildingLayer:
+            
+            guard let layer = node as? BuildingLayer,
+                  let tile = layer.ancestor as? BuildingTile,
+                  let chunk = tile.ancestor as? BuildingChunk,
+                  let buildings = chunk.ancestor as? Buildings else { return nil }
+            
+            self = .buildings((buildings: buildings, chunk: chunk, tile: tile, layer: layer))
         
         case .camera:
             

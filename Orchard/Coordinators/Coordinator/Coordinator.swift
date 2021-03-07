@@ -39,7 +39,7 @@ open class Coordinator<T>: NSResponder, Coordinatable {
     private(set) public var controller: T
     
     lazy var identifier: String = {
-    
+        
         return String(describing: type(of: self))
     }()
     
