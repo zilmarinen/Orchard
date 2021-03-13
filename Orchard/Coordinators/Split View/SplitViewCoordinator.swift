@@ -6,15 +6,15 @@
 //
 
 import Cocoa
-import Meadow
+import SpriteKit
 
 class SplitViewCoordinator: Coordinator<SplitViewController> {
     
-    lazy var sceneGraphCoordinator: SceneGraphCoordinator = {
+    lazy var toolbarCoordinator: ToolbarCoordinator = {
        
-        guard let viewController = controller.sceneGraphViewController else { fatalError("Invalid view controller hierarchy") }
+        guard let viewController = controller.toolbarViewController else { fatalError("Invalid view controller hierarchy") }
         
-        let coordinator = SceneGraphCoordinator(controller: viewController)
+        let coordinator = ToolbarCoordinator(controller: viewController)
         
         coordinator.parent = self
         
@@ -32,18 +32,16 @@ class SplitViewCoordinator: Coordinator<SplitViewController> {
         return coordinator
     }()
     
-    lazy var sidebarCoordinator: SidebarCoordinator = {
+    lazy var inspectorCoordinator: InspectorCoordinator = {
        
-        guard let viewController = controller.sidebarViewController else { fatalError("Invalid view controller hierarchy") }
+        guard let viewController = controller.inspectorViewController else { fatalError("Invalid view controller hierarchy") }
         
-        let coordinator = SidebarCoordinator(controller: viewController)
+        let coordinator = InspectorCoordinator(controller: viewController)
         
         coordinator.parent = self
         
         return coordinator
     }()
-    
-    weak var focus: SceneGraphNode?
     
     override init(controller: SplitViewController) {
         
@@ -57,39 +55,22 @@ class SplitViewCoordinator: Coordinator<SplitViewController> {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func start(with option: SceneGraphNode?) {
+    override func start(with option: StartOption?) {
         
         super.start(with: option)
         
-        guard let scene = option as? Scene else { fatalError("Invalid start option") }
-        
-        focus = scene
-        
-        start(child: sceneGraphCoordinator, with: option)
+        start(child: toolbarCoordinator, with: option)
         start(child: sceneCoordinator, with: option)
-        start(child: sidebarCoordinator, with: option)
-    }
-    
-    override func stop(then completion: CoordinatorCompletionBlock?) {
-        
-        stop(child: sceneGraphCoordinator)
-        stop(child: sceneCoordinator)
-        stop(child: sidebarCoordinator)
+        start(child: inspectorCoordinator, with: option)
     }
 }
 
 extension SplitViewCoordinator {
     
-    override var sceneView: SceneView? { sceneCoordinator.controller._sceneView }
+    override var spriteView: SpriteView? { sceneCoordinator.controller.view as? SpriteView }
     
-    override var selectedNode: SceneGraphNode? { focus }
-    
-    override func didSelect(node: SceneGraphNode) {
+    override func toggle(inspector: InspectorTabViewCoordinator.Tab, with object: Any? = nil) {
         
-        focus = node
-        
-        sceneGraphCoordinator.focus(node: node)
-        sceneCoordinator.focus(node: node)
-        sidebarCoordinator.focus(node: node)
+        inspectorCoordinator.tabViewCoordinator.toggle(inspector: inspector, with: object)
     }
 }

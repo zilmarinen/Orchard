@@ -14,29 +14,29 @@ protocol MouseObservable: NSResponder {
     func subscribeToMouseEvents(tracksIdleEvents: Bool)
     func unsubscribeFromMouseEvents()
     
-    func stateDidChange(from previousState: SceneView.MouseState?, to currentState: SceneView.MouseState)
+    func stateDidChange(from previousState: SpriteView.MouseState?, to currentState: SpriteView.MouseState)
 }
 
 extension MouseObservable {
     
     func subscribeToMouseEvents(tracksIdleEvents: Bool) {
         
-        guard let sceneView = sceneView else { return }
+        guard let spriteView = spriteView else { return }
         
-        sceneView.mouseObserver.tracksIdleEvents = tracksIdleEvents
+        spriteView.mouseObserver.tracksIdleEvents = tracksIdleEvents
         
-        mouseObserver = sceneView.mouseObserver.subscribe(stateDidChange(from:to:))
+        mouseObserver = spriteView.mouseObserver.subscribe(stateDidChange(from:to:))
         
         print("\(self) subscribing to mouse observer")
     }
     
     func unsubscribeFromMouseEvents() {
         
-        guard let sceneView = sceneView,
+        guard let spriteView = spriteView,
               let mouseObserver = mouseObserver else { return }
         
-        sceneView.mouseObserver.tracksIdleEvents = false
-        sceneView.mouseObserver.unsubscribe(mouseObserver)
+        spriteView.mouseObserver.tracksIdleEvents = false
+        spriteView.mouseObserver.unsubscribe(mouseObserver)
         
         print("\(self) unsubscribing from mouse observer")
     }

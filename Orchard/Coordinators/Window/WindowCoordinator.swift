@@ -33,23 +33,11 @@ class WindowCoordinator: Coordinator<WindowController> {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func start(with option: SceneGraphNode?) {
+    override func start(with option: StartOption?) {
         
         super.start(with: option)
         
-        let scene = (option as? Scene) ?? Scene(season: .spring)
-        
-        start(child: splitViewCoordinator, with: scene)
-        
-        if option == nil {
-            
-            setupDefault(scene: scene)
-        }
-    }
-    
-    override func stop(then completion: CoordinatorCompletionBlock?) {
-        
-        stop(child: splitViewCoordinator)
+        start(child: splitViewCoordinator, with: option)
     }
 }
 
@@ -58,26 +46,5 @@ extension WindowCoordinator {
     override func toggle(splitView panel: SplitViewController.Panel) {
      
         splitViewCoordinator.controller.toggle(splitView: panel)
-    }
-}
-
-extension WindowCoordinator {
-    
-    func setupDefault(scene: Scene) {
-        
-        let coordinates: [Coordinate] = [.zero,
-                                         .forward,
-                                         .left,
-                                         .backward,
-                                         .right,
-                                         .forward + .left,
-                                         .forward + .right,
-                                         .backward + .left,
-                                         .backward + .right]
-        
-        for coordinate in coordinates {
-            
-            _ = scene.meadow.terrain.add(tile: coordinate)
-        }
     }
 }

@@ -6,23 +6,8 @@
 //
 
 import Cocoa
-import Meadow
 
-class SceneInspectorCoordinator: Coordinator<SceneInspectorViewController>, Inspector {
-    
-    var inspectable: Scene? {
-        
-        guard let selectedNode = selectedNode else { return nil }
-        
-        switch Inspectable(node: selectedNode) {
-        
-        case .scene(let inspectable):
-            
-            return inspectable
-            
-        default: return nil
-        }
-    }
+class SceneInspectorCoordinator: Coordinator<SceneInspectorViewController> {
     
     override init(controller: SceneInspectorViewController) {
         
@@ -36,9 +21,11 @@ class SceneInspectorCoordinator: Coordinator<SceneInspectorViewController>, Insp
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func start(with option: SceneGraphNode?) {
+    override func start(with option: StartOption?) {
         
         super.start(with: option)
+        
+        guard controller.isViewLoaded else { return }
         
         refresh()
     }
@@ -48,12 +35,9 @@ extension SceneInspectorCoordinator {
     
     func refresh() {
         
-        guard controller.isViewLoaded, let inspectable = inspectable else { return }
+        guard let spriteView = spriteView else { return }
         
-        controller.sceneNameLabel.stringValue = inspectable.name ?? ""
-        controller.seasonPopUp.selectItem(at: inspectable.world.season.rawValue)
-        controller.backgroundColorWell.color = inspectable.camera.floor.backgroundColor.color
-        controller.gridColorWell.color = inspectable.camera.floor.gridColor.color
-        controller.gridRenderingButton.state = inspectable.camera.floor.drawGrid ? .on : .off
+        controller.sceneNameLabel.stringValue = spriteView.scene?.name ?? ""
+        controller.backgroundColorWell.color = spriteView.scene?.backgroundColor ?? .white
     }
 }

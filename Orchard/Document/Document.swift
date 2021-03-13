@@ -6,7 +6,7 @@
 //
 
 import Cocoa
-import Meadow
+import SpriteKit
 
 class Document: NSDocument {
     
@@ -19,7 +19,7 @@ class Document: NSDocument {
     
     let coordinator: WindowCoordinator
     
-    var scene: Scene?
+    var map: Map?
 
     override init() {
         
@@ -39,9 +39,9 @@ class Document: NSDocument {
         
         self.addWindowController(coordinator.controller)
         
-        coordinator.start(with: scene)
-        
-        scene = nil
+        coordinator.start(with: map)
+                
+        map = nil
     }
 
     override func read(from fileWrapper: FileWrapper, ofType typeName: String) throws {
@@ -50,12 +50,12 @@ class Document: NSDocument {
         
         let decoder = JSONDecoder()
         
-        self.scene = try decoder.decode(Scene.self, from: sceneGraph)
+        self.map = try decoder.decode(Map.self, from: sceneGraph)
     }
     
     override func fileWrapper(ofType typeName: String) throws -> FileWrapper {
         
-        guard let scene = coordinator.splitViewCoordinator.sceneView?.scene as? Scene else { throw NSError(domain: NSOSStatusErrorDomain, code: writErr, userInfo: nil) }
+        guard let scene = coordinator.splitViewCoordinator.spriteView?.scene as? Map else { throw NSError(domain: NSOSStatusErrorDomain, code: writErr, userInfo: nil) }
         
         let encoder = JSONEncoder()
         

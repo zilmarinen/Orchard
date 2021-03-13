@@ -7,14 +7,9 @@
 
 import Cocoa
 import Meadow
-import SceneKit
+import SpriteKit
 
-class SceneCoordinator: Coordinator<SceneViewController>, KeyboardObservable, MouseObservable {
-    
-    var keyboardObserver: UUID?
-    var mouseObserver: UUID?
-    
-    let focus = SCNNode()
+class SceneCoordinator: Coordinator<SceneViewController> {
     
     override init(controller: SceneViewController) {
         
@@ -28,196 +23,38 @@ class SceneCoordinator: Coordinator<SceneViewController>, KeyboardObservable, Mo
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func start(with option: SceneGraphNode?) {
+    override func start(with option: StartOption?) {
         
         super.start(with: option)
         
-        guard let scene = option as? Scene,
-              let sceneView = sceneView,
-              let device = sceneView.device else { fatalError("Invalid start option") }
+        guard let spriteView = spriteView else { return }
         
-        scene.library = try? device.makeDefaultLibrary(bundle: Meadow.bundle)
-        scene.rootNode.addChildNode(focus)
-        
-        sceneView.scene = scene
-        sceneView.delegate = self
-        sceneView.play(nil)
-        sceneView.allowsCameraControl = false
-        sceneView.autoenablesDefaultLighting = true
-        
-        scene.camera.controller.focus(node: focus, ordinal: .northEast, zoom: 1.0)
-        
-        focus(node: scene)
-        
-        subscribeToKeyboardEvents()
-        subscribeToMouseEvents(tracksIdleEvents: false)
-    }
-    
-    override func stop(then completion: CoordinatorCompletionBlock?) {
-        
-        unsubscribeFromKeyboardEvents()
-        unsubscribeFromMouseEvents()
-        
-        super.stop(then: completion)
-    }
-}
-
-extension SceneCoordinator: SCNSceneRendererDelegate {
-
-    public func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        
-        guard let sceneView = sceneView,
-              let scene = sceneView.scene as? Scene else { return }
-        
-        scene.renderer(renderer, updateAtTime: time)
-        
-        switch sceneView.keyboardObserver.state {
-        
-        case .keysHeld(let keys):
+        if let scene = option as? Map {
             
-            var vector = Vector.zero
+            scene.isPaused = false
+            scene.backgroundColor = .white
+            scene.anchorPoint = .init(x: 0.5, y: 0.5)
+            scene.scaleMode = .aspectFill
             
-            for key in keys {
-                
-                switch key {
-                
-                case .w: vector += Ordinal.southEast.vector
-                case .a: vector += Ordinal.northEast.vector
-                case .s: vector += Ordinal.northWest.vector
-                case .d: vector += Ordinal.southWest.vector
-                default: break
-                }
-            }
-            
-            let v0 = Vector(vector: focus.position)
-            
-            focus.position = SCNVector3(vector: (v0 + vector))
-            
-        default: break
-        }
-    }
-}
-
-extension SceneCoordinator {
-    
-    override func focus(node: SceneGraphNode) {
-        
-        var items: [NSPathControlItem] = []
-        
-        if let node = node as? (SceneGraphNode & Soilable) {
-            
-            var parent: (SceneGraphNode & Soilable)? = node
-            
-            while parent != nil {
-                
-                let item = NSPathControlItem()
-                
-                item.title = parent?.name ?? "Meadow"
-                item.image = parent?.image
-                
-                items.append(item)
-                
-                parent = parent?.ancestor as? (SceneGraphNode & Soilable)
-            }
+            spriteView.presentScene(scene)
         }
         
-        guard let scene = sceneView?.scene as? Scene else { return }
+        if spriteView.scene == nil {
         
-        let item = NSPathControlItem()
+            let scene = Map()
         
-        item.title = scene.name ?? "Scene"
-        item.image = NSImage(named: "scene_icon")
+            scene.isPaused = false
+            scene.backgroundColor = .white
+            scene.anchorPoint = .init(x: 0.5, y: 0.5)
+            scene.scaleMode = .aspectFill
         
-        items.append(item)
-        
-        controller.pathControl.pathItems = items.reversed()
-        
-        switch Inspectable(node: node) {
-        
-        case .area(let inspectable):
+            spriteView.presentScene(scene)
             
-            guard let chunk = inspectable.chunk else { return }
-            
-            scene.camera.controller.focus(node: chunk)
-        
-        case .foliage(let inspectable):
-            
-            guard let chunk = inspectable.chunk else { return }
-            
-            scene.camera.controller.focus(node: chunk)
-                
-        case .footpath(let inspectable):
-            
-            guard let chunk = inspectable.chunk else { return }
-            
-            scene.camera.controller.focus(node: chunk)
-                
-        case .terrain(let inspectable):
-            
-            guard let chunk = inspectable.chunk else { return }
-            
-            scene.camera.controller.focus(node: chunk)
-            
-        default: break
-        }
-    }
-}
-
-extension SceneCoordinator {
-    
-    func stateDidChange(from previousState: SceneView.KeyboardState?, to currentState: SceneView.KeyboardState) {
-        
-        DispatchQueue.main.async { [weak self] in
-            
-            guard let self = self else { return }
-            
-            switch currentState {
-            
-            case .keyUp(let key):
-                
-                guard let sceneView = self.sceneView,
-                      let scene = sceneView.scene as? Scene else { return }
-                
-                switch key {
-                
-                case .q:
-                    
-                    scene.camera.controller.rotate(direction: .anticlockwise)
-                    
-                case .e:
-                    
-                    scene.camera.controller.rotate(direction: .clockwise)
-                    
-                default: break
-                }
-                
-            default: break
-            }
-        }
-    }
-}
-
-extension SceneCoordinator {
-    
-    func stateDidChange(from previousState: SceneView.MouseState?, to currentState: SceneView.MouseState) {
-        
-        DispatchQueue.main.async { [weak self] in
-            
-            guard let self = self else { return }
-            
-            switch currentState {
-            
-            case .zoom(_, let delta):
-                
-                guard let sceneView = self.sceneView,
-                      let scene = sceneView.scene as? Scene else { return }
-                
-                let direction: Camera.CameraController.Transform.Zoom = (delta > 0 ? .in(-delta) : .out(abs(delta)))
-                
-                scene.camera.controller.zoom(direction: direction)
-                
-            default: break
-            }
+            _ = scene.meadow.surface.add(tile: .zero)
+            _ = scene.meadow.surface.add(tile: Coordinate(x: 1, y: 0, z: 0))
+            _ = scene.meadow.surface.add(tile: Coordinate(x: -1, y: 0, z: 0))
+            _ = scene.meadow.surface.add(tile: Coordinate(x: 0, y: 0, z: 1))
+            _ = scene.meadow.surface.add(tile: Coordinate(x: 0, y: 0, z: -1))
         }
     }
 }

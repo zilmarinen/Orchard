@@ -7,7 +7,7 @@
 
 import Meadow
 
-extension SceneView {
+extension SpriteView {
     
     public enum KeyboardState: State {
         

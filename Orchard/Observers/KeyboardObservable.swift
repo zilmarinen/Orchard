@@ -14,23 +14,23 @@ protocol KeyboardObservable: NSResponder {
     func subscribeToKeyboardEvents()
     func unsubscribeFromKeyboardEvents()
     
-    func stateDidChange(from previousState: SceneView.KeyboardState?, to currentState: SceneView.KeyboardState)
+    func stateDidChange(from previousState: SpriteView.KeyboardState?, to currentState: SpriteView.KeyboardState)
 }
 
 extension KeyboardObservable {
     
     func subscribeToKeyboardEvents() {
         
-        guard let sceneView = sceneView else { return }
+        guard let spriteView = spriteView else { return }
         
-        keyboardObserver = sceneView.keyboardObserver.subscribe(stateDidChange(from:to:))
+        keyboardObserver = spriteView.keyboardObserver.subscribe(stateDidChange(from:to:))
     }
     
     func unsubscribeFromKeyboardEvents() {
         
-        guard let sceneView = sceneView,
+        guard let spriteView = spriteView,
               let keyboardObserver = keyboardObserver else { return }
         
-        sceneView.keyboardObserver.unsubscribe(keyboardObserver)
+        spriteView.keyboardObserver.unsubscribe(keyboardObserver)
     }
 }

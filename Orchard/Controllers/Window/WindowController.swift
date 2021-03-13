@@ -6,7 +6,6 @@
 //
 
 import Cocoa
-import Meadow
 
 class WindowController: NSWindowController {
     
@@ -16,6 +15,6 @@ class WindowController: NSWindowController {
     
     @IBAction func segmentedControl(_ sender: NSSegmentedControl) {
         
-        coordinator?.toggle(splitView: (sender.selectedSegment == 0 ? .sceneGraph : .sidebar))
+        coordinator?.toggle(splitView: (sender.selectedSegment == 0 ? .toolbar : .inspector))
     }
 }

@@ -11,15 +11,15 @@ class SplitViewController: NSSplitViewController {
     
     enum Constants {
             
-        static var openPanelWidth: CGFloat = 210.0
+        static var openPanelWidth: CGFloat = 280.0
         static var closedPanelWidth: CGFloat = 0.0
     }
     
     @objc enum Panel: Int {
         
-        case sceneGraph
+        case toolbar
         case scene
-        case sidebar
+        case inspector
     }
     
     enum Divider: Int {
@@ -30,9 +30,9 @@ class SplitViewController: NSSplitViewController {
     
     weak var coordinator: SplitViewCoordinator?
     
-    var sceneGraphViewController: SceneGraphViewController? {
+    var toolbarViewController: ToolbarViewController? {
         
-        return children.first { type(of: $0) == SceneGraphViewController.self } as? SceneGraphViewController
+        return children.first { type(of: $0) == ToolbarViewController.self } as? ToolbarViewController
     }
     
     var sceneViewController: SceneViewController? {
@@ -40,9 +40,9 @@ class SplitViewController: NSSplitViewController {
         return children.first { type(of: $0) == SceneViewController.self } as? SceneViewController
     }
     
-    var sidebarViewController: SidebarViewController? {
+    var inspectorViewController: InspectorViewController? {
         
-        return children.first { type(of: $0) == SidebarViewController.self } as? SidebarViewController
+        return children.first { type(of: $0) == InspectorViewController.self } as? InspectorViewController
     }
 }
 
@@ -56,11 +56,11 @@ extension SplitViewController {
         
         switch panel {
         
-        case .sceneGraph:
+        case .toolbar:
             
             splitView.setPosition(width, ofDividerAt: Divider.left.rawValue)
             
-        case .sidebar:
+        case .inspector:
             
             splitView.setPosition((CGFloat(splitView.frame.width) - width), ofDividerAt: Divider.right.rawValue)
             

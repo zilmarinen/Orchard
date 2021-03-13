@@ -8,7 +8,7 @@
 import Cocoa
 import Meadow
 
-extension SceneView {
+extension SpriteView {
     
     public enum MouseState: State {
         

@@ -7,7 +7,8 @@
 
 import Cocoa
 import Foundation
-import Meadow
+
+protocol StartOption {}
 
 typealias CoordinatorCompletionBlock = () -> Void
 
@@ -21,12 +22,12 @@ protocol Coordinatable: AnyObject {
     
     var children: [String: Coordinatable] { get }
     
-    func start(with option: SceneGraphNode?)
+    func start(with option: StartOption?)
     func stop(then completion: CoordinatorCompletionBlock?)
     func coordinator(didFinish coordinator: Coordinatable)
     
     func start(child coordinator: Coordinatable)
-    func start(child coordinator: Coordinatable, with option: SceneGraphNode?)
+    func start(child coordinator: Coordinatable, with option: StartOption?)
     
     func stop(child coordinator: Coordinatable)
     func stop(child coordinator: Coordinatable, then completion: CoordinatorCompletionBlock?)
@@ -59,7 +60,7 @@ open class Coordinator<T>: NSResponder, Coordinatable {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func start(with option: SceneGraphNode?) {}
+    func start(with option: StartOption?) {}
     
     func stop(then completion: CoordinatorCompletionBlock?) {
 
@@ -76,7 +77,7 @@ open class Coordinator<T>: NSResponder, Coordinatable {
         start(child: coordinator, with: nil)
     }
     
-    func start(child coordinator: Coordinatable, with option: SceneGraphNode?) {
+    func start(child coordinator: Coordinatable, with option: StartOption?) {
         
         children[coordinator.identifier] = coordinator
         
