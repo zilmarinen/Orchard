@@ -1,6 +1,5 @@
 //
 //  SceneInspectorViewController.swift
-//  Orchard
 //
 //  Created by Zack Brown on 06/11/2020.
 //
@@ -24,9 +23,9 @@ class SceneInspectorViewController: NSViewController {
             
             seasonPopUp.removeAllItems()
             
-            for season in Season.allCases {
+            for option in Season.allCases {
                 
-                seasonPopUp.addItem(withTitle: season.description)
+                seasonPopUp.addItem(withTitle: option.description)
             }
         }
     }

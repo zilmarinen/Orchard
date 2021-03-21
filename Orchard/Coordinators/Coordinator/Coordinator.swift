@@ -1,6 +1,5 @@
 //
 //  Coordinator.swift
-//  Orchard
 //
 //  Created by Zack Brown on 14/04/2020.
 //
@@ -37,7 +36,7 @@ protocol Coordinatable: AnyObject {
 
 open class Coordinator<T>: NSResponder, Coordinatable {
     
-    private(set) public var controller: T
+    var controller: T
     
     lazy var identifier: String = {
         

@@ -1,6 +1,5 @@
 //
 //  Map.swift
-//  Orchard
 //
 //  Created by Zack Brown on 10/03/2021.
 //
@@ -8,7 +7,7 @@
 import SpriteKit
 import Meadow
 
-class Map: SKScene, Codable, StartOption, Soilable {
+class Map: SKScene, Codable, StartOption, Responder2D, Soilable {
     
     private enum CodingKeys: CodingKey {
         
@@ -18,7 +17,8 @@ class Map: SKScene, Codable, StartOption, Soilable {
     
     enum Constants {
         
-        static let size = 100
+        static let width = 128
+        static let height = (width / 4) * 3
     }
     
     public var ancestor: SoilableParent? { parent as? SoilableParent }
@@ -27,18 +27,34 @@ class Map: SKScene, Codable, StartOption, Soilable {
     
     let meadow: Editor
     
+    var world: World {
+        
+        didSet {
+            
+            guard oldValue.season != world.season else { return }
+            
+            becomeDirty()
+        }
+    }
+    
+    var map: Map? { self }
+    
     override init() {
         
         meadow = Editor()
         
-        super.init(size: CGSize(width: Constants.size, height: Constants.size))
+        world = World(season: .spring)
+        
+        super.init(size: CGSize(width: Constants.width, height: Constants.height))
         
         name = "Meadow"
         
         anchorPoint = .init(x: 0.5, y: 0.5)
         scaleMode = .aspectFill
-        
+
         addChild(meadow)
+        
+        becomeDirty()
     }
     
     required public init(from decoder: Decoder) throws {
@@ -47,7 +63,9 @@ class Map: SKScene, Codable, StartOption, Soilable {
         
         meadow = try container.decode(Editor.self, forKey: .meadow)
         
-        super.init(size: CGSize(width: Constants.size, height: Constants.size))
+        world = World(season: .spring)
+        
+        super.init(size: CGSize(width: Constants.width, height: Constants.height))
         
         name = try container.decode(String.self, forKey: .name)
         

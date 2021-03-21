@@ -1,6 +1,5 @@
 //
 //  WindowCoordinator.swift
-//  Orchard
 //
 //  Created by Zack Brown on 03/11/2020.
 //
@@ -42,6 +41,26 @@ class WindowCoordinator: Coordinator<WindowController> {
 }
 
 extension WindowCoordinator {
+    
+    override func toggle(editor: SceneCoordinator.ViewState) {
+        
+        splitViewCoordinator.sceneCoordinator.toggle(editor: editor)
+        splitViewCoordinator.inspectorCoordinator.tabViewCoordinator.toggle(inspector: .empty)
+        splitViewCoordinator.toolbarCoordinator.controller.toggle(inspector: .empty)
+        
+        switch editor {
+        
+        case .editor:
+            
+            splitViewCoordinator.controller.show(panel: .toolbar)
+            splitViewCoordinator.controller.show(panel: .inspector)
+            
+        case .meadow:
+            
+            splitViewCoordinator.controller.hide(panel: .toolbar)
+            splitViewCoordinator.controller.hide(panel: .inspector)
+        }
+    }
     
     override func toggle(splitView panel: SplitViewController.Panel) {
      

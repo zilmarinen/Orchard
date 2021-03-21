@@ -1,0 +1,25 @@
+//
+//  Footprint.swift
+//
+//  Created by Zack Brown on 17/03/2021.
+//
+
+import Meadow
+
+extension Footprint {
+    
+    init(coordinate: Coordinate, rotation: Cardinal, size: Int) {
+        
+        var nodes: [Coordinate] = []
+        
+        for x in 0..<size {
+            
+            for z in 0..<size {
+                
+                nodes.append(Coordinate(x: x, y: coordinate.y, z: z))
+            }
+        }
+        
+        self.init(coordinate: coordinate, rotation: rotation, nodes: nodes)
+    }
+}

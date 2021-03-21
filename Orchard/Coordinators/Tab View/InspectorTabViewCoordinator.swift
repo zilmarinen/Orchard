@@ -1,6 +1,5 @@
 //
 //  InspectorTabViewCoordinator.swift
-//  Orchard
 //
 //  Created by Zack Brown on 05/11/2020.
 //
@@ -12,9 +11,69 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
     @objc enum Tab: Int {
         
         case empty
+        case building
+        case foliage
+        case footpath
+        case portal
         case scene
         case surface
+        case water
     }
+    
+    lazy var buildingUtilityCoordinator: BuildingUtilityCoordinator = {
+       
+        guard let viewController = controller.children[Tab.building.rawValue] as? BuildingInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = BuildingUtilityCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
+    
+    lazy var foliageUtilityCoordinator: FoliageUtilityCoordinator = {
+       
+        guard let viewController = controller.children[Tab.foliage.rawValue] as? FoliageInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = FoliageUtilityCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
+    
+    lazy var footpathUtilityCoordinator: FootpathUtilityCoordinator = {
+       
+        guard let viewController = controller.children[Tab.footpath.rawValue] as? FootpathInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = FootpathUtilityCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
+    
+    lazy var portalUtilityCoordinator: PortalUtilityCoordinator = {
+       
+        guard let viewController = controller.children[Tab.portal.rawValue] as? PortalInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = PortalUtilityCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
+    
+    lazy var sceneInspectorCoordinator: SceneInspectorCoordinator = {
+       
+        guard let viewController = controller.children[Tab.scene.rawValue] as? SceneInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = SceneInspectorCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
     
     lazy var surfaceUtilityCoordinator: SurfaceUtilityCoordinator = {
        
@@ -27,11 +86,11 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         return coordinator
     }()
     
-    lazy var sceneInspectorCoordinator: SceneInspectorCoordinator = {
+    lazy var waterUtilityCoordinator: WaterUtilityCoordinator = {
        
-        guard let viewController = controller.children[Tab.scene.rawValue] as? SceneInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        guard let viewController = controller.children[Tab.water.rawValue] as? WaterInspectorViewController else { fatalError("Invalid view controller hierarchy") }
         
-        let coordinator = SceneInspectorCoordinator(controller: viewController)
+        let coordinator = WaterUtilityCoordinator(controller: viewController)
         
         coordinator.parent = self
         
@@ -66,6 +125,30 @@ extension InspectorTabViewCoordinator {
         
         switch inspector {
         
+        case .building:
+            
+            guard let object = object as? BuildingUtilityCoordinator.ViewState else { return }
+            
+            start(child: buildingUtilityCoordinator, with: object)
+        
+        case .foliage:
+            
+            guard let object = object as? FoliageUtilityCoordinator.ViewState else { return }
+            
+            start(child: foliageUtilityCoordinator, with: object)
+            
+        case .footpath:
+            
+            guard let object = object as? FootpathUtilityCoordinator.ViewState else { return }
+            
+            start(child: footpathUtilityCoordinator, with: object)
+            
+        case .portal:
+            
+            guard let object = object as? PortalUtilityCoordinator.ViewState else { return }
+            
+            start(child: portalUtilityCoordinator, with: object)
+        
         case .scene:
             
             start(child: sceneInspectorCoordinator, with: nil)
@@ -75,6 +158,12 @@ extension InspectorTabViewCoordinator {
             guard let object = object as? SurfaceUtilityCoordinator.ViewState else { return }
             
             start(child: surfaceUtilityCoordinator, with: object)
+            
+        case .water:
+            
+            guard let object = object as? WaterUtilityCoordinator.ViewState else { return }
+            
+            start(child: waterUtilityCoordinator, with: object)
             
         default: break
         }

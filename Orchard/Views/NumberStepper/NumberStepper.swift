@@ -1,6 +1,5 @@
 //
 //  NumberStepper.swift
-//  Orchard
 //
 //  Created by Zack Brown on 08/11/2020.
 //

@@ -1,6 +1,5 @@
 //
 //  SceneCoordinator.swift
-//  Orchard
 //
 //  Created by Zack Brown on 03/11/2020.
 //
@@ -10,6 +9,13 @@ import Meadow
 import SpriteKit
 
 class SceneCoordinator: Coordinator<SceneViewController> {
+    
+    lazy var viewModel: SceneViewModel = {
+        
+        return SceneViewModel(initialState: .editor)
+    }()
+    
+    var stateObserver: UUID?
     
     override init(controller: SceneViewController) {
         
@@ -27,7 +33,13 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         
         super.start(with: option)
         
-        guard let spriteView = spriteView else { return }
+        stateObserver = viewModel.subscribe(stateDidChange(from:to:))
+        
+        guard let spriteView = spriteView,
+              let sceneView = sceneView,
+              let device = sceneView.device else { fatalError("Invalid start option") }
+        
+        sceneView.library = try? device.makeDefaultLibrary(bundle: Meadow.bundle)
         
         if let scene = option as? Map {
             
@@ -57,4 +69,85 @@ class SceneCoordinator: Coordinator<SceneViewController> {
             _ = scene.meadow.surface.add(tile: Coordinate(x: 0, y: 0, z: -1))
         }
     }
+    
+    override func stop(then completion: CoordinatorCompletionBlock?) {
+        
+        if let stateObserver = stateObserver {
+            
+            viewModel.unsubscribe(stateObserver)
+        }
+        
+        super.stop(then: completion)
+    }
 }
+
+extension SceneCoordinator {
+    
+    override func toggle(editor: ViewState) {
+        
+        switch viewModel.state {
+        
+        case .editor:
+            
+            viewModel.state = .meadow
+            
+        case .meadow:
+            
+            viewModel.state = .editor
+        }
+    }
+}
+
+extension SceneCoordinator {
+    
+    func stateDidChange(from previousState: ViewState?, to currentState: ViewState) {
+        
+        stopChildren()
+        
+        guard let spriteView = spriteView,
+              let sceneView = sceneView else { return }
+        
+        switch currentState {
+        
+        case .editor:
+            
+            sceneView.isHidden = true
+            
+            spriteView.isHidden = false
+            
+        case .meadow:
+            
+            guard let map = spriteView.scene as? Map else { return }
+            
+            let decoder = JSONDecoder()
+            let encoder = JSONEncoder()
+            
+            do {
+            
+                let data = try encoder.encode(map)
+                
+                let scene = try decoder.decode(Scene.self, from: data)
+                
+                sceneView.scene = scene
+                sceneView.delegate = scene
+            }
+            catch {
+                
+                print("Error: \(error)")
+            }
+            
+            sceneView.isHidden = false
+            sceneView.backgroundColor = map.backgroundColor
+            sceneView.allowsCameraControl = true
+            sceneView.autoenablesDefaultLighting = true
+            
+            spriteView.isHidden = true
+            
+        default: break
+        }
+        
+        sceneView.isPlaying = !sceneView.isHidden
+        spriteView.isPaused = spriteView.isHidden
+    }
+}
+

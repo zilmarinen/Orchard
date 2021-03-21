@@ -1,6 +1,5 @@
 //
 //  CoordinateView.swift
-//  Orchard
 //
 //  Created by Zack Brown on 07/11/2020.
 //

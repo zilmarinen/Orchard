@@ -1,6 +1,5 @@
 //
 //  SurfaceInspectorViewController.swift
-//  Orchard
 //
 //  Created by Zack Brown on 06/11/2020.
 //
@@ -14,6 +13,7 @@ class SurfaceInspectorViewController: NSViewController {
     @IBOutlet weak var tileBox: NSBox!
     @IBOutlet weak var materialBox: NSBox!
     @IBOutlet weak var elevationBox: NSBox!
+    @IBOutlet weak var edgeBox: NSBox!
     
     @IBOutlet weak var chunkCountLabel: NSTextField!
     @IBOutlet weak var neighbourCountLabel: NSTextField!
@@ -27,9 +27,9 @@ class SurfaceInspectorViewController: NSViewController {
             
             inspectorTypePopUp.removeAllItems()
             
-            for surfaceType in SurfaceTileType.allCases {
+            for option in SurfaceTileType.allCases {
                 
-                inspectorTypePopUp.addItem(withTitle: surfaceType.description)
+                inspectorTypePopUp.addItem(withTitle: option.description)
             }
         }
     }
@@ -40,9 +40,9 @@ class SurfaceInspectorViewController: NSViewController {
             
             materialTypePopUp.removeAllItems()
             
-            for surfaceType in SurfaceTileType.allCases {
+            for option in SurfaceTileType.allCases {
                 
-                materialTypePopUp.addItem(withTitle: surfaceType.description)
+                materialTypePopUp.addItem(withTitle: option.description)
             }
         }
     }
@@ -81,6 +81,32 @@ class SurfaceInspectorViewController: NSViewController {
             
             elevationLayerStepper.maximumValue = World.Constants.ceiling
             elevationLayerStepper.minimumValue = World.Constants.floor
+        }
+    }
+    
+    @IBOutlet weak var materialEdgeTypePopUp: NSPopUpButton! {
+        
+        didSet {
+            
+            materialEdgeTypePopUp.removeAllItems()
+            
+            for option in SurfaceEdgeType.allCases {
+                
+                materialEdgeTypePopUp.addItem(withTitle: option.description)
+            }
+        }
+    }
+    
+    @IBOutlet weak var edgeTypePopUp: NSPopUpButton! {
+        
+        didSet {
+            
+            edgeTypePopUp.removeAllItems()
+            
+            for option in SurfaceEdgeType.allCases {
+                
+                edgeTypePopUp.addItem(withTitle: option.description)
+            }
         }
     }
     

@@ -1,6 +1,5 @@
 //
 //  SurfaceElevationCoordinator.swift
-//  Orchard
 //
 //  Created by Zack Brown on 12/03/2021.
 //
@@ -71,6 +70,8 @@ extension SurfaceElevationCoordinator {
                     guard let tile = map.meadow.surface.find(tile: coordinate) else { return }
                     
                     tile.coordinate = Coordinate(x: coordinate.x, y: self.controller.elevationLayerStepper.integerValue, z: coordinate.z)
+                    
+                    //TODO: adjust footpath/foliage elevation
                 }
                 
             default: break

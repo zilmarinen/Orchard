@@ -1,6 +1,5 @@
 //
 //  SpriteView.swift
-//  Orchard
 //
 //  Created by Zack Brown on 11/12/2020.
 //
@@ -33,6 +32,8 @@ extension SpriteView {
     
     public override func flagsChanged(with event: NSEvent) {
         
+        super.flagsChanged(with: event)
+        
         guard let keyCode = SpriteView.KeyboardState.KeyCode(rawValue: event.keyCode) else { return }
         
         switch keyboardObserver.state {
@@ -58,6 +59,8 @@ extension SpriteView {
     
     public override func keyDown(with event: NSEvent) {
         
+        super.keyDown(with: event)
+        
         guard let keyCode = SpriteView.KeyboardState.KeyCode(rawValue: event.keyCode) else { return }
         
         switch keyboardObserver.state {
@@ -77,6 +80,8 @@ extension SpriteView {
     }
     
     public override func keyUp(with event: NSEvent) {
+        
+        super.keyUp(with: event)
         
         guard let keyCode = SpriteView.KeyboardState.KeyCode(rawValue: event.keyCode) else { return }
         

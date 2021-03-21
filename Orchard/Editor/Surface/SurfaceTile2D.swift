@@ -1,6 +1,5 @@
 //
 //  SurfaceTile2D.swift
-//  Orchard
 //
 //  Created by Zack Brown on 10/03/2021.
 //
@@ -9,30 +8,15 @@ import Foundation
 import Meadow
 import SpriteKit
 
-class SurfaceTile2D: SKShapeNode, Codable, Soilable {
+class SurfaceTile2D: Tile2D {
     
     private enum CodingKeys: CodingKey {
         
-        case coordinate
         case tileType
+        case edgeType
     }
     
-    public var ancestor: SoilableParent? { parent as? SoilableParent }
-    
-    public var isDirty: Bool = false
-    
-    public var coordinate: Coordinate {
-        
-        didSet {
-            
-            if oldValue != coordinate {
-                
-                becomeDirty()
-            }
-        }
-    }
-    
-    public var tileType: SurfaceTileType = .dirt {
+    var tileType: SurfaceTileType = .dirt {
         
         didSet {
             
@@ -43,11 +27,25 @@ class SurfaceTile2D: SKShapeNode, Codable, Soilable {
         }
     }
     
-    public var neighbours: [Cardinal : SurfaceTile2D] = [:] {
+    var edgeType: SurfaceEdgeType = .terraced {
         
         didSet {
             
-            becomeDirty()
+            if oldValue != edgeType {
+                
+                becomeDirty()
+            }
+        }
+    }
+    
+    var pattern: GridPattern = GridPattern(value: false) {
+        
+        didSet {
+            
+            if oldValue != pattern {
+                
+                becomeDirty()
+            }
         }
     }
     
@@ -67,11 +65,7 @@ class SurfaceTile2D: SKShapeNode, Codable, Soilable {
     
     required init(coordinate: Coordinate) {
             
-        self.coordinate = coordinate
-        
-        super.init()
-        
-        blendMode = .multiplyAlpha
+        super.init(coordinate: coordinate)
         
         addChild(label)
     }
@@ -80,16 +74,12 @@ class SurfaceTile2D: SKShapeNode, Codable, Soilable {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        coordinate = try container.decode(Coordinate.self, forKey: .coordinate)
         tileType = try container.decode(SurfaceTileType.self, forKey: .tileType)
+        edgeType = try container.decode(SurfaceEdgeType.self, forKey: .edgeType)
         
-        super.init()
-        
-        blendMode = .multiplyAlpha
+        try super.init(from: decoder)
         
         addChild(label)
-        
-        becomeDirty()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -97,12 +87,115 @@ class SurfaceTile2D: SKShapeNode, Codable, Soilable {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func encode(to encoder: Encoder) throws {
+    public override func encode(to encoder: Encoder) throws {
+        
+        try super.encode(to: encoder)
         
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try container.encode(coordinate, forKey: .coordinate)
         try container.encode(tileType, forKey: .tileType)
+        try container.encode(edgeType, forKey: .edgeType)
+    }
+    
+    @discardableResult override public func clean() -> Bool {
+        
+        guard isDirty else { return false }
+        
+        fillColor = tileType.color.color
+        label.zPosition = 1
+        label.text = "\(coordinate.y)"
+        for child in children {
+            
+            child.removeFromParent()
+        }
+        addChild(label)
+        let size = CGSize(width: 0.33, height: 0.33)
+        
+        let nw = SKSpriteNode(color: pattern.northWest ? tileType.color.color : MDWColor.red, size: size)
+        let n = SKSpriteNode(color: pattern.north ? tileType.color.color : MDWColor.red, size: size)
+        let ne = SKSpriteNode(color: pattern.northEast ? tileType.color.color : MDWColor.red, size: size)
+        let e = SKSpriteNode(color: pattern.east ? tileType.color.color : MDWColor.red, size: size)
+        let se = SKSpriteNode(color: pattern.southEast ? tileType.color.color : MDWColor.red, size: size)
+        let s = SKSpriteNode(color: pattern.south ? tileType.color.color : MDWColor.red, size: size)
+        let sw = SKSpriteNode(color: pattern.southWest ? tileType.color.color : MDWColor.red, size: size)
+        let w = SKSpriteNode(color: pattern.west ? tileType.color.color : MDWColor.red, size: size)
+        let c = SKSpriteNode(color: tileType.color.color, size: size)
+        
+        nw.position = CGPoint(x: 0.5 + size.width, y: 0.5 + size.height)
+        n.position = CGPoint(x: 0.5, y: 0.5 + size.height)
+        ne.position = CGPoint(x: 0.5 - size.width, y: 0.5 + size.height)
+        e.position = CGPoint(x: 0.5 - size.width, y: 0.5)
+        se.position = CGPoint(x: 0.5 - size.width, y: 0.5 - size.height)
+        s.position = CGPoint(x: 0.5, y: 0.5 - size.height)
+        sw.position = CGPoint(x: 0.5 + size.width, y: 0.5 - size.height)
+        w.position = CGPoint(x: 0.5 + size.width, y: 0.5)
+        c.position = CGPoint(x: 0.5, y: 0.5)
+        
+        addChild(nw)
+        addChild(n)
+        addChild(ne)
+        addChild(e)
+        addChild(se)
+        addChild(s)
+        addChild(sw)
+        addChild(w)
+        addChild(c)
+        
+        return super.clean()
+    }
+    
+    override func collapse() {
+        
+        super.collapse()
+        
+        pattern = GridPattern(value: true)
+        
+        for ordinal in Ordinal.allCases {
+            
+            guard let neighbour = find(neighbour: ordinal),
+                  neighbour.tileType.rawValue > tileType.rawValue else { continue }
+            
+            switch ordinal {
+            
+            case .northWest: pattern.northWest = false
+            case .northEast: pattern.northEast = false
+            case .southEast: pattern.southEast = false
+            case .southWest: pattern.southWest = false
+            }
+        }
+        
+        for cardinal in Cardinal.allCases {
+                    
+            guard let neighbour = find(neighbour: cardinal),
+                  neighbour.tileType.rawValue > tileType.rawValue else { continue }
+            
+            switch cardinal {
+            
+            case .north:
+                
+                pattern.north = false
+                pattern.northWest = false
+                pattern.northEast = false
+                
+            case .east:
+                
+                pattern.east = false
+                pattern.northEast = false
+                pattern.southEast = false
+                
+            case .south:
+                
+                pattern.south = false
+                pattern.southEast = false
+                pattern.southWest = false
+                
+            case .west:
+                
+                pattern.west = false
+                pattern.northWest = false
+                pattern.southWest = false
+            }
+        }
     }
 }
 
@@ -111,65 +204,5 @@ extension SurfaceTile2D {
     public static func == (lhs: SurfaceTile2D, rhs: SurfaceTile2D) -> Bool {
         
         return lhs.coordinate == rhs.coordinate && lhs.tileType == rhs.tileType
-    }
-}
-
-extension SurfaceTile2D {
-    
-    func add(neighbour: SurfaceTile2D, cardinal: Cardinal) {
-        
-        remove(neighbour: cardinal)
-        
-        neighbours.updateValue(neighbour, forKey: cardinal)
-        
-        if neighbour.neighbours[cardinal.opposite] != self {
-            
-            neighbour.add(neighbour: self, cardinal: cardinal.opposite)
-        }
-    }
-    
-    func find(neighbour cardinal: Cardinal) -> SurfaceTile2D? {
-        
-        return neighbours[cardinal]
-    }
-    
-    func find(neighbour ordinal: Ordinal) -> SurfaceTile2D? {
-        
-        let (c0, c1) = ordinal.cardinals
-        
-        return find(neighbour: c0)?.find(neighbour: c1) ?? find(neighbour: c1)?.find(neighbour: c0)
-    }
-    
-    func remove(neighbour cardinal: Cardinal) {
-        
-        guard let neighbour = neighbours[cardinal] else { return }
-        
-        neighbours.removeValue(forKey: cardinal)
-        
-        if neighbour.neighbours[cardinal.opposite] == self {
-            
-            neighbour.remove(neighbour: cardinal.opposite)
-        }
-    }
-}
-
-extension SurfaceTile2D {
-    
-    @discardableResult public func clean() -> Bool {
-        
-        guard isDirty,
-              let parent = parent as? SurfaceChunk2D else { return false }
-        
-        position = CGPoint(x: coordinate.x - parent.bounds.start.x, y: coordinate.z - parent.bounds.start.z)
-        
-        path = CGPath(rect: CGRect(x: 0, y: 0, width: 1, height: 1), transform: nil)
-        
-        fillColor = tileType.color.color
-        
-        label.text = "\(coordinate.y)"
-        
-        isDirty = false
-        
-        return true
     }
 }

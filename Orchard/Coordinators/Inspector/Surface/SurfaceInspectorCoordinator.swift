@@ -1,6 +1,5 @@
 //
 //  SurfaceInspectorCoordinator.swift
-//  Orchard
 //
 //  Created by Zack Brown on 06/11/2020.
 //
@@ -21,9 +20,9 @@ class SurfaceInspectorCoordinator: SurfaceCoordinator, MouseObservable {
         subscribeToMouseEvents(tracksIdleEvents: false)
         
         guard let option = option as? SurfaceUtilityCoordinator.ViewState,
-              case let .inspector(tile2D) = option else { return }
+              case let .inspector(node) = option else { return }
         
-        tile = tile2D
+        tile = node
         
         guard controller.isViewLoaded else { return }
         
@@ -124,9 +123,9 @@ extension SurfaceInspectorCoordinator {
                 
                 let hit = map.hitTest(point: position.end)
                 
-                guard let tile = map.meadow.surface.find(tile: hit) else { return }
+                guard let node = map.meadow.surface.find(tile: hit) else { return }
                 
-                self.toggle(inspector: .surface, with: SurfaceUtilityCoordinator.ViewState.inspector(tile: tile))
+                self.toggle(inspector: .surface, with: SurfaceUtilityCoordinator.ViewState.inspector(node: node))
                 
             default: break
             }

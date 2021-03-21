@@ -1,6 +1,5 @@
 //
 //  SurfaceTileType.swift
-//  Orchard
 //
 //  Created by Zack Brown on 11/03/2021.
 //
@@ -9,7 +8,19 @@ import Meadow
 
 extension SurfaceTileType {
     
-    public var color: Color {
+    var description: String {
+        
+        switch self {
+        
+        case .dirt: return "Dirt"
+        case .grass: return "Grass"
+        case .sand: return "Sand"
+        case .undergrowth: return "Undergrowth"
+        case .water: return "Water"
+        }
+    }
+    
+    var color: Color {
         
         switch  self {
         case .dirt: return Color(red: 0.81, green: 0.68, blue: 0.51)

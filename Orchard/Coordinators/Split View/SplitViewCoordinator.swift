@@ -1,11 +1,11 @@
 //
 //  SplitViewCoordinator.swift
-//  Orchard
 //
 //  Created by Zack Brown on 03/11/2020.
 //
 
 import Cocoa
+import Meadow
 import SpriteKit
 
 class SplitViewCoordinator: Coordinator<SplitViewController> {
@@ -67,10 +67,12 @@ class SplitViewCoordinator: Coordinator<SplitViewController> {
 
 extension SplitViewCoordinator {
     
-    override var spriteView: SpriteView? { sceneCoordinator.controller.view as? SpriteView }
+    override var sceneView: SceneView? { sceneCoordinator.controller.scnView }
+    override var spriteView: SpriteView? { sceneCoordinator.controller.skView }
     
     override func toggle(inspector: InspectorTabViewCoordinator.Tab, with object: Any? = nil) {
         
         inspectorCoordinator.tabViewCoordinator.toggle(inspector: inspector, with: object)
+        toolbarCoordinator.controller.toggle(inspector: inspector)
     }
 }

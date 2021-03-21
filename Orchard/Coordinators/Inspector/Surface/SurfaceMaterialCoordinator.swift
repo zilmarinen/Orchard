@@ -1,6 +1,5 @@
 //
 //  SurfaceMaterialCoordinator.swift
-//  Orchard
 //
 //  Created by Zack Brown on 11/03/2021.
 //
@@ -52,7 +51,8 @@ extension SurfaceMaterialCoordinator {
             guard let self = self,
                   let spriteView = self.spriteView,
                   let map = spriteView.scene as? Map,
-                  let tileType = SurfaceTileType(rawValue: self.controller.materialTypePopUp.indexOfSelectedItem) else { return }
+                  let tileType = SurfaceTileType(rawValue: self.controller.materialTypePopUp.indexOfSelectedItem),
+                  let edgeType = SurfaceEdgeType(rawValue: self.controller.materialEdgeTypePopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
             
@@ -63,20 +63,23 @@ extension SurfaceMaterialCoordinator {
                 
                 let bounds = GridBounds(start: startHit, end: endHit)
                 
-                bounds.enumerate(y: 0) { coordinate in
+                bounds.enumerate(y: self.controller.materialLayerStepper.integerValue) { coordinate in
                     
                     switch clickType {
                     
                     case .right:
                         
                         map.meadow.surface.remove(tile: coordinate)
+                        map.meadow.foliage.remove(vegetation: coordinate)
+                        map.meadow.water.remove(tile: coordinate)
                         
                     default:
                         
                         let tile = map.meadow.surface.find(tile: coordinate) ?? map.meadow.surface.add(tile: coordinate)
                         
-                        tile?.coordinate = Coordinate(x: coordinate.x, y: self.controller.materialLayerStepper.integerValue, z: coordinate.z)
+                        tile?.coordinate = coordinate
                         tile?.tileType = tileType
+                        tile?.edgeType = edgeType
                     }
                 }
                 

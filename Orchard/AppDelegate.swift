@@ -1,6 +1,5 @@
 //
 //  AppDelegate.swift
-//  Orchard
 //
 //  Created by Zack Brown on 03/11/2020.
 //

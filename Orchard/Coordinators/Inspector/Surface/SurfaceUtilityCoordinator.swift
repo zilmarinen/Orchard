@@ -1,6 +1,5 @@
 //
 //  SurfaceUtilityCoordinator.swift
-//  Orchard
 //
 //  Created by Zack Brown on 11/03/2021.
 //
@@ -57,6 +56,15 @@ class SurfaceUtilityCoordinator: SurfaceCoordinator {
         guard controller.isViewLoaded else { return }
         
         refresh()
+    }
+    
+    override func start(child coordinator: Coordinatable, with option: StartOption?) {
+        
+        guard let coordinator = coordinator as? SurfaceCoordinator else { return }
+        
+        coordinator.controller = controller
+        
+        super.start(child: coordinator, with: option)
     }
     
     override func stop(then completion: CoordinatorCompletionBlock?) {

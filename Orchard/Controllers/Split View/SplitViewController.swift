@@ -1,6 +1,5 @@
 //
 //  SplitViewController.swift
-//  Orchard
 //
 //  Created by Zack Brown on 03/11/2020.
 //
@@ -43,6 +42,46 @@ class SplitViewController: NSSplitViewController {
     var inspectorViewController: InspectorViewController? {
         
         return children.first { type(of: $0) == InspectorViewController.self } as? InspectorViewController
+    }
+    
+    func hide(panel: Panel) {
+        
+        let subview = splitView.subviews[panel.rawValue]
+        
+        guard !splitView.isSubviewCollapsed(subview) else { return }
+        
+        switch panel {
+        
+        case .toolbar:
+            
+            splitView.setPosition(0, ofDividerAt: Divider.left.rawValue)
+        
+        case .inspector:
+            
+            splitView.setPosition(splitView.frame.width, ofDividerAt: Divider.right.rawValue)
+            
+        default: break
+        }
+    }
+    
+    func show(panel: Panel) {
+        
+        let subview = splitView.subviews[panel.rawValue]
+        
+        guard splitView.isSubviewCollapsed(subview) else { return }
+        
+        switch panel {
+        
+        case .toolbar:
+            
+            splitView.setPosition(Constants.openPanelWidth, ofDividerAt: Divider.left.rawValue)
+        
+        case .inspector:
+            
+            splitView.setPosition((CGFloat(splitView.frame.width) - Constants.openPanelWidth), ofDividerAt: Divider.right.rawValue)
+            
+        default: break
+        }
     }
 }
 
