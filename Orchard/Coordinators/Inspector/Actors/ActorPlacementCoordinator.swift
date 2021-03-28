@@ -1,14 +1,14 @@
 //
-//  WaterElevationCoordinator.swift
+//  ActorPlacementCoordinator.swift
 //  Orchard
 //
-//  Created by Zack Brown on 21/03/2021.
+//  Created by Zack Brown on 28/03/2021.
 //
 
 import Cocoa
 import Meadow
 
-class WaterElevationCoordinator: WaterCoordinator, MouseObservable {
+class ActorPlacementCoordinator: ActorCoordinator, MouseObservable {
     
     var mouseObserver: UUID?
     
@@ -17,8 +17,6 @@ class WaterElevationCoordinator: WaterCoordinator, MouseObservable {
         super.start(with: option)
         
         subscribeToMouseEvents(tracksIdleEvents: true)
-        
-        editor?.water.showElevation = true
         
         guard controller.isViewLoaded else { return }
         
@@ -29,25 +27,22 @@ class WaterElevationCoordinator: WaterCoordinator, MouseObservable {
         
         unsubscribeFromMouseEvents()
         
-        editor?.water.showElevation = false
-        
         super.stop(then: completion)
     }
     
     override func refresh() {
         
-        guard let water = editor?.water else { return }
+        guard let actors = editor?.actors else { return }
         
-        controller.gridRenderingButton.state = water.isHidden ? .off : .on
-        controller.chunkCountLabel.integerValue = water.chunks.count
+        controller.gridRenderingButton.state = actors.isHidden ? .off : .on
+        controller.nodeCountLabel.integerValue = actors.npcs.count
                  
-        controller.tileBox.isHidden = true
-        controller.materialBox.isHidden = true
-        controller.elevationBox.isHidden = false
+        controller.nodeBox.isHidden = true
+        controller.placementBox.isHidden = false
     }
 }
 
-extension WaterElevationCoordinator {
+extension ActorPlacementCoordinator {
     
     func stateDidChange(from previousState: SpriteView.MouseState?, to currentState: SpriteView.MouseState) {
         
@@ -59,7 +54,7 @@ extension WaterElevationCoordinator {
             
             switch currentState {
             
-            case .up(let position, _):
+            case .up(let position, let clickType):
                 
                 let startHit = map.hitTest(point: position.start)
                 let endHit = map.hitTest(point: position.end)
@@ -68,12 +63,20 @@ extension WaterElevationCoordinator {
                 
                 bounds.enumerate(y: 0) { coordinate in
                     
-                    guard let tile = map.meadow.water.find(tile: coordinate),
-                          let surfaceTile = map.meadow.surface.find(tile: coordinate) else { return }
+                    switch clickType {
                     
-                    let y = max(self.controller.elevationLayerStepper.integerValue, surfaceTile.coordinate.y + 1)
-                    
-                    tile.coordinate = Coordinate(x: coordinate.x, y: y, z: coordinate.z)
+                    case .right:
+                        
+                        map.meadow.actors.remove(actor: coordinate)
+                        
+                    default:
+                        
+                        guard map.meadow.foliage.find(chunk: coordinate) == nil,
+                              map.meadow.buildings.find(chunk: coordinate) == nil,
+                              map.meadow.portals.find(chunk: coordinate) == nil else { return }
+                        
+                        _ = map.meadow.actors.add(actor: coordinate)
+                    }
                 }
                 
             default: break

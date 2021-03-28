@@ -1,35 +1,36 @@
 //
-//  WaterUtilityCoordinator.swift
+//  ActorUtilityCoordinator.swift
+//  Orchard
 //
-//  Created by Zack Brown on 21/03/2021.
+//  Created by Zack Brown on 28/03/2021.
 //
 
 import Cocoa
 import Meadow
 
-class WaterUtilityCoordinator: WaterCoordinator {
+class ActorUtilityCoordinator: ActorCoordinator {
     
-    lazy var inspectorCoordinator: WaterInspectorCoordinator = {
+    lazy var inspectorCoordinator: ActorInspectorCoordinator = {
        
-        let coordinator = WaterInspectorCoordinator(controller: controller)
+        let coordinator = ActorInspectorCoordinator(controller: controller)
         
         coordinator.parent = self
         
         return coordinator
     }()
     
-    lazy var materialCoordinator: WaterMaterialCoordinator = {
+    lazy var placementCoordinator: ActorPlacementCoordinator = {
        
-        let coordinator = WaterMaterialCoordinator(controller: controller)
+        let coordinator = ActorPlacementCoordinator(controller: controller)
         
         coordinator.parent = self
         
         return coordinator
     }()
     
-    lazy var viewModel: WaterViewModel = {
+    lazy var viewModel: ActorViewModel = {
        
-        return WaterViewModel(initialState: .empty)
+        return ActorViewModel(initialState: .empty)
     }()
     
     var stateObserver: UUID?
@@ -40,7 +41,7 @@ class WaterUtilityCoordinator: WaterCoordinator {
         
         stateObserver = viewModel.subscribe(stateDidChange(from:to:))
         
-        guard let option = option as? WaterUtilityCoordinator.ViewState else { return }
+        guard let option = option as? ActorUtilityCoordinator.ViewState else { return }
         
         viewModel.state = option
         
@@ -51,7 +52,7 @@ class WaterUtilityCoordinator: WaterCoordinator {
     
     override func start(child coordinator: Coordinatable, with option: StartOption?) {
         
-        guard let coordinator = coordinator as? WaterCoordinator else { return }
+        guard let coordinator = coordinator as? ActorCoordinator else { return }
         
         coordinator.controller = controller
         
@@ -69,7 +70,7 @@ class WaterUtilityCoordinator: WaterCoordinator {
     }
 }
 
-extension WaterUtilityCoordinator {
+extension ActorUtilityCoordinator {
     
     func stateDidChange(from previousState: ViewState?, to currentState: ViewState) {
         
@@ -81,11 +82,12 @@ extension WaterUtilityCoordinator {
             
             start(child: inspectorCoordinator, with: currentState)
             
-        case .material:
+        case .placement:
             
-            start(child: materialCoordinator, with: nil)
+            start(child: placementCoordinator, with: nil)
             
         default: break
         }
     }
 }
+

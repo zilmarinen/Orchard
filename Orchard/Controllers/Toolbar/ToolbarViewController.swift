@@ -8,6 +8,7 @@ import Cocoa
 
 @objc class ToolbarViewController: NSViewController {
     
+    @IBOutlet weak var actorButton: NSButton!
     @IBOutlet weak var buildingButton: NSButton!
     @IBOutlet weak var foliageButton: NSButton!
     @IBOutlet weak var footpathButton: NSButton!
@@ -15,6 +16,10 @@ import Cocoa
     @IBOutlet weak var portalButton: NSButton!
     @IBOutlet weak var surfaceButton: NSButton!
     @IBOutlet weak var waterButton: NSButton!
+    
+    @IBOutlet var actorMenu: NSMenu!
+    @IBOutlet weak var actorInspectorItem: NSMenuItem!
+    @IBOutlet weak var actorPlacementItem: NSMenuItem!
     
     @IBOutlet var buildingMenu: NSMenu!
     @IBOutlet weak var buildingInspectorItem: NSMenuItem!
@@ -24,6 +29,7 @@ import Cocoa
     @IBOutlet weak var surfaceInspectorItem: NSMenuItem!
     @IBOutlet weak var surfaceMaterialItem: NSMenuItem!
     @IBOutlet weak var surfaceElevationItem: NSMenuItem!
+    @IBOutlet weak var surfaceEdgeItem: NSMenuItem!
     
     @IBOutlet var foliageMenu: NSMenu!
     @IBOutlet weak var foliageInspectorItem: NSMenuItem!
@@ -40,13 +46,16 @@ import Cocoa
     @IBOutlet var waterMenu: NSMenu!
     @IBOutlet weak var waterInspectorItem: NSMenuItem!
     @IBOutlet weak var waterMaterialItem: NSMenuItem!
-    @IBOutlet weak var waterElevationItem: NSMenuItem!
     
     @IBAction func button(_ sender: NSButton) {
         
         guard let event = NSApplication.shared.currentEvent else { return }
         
         switch sender {
+        
+        case actorButton:
+            
+            NSMenu.popUpContextMenu(actorMenu, with: event, for: sender)
         
         case buildingButton:
             
@@ -84,9 +93,19 @@ import Cocoa
         
         switch sender {
         
+        case actorInspectorItem:
+            
+            guard let node = coordinator?.editor?.actors.npcs.first else { return }
+            
+            coordinator?.toggle(inspector: .actor, with: ActorUtilityCoordinator.ViewState.inspector(node: node))
+            
+        case actorPlacementItem:
+            
+            coordinator?.toggle(inspector: .actor, with: ActorUtilityCoordinator.ViewState.placement)
+            
         case buildingInspectorItem:
             
-            guard let node = coordinator?.editor?.buildings.buildings.first else { return }
+            guard let node = coordinator?.editor?.buildings.chunks.first else { return }
             
             coordinator?.toggle(inspector: .building, with: BuildingUtilityCoordinator.ViewState.inspector(node: node))
             
@@ -96,7 +115,7 @@ import Cocoa
         
         case foliageInspectorItem:
             
-            guard let node = coordinator?.editor?.foliage.vegetation.first else { return }
+            guard let node = coordinator?.editor?.foliage.chunks.first else { return }
             
             coordinator?.toggle(inspector: .foliage, with: FoliageUtilityCoordinator.ViewState.inspector(node: node))
             
@@ -116,7 +135,7 @@ import Cocoa
             
         case portalInspectorItem:
             
-            guard let node = coordinator?.editor?.portals.portals.first else { return }
+            guard let node = coordinator?.editor?.portals.chunks.first else { return }
             
             coordinator?.toggle(inspector: .portal, with: PortalUtilityCoordinator.ViewState.inspector(node: node))
             
@@ -138,6 +157,10 @@ import Cocoa
             
             coordinator?.toggle(inspector: .surface, with: SurfaceUtilityCoordinator.ViewState.elevation)
             
+        case surfaceEdgeItem:
+            
+            coordinator?.toggle(inspector: .surface, with: SurfaceUtilityCoordinator.ViewState.edge)
+            
         case waterInspectorItem:
             
             guard let node = coordinator?.editor?.water.tiles.first else { return }
@@ -147,10 +170,6 @@ import Cocoa
         case waterMaterialItem:
             
             coordinator?.toggle(inspector: .water, with: WaterUtilityCoordinator.ViewState.material)
-            
-        case waterElevationItem:
-            
-            coordinator?.toggle(inspector: .water, with: WaterUtilityCoordinator.ViewState.elevation)
             
         default: break
         }

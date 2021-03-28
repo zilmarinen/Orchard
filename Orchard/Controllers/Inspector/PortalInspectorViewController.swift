@@ -37,7 +37,7 @@ class PortalInspectorViewController: NSViewController {
             
             buildTypePopUp.removeAllItems()
             
-            for option in FoliageType.allCases {
+            for option in PortalType.allCases {
                 
                 buildTypePopUp.addItem(withTitle: option.description)
             }
@@ -49,6 +49,22 @@ class PortalInspectorViewController: NSViewController {
         didSet {
             
             nodeCoordinateView.isEnabled = false
+        }
+    }
+    
+    @IBOutlet weak var inspectorIdentifierLabel: NSTextField! {
+        
+        didSet {
+            
+            inspectorIdentifierLabel.delegate = self
+        }
+    }
+    
+    @IBOutlet weak var buildIdentifierLabel: NSTextField! {
+        
+        didSet {
+            
+            buildIdentifierLabel.delegate = self
         }
     }
     
@@ -69,5 +85,15 @@ class PortalInspectorViewController: NSViewController {
         super.viewWillAppear()
         
         coordinator?.refresh()
+    }
+}
+
+extension PortalInspectorViewController: NSTextFieldDelegate {
+    
+    func controlTextDidChange(_ obj: Notification) {
+        
+        guard let textField = obj.object as? NSTextField else { return }
+        
+        coordinator?.textField(textField: textField)
     }
 }

@@ -17,7 +17,7 @@ class SurfaceElevationCoordinator: SurfaceCoordinator, MouseObservable {
         
         subscribeToMouseEvents(tracksIdleEvents: true)
         
-        editor?.surface.showElevation = true
+        editor?.surface.overlay = .elevation
         
         guard controller.isViewLoaded else { return }
         
@@ -28,7 +28,7 @@ class SurfaceElevationCoordinator: SurfaceCoordinator, MouseObservable {
         
         unsubscribeFromMouseEvents()
         
-        editor?.surface.showElevation = false
+        editor?.surface.overlay = .material
         
         super.stop(then: completion)
     }
@@ -43,6 +43,7 @@ class SurfaceElevationCoordinator: SurfaceCoordinator, MouseObservable {
         controller.tileBox.isHidden = true
         controller.materialBox.isHidden = true
         controller.elevationBox.isHidden = false
+        controller.edgeBox.isHidden = true
     }
 }
 
@@ -71,7 +72,12 @@ extension SurfaceElevationCoordinator {
                     
                     tile.coordinate = Coordinate(x: coordinate.x, y: self.controller.elevationLayerStepper.integerValue, z: coordinate.z)
                     
-                    //TODO: adjust footpath/foliage elevation
+                    if let footpathTile = map.meadow.footpath.find(tile: coordinate) {
+                        
+                        footpathTile.coordinate = coordinate
+                    }
+                    
+                    //TODO: update foliage elevation
                 }
                 
             default: break

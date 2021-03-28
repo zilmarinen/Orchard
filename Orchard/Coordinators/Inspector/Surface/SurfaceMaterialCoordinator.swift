@@ -39,6 +39,7 @@ class SurfaceMaterialCoordinator: SurfaceCoordinator, MouseObservable {
         controller.tileBox.isHidden = true
         controller.materialBox.isHidden = false
         controller.elevationBox.isHidden = true
+        controller.edgeBox.isHidden = true
     }
 }
 
@@ -69,8 +70,9 @@ extension SurfaceMaterialCoordinator {
                     
                     case .right:
                         
+                        map.meadow.foliage.remove(chunk: coordinate)
+                        map.meadow.footpath.remove(tile: coordinate)
                         map.meadow.surface.remove(tile: coordinate)
-                        map.meadow.foliage.remove(vegetation: coordinate)
                         map.meadow.water.remove(tile: coordinate)
                         
                     default:
@@ -78,8 +80,15 @@ extension SurfaceMaterialCoordinator {
                         let tile = map.meadow.surface.find(tile: coordinate) ?? map.meadow.surface.add(tile: coordinate)
                         
                         tile?.coordinate = coordinate
-                        tile?.tileType = tileType
+                        tile?.tileType.primary = tileType
                         tile?.edgeType = edgeType
+                        
+                        if let footpathTile = map.meadow.footpath.find(tile: coordinate) {
+                            
+                            footpathTile.coordinate = coordinate
+                        }
+                        
+                        //TODO: update foliage elevation
                     }
                 }
                 

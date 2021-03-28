@@ -36,6 +36,15 @@ class SurfaceUtilityCoordinator: SurfaceCoordinator {
         return coordinator
     }()
     
+    lazy var edgeCoordinator: SurfaceEdgeCoordinator = {
+       
+        let coordinator = SurfaceEdgeCoordinator(controller: controller)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
+    
     lazy var viewModel: SurfaceViewModel = {
        
         return SurfaceViewModel(initialState: .empty)
@@ -97,6 +106,10 @@ extension SurfaceUtilityCoordinator {
         case .elevation:
             
             start(child: elevationCoordinator, with: nil)
+            
+        case .edge:
+            
+            start(child: edgeCoordinator, with: nil)
             
         default: break
         }

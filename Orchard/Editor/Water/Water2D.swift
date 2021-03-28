@@ -9,13 +9,46 @@ import SpriteKit
 
 class Water2D: Grid2D<WaterChunk2D, WaterTile2D> {
     
-    var showElevation: Bool = false {
+    enum Overlay {
+        
+        case none
+        case elevation
+    }
+    
+    struct Tilemap {
+        
+        let tileset: [String : SKTexture]
+        let shader = SKShader(fileNamed: "Water2D.fsh")
+        
+        init() {
+        
+            guard let tilemap = try? SurfaceTilemap() else { fatalError("Error loading water tilemap") }
+            
+            var textures: [String : SKTexture] = [:]
+            
+            for tile in tilemap.tileset.tiles {
+                
+                textures["\(tile.pattern)"] = SKTexture(image: tilemap.tileset.image(for: tile))
+            }
+            
+            tileset = textures
+            
+            shader.attributes = [SKAttribute(name: "a_color", type: .vectorFloat4)]
+        }
+    }
+    
+    let tilemap = Tilemap()
+    
+    var overlay: Overlay = .none {
         
         didSet {
             
-            tiles.forEach { tile in
+            if oldValue != overlay {
                 
-                tile.label.isHidden = !showElevation
+                for tile in tiles {
+                    
+                    tile.becomeDirty()
+                }
             }
         }
     }
@@ -23,6 +56,8 @@ class Water2D: Grid2D<WaterChunk2D, WaterTile2D> {
     @discardableResult override public func clean() -> Bool {
         
         guard isDirty else { return false }
+        
+        zPosition = 1
         
         let (even, odd) = sortedTiles
         
@@ -43,7 +78,7 @@ class Water2D: Grid2D<WaterChunk2D, WaterTile2D> {
         
         guard let editor = ancestor as? Editor,
               let tile = editor.surface.find(tile: coordinate),
-              tile.coordinate.y < coordinate.y else { return nil }
+              tile.corners.values.filter({ $0 < coordinate.y }).count > 0 else { return nil }
         
         return super.add(tile: coordinate, configure: configure)
     }

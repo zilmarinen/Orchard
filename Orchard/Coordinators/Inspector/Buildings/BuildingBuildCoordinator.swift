@@ -34,7 +34,7 @@ class BuildingBuildCoordinator: BuildingCoordinator, MouseObservable {
         guard let buildings = editor?.buildings else { return }
         
         controller.gridRenderingButton.state = buildings.isHidden ? .off : .on
-        controller.nodeCountLabel.integerValue = buildings.buildings.count
+        controller.nodeCountLabel.integerValue = buildings.chunks.count
                  
         controller.nodeBox.isHidden = true
         controller.buildBox.isHidden = false
@@ -66,11 +66,19 @@ extension BuildingBuildCoordinator {
                     
                     case .right:
                         
-                        map.meadow.buildings.remove(building: coordinate)
+                        map.meadow.buildings.remove(chunk: coordinate)
                         
                     default:
                         
-                        print("Left")
+                        guard let surfaceTile = map.meadow.surface.find(tile: endHit) else { return }
+                        
+                        let footprint = Footprint(coordinate: surfaceTile.coordinate, rotation: .north, size: 2)
+                        
+                        guard map.meadow.foliage.find(chunk: footprint) == nil,
+                              map.meadow.buildings.find(chunk: footprint) == nil,
+                              map.meadow.portals.find(chunk: footprint) == nil else { return }
+                        
+                        _ = map.meadow.buildings.add(chunk: footprint)
                     }
                 }
                 

@@ -34,7 +34,7 @@ class FoliagePlantCoordinator: FoliageCoordinator, MouseObservable {
         guard let foliage = editor?.foliage else { return }
         
         controller.gridRenderingButton.state = foliage.isHidden ? .off : .on
-        controller.nodeCountLabel.integerValue = foliage.vegetation.count
+        controller.nodeCountLabel.integerValue = foliage.chunks.count
                  
         controller.nodeBox.isHidden = true
         controller.plantBox.isHidden = false
@@ -68,7 +68,7 @@ extension FoliagePlantCoordinator {
                     
                     bounds.enumerate(y: 0) { coordinate in
                      
-                        map.meadow.foliage.remove(vegetation: coordinate)
+                        map.meadow.foliage.remove(chunk: coordinate)
                     }
                     
                 default:
@@ -77,13 +77,14 @@ extension FoliagePlantCoordinator {
                     
                     let footprint = Footprint(coordinate: surfaceTile.coordinate, rotation: .north, size: foliageSize.rawValue + 1)
                     
-                    guard map.meadow.foliage.find(vegetation: footprint) == nil,
-                          map.meadow.buildings.find(building: footprint) == nil else { return }
+                    guard map.meadow.foliage.find(chunk: footprint) == nil,
+                          map.meadow.buildings.find(chunk: footprint) == nil,
+                          map.meadow.portals.find(chunk: footprint) == nil else { return }
                     
-                    _ = map.meadow.foliage.add(vegetation: footprint) { foliage in
+                    _ = map.meadow.foliage.add(chunk: footprint) { chunk in
                         
-                        foliage.foliageType = foliageType
-                        foliage.foliageSize = foliageSize
+                        chunk.foliageType = foliageType
+                        chunk.foliageSize = foliageSize
                     }
                 }
                 

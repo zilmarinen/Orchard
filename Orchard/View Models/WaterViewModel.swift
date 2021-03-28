@@ -1,6 +1,5 @@
 //
 //  WaterViewModel.swift
-//  Orchard
 //
 //  Created by Zack Brown on 21/03/2021.
 //
@@ -15,7 +14,6 @@ extension WaterUtilityCoordinator {
         case empty
         case inspector(node: WaterTile2D)
         case material
-        case elevation
         
         public func shouldTransition(to newState: ViewState) -> Should<ViewState> {
             

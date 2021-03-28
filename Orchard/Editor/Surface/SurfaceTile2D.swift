@@ -14,15 +14,18 @@ class SurfaceTile2D: Tile2D {
         
         case tileType
         case edgeType
+        case pattern
+        case edgePatterns
+        case corners
     }
     
-    var tileType: SurfaceTileType = .dirt {
+    var tileType: SurfaceTile.TileType = SurfaceTile.TileType() {
         
         didSet {
             
             if oldValue != tileType {
                 
-                becomeDirty()
+                becomeDirty(recursive: true)
             }
         }
     }
@@ -33,21 +36,15 @@ class SurfaceTile2D: Tile2D {
             
             if oldValue != edgeType {
                 
-                becomeDirty()
+                becomeDirty(recursive: true)
             }
         }
     }
     
-    var pattern: GridPattern = GridPattern(value: false) {
-        
-        didSet {
-            
-            if oldValue != pattern {
-                
-                becomeDirty()
-            }
-        }
-    }
+    var neighbourTileType: SurfaceTileType = .dirt
+    var pattern: Int = 1
+    var edgePatterns: [Cardinal : Int] = [:]
+    var corners: [Ordinal : Int] = [:]
     
     lazy var label: SKLabelNode = {
        
@@ -55,9 +52,10 @@ class SurfaceTile2D: Tile2D {
         
         node.fontSize = 10
         node.fontColor = .black
-        node.blendMode = .multiplyAlpha
+        node.blendMode = .replace
         node.setScale(0.07)
         node.position = CGPoint(x: 0.5, y: 0.2)
+        node.zPosition = 1
         node.isHidden = true
         
         return node
@@ -74,8 +72,11 @@ class SurfaceTile2D: Tile2D {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        tileType = try container.decode(SurfaceTileType.self, forKey: .tileType)
+        tileType = try container.decode(SurfaceTile.TileType.self, forKey: .tileType)
         edgeType = try container.decode(SurfaceEdgeType.self, forKey: .edgeType)
+        pattern = try container.decode(Int.self, forKey: .pattern)
+        edgePatterns = try container.decode([Cardinal : Int].self, forKey: .edgePatterns)
+        corners = try container.decode([Ordinal : Int].self, forKey: .corners)
         
         try super.init(from: decoder)
         
@@ -95,51 +96,47 @@ class SurfaceTile2D: Tile2D {
         
         try container.encode(tileType, forKey: .tileType)
         try container.encode(edgeType, forKey: .edgeType)
+        try container.encode(pattern, forKey: .pattern)
+        try container.encode(edgePatterns, forKey: .edgePatterns)
+        try container.encode(corners, forKey: .corners)
     }
     
     @discardableResult override public func clean() -> Bool {
         
-        guard isDirty else { return false }
+        guard isDirty,
+              let map = map else { return false }
         
-        fillColor = tileType.color.color
-        label.zPosition = 1
-        label.text = "\(coordinate.y)"
-        for child in children {
+        let tilemap = map.meadow.surface.tilemap
+        
+        let spriteColor = Color(red: Double(tileType.primary.rawValue), green: Double(tileType.secondary.rawValue), blue: 0, alpha: 1)
+        
+        color = spriteColor.color
+        texture = tilemap.tileset["\(pattern)"]
+        shader = tilemap.shader
+        
+        let attribute = vector_float4(Float(spriteColor.red),
+                                      Float(spriteColor.green),
+                                      Float(spriteColor.blue),
+                                      Float(spriteColor.alpha))
+        
+        setValue(SKAttributeValue(vectorFloat4: attribute), forAttribute: "a_color")
+        
+        switch map.meadow.surface.overlay {
             
-            child.removeFromParent()
+        case .edge:
+            
+            label.text = edgeType.abbreviation
+            label.isHidden = false
+            
+        case .elevation:
+            
+            label.text = "\(coordinate.y)"
+            label.isHidden = false
+            
+        case .material:
+            
+            label.isHidden = true
         }
-        addChild(label)
-        let size = CGSize(width: 0.33, height: 0.33)
-        
-        let nw = SKSpriteNode(color: pattern.northWest ? tileType.color.color : MDWColor.red, size: size)
-        let n = SKSpriteNode(color: pattern.north ? tileType.color.color : MDWColor.red, size: size)
-        let ne = SKSpriteNode(color: pattern.northEast ? tileType.color.color : MDWColor.red, size: size)
-        let e = SKSpriteNode(color: pattern.east ? tileType.color.color : MDWColor.red, size: size)
-        let se = SKSpriteNode(color: pattern.southEast ? tileType.color.color : MDWColor.red, size: size)
-        let s = SKSpriteNode(color: pattern.south ? tileType.color.color : MDWColor.red, size: size)
-        let sw = SKSpriteNode(color: pattern.southWest ? tileType.color.color : MDWColor.red, size: size)
-        let w = SKSpriteNode(color: pattern.west ? tileType.color.color : MDWColor.red, size: size)
-        let c = SKSpriteNode(color: tileType.color.color, size: size)
-        
-        nw.position = CGPoint(x: 0.5 + size.width, y: 0.5 + size.height)
-        n.position = CGPoint(x: 0.5, y: 0.5 + size.height)
-        ne.position = CGPoint(x: 0.5 - size.width, y: 0.5 + size.height)
-        e.position = CGPoint(x: 0.5 - size.width, y: 0.5)
-        se.position = CGPoint(x: 0.5 - size.width, y: 0.5 - size.height)
-        s.position = CGPoint(x: 0.5, y: 0.5 - size.height)
-        sw.position = CGPoint(x: 0.5 + size.width, y: 0.5 - size.height)
-        w.position = CGPoint(x: 0.5 + size.width, y: 0.5)
-        c.position = CGPoint(x: 0.5, y: 0.5)
-        
-        addChild(nw)
-        addChild(n)
-        addChild(ne)
-        addChild(e)
-        addChild(se)
-        addChild(s)
-        addChild(sw)
-        addChild(w)
-        addChild(c)
         
         return super.clean()
     }
@@ -148,12 +145,25 @@ class SurfaceTile2D: Tile2D {
         
         super.collapse()
         
-        pattern = GridPattern(value: true)
+        tileType.secondary = tileType.primary
+        
+        var pattern = GridPattern(value: true)
         
         for ordinal in Ordinal.allCases {
             
-            guard let neighbour = find(neighbour: ordinal),
-                  neighbour.tileType.rawValue > tileType.rawValue else { continue }
+            let (c0, c1) = ordinal.cardinals
+            
+            let h0 = find(neighbour: c0)?.coordinate.y ?? coordinate.y
+            let h1 = find(neighbour: c1)?.coordinate.y ?? coordinate.y
+            let neighbour = find(neighbour: ordinal)
+            
+            corners[ordinal] = min(h0, h1, neighbour?.coordinate.y ?? coordinate.y, coordinate.y)
+            
+            guard let neighbourTileType = neighbour?.tileType else { continue }
+            
+            guard neighbourTileType.primary.rawValue > tileType.primary.rawValue else { continue }
+            
+            tileType.secondary = (neighbourTileType.primary.rawValue > tileType.secondary.rawValue ? neighbourTileType.primary : tileType.secondary)
             
             switch ordinal {
             
@@ -165,9 +175,34 @@ class SurfaceTile2D: Tile2D {
         }
         
         for cardinal in Cardinal.allCases {
-                    
+            
+            let (c0, c1) = cardinal.cardinals
+            let (n0, n1) = (find(neighbour: c0), find(neighbour: c1))
+            
+            var edgePattern = GridPattern(value: true)
+            
+            if let n0 = n0,
+               n0.tileType.primary.rawValue > tileType.primary.rawValue {
+                
+                edgePattern.northWest = false
+                edgePattern.west = false
+                edgePattern.southWest = false
+            }
+            
+            if let n1 = n1,
+               n1.tileType.primary.rawValue > tileType.primary.rawValue {
+                
+                edgePattern.northEast = false
+                edgePattern.east = false
+                edgePattern.southEast = false
+            }
+            
+            edgePatterns[cardinal] = GridPattern.index(of: edgePattern) + 1
+            
             guard let neighbour = find(neighbour: cardinal),
-                  neighbour.tileType.rawValue > tileType.rawValue else { continue }
+                  neighbour.tileType.primary.rawValue > tileType.primary.rawValue else { continue }
+            
+            tileType.secondary = (neighbour.tileType.primary.rawValue > tileType.secondary.rawValue ? neighbour.tileType.primary : tileType.secondary)
             
             switch cardinal {
             
@@ -196,6 +231,8 @@ class SurfaceTile2D: Tile2D {
                 pattern.southWest = false
             }
         }
+        
+        self.pattern = GridPattern.index(of: pattern) + 1
     }
 }
 

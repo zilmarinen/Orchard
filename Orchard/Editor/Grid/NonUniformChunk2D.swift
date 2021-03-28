@@ -1,14 +1,13 @@
 //
-//  Portal2D.swift
+//  NonUniformChunk2D.swift
 //
-//  Created by Zack Brown on 16/03/2021.
+//  Created by Zack Brown on 27/03/2021.
 //
 
-import Foundation
 import Meadow
 import SpriteKit
 
-class Portal2D: SKShapeNode, Codable, Soilable {
+class NonUniformChunk2D: SKSpriteNode, Codable, Responder2D, Soilable {
     
     private enum CodingKeys: CodingKey {
         
@@ -19,22 +18,13 @@ class Portal2D: SKShapeNode, Codable, Soilable {
     
     public var isDirty: Bool = false
     
-    public var footprint: Footprint {
-        
-        didSet {
-            
-            if oldValue != footprint {
-                
-                becomeDirty()
-            }
-        }
-    }
+    let footprint: Footprint
     
     required init(footprint: Footprint) {
-            
+        
         self.footprint = footprint
         
-        super.init()
+        super.init(texture: nil, color: .black, size: CGSize(width: 1, height: 1))
         
         becomeDirty()
     }
@@ -45,12 +35,12 @@ class Portal2D: SKShapeNode, Codable, Soilable {
         
         footprint = try container.decode(Footprint.self, forKey: .footprint)
         
-        super.init()
+        super.init(texture: nil, color: .black, size: CGSize(width: 1, height: 1))
         
         becomeDirty()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder: NSCoder) {
         
         fatalError("init(coder:) has not been implemented")
     }
@@ -61,32 +51,19 @@ class Portal2D: SKShapeNode, Codable, Soilable {
         
         try container.encode(footprint, forKey: .footprint)
     }
-}
-
-extension Portal2D {
-    
-    public static func == (lhs: Portal2D, rhs: Portal2D) -> Bool {
-        
-        return lhs.footprint == rhs.footprint
-    }
-}
-
-extension Portal2D {
     
     @discardableResult public func clean() -> Bool {
         
         guard isDirty else { return false }
         
-        position = CGPoint(x: footprint.coordinate.x, y: footprint.coordinate.z)
+        size = footprint.bounds.size
         
-        path = CGPath(rect: CGRect(x: 0, y: 0, width: 1, height: 1), transform: nil)
+        position = CGPoint(x: Double(footprint.coordinate.x) + (Double(size.width) / 2.0), y: Double(footprint.coordinate.z) + (Double(size.height) / 2.0))
         
-        fillColor = .systemYellow
-        blendMode = .multiplyAlpha
+        blendMode = .replace
         
         isDirty = false
         
         return true
     }
 }
-

@@ -41,12 +41,11 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         
         sceneView.library = try? device.makeDefaultLibrary(bundle: Meadow.bundle)
         
+        spriteView.ignoresSiblingOrder = true
+        
         if let scene = option as? Map {
             
             scene.isPaused = false
-            scene.backgroundColor = .white
-            scene.anchorPoint = .init(x: 0.5, y: 0.5)
-            scene.scaleMode = .aspectFill
             
             spriteView.presentScene(scene)
         }
@@ -56,17 +55,11 @@ class SceneCoordinator: Coordinator<SceneViewController> {
             let scene = Map()
         
             scene.isPaused = false
-            scene.backgroundColor = .white
-            scene.anchorPoint = .init(x: 0.5, y: 0.5)
-            scene.scaleMode = .aspectFill
+            scene.backgroundColor = Color(red: 0.91, green: 0.91, blue: 0.91).color
         
             spriteView.presentScene(scene)
             
             _ = scene.meadow.surface.add(tile: .zero)
-            _ = scene.meadow.surface.add(tile: Coordinate(x: 1, y: 0, z: 0))
-            _ = scene.meadow.surface.add(tile: Coordinate(x: -1, y: 0, z: 0))
-            _ = scene.meadow.surface.add(tile: Coordinate(x: 0, y: 0, z: 1))
-            _ = scene.meadow.surface.add(tile: Coordinate(x: 0, y: 0, z: -1))
         }
     }
     
@@ -130,6 +123,11 @@ extension SceneCoordinator {
                 
                 sceneView.scene = scene
                 sceneView.delegate = scene
+                
+                if let portal = scene.meadow.portals.find(portal: .spawn) {
+                    
+                    scene.meadow.actors.hero.coordinate = portal.footprint.coordinate
+                }
             }
             catch {
                 
@@ -139,7 +137,7 @@ extension SceneCoordinator {
             sceneView.isHidden = false
             sceneView.backgroundColor = map.backgroundColor
             sceneView.allowsCameraControl = true
-            sceneView.autoenablesDefaultLighting = true
+            sceneView.autoenablesDefaultLighting = false
             
             spriteView.isHidden = true
             

@@ -1,15 +1,16 @@
 //
-//  PortalCoordinator.swift
+//  ActorCoordinator.swift
+//  Orchard
 //
-//  Created by Zack Brown on 16/03/2021.
+//  Created by Zack Brown on 28/03/2021.
 //
 
 import Cocoa
 import Meadow
 
-class PortalCoordinator: Coordinator<PortalInspectorViewController> {
+class ActorCoordinator: Coordinator<ActorInspectorViewController> {
     
-    override init(controller: PortalInspectorViewController) {
+    override init(controller: ActorInspectorViewController) {
         
         super.init(controller: controller)
         
@@ -27,15 +28,11 @@ class PortalCoordinator: Coordinator<PortalInspectorViewController> {
         
         switch button {
         
-        case controller.gridRenderingButton:
+        //case controller.gridRenderingButton:
             
-            editor?.portals.isHidden = button.state == .off
+            //editor?.actors.isHidden = button.state == .off
             
         default: break
         }
     }
-    
-    func popUp(popUp: NSPopUpButton) {}
-    
-    func textField(textField: NSTextField) {}
 }

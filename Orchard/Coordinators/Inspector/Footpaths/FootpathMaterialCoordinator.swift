@@ -31,10 +31,10 @@ class FootpathMaterialCoordinator: FootpathCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let surface = editor?.surface else { return }
+        guard let footpath = editor?.footpath else { return }
         
-        controller.gridRenderingButton.state = surface.isHidden ? .off : .on
-        controller.chunkCountLabel.integerValue = surface.chunks.count
+        controller.gridRenderingButton.state = footpath.isHidden ? .off : .on
+        controller.chunkCountLabel.integerValue = footpath.chunks.count
                  
         controller.tileBox.isHidden = true
         controller.materialBox.isHidden = false

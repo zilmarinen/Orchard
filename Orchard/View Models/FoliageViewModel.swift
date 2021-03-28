@@ -12,7 +12,7 @@ extension FoliageUtilityCoordinator {
     enum ViewState: State, StartOption {
         
         case empty
-        case inspector(node: Vegetation2D)
+        case inspector(node: FoliageChunk2D)
         case plant
         
         public func shouldTransition(to newState: ViewState) -> Should<ViewState> {

@@ -7,7 +7,7 @@
 import Meadow
 import SpriteKit
 
-class Chunk2D<T: Tile2D>: SKShapeNode, Codable, Responder2D, Soilable {
+class Chunk2D<T: Tile2D>: SKNode, Codable, Responder2D, Soilable {
     
     private enum CodingKeys: CodingKey {
         
@@ -69,11 +69,6 @@ class Chunk2D<T: Tile2D>: SKShapeNode, Codable, Responder2D, Soilable {
         
         position = CGPoint(x: bounds.start.x, y: bounds.start.z)
         
-        path = CGPath(rect: CGRect(x: 0, y: 0, width: World.Constants.chunkSize, height: World.Constants.chunkSize), transform: nil)
-        
-        fillColor = Color(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.1).color
-        blendMode = .multiplyAlpha
-        
         for tile in tiles {
             
             tile.clean()
@@ -112,6 +107,11 @@ extension Chunk2D {
         guard let index = tiles.firstIndex(where: { $0.coordinate.adjacency(to: coordinate) == .equal }) else { return }
 
         let tile = tiles[index]
+        
+        for cardinal in Cardinal.allCases {
+            
+            tile.remove(neighbour: cardinal)
+        }
 
         tiles.remove(at: index)
 

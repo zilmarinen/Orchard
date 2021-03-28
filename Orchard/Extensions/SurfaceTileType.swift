@@ -8,6 +8,18 @@ import Meadow
 
 extension SurfaceTileType {
     
+    var abbreviation: String {
+        
+        switch self {
+        
+        case .dirt: return "D"
+        case .grass: return "G"
+        case .sand: return "S"
+        case .undergrowth: return "U"
+        case .water: return "W"
+        }
+    }
+    
     var description: String {
         
         switch self {

@@ -15,6 +15,7 @@ extension SurfaceUtilityCoordinator {
         case inspector(node: SurfaceTile2D)
         case material
         case elevation
+        case edge
         
         public func shouldTransition(to newState: ViewState) -> Should<ViewState> {
             

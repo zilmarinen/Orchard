@@ -11,6 +11,7 @@ class Editor: SKNode, Codable, Responder2D, Soilable {
     
     private enum CodingKeys: CodingKey {
         
+        case actors
         case buildings
         case foliage
         case footpath
@@ -23,6 +24,7 @@ class Editor: SKNode, Codable, Responder2D, Soilable {
     
     public var isDirty: Bool = false
     
+    let actors: Actors2D
     let buildings: Buildings2D
     let foliage: Foliage2D
     let footpath: Footpath2D
@@ -32,6 +34,7 @@ class Editor: SKNode, Codable, Responder2D, Soilable {
     
     override init() {
         
+        actors = Actors2D()
         buildings = Buildings2D()
         foliage = Foliage2D()
         footpath = Footpath2D()
@@ -41,6 +44,7 @@ class Editor: SKNode, Codable, Responder2D, Soilable {
         
         super.init()
         
+        addChild(actors)
         addChild(buildings)
         addChild(foliage)
         addChild(footpath)
@@ -55,6 +59,7 @@ class Editor: SKNode, Codable, Responder2D, Soilable {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
+        actors = try container.decode(Actors2D.self, forKey: .actors)
         buildings = try container.decode(Buildings2D.self, forKey: .buildings)
         foliage = try container.decode(Foliage2D.self, forKey: .foliage)
         footpath = try container.decode(Footpath2D.self, forKey: .footpath)
@@ -64,6 +69,7 @@ class Editor: SKNode, Codable, Responder2D, Soilable {
         
         super.init()
         
+        addChild(actors)
         addChild(buildings)
         addChild(foliage)
         addChild(footpath)
@@ -83,6 +89,7 @@ class Editor: SKNode, Codable, Responder2D, Soilable {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
         
+        try container.encode(actors, forKey: .actors)
         try container.encode(buildings, forKey: .buildings)
         try container.encode(foliage, forKey: .foliage)
         try container.encode(footpath, forKey: .footpath)
@@ -98,6 +105,7 @@ extension Editor {
         
         guard isDirty else { return false }
         
+        actors.clean()
         buildings.clean()
         foliage.clean()
         footpath.clean()

@@ -11,7 +11,7 @@ class FoliageInspectorCoordinator: FoliageCoordinator, MouseObservable {
     
     var mouseObserver: UUID?
     
-    weak var vegetation: Vegetation2D?
+    weak var chunk: FoliageChunk2D?
     
     override func start(with option: StartOption?) {
         
@@ -22,7 +22,7 @@ class FoliageInspectorCoordinator: FoliageCoordinator, MouseObservable {
         guard let option = option as? FoliageUtilityCoordinator.ViewState,
               case let .inspector(node) = option else { return }
         
-        vegetation = node
+        chunk = node
         
         guard controller.isViewLoaded else { return }
         
@@ -31,7 +31,7 @@ class FoliageInspectorCoordinator: FoliageCoordinator, MouseObservable {
     
     override func stop(then completion: CoordinatorCompletionBlock?) {
         
-        vegetation = nil
+        chunk = nil
         
         unsubscribeFromMouseEvents()
         
@@ -42,13 +42,13 @@ class FoliageInspectorCoordinator: FoliageCoordinator, MouseObservable {
         
         super.button(button: button)
         
-        guard let vegetation = vegetation else { return }
+        guard let chunk = chunk else { return }
         
         switch button {
         
         case controller.nodeRenderingButton:
             
-            vegetation.isHidden = button.state == .off
+            chunk.isHidden = button.state == .off
             
         default: break
         }
@@ -58,7 +58,7 @@ class FoliageInspectorCoordinator: FoliageCoordinator, MouseObservable {
         
         super.popUp(popUp: popUp)
         
-        guard let vegetation = vegetation else { return }
+        guard let chunk = chunk else { return }
         
         switch popUp {
         
@@ -66,7 +66,7 @@ class FoliageInspectorCoordinator: FoliageCoordinator, MouseObservable {
             
             guard let foliageType = FoliageType(rawValue: popUp.indexOfSelectedItem) else { return }
             
-            vegetation.foliageType = foliageType
+            chunk.foliageType = foliageType
             
         default: break
         }
@@ -75,18 +75,18 @@ class FoliageInspectorCoordinator: FoliageCoordinator, MouseObservable {
     override func refresh() {
         
         guard let foliage = editor?.foliage,
-              let vegetation = vegetation else { return }
+              let chunk = chunk else { return }
         
         controller.gridRenderingButton.state = foliage.isHidden ? .off : .on
-        controller.nodeCountLabel.integerValue = foliage.vegetation.count
+        controller.nodeCountLabel.integerValue = foliage.chunks.count
                  
         controller.nodeBox.isHidden = false
         controller.plantBox.isHidden = true
         
-        controller.nodeRenderingButton.state = vegetation.isHidden ? .off : .on
-        controller.nodeCoordinateView.coordinate = vegetation.footprint.coordinate
-        controller.inspectorTypePopUp.selectItem(at: vegetation.foliageType.rawValue)
-        controller.inspectorSizePopUp.selectItem(at: vegetation.foliageSize.rawValue)
+        controller.nodeRenderingButton.state = chunk.isHidden ? .off : .on
+        controller.nodeCoordinateView.coordinate = chunk.footprint.coordinate
+        controller.inspectorTypePopUp.selectItem(at: chunk.foliageType.rawValue)
+        controller.inspectorSizePopUp.selectItem(at: chunk.foliageSize.rawValue)
     }
 }
 
@@ -106,7 +106,7 @@ extension FoliageInspectorCoordinator {
                 
                 let hit = map.hitTest(point: position.end)
                 
-                guard let node = map.meadow.foliage.find(vegetation: hit) else { return }
+                guard let node = map.meadow.foliage.find(chunk: hit) else { return }
                 
                 self.toggle(inspector: .foliage, with: FoliageUtilityCoordinator.ViewState.inspector(node: node))
                 

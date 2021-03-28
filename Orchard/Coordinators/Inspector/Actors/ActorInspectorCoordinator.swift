@@ -1,17 +1,18 @@
 //
-//  PortalInspectorCoordinator.swift
+//  ActorInspectorCoordinator.swift
+//  Orchard
 //
-//  Created by Zack Brown on 16/03/2021.
+//  Created by Zack Brown on 28/03/2021.
 //
 
 import Cocoa
 import Meadow
 
-class PortalInspectorCoordinator: PortalCoordinator, MouseObservable {
+class ActorInspectorCoordinator: ActorCoordinator, MouseObservable {
     
     var mouseObserver: UUID?
     
-    weak var chunk: PortalChunk2D?
+    weak var actor: Actor2D?
     
     override func start(with option: StartOption?) {
         
@@ -19,10 +20,10 @@ class PortalInspectorCoordinator: PortalCoordinator, MouseObservable {
         
         subscribeToMouseEvents(tracksIdleEvents: false)
         
-        guard let option = option as? PortalUtilityCoordinator.ViewState,
+        guard let option = option as? ActorUtilityCoordinator.ViewState,
               case let .inspector(node) = option else { return }
         
-        chunk = node
+        actor = node
         
         guard controller.isViewLoaded else { return }
         
@@ -31,7 +32,7 @@ class PortalInspectorCoordinator: PortalCoordinator, MouseObservable {
     
     override func stop(then completion: CoordinatorCompletionBlock?) {
         
-        chunk = nil
+        actor = nil
         
         unsubscribeFromMouseEvents()
         
@@ -40,21 +41,21 @@ class PortalInspectorCoordinator: PortalCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let portals = editor?.portals,
-              let chunk = chunk else { return }
+        guard let actors = editor?.actors,
+              let actor = actor else { return }
         
-        controller.gridRenderingButton.state = portals.isHidden ? .off : .on
-        controller.nodeCountLabel.integerValue = portals.chunks.count
+        controller.gridRenderingButton.state = actors.isHidden ? .off : .on
+        controller.nodeCountLabel.integerValue = actors.npcs.count
                  
         controller.nodeBox.isHidden = false
-        controller.buildBox.isHidden = true
+        controller.placementBox.isHidden = true
         
-        controller.nodeRenderingButton.state = chunk.isHidden ? .off : .on
-        controller.nodeCoordinateView.coordinate = chunk.footprint.coordinate
+        controller.nodeRenderingButton.state = actor.isHidden ? .off : .on
+        controller.nodeCoordinateView.coordinate = actor.coordinate
     }
 }
 
-extension PortalInspectorCoordinator {
+extension ActorInspectorCoordinator {
     
     func stateDidChange(from previousState: SpriteView.MouseState?, to currentState: SpriteView.MouseState) {
         
@@ -70,9 +71,9 @@ extension PortalInspectorCoordinator {
                 
                 let hit = map.hitTest(point: position.end)
                 
-                guard let node = map.meadow.portals.find(chunk: hit) else { return }
+                guard let node = map.meadow.actors.find(actor: hit) else { return }
                 
-                self.toggle(inspector: .surface, with: PortalUtilityCoordinator.ViewState.inspector(node: node))
+                self.toggle(inspector: .surface, with: ActorUtilityCoordinator.ViewState.inspector(node: node))
                 
             default: break
             }

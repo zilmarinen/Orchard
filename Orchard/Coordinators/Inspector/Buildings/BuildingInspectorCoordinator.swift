@@ -11,7 +11,7 @@ class BuildingInspectorCoordinator: BuildingCoordinator, MouseObservable {
     
     var mouseObserver: UUID?
     
-    weak var building: Building2D?
+    weak var chunk: BuildingChunk2D?
     
     override func start(with option: StartOption?) {
         
@@ -22,7 +22,7 @@ class BuildingInspectorCoordinator: BuildingCoordinator, MouseObservable {
         guard let option = option as? BuildingUtilityCoordinator.ViewState,
               case let .inspector(node) = option else { return }
         
-        building = node
+        chunk = node
         
         guard controller.isViewLoaded else { return }
         
@@ -31,7 +31,7 @@ class BuildingInspectorCoordinator: BuildingCoordinator, MouseObservable {
     
     override func stop(then completion: CoordinatorCompletionBlock?) {
         
-        building = nil
+        chunk = nil
         
         unsubscribeFromMouseEvents()
         
@@ -41,16 +41,16 @@ class BuildingInspectorCoordinator: BuildingCoordinator, MouseObservable {
     override func refresh() {
         
         guard let buildings = editor?.buildings,
-              let building = building else { return }
+              let chunk = chunk else { return }
         
         controller.gridRenderingButton.state = buildings.isHidden ? .off : .on
-        controller.nodeCountLabel.integerValue = buildings.buildings.count
+        controller.nodeCountLabel.integerValue = buildings.chunks.count
                  
         controller.nodeBox.isHidden = false
         controller.buildBox.isHidden = true
         
-        controller.nodeRenderingButton.state = building.isHidden ? .off : .on
-        controller.nodeCoordinateView.coordinate = building.footprint.coordinate
+        controller.nodeRenderingButton.state = chunk.isHidden ? .off : .on
+        controller.nodeCoordinateView.coordinate = chunk.footprint.coordinate
     }
 }
 
@@ -70,7 +70,7 @@ extension BuildingInspectorCoordinator {
                 
                 let hit = map.hitTest(point: position.end)
                 
-                guard let node = map.meadow.buildings.find(building: hit) else { return }
+                guard let node = map.meadow.buildings.find(chunk: hit) else { return }
                 
                 self.toggle(inspector: .surface, with: BuildingUtilityCoordinator.ViewState.inspector(node: node))
                 

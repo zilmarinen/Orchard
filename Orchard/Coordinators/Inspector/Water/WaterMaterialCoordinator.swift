@@ -1,6 +1,5 @@
 //
 //  WaterMaterialCoordinator.swift
-//  Orchard
 //
 //  Created by Zack Brown on 21/03/2021.
 //
@@ -39,7 +38,6 @@ class WaterMaterialCoordinator: WaterCoordinator, MouseObservable {
                  
         controller.tileBox.isHidden = true
         controller.materialBox.isHidden = false
-        controller.elevationBox.isHidden = true
     }
 }
 

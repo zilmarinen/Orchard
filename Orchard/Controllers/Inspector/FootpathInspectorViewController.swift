@@ -53,15 +53,6 @@ class FootpathInspectorViewController: NSViewController {
         }
     }
     
-    @IBOutlet weak var materialLayerStepper: NumberStepper! {
-        
-        didSet {
-            
-            materialLayerStepper.maximumValue = World.Constants.ceiling
-            materialLayerStepper.minimumValue = World.Constants.floor
-        }
-    }
-    
     @IBAction func button(_ sender: NSButton) {
         
         coordinator?.button(button: sender)

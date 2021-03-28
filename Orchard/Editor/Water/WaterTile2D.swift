@@ -13,6 +13,7 @@ class WaterTile2D: Tile2D {
     private enum CodingKeys: CodingKey {
         
         case tileType
+        case pattern
     }
     
     var tileType: WaterTileType = .water {
@@ -26,16 +27,7 @@ class WaterTile2D: Tile2D {
         }
     }
     
-    var pattern: GridPattern = GridPattern(value: false) {
-        
-        didSet {
-            
-            if oldValue != pattern {
-                
-                becomeDirty()
-            }
-        }
-    }
+    var pattern: Int = 1
     
     lazy var label: SKLabelNode = {
        
@@ -43,9 +35,10 @@ class WaterTile2D: Tile2D {
         
         node.fontSize = 10
         node.fontColor = .black
-        node.blendMode = .multiplyAlpha
+        node.blendMode = .replace
         node.setScale(0.07)
         node.position = CGPoint(x: 0.5, y: 0.2)
+        node.zPosition = 1
         node.isHidden = true
         
         return node
@@ -63,6 +56,7 @@ class WaterTile2D: Tile2D {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         tileType = try container.decode(WaterTileType.self, forKey: .tileType)
+        pattern = try container.decode(Int.self, forKey: .pattern)
         
         try super.init(from: decoder)
         
@@ -81,60 +75,48 @@ class WaterTile2D: Tile2D {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         try container.encode(tileType, forKey: .tileType)
+        try container.encode(pattern, forKey: .pattern)
     }
     
     @discardableResult override public func clean() -> Bool {
         
-        guard isDirty else { return false }
+        guard super.clean(),
+              let map = map else { return false }
         
-        fillColor = tileType.color.color
-        label.zPosition = 1
-        label.text = "\(coordinate.y)"
-        for child in children {
+        let tilemap = map.meadow.water.tilemap
+        
+        color = tileType.color.color
+        shader = tilemap.shader
+        
+        let attribute = vector_float4(Float(tileType.color.red),
+                                      Float(tileType.color.green),
+                                      Float(tileType.color.blue),
+                                      Float(tileType.color.alpha))
+        
+        setValue(SKAttributeValue(vectorFloat4: attribute), forAttribute: "a_color")
+        
+        switch map.meadow.water.overlay {
+        
+        case .none:
             
-            child.removeFromParent()
+            label.isHidden = true
+            
+        case .elevation:
+            
+            label.text = "\(coordinate.y)"
+            label.isHidden = false
         }
-        addChild(label)
-        let size = CGSize(width: 0.33, height: 0.33)
         
-        let nw = SKSpriteNode(color: pattern.northWest ? tileType.color.color : MDWColor.red, size: size)
-        let n = SKSpriteNode(color: pattern.north ? tileType.color.color : MDWColor.red, size: size)
-        let ne = SKSpriteNode(color: pattern.northEast ? tileType.color.color : MDWColor.red, size: size)
-        let e = SKSpriteNode(color: pattern.east ? tileType.color.color : MDWColor.red, size: size)
-        let se = SKSpriteNode(color: pattern.southEast ? tileType.color.color : MDWColor.red, size: size)
-        let s = SKSpriteNode(color: pattern.south ? tileType.color.color : MDWColor.red, size: size)
-        let sw = SKSpriteNode(color: pattern.southWest ? tileType.color.color : MDWColor.red, size: size)
-        let w = SKSpriteNode(color: pattern.west ? tileType.color.color : MDWColor.red, size: size)
-        let c = SKSpriteNode(color: tileType.color.color, size: size)
+        blendMode = .alpha
         
-        nw.position = CGPoint(x: 0.5 + size.width, y: 0.5 + size.height)
-        n.position = CGPoint(x: 0.5, y: 0.5 + size.height)
-        ne.position = CGPoint(x: 0.5 - size.width, y: 0.5 + size.height)
-        e.position = CGPoint(x: 0.5 - size.width, y: 0.5)
-        se.position = CGPoint(x: 0.5 - size.width, y: 0.5 - size.height)
-        s.position = CGPoint(x: 0.5, y: 0.5 - size.height)
-        sw.position = CGPoint(x: 0.5 + size.width, y: 0.5 - size.height)
-        w.position = CGPoint(x: 0.5 + size.width, y: 0.5)
-        c.position = CGPoint(x: 0.5, y: 0.5)
-        
-        addChild(nw)
-        addChild(n)
-        addChild(ne)
-        addChild(e)
-        addChild(se)
-        addChild(s)
-        addChild(sw)
-        addChild(w)
-        addChild(c)
-        
-        return super.clean()
+        return true
     }
     
     override func collapse() {
         
         super.collapse()
         
-        pattern = GridPattern(value: true)
+        var pattern = GridPattern(value: true)
         
         for ordinal in Ordinal.allCases {
             
@@ -182,6 +164,8 @@ class WaterTile2D: Tile2D {
                 pattern.southWest = false
             }
         }
+        
+        self.pattern = GridPattern.index(of: pattern) + 1
     }
 }
 

@@ -1,6 +1,5 @@
 //
 //  WaterInspectorViewController.swift
-//  Orchard
 //
 //  Created by Zack Brown on 21/03/2021.
 //
@@ -13,7 +12,6 @@ class WaterInspectorViewController: NSViewController {
     @IBOutlet weak var gridBox: NSBox!
     @IBOutlet weak var tileBox: NSBox!
     @IBOutlet weak var materialBox: NSBox!
-    @IBOutlet weak var elevationBox: NSBox!
     
     @IBOutlet weak var chunkCountLabel: NSTextField!
     @IBOutlet weak var neighbourCountLabel: NSTextField!
@@ -72,15 +70,6 @@ class WaterInspectorViewController: NSViewController {
             
             materialLayerStepper.maximumValue = World.Constants.ceiling
             materialLayerStepper.minimumValue = World.Constants.floor
-        }
-    }
-    
-    @IBOutlet weak var elevationLayerStepper: NumberStepper! {
-        
-        didSet {
-            
-            elevationLayerStepper.maximumValue = World.Constants.ceiling
-            elevationLayerStepper.minimumValue = World.Constants.floor
         }
     }
     

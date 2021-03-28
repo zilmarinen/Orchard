@@ -9,13 +9,47 @@ import SpriteKit
 
 class Surface2D: Grid2D<SurfaceChunk2D, SurfaceTile2D> {
     
-    var showElevation: Bool = false {
+    enum Overlay {
+        
+        case edge
+        case elevation
+        case material
+    }
+    
+    struct Tilemap {
+        
+        let tileset: [String : SKTexture]
+        let shader = SKShader(fileNamed: "Surface2D.fsh")
+        
+        init() {
+        
+            guard let tilemap = try? SurfaceTilemap() else { fatalError("Error loading surface tilemap") }
+            
+            var textures: [String : SKTexture] = [:]
+            
+            for tile in tilemap.tileset.tiles {
+                
+                textures["\(tile.pattern)"] = SKTexture(image: tilemap.tileset.image(for: tile))
+            }
+            
+            tileset = textures
+            
+            shader.attributes = [SKAttribute(name: "a_color", type: .vectorFloat4)]
+        }
+    }
+    
+    let tilemap = Tilemap()
+    
+    var overlay: Overlay = .material {
         
         didSet {
             
-            tiles.forEach { tile in
+            if oldValue != overlay {
                 
-                tile.label.isHidden = !showElevation
+                for tile in tiles {
+                    
+                    tile.becomeDirty()
+                }
             }
         }
     }

@@ -34,10 +34,10 @@ class PortalBuildCoordinator: PortalCoordinator, MouseObservable {
         guard let portals = editor?.portals else { return }
         
         controller.gridRenderingButton.state = portals.isHidden ? .off : .on
-        controller.nodeCountLabel.integerValue = portals.portals.count
+        controller.nodeCountLabel.integerValue = portals.chunks.count
                  
-        controller.nodeBox.isHidden = false
-        controller.buildBox.isHidden = true
+        controller.nodeBox.isHidden = true
+        controller.buildBox.isHidden = false
     }
 }
 
@@ -49,7 +49,8 @@ extension PortalBuildCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Map else { return }
+                  let map = spriteView.scene as? Map,
+                  let portalType = PortalType(rawValue: self.controller.buildTypePopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
             
@@ -66,11 +67,22 @@ extension PortalBuildCoordinator {
                     
                     case .right:
                         
-                        map.meadow.portals.remove(portal: coordinate)
+                        map.meadow.portals.remove(chunk: coordinate)
                         
                     default:
                         
-                        print("Left")
+                        guard let surfaceTile = map.meadow.surface.find(tile: endHit) else { return }
+                        
+                        let footprint = Footprint(coordinate: surfaceTile.coordinate, rotation: .north, size: 1)
+                        
+                        guard map.meadow.foliage.find(chunk: footprint) == nil,
+                              map.meadow.buildings.find(chunk: footprint) == nil,
+                              map.meadow.portals.find(chunk: footprint) == nil else { return }
+                        
+                        _ = map.meadow.portals.add(chunk: footprint, configure: { portal in
+                            
+                            portal.portalType = portalType
+                        })
                     }
                 }
                 

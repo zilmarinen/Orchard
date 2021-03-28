@@ -12,7 +12,7 @@ extension BuildingUtilityCoordinator {
     enum ViewState: State, StartOption {
         
         case empty
-        case inspector(node: Building2D)
+        case inspector(node: BuildingChunk2D)
         case build
         
         public func shouldTransition(to newState: ViewState) -> Should<ViewState> {

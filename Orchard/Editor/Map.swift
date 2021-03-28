@@ -12,6 +12,7 @@ class Map: SKScene, Codable, StartOption, Responder2D, Soilable {
     private enum CodingKeys: CodingKey {
         
         case name
+        case backgroundColor
         case meadow
     }
     
@@ -25,17 +26,32 @@ class Map: SKScene, Codable, StartOption, Responder2D, Soilable {
     
     public var isDirty: Bool = false
     
-    let meadow: Editor
+    lazy var graph: SKSpriteNode = {
+        
+        let node = SKSpriteNode(color: .white, size: CGSize(width: Constants.width, height: Constants.height))
+        
+        let shader = SKShader(fileNamed: "Graph.fsh")
+        
+        let value = vector_float2(Float(Constants.width),
+                                  Float(Constants.height))
+        
+        shader.uniforms = [ SKUniform(name: "u_size", vectorFloat2: value) ]
+        
+        node.shader = shader
+        node.zPosition = -1
+        
+        return node
+    }()
     
-    var world: World {
+    override var backgroundColor: NSColor {
         
         didSet {
             
-            guard oldValue.season != world.season else { return }
-            
-            becomeDirty()
+            graph.color = backgroundColor
         }
     }
+    
+    let meadow: Editor
     
     var map: Map? { self }
     
@@ -43,15 +59,14 @@ class Map: SKScene, Codable, StartOption, Responder2D, Soilable {
         
         meadow = Editor()
         
-        world = World(season: .spring)
-        
         super.init(size: CGSize(width: Constants.width, height: Constants.height))
         
         name = "Meadow"
         
         anchorPoint = .init(x: 0.5, y: 0.5)
         scaleMode = .aspectFill
-
+        
+        addChild(graph)
         addChild(meadow)
         
         becomeDirty()
@@ -63,15 +78,17 @@ class Map: SKScene, Codable, StartOption, Responder2D, Soilable {
         
         meadow = try container.decode(Editor.self, forKey: .meadow)
         
-        world = World(season: .spring)
-        
         super.init(size: CGSize(width: Constants.width, height: Constants.height))
         
+        let color = try container.decode(Color.self, forKey: .backgroundColor)
+        
+        backgroundColor = color.color
         name = try container.decode(String.self, forKey: .name)
         
         anchorPoint = .init(x: 0.5, y: 0.5)
         scaleMode = .aspectFill
         
+        addChild(graph)
         addChild(meadow)
         
         becomeDirty()
@@ -88,6 +105,10 @@ class Map: SKScene, Codable, StartOption, Responder2D, Soilable {
         
         try container.encode(name, forKey: .name)
         try container.encode(meadow, forKey: .meadow)
+        
+        let color = Color(red: Double(backgroundColor.redComponent), green: Double(backgroundColor.greenComponent), blue: Double(backgroundColor.blueComponent), alpha: Double(backgroundColor.alphaComponent))
+        
+        try container.encode(color, forKey: .backgroundColor)
     }
     
     override func update(_ currentTime: TimeInterval) {

@@ -1,6 +1,5 @@
 //
 //  WaterInspectorCoordinator.swift
-//  Orchard
 //
 //  Created by Zack Brown on 21/03/2021.
 //
@@ -99,7 +98,6 @@ class WaterInspectorCoordinator: WaterCoordinator, MouseObservable {
                  
         controller.tileBox.isHidden = false
         controller.materialBox.isHidden = true
-        controller.elevationBox.isHidden = true
         
         controller.neighbourCountLabel.integerValue = tile.neighbours.count
         controller.tileRenderingButton.state = tile.isHidden ? .off : .on

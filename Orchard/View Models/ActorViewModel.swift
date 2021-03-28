@@ -1,19 +1,20 @@
 //
-//  PortalViewModel.swift
+//  ActorViewModel.swift
+//  Orchard
 //
-//  Created by Zack Brown on 16/03/2021.
+//  Created by Zack Brown on 28/03/2021.
 //
 
 import Foundation
 import Meadow
 
-extension PortalCoordinator {
+extension ActorUtilityCoordinator {
     
     enum ViewState: State, StartOption {
         
         case empty
-        case inspector(node: PortalChunk2D)
-        case build
+        case inspector(node: Actor2D)
+        case placement
         
         public func shouldTransition(to newState: ViewState) -> Should<ViewState> {
             
@@ -21,7 +22,7 @@ extension PortalCoordinator {
         }
     }
     
-    class PortalViewModel: StateObserver<ViewState> {
+    class ActorViewModel: StateObserver<ViewState> {
         
     }
 }

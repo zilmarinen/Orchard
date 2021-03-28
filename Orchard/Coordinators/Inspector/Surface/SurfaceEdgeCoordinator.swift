@@ -1,6 +1,5 @@
 //
 //  SurfaceEdgeCoordinator.swift
-//  Orchard
 //
 //  Created by Zack Brown on 21/03/2021.
 //
@@ -18,7 +17,7 @@ class SurfaceEdgeCoordinator: SurfaceCoordinator, MouseObservable {
         
         subscribeToMouseEvents(tracksIdleEvents: true)
         
-        editor?.surface.showElevation = true
+        editor?.surface.overlay = .edge
         
         guard controller.isViewLoaded else { return }
         
@@ -29,7 +28,7 @@ class SurfaceEdgeCoordinator: SurfaceCoordinator, MouseObservable {
         
         unsubscribeFromMouseEvents()
         
-        editor?.surface.showElevation = false
+        editor?.surface.overlay = .material
         
         super.stop(then: completion)
     }
@@ -43,7 +42,8 @@ class SurfaceEdgeCoordinator: SurfaceCoordinator, MouseObservable {
                  
         controller.tileBox.isHidden = true
         controller.materialBox.isHidden = true
-        controller.elevationBox.isHidden = false
+        controller.elevationBox.isHidden = true
+        controller.edgeBox.isHidden = false
     }
 }
 

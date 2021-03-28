@@ -34,9 +34,11 @@ class SceneInspectorViewController: NSViewController {
     
     @IBAction func colorWell(_ sender: NSColorWell) {
      
-        guard let spriteView = coordinator?.spriteView else { return }
+        guard let spriteView = coordinator?.spriteView,
+              let map = spriteView.scene as? Map else { return }
         
-        spriteView.scene?.backgroundColor = backgroundColorWell.color
+        map.backgroundColor = backgroundColorWell.color
+        map.graph.color = backgroundColorWell.color
     }
     
     @IBAction func popUp(_ sender: NSPopUpButton) {

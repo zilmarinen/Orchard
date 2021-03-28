@@ -8,7 +8,7 @@ import Foundation
 import Meadow
 import SpriteKit
 
-class Tile2D: SKShapeNode, Codable, Responder2D, Soilable {
+class Tile2D: SKSpriteNode, Codable, Responder2D, Soilable {
     
     private enum CodingKeys: CodingKey {
         
@@ -25,7 +25,7 @@ class Tile2D: SKShapeNode, Codable, Responder2D, Soilable {
             
             if oldValue != coordinate {
                 
-                becomeDirty()
+                becomeDirty(recursive: true)
             }
         }
     }
@@ -34,7 +34,7 @@ class Tile2D: SKShapeNode, Codable, Responder2D, Soilable {
         
         didSet {
             
-            becomeDirty()
+            becomeDirty(recursive: true)
         }
     }
     
@@ -42,7 +42,7 @@ class Tile2D: SKShapeNode, Codable, Responder2D, Soilable {
             
         self.coordinate = coordinate
         
-        super.init()
+        super.init(texture: nil, color: .black, size: CGSize(width: 1, height: 1))
         
         becomeDirty()
     }
@@ -53,7 +53,7 @@ class Tile2D: SKShapeNode, Codable, Responder2D, Soilable {
         
         coordinate = try container.decode(Coordinate.self, forKey: .coordinate)
         
-        super.init()
+        super.init(texture: nil, color: .black, size: CGSize(width: 1, height: 1))
         
         becomeDirty()
     }
@@ -70,16 +70,43 @@ class Tile2D: SKShapeNode, Codable, Responder2D, Soilable {
         try container.encode(coordinate, forKey: .coordinate)
     }
     
+    @discardableResult func becomeDirty(recursive: Bool) -> Bool {
+        
+        if recursive {
+            
+            for cardinal in Cardinal.allCases {
+                
+                guard let neighbour = find(neighbour: cardinal) else { continue }
+                
+                neighbour.becomeDirty()
+            }
+            
+            for ordinal in Ordinal.allCases {
+                
+                guard let neighbour = find(neighbour: ordinal) else { continue }
+                
+                neighbour.becomeDirty()
+            }
+        }
+        
+        guard !isDirty else { return false }
+        
+        isDirty = true
+        
+        ancestor?.child(didBecomeDirty: self)
+        
+        return true
+    }
+    
     @discardableResult public func clean() -> Bool {
         
         guard isDirty,
               let parent = parent as? Chunk2D<Self> else { return false }
         
+        anchorPoint = .zero
         position = CGPoint(x: coordinate.x - parent.bounds.start.x, y: coordinate.z - parent.bounds.start.z)
         
-        path = CGPath(rect: CGRect(x: 0, y: 0, width: 1, height: 1), transform: nil)
-        
-        blendMode = .multiplyAlpha
+        blendMode = .replace
         
         isDirty = false
         
@@ -108,7 +135,11 @@ extension Tile2D {
         if neighbour.neighbours[cardinal.opposite] != self {
             
             neighbour.add(neighbour: self, cardinal: cardinal.opposite)
+            
+            neighbour.becomeDirty(recursive: true)
         }
+        
+        becomeDirty(recursive: true)
     }
     
     func find(neighbour cardinal: Cardinal) -> Self? {
@@ -127,11 +158,15 @@ extension Tile2D {
         
         guard let neighbour = neighbours[cardinal] else { return }
         
+        becomeDirty(recursive: true)
+        
         neighbours.removeValue(forKey: cardinal)
         
         if neighbour.neighbours[cardinal.opposite] == self {
             
             neighbour.remove(neighbour: cardinal.opposite)
+            
+            neighbour.becomeDirty(recursive: true)
         }
     }
 }

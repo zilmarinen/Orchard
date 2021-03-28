@@ -11,6 +11,7 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
     @objc enum Tab: Int {
         
         case empty
+        case actor
         case building
         case foliage
         case footpath
@@ -19,6 +20,17 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         case surface
         case water
     }
+    
+    lazy var actorUtilityCoordinator: ActorUtilityCoordinator = {
+       
+        guard let viewController = controller.children[Tab.actor.rawValue] as? ActorInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = ActorUtilityCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
     
     lazy var buildingUtilityCoordinator: BuildingUtilityCoordinator = {
        
@@ -124,6 +136,12 @@ extension InspectorTabViewCoordinator {
         stopChildren()
         
         switch inspector {
+        
+        case .actor:
+            
+            guard let object = object as? ActorUtilityCoordinator.ViewState else { return }
+            
+            start(child: actorUtilityCoordinator, with: object)
         
         case .building:
             

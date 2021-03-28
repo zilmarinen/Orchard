@@ -72,6 +72,7 @@ class SurfaceInspectorViewController: NSViewController {
             
             materialLayerStepper.maximumValue = World.Constants.ceiling
             materialLayerStepper.minimumValue = World.Constants.floor
+            materialLayerStepper.integerValue = Int(World.Constants.ceiling / 2)
         }
     }
     
@@ -81,6 +82,7 @@ class SurfaceInspectorViewController: NSViewController {
             
             elevationLayerStepper.maximumValue = World.Constants.ceiling
             elevationLayerStepper.minimumValue = World.Constants.floor
+            elevationLayerStepper.integerValue = Int(World.Constants.ceiling / 2)
         }
     }
     
