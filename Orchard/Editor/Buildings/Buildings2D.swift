@@ -24,9 +24,7 @@ class Buildings2D: NonUniformGrid2D<BuildingChunk2D> {
         
         for coordinate in footprint.nodes {
             
-            let tile = editor.surface.find(tile: coordinate)
-            
-            if tile?.coordinate.y != footprint.coordinate.y {
+            if !editor.validate(coordinate: coordinate, grid: .buildings) {
                 
                 return nil
             }

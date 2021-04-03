@@ -6,7 +6,7 @@
 
 void main()
 {
-    vec4 color = texture2D(u_texture, v_tex_coord);
+    vec4 color = a_color;
     vec4 grid = vec4(0.0, 0.0, 0.0, 1.0);
     
     vec2 fractional  = abs(fract(v_tex_coord));

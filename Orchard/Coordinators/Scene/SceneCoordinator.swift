@@ -15,13 +15,11 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         return SceneViewModel(initialState: .editor)
     }()
     
-    var stateObserver: UUID?
-    
     override init(controller: SceneViewController) {
         
         super.init(controller: controller)
         
-        controller.coordinator = self
+        viewModel.subscribe(stateDidChange(from:to:))
     }
     
     required public init?(coder: NSCoder) {
@@ -32,8 +30,6 @@ class SceneCoordinator: Coordinator<SceneViewController> {
     override func start(with option: StartOption?) {
         
         super.start(with: option)
-        
-        stateObserver = viewModel.subscribe(stateDidChange(from:to:))
         
         guard let spriteView = spriteView,
               let sceneView = sceneView,
@@ -59,18 +55,18 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         
             spriteView.presentScene(scene)
             
-            _ = scene.meadow.surface.add(tile: .zero)
-        }
-    }
-    
-    override func stop(then completion: CoordinatorCompletionBlock?) {
-        
-        if let stateObserver = stateObserver {
+            let size = 64
+            let halfSize = size / 2
+            let y = Int(World.Constants.ceiling / 2)
             
-            viewModel.unsubscribe(stateObserver)
+            for x in -halfSize..<halfSize {
+            
+                for z in -halfSize..<halfSize {
+                    
+                    _ = scene.meadow.surface.add(tile: Coordinate(x: x, y: y, z: z))
+                }
+            }
         }
-        
-        super.stop(then: completion)
     }
 }
 
@@ -124,9 +120,14 @@ extension SceneCoordinator {
                 sceneView.scene = scene
                 sceneView.delegate = scene
                 
-                if let portal = scene.meadow.portals.find(portal: .spawn) {
+                if let portal = scene.meadow.portals.find(portal: .seam) {
                     
                     scene.meadow.actors.hero.coordinate = portal.footprint.coordinate
+                }
+                
+                if let destination = scene.meadow.portals.find(portal: .door)?.footprint.coordinate {
+                    
+                    scene.meadow.actors.hero.controller.move(to: destination)
                 }
             }
             catch {

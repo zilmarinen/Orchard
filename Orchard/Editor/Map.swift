@@ -30,13 +30,14 @@ class Map: SKScene, Codable, StartOption, Responder2D, Soilable {
         
         let node = SKSpriteNode(color: .white, size: CGSize(width: Constants.width, height: Constants.height))
         
-        let shader = SKShader(fileNamed: "Graph.fsh")
+        let shader = SKShader(shader: .graph)
         
         let value = vector_float2(Float(Constants.width),
                                   Float(Constants.height))
         
-        shader.uniforms = [ SKUniform(name: "u_size", vectorFloat2: value) ]
+        shader.uniforms = [ SKUniform(name: SKUniform.Uniform.size.rawValue, vectorFloat2: value) ]
         
+        node.blendMode = .replace
         node.shader = shader
         node.zPosition = -1
         

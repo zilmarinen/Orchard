@@ -18,7 +18,7 @@ class Water2D: Grid2D<WaterChunk2D, WaterTile2D> {
     struct Tilemap {
         
         let tileset: [String : SKTexture]
-        let shader = SKShader(fileNamed: "Water2D.fsh")
+        let shader = SKShader(shader: .water)
         
         init() {
         
@@ -33,7 +33,7 @@ class Water2D: Grid2D<WaterChunk2D, WaterTile2D> {
             
             tileset = textures
             
-            shader.attributes = [SKAttribute(name: "a_color", type: .vectorFloat4)]
+            shader.attributes = [SKAttribute(name: SKAttribute.Attribute.color.rawValue, type: .vectorFloat4)]
         }
     }
     

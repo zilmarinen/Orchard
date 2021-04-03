@@ -1,6 +1,5 @@
 //
 //  ActorInspectorViewController.swift
-//  Orchard
 //
 //  Created by Zack Brown on 28/03/2021.
 //

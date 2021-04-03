@@ -9,27 +9,32 @@ import Cocoa
 @objc class ToolbarViewController: NSViewController {
     
     @IBOutlet weak var actorButton: NSButton!
+    @IBOutlet weak var bridgeButton: NSButton!
     @IBOutlet weak var buildingButton: NSButton!
+    @IBOutlet weak var fenceButton: NSButton!
     @IBOutlet weak var foliageButton: NSButton!
     @IBOutlet weak var footpathButton: NSButton!
     @IBOutlet weak var sceneButton: NSButton!
     @IBOutlet weak var portalButton: NSButton!
     @IBOutlet weak var surfaceButton: NSButton!
+    @IBOutlet weak var wallButton: NSButton!
     @IBOutlet weak var waterButton: NSButton!
     
     @IBOutlet var actorMenu: NSMenu!
     @IBOutlet weak var actorInspectorItem: NSMenuItem!
     @IBOutlet weak var actorPlacementItem: NSMenuItem!
     
+    @IBOutlet var bridgeMenu: NSMenu!
+    @IBOutlet weak var bridgeInspectorItem: NSMenuItem!
+    @IBOutlet weak var bridgeBuildItem: NSMenuItem!
+    
     @IBOutlet var buildingMenu: NSMenu!
     @IBOutlet weak var buildingInspectorItem: NSMenuItem!
     @IBOutlet weak var buildingBuildItem: NSMenuItem!
     
-    @IBOutlet var surfaceMenu: NSMenu!
-    @IBOutlet weak var surfaceInspectorItem: NSMenuItem!
-    @IBOutlet weak var surfaceMaterialItem: NSMenuItem!
-    @IBOutlet weak var surfaceElevationItem: NSMenuItem!
-    @IBOutlet weak var surfaceEdgeItem: NSMenuItem!
+    @IBOutlet var fenceMenu: NSMenu!
+    @IBOutlet weak var fenceInspectorItem: NSMenuItem!
+    @IBOutlet weak var fenceBuildItem: NSMenuItem!
     
     @IBOutlet var foliageMenu: NSMenu!
     @IBOutlet weak var foliageInspectorItem: NSMenuItem!
@@ -42,6 +47,16 @@ import Cocoa
     @IBOutlet var portalMenu: NSMenu!
     @IBOutlet weak var portalInspectorItem: NSMenuItem!
     @IBOutlet weak var portalBuildItem: NSMenuItem!
+    
+    @IBOutlet var surfaceMenu: NSMenu!
+    @IBOutlet weak var surfaceInspectorItem: NSMenuItem!
+    @IBOutlet weak var surfaceMaterialItem: NSMenuItem!
+    @IBOutlet weak var surfaceElevationItem: NSMenuItem!
+    @IBOutlet weak var surfaceEdgeItem: NSMenuItem!
+    
+    @IBOutlet var wallMenu: NSMenu!
+    @IBOutlet weak var wallInspectorItem: NSMenuItem!
+    @IBOutlet weak var wallBuildItem: NSMenuItem!
     
     @IBOutlet var waterMenu: NSMenu!
     @IBOutlet weak var waterInspectorItem: NSMenuItem!
@@ -56,10 +71,18 @@ import Cocoa
         case actorButton:
             
             NSMenu.popUpContextMenu(actorMenu, with: event, for: sender)
+            
+        case bridgeButton:
+            
+            NSMenu.popUpContextMenu(bridgeMenu, with: event, for: sender)
         
         case buildingButton:
             
             NSMenu.popUpContextMenu(buildingMenu, with: event, for: sender)
+            
+        case fenceButton:
+            
+            NSMenu.popUpContextMenu(fenceMenu, with: event, for: sender)
         
         case foliageButton:
             
@@ -80,6 +103,10 @@ import Cocoa
         case surfaceButton:
             
             NSMenu.popUpContextMenu(surfaceMenu, with: event, for: sender)
+            
+        case wallButton:
+            
+            NSMenu.popUpContextMenu(wallMenu, with: event, for: sender)
             
         case waterButton:
             
@@ -103,6 +130,16 @@ import Cocoa
             
             coordinator?.toggle(inspector: .actor, with: ActorUtilityCoordinator.ViewState.placement)
             
+        case bridgeInspectorItem:
+            
+            guard let node = coordinator?.editor?.bridges.chunks.first else { return }
+            
+            coordinator?.toggle(inspector: .bridge, with: BridgeUtilityCoordinator.ViewState.inspector(node: node))
+            
+        case bridgeBuildItem:
+            
+            coordinator?.toggle(inspector: .bridge, with: BridgeUtilityCoordinator.ViewState.build)
+            
         case buildingInspectorItem:
             
             guard let node = coordinator?.editor?.buildings.chunks.first else { return }
@@ -112,6 +149,16 @@ import Cocoa
         case buildingBuildItem:
             
             coordinator?.toggle(inspector: .building, with: BuildingUtilityCoordinator.ViewState.build)
+            
+        case fenceInspectorItem:
+            
+            guard let node = coordinator?.editor?.fences.tiles.first else { return }
+            
+            coordinator?.toggle(inspector: .fence, with: FenceUtilityCoordinator.ViewState.inspector(node: node))
+            
+        case fenceBuildItem:
+            
+            coordinator?.toggle(inspector: .fence, with: FenceUtilityCoordinator.ViewState.build)
         
         case foliageInspectorItem:
             
@@ -161,6 +208,16 @@ import Cocoa
             
             coordinator?.toggle(inspector: .surface, with: SurfaceUtilityCoordinator.ViewState.edge)
             
+        case wallInspectorItem:
+            
+            guard let node = coordinator?.editor?.walls.tiles.first else { return }
+            
+            coordinator?.toggle(inspector: .wall, with: WallUtilityCoordinator.ViewState.inspector(node: node))
+            
+        case wallBuildItem:
+            
+            coordinator?.toggle(inspector: .wall, with: WallUtilityCoordinator.ViewState.build)
+            
         case waterInspectorItem:
             
             guard let node = coordinator?.editor?.water.tiles.first else { return }
@@ -182,21 +239,31 @@ extension ToolbarViewController {
     
     override func toggle(inspector: InspectorTabViewCoordinator.Tab, with object: Any? = nil) {
         
+        actorButton.contentTintColor = nil
+        bridgeButton.contentTintColor = nil
         buildingButton.contentTintColor = nil
+        fenceButton.contentTintColor = nil
         foliageButton.contentTintColor = nil
         footpathButton.contentTintColor = nil
-        sceneButton.contentTintColor = nil
         portalButton.contentTintColor = nil
+        sceneButton.contentTintColor = nil
         surfaceButton.contentTintColor = nil
+        wallButton.contentTintColor = nil
+        waterButton.contentTintColor = nil
         
         switch inspector {
         
+        case .actor: actorButton.contentTintColor = .systemPink
+        case .bridge: bridgeButton.contentTintColor = .systemPink
         case .building: buildingButton.contentTintColor = .systemPink
+        case .fence: fenceButton.contentTintColor = .systemPink
         case .foliage: foliageButton.contentTintColor = .systemPink
         case .footpath: footpathButton.contentTintColor = .systemPink
         case .portal: portalButton.contentTintColor = .systemPink
         case .scene: sceneButton.contentTintColor = .systemPink
         case .surface: surfaceButton.contentTintColor = .systemPink
+        case .wall: wallButton.contentTintColor = .systemPink
+        case .water: waterButton.contentTintColor = .systemPink
             
         default: break
         }

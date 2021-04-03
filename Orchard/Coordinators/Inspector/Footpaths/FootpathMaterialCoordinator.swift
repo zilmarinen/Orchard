@@ -71,12 +71,10 @@ extension FootpathMaterialCoordinator {
                         
                     default:
                         
-                        guard let surfaceTile = map.meadow.surface.find(tile: coordinate) else { break }
-                            
-                        let tile = map.meadow.footpath.find(tile: coordinate) ?? map.meadow.footpath.add(tile: coordinate)
+                        _ = map.meadow.footpath.add(tile: coordinate) { tile in 
                         
-                        tile?.coordinate = surfaceTile.coordinate
-                        tile?.tileType = tileType
+                            tile.tileType = tileType
+                        }
                     }
                 }
                 

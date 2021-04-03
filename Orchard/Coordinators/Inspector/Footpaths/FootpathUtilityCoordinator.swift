@@ -32,7 +32,17 @@ class FootpathUtilityCoordinator: FootpathCoordinator {
         return FootpathViewModel(initialState: .empty)
     }()
     
-    var stateObserver: UUID?
+    override init(controller: FootpathInspectorViewController) {
+        
+        super.init(controller: controller)
+        
+        viewModel.subscribe(stateDidChange(from:to:))
+    }
+    
+    required public init?(coder: NSCoder) {
+        
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func start(with option: StartOption?) {
         
@@ -41,8 +51,6 @@ class FootpathUtilityCoordinator: FootpathCoordinator {
         guard let option = option as? FootpathUtilityCoordinator.ViewState else { return }
         
         viewModel.state = option
-        
-        stateObserver = viewModel.subscribe(stateDidChange(from:to:))
         
         guard controller.isViewLoaded else { return }
         
@@ -56,16 +64,6 @@ class FootpathUtilityCoordinator: FootpathCoordinator {
         coordinator.controller = controller
         
         super.start(child: coordinator, with: option)
-    }
-    
-    override func stop(then completion: CoordinatorCompletionBlock?) {
-        
-        if let stateObserver = stateObserver {
-            
-            viewModel.unsubscribe(stateObserver)
-        }
-        
-        super.stop(then: completion)
     }
 }
 

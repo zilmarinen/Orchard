@@ -74,10 +74,9 @@ class Actors2D: SKNode, Codable, Responder2D, Soilable {
     func add(actor coordinate: Coordinate, configure: ActorConfiguration? = nil) -> Actor2D? {
         
         guard let editor = ancestor as? Editor,
-              let tile = editor.surface.find(tile: coordinate),
-              find(actor: coordinate) == nil else { return nil }
+              editor.validate(coordinate: coordinate, grid: .actors) else { return nil }
         
-        let actor = Actor2D(coordinate: tile.coordinate)
+        let actor = Actor2D(coordinate: coordinate)
         
         npcs.append(actor)
         
@@ -95,7 +94,7 @@ extension Actors2D {
     
     func find(actor coordinate: Coordinate) -> Actor2D? {
         
-        return npcs.first { $0.coordinate == coordinate }
+        return npcs.first { $0.coordinate.xz == coordinate.xz }
     }
     
     func remove(actor coordinate: Coordinate) {

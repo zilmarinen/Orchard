@@ -82,9 +82,14 @@ class Chunk2D<T: Tile2D>: SKNode, Codable, Responder2D, Soilable {
 
 extension Chunk2D {
     
-    func add(tile coordinate: Coordinate) -> T? {
+    func add(tile coordinate: Coordinate) -> T {
 
-        guard find(tile: coordinate) == nil else { return nil }
+        if let tile = find(tile: coordinate) {
+            
+            becomeDirty()
+            
+            return tile
+        }
 
         let tile = T(coordinate: coordinate)
 

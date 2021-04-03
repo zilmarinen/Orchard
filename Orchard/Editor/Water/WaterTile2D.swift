@@ -85,6 +85,7 @@ class WaterTile2D: Tile2D {
         
         let tilemap = map.meadow.water.tilemap
         
+        blendMode = .alpha
         color = tileType.color.color
         shader = tilemap.shader
         
@@ -93,7 +94,7 @@ class WaterTile2D: Tile2D {
                                       Float(tileType.color.blue),
                                       Float(tileType.color.alpha))
         
-        setValue(SKAttributeValue(vectorFloat4: attribute), forAttribute: "a_color")
+        setValue(SKAttributeValue(vectorFloat4: attribute), forAttribute: SKAttribute.Attribute.color.rawValue)
         
         switch map.meadow.water.overlay {
         
@@ -106,8 +107,6 @@ class WaterTile2D: Tile2D {
             label.text = "\(coordinate.y)"
             label.isHidden = false
         }
-        
-        blendMode = .alpha
         
         return true
     }

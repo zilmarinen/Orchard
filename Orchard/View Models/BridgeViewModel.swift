@@ -1,0 +1,27 @@
+//
+//  BridgeViewModel.swift
+//
+//  Created by Zack Brown on 30/03/2021.
+//
+
+import Foundation
+import Meadow
+
+extension BridgeUtilityCoordinator {
+    
+    enum ViewState: State, StartOption {
+        
+        case empty
+        case inspector(node: BridgeChunk2D)
+        case build
+        
+        public func shouldTransition(to newState: ViewState) -> Should<ViewState> {
+            
+            return .continue
+        }
+    }
+    
+    class BridgeViewModel: StateObserver<ViewState> {
+        
+    }
+}

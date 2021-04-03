@@ -77,10 +77,6 @@ extension FoliagePlantCoordinator {
                     
                     let footprint = Footprint(coordinate: surfaceTile.coordinate, rotation: .north, size: foliageSize.rawValue + 1)
                     
-                    guard map.meadow.foliage.find(chunk: footprint) == nil,
-                          map.meadow.buildings.find(chunk: footprint) == nil,
-                          map.meadow.portals.find(chunk: footprint) == nil else { return }
-                    
                     _ = map.meadow.foliage.add(chunk: footprint) { chunk in
                         
                         chunk.foliageType = foliageType

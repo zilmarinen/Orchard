@@ -19,7 +19,7 @@ class Surface2D: Grid2D<SurfaceChunk2D, SurfaceTile2D> {
     struct Tilemap {
         
         let tileset: [String : SKTexture]
-        let shader = SKShader(fileNamed: "Surface2D.fsh")
+        let shader = SKShader(shader: .surface)
         
         init() {
         
@@ -34,7 +34,7 @@ class Surface2D: Grid2D<SurfaceChunk2D, SurfaceTile2D> {
             
             tileset = textures
             
-            shader.attributes = [SKAttribute(name: "a_color", type: .vectorFloat4)]
+            shader.attributes = [SKAttribute(name: SKAttribute.Attribute.color.rawValue, type: .vectorFloat4)]
         }
     }
     

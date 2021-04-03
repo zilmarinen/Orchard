@@ -71,10 +71,10 @@ extension WaterMaterialCoordinator {
                         
                     default:
                         
-                        let tile = map.meadow.water.find(tile: coordinate) ?? map.meadow.water.add(tile: coordinate)
+                        _ = map.meadow.water.add(tile: coordinate) { tile in
                         
-                        tile?.coordinate = coordinate
-                        tile?.tileType = tileType
+                            tile.tileType = tileType
+                        }
                     }
                 }
                 

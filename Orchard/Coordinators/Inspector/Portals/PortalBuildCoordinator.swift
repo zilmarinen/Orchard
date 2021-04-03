@@ -57,33 +57,30 @@ extension PortalBuildCoordinator {
             case .up(let position, let clickType):
                 
                 let startHit = map.hitTest(point: position.start)
-                let endHit = map.hitTest(point: position.end)
                 
-                let bounds = GridBounds(start: startHit, end: endHit)
+                switch clickType {
                 
-                bounds.enumerate(y: 0) { coordinate in
+                case .right:
                     
-                    switch clickType {
+                    let endHit = map.hitTest(point: position.end)
                     
-                    case .right:
+                    let bounds = GridBounds(start: startHit, end: endHit)
+                    
+                    bounds.enumerate(y: 0) { coordinate in
                         
                         map.meadow.portals.remove(chunk: coordinate)
-                        
-                    default:
-                        
-                        guard let surfaceTile = map.meadow.surface.find(tile: endHit) else { return }
-                        
-                        let footprint = Footprint(coordinate: surfaceTile.coordinate, rotation: .north, size: 1)
-                        
-                        guard map.meadow.foliage.find(chunk: footprint) == nil,
-                              map.meadow.buildings.find(chunk: footprint) == nil,
-                              map.meadow.portals.find(chunk: footprint) == nil else { return }
-                        
-                        _ = map.meadow.portals.add(chunk: footprint, configure: { portal in
-                            
-                            portal.portalType = portalType
-                        })
                     }
+                    
+                default:
+                    
+                    guard let surfaceTile = map.meadow.surface.find(tile: startHit) else { return }
+                    
+                    let footprint = Footprint(coordinate: surfaceTile.coordinate, rotation: .north, size: 1)
+                    
+                    _ = map.meadow.portals.add(chunk: footprint, configure: { portal in
+                        
+                        portal.portalType = portalType
+                    })
                 }
                 
             default: break

@@ -17,6 +17,15 @@
 		1827303B2607794D00A13243 /* WaterTile2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1827303A2607794D00A13243 /* WaterTile2D.swift */; };
 		1827303E26077A9000A13243 /* WaterTileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1827303D26077A9000A13243 /* WaterTileType.swift */; };
 		183317A0257E20CE001CC0A3 /* NSStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833179F257E20CE001CC0A3 /* NSStoryboard.swift */; };
+		1838E4A126189A3900E24C44 /* WallCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838E4A026189A3900E24C44 /* WallCoordinator.swift */; };
+		1838E4A526189A4800E24C44 /* WallUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838E4A426189A4800E24C44 /* WallUtilityCoordinator.swift */; };
+		1838E4A826189A5700E24C44 /* WallBuildCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838E4A726189A5700E24C44 /* WallBuildCoordinator.swift */; };
+		1838E4AB26189A6300E24C44 /* WallInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838E4AA26189A6300E24C44 /* WallInspectorCoordinator.swift */; };
+		1838E4AE26189A9900E24C44 /* WallInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838E4AD26189A9900E24C44 /* WallInspectorViewController.swift */; };
+		1838E4B126189B0800E24C44 /* WallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838E4B026189B0800E24C44 /* WallViewModel.swift */; };
+		1838E4B626189C1700E24C44 /* Wall2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838E4B526189C1700E24C44 /* Wall2D.swift */; };
+		1838E4B926189C2200E24C44 /* WallChunk2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838E4B826189C2200E24C44 /* WallChunk2D.swift */; };
+		1838E4BC26189C2B00E24C44 /* WallTile2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838E4BB26189C2B00E24C44 /* WallTile2D.swift */; };
 		18534C8426077D6400500535 /* WaterInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18534C8326077D6400500535 /* WaterInspectorViewController.swift */; };
 		18534C8826077DAD00500535 /* WaterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18534C8726077DAD00500535 /* WaterCoordinator.swift */; };
 		18534C8B26077DB800500535 /* WaterUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18534C8A26077DB800500535 /* WaterUtilityCoordinator.swift */; };
@@ -64,7 +73,7 @@
 		187B46782600A98E00D7D5B4 /* FootpathTileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B46772600A98E00D7D5B4 /* FootpathTileType.swift */; };
 		187B467C2600A9A100D7D5B4 /* FoliageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B467B2600A9A100D7D5B4 /* FoliageType.swift */; };
 		187F65A2260E03EC0056D2C4 /* Surface2D.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 187F65A1260E03EC0056D2C4 /* Surface2D.fsh */; };
-		187F65A5260E14330056D2C4 /* Graph.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 187F65A4260E14330056D2C4 /* Graph.fsh */; };
+		187F65A5260E14330056D2C4 /* Graph2D.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 187F65A4260E14330056D2C4 /* Graph2D.fsh */; };
 		187F65A8260E2DE10056D2C4 /* Footpath2D.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 187F65A7260E2DE10056D2C4 /* Footpath2D.fsh */; };
 		18814F7D25838A62004689E5 /* SpriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18814F7C25838A62004689E5 /* SpriteView.swift */; };
 		18814F8225838D2D004689E5 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18814F8125838D2D004689E5 /* KeyboardObserver.swift */; };
@@ -83,6 +92,24 @@
 		188A23D7260F4A33009E4474 /* NonUniformGrid2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188A23D6260F4A33009E4474 /* NonUniformGrid2D.swift */; };
 		188A23DA260F4A4A009E4474 /* NonUniformChunk2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188A23D9260F4A4A009E4474 /* NonUniformChunk2D.swift */; };
 		188A23E3260F8494009E4474 /* Water2D.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 188A23E2260F8494009E4474 /* Water2D.fsh */; };
+		18942CAF261302F600F93728 /* BridgeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CAE261302F600F93728 /* BridgeViewModel.swift */; };
+		18942CB32613034300F93728 /* BridgeUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CB22613034300F93728 /* BridgeUtilityCoordinator.swift */; };
+		18942CB62613034F00F93728 /* BridgeBuildCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CB52613034F00F93728 /* BridgeBuildCoordinator.swift */; };
+		18942CB92613035C00F93728 /* BridgeInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CB82613035C00F93728 /* BridgeInspectorCoordinator.swift */; };
+		18942CBC2613036900F93728 /* BridgeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CBB2613036900F93728 /* BridgeCoordinator.swift */; };
+		18942CBF2613037700F93728 /* BridgeInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CBE2613037700F93728 /* BridgeInspectorViewController.swift */; };
+		18942CC42613050900F93728 /* Bridges2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CC32613050900F93728 /* Bridges2D.swift */; };
+		18942CC82613051700F93728 /* BridgeChunk2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CC72613051700F93728 /* BridgeChunk2D.swift */; };
+		18942CCC261308A600F93728 /* FenceInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CCB261308A600F93728 /* FenceInspectorViewController.swift */; };
+		18942CD02613091000F93728 /* FenceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CCF2613091000F93728 /* FenceCoordinator.swift */; };
+		18942CD32613091900F93728 /* FenceUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CD22613091900F93728 /* FenceUtilityCoordinator.swift */; };
+		18942CD62613092100F93728 /* FenceBuildCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CD52613092100F93728 /* FenceBuildCoordinator.swift */; };
+		18942CD92613092B00F93728 /* FenceInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CD82613092B00F93728 /* FenceInspectorCoordinator.swift */; };
+		18942CDD261309E500F93728 /* FenceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CDC261309E500F93728 /* FenceViewModel.swift */; };
+		18942CE226130C5900F93728 /* FenceTile2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CE126130C5900F93728 /* FenceTile2D.swift */; };
+		18942CE526130C8D00F93728 /* FenceChunk2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CE426130C8D00F93728 /* FenceChunk2D.swift */; };
+		18942CE826130CA700F93728 /* Fence2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CE726130CA700F93728 /* Fence2D.swift */; };
+		18942CEC26148F5400F93728 /* Foliage2D.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 18942CEB26148F5400F93728 /* Foliage2D.fsh */; };
 		18A26C9D25F8B6C20077AF3D /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A26C9C25F8B6C20077AF3D /* Map.swift */; };
 		18A26CA125F8C0C10077AF3D /* SurfaceTile2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A26CA025F8C0C10077AF3D /* SurfaceTile2D.swift */; };
 		18A26CA425F8C35C0077AF3D /* SurfaceChunk2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A26CA325F8C35C0077AF3D /* SurfaceChunk2D.swift */; };
@@ -106,6 +133,9 @@
 		18D3A16D25515D3C00031CA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D3A16C25515D3C00031CA7 /* Assets.xcassets */; };
 		18D3A17025515D3C00031CA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18D3A16E25515D3C00031CA7 /* Main.storyboard */; };
 		18D3A1802551652000031CA7 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3A17F2551652000031CA7 /* WindowController.swift */; };
+		18E5DBB12617511D0010F615 /* SKUniform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5DBB02617511D0010F615 /* SKUniform.swift */; };
+		18E5DBB4261751970010F615 /* SKAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5DBB3261751970010F615 /* SKAttribute.swift */; };
+		18E5DBB82617523B0010F615 /* SKShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5DBB72617523B0010F615 /* SKShader.swift */; };
 		18EDA9FD25FBB452008A7AF0 /* SurfaceElevationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EDA9FC25FBB452008A7AF0 /* SurfaceElevationCoordinator.swift */; };
 		18F1CA402600C86000E26398 /* SceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F1CA3F2600C86000E26398 /* SceneViewModel.swift */; };
 		18F675A72602238C00FC7B01 /* Footprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F675A62602238C00FC7B01 /* Footprint.swift */; };
@@ -130,6 +160,15 @@
 		1827303A2607794D00A13243 /* WaterTile2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterTile2D.swift; sourceTree = "<group>"; };
 		1827303D26077A9000A13243 /* WaterTileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterTileType.swift; sourceTree = "<group>"; };
 		1833179F257E20CE001CC0A3 /* NSStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSStoryboard.swift; sourceTree = "<group>"; };
+		1838E4A026189A3900E24C44 /* WallCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallCoordinator.swift; sourceTree = "<group>"; };
+		1838E4A426189A4800E24C44 /* WallUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallUtilityCoordinator.swift; sourceTree = "<group>"; };
+		1838E4A726189A5700E24C44 /* WallBuildCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallBuildCoordinator.swift; sourceTree = "<group>"; };
+		1838E4AA26189A6300E24C44 /* WallInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallInspectorCoordinator.swift; sourceTree = "<group>"; };
+		1838E4AD26189A9900E24C44 /* WallInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallInspectorViewController.swift; sourceTree = "<group>"; };
+		1838E4B026189B0800E24C44 /* WallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallViewModel.swift; sourceTree = "<group>"; };
+		1838E4B526189C1700E24C44 /* Wall2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wall2D.swift; sourceTree = "<group>"; };
+		1838E4B826189C2200E24C44 /* WallChunk2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallChunk2D.swift; sourceTree = "<group>"; };
+		1838E4BB26189C2B00E24C44 /* WallTile2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallTile2D.swift; sourceTree = "<group>"; };
 		18534C8326077D6400500535 /* WaterInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterInspectorViewController.swift; sourceTree = "<group>"; };
 		18534C8726077DAD00500535 /* WaterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterCoordinator.swift; sourceTree = "<group>"; };
 		18534C8A26077DB800500535 /* WaterUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterUtilityCoordinator.swift; sourceTree = "<group>"; };
@@ -177,7 +216,7 @@
 		187B46772600A98E00D7D5B4 /* FootpathTileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathTileType.swift; sourceTree = "<group>"; };
 		187B467B2600A9A100D7D5B4 /* FoliageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageType.swift; sourceTree = "<group>"; };
 		187F65A1260E03EC0056D2C4 /* Surface2D.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Surface2D.fsh; sourceTree = "<group>"; };
-		187F65A4260E14330056D2C4 /* Graph.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Graph.fsh; sourceTree = "<group>"; };
+		187F65A4260E14330056D2C4 /* Graph2D.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Graph2D.fsh; sourceTree = "<group>"; };
 		187F65A7260E2DE10056D2C4 /* Footpath2D.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Footpath2D.fsh; sourceTree = "<group>"; };
 		18814F7C25838A62004689E5 /* SpriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteView.swift; sourceTree = "<group>"; };
 		18814F8125838D2D004689E5 /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
@@ -196,6 +235,24 @@
 		188A23D6260F4A33009E4474 /* NonUniformGrid2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonUniformGrid2D.swift; sourceTree = "<group>"; };
 		188A23D9260F4A4A009E4474 /* NonUniformChunk2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonUniformChunk2D.swift; sourceTree = "<group>"; };
 		188A23E2260F8494009E4474 /* Water2D.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Water2D.fsh; sourceTree = "<group>"; };
+		18942CAE261302F600F93728 /* BridgeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeViewModel.swift; sourceTree = "<group>"; };
+		18942CB22613034300F93728 /* BridgeUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeUtilityCoordinator.swift; sourceTree = "<group>"; };
+		18942CB52613034F00F93728 /* BridgeBuildCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeBuildCoordinator.swift; sourceTree = "<group>"; };
+		18942CB82613035C00F93728 /* BridgeInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeInspectorCoordinator.swift; sourceTree = "<group>"; };
+		18942CBB2613036900F93728 /* BridgeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeCoordinator.swift; sourceTree = "<group>"; };
+		18942CBE2613037700F93728 /* BridgeInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeInspectorViewController.swift; sourceTree = "<group>"; };
+		18942CC32613050900F93728 /* Bridges2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bridges2D.swift; sourceTree = "<group>"; };
+		18942CC72613051700F93728 /* BridgeChunk2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeChunk2D.swift; sourceTree = "<group>"; };
+		18942CCB261308A600F93728 /* FenceInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FenceInspectorViewController.swift; sourceTree = "<group>"; };
+		18942CCF2613091000F93728 /* FenceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FenceCoordinator.swift; sourceTree = "<group>"; };
+		18942CD22613091900F93728 /* FenceUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FenceUtilityCoordinator.swift; sourceTree = "<group>"; };
+		18942CD52613092100F93728 /* FenceBuildCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FenceBuildCoordinator.swift; sourceTree = "<group>"; };
+		18942CD82613092B00F93728 /* FenceInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FenceInspectorCoordinator.swift; sourceTree = "<group>"; };
+		18942CDC261309E500F93728 /* FenceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FenceViewModel.swift; sourceTree = "<group>"; };
+		18942CE126130C5900F93728 /* FenceTile2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FenceTile2D.swift; sourceTree = "<group>"; };
+		18942CE426130C8D00F93728 /* FenceChunk2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FenceChunk2D.swift; sourceTree = "<group>"; };
+		18942CE726130CA700F93728 /* Fence2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fence2D.swift; sourceTree = "<group>"; };
+		18942CEB26148F5400F93728 /* Foliage2D.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Foliage2D.fsh; sourceTree = "<group>"; };
 		18A26C9C25F8B6C20077AF3D /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		18A26CA025F8C0C10077AF3D /* SurfaceTile2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceTile2D.swift; sourceTree = "<group>"; };
 		18A26CA325F8C35C0077AF3D /* SurfaceChunk2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceChunk2D.swift; sourceTree = "<group>"; };
@@ -222,6 +279,9 @@
 		18D3A17125515D3C00031CA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18D3A17225515D3C00031CA7 /* Orchard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Orchard.entitlements; sourceTree = "<group>"; };
 		18D3A17F2551652000031CA7 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		18E5DBB02617511D0010F615 /* SKUniform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKUniform.swift; sourceTree = "<group>"; };
+		18E5DBB3261751970010F615 /* SKAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKAttribute.swift; sourceTree = "<group>"; };
+		18E5DBB72617523B0010F615 /* SKShader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKShader.swift; sourceTree = "<group>"; };
 		18EDA9FC25FBB452008A7AF0 /* SurfaceElevationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceElevationCoordinator.swift; sourceTree = "<group>"; };
 		18F1CA3F2600C86000E26398 /* SceneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneViewModel.swift; sourceTree = "<group>"; };
 		18F675A62602238C00FC7B01 /* Footprint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Footprint.swift; sourceTree = "<group>"; };
@@ -267,13 +327,16 @@
 			isa = PBXGroup;
 			children = (
 				188376942610B03B008BFEC2 /* ActorInspectorViewController.swift */,
+				18942CBE2613037700F93728 /* BridgeInspectorViewController.swift */,
 				187B463B25FF5BDE00D7D5B4 /* BuildingInspectorViewController.swift */,
+				18942CCB261308A600F93728 /* FenceInspectorViewController.swift */,
 				187B462025FF48D800D7D5B4 /* FoliageInspectorViewController.swift */,
 				187B465A2600A65000D7D5B4 /* FootpathInspectorViewController.swift */,
 				180FDCFF25F7A918007A208C /* InspectorViewController.swift */,
 				18C9E28C2600EADE00343B27 /* PortalInspectorViewController.swift */,
 				1870D1742555439900B39F8C /* SceneInspectorViewController.swift */,
 				1870D16E2555434C00B39F8C /* SurfaceInspectorViewController.swift */,
+				1838E4AD26189A9900E24C44 /* WallInspectorViewController.swift */,
 				18534C8326077D6400500535 /* WaterInspectorViewController.swift */,
 			);
 			path = Inspector;
@@ -282,8 +345,11 @@
 		1807F85325542DF3008388DC /* Inspector */ = {
 			isa = PBXGroup;
 			children = (
+				1838E49F26189A2B00E24C44 /* Walls */,
 				1883768B2610AFBD008BFEC2 /* Actors */,
+				18942CB12613033300F93728 /* Bridges */,
 				187B463E25FF5BF800D7D5B4 /* Buildings */,
+				18942CCE2613090100F93728 /* Fences */,
 				187B462325FF497000D7D5B4 /* Foliage */,
 				187B46592600A63B00D7D5B4 /* Footpaths */,
 				180FDD0225F7A94C007A208C /* InspectorCoordinator.swift */,
@@ -312,6 +378,27 @@
 				1827303A2607794D00A13243 /* WaterTile2D.swift */,
 			);
 			path = Water;
+			sourceTree = "<group>";
+		};
+		1838E49F26189A2B00E24C44 /* Walls */ = {
+			isa = PBXGroup;
+			children = (
+				1838E4A726189A5700E24C44 /* WallBuildCoordinator.swift */,
+				1838E4A026189A3900E24C44 /* WallCoordinator.swift */,
+				1838E4AA26189A6300E24C44 /* WallInspectorCoordinator.swift */,
+				1838E4A426189A4800E24C44 /* WallUtilityCoordinator.swift */,
+			);
+			path = Walls;
+			sourceTree = "<group>";
+		};
+		1838E4B426189BFE00E24C44 /* Walls */ = {
+			isa = PBXGroup;
+			children = (
+				1838E4B526189C1700E24C44 /* Wall2D.swift */,
+				1838E4B826189C2200E24C44 /* WallChunk2D.swift */,
+				1838E4BB26189C2B00E24C44 /* WallTile2D.swift */,
+			);
+			path = Walls;
 			sourceTree = "<group>";
 		};
 		18534C8626077D9900500535 /* Water */ = {
@@ -390,10 +477,10 @@
 		187B463E25FF5BF800D7D5B4 /* Buildings */ = {
 			isa = PBXGroup;
 			children = (
-				187B463F25FF5C0300D7D5B4 /* BuildingCoordinator.swift */,
-				187B464225FF5C3A00D7D5B4 /* BuildingUtilityCoordinator.swift */,
-				187B464825FF5CDA00D7D5B4 /* BuildingInspectorCoordinator.swift */,
 				187B464B25FF5CE600D7D5B4 /* BuildingBuildCoordinator.swift */,
+				187B463F25FF5C0300D7D5B4 /* BuildingCoordinator.swift */,
+				187B464825FF5CDA00D7D5B4 /* BuildingInspectorCoordinator.swift */,
+				187B464225FF5C3A00D7D5B4 /* BuildingUtilityCoordinator.swift */,
 			);
 			path = Buildings;
 			sourceTree = "<group>";
@@ -434,9 +521,10 @@
 		187F65A0260E03DB0056D2C4 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
-				187F65A1260E03EC0056D2C4 /* Surface2D.fsh */,
-				187F65A4260E14330056D2C4 /* Graph.fsh */,
+				18942CEB26148F5400F93728 /* Foliage2D.fsh */,
 				187F65A7260E2DE10056D2C4 /* Footpath2D.fsh */,
+				187F65A4260E14330056D2C4 /* Graph2D.fsh */,
+				187F65A1260E03EC0056D2C4 /* Surface2D.fsh */,
 				188A23E2260F8494009E4474 /* Water2D.fsh */,
 			);
 			path = Shaders;
@@ -481,18 +569,62 @@
 			path = Actors;
 			sourceTree = "<group>";
 		};
+		18942CB12613033300F93728 /* Bridges */ = {
+			isa = PBXGroup;
+			children = (
+				18942CB52613034F00F93728 /* BridgeBuildCoordinator.swift */,
+				18942CBB2613036900F93728 /* BridgeCoordinator.swift */,
+				18942CB82613035C00F93728 /* BridgeInspectorCoordinator.swift */,
+				18942CB22613034300F93728 /* BridgeUtilityCoordinator.swift */,
+			);
+			path = Bridges;
+			sourceTree = "<group>";
+		};
+		18942CC2261304F500F93728 /* Bridges */ = {
+			isa = PBXGroup;
+			children = (
+				18942CC32613050900F93728 /* Bridges2D.swift */,
+				18942CC72613051700F93728 /* BridgeChunk2D.swift */,
+			);
+			path = Bridges;
+			sourceTree = "<group>";
+		};
+		18942CCE2613090100F93728 /* Fences */ = {
+			isa = PBXGroup;
+			children = (
+				18942CD52613092100F93728 /* FenceBuildCoordinator.swift */,
+				18942CCF2613091000F93728 /* FenceCoordinator.swift */,
+				18942CD82613092B00F93728 /* FenceInspectorCoordinator.swift */,
+				18942CD22613091900F93728 /* FenceUtilityCoordinator.swift */,
+			);
+			path = Fences;
+			sourceTree = "<group>";
+		};
+		18942CE026130C4600F93728 /* Fences */ = {
+			isa = PBXGroup;
+			children = (
+				18942CE126130C5900F93728 /* FenceTile2D.swift */,
+				18942CE426130C8D00F93728 /* FenceChunk2D.swift */,
+				18942CE726130CA700F93728 /* Fence2D.swift */,
+			);
+			path = Fences;
+			sourceTree = "<group>";
+		};
 		18A26C9B25F8B6B00077AF3D /* Editor */ = {
 			isa = PBXGroup;
 			children = (
 				188376832610A9EF008BFEC2 /* Actors */,
+				18942CC2261304F500F93728 /* Bridges */,
 				187B463325FF5AC100D7D5B4 /* Buildings */,
 				18A26CA925F8C9320077AF3D /* Editor.swift */,
+				18942CE026130C4600F93728 /* Fences */,
 				1854A9F225FE25B800EF9871 /* Foliage */,
 				187B466D2600A8A800D7D5B4 /* Footpaths */,
 				187B464E26009A1B00D7D5B4 /* Grid */,
 				18A26C9C25F8B6C20077AF3D /* Map.swift */,
 				18C9E27E2600E99000343B27 /* Portals */,
 				18A26C9F25F8C06A0077AF3D /* Surface */,
+				1838E4B426189BFE00E24C44 /* Walls */,
 				1827303326076C3200A13243 /* Water */,
 			);
 			path = Editor;
@@ -512,12 +644,15 @@
 			isa = PBXGroup;
 			children = (
 				1883768C2610AFD0008BFEC2 /* ActorViewModel.swift */,
+				18942CAE261302F600F93728 /* BridgeViewModel.swift */,
 				187B464525FF5C5D00D7D5B4 /* BuildingViewModel.swift */,
+				18942CDC261309E500F93728 /* FenceViewModel.swift */,
 				187B462D25FF4ACC00D7D5B4 /* FoliageViewModel.swift */,
 				187B465E2600A66B00D7D5B4 /* FootpathViewModel.swift */,
 				18C9E2852600EA8B00343B27 /* PortalViewModel.swift */,
 				18F1CA3F2600C86000E26398 /* SceneViewModel.swift */,
 				18AFB91525FA4C3400C1B847 /* SurfaceViewModel.swift */,
+				1838E4B026189B0800E24C44 /* WallViewModel.swift */,
 				18534C9626077E9400500535 /* WaterViewModel.swift */,
 			);
 			path = "View Models";
@@ -616,6 +751,9 @@
 				1808EBDE2553F60E00484BEC /* NSResponder.swift */,
 				1833179F257E20CE001CC0A3 /* NSStoryboard.swift */,
 				1883767E2610A4E6008BFEC2 /* PortalType.swift */,
+				18E5DBB3261751970010F615 /* SKAttribute.swift */,
+				18E5DBB72617523B0010F615 /* SKShader.swift */,
+				18E5DBB02617511D0010F615 /* SKUniform.swift */,
 				18671C83260786F400949BC4 /* SurfaceEdgeType.swift */,
 				185D0F6225FA5E60009D8F16 /* SurfaceTileType.swift */,
 				18CB9D70260B29D4007B242C /* Tileset.swift */,
@@ -788,10 +926,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18942CEC26148F5400F93728 /* Foliage2D.fsh in Resources */,
 				18D3A16D25515D3C00031CA7 /* Assets.xcassets in Resources */,
 				188A23E3260F8494009E4474 /* Water2D.fsh in Resources */,
 				187F65A2260E03EC0056D2C4 /* Surface2D.fsh in Resources */,
-				187F65A5260E14330056D2C4 /* Graph.fsh in Resources */,
+				187F65A5260E14330056D2C4 /* Graph2D.fsh in Resources */,
 				187F65A8260E2DE10056D2C4 /* Footpath2D.fsh in Resources */,
 				18D3A17025515D3C00031CA7 /* Main.storyboard in Resources */,
 			);
@@ -806,18 +945,24 @@
 			files = (
 				18534C8E26077DC200500535 /* WaterInspectorCoordinator.swift in Sources */,
 				187B463C25FF5BDE00D7D5B4 /* BuildingInspectorViewController.swift in Sources */,
+				18E5DBB4261751970010F615 /* SKAttribute.swift in Sources */,
 				187B462125FF48D800D7D5B4 /* FoliageInspectorViewController.swift in Sources */,
 				18FB3842255178ED0036CA95 /* SceneViewController.swift in Sources */,
 				187B462525FF498200D7D5B4 /* FoliageInspectorCoordinator.swift in Sources */,
+				1838E4AE26189A9900E24C44 /* WallInspectorViewController.swift in Sources */,
 				187B463525FF5AD200D7D5B4 /* Buildings2D.swift in Sources */,
 				1883769C2610B072008BFEC2 /* ActorInspectorCoordinator.swift in Sources */,
 				18534C9726077E9400500535 /* WaterViewModel.swift in Sources */,
 				18AFB91A25FA4DD800C1B847 /* SurfaceMaterialCoordinator.swift in Sources */,
+				18942CE526130C8D00F93728 /* FenceChunk2D.swift in Sources */,
+				18942CB92613035C00F93728 /* BridgeInspectorCoordinator.swift in Sources */,
 				187B462E25FF4ACC00D7D5B4 /* FoliageViewModel.swift in Sources */,
 				18FB383F255178D30036CA95 /* ToolbarViewController.swift in Sources */,
+				1838E4BC26189C2B00E24C44 /* WallTile2D.swift in Sources */,
 				187B465B2600A65000D7D5B4 /* FootpathInspectorViewController.swift in Sources */,
 				187B461E25FE289B00D7D5B4 /* FoliageChunk2D.swift in Sources */,
 				1883768D2610AFD0008BFEC2 /* ActorViewModel.swift in Sources */,
+				18942CDD261309E500F93728 /* FenceViewModel.swift in Sources */,
 				187B46782600A98E00D7D5B4 /* FootpathTileType.swift in Sources */,
 				187B46682600A72500D7D5B4 /* FootpathInspectorCoordinator.swift in Sources */,
 				1870D16F2555434C00B39F8C /* SurfaceInspectorViewController.swift in Sources */,
@@ -829,11 +974,13 @@
 				18671C84260786F400949BC4 /* SurfaceEdgeType.swift in Sources */,
 				1883769F2610B089008BFEC2 /* ActorPlacementCoordinator.swift in Sources */,
 				1854A9F425FE25D000EF9871 /* Foliage2D.swift in Sources */,
+				18942CAF261302F600F93728 /* BridgeViewModel.swift in Sources */,
 				187B466F2600A8B900D7D5B4 /* Footpath2D.swift in Sources */,
 				18814F7D25838A62004689E5 /* SpriteView.swift in Sources */,
 				18814F8525838D4A004689E5 /* MouseObserver.swift in Sources */,
 				1870D1722555437600B39F8C /* SurfaceInspectorCoordinator.swift in Sources */,
 				18A26CA725F8C4B40077AF3D /* Surface2D.swift in Sources */,
+				18942CC42613050900F93728 /* Bridges2D.swift in Sources */,
 				18CB9D71260B29D4007B242C /* Tileset.swift in Sources */,
 				18814F8B2583A496004689E5 /* MouseObservable.swift in Sources */,
 				1808EBDF2553F60E00484BEC /* NSResponder.swift in Sources */,
@@ -842,6 +989,8 @@
 				187B46622600A70F00D7D5B4 /* FootpathCoordinator.swift in Sources */,
 				18C9E28D2600EADE00343B27 /* PortalInspectorViewController.swift in Sources */,
 				18814F882583A48A004689E5 /* KeyboardObservable.swift in Sources */,
+				1838E4B126189B0800E24C44 /* WallViewModel.swift in Sources */,
+				18942CB32613034300F93728 /* BridgeUtilityCoordinator.swift in Sources */,
 				187B465726009A6D00D7D5B4 /* Tile2D.swift in Sources */,
 				18A26CAA25F8C9320077AF3D /* Editor.swift in Sources */,
 				187B466B2600A79500D7D5B4 /* FootpathMaterialCoordinator.swift in Sources */,
@@ -849,6 +998,8 @@
 				187B46722600A8C400D7D5B4 /* FootpathChunk2D.swift in Sources */,
 				1859140A2558105A003618DB /* NumberStepper.swift in Sources */,
 				18AFB91E25FA503B00C1B847 /* SurfaceCoordinator.swift in Sources */,
+				18942CD32613091900F93728 /* FenceUtilityCoordinator.swift in Sources */,
+				18942CD92613092B00F93728 /* FenceInspectorCoordinator.swift in Sources */,
 				187B462825FF4A1B00D7D5B4 /* FoliageUtilityCoordinator.swift in Sources */,
 				1807F84C255429C4008388DC /* InspectorTabViewCoordinator.swift in Sources */,
 				18C9E2802600E99B00343B27 /* Portals2D.swift in Sources */,
@@ -856,21 +1007,28 @@
 				188376922610B02A008BFEC2 /* ActorCoordinator.swift in Sources */,
 				18C9E2962600EB1000343B27 /* PortalInspectorCoordinator.swift in Sources */,
 				1827303E26077A9000A13243 /* WaterTileType.swift in Sources */,
+				18942CBC2613036900F93728 /* BridgeCoordinator.swift in Sources */,
 				187B465F2600A66B00D7D5B4 /* FootpathViewModel.swift in Sources */,
 				180FDD0025F7A918007A208C /* InspectorViewController.swift in Sources */,
+				18942CC82613051700F93728 /* BridgeChunk2D.swift in Sources */,
 				18F675A72602238C00FC7B01 /* Footprint.swift in Sources */,
 				18C9E2832600E9A200343B27 /* PortalChunk2D.swift in Sources */,
 				1870D178255543AB00B39F8C /* SceneInspectorCoordinator.swift in Sources */,
 				18D3A1802551652000031CA7 /* WindowController.swift in Sources */,
 				180FDD0325F7A94C007A208C /* InspectorCoordinator.swift in Sources */,
+				18942CD62613092100F93728 /* FenceBuildCoordinator.swift in Sources */,
 				187B464C25FF5CE600D7D5B4 /* BuildingBuildCoordinator.swift in Sources */,
 				187B464025FF5C0300D7D5B4 /* BuildingCoordinator.swift in Sources */,
 				187B464625FF5C5D00D7D5B4 /* BuildingViewModel.swift in Sources */,
 				18D3A16725515D3A00031CA7 /* AppDelegate.swift in Sources */,
 				18FB384F255179380036CA95 /* ToolbarCoordinator.swift in Sources */,
+				18942CD02613091000F93728 /* FenceCoordinator.swift in Sources */,
 				18C9E2902600EAFD00343B27 /* PortalUtilityCoordinator.swift in Sources */,
 				18C9E28A2600EAC300343B27 /* PortalCoordinator.swift in Sources */,
 				188376952610B03B008BFEC2 /* ActorInspectorViewController.swift in Sources */,
+				1838E4B926189C2200E24C44 /* WallChunk2D.swift in Sources */,
+				1838E4A126189A3900E24C44 /* WallCoordinator.swift in Sources */,
+				1838E4A526189A4800E24C44 /* WallUtilityCoordinator.swift in Sources */,
 				18FB382F2551752B0036CA95 /* Coordinator.swift in Sources */,
 				18A26C9D25F8B6C20077AF3D /* Map.swift in Sources */,
 				188A23D7260F4A33009E4474 /* NonUniformGrid2D.swift in Sources */,
@@ -879,9 +1037,11 @@
 				18A26CA125F8C0C10077AF3D /* SurfaceTile2D.swift in Sources */,
 				18C9E2862600EA8B00343B27 /* PortalViewModel.swift in Sources */,
 				18534C9126077DCE00500535 /* WaterMaterialCoordinator.swift in Sources */,
+				18942CE826130CA700F93728 /* Fence2D.swift in Sources */,
 				18EDA9FD25FBB452008A7AF0 /* SurfaceElevationCoordinator.swift in Sources */,
 				1827303B2607794D00A13243 /* WaterTile2D.swift in Sources */,
 				18FB382C25516F5A0036CA95 /* WindowCoordinator.swift in Sources */,
+				18942CE226130C5900F93728 /* FenceTile2D.swift in Sources */,
 				18AFB91625FA4C3400C1B847 /* SurfaceViewModel.swift in Sources */,
 				188376982610B067008BFEC2 /* ActorUtilityCoordinator.swift in Sources */,
 				18D3A16B25515D3A00031CA7 /* Document.swift in Sources */,
@@ -890,6 +1050,7 @@
 				183317A0257E20CE001CC0A3 /* NSStoryboard.swift in Sources */,
 				182730352607792B00A13243 /* Water2D.swift in Sources */,
 				187B464325FF5C3A00D7D5B4 /* BuildingUtilityCoordinator.swift in Sources */,
+				1838E4A826189A5700E24C44 /* WallBuildCoordinator.swift in Sources */,
 				188A23DA260F4A4A009E4474 /* NonUniformChunk2D.swift in Sources */,
 				185F87D32556FA84008BFF30 /* CoordinateView.swift in Sources */,
 				188376892610AD3D008BFEC2 /* Actor2D.swift in Sources */,
@@ -897,14 +1058,21 @@
 				18AFB92125FA554500C1B847 /* SurfaceUtilityCoordinator.swift in Sources */,
 				187B467C2600A9A100D7D5B4 /* FoliageType.swift in Sources */,
 				18534C8B26077DB800500535 /* WaterUtilityCoordinator.swift in Sources */,
+				1838E4B626189C1700E24C44 /* Wall2D.swift in Sources */,
 				18FB38352551778A0036CA95 /* SplitViewController.swift in Sources */,
+				18942CCC261308A600F93728 /* FenceInspectorViewController.swift in Sources */,
 				18FB384B2551792E0036CA95 /* SceneCoordinator.swift in Sources */,
 				187B463125FF542000D7D5B4 /* FoliagePlantCoordinator.swift in Sources */,
+				18942CBF2613037700F93728 /* BridgeInspectorViewController.swift in Sources */,
 				1870D1752555439900B39F8C /* SceneInspectorViewController.swift in Sources */,
 				1807F84125542971008388DC /* InspectorTabViewController.swift in Sources */,
+				18942CB62613034F00F93728 /* BridgeBuildCoordinator.swift in Sources */,
 				182730382607793F00A13243 /* WaterChunk2D.swift in Sources */,
+				18E5DBB12617511D0010F615 /* SKUniform.swift in Sources */,
+				18E5DBB82617523B0010F615 /* SKShader.swift in Sources */,
 				187B463925FF5ADD00D7D5B4 /* BuildingChunk2D.swift in Sources */,
 				187B464925FF5CDA00D7D5B4 /* BuildingInspectorCoordinator.swift in Sources */,
+				1838E4AB26189A6300E24C44 /* WallInspectorCoordinator.swift in Sources */,
 				187B46652600A71A00D7D5B4 /* FootpathUtilityCoordinator.swift in Sources */,
 				185D0F6325FA5E60009D8F16 /* SurfaceTileType.swift in Sources */,
 			);

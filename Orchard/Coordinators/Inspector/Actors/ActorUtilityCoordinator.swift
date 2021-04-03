@@ -1,6 +1,5 @@
 //
 //  ActorUtilityCoordinator.swift
-//  Orchard
 //
 //  Created by Zack Brown on 28/03/2021.
 //
@@ -33,13 +32,21 @@ class ActorUtilityCoordinator: ActorCoordinator {
         return ActorViewModel(initialState: .empty)
     }()
     
-    var stateObserver: UUID?
+    override init(controller: ActorInspectorViewController) {
+        
+        super.init(controller: controller)
+        
+        viewModel.subscribe(stateDidChange(from:to:))
+    }
+    
+    required public init?(coder: NSCoder) {
+        
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func start(with option: StartOption?) {
         
         super.start(with: option)
-        
-        stateObserver = viewModel.subscribe(stateDidChange(from:to:))
         
         guard let option = option as? ActorUtilityCoordinator.ViewState else { return }
         
@@ -57,16 +64,6 @@ class ActorUtilityCoordinator: ActorCoordinator {
         coordinator.controller = controller
         
         super.start(child: coordinator, with: option)
-    }
-    
-    override func stop(then completion: CoordinatorCompletionBlock?) {
-        
-        if let stateObserver = stateObserver {
-            
-            viewModel.unsubscribe(stateObserver)
-        }
-        
-        super.stop(then: completion)
     }
 }
 

@@ -70,14 +70,21 @@ class FoliageChunk2D: NonUniformChunk2D {
     
     @discardableResult public override func clean() -> Bool {
         
-        guard isDirty else { return false }
+        guard super.clean(),
+              let map = map else { return false }
         
-        switch foliageType {
+        let tilemap = map.meadow.foliage.tilemap
         
-        case .bush: color = .systemTeal
-        case .flower: color = .systemOrange
-        default: color = .systemGreen
-        }
+        blendMode = .alpha
+        color = foliageType.color.color
+        shader = tilemap.shader
+        
+        let attribute = vector_float4(Float(foliageType.color.red),
+                                      Float(foliageType.color.green),
+                                      Float(foliageType.color.blue),
+                                      Float(foliageType.color.alpha))
+        
+        setValue(SKAttributeValue(vectorFloat4: attribute), forAttribute: SKAttribute.Attribute.color.rawValue)
         
         return super.clean()
     }

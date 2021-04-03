@@ -18,7 +18,16 @@ class Actor2D: SKSpriteNode, Codable, Responder2D, Soilable {
     
     public var isDirty: Bool = false
     
-    let coordinate: Coordinate
+    var coordinate: Coordinate {
+        
+        didSet {
+            
+            if oldValue != coordinate {
+                
+                becomeDirty()
+            }
+        }
+    }
     
     required init(coordinate: Coordinate) {
         

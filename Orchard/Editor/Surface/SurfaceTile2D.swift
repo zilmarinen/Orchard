@@ -56,7 +56,6 @@ class SurfaceTile2D: Tile2D {
         node.setScale(0.07)
         node.position = CGPoint(x: 0.5, y: 0.2)
         node.zPosition = 1
-        node.isHidden = true
         
         return node
     }()
@@ -119,23 +118,18 @@ class SurfaceTile2D: Tile2D {
                                       Float(spriteColor.blue),
                                       Float(spriteColor.alpha))
         
-        setValue(SKAttributeValue(vectorFloat4: attribute), forAttribute: "a_color")
+        setValue(SKAttributeValue(vectorFloat4: attribute), forAttribute: SKAttribute.Attribute.color.rawValue)
         
         switch map.meadow.surface.overlay {
             
         case .edge:
             
             label.text = edgeType.abbreviation
-            label.isHidden = false
             
-        case .elevation:
+        case .elevation,
+             .material:
             
             label.text = "\(coordinate.y)"
-            label.isHidden = false
-            
-        case .material:
-            
-            label.isHidden = true
         }
         
         return super.clean()

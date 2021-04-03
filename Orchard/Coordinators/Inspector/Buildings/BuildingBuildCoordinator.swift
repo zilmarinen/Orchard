@@ -58,27 +58,26 @@ extension BuildingBuildCoordinator {
                 let startHit = map.hitTest(point: position.start)
                 let endHit = map.hitTest(point: position.end)
                 
-                let bounds = GridBounds(start: startHit, end: endHit)
+                switch clickType {
                 
-                bounds.enumerate(y: 0) { coordinate in
+                case .right:
                     
-                    switch clickType {
+                    let bounds = GridBounds(start: startHit, end: endHit)
                     
-                    case .right:
-                        
+                    bounds.enumerate(y: 0) { coordinate in
+                     
                         map.meadow.buildings.remove(chunk: coordinate)
+                    }
+                    
+                default:
+                    
+                    guard let surfaceTile = map.meadow.surface.find(tile: endHit) else { return }
+                    
+                    let footprint = Footprint(coordinate: surfaceTile.coordinate, rotation: .north, size: 2)
+                    
+                    _ = map.meadow.buildings.add(chunk: footprint) { chunk in
                         
-                    default:
-                        
-                        guard let surfaceTile = map.meadow.surface.find(tile: endHit) else { return }
-                        
-                        let footprint = Footprint(coordinate: surfaceTile.coordinate, rotation: .north, size: 2)
-                        
-                        guard map.meadow.foliage.find(chunk: footprint) == nil,
-                              map.meadow.buildings.find(chunk: footprint) == nil,
-                              map.meadow.portals.find(chunk: footprint) == nil else { return }
-                        
-                        _ = map.meadow.buildings.add(chunk: footprint)
+                        //TODO: set building properties
                     }
                 }
                 

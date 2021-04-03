@@ -50,13 +50,21 @@ class SurfaceUtilityCoordinator: SurfaceCoordinator {
         return SurfaceViewModel(initialState: .empty)
     }()
     
-    var stateObserver: UUID?
+    override init(controller: SurfaceInspectorViewController) {
+        
+        super.init(controller: controller)
+        
+        viewModel.subscribe(stateDidChange(from:to:))
+    }
+    
+    required public init?(coder: NSCoder) {
+        
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func start(with option: StartOption?) {
         
         super.start(with: option)
-        
-        stateObserver = viewModel.subscribe(stateDidChange(from:to:))
         
         guard let option = option as? SurfaceUtilityCoordinator.ViewState else { return }
         
@@ -74,16 +82,6 @@ class SurfaceUtilityCoordinator: SurfaceCoordinator {
         coordinator.controller = controller
         
         super.start(child: coordinator, with: option)
-    }
-    
-    override func stop(then completion: CoordinatorCompletionBlock?) {
-        
-        if let stateObserver = stateObserver {
-            
-            viewModel.unsubscribe(stateObserver)
-        }
-        
-        super.stop(then: completion)
     }
 }
 

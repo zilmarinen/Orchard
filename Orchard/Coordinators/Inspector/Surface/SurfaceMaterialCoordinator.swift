@@ -70,6 +70,10 @@ extension SurfaceMaterialCoordinator {
                     
                     case .right:
                         
+                        map.meadow.actors.remove(actor: coordinate)
+                        map.meadow.bridges.remove(chunk: coordinate)
+                        map.meadow.buildings.remove(chunk: coordinate)
+                        map.meadow.fences.remove(tile: coordinate)
                         map.meadow.foliage.remove(chunk: coordinate)
                         map.meadow.footpath.remove(tile: coordinate)
                         map.meadow.surface.remove(tile: coordinate)
@@ -77,18 +81,13 @@ extension SurfaceMaterialCoordinator {
                         
                     default:
                         
-                        let tile = map.meadow.surface.find(tile: coordinate) ?? map.meadow.surface.add(tile: coordinate)
+                        guard let tile = map.meadow.surface.add(tile: coordinate) else { break }
                         
-                        tile?.coordinate = coordinate
-                        tile?.tileType.primary = tileType
-                        tile?.edgeType = edgeType
+                        tile.coordinate = coordinate
+                        tile.tileType.primary = tileType
+                        tile.edgeType = edgeType
                         
-                        if let footpathTile = map.meadow.footpath.find(tile: coordinate) {
-                            
-                            footpathTile.coordinate = coordinate
-                        }
-                        
-                        //TODO: update foliage elevation
+                        //TODO: adjust elevation of other grid tiles
                     }
                 }
                 

@@ -24,9 +24,7 @@ class Portals2D: NonUniformGrid2D<PortalChunk2D> {
         
         for coordinate in footprint.nodes {
             
-            let tile = editor.surface.find(tile: coordinate)
-            
-            if tile?.coordinate.y != footprint.coordinate.y {
+            if !editor.validate(coordinate: coordinate, grid: .portals) {
                 
                 return nil
             }

@@ -78,11 +78,18 @@ class Grid2D<C: Chunk2D<T>, T: Tile2D>: SKNode, Codable, Responder2D, Soilable {
         
     func add(tile coordinate: Coordinate, configure: TileConfiguration? = nil) -> T? {
         
-        guard find(tile: coordinate) == nil else { return nil }
+        if let tile = find(tile: coordinate) {
+            
+            configure?(tile)
+            
+            becomeDirty()
+            
+            return tile
+        }
         
         let chunk = find(chunk: coordinate) ?? C(coordinate: coordinate)
         
-        guard let tile = chunk.add(tile: coordinate) else { return nil }
+        let tile = chunk.add(tile: coordinate)
         
         if chunk.parent == nil {
             

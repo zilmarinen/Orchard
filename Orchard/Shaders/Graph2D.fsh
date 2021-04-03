@@ -1,12 +1,12 @@
 //
-//  Graph.fsh
+//  Graph2D.fsh
 //
 //  Created by Zack Brown on 25/03/2021.
 //
 
 void main()
 {
-    float offset = 0.1;
+    float offset = 0.14;
     
     vec4 grid = vec4(clamp(v_color_mix.r + offset, 0.0, 1.0),
                      clamp(v_color_mix.g + offset, 0.0, 1.0),

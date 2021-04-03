@@ -12,12 +12,15 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         
         case empty
         case actor
+        case bridge
         case building
+        case fence
         case foliage
         case footpath
         case portal
         case scene
         case surface
+        case wall
         case water
     }
     
@@ -26,6 +29,17 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         guard let viewController = controller.children[Tab.actor.rawValue] as? ActorInspectorViewController else { fatalError("Invalid view controller hierarchy") }
         
         let coordinator = ActorUtilityCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
+    
+    lazy var bridgeUtilityCoordinator: BridgeUtilityCoordinator = {
+       
+        guard let viewController = controller.children[Tab.bridge.rawValue] as? BridgeInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = BridgeUtilityCoordinator(controller: viewController)
         
         coordinator.parent = self
         
@@ -48,6 +62,17 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         guard let viewController = controller.children[Tab.foliage.rawValue] as? FoliageInspectorViewController else { fatalError("Invalid view controller hierarchy") }
         
         let coordinator = FoliageUtilityCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
+    
+    lazy var fenceUtilityCoordinator: FenceUtilityCoordinator = {
+       
+        guard let viewController = controller.children[Tab.fence.rawValue] as? FenceInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = FenceUtilityCoordinator(controller: viewController)
         
         coordinator.parent = self
         
@@ -98,6 +123,17 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         return coordinator
     }()
     
+    lazy var wallUtilityCoordinator: WallUtilityCoordinator = {
+       
+        guard let viewController = controller.children[Tab.wall.rawValue] as? WallInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = WallUtilityCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
+    
     lazy var waterUtilityCoordinator: WaterUtilityCoordinator = {
        
         guard let viewController = controller.children[Tab.water.rawValue] as? WaterInspectorViewController else { fatalError("Invalid view controller hierarchy") }
@@ -142,12 +178,24 @@ extension InspectorTabViewCoordinator {
             guard let object = object as? ActorUtilityCoordinator.ViewState else { return }
             
             start(child: actorUtilityCoordinator, with: object)
+            
+        case .bridge:
+            
+            guard let object = object as? BridgeUtilityCoordinator.ViewState else { return }
+            
+            start(child: bridgeUtilityCoordinator, with: object)
         
         case .building:
             
             guard let object = object as? BuildingUtilityCoordinator.ViewState else { return }
             
             start(child: buildingUtilityCoordinator, with: object)
+            
+        case .fence:
+            
+            guard let object = object as? FenceUtilityCoordinator.ViewState else { return }
+            
+            start(child: fenceUtilityCoordinator, with: object)
         
         case .foliage:
             
@@ -176,6 +224,12 @@ extension InspectorTabViewCoordinator {
             guard let object = object as? SurfaceUtilityCoordinator.ViewState else { return }
             
             start(child: surfaceUtilityCoordinator, with: object)
+            
+        case .wall:
+            
+            guard let object = object as? WallUtilityCoordinator.ViewState else { return }
+            
+            start(child: wallUtilityCoordinator, with: object)
             
         case .water:
             

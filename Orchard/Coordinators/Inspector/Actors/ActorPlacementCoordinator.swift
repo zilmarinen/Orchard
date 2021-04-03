@@ -1,6 +1,5 @@
 //
 //  ActorPlacementCoordinator.swift
-//  Orchard
 //
 //  Created by Zack Brown on 28/03/2021.
 //
@@ -57,25 +56,27 @@ extension ActorPlacementCoordinator {
             case .up(let position, let clickType):
                 
                 let startHit = map.hitTest(point: position.start)
-                let endHit = map.hitTest(point: position.end)
                 
-                let bounds = GridBounds(start: startHit, end: endHit)
+                switch clickType {
                 
-                bounds.enumerate(y: 0) { coordinate in
+                case .right:
                     
-                    switch clickType {
+                    let endHit = map.hitTest(point: position.end)
                     
-                    case .right:
-                        
+                    let bounds = GridBounds(start: startHit, end: endHit)
+                    
+                    bounds.enumerate(y: 0) { coordinate in
+                    
                         map.meadow.actors.remove(actor: coordinate)
+                    }
+                    
+                default:
+                    
+                    guard let surfaceTile = map.meadow.surface.find(tile: startHit) else { return }
+                    
+                    _ = map.meadow.actors.add(actor: surfaceTile.coordinate) { actor in
                         
-                    default:
-                        
-                        guard map.meadow.foliage.find(chunk: coordinate) == nil,
-                              map.meadow.buildings.find(chunk: coordinate) == nil,
-                              map.meadow.portals.find(chunk: coordinate) == nil else { return }
-                        
-                        _ = map.meadow.actors.add(actor: coordinate)
+                        //TODO: set actor properties
                     }
                 }
                 

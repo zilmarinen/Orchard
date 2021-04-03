@@ -9,6 +9,18 @@ import SpriteKit
 
 class Foliage2D: NonUniformGrid2D<FoliageChunk2D> {
     
+    struct Tilemap {
+        
+        let shader = SKShader(shader: .foliage)
+        
+        init() {
+            
+            shader.attributes = [SKAttribute(name: SKAttribute.Attribute.color.rawValue, type: .vectorFloat4)]
+        }
+    }
+    
+    let tilemap = Tilemap()
+    
     @discardableResult override public func clean() -> Bool {
         
         guard isDirty else { return false }
@@ -24,9 +36,7 @@ class Foliage2D: NonUniformGrid2D<FoliageChunk2D> {
         
         for coordinate in footprint.nodes {
             
-            let tile = editor.surface.find(tile: coordinate)
-            
-            if tile?.coordinate.y != footprint.coordinate.y {
+            if !editor.validate(coordinate: coordinate, grid: .foliage) {
                 
                 return nil
             }

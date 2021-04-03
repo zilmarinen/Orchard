@@ -12,7 +12,7 @@ class Footpath2D: Grid2D<FootpathChunk2D, FootpathTile2D> {
     struct Tilemap {
         
         let tileset: [String : SKTexture]
-        let shader = SKShader(fileNamed: "Footpath2D.fsh")
+        let shader = SKShader(shader: .footpath)
         
         init() {
         
@@ -30,6 +30,15 @@ class Footpath2D: Grid2D<FootpathChunk2D, FootpathTile2D> {
     }
     
     let tilemap = Tilemap()
+    
+    override func add(tile coordinate: Coordinate, configure: TileConfiguration? = nil) -> FootpathTile2D? {
+        
+        guard let editor = ancestor as? Editor,
+              editor.validate(coordinate: coordinate, grid: .footpath),
+              let surfaceTile = editor.surface.find(tile: coordinate) else { return nil }
+        
+        return super.add(tile: surfaceTile.coordinate, configure: configure)
+    }
     
     @discardableResult override public func clean() -> Bool {
         
