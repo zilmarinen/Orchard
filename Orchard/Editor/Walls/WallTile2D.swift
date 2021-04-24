@@ -10,10 +10,10 @@ import SpriteKit
 
 class WallTile2D: Tile2D {
     
-    private enum CodingKeys: CodingKey {
+    private enum CodingKeys: String, CodingKey {
         
-        case tileType
-        case pattern
+        case tileType = "t"
+        case pattern = "p"
     }
     
     public var tileType: FootpathTileType = .dirt {

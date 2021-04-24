@@ -30,9 +30,12 @@ class Foliage2D: NonUniformGrid2D<FoliageChunk2D> {
         return super.clean()
     }
     
-    override func add(chunk footprint: Footprint, configure: ChunkConfiguration? = nil) -> FoliageChunk2D? {
+    func add(foliage coordinate: Coordinate, rotation: Cardinal, foliageType: FoliageType, configure: ChunkConfiguration? = nil) -> FoliageChunk2D? {
         
-        guard let editor = ancestor as? Editor else { return nil }
+        guard let model = foliageType.model,
+              let editor = ancestor as? Editor else { return nil }
+        
+        let footprint = Footprint(coordinate: coordinate, rotation: rotation, nodes: model.footprint.nodes)
         
         for coordinate in footprint.nodes {
             
@@ -42,6 +45,10 @@ class Foliage2D: NonUniformGrid2D<FoliageChunk2D> {
             }
         }
         
-        return super.add(chunk: footprint, configure: configure)
+        guard let foliage = super.add(chunk: footprint) else { return nil }
+        
+        foliage.foliageType = foliageType
+        
+        return foliage
     }
 }

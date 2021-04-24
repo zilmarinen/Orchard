@@ -10,10 +10,10 @@ import SpriteKit
 
 class WaterTile2D: Tile2D {
     
-    private enum CodingKeys: CodingKey {
+    private enum CodingKeys: String, CodingKey {
         
-        case tileType
-        case pattern
+        case tileType = "t"
+        case pattern = "p"
     }
     
     var tileType: WaterTileType = .water {

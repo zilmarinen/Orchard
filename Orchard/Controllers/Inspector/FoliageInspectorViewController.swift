@@ -44,33 +44,6 @@ class FoliageInspectorViewController: NSViewController {
         }
     }
     
-    @IBOutlet weak var inspectorSizePopUp: NSPopUpButton! {
-        
-        didSet {
-            
-            inspectorSizePopUp.isEnabled = false
-            inspectorSizePopUp.removeAllItems()
-            
-            for option in FoliageSize.allCases {
-                
-                inspectorSizePopUp.addItem(withTitle: option.description)
-            }
-        }
-    }
-    
-    @IBOutlet weak var plantSizePopUp: NSPopUpButton! {
-        
-        didSet {
-            
-            plantSizePopUp.removeAllItems()
-            
-            for option in FoliageSize.allCases {
-                
-                plantSizePopUp.addItem(withTitle: option.description)
-            }
-        }
-    }
-    
     @IBOutlet weak var nodeCoordinateView: CoordinateView! {
         
         didSet {

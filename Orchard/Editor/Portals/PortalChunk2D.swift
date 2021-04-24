@@ -10,10 +10,10 @@ import SpriteKit
 
 class PortalChunk2D: NonUniformChunk2D {
     
-    private enum CodingKeys: CodingKey {
+    private enum CodingKeys: String, CodingKey {
         
-        case identifier
-        case portalType
+        case identifier = "i"
+        case portalType = "t"
     }
     
     var identifier: String = ""

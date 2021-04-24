@@ -10,28 +10,16 @@ import SpriteKit
 
 class FoliageChunk2D: NonUniformChunk2D {
     
-    private enum CodingKeys: CodingKey {
+    private enum CodingKeys: String, CodingKey {
         
-        case foliageType
-        case foliageSize
+        case foliageType = "t"
     }
     
-    var foliageType: FoliageType = .tree {
+    var foliageType: FoliageType = .treeSmall {
         
         didSet {
             
             if oldValue != foliageType {
-                
-                becomeDirty()
-            }
-        }
-    }
-    
-    var foliageSize: FoliageSize = .small {
-        
-        didSet {
-            
-            if oldValue != foliageSize {
                 
                 becomeDirty()
             }
@@ -48,7 +36,6 @@ class FoliageChunk2D: NonUniformChunk2D {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         foliageType = try container.decode(FoliageType.self, forKey: .foliageType)
-        foliageSize = try container.decode(FoliageSize.self, forKey: .foliageSize)
         
         try super.init(from: decoder)
     }
@@ -65,7 +52,6 @@ class FoliageChunk2D: NonUniformChunk2D {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         try container.encode(foliageType, forKey: .foliageType)
-        try container.encode(foliageSize, forKey: .foliageSize)
     }
     
     @discardableResult public override func clean() -> Bool {

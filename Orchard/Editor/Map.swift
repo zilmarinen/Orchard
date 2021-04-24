@@ -9,11 +9,11 @@ import Meadow
 
 class Map: SKScene, Codable, StartOption, Responder2D, Soilable {
     
-    private enum CodingKeys: CodingKey {
+    private enum CodingKeys: String, CodingKey {
         
-        case name
-        case backgroundColor
-        case meadow
+        case name = "n"
+        case backgroundColor = "c"
+        case meadow = "m"
     }
     
     enum Constants {

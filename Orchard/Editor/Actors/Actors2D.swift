@@ -9,9 +9,9 @@ import SpriteKit
 
 class Actors2D: SKNode, Codable, Responder2D, Soilable {
     
-    private enum CodingKeys: CodingKey {
+    private enum CodingKeys: String, CodingKey {
         
-        case npcs
+        case npcs = "n"
     }
     
     public var ancestor: SoilableParent? { parent as? SoilableParent }

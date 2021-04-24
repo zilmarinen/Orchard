@@ -9,6 +9,18 @@ import SpriteKit
 
 class Buildings2D: NonUniformGrid2D<BuildingChunk2D> {
     
+    struct Tilemap {
+        
+        let shader = SKShader(shader: .building)
+        
+        init() {
+            
+            shader.attributes = [SKAttribute(name: SKAttribute.Attribute.color.rawValue, type: .vectorFloat4)]
+        }
+    }
+    
+    let tilemap = Tilemap()
+    
     @discardableResult override public func clean() -> Bool {
         
         guard isDirty else { return false }
@@ -18,9 +30,12 @@ class Buildings2D: NonUniformGrid2D<BuildingChunk2D> {
         return super.clean()
     }
     
-    override func add(chunk footprint: Footprint, configure: ChunkConfiguration? = nil) -> BuildingChunk2D? {
+    func add(building coordinate: Coordinate, rotation: Cardinal, buildingType: BuildingType, configure: ChunkConfiguration? = nil) -> BuildingChunk2D? {
         
-        guard let editor = ancestor as? Editor else { return nil }
+        guard let model = buildingType.model,
+              let editor = ancestor as? Editor else { return nil }
+        
+        let footprint = Footprint(coordinate: coordinate, rotation: rotation, nodes: model.footprint.nodes)
         
         for coordinate in footprint.nodes {
             
@@ -30,6 +45,10 @@ class Buildings2D: NonUniformGrid2D<BuildingChunk2D> {
             }
         }
         
-        return super.add(chunk: footprint, configure: configure)
+        guard let building = super.add(chunk: footprint) else { return nil }
+        
+        building.buildingType = buildingType
+        
+        return building
     }
 }

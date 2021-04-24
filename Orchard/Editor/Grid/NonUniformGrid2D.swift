@@ -9,9 +9,9 @@ import SpriteKit
 
 class NonUniformGrid2D<C: NonUniformChunk2D>: SKNode, Codable, Responder2D, Soilable {
     
-    private enum CodingKeys: CodingKey {
+    private enum CodingKeys: String, CodingKey {
         
-        case chunks
+        case chunks = "c"
     }
     
     public var ancestor: SoilableParent? { parent as? SoilableParent }

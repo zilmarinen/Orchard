@@ -9,18 +9,18 @@ import Meadow
 
 class Editor: SKNode, Codable, Responder2D, Soilable {
     
-    enum CodingKeys: CodingKey {
+    enum CodingKeys: String, CodingKey {
         
-        case actors
-        case bridges
-        case buildings
-        case fences
-        case foliage
-        case footpath
-        case portals
-        case surface
-        case walls
-        case water
+        case actors = "a"
+        case bridges = "br"
+        case buildings = "bu"
+        case fences = "fe"
+        case foliage = "fol"
+        case footpath = "foo"
+        case portals = "p"
+        case surface = "s"
+        case walls = "wal"
+        case water = "wat"
     }
     
     public var ancestor: SoilableParent? { parent as? SoilableParent }

@@ -49,7 +49,8 @@ extension BuildingBuildCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Map else { return }
+                  let map = spriteView.scene as? Map,
+                  let buildingType = BuildingType(rawValue: self.controller.buildTypePopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
             
@@ -71,14 +72,9 @@ extension BuildingBuildCoordinator {
                     
                 default:
                     
-                    guard let surfaceTile = map.meadow.surface.find(tile: endHit) else { return }
+                    guard let surfaceTile = map.meadow.surface.find(tile: startHit) else { return }
                     
-                    let footprint = Footprint(coordinate: surfaceTile.coordinate, rotation: .north, size: 2)
-                    
-                    _ = map.meadow.buildings.add(chunk: footprint) { chunk in
-                        
-                        //TODO: set building properties
-                    }
+                    _ = map.meadow.buildings.add(building: surfaceTile.coordinate, rotation: .north, buildingType: buildingType)
                 }
                 
             default: break

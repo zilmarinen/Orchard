@@ -50,8 +50,7 @@ extension FoliagePlantCoordinator {
             guard let self = self,
                   let spriteView = self.spriteView,
                   let map = spriteView.scene as? Map,
-                  let foliageType = FoliageType(rawValue: self.controller.plantTypePopUp.indexOfSelectedItem),
-                  let foliageSize = FoliageSize(rawValue: self.controller.plantSizePopUp.indexOfSelectedItem) else { return }
+                  let foliageType = FoliageType(rawValue: self.controller.plantTypePopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
             
@@ -73,15 +72,9 @@ extension FoliagePlantCoordinator {
                     
                 default:
                     
-                    guard let surfaceTile = map.meadow.surface.find(tile: endHit) else { return }
+                    guard let surfaceTile = map.meadow.surface.find(tile: startHit) else { return }
                     
-                    let footprint = Footprint(coordinate: surfaceTile.coordinate, rotation: .north, size: foliageSize.rawValue + 1)
-                    
-                    _ = map.meadow.foliage.add(chunk: footprint) { chunk in
-                        
-                        chunk.foliageType = foliageType
-                        chunk.foliageSize = foliageSize
-                    }
+                    _ = map.meadow.foliage.add(foliage: surfaceTile.coordinate, rotation: .north, foliageType: foliageType)
                 }
                 
             default: break

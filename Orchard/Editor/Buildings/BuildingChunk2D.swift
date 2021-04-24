@@ -10,8 +10,20 @@ import SpriteKit
 
 class BuildingChunk2D: NonUniformChunk2D {
     
-    private enum CodingKeys: CodingKey {
+    private enum CodingKeys: String, CodingKey {
         
+        case buildingType = "t"
+    }
+    
+    var buildingType: BuildingType = .house {
+        
+        didSet {
+            
+            if oldValue != buildingType {
+                
+                becomeDirty()
+            }
+        }
     }
     
     required init(footprint: Footprint) {
@@ -23,7 +35,7 @@ class BuildingChunk2D: NonUniformChunk2D {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        //
+        buildingType = try container.decode(BuildingType.self, forKey: .buildingType)
         
         try super.init(from: decoder)
     }
@@ -39,17 +51,26 @@ class BuildingChunk2D: NonUniformChunk2D {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        //
+        try container.encode(buildingType, forKey: .buildingType)
     }
     
     @discardableResult public override func clean() -> Bool {
         
-        guard isDirty else { return false }
+        guard super.clean(),
+              let map = map else { return false }
         
-        position = CGPoint(x: footprint.coordinate.x, y: footprint.coordinate.z)
+        let tilemap = map.meadow.foliage.tilemap
         
-        color = .systemIndigo
-        blendMode = .multiplyAlpha
+        blendMode = .alpha
+        color = buildingType.color.color
+        shader = tilemap.shader
+        
+        let attribute = vector_float4(Float(buildingType.color.red),
+                                      Float(buildingType.color.green),
+                                      Float(buildingType.color.blue),
+                                      Float(buildingType.color.alpha))
+        
+        setValue(SKAttributeValue(vectorFloat4: attribute), forAttribute: SKAttribute.Attribute.color.rawValue)
         
         return super.clean()
     }

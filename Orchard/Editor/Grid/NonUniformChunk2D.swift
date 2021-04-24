@@ -9,9 +9,9 @@ import SpriteKit
 
 class NonUniformChunk2D: SKSpriteNode, Codable, Responder2D, Soilable {
     
-    private enum CodingKeys: CodingKey {
+    private enum CodingKeys: String, CodingKey {
         
-        case footprint
+        case footprint = "f"
     }
     
     public var ancestor: SoilableParent? { parent as? SoilableParent }

@@ -24,7 +24,7 @@ class BuildingInspectorViewController: NSViewController {
             
             inspectorTypePopUp.removeAllItems()
             
-            for option in FoliageType.allCases {
+            for option in BuildingType.allCases {
                 
                 inspectorTypePopUp.addItem(withTitle: option.description)
             }
@@ -37,7 +37,7 @@ class BuildingInspectorViewController: NSViewController {
             
             buildTypePopUp.removeAllItems()
             
-            for option in FoliageType.allCases {
+            for option in BuildingType.allCases {
                 
                 buildTypePopUp.addItem(withTitle: option.description)
             }

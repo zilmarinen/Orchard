@@ -10,13 +10,13 @@ import SpriteKit
 
 class SurfaceTile2D: Tile2D {
     
-    private enum CodingKeys: CodingKey {
+    private enum CodingKeys: String, CodingKey {
         
-        case tileType
-        case edgeType
-        case pattern
-        case edgePatterns
-        case corners
+        case tileType = "tt"
+        case edgeType = "et"
+        case pattern = "p"
+        case edgePatterns = "ep"
+        case corners = "co"
     }
     
     var tileType: SurfaceTile.TileType = SurfaceTile.TileType() {

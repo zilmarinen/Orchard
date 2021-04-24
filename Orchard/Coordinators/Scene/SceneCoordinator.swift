@@ -19,6 +19,8 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         
         super.init(controller: controller)
         
+        controller.coordinator = self
+        
         viewModel.subscribe(stateDidChange(from:to:))
     }
     
@@ -55,7 +57,7 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         
             spriteView.presentScene(scene)
             
-            let size = 64
+            let size = 5
             let halfSize = size / 2
             let y = Int(World.Constants.ceiling / 2)
             
