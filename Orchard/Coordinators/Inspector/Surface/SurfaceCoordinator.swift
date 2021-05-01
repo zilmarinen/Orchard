@@ -29,7 +29,7 @@ class SurfaceCoordinator: Coordinator<SurfaceInspectorViewController> {
         
         case controller.gridRenderingButton:
             
-            editor?.surface.isHidden = button.state == .off
+            editor?.harvest.surface.isHidden = button.state == .off
             
         default: break
         }

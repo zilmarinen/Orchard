@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 import SpriteKit
 
 class Document: NSDocument {
@@ -18,7 +19,7 @@ class Document: NSDocument {
     
     let coordinator: WindowCoordinator
     
-    var map: Map?
+    var map: Scene2D?
 
     override init() {
         
@@ -49,12 +50,12 @@ class Document: NSDocument {
         
         let decoder = JSONDecoder()
         
-        map = try decoder.decode(Map.self, from: sceneGraph)
+        map = try decoder.decode(Scene2D.self, from: sceneGraph)
     }
     
     override func fileWrapper(ofType typeName: String) throws -> FileWrapper {
         
-        guard let scene = coordinator.splitViewCoordinator.spriteView?.scene as? Map else { throw NSError(domain: NSOSStatusErrorDomain, code: writErr, userInfo: nil) }
+        guard let scene = coordinator.splitViewCoordinator.spriteView?.scene as? Scene2D else { throw NSError(domain: NSOSStatusErrorDomain, code: writErr, userInfo: nil) }
         
         let encoder = JSONEncoder()
         

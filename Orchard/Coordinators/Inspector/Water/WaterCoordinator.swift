@@ -29,7 +29,7 @@ class WaterCoordinator: Coordinator<WaterInspectorViewController> {
         
         case controller.gridRenderingButton:
             
-            editor?.water.isHidden = button.state == .off
+            editor?.harvest.water.isHidden = button.state == .off
             
         default: break
         }

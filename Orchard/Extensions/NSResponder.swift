@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 import Meadow
 import SpriteKit
 
@@ -20,24 +21,10 @@ import SpriteKit
     var sceneView: SceneView? { responder?.sceneView }
     var spriteView: SpriteView? { responder?.spriteView }
     
-    var editor: Editor? {
+    var editor: Scene2D? {
     
-        guard let map = spriteView?.scene as? Map else { return nil }
+        guard let map = spriteView?.scene as? Scene2D else { return nil }
         
-        return map.meadow
+        return map
     }
-}
-
-protocol Responder2D: Soilable {
-    
-    var responder: Responder2D? { get }
-    
-    var map: Map? { get }
-}
-
-extension Responder2D {
-    
-    var responder: Responder2D? { ancestor as? Responder2D }
-    
-    var map: Map? { responder?.map }
 }

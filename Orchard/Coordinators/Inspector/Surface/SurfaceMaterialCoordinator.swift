@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 import Meadow
 
 class SurfaceMaterialCoordinator: SurfaceCoordinator, MouseObservable {
@@ -31,7 +32,7 @@ class SurfaceMaterialCoordinator: SurfaceCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let surface = editor?.surface else { return }
+        guard let surface = editor?.harvest.surface else { return }
         
         controller.gridRenderingButton.state = surface.isHidden ? .off : .on
         controller.chunkCountLabel.integerValue = surface.chunks.count
@@ -51,7 +52,7 @@ extension SurfaceMaterialCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Map,
+                  let map = spriteView.scene as? Scene2D,
                   let tileType = SurfaceTileType(rawValue: self.controller.materialTypePopUp.indexOfSelectedItem),
                   let edgeType = SurfaceEdgeType(rawValue: self.controller.materialEdgeTypePopUp.indexOfSelectedItem) else { return }
             
@@ -70,18 +71,18 @@ extension SurfaceMaterialCoordinator {
                     
                     case .right:
                         
-                        map.meadow.actors.remove(actor: coordinate)
-                        map.meadow.bridges.remove(chunk: coordinate)
-                        map.meadow.buildings.remove(chunk: coordinate)
-                        map.meadow.fences.remove(tile: coordinate)
-                        map.meadow.foliage.remove(chunk: coordinate)
-                        map.meadow.footpath.remove(tile: coordinate)
-                        map.meadow.surface.remove(tile: coordinate)
-                        map.meadow.water.remove(tile: coordinate)
+                        map.harvest.actors.remove(actor: coordinate)
+                        map.harvest.bridges.remove(chunk: coordinate)
+                        map.harvest.buildings.remove(chunk: coordinate)
+                        map.harvest.fences.remove(tile: coordinate)
+                        map.harvest.foliage.remove(chunk: coordinate)
+                        map.harvest.footpath.remove(tile: coordinate)
+                        map.harvest.surface.remove(tile: coordinate)
+                        map.harvest.water.remove(tile: coordinate)
                         
                     default:
                         
-                        guard let tile = map.meadow.surface.add(tile: coordinate) else { break }
+                        guard let tile = map.harvest.surface.add(tile: coordinate) else { break }
                         
                         tile.coordinate = coordinate
                         tile.tileType.primary = tileType

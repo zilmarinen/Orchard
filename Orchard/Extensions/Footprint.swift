@@ -6,7 +6,7 @@
 
 import Foundation
 import Meadow
-
+//TODO: delete this once footprints are loaded from prop model files
 extension Footprint {
     
     init(coordinate: Coordinate, rotation: Cardinal, size: Int) {

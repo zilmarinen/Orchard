@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 import Meadow
 
 class PortalInspectorCoordinator: PortalCoordinator, MouseObservable {
@@ -40,7 +41,7 @@ class PortalInspectorCoordinator: PortalCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let portals = editor?.portals,
+        guard let portals = editor?.harvest.portals,
               let chunk = chunk else { return }
         
         controller.gridRenderingButton.state = portals.isHidden ? .off : .on
@@ -62,7 +63,7 @@ extension PortalInspectorCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Map else { return }
+                  let map = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
@@ -70,7 +71,7 @@ extension PortalInspectorCoordinator {
                 
                 let hit = map.hitTest(point: position.end)
                 
-                guard let node = map.meadow.portals.find(chunk: hit) else { return }
+                guard let node = map.harvest.portals.find(chunk: hit) else { return }
                 
                 self.toggle(inspector: .surface, with: PortalUtilityCoordinator.ViewState.inspector(node: node))
                 

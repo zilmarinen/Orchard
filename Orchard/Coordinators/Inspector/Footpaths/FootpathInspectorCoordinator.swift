@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 import Meadow
 
 class FootpathInspectorCoordinator: FootpathCoordinator, MouseObservable {
@@ -74,7 +75,7 @@ class FootpathInspectorCoordinator: FootpathCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let footpath = editor?.footpath,
+        guard let footpath = editor?.harvest.footpath,
               let tile = tile else { return }
         
         controller.gridRenderingButton.state = footpath.isHidden ? .off : .on
@@ -98,7 +99,7 @@ extension FootpathInspectorCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Map else { return }
+                  let map = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
@@ -106,7 +107,7 @@ extension FootpathInspectorCoordinator {
                 
                 let hit = map.hitTest(point: position.end)
                 
-                guard let tile = map.meadow.footpath.find(tile: hit) else { return }
+                guard let tile = map.harvest.footpath.find(tile: hit) else { return }
                 
                 self.toggle(inspector: .footpath, with: FootpathUtilityCoordinator.ViewState.inspector(node: tile))
                 

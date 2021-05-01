@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 import Meadow
 
 class BridgeInspectorCoordinator: BridgeCoordinator, MouseObservable {
@@ -40,7 +41,7 @@ class BridgeInspectorCoordinator: BridgeCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let buildings = editor?.buildings,
+        guard let buildings = editor?.harvest.buildings,
               let chunk = chunk else { return }
         
         controller.gridRenderingButton.state = buildings.isHidden ? .off : .on
@@ -62,7 +63,7 @@ extension BridgeInspectorCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Map else { return }
+                  let map = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
@@ -70,7 +71,7 @@ extension BridgeInspectorCoordinator {
                 
                 let hit = map.hitTest(point: position.end)
                 
-                guard let node = map.meadow.bridges.find(chunk: hit) else { return }
+                guard let node = map.harvest.bridges.find(chunk: hit) else { return }
                 
                 self.toggle(inspector: .surface, with: BridgeUtilityCoordinator.ViewState.inspector(node: node))
                 

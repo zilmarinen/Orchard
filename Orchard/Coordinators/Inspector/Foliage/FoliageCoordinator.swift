@@ -29,7 +29,7 @@ class FoliageCoordinator: Coordinator<FoliageInspectorViewController> {
         
         case controller.gridRenderingButton:
             
-            editor?.foliage.isHidden = button.state == .off
+            editor?.harvest.foliage.isHidden = button.state == .off
             
         default: break
         }

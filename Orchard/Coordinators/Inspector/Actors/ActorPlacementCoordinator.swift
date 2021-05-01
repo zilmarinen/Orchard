@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 import Meadow
 
 class ActorPlacementCoordinator: ActorCoordinator, MouseObservable {
@@ -31,7 +32,7 @@ class ActorPlacementCoordinator: ActorCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let actors = editor?.actors else { return }
+        guard let actors = editor?.harvest.actors else { return }
         
         controller.gridRenderingButton.state = actors.isHidden ? .off : .on
         controller.nodeCountLabel.integerValue = actors.npcs.count
@@ -49,7 +50,7 @@ extension ActorPlacementCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Map else { return }
+                  let map = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
@@ -67,14 +68,14 @@ extension ActorPlacementCoordinator {
                     
                     bounds.enumerate(y: 0) { coordinate in
                     
-                        map.meadow.actors.remove(actor: coordinate)
+                        map.harvest.actors.remove(actor: coordinate)
                     }
                     
                 default:
                     
-                    guard let surfaceTile = map.meadow.surface.find(tile: startHit) else { return }
+                    guard let surfaceTile = map.harvest.surface.find(tile: startHit) else { return }
                     
-                    _ = map.meadow.actors.add(actor: surfaceTile.coordinate) { actor in
+                    _ = map.harvest.actors.add(actor: surfaceTile.coordinate) { actor in
                         
                         //TODO: set actor properties
                     }

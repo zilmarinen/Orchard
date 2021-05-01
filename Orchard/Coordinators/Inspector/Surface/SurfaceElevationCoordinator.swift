@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 import Meadow
 
 class SurfaceElevationCoordinator: SurfaceCoordinator, MouseObservable {
@@ -17,7 +18,7 @@ class SurfaceElevationCoordinator: SurfaceCoordinator, MouseObservable {
         
         subscribeToMouseEvents(tracksIdleEvents: true)
         
-        editor?.surface.overlay = .elevation
+        editor?.harvest.surface.overlay = .elevation
         
         guard controller.isViewLoaded else { return }
         
@@ -28,14 +29,14 @@ class SurfaceElevationCoordinator: SurfaceCoordinator, MouseObservable {
         
         unsubscribeFromMouseEvents()
         
-        editor?.surface.overlay = .material
+        editor?.harvest.surface.overlay = .material
         
         super.stop(then: completion)
     }
     
     override func refresh() {
         
-        guard let surface = editor?.surface else { return }
+        guard let surface = editor?.harvest.surface else { return }
         
         controller.gridRenderingButton.state = surface.isHidden ? .off : .on
         controller.chunkCountLabel.integerValue = surface.chunks.count
@@ -55,7 +56,7 @@ extension SurfaceElevationCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Map else { return }
+                  let map = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
@@ -68,11 +69,11 @@ extension SurfaceElevationCoordinator {
                 
                 bounds.enumerate(y: 0) { coordinate in
                     
-                    guard let tile = map.meadow.surface.find(tile: coordinate) else { return }
+                    guard let tile = map.harvest.surface.find(tile: coordinate) else { return }
                     
                     tile.coordinate = Coordinate(x: coordinate.x, y: self.controller.elevationLayerStepper.integerValue, z: coordinate.z)
                     
-                    if let footpathTile = map.meadow.footpath.find(tile: coordinate) {
+                    if let footpathTile = map.harvest.footpath.find(tile: coordinate) {
                         
                         footpathTile.coordinate = coordinate
                     }

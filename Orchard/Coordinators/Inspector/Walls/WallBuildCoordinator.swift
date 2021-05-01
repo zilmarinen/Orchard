@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 import Meadow
 
 class WallBuildCoordinator: WallCoordinator, MouseObservable {
@@ -31,7 +32,7 @@ class WallBuildCoordinator: WallCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let buildings = editor?.buildings else { return }
+        guard let buildings = editor?.harvest.buildings else { return }
         
         controller.gridRenderingButton.state = buildings.isHidden ? .off : .on
         controller.nodeCountLabel.integerValue = buildings.chunks.count
@@ -49,7 +50,7 @@ extension WallBuildCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Map else { return }
+                  let map = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
@@ -66,11 +67,11 @@ extension WallBuildCoordinator {
                     
                     case .right:
                         
-                        map.meadow.walls.remove(tile: coordinate)
+                        map.harvest.walls.remove(tile: coordinate)
                         
                     default:
                         
-                        guard let surfaceTile = map.meadow.surface.find(tile: endHit) else { return }
+                        guard let surfaceTile = map.harvest.surface.find(tile: endHit) else { return }
                         
 //                        let footprint = Footprint(coordinate: surfaceTile.coordinate, rotation: .north, size: 2)
 //

@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 import Meadow
 
 class WaterInspectorCoordinator: WaterCoordinator, MouseObservable {
@@ -90,7 +91,7 @@ class WaterInspectorCoordinator: WaterCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let water = editor?.water,
+        guard let water = editor?.harvest.water,
               let tile = tile else { return }
         
         controller.gridRenderingButton.state = water.isHidden ? .off : .on
@@ -114,7 +115,7 @@ extension WaterInspectorCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Map else { return }
+                  let map = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
@@ -122,7 +123,7 @@ extension WaterInspectorCoordinator {
                 
                 let hit = map.hitTest(point: position.end)
                 
-                guard let node = map.meadow.water.find(tile: hit) else { return }
+                guard let node = map.harvest.water.find(tile: hit) else { return }
                 
                 self.toggle(inspector: .water, with: WaterUtilityCoordinator.ViewState.inspector(node: node))
                 

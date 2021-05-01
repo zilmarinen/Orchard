@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 import Meadow
 
 class BuildingInspectorCoordinator: BuildingCoordinator, MouseObservable {
@@ -40,7 +41,7 @@ class BuildingInspectorCoordinator: BuildingCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let buildings = editor?.buildings,
+        guard let buildings = editor?.harvest.buildings,
               let chunk = chunk else { return }
         
         controller.gridRenderingButton.state = buildings.isHidden ? .off : .on
@@ -62,7 +63,7 @@ extension BuildingInspectorCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Map else { return }
+                  let map = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
@@ -70,7 +71,7 @@ extension BuildingInspectorCoordinator {
                 
                 let hit = map.hitTest(point: position.end)
                 
-                guard let node = map.meadow.buildings.find(chunk: hit) else { return }
+                guard let node = map.harvest.buildings.find(chunk: hit) else { return }
                 
                 self.toggle(inspector: .surface, with: BuildingUtilityCoordinator.ViewState.inspector(node: node))
                 

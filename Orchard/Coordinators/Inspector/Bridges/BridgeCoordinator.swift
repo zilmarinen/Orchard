@@ -29,7 +29,7 @@ class BridgeCoordinator: Coordinator<BridgeInspectorViewController> {
         
         case controller.gridRenderingButton:
             
-            editor?.bridges.isHidden = button.state == .off
+            editor?.harvest.bridges.isHidden = button.state == .off
             
         default: break
         }

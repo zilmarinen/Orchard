@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 import Meadow
 
 class SurfaceInspectorCoordinator: SurfaceCoordinator, MouseObservable {
@@ -90,7 +91,7 @@ class SurfaceInspectorCoordinator: SurfaceCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let surface = editor?.surface,
+        guard let surface = editor?.harvest.surface,
               let tile = tile else { return }
         
         controller.gridRenderingButton.state = surface.isHidden ? .off : .on
@@ -116,7 +117,7 @@ extension SurfaceInspectorCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Map else { return }
+                  let map = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
@@ -124,7 +125,7 @@ extension SurfaceInspectorCoordinator {
                 
                 let hit = map.hitTest(point: position.end)
                 
-                guard let node = map.meadow.surface.find(tile: hit) else { return }
+                guard let node = map.harvest.surface.find(tile: hit) else { return }
                 
                 self.toggle(inspector: .surface, with: SurfaceUtilityCoordinator.ViewState.inspector(node: node))
                 

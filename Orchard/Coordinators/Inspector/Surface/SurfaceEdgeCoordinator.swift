@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 import Meadow
 
 class SurfaceEdgeCoordinator: SurfaceCoordinator, MouseObservable {
@@ -17,7 +18,7 @@ class SurfaceEdgeCoordinator: SurfaceCoordinator, MouseObservable {
         
         subscribeToMouseEvents(tracksIdleEvents: true)
         
-        editor?.surface.overlay = .edge
+        editor?.harvest.surface.overlay = .edge
         
         guard controller.isViewLoaded else { return }
         
@@ -28,14 +29,14 @@ class SurfaceEdgeCoordinator: SurfaceCoordinator, MouseObservable {
         
         unsubscribeFromMouseEvents()
         
-        editor?.surface.overlay = .material
+        editor?.harvest.surface.overlay = .material
         
         super.stop(then: completion)
     }
     
     override func refresh() {
         
-        guard let surface = editor?.surface else { return }
+        guard let surface = editor?.harvest.surface else { return }
         
         controller.gridRenderingButton.state = surface.isHidden ? .off : .on
         controller.chunkCountLabel.integerValue = surface.chunks.count
@@ -55,7 +56,7 @@ extension SurfaceEdgeCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Map,
+                  let map = spriteView.scene as? Scene2D,
                   let edgeType = SurfaceEdgeType(rawValue: self.controller.edgeTypePopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
@@ -69,7 +70,7 @@ extension SurfaceEdgeCoordinator {
                 
                 bounds.enumerate(y: 0) { coordinate in
                     
-                    guard let tile = map.meadow.surface.find(tile: coordinate) else { return }
+                    guard let tile = map.harvest.surface.find(tile: coordinate) else { return }
                     
                     tile.edgeType = edgeType
                 }

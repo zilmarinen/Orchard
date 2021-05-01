@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 import Meadow
 
 class WaterMaterialCoordinator: WaterCoordinator, MouseObservable {
@@ -31,7 +32,7 @@ class WaterMaterialCoordinator: WaterCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let water = editor?.water else { return }
+        guard let water = editor?.harvest.water else { return }
         
         controller.gridRenderingButton.state = water.isHidden ? .off : .on
         controller.chunkCountLabel.integerValue = water.chunks.count
@@ -49,7 +50,7 @@ extension WaterMaterialCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Map,
+                  let map = spriteView.scene as? Scene2D,
                   let tileType = WaterTileType(rawValue: self.controller.materialTypePopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
@@ -67,11 +68,11 @@ extension WaterMaterialCoordinator {
                     
                     case .right:
                         
-                        map.meadow.water.remove(tile: coordinate)
+                        map.harvest.water.remove(tile: coordinate)
                         
                     default:
                         
-                        _ = map.meadow.water.add(tile: coordinate) { tile in
+                        _ = map.harvest.water.add(tile: coordinate) { tile in
                         
                             tile.tileType = tileType
                         }

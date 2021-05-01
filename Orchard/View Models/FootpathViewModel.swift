@@ -5,6 +5,7 @@
 //
 
 import Foundation
+import Harvest
 import Meadow
 
 extension FootpathUtilityCoordinator {

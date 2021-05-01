@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 import Meadow
 import SpriteKit
 
@@ -41,7 +42,7 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         
         spriteView.ignoresSiblingOrder = true
         
-        if let scene = option as? Map {
+        if let scene = option as? Scene2D {
             
             scene.isPaused = false
             
@@ -49,23 +50,32 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         }
         
         if spriteView.scene == nil {
+            
+            let width = 127
+            let height = 95
         
-            let scene = Map()
+            let scene = Scene2D(size: CGSize(width: width, height: height))
         
             scene.isPaused = false
             scene.backgroundColor = Color(red: 0.91, green: 0.91, blue: 0.91).color
         
             spriteView.presentScene(scene)
             
-            let size = 5
+            let size = 32
             let halfSize = size / 2
             let y = Int(World.Constants.ceiling / 2)
-            
-            for x in -halfSize..<halfSize {
-            
-                for z in -halfSize..<halfSize {
-                    
-                    _ = scene.meadow.surface.add(tile: Coordinate(x: x, y: y, z: z))
+
+            for x in -halfSize...halfSize {
+
+                for z in -halfSize...halfSize {
+
+                    _ = scene.harvest.surface.add(tile: Coordinate(x: x, y: y, z: z)) { tile in
+                        
+                        if tile.coordinate.x == 0 && tile.coordinate.z == 0 {
+                            
+                            tile.tileType = .init(primary: .grass, secondary: .grass)
+                        }
+                    }
                 }
             }
         }
@@ -108,7 +118,7 @@ extension SceneCoordinator {
             
         case .meadow:
             
-            guard let map = spriteView.scene as? Map else { return }
+            guard let map = spriteView.scene as? Scene2D else { return }
             
             let decoder = JSONDecoder()
             let encoder = JSONEncoder()
@@ -122,14 +132,14 @@ extension SceneCoordinator {
                 sceneView.scene = scene
                 sceneView.delegate = scene
                 
-                if let portal = scene.meadow.portals.find(portal: .seam) {
+                if let portal = scene.meadow.portals.find(portal: .spawn) {
                     
-                    scene.meadow.actors.hero.coordinate = portal.footprint.coordinate
+                    scene.hero.coordinate = portal.coordinate
                 }
                 
-                if let destination = scene.meadow.portals.find(portal: .door)?.footprint.coordinate {
+                if let destination = scene.meadow.portals.find(portal: .door)?.coordinate {
                     
-                    scene.meadow.actors.hero.controller.move(to: destination)
+                    scene.hero.controller.move(to: destination)
                 }
             }
             catch {

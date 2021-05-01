@@ -29,7 +29,7 @@ class FenceCoordinator: Coordinator<FenceInspectorViewController> {
         
         case controller.gridRenderingButton:
             
-            editor?.fences.isHidden = button.state == .off
+            editor?.harvest.fences.isHidden = button.state == .off
             
         default: break
         }

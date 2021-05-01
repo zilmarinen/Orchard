@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 import Meadow
 
 class FoliagePlantCoordinator: FoliageCoordinator, MouseObservable {
@@ -31,7 +32,7 @@ class FoliagePlantCoordinator: FoliageCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let foliage = editor?.foliage else { return }
+        guard let foliage = editor?.harvest.foliage else { return }
         
         controller.gridRenderingButton.state = foliage.isHidden ? .off : .on
         controller.nodeCountLabel.integerValue = foliage.chunks.count
@@ -49,7 +50,7 @@ extension FoliagePlantCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Map,
+                  let map = spriteView.scene as? Scene2D,
                   let foliageType = FoliageType(rawValue: self.controller.plantTypePopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
@@ -67,14 +68,14 @@ extension FoliagePlantCoordinator {
                     
                     bounds.enumerate(y: 0) { coordinate in
                      
-                        map.meadow.foliage.remove(chunk: coordinate)
+                        map.harvest.foliage.remove(chunk: coordinate)
                     }
                     
                 default:
                     
-                    guard let surfaceTile = map.meadow.surface.find(tile: startHit) else { return }
+                    guard let surfaceTile = map.harvest.surface.find(tile: startHit) else { return }
                     
-                    _ = map.meadow.foliage.add(foliage: surfaceTile.coordinate, rotation: .north, foliageType: foliageType)
+                    _ = map.harvest.foliage.add(foliage: surfaceTile.coordinate, rotation: .north, foliageType: foliageType)
                 }
                 
             default: break

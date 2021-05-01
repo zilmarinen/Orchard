@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 import Meadow
 
 class ActorInspectorCoordinator: ActorCoordinator, MouseObservable {
@@ -40,7 +41,7 @@ class ActorInspectorCoordinator: ActorCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let actors = editor?.actors,
+        guard let actors = editor?.harvest.actors,
               let actor = actor else { return }
         
         controller.gridRenderingButton.state = actors.isHidden ? .off : .on
@@ -62,7 +63,7 @@ extension ActorInspectorCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Map else { return }
+                  let map = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
@@ -70,7 +71,7 @@ extension ActorInspectorCoordinator {
                 
                 let hit = map.hitTest(point: position.end)
                 
-                guard let node = map.meadow.actors.find(actor: hit) else { return }
+                guard let node = map.harvest.actors.find(actor: hit) else { return }
                 
                 self.toggle(inspector: .surface, with: ActorUtilityCoordinator.ViewState.inspector(node: node))
                 

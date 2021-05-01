@@ -29,7 +29,7 @@ class WallCoordinator: Coordinator<WallInspectorViewController> {
         
         case controller.gridRenderingButton:
             
-            editor?.walls.isHidden = button.state == .off
+            editor?.harvest.walls.isHidden = button.state == .off
             
         default: break
         }

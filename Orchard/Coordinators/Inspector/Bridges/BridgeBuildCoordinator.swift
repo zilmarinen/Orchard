@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 import Meadow
 
 class BridgeBuildCoordinator: BridgeCoordinator, MouseObservable {
@@ -31,7 +32,7 @@ class BridgeBuildCoordinator: BridgeCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let buildings = editor?.buildings else { return }
+        guard let buildings = editor?.harvest.buildings else { return }
         
         controller.gridRenderingButton.state = buildings.isHidden ? .off : .on
         controller.nodeCountLabel.integerValue = buildings.chunks.count
@@ -49,7 +50,7 @@ extension BridgeBuildCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Map else { return }
+                  let map = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
@@ -66,18 +67,18 @@ extension BridgeBuildCoordinator {
                     
                     bounds.enumerate(y: 0) { coordinate in
                     
-                        map.meadow.bridges.remove(chunk: endHit)
+                        map.harvest.bridges.remove(chunk: endHit)
                     }
                     
                 default:
                     
                     guard bounds.size.width != bounds.size.height,
-                          let startSurfaceTile = map.meadow.surface.find(tile: startHit),
-                          map.meadow.surface.find(tile: endHit)?.coordinate.y == startSurfaceTile.coordinate.y else { return }
+                          let startSurfaceTile = map.harvest.surface.find(tile: startHit),
+                          map.harvest.surface.find(tile: endHit)?.coordinate.y == startSurfaceTile.coordinate.y else { return }
                     
                     let footprint = Footprint(coordinate: Coordinate(x: bounds.start.x, y: startSurfaceTile.coordinate.y, z: bounds.start.z), rotation: .north, size: bounds.size)
                     
-                    _ = map.meadow.bridges.add(chunk: footprint) { bridge in
+                    _ = map.harvest.bridges.add(chunk: footprint) { bridge in
                         
                         //TODO: set bridge properties
                     }

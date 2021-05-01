@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 import Meadow
 
 class SceneInspectorViewController: NSViewController {
@@ -35,7 +36,7 @@ class SceneInspectorViewController: NSViewController {
     @IBAction func colorWell(_ sender: NSColorWell) {
      
         guard let spriteView = coordinator?.spriteView,
-              let map = spriteView.scene as? Map else { return }
+              let map = spriteView.scene as? Scene2D else { return }
         
         map.backgroundColor = backgroundColorWell.color
         map.graph.color = backgroundColorWell.color

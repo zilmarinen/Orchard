@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 import Meadow
 
 class PortalBuildCoordinator: PortalCoordinator, MouseObservable {
@@ -31,7 +32,7 @@ class PortalBuildCoordinator: PortalCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let portals = editor?.portals else { return }
+        guard let portals = editor?.harvest.portals else { return }
         
         controller.gridRenderingButton.state = portals.isHidden ? .off : .on
         controller.nodeCountLabel.integerValue = portals.chunks.count
@@ -49,7 +50,7 @@ extension PortalBuildCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Map,
+                  let map = spriteView.scene as? Scene2D,
                   let portalType = PortalType(rawValue: self.controller.buildTypePopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
@@ -68,16 +69,16 @@ extension PortalBuildCoordinator {
                     
                     bounds.enumerate(y: 0) { coordinate in
                         
-                        map.meadow.portals.remove(chunk: coordinate)
+                        map.harvest.portals.remove(chunk: coordinate)
                     }
                     
                 default:
                     
-                    guard let surfaceTile = map.meadow.surface.find(tile: startHit) else { return }
+                    guard let surfaceTile = map.harvest.surface.find(tile: startHit) else { return }
                     
                     let footprint = Footprint(coordinate: surfaceTile.coordinate, rotation: .north, size: 1)
                     
-                    _ = map.meadow.portals.add(chunk: footprint, configure: { portal in
+                    _ = map.harvest.portals.add(chunk: footprint, configure: { portal in
                         
                         portal.portalType = portalType
                     })
