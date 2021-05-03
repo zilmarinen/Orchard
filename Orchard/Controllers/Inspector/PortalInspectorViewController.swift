@@ -12,6 +12,7 @@ class PortalInspectorViewController: NSViewController {
     @IBOutlet weak var gridBox: NSBox!
     @IBOutlet weak var nodeBox: NSBox!
     @IBOutlet weak var buildBox: NSBox!
+    @IBOutlet weak var segueBox: NSBox!
     
     @IBOutlet weak var nodeCountLabel: NSTextField!
     
@@ -24,7 +25,7 @@ class PortalInspectorViewController: NSViewController {
             
             inspectorTypePopUp.removeAllItems()
             
-            for option in FoliageType.allCases {
+            for option in PortalType.allCases {
                 
                 inspectorTypePopUp.addItem(withTitle: option.description)
             }
@@ -40,6 +41,19 @@ class PortalInspectorViewController: NSViewController {
             for option in PortalType.allCases {
                 
                 buildTypePopUp.addItem(withTitle: option.description)
+            }
+        }
+    }
+    
+    @IBOutlet weak var buildDirectionPopUp: NSPopUpButton! {
+        
+        didSet {
+            
+            buildDirectionPopUp.removeAllItems()
+            
+            for option in Cardinal.allCases {
+                
+                buildDirectionPopUp.addItem(withTitle: option.description)
             }
         }
     }
@@ -65,6 +79,22 @@ class PortalInspectorViewController: NSViewController {
         didSet {
             
             buildIdentifierLabel.delegate = self
+        }
+    }
+    
+    @IBOutlet weak var segueSceneLabel: NSTextField! {
+        
+        didSet {
+            
+            segueSceneLabel.delegate = self
+        }
+    }
+    
+    @IBOutlet weak var segueIdentifierLabel: NSTextField! {
+        
+        didSet {
+            
+            segueIdentifierLabel.delegate = self
         }
     }
     

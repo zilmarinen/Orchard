@@ -49,9 +49,18 @@ class PortalInspectorCoordinator: PortalCoordinator, MouseObservable {
                  
         controller.nodeBox.isHidden = false
         controller.buildBox.isHidden = true
+        controller.segueBox.isHidden = chunk.portalType == .spawn
         
         controller.nodeRenderingButton.state = chunk.isHidden ? .off : .on
-        controller.nodeCoordinateView.coordinate = chunk.footprint.coordinate
+        controller.nodeCoordinateView.coordinate = chunk.footprint?.coordinate ?? .zero
+        
+        controller.inspectorTypePopUp.selectItem(at: chunk.portalType.rawValue)
+        controller.inspectorIdentifierLabel.stringValue = chunk.identifier
+        
+        controller.buildDirectionPopUp.selectItem(at: chunk.segue.direction.rawValue)
+        
+        controller.segueSceneLabel.stringValue = chunk.segue.scene
+        controller.segueIdentifierLabel.stringValue = chunk.segue.identifier
     }
 }
 
@@ -73,12 +82,10 @@ extension PortalInspectorCoordinator {
                 
                 guard let node = map.harvest.portals.find(chunk: hit) else { return }
                 
-                self.toggle(inspector: .surface, with: PortalUtilityCoordinator.ViewState.inspector(node: node))
+                self.toggle(inspector: .portal, with: PortalUtilityCoordinator.ViewState.inspector(node: node))
                 
             default: break
             }
         }
     }
 }
-
-

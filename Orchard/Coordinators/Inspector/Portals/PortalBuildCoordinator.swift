@@ -30,6 +30,11 @@ class PortalBuildCoordinator: PortalCoordinator, MouseObservable {
         super.stop(then: completion)
     }
     
+    override func popUp(popUp: NSPopUpButton) {
+        
+        refresh()
+    }
+    
     override func refresh() {
         
         guard let portals = editor?.harvest.portals else { return }
@@ -39,6 +44,11 @@ class PortalBuildCoordinator: PortalCoordinator, MouseObservable {
                  
         controller.nodeBox.isHidden = true
         controller.buildBox.isHidden = false
+        controller.segueBox.isHidden = true
+        
+        guard let portalType = PortalType(rawValue: self.controller.buildTypePopUp.indexOfSelectedItem) else { return }
+        
+        controller.segueBox.isHidden = portalType == .spawn
     }
 }
 
@@ -51,7 +61,8 @@ extension PortalBuildCoordinator {
             guard let self = self,
                   let spriteView = self.spriteView,
                   let map = spriteView.scene as? Scene2D,
-                  let portalType = PortalType(rawValue: self.controller.buildTypePopUp.indexOfSelectedItem) else { return }
+                  let portalType = PortalType(rawValue: self.controller.buildTypePopUp.indexOfSelectedItem),
+                  let direction = Cardinal(rawValue: self.controller.buildDirectionPopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
             
@@ -74,14 +85,25 @@ extension PortalBuildCoordinator {
                     
                 default:
                     
+                    let identifier = self.controller.buildIdentifierLabel.stringValue
+                    let segueScene = self.controller.segueSceneLabel.stringValue
+                    let segueIdentifier = self.controller.segueIdentifierLabel.stringValue
+                    
+                    guard !identifier.isEmpty else { return }
+                    
+                    if portalType != .spawn {
+                        
+                        guard !segueScene.isEmpty,
+                              !segueIdentifier.isEmpty else { return }
+                    }
+                    
                     guard let surfaceTile = map.harvest.surface.find(tile: startHit) else { return }
                     
-                    let footprint = Footprint(coordinate: surfaceTile.coordinate, rotation: .north, size: 1)
-                    
-                    _ = map.harvest.portals.add(chunk: footprint, configure: { portal in
+                    _ = map.harvest.portals.add(portal: portalType, coordinate: surfaceTile.coordinate) { portal in
                         
-                        portal.portalType = portalType
-                    })
+                        portal.identifier = identifier
+                        portal.segue = PortalSegue(direction: direction, scene: segueScene, identifier: segueIdentifier)
+                    }
                 }
                 
             default: break

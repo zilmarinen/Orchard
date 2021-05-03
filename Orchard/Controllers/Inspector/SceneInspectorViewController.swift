@@ -61,8 +61,9 @@ extension SceneInspectorViewController: NSTextFieldDelegate {
     
     func controlTextDidChange(_ obj: Notification) {
         
-        guard let spriteView = coordinator?.spriteView else { return }
+        guard let spriteView = coordinator?.spriteView,
+              let scene = spriteView.scene as? Scene2D else { return }
         
-        spriteView.scene?.name = sceneNameLabel.stringValue
+        scene.harvest.name = sceneNameLabel.stringValue
     }
 }

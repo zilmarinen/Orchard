@@ -10,7 +10,7 @@
 		1807F84125542971008388DC /* InspectorTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F84025542971008388DC /* InspectorTabViewController.swift */; };
 		1807F84C255429C4008388DC /* InspectorTabViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F84B255429C4008388DC /* InspectorTabViewCoordinator.swift */; };
 		1808EBDF2553F60E00484BEC /* NSResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1808EBDE2553F60E00484BEC /* NSResponder.swift */; };
-		1809A8E3263701E0008DCA82 /* Scene2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1809A8E2263701E0008DCA82 /* Scene2D.swift */; };
+		1809A8E3263701E0008DCA82 /* Harvest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1809A8E2263701E0008DCA82 /* Harvest.swift */; };
 		180FDD0025F7A918007A208C /* InspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180FDCFF25F7A918007A208C /* InspectorViewController.swift */; };
 		180FDD0325F7A94C007A208C /* InspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180FDD0225F7A94C007A208C /* InspectorCoordinator.swift */; };
 		183317A0257E20CE001CC0A3 /* NSStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833179F257E20CE001CC0A3 /* NSStoryboard.swift */; };
@@ -93,7 +93,6 @@
 		18D60ADC2636F91500031F69 /* Harvest in Frameworks */ = {isa = PBXBuildFile; productRef = 18D60ADB2636F91500031F69 /* Harvest */; };
 		18EDA9FD25FBB452008A7AF0 /* SurfaceElevationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EDA9FC25FBB452008A7AF0 /* SurfaceElevationCoordinator.swift */; };
 		18F1CA402600C86000E26398 /* SceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F1CA3F2600C86000E26398 /* SceneViewModel.swift */; };
-		18F675A72602238C00FC7B01 /* Footprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F675A62602238C00FC7B01 /* Footprint.swift */; };
 		18FB382C25516F5A0036CA95 /* WindowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB382B25516F5A0036CA95 /* WindowCoordinator.swift */; };
 		18FB382F2551752B0036CA95 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB382E2551752B0036CA95 /* Coordinator.swift */; };
 		18FB38352551778A0036CA95 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB38342551778A0036CA95 /* SplitViewController.swift */; };
@@ -108,7 +107,7 @@
 		1807F84025542971008388DC /* InspectorTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorTabViewController.swift; sourceTree = "<group>"; };
 		1807F84B255429C4008388DC /* InspectorTabViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorTabViewCoordinator.swift; sourceTree = "<group>"; };
 		1808EBDE2553F60E00484BEC /* NSResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSResponder.swift; sourceTree = "<group>"; };
-		1809A8E2263701E0008DCA82 /* Scene2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene2D.swift; sourceTree = "<group>"; };
+		1809A8E2263701E0008DCA82 /* Harvest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Harvest.swift; sourceTree = "<group>"; };
 		180FDCFF25F7A918007A208C /* InspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorViewController.swift; sourceTree = "<group>"; };
 		180FDD0225F7A94C007A208C /* InspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorCoordinator.swift; sourceTree = "<group>"; };
 		1833179F257E20CE001CC0A3 /* NSStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSStoryboard.swift; sourceTree = "<group>"; };
@@ -194,7 +193,6 @@
 		18D60AD92636F90E00031F69 /* Harvest */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Harvest; path = ../Harvest; sourceTree = "<group>"; };
 		18EDA9FC25FBB452008A7AF0 /* SurfaceElevationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceElevationCoordinator.swift; sourceTree = "<group>"; };
 		18F1CA3F2600C86000E26398 /* SceneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneViewModel.swift; sourceTree = "<group>"; };
-		18F675A62602238C00FC7B01 /* Footprint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Footprint.swift; sourceTree = "<group>"; };
 		18FB382B25516F5A0036CA95 /* WindowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCoordinator.swift; sourceTree = "<group>"; };
 		18FB382E2551752B0036CA95 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		18FB38342551778A0036CA95 /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
@@ -516,10 +514,9 @@
 		18F4F5DA2552BC74007AC940 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				18F675A62602238C00FC7B01 /* Footprint.swift */,
 				1808EBDE2553F60E00484BEC /* NSResponder.swift */,
 				1833179F257E20CE001CC0A3 /* NSStoryboard.swift */,
-				1809A8E2263701E0008DCA82 /* Scene2D.swift */,
+				1809A8E2263701E0008DCA82 /* Harvest.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -718,7 +715,7 @@
 				18942CDD261309E500F93728 /* FenceViewModel.swift in Sources */,
 				187B46682600A72500D7D5B4 /* FootpathInspectorCoordinator.swift in Sources */,
 				1870D16F2555434C00B39F8C /* SurfaceInspectorViewController.swift in Sources */,
-				1809A8E3263701E0008DCA82 /* Scene2D.swift in Sources */,
+				1809A8E3263701E0008DCA82 /* Harvest.swift in Sources */,
 				18814F8225838D2D004689E5 /* KeyboardObserver.swift in Sources */,
 				18FB383B255177AC0036CA95 /* SplitViewCoordinator.swift in Sources */,
 				1883769F2610B089008BFEC2 /* ActorPlacementCoordinator.swift in Sources */,
@@ -748,7 +745,6 @@
 				18942CBC2613036900F93728 /* BridgeCoordinator.swift in Sources */,
 				187B465F2600A66B00D7D5B4 /* FootpathViewModel.swift in Sources */,
 				180FDD0025F7A918007A208C /* InspectorViewController.swift in Sources */,
-				18F675A72602238C00FC7B01 /* Footprint.swift in Sources */,
 				1870D178255543AB00B39F8C /* SceneInspectorCoordinator.swift in Sources */,
 				18D3A1802551652000031CA7 /* WindowController.swift in Sources */,
 				180FDD0325F7A94C007A208C /* InspectorCoordinator.swift in Sources */,

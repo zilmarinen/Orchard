@@ -11,6 +11,11 @@ import SpriteKit
 
 class SceneCoordinator: Coordinator<SceneViewController> {
     
+    enum Constants {
+        
+        static let size = CGSize(width: 127, height: 95)
+    }
+    
     lazy var viewModel: SceneViewModel = {
         
         return SceneViewModel(initialState: .editor)
@@ -42,7 +47,9 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         
         spriteView.ignoresSiblingOrder = true
         
-        if let scene = option as? Scene2D {
+        if let harvest = option as? Harvest {
+            
+            let scene = Scene2D(size: Constants.size, harvest: harvest)
             
             scene.isPaused = false
             
@@ -50,34 +57,33 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         }
         
         if spriteView.scene == nil {
-            
-            let width = 127
-            let height = 95
         
-            let scene = Scene2D(size: CGSize(width: width, height: height))
+            let scene = Scene2D(size: Constants.size)
         
             scene.isPaused = false
             scene.backgroundColor = Color(red: 0.91, green: 0.91, blue: 0.91).color
         
             spriteView.presentScene(scene)
             
-            let size = 32
-            let halfSize = size / 2
-            let y = Int(World.Constants.ceiling / 2)
-
-            for x in -halfSize...halfSize {
-
-                for z in -halfSize...halfSize {
-
-                    _ = scene.harvest.surface.add(tile: Coordinate(x: x, y: y, z: z)) { tile in
-                        
-                        if tile.coordinate.x == 0 && tile.coordinate.z == 0 {
-                            
-                            tile.tileType = .init(primary: .grass, secondary: .grass)
-                        }
-                    }
-                }
-            }
+            _ = scene.harvest.surface.add(tile: .zero)
+//
+//            let size = 32
+//            let halfSize = size / 2
+//            let y = Int(World.Constants.ceiling / 2)
+//
+//            for x in -halfSize...halfSize {
+//
+//                for z in -halfSize...halfSize {
+//
+//                    _ = scene.harvest.surface.add(tile: Coordinate(x: x, y: y, z: z)) { tile in
+//
+//                        if tile.coordinate.x == 0 && tile.coordinate.z == 0 {
+//
+//                            tile.tileType = .init(primary: .grass, secondary: .grass)
+//                        }
+//                    }
+//                }
+//            }
         }
     }
 }
@@ -131,16 +137,6 @@ extension SceneCoordinator {
                 
                 sceneView.scene = scene
                 sceneView.delegate = scene
-                
-                if let portal = scene.meadow.portals.find(portal: .spawn) {
-                    
-                    scene.hero.coordinate = portal.coordinate
-                }
-                
-                if let destination = scene.meadow.portals.find(portal: .door)?.coordinate {
-                    
-                    scene.hero.controller.move(to: destination)
-                }
             }
             catch {
                 

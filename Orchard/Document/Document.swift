@@ -19,7 +19,7 @@ class Document: NSDocument {
     
     let coordinator: WindowCoordinator
     
-    var map: Scene2D?
+    var map: Harvest?
 
     override init() {
         
@@ -50,7 +50,7 @@ class Document: NSDocument {
         
         let decoder = JSONDecoder()
         
-        map = try decoder.decode(Scene2D.self, from: sceneGraph)
+        map = try decoder.decode(Harvest.self, from: sceneGraph)
     }
     
     override func fileWrapper(ofType typeName: String) throws -> FileWrapper {
@@ -61,7 +61,7 @@ class Document: NSDocument {
         
         var wrappers: [String : FileWrapper] = [:]
         
-        let sceneGraph = try encoder.encode(scene)
+        let sceneGraph = try encoder.encode(scene.harvest)
         
         wrappers[Constants.sceneGraphWrapperIdentifier] = FileWrapper(regularFileWithContents: sceneGraph)
         

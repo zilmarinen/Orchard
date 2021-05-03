@@ -76,12 +76,7 @@ extension BridgeBuildCoordinator {
                           let startSurfaceTile = map.harvest.surface.find(tile: startHit),
                           map.harvest.surface.find(tile: endHit)?.coordinate.y == startSurfaceTile.coordinate.y else { return }
                     
-                    let footprint = Footprint(coordinate: Coordinate(x: bounds.start.x, y: startSurfaceTile.coordinate.y, z: bounds.start.z), rotation: .north, size: bounds.size)
-                    
-                    _ = map.harvest.bridges.add(chunk: footprint) { bridge in
-                        
-                        //TODO: set bridge properties
-                    }
+                    //TODO: build bridge?
                 }
                 
             default: break

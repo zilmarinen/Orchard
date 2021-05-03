@@ -75,7 +75,7 @@ extension FoliagePlantCoordinator {
                     
                     guard let surfaceTile = map.harvest.surface.find(tile: startHit) else { return }
                     
-                    _ = map.harvest.foliage.add(foliage: surfaceTile.coordinate, rotation: .north, foliageType: foliageType)
+                    _ = map.harvest.foliage.add(foliage: foliageType, coordinate: surfaceTile.coordinate, rotation: .north)
                 }
                 
             default: break

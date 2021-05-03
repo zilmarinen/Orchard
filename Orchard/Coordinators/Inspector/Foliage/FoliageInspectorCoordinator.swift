@@ -85,7 +85,7 @@ class FoliageInspectorCoordinator: FoliageCoordinator, MouseObservable {
         controller.plantBox.isHidden = true
         
         controller.nodeRenderingButton.state = chunk.isHidden ? .off : .on
-        controller.nodeCoordinateView.coordinate = chunk.footprint.coordinate
+        controller.nodeCoordinateView.coordinate = chunk.footprint?.coordinate ?? .zero
         controller.inspectorTypePopUp.selectItem(at: chunk.foliageType.rawValue)
     }
 }

@@ -1,9 +1,9 @@
 //
-//  Scene2D.swift
+//  Harvest.swift
 //
 //  Created by Zack Brown on 26/04/2021.
 //
 
 import Harvest
 
-extension Scene2D: StartOption {}
+extension Harvest: StartOption {}
