@@ -59,24 +59,26 @@ extension BridgeBuildCoordinator {
                 let startHit = map.hitTest(point: position.start)
                 let endHit = map.hitTest(point: position.end)
                 
-                let bounds = GridBounds(start: startHit, end: endHit)
-                
                 switch clickType {
                 
                 case .right:
                     
-                    bounds.enumerate(y: 0) { coordinate in
+                    let bounds = GridBounds(start: startHit, end: endHit)
                     
-                        map.harvest.bridges.remove(chunk: endHit)
+                    bounds.enumerate(y: 0) { coordinate in
+                     
+                        map.harvest.bridges.remove(chunk: coordinate)
                     }
                     
                 default:
                     
-                    guard bounds.size.width != bounds.size.height,
-                          let startSurfaceTile = map.harvest.surface.find(tile: startHit),
-                          map.harvest.surface.find(tile: endHit)?.coordinate.y == startSurfaceTile.coordinate.y else { return }
+                    guard let startSurfaceTile = map.harvest.surface.find(tile: startHit),
+                          let endSurfaceTile = map.harvest.surface.find(tile: endHit),
+                          startSurfaceTile.coordinate.y == endSurfaceTile.coordinate.y else { return }
                     
-                    //TODO: build bridge?
+                    let bounds = GridBounds(start: startSurfaceTile.coordinate, end: endSurfaceTile.coordinate)
+                    
+                    _ = map.harvest.bridges.add(bridge: bounds)
                 }
                 
             default: break

@@ -52,7 +52,7 @@ class PortalInspectorCoordinator: PortalCoordinator, MouseObservable {
         controller.segueBox.isHidden = chunk.portalType == .spawn
         
         controller.nodeRenderingButton.state = chunk.isHidden ? .off : .on
-        controller.nodeCoordinateView.coordinate = chunk.footprint?.coordinate ?? .zero
+        controller.nodeCoordinateView.coordinate = chunk.footprint.coordinate
         
         controller.inspectorTypePopUp.selectItem(at: chunk.portalType.rawValue)
         controller.inspectorIdentifierLabel.stringValue = chunk.identifier

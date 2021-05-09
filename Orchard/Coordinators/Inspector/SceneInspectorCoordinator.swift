@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 
 class SceneInspectorCoordinator: Coordinator<SceneInspectorViewController> {
     
@@ -34,9 +35,10 @@ extension SceneInspectorCoordinator {
     
     func refresh() {
         
-        guard let spriteView = spriteView else { return }
+        guard let spriteView = spriteView,
+              let scene = spriteView.scene as? Scene2D else { return }
         
-        controller.sceneNameLabel.stringValue = spriteView.scene?.name ?? ""
-        controller.backgroundColorWell.color = spriteView.scene?.backgroundColor ?? .white
+        controller.sceneNameLabel.stringValue = scene.harvest.name ?? ""
+        controller.sceneIdentifierLabel.stringValue = scene.harvest.identifier
     }
 }

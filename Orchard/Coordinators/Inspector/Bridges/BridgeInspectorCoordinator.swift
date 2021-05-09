@@ -51,7 +51,7 @@ class BridgeInspectorCoordinator: BridgeCoordinator, MouseObservable {
         controller.buildBox.isHidden = true
         
         controller.nodeRenderingButton.state = chunk.isHidden ? .off : .on
-        controller.nodeCoordinateView.coordinate = chunk.footprint?.coordinate ?? .zero
+        controller.nodeCoordinateView.coordinate = chunk.footprint.coordinate
     }
 }
 

@@ -18,6 +18,14 @@ class SceneInspectorViewController: NSViewController {
         }
     }
     
+    @IBOutlet weak var sceneIdentifierLabel: NSTextField! {
+        
+        didSet {
+            
+            sceneIdentifierLabel.delegate = self
+        }
+    }
+    
     @IBOutlet weak var seasonPopUp: NSPopUpButton! {
         
         didSet {
@@ -31,21 +39,7 @@ class SceneInspectorViewController: NSViewController {
         }
     }
     
-    @IBOutlet weak var backgroundColorWell: NSColorWell!
-    
-    @IBAction func colorWell(_ sender: NSColorWell) {
-     
-        guard let spriteView = coordinator?.spriteView,
-              let map = spriteView.scene as? Scene2D else { return }
-        
-        map.backgroundColor = backgroundColorWell.color
-        map.graph.color = backgroundColorWell.color
-    }
-    
-    @IBAction func popUp(_ sender: NSPopUpButton) {
-        
-        //
-    }
+    @IBAction func popUp(_ sender: NSPopUpButton) {}
     
     weak var coordinator: SceneInspectorCoordinator?
     
@@ -61,9 +55,21 @@ extension SceneInspectorViewController: NSTextFieldDelegate {
     
     func controlTextDidChange(_ obj: Notification) {
         
-        guard let spriteView = coordinator?.spriteView,
+        guard let sender = obj.object as? NSTextField,
+              let spriteView = coordinator?.spriteView,
               let scene = spriteView.scene as? Scene2D else { return }
         
-        scene.harvest.name = sceneNameLabel.stringValue
+        switch sender {
+        
+        case sceneNameLabel:
+            
+            scene.harvest.name = sender.stringValue
+            
+        case sceneIdentifierLabel:
+            
+            scene.harvest.identifier = sender.stringValue
+            
+        default: break
+        }
     }
 }
