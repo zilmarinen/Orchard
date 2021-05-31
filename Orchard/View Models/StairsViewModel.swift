@@ -1,5 +1,5 @@
 //
-//  FenceViewModel.swift
+//  StairsViewModel.swift
 //
 //  Created by Zack Brown on 30/03/2021.
 //
@@ -8,12 +8,12 @@ import Foundation
 import Harvest
 import Meadow
 
-extension FenceUtilityCoordinator {
+extension StairsUtilityCoordinator {
     
     enum ViewState: State, StartOption {
         
         case empty
-        case inspector(node: FenceTile2D)
+        case inspector(node: StairChunk2D)
         case build
         
         public func shouldTransition(to newState: ViewState) -> Should<ViewState> {
@@ -22,7 +22,7 @@ extension FenceUtilityCoordinator {
         }
     }
     
-    class FenceViewModel: StateObserver<ViewState> {
+    class StairsViewModel: StateObserver<ViewState> {
         
     }
 }

@@ -44,6 +44,32 @@ class FoliageInspectorViewController: NSViewController {
         }
     }
     
+    @IBOutlet weak var inspectorRotationPopUp: NSPopUpButton! {
+        
+        didSet {
+            
+            inspectorRotationPopUp.removeAllItems()
+            
+            for option in Cardinal.allCases {
+                
+                inspectorRotationPopUp.addItem(withTitle: option.description)
+            }
+        }
+    }
+    
+    @IBOutlet weak var plantRotationPopUp: NSPopUpButton! {
+        
+        didSet {
+            
+            plantRotationPopUp.removeAllItems()
+            
+            for option in Cardinal.allCases {
+                
+                plantRotationPopUp.addItem(withTitle: option.description)
+            }
+        }
+    }
+    
     @IBOutlet weak var nodeCoordinateView: CoordinateView! {
         
         didSet {

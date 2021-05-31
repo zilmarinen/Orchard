@@ -1,5 +1,5 @@
 //
-//  FenceCoordinator.swift
+//  StairsCoordinator.swift
 //
 //  Created by Zack Brown on 30/03/2021.
 //
@@ -7,9 +7,9 @@
 import Cocoa
 import Meadow
 
-class FenceCoordinator: Coordinator<FenceInspectorViewController> {
+class StairsCoordinator: Coordinator<StairsInspectorViewController> {
     
-    override init(controller: FenceInspectorViewController) {
+    override init(controller: StairsInspectorViewController) {
         
         super.init(controller: controller)
         
@@ -29,7 +29,7 @@ class FenceCoordinator: Coordinator<FenceInspectorViewController> {
         
         case controller.gridRenderingButton:
             
-            editor?.harvest.fences.isHidden = button.state == .off
+            editor?.harvest.stairs.isHidden = button.state == .off
             
         default: break
         }

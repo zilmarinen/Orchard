@@ -1,14 +1,14 @@
 //
-//  FoliagePlantCoordinator.swift
+//  StairsBuildCoordinator.swift
 //
-//  Created by Zack Brown on 15/03/2021.
+//  Created by Zack Brown on 30/03/2021.
 //
 
 import Cocoa
 import Harvest
 import Meadow
 
-class FoliagePlantCoordinator: FoliageCoordinator, MouseObservable {
+class StairsBuildCoordinator: StairsCoordinator, MouseObservable {
     
     var mouseObserver: UUID?
     
@@ -32,17 +32,17 @@ class FoliagePlantCoordinator: FoliageCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let foliage = editor?.harvest.foliage else { return }
+        guard let stairs = editor?.harvest.stairs else { return }
         
-        controller.gridRenderingButton.state = foliage.isHidden ? .off : .on
-        controller.nodeCountLabel.integerValue = foliage.chunks.count
+        controller.gridRenderingButton.state = stairs.isHidden ? .off : .on
+        controller.nodeCountLabel.integerValue = stairs.chunks.count
                  
         controller.nodeBox.isHidden = true
-        controller.plantBox.isHidden = false
+        controller.buildBox.isHidden = false
     }
 }
 
-extension FoliagePlantCoordinator {
+extension StairsBuildCoordinator {
     
     func stateDidChange(from previousState: SpriteView.MouseState?, to currentState: SpriteView.MouseState) {
         
@@ -51,8 +51,7 @@ extension FoliagePlantCoordinator {
             guard let self = self,
                   let spriteView = self.spriteView,
                   let map = spriteView.scene as? Scene2D,
-                  let foliageType = FoliageType(rawValue: self.controller.plantTypePopUp.indexOfSelectedItem),
-                  let rotation = Cardinal(rawValue: self.controller.plantRotationPopUp.indexOfSelectedItem) else { return }
+                  let direction = Cardinal(rawValue: self.controller.buildDirectionPopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
             
@@ -69,14 +68,24 @@ extension FoliagePlantCoordinator {
                     
                     bounds.enumerate(y: 0) { coordinate in
                      
-                        map.harvest.foliage.remove(chunk: coordinate)
+                        map.harvest.stairs.remove(chunk: coordinate)
                     }
                     
                 default:
                     
-                    guard let surfaceTile = map.harvest.surface.find(tile: startHit) else { return }
+                    guard let startSurfaceTile = map.harvest.surface.find(tile: startHit),
+                          let endSurfaceTile = map.harvest.surface.find(tile: endHit),
+                          startSurfaceTile.coordinate.y == endSurfaceTile.coordinate.y else { return }
                     
-                    _ = map.harvest.foliage.add(foliage: foliageType, coordinate: surfaceTile.coordinate, rotation: rotation)
+                    let bounds = GridBounds(start: startSurfaceTile.coordinate, end: endSurfaceTile.coordinate)
+                    
+                    let elevation = self.controller.elevationStepper.integerValue
+                    
+                    _ = map.harvest.stairs.add(stairs: bounds) { stairs in
+                        
+                        stairs.direction = direction
+                        stairs.elevation = elevation
+                    }
                 }
                 
             default: break

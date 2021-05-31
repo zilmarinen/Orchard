@@ -32,10 +32,10 @@ class BridgeBuildCoordinator: BridgeCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let buildings = editor?.harvest.buildings else { return }
+        guard let bridges = editor?.harvest.bridges else { return }
         
-        controller.gridRenderingButton.state = buildings.isHidden ? .off : .on
-        controller.nodeCountLabel.integerValue = buildings.chunks.count
+        controller.gridRenderingButton.state = bridges.isHidden ? .off : .on
+        controller.nodeCountLabel.integerValue = bridges.chunks.count
                  
         controller.nodeBox.isHidden = true
         controller.buildBox.isHidden = false

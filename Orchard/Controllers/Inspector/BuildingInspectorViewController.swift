@@ -44,6 +44,32 @@ class BuildingInspectorViewController: NSViewController {
         }
     }
     
+    @IBOutlet weak var inspectorRotationPopUp: NSPopUpButton! {
+        
+        didSet {
+            
+            inspectorRotationPopUp.removeAllItems()
+            
+            for option in Cardinal.allCases {
+                
+                inspectorRotationPopUp.addItem(withTitle: option.description)
+            }
+        }
+    }
+    
+    @IBOutlet weak var buildRotationPopUp: NSPopUpButton! {
+        
+        didSet {
+            
+            buildRotationPopUp.removeAllItems()
+            
+            for option in Cardinal.allCases {
+                
+                buildRotationPopUp.addItem(withTitle: option.description)
+            }
+        }
+    }
+    
     @IBOutlet weak var nodeCoordinateView: CoordinateView! {
         
         didSet {

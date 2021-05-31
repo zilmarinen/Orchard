@@ -1,5 +1,5 @@
 //
-//  FenceInspectorViewController.swift
+//  StairsInspectorViewController.swift
 //
 //  Created by Zack Brown on 30/03/2021.
 //
@@ -7,7 +7,7 @@
 import Cocoa
 import Meadow
 
-class FenceInspectorViewController: NSViewController {
+class StairsInspectorViewController: NSViewController {
     
     @IBOutlet weak var gridBox: NSBox!
     @IBOutlet weak var nodeBox: NSBox!
@@ -24,7 +24,7 @@ class FenceInspectorViewController: NSViewController {
             
             inspectorTypePopUp.removeAllItems()
             
-            for option in FoliageType.allCases {
+            for option in StairType.allCases {
                 
                 inspectorTypePopUp.addItem(withTitle: option.description)
             }
@@ -37,10 +37,46 @@ class FenceInspectorViewController: NSViewController {
             
             buildTypePopUp.removeAllItems()
             
-            for option in FoliageType.allCases {
+            for option in StairType.allCases {
                 
                 buildTypePopUp.addItem(withTitle: option.description)
             }
+        }
+    }
+    
+    @IBOutlet weak var inspectorDirectionPopUp: NSPopUpButton! {
+        
+        didSet {
+            
+            inspectorDirectionPopUp.removeAllItems()
+            
+            for option in Cardinal.allCases {
+                
+                inspectorDirectionPopUp.addItem(withTitle: option.description)
+            }
+        }
+    }
+    
+    @IBOutlet weak var buildDirectionPopUp: NSPopUpButton! {
+        
+        didSet {
+            
+            buildDirectionPopUp.removeAllItems()
+            
+            for option in Cardinal.allCases {
+                
+                buildDirectionPopUp.addItem(withTitle: option.description)
+            }
+        }
+    }
+    
+    @IBOutlet weak var elevationStepper: NumberStepper! {
+        
+        didSet {
+            
+            elevationStepper.minimumValue = 1
+            elevationStepper.maximumValue = 2
+            elevationStepper.integerValue = 1
         }
     }
     
@@ -62,7 +98,7 @@ class FenceInspectorViewController: NSViewController {
         coordinator?.popUp(popUp: sender)
     }
     
-    weak var coordinator: FenceCoordinator?
+    weak var coordinator: StairsCoordinator?
     
     override func viewWillAppear() {
         

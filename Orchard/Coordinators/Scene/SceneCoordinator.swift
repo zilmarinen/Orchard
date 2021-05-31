@@ -146,7 +146,6 @@ extension SceneCoordinator {
             sceneView.isHidden = false
             sceneView.backgroundColor = map.backgroundColor
             sceneView.allowsCameraControl = true
-            sceneView.autoenablesDefaultLighting = false
             
             spriteView.isHidden = true
             

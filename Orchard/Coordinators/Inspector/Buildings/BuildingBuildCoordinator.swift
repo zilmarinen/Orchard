@@ -51,7 +51,8 @@ extension BuildingBuildCoordinator {
             guard let self = self,
                   let spriteView = self.spriteView,
                   let map = spriteView.scene as? Scene2D,
-                  let buildingType = BuildingType(rawValue: self.controller.buildTypePopUp.indexOfSelectedItem) else { return }
+                  let buildingType = BuildingType(rawValue: self.controller.buildTypePopUp.indexOfSelectedItem),
+                  let rotation = Cardinal(rawValue: self.controller.buildRotationPopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
             
@@ -75,7 +76,7 @@ extension BuildingBuildCoordinator {
                     
                     guard let surfaceTile = map.harvest.surface.find(tile: startHit) else { return }
                     
-                    _ = map.harvest.buildings.add(building: surfaceTile.coordinate, rotation: .north, buildingType: buildingType)
+                    _ = map.harvest.buildings.add(building: surfaceTile.coordinate, rotation: rotation, buildingType: buildingType)
                 }
                 
             default: break

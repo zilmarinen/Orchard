@@ -1,5 +1,5 @@
 //
-//  FenceUtilityCoordinator.swift
+//  StairsUtilityCoordinator.swift
 //
 //  Created by Zack Brown on 30/03/2021.
 //
@@ -7,32 +7,32 @@
 import Cocoa
 import Meadow
 
-class FenceUtilityCoordinator: FenceCoordinator {
+class StairsUtilityCoordinator: StairsCoordinator {
     
-    lazy var inspectorCoordinator: FenceInspectorCoordinator = {
+    lazy var inspectorCoordinator: StairsInspectorCoordinator = {
        
-        let coordinator = FenceInspectorCoordinator(controller: controller)
+        let coordinator = StairsInspectorCoordinator(controller: controller)
         
         coordinator.parent = self
         
         return coordinator
     }()
     
-    lazy var buildCoordinator: FenceBuildCoordinator = {
+    lazy var buildCoordinator: StairsBuildCoordinator = {
        
-        let coordinator = FenceBuildCoordinator(controller: controller)
+        let coordinator = StairsBuildCoordinator(controller: controller)
         
         coordinator.parent = self
         
         return coordinator
     }()
     
-    lazy var viewModel: FenceViewModel = {
+    lazy var viewModel: StairsViewModel = {
        
-        return FenceViewModel(initialState: .empty)
+        return StairsViewModel(initialState: .empty)
     }()
     
-    override init(controller: FenceInspectorViewController) {
+    override init(controller: StairsInspectorViewController) {
         
         super.init(controller: controller)
         
@@ -48,7 +48,7 @@ class FenceUtilityCoordinator: FenceCoordinator {
         
         super.start(with: option)
         
-        guard let option = option as? FenceUtilityCoordinator.ViewState else { return }
+        guard let option = option as? StairsUtilityCoordinator.ViewState else { return }
         
         viewModel.state = option
         
@@ -59,7 +59,7 @@ class FenceUtilityCoordinator: FenceCoordinator {
     
     override func start(child coordinator: Coordinatable, with option: StartOption?) {
         
-        guard let coordinator = coordinator as? FenceCoordinator else { return }
+        guard let coordinator = coordinator as? StairsCoordinator else { return }
         
         coordinator.controller = controller
         
@@ -67,7 +67,7 @@ class FenceUtilityCoordinator: FenceCoordinator {
     }
 }
 
-extension FenceUtilityCoordinator {
+extension StairsUtilityCoordinator {
     
     func stateDidChange(from previousState: ViewState?, to currentState: ViewState) {
         

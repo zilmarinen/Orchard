@@ -1,5 +1,5 @@
 //
-//  FenceInspectorCoordinator.swift
+//  StairsInspectorCoordinator.swift
 //
 //  Created by Zack Brown on 30/03/2021.
 //
@@ -8,11 +8,11 @@ import Cocoa
 import Harvest
 import Meadow
 
-class FenceInspectorCoordinator: FenceCoordinator, MouseObservable {
+class StairsInspectorCoordinator: StairsCoordinator, MouseObservable {
     
     var mouseObserver: UUID?
     
-    weak var tile: FenceTile2D?
+    weak var tile: StairChunk2D?
     
     override func start(with option: StartOption?) {
         
@@ -20,7 +20,7 @@ class FenceInspectorCoordinator: FenceCoordinator, MouseObservable {
         
         subscribeToMouseEvents(tracksIdleEvents: false)
         
-        guard let option = option as? FenceUtilityCoordinator.ViewState,
+        guard let option = option as? StairsUtilityCoordinator.ViewState,
               case let .inspector(node) = option else { return }
         
         tile = node
@@ -41,21 +41,23 @@ class FenceInspectorCoordinator: FenceCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let fences = editor?.harvest.fences,
+        guard let stairs = editor?.harvest.stairs,
               let tile = tile else { return }
         
-        controller.gridRenderingButton.state = fences.isHidden ? .off : .on
-        controller.nodeCountLabel.integerValue = fences.chunks.count
+        controller.gridRenderingButton.state = stairs.isHidden ? .off : .on
+        controller.nodeCountLabel.integerValue = stairs.chunks.count
                  
         controller.nodeBox.isHidden = false
         controller.buildBox.isHidden = true
         
         controller.nodeRenderingButton.state = tile.isHidden ? .off : .on
         controller.nodeCoordinateView.coordinate = tile.coordinate
+        controller.inspectorTypePopUp.selectItem(at: tile.stairType.rawValue)
+        controller.inspectorDirectionPopUp.selectItem(at: tile.footprint.rotation.rawValue)
     }
 }
 
-extension FenceInspectorCoordinator {
+extension StairsInspectorCoordinator {
     
     func stateDidChange(from previousState: SpriteView.MouseState?, to currentState: SpriteView.MouseState) {
         

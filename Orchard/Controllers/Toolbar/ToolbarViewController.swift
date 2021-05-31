@@ -11,11 +11,11 @@ import Cocoa
     @IBOutlet weak var actorButton: NSButton!
     @IBOutlet weak var bridgeButton: NSButton!
     @IBOutlet weak var buildingButton: NSButton!
-    @IBOutlet weak var fenceButton: NSButton!
     @IBOutlet weak var foliageButton: NSButton!
     @IBOutlet weak var footpathButton: NSButton!
-    @IBOutlet weak var sceneButton: NSButton!
     @IBOutlet weak var portalButton: NSButton!
+    @IBOutlet weak var sceneButton: NSButton!
+    @IBOutlet weak var stairsButton: NSButton!
     @IBOutlet weak var surfaceButton: NSButton!
     @IBOutlet weak var wallButton: NSButton!
     @IBOutlet weak var waterButton: NSButton!
@@ -32,9 +32,9 @@ import Cocoa
     @IBOutlet weak var buildingInspectorItem: NSMenuItem!
     @IBOutlet weak var buildingBuildItem: NSMenuItem!
     
-    @IBOutlet var fenceMenu: NSMenu!
-    @IBOutlet weak var fenceInspectorItem: NSMenuItem!
-    @IBOutlet weak var fenceBuildItem: NSMenuItem!
+    @IBOutlet var stairsMenu: NSMenu!
+    @IBOutlet weak var stairsInspectorItem: NSMenuItem!
+    @IBOutlet weak var stairsBuildItem: NSMenuItem!
     
     @IBOutlet var foliageMenu: NSMenu!
     @IBOutlet weak var foliageInspectorItem: NSMenuItem!
@@ -80,10 +80,6 @@ import Cocoa
             
             NSMenu.popUpContextMenu(buildingMenu, with: event, for: sender)
             
-        case fenceButton:
-            
-            NSMenu.popUpContextMenu(fenceMenu, with: event, for: sender)
-        
         case foliageButton:
             
             NSMenu.popUpContextMenu(foliageMenu, with: event, for: sender)
@@ -99,6 +95,10 @@ import Cocoa
         case sceneButton:
             
             coordinator?.toggle(inspector: .scene, with: nil)
+            
+        case stairsButton:
+            
+            NSMenu.popUpContextMenu(stairsMenu, with: event, for: sender)
         
         case surfaceButton:
             
@@ -149,16 +149,6 @@ import Cocoa
         case buildingBuildItem:
             
             coordinator?.toggle(inspector: .building, with: BuildingUtilityCoordinator.ViewState.build)
-            
-        case fenceInspectorItem:
-            
-            guard let node = coordinator?.editor?.harvest.fences.tiles.first else { return }
-            
-            coordinator?.toggle(inspector: .fence, with: FenceUtilityCoordinator.ViewState.inspector(node: node))
-            
-        case fenceBuildItem:
-            
-            coordinator?.toggle(inspector: .fence, with: FenceUtilityCoordinator.ViewState.build)
         
         case foliageInspectorItem:
             
@@ -189,6 +179,16 @@ import Cocoa
         case portalBuildItem:
             
             coordinator?.toggle(inspector: .portal, with: PortalUtilityCoordinator.ViewState.build)
+            
+        case stairsInspectorItem:
+            
+            guard let node = coordinator?.editor?.harvest.stairs.chunks.first else { return }
+            
+            coordinator?.toggle(inspector: .stairs, with: StairsUtilityCoordinator.ViewState.inspector(node: node))
+            
+        case stairsBuildItem:
+            
+            coordinator?.toggle(inspector: .stairs, with: StairsUtilityCoordinator.ViewState.build)
         
         case surfaceInspectorItem:
             
@@ -242,11 +242,11 @@ extension ToolbarViewController {
         actorButton.contentTintColor = nil
         bridgeButton.contentTintColor = nil
         buildingButton.contentTintColor = nil
-        fenceButton.contentTintColor = nil
         foliageButton.contentTintColor = nil
         footpathButton.contentTintColor = nil
         portalButton.contentTintColor = nil
         sceneButton.contentTintColor = nil
+        stairsButton.contentTintColor = nil
         surfaceButton.contentTintColor = nil
         wallButton.contentTintColor = nil
         waterButton.contentTintColor = nil
@@ -256,11 +256,11 @@ extension ToolbarViewController {
         case .actor: actorButton.contentTintColor = .systemPink
         case .bridge: bridgeButton.contentTintColor = .systemPink
         case .building: buildingButton.contentTintColor = .systemPink
-        case .fence: fenceButton.contentTintColor = .systemPink
         case .foliage: foliageButton.contentTintColor = .systemPink
         case .footpath: footpathButton.contentTintColor = .systemPink
         case .portal: portalButton.contentTintColor = .systemPink
         case .scene: sceneButton.contentTintColor = .systemPink
+        case .stairs: stairsButton.contentTintColor = .systemPink
         case .surface: surfaceButton.contentTintColor = .systemPink
         case .wall: wallButton.contentTintColor = .systemPink
         case .water: waterButton.contentTintColor = .systemPink

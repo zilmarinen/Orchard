@@ -14,11 +14,11 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         case actor
         case bridge
         case building
-        case fence
         case foliage
         case footpath
         case portal
         case scene
+        case stairs
         case surface
         case wall
         case water
@@ -68,11 +68,11 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         return coordinator
     }()
     
-    lazy var fenceUtilityCoordinator: FenceUtilityCoordinator = {
+    lazy var stairsUtilityCoordinator: StairsUtilityCoordinator = {
        
-        guard let viewController = controller.children[Tab.fence.rawValue] as? FenceInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        guard let viewController = controller.children[Tab.stairs.rawValue] as? StairsInspectorViewController else { fatalError("Invalid view controller hierarchy") }
         
-        let coordinator = FenceUtilityCoordinator(controller: viewController)
+        let coordinator = StairsUtilityCoordinator(controller: viewController)
         
         coordinator.parent = self
         
@@ -190,12 +190,6 @@ extension InspectorTabViewCoordinator {
             guard let object = object as? BuildingUtilityCoordinator.ViewState else { return }
             
             start(child: buildingUtilityCoordinator, with: object)
-            
-        case .fence:
-            
-            guard let object = object as? FenceUtilityCoordinator.ViewState else { return }
-            
-            start(child: fenceUtilityCoordinator, with: object)
         
         case .foliage:
             
@@ -218,6 +212,12 @@ extension InspectorTabViewCoordinator {
         case .scene:
             
             start(child: sceneInspectorCoordinator, with: nil)
+            
+        case .stairs:
+            
+            guard let object = object as? StairsUtilityCoordinator.ViewState else { return }
+            
+            start(child: stairsUtilityCoordinator, with: object)
             
         case .surface:
             

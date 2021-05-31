@@ -18,6 +18,8 @@ class WaterMaterialCoordinator: WaterCoordinator, MouseObservable {
         
         subscribeToMouseEvents(tracksIdleEvents: true)
         
+        editor?.harvest.water.overlay = .elevation
+        
         guard controller.isViewLoaded else { return }
         
         refresh()
@@ -26,6 +28,8 @@ class WaterMaterialCoordinator: WaterCoordinator, MouseObservable {
     override func stop(then completion: CoordinatorCompletionBlock?) {
         
         unsubscribeFromMouseEvents()
+        
+        editor?.harvest.water.overlay = .none
         
         super.stop(then: completion)
     }
@@ -75,6 +79,7 @@ extension WaterMaterialCoordinator {
                         _ = map.harvest.water.add(tile: coordinate) { tile in
                         
                             tile.tileType = tileType
+                            tile.coordinate = coordinate
                         }
                     }
                 }

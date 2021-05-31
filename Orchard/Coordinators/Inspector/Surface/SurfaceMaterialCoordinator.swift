@@ -74,9 +74,9 @@ extension SurfaceMaterialCoordinator {
                         map.harvest.actors.remove(actor: coordinate)
                         map.harvest.bridges.remove(chunk: coordinate)
                         map.harvest.buildings.remove(chunk: coordinate)
-                        map.harvest.fences.remove(tile: coordinate)
                         map.harvest.foliage.remove(chunk: coordinate)
                         map.harvest.footpath.remove(tile: coordinate)
+                        map.harvest.stairs.remove(chunk: coordinate)
                         map.harvest.surface.remove(tile: coordinate)
                         map.harvest.water.remove(tile: coordinate)
                         
