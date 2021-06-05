@@ -11,6 +11,11 @@
 		1807F84C255429C4008388DC /* InspectorTabViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F84B255429C4008388DC /* InspectorTabViewCoordinator.swift */; };
 		1808EBDF2553F60E00484BEC /* NSResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1808EBDE2553F60E00484BEC /* NSResponder.swift */; };
 		1809A8E3263701E0008DCA82 /* Harvest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1809A8E2263701E0008DCA82 /* Harvest.swift */; };
+		180BEFB42666479E000AE2E8 /* SeamInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180BEFB32666479E000AE2E8 /* SeamInspectorViewController.swift */; };
+		180BEFB7266647E0000AE2E8 /* SeamCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180BEFB6266647E0000AE2E8 /* SeamCoordinator.swift */; };
+		180BEFB9266647ED000AE2E8 /* SeamUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180BEFB8266647ED000AE2E8 /* SeamUtilityCoordinator.swift */; };
+		180BEFBC26664805000AE2E8 /* SeamInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180BEFBB26664805000AE2E8 /* SeamInspectorCoordinator.swift */; };
+		180BEFBE26664812000AE2E8 /* SeamStitchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180BEFBD26664812000AE2E8 /* SeamStitchCoordinator.swift */; };
 		180FDD0025F7A918007A208C /* InspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180FDCFF25F7A918007A208C /* InspectorViewController.swift */; };
 		180FDD0325F7A94C007A208C /* InspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180FDD0225F7A94C007A208C /* InspectorCoordinator.swift */; };
 		183317A0257E20CE001CC0A3 /* NSStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833179F257E20CE001CC0A3 /* NSStoryboard.swift */; };
@@ -20,6 +25,7 @@
 		1838E4AB26189A6300E24C44 /* WallInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838E4AA26189A6300E24C44 /* WallInspectorCoordinator.swift */; };
 		1838E4AE26189A9900E24C44 /* WallInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838E4AD26189A9900E24C44 /* WallInspectorViewController.swift */; };
 		1838E4B126189B0800E24C44 /* WallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838E4B026189B0800E24C44 /* WallViewModel.swift */; };
+		185274A42666499E007DF1A0 /* SeamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185274A32666499E007DF1A0 /* SeamViewModel.swift */; };
 		18534C8426077D6400500535 /* WaterInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18534C8326077D6400500535 /* WaterInspectorViewController.swift */; };
 		18534C8826077DAD00500535 /* WaterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18534C8726077DAD00500535 /* WaterCoordinator.swift */; };
 		18534C8B26077DB800500535 /* WaterUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18534C8A26077DB800500535 /* WaterUtilityCoordinator.swift */; };
@@ -109,6 +115,11 @@
 		1807F84B255429C4008388DC /* InspectorTabViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorTabViewCoordinator.swift; sourceTree = "<group>"; };
 		1808EBDE2553F60E00484BEC /* NSResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSResponder.swift; sourceTree = "<group>"; };
 		1809A8E2263701E0008DCA82 /* Harvest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Harvest.swift; sourceTree = "<group>"; };
+		180BEFB32666479E000AE2E8 /* SeamInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamInspectorViewController.swift; sourceTree = "<group>"; };
+		180BEFB6266647E0000AE2E8 /* SeamCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamCoordinator.swift; sourceTree = "<group>"; };
+		180BEFB8266647ED000AE2E8 /* SeamUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamUtilityCoordinator.swift; sourceTree = "<group>"; };
+		180BEFBB26664805000AE2E8 /* SeamInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamInspectorCoordinator.swift; sourceTree = "<group>"; };
+		180BEFBD26664812000AE2E8 /* SeamStitchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamStitchCoordinator.swift; sourceTree = "<group>"; };
 		180FDCFF25F7A918007A208C /* InspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorViewController.swift; sourceTree = "<group>"; };
 		180FDD0225F7A94C007A208C /* InspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorCoordinator.swift; sourceTree = "<group>"; };
 		1833179F257E20CE001CC0A3 /* NSStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSStoryboard.swift; sourceTree = "<group>"; };
@@ -118,6 +129,7 @@
 		1838E4AA26189A6300E24C44 /* WallInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallInspectorCoordinator.swift; sourceTree = "<group>"; };
 		1838E4AD26189A9900E24C44 /* WallInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallInspectorViewController.swift; sourceTree = "<group>"; };
 		1838E4B026189B0800E24C44 /* WallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallViewModel.swift; sourceTree = "<group>"; };
+		185274A32666499E007DF1A0 /* SeamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamViewModel.swift; sourceTree = "<group>"; };
 		18534C8326077D6400500535 /* WaterInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterInspectorViewController.swift; sourceTree = "<group>"; };
 		18534C8726077DAD00500535 /* WaterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterCoordinator.swift; sourceTree = "<group>"; };
 		18534C8A26077DB800500535 /* WaterUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterUtilityCoordinator.swift; sourceTree = "<group>"; };
@@ -240,12 +252,13 @@
 				188376942610B03B008BFEC2 /* ActorInspectorViewController.swift */,
 				18942CBE2613037700F93728 /* BridgeInspectorViewController.swift */,
 				187B463B25FF5BDE00D7D5B4 /* BuildingInspectorViewController.swift */,
-				18942CCB261308A600F93728 /* StairsInspectorViewController.swift */,
 				187B462025FF48D800D7D5B4 /* FoliageInspectorViewController.swift */,
 				187B465A2600A65000D7D5B4 /* FootpathInspectorViewController.swift */,
 				180FDCFF25F7A918007A208C /* InspectorViewController.swift */,
 				18C9E28C2600EADE00343B27 /* PortalInspectorViewController.swift */,
 				1870D1742555439900B39F8C /* SceneInspectorViewController.swift */,
+				180BEFB32666479E000AE2E8 /* SeamInspectorViewController.swift */,
+				18942CCB261308A600F93728 /* StairsInspectorViewController.swift */,
 				1870D16E2555434C00B39F8C /* SurfaceInspectorViewController.swift */,
 				1838E4AD26189A9900E24C44 /* WallInspectorViewController.swift */,
 				18534C8326077D6400500535 /* WaterInspectorViewController.swift */,
@@ -256,6 +269,7 @@
 		1807F85325542DF3008388DC /* Inspector */ = {
 			isa = PBXGroup;
 			children = (
+				180BEFB5266647C1000AE2E8 /* Seams */,
 				1883768B2610AFBD008BFEC2 /* Actors */,
 				18942CB12613033300F93728 /* Bridges */,
 				187B463E25FF5BF800D7D5B4 /* Buildings */,
@@ -270,6 +284,17 @@
 				18534C8626077D9900500535 /* Water */,
 			);
 			path = Inspector;
+			sourceTree = "<group>";
+		};
+		180BEFB5266647C1000AE2E8 /* Seams */ = {
+			isa = PBXGroup;
+			children = (
+				180BEFB6266647E0000AE2E8 /* SeamCoordinator.swift */,
+				180BEFB8266647ED000AE2E8 /* SeamUtilityCoordinator.swift */,
+				180BEFBB26664805000AE2E8 /* SeamInspectorCoordinator.swift */,
+				180BEFBD26664812000AE2E8 /* SeamStitchCoordinator.swift */,
+			);
+			path = Seams;
 			sourceTree = "<group>";
 		};
 		181002612551951800FFE101 /* Supporting Files */ = {
@@ -427,11 +452,12 @@
 				1883768C2610AFD0008BFEC2 /* ActorViewModel.swift */,
 				18942CAE261302F600F93728 /* BridgeViewModel.swift */,
 				187B464525FF5C5D00D7D5B4 /* BuildingViewModel.swift */,
-				18942CDC261309E500F93728 /* StairsViewModel.swift */,
 				187B462D25FF4ACC00D7D5B4 /* FoliageViewModel.swift */,
 				187B465E2600A66B00D7D5B4 /* FootpathViewModel.swift */,
 				18C9E2852600EA8B00343B27 /* PortalViewModel.swift */,
 				18F1CA3F2600C86000E26398 /* SceneViewModel.swift */,
+				185274A32666499E007DF1A0 /* SeamViewModel.swift */,
+				18942CDC261309E500F93728 /* StairsViewModel.swift */,
 				18AFB91525FA4C3400C1B847 /* SurfaceViewModel.swift */,
 				1838E4B026189B0800E24C44 /* WallViewModel.swift */,
 				18534C9626077E9400500535 /* WaterViewModel.swift */,
@@ -748,6 +774,7 @@
 				18C9E2962600EB1000343B27 /* PortalInspectorCoordinator.swift in Sources */,
 				18942CBC2613036900F93728 /* BridgeCoordinator.swift in Sources */,
 				187B465F2600A66B00D7D5B4 /* FootpathViewModel.swift in Sources */,
+				180BEFBE26664812000AE2E8 /* SeamStitchCoordinator.swift in Sources */,
 				180FDD0025F7A918007A208C /* InspectorViewController.swift in Sources */,
 				1870D178255543AB00B39F8C /* SceneInspectorCoordinator.swift in Sources */,
 				18D3A1802551652000031CA7 /* WindowController.swift in Sources */,
@@ -768,11 +795,14 @@
 				18C9E2932600EB0600343B27 /* PortalBuildCoordinator.swift in Sources */,
 				18671C80260784A800949BC4 /* SurfaceEdgeCoordinator.swift in Sources */,
 				18C9E2862600EA8B00343B27 /* PortalViewModel.swift in Sources */,
+				180BEFB9266647ED000AE2E8 /* SeamUtilityCoordinator.swift in Sources */,
 				18534C9126077DCE00500535 /* WaterMaterialCoordinator.swift in Sources */,
 				18EDA9FD25FBB452008A7AF0 /* SurfaceElevationCoordinator.swift in Sources */,
 				18FB382C25516F5A0036CA95 /* WindowCoordinator.swift in Sources */,
 				18AFB91625FA4C3400C1B847 /* SurfaceViewModel.swift in Sources */,
 				188376982610B067008BFEC2 /* ActorUtilityCoordinator.swift in Sources */,
+				185274A42666499E007DF1A0 /* SeamViewModel.swift in Sources */,
+				180BEFB42666479E000AE2E8 /* SeamInspectorViewController.swift in Sources */,
 				18D3A16B25515D3A00031CA7 /* Document.swift in Sources */,
 				18534C8826077DAD00500535 /* WaterCoordinator.swift in Sources */,
 				183317A0257E20CE001CC0A3 /* NSStoryboard.swift in Sources */,
@@ -784,6 +814,7 @@
 				18FB38352551778A0036CA95 /* SplitViewController.swift in Sources */,
 				18942CCC261308A600F93728 /* StairsInspectorViewController.swift in Sources */,
 				18FB384B2551792E0036CA95 /* SceneCoordinator.swift in Sources */,
+				180BEFBC26664805000AE2E8 /* SeamInspectorCoordinator.swift in Sources */,
 				187B463125FF542000D7D5B4 /* FoliagePlantCoordinator.swift in Sources */,
 				18942CBF2613037700F93728 /* BridgeInspectorViewController.swift in Sources */,
 				1870D1752555439900B39F8C /* SceneInspectorViewController.swift in Sources */,
@@ -792,6 +823,7 @@
 				187B464925FF5CDA00D7D5B4 /* BuildingInspectorCoordinator.swift in Sources */,
 				1838E4AB26189A6300E24C44 /* WallInspectorCoordinator.swift in Sources */,
 				187B46652600A71A00D7D5B4 /* FootpathUtilityCoordinator.swift in Sources */,
+				180BEFB7266647E0000AE2E8 /* SeamCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

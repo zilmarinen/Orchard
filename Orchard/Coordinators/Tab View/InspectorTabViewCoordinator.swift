@@ -18,6 +18,7 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         case footpath
         case portal
         case scene
+        case seam
         case stairs
         case surface
         case wall
@@ -62,6 +63,17 @@ class InspectorTabViewCoordinator: Coordinator<InspectorTabViewController> {
         guard let viewController = controller.children[Tab.foliage.rawValue] as? FoliageInspectorViewController else { fatalError("Invalid view controller hierarchy") }
         
         let coordinator = FoliageUtilityCoordinator(controller: viewController)
+        
+        coordinator.parent = self
+        
+        return coordinator
+    }()
+    
+    lazy var seamUtilityCoordinator: SeamUtilityCoordinator = {
+       
+        guard let viewController = controller.children[Tab.seam.rawValue] as? SeamInspectorViewController else { fatalError("Invalid view controller hierarchy") }
+        
+        let coordinator = SeamUtilityCoordinator(controller: viewController)
         
         coordinator.parent = self
         
@@ -212,6 +224,12 @@ extension InspectorTabViewCoordinator {
         case .scene:
             
             start(child: sceneInspectorCoordinator, with: nil)
+            
+        case .seam:
+            
+            guard let object = object as? SeamUtilityCoordinator.ViewState else { return }
+            
+            start(child: seamUtilityCoordinator, with: object)
             
         case .stairs:
             

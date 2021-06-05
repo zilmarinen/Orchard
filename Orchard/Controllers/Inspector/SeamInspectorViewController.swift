@@ -1,0 +1,103 @@
+//
+//  SeamInspectorViewController.swift
+//
+//  Created by Zack Brown on 01/06/2021.
+//
+
+import Cocoa
+import Meadow
+
+class SeamInspectorViewController: NSViewController {
+    
+    @IBOutlet weak var gridBox: NSBox!
+    @IBOutlet weak var nodeBox: NSBox!
+    @IBOutlet weak var buildBox: NSBox!
+    @IBOutlet weak var segueBox: NSBox!
+    
+    @IBOutlet weak var nodeCountLabel: NSTextField!
+    
+    @IBOutlet weak var gridRenderingButton: NSButton!
+    @IBOutlet weak var nodeRenderingButton: NSButton!
+    
+    @IBOutlet weak var buildDirectionPopUp: NSPopUpButton! {
+        
+        didSet {
+            
+            buildDirectionPopUp.removeAllItems()
+            
+            for option in Cardinal.allCases {
+                
+                buildDirectionPopUp.addItem(withTitle: option.description)
+            }
+        }
+    }
+    
+    @IBOutlet weak var nodeCoordinateView: CoordinateView! {
+        
+        didSet {
+            
+            nodeCoordinateView.isEnabled = false
+        }
+    }
+    
+    @IBOutlet weak var inspectorIdentifierLabel: NSTextField! {
+        
+        didSet {
+            
+            inspectorIdentifierLabel.delegate = self
+        }
+    }
+    
+    @IBOutlet weak var buildIdentifierLabel: NSTextField! {
+        
+        didSet {
+            
+            buildIdentifierLabel.delegate = self
+        }
+    }
+    
+    @IBOutlet weak var segueSceneLabel: NSTextField! {
+        
+        didSet {
+            
+            segueSceneLabel.delegate = self
+        }
+    }
+    
+    @IBOutlet weak var segueIdentifierLabel: NSTextField! {
+        
+        didSet {
+            
+            segueIdentifierLabel.delegate = self
+        }
+    }
+    
+    @IBAction func button(_ sender: NSButton) {
+        
+        coordinator?.button(button: sender)
+    }
+    
+    @IBAction func popUp(_ sender: NSPopUpButton) {
+        
+        coordinator?.popUp(popUp: sender)
+    }
+    
+    weak var coordinator: SeamCoordinator?
+    
+    override func viewWillAppear() {
+        
+        super.viewWillAppear()
+        
+        coordinator?.refresh()
+    }
+}
+
+extension SeamInspectorViewController: NSTextFieldDelegate {
+    
+    func controlTextDidChange(_ obj: Notification) {
+        
+        guard let textField = obj.object as? NSTextField else { return }
+        
+        coordinator?.textField(textField: textField)
+    }
+}

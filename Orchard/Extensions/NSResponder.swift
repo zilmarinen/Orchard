@@ -27,4 +27,6 @@ import SpriteKit
         
         return map
     }
+    
+    func export() throws { try responder?.export() }
 }

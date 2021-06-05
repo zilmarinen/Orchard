@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Harvest
 import Meadow
 
 class WindowCoordinator: Coordinator<WindowController> {
@@ -65,5 +66,28 @@ extension WindowCoordinator {
     override func toggle(splitView panel: SplitViewController.Panel) {
      
         splitViewCoordinator.controller.toggle(splitView: panel)
+    }
+    
+    override func export() throws {
+        
+        guard let scene = splitViewCoordinator.spriteView?.scene as? Scene2D else { return }
+        
+        let panel = NSSavePanel()
+
+        panel.canCreateDirectories = true
+        panel.prompt = "Export"
+        panel.title = "Export"
+        panel.nameFieldStringValue = "\(scene.harvest.identifier).\(Document.Constants.sceneGraphFileType)"
+        
+        panel.begin { (response) in
+            
+            guard response == .OK, let url = panel.url else { return }
+            
+            let encoder = JSONEncoder()
+            
+            let sceneGraph = try? encoder.encode(scene.harvest)
+            
+            try? sceneGraph?.write(to: url, options: .atomic)
+        }
     }
 }

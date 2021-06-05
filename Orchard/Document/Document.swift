@@ -14,7 +14,8 @@ class Document: NSDocument {
         
         static let windowIndentifier = NSStoryboard.SceneIdentifier("WindowController")
         
-        static let sceneGraphWrapperIdentifier = "scene.graph"
+        static let sceneGraphFileName = "scene"
+        static let sceneGraphFileType = "graph"
     }
     
     let coordinator: WindowCoordinator
@@ -46,7 +47,7 @@ class Document: NSDocument {
 
     override func read(from fileWrapper: FileWrapper, ofType typeName: String) throws {
         
-        guard let sceneGraph = fileWrapper.fileWrappers?.first(where: { $0.key == Constants.sceneGraphWrapperIdentifier })?.value.regularFileContents else { throw NSError(domain: NSOSStatusErrorDomain, code: readErr, userInfo: nil) }
+        guard let sceneGraph = fileWrapper.fileWrappers?.first(where: { $0.key == "\(Constants.sceneGraphFileName).\(Constants.sceneGraphFileType)" })?.value.regularFileContents else { throw NSError(domain: NSOSStatusErrorDomain, code: readErr, userInfo: nil) }
         
         let decoder = JSONDecoder()
         
@@ -63,7 +64,7 @@ class Document: NSDocument {
         
         let sceneGraph = try encoder.encode(scene.harvest)
         
-        wrappers[Constants.sceneGraphWrapperIdentifier] = FileWrapper(regularFileWithContents: sceneGraph)
+        wrappers["\(Constants.sceneGraphFileName).\(Constants.sceneGraphFileType)"] = FileWrapper(regularFileWithContents: sceneGraph)
         
         return FileWrapper(directoryWithFileWrappers: wrappers)
     }

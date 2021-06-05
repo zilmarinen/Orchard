@@ -1,14 +1,14 @@
 //
-//  PortalBuildCoordinator.swift
+//  SeamStitchCoordinator.swift
 //
-//  Created by Zack Brown on 16/03/2021.
+//  Created by Zack Brown on 01/06/2021.
 //
 
 import Cocoa
 import Harvest
 import Meadow
 
-class PortalBuildCoordinator: PortalCoordinator, MouseObservable {
+class SeamStitchCoordinator: SeamCoordinator, MouseObservable {
     
     var mouseObserver: UUID?
     
@@ -37,22 +37,18 @@ class PortalBuildCoordinator: PortalCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let portals = editor?.harvest.portals else { return }
+        guard let seams = editor?.harvest.seams else { return }
         
-        controller.gridRenderingButton.state = portals.isHidden ? .off : .on
-        controller.nodeCountLabel.integerValue = portals.chunks.count
+        controller.gridRenderingButton.state = seams.isHidden ? .off : .on
+        controller.nodeCountLabel.integerValue = seams.chunks.count
                  
         controller.nodeBox.isHidden = true
         controller.buildBox.isHidden = false
-        controller.segueBox.isHidden = true
-        
-        guard let portalType = PortalType(rawValue: self.controller.buildTypePopUp.indexOfSelectedItem) else { return }
-        
-        controller.segueBox.isHidden = portalType == .spawn
+        controller.segueBox.isHidden = false
     }
 }
 
-extension PortalBuildCoordinator {
+extension SeamStitchCoordinator {
     
     func stateDidChange(from previousState: SpriteView.MouseState?, to currentState: SpriteView.MouseState) {
         
@@ -61,7 +57,6 @@ extension PortalBuildCoordinator {
             guard let self = self,
                   let spriteView = self.spriteView,
                   let map = spriteView.scene as? Scene2D,
-                  let portalType = PortalType(rawValue: self.controller.buildTypePopUp.indexOfSelectedItem),
                   let direction = Cardinal(rawValue: self.controller.buildDirectionPopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
@@ -69,18 +64,17 @@ extension PortalBuildCoordinator {
             case .up(let position, let clickType):
                 
                 let startHit = map.hitTest(point: position.start)
+                let endHit = map.hitTest(point: position.end)
                 
                 switch clickType {
                 
                 case .right:
-                    
-                    let endHit = map.hitTest(point: position.end)
-                    
+                
                     let bounds = GridBounds(start: startHit, end: endHit)
-                    
+                
                     bounds.enumerate(y: 0) { coordinate in
-                        
-                        map.harvest.portals.remove(chunk: coordinate)
+                    
+                        map.harvest.seams.remove(tile: coordinate)
                     }
                     
                 default:
@@ -89,20 +83,14 @@ extension PortalBuildCoordinator {
                     let segueScene = self.controller.segueSceneLabel.stringValue
                     let segueIdentifier = self.controller.segueIdentifierLabel.stringValue
                     
-                    guard !identifier.isEmpty else { return }
+                    guard !identifier.isEmpty,
+                          !segueScene.isEmpty,
+                          !segueIdentifier.isEmpty else { return }
                     
-                    if portalType == .portal {
+                    _ = map.harvest.seams.add(seam: startHit) { seam in
                         
-                        guard !segueScene.isEmpty,
-                              !segueIdentifier.isEmpty else { return }
-                    }
-                    
-                    guard let surfaceTile = map.harvest.surface.find(tile: startHit) else { return }
-                    
-                    _ = map.harvest.portals.add(portal: portalType, coordinate: surfaceTile.coordinate) { portal in
-                        
-                        portal.identifier = identifier
-                        portal.segue = PortalSegue(direction: direction, scene: segueScene, identifier: segueIdentifier)
+                        seam.identifier = identifier
+                        seam.segue = PortalSegue(direction: direction, scene: segueScene, identifier: segueIdentifier)
                     }
                 }
                 

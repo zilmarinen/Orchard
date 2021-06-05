@@ -15,6 +15,11 @@ class WindowController: NSWindowController {
     
     weak var coordinator: WindowCoordinator?
     
+    @IBAction func menuItem(_ sender: NSMenuItem) {
+            
+        try? coordinator?.export()
+    }
+    
     @IBAction func segmentedControl(_ sender: NSSegmentedControl) {
         
         guard let state = coordinator?.splitViewCoordinator.sceneCoordinator.viewModel.state else { return }

@@ -18,6 +18,8 @@ class BridgeInspectorViewController: NSViewController {
     @IBOutlet weak var gridRenderingButton: NSButton!
     @IBOutlet weak var nodeRenderingButton: NSButton!
     
+    @IBOutlet weak var directionLabel: NSTextFieldCell!
+    
     @IBOutlet weak var inspectorTypePopUp: NSPopUpButton! {
         
         didSet {

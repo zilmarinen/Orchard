@@ -15,6 +15,7 @@ import Cocoa
     @IBOutlet weak var footpathButton: NSButton!
     @IBOutlet weak var portalButton: NSButton!
     @IBOutlet weak var sceneButton: NSButton!
+    @IBOutlet weak var seamButton: NSButton!
     @IBOutlet weak var stairsButton: NSButton!
     @IBOutlet weak var surfaceButton: NSButton!
     @IBOutlet weak var wallButton: NSButton!
@@ -47,6 +48,10 @@ import Cocoa
     @IBOutlet var portalMenu: NSMenu!
     @IBOutlet weak var portalInspectorItem: NSMenuItem!
     @IBOutlet weak var portalBuildItem: NSMenuItem!
+    
+    @IBOutlet var seamMenu: NSMenu!
+    @IBOutlet weak var seamInspectorItem: NSMenuItem!
+    @IBOutlet weak var seamStitchItem: NSMenuItem!
     
     @IBOutlet var surfaceMenu: NSMenu!
     @IBOutlet weak var surfaceInspectorItem: NSMenuItem!
@@ -95,6 +100,10 @@ import Cocoa
         case sceneButton:
             
             coordinator?.toggle(inspector: .scene, with: nil)
+            
+        case seamButton:
+            
+            NSMenu.popUpContextMenu(seamMenu, with: event, for: sender)
             
         case stairsButton:
             
@@ -180,6 +189,16 @@ import Cocoa
             
             coordinator?.toggle(inspector: .portal, with: PortalUtilityCoordinator.ViewState.build)
             
+        case seamInspectorItem:
+            
+            guard let node = coordinator?.editor?.harvest.seams.tiles.first else { return }
+            
+            coordinator?.toggle(inspector: .seam, with: SeamUtilityCoordinator.ViewState.inspector(node: node))
+            
+        case seamStitchItem:
+            
+            coordinator?.toggle(inspector: .seam, with: SeamUtilityCoordinator.ViewState.stitch)
+            
         case stairsInspectorItem:
             
             guard let node = coordinator?.editor?.harvest.stairs.chunks.first else { return }
@@ -246,6 +265,7 @@ extension ToolbarViewController {
         footpathButton.contentTintColor = nil
         portalButton.contentTintColor = nil
         sceneButton.contentTintColor = nil
+        seamButton.contentTintColor = nil
         stairsButton.contentTintColor = nil
         surfaceButton.contentTintColor = nil
         wallButton.contentTintColor = nil
@@ -260,6 +280,7 @@ extension ToolbarViewController {
         case .footpath: footpathButton.contentTintColor = .systemPink
         case .portal: portalButton.contentTintColor = .systemPink
         case .scene: sceneButton.contentTintColor = .systemPink
+        case .seam: seamButton.contentTintColor = .systemPink
         case .stairs: stairsButton.contentTintColor = .systemPink
         case .surface: surfaceButton.contentTintColor = .systemPink
         case .wall: wallButton.contentTintColor = .systemPink
