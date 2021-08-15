@@ -31,15 +31,41 @@ class WallInspectorViewController: NSViewController {
         }
     }
     
+    @IBOutlet weak var inspectorMaterialPopUp: NSPopUpButton! {
+        
+        didSet {
+            
+            inspectorMaterialPopUp.removeAllItems()
+            
+            for option in WallTileMaterial.allCases {
+                
+                inspectorMaterialPopUp.addItem(withTitle: option.id.capitalized)
+            }
+        }
+    }
+    
     @IBOutlet weak var buildTypePopUp: NSPopUpButton! {
         
         didSet {
             
             buildTypePopUp.removeAllItems()
             
-            for option in FoliageType.allCases {
+            for option in WallTileType.allCases {
                 
                 buildTypePopUp.addItem(withTitle: option.description)
+            }
+        }
+    }
+    
+    @IBOutlet weak var buildMaterialPopUp: NSPopUpButton! {
+        
+        didSet {
+            
+            buildMaterialPopUp.removeAllItems()
+            
+            for option in WallTileMaterial.allCases {
+                
+                buildMaterialPopUp.addItem(withTitle: option.id.capitalized)
             }
         }
     }
@@ -71,5 +97,3 @@ class WallInspectorViewController: NSViewController {
         coordinator?.refresh()
     }
 }
-
-

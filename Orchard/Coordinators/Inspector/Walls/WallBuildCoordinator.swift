@@ -18,6 +18,9 @@ class WallBuildCoordinator: WallCoordinator, MouseObservable {
         
         subscribeToMouseEvents(tracksIdleEvents: true)
         
+        editor?.harvest.surface.overlay = .none
+        editor?.harvest.walls.overlay = .type
+        
         guard controller.isViewLoaded else { return }
         
         refresh()
@@ -26,6 +29,9 @@ class WallBuildCoordinator: WallCoordinator, MouseObservable {
     override func stop(then completion: CoordinatorCompletionBlock?) {
         
         unsubscribeFromMouseEvents()
+        
+        editor?.harvest.surface.overlay = .elevation
+        editor?.harvest.walls.overlay = .none
         
         super.stop(then: completion)
     }
@@ -50,7 +56,8 @@ extension WallBuildCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Scene2D else { return }
+                  let map = spriteView.scene as? Scene2D,
+                  let material = WallTileMaterial(rawValue: self.controller.buildMaterialPopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
             
@@ -60,6 +67,8 @@ extension WallBuildCoordinator {
                 let endHit = map.hitTest(point: position.end)
                 
                 let bounds = GridBounds(start: startHit, end: endHit)
+                
+                let tileType = WallTileType.allCases[self.controller.buildTypePopUp.indexOfSelectedItem]
                 
                 bounds.enumerate(y: 0) { coordinate in
                     
@@ -71,15 +80,11 @@ extension WallBuildCoordinator {
                         
                     default:
                         
-                        guard let surfaceTile = map.harvest.surface.find(tile: endHit) else { return }
-                        
-//                        let footprint = Footprint(coordinate: surfaceTile.coordinate, rotation: .north, size: 2)
-//
-//                        guard map.meadow.foliage.find(chunk: footprint) == nil,
-//                              map.meadow.buildings.find(chunk: footprint) == nil,
-//                              map.meadow.portals.find(chunk: footprint) == nil else { return }
-//
-//                        _ = map.meadow.buildings.add(chunk: footprint)
+                        _ = map.harvest.walls.add(tile: coordinate) { wall in
+                            
+                            wall.tileType = tileType
+                            wall.material = material
+                        }
                     }
                 }
                 
@@ -90,4 +95,3 @@ extension WallBuildCoordinator {
         }
     }
 }
-

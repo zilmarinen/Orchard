@@ -2,12 +2,12 @@
   "object": {
     "pins": [
       {
-        "package": "Meadow",
-        "repositoryURL": "git@bitbucket.org:scriptorchard/meadow.git",
+        "package": "Euclid",
+        "repositoryURL": "https://github.com/nicklockwood/Euclid.git",
         "state": {
-          "branch": "feature/rewrite",
-          "revision": "5f2a96b4b0da4a870f73465869f10a92ad85e5b7",
-          "version": null
+          "branch": null,
+          "revision": "2accfd5ed005ee5ef4812ab2ea630bbb9d76286e",
+          "version": "0.5.2"
         }
       }
     ]

@@ -26,7 +26,7 @@ class StairsInspectorViewController: NSViewController {
             
             for option in StairType.allCases {
                 
-                inspectorTypePopUp.addItem(withTitle: option.description)
+                inspectorTypePopUp.addItem(withTitle: option.id.capitalized)
             }
         }
     }
@@ -39,7 +39,33 @@ class StairsInspectorViewController: NSViewController {
             
             for option in StairType.allCases {
                 
-                buildTypePopUp.addItem(withTitle: option.description)
+                buildTypePopUp.addItem(withTitle: option.id.capitalized)
+            }
+        }
+    }
+    
+    @IBOutlet weak var inspectorMaterialPopUp: NSPopUpButton! {
+        
+        didSet {
+            
+            inspectorMaterialPopUp.removeAllItems()
+            
+            for option in StairMaterial.allCases {
+                
+                inspectorMaterialPopUp.addItem(withTitle: option.id.capitalized)
+            }
+        }
+    }
+    
+    @IBOutlet weak var buildMaterialPopUp: NSPopUpButton! {
+        
+        didSet {
+            
+            buildMaterialPopUp.removeAllItems()
+            
+            for option in StairMaterial.allCases {
+                
+                buildMaterialPopUp.addItem(withTitle: option.id.capitalized)
             }
         }
     }
@@ -67,16 +93,6 @@ class StairsInspectorViewController: NSViewController {
                 
                 buildDirectionPopUp.addItem(withTitle: option.description)
             }
-        }
-    }
-    
-    @IBOutlet weak var elevationStepper: NumberStepper! {
-        
-        didSet {
-            
-            elevationStepper.minimumValue = 1
-            elevationStepper.maximumValue = 2
-            elevationStepper.integerValue = 1
         }
     }
     

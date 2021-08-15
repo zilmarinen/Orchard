@@ -36,7 +36,7 @@ class StairsBuildCoordinator: StairsCoordinator, MouseObservable {
         
         controller.gridRenderingButton.state = stairs.isHidden ? .off : .on
         controller.nodeCountLabel.integerValue = stairs.chunks.count
-                 
+        
         controller.nodeBox.isHidden = true
         controller.buildBox.isHidden = false
     }
@@ -51,7 +51,9 @@ extension StairsBuildCoordinator {
             guard let self = self,
                   let spriteView = self.spriteView,
                   let map = spriteView.scene as? Scene2D,
-                  let direction = Cardinal(rawValue: self.controller.buildDirectionPopUp.indexOfSelectedItem) else { return }
+                  let rotation = Cardinal(rawValue: self.controller.buildDirectionPopUp.indexOfSelectedItem),
+                  let tileType = StairType(rawValue: self.controller.buildTypePopUp.indexOfSelectedItem),
+                  let material = StairMaterial(rawValue: self.controller.buildMaterialPopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
             
@@ -73,19 +75,9 @@ extension StairsBuildCoordinator {
                     
                 default:
                     
-                    guard let startSurfaceTile = map.harvest.surface.find(tile: startHit),
-                          let endSurfaceTile = map.harvest.surface.find(tile: endHit),
-                          startSurfaceTile.coordinate.y == endSurfaceTile.coordinate.y else { return }
+                    guard let surfaceTile = map.harvest.surface.find(tile: startHit) else { return }
                     
-                    let bounds = GridBounds(start: startSurfaceTile.coordinate, end: endSurfaceTile.coordinate)
-                    
-                    let elevation = self.controller.elevationStepper.integerValue
-                    
-                    _ = map.harvest.stairs.add(stairs: bounds) { stairs in
-                        
-                        stairs.direction = direction
-                        stairs.elevation = elevation
-                    }
+                    _ = map.harvest.stairs.add(stairs: surfaceTile.coordinate, rotation: rotation, tileType: tileType, material: material)
                 }
                 
             default: break

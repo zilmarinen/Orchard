@@ -71,14 +71,12 @@ extension WallInspectorCoordinator {
                 
                 let hit = map.hitTest(point: position.end)
                 
-                guard let node = map.harvest.bridges.find(chunk: hit) else { return }
+                guard let node = map.harvest.walls.find(tile: hit) else { return }
                 
-                self.toggle(inspector: .surface, with: BridgeUtilityCoordinator.ViewState.inspector(node: node))
+                self.toggle(inspector: .wall, with: WallUtilityCoordinator.ViewState.inspector(node: node))
                 
             default: break
             }
         }
     }
 }
-
-

@@ -34,7 +34,6 @@
 		18534C9726077E9400500535 /* WaterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18534C9626077E9400500535 /* WaterViewModel.swift */; };
 		1859140A2558105A003618DB /* NumberStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185914092558105A003618DB /* NumberStepper.swift */; };
 		185F87D32556FA84008BFF30 /* CoordinateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F87D22556FA84008BFF30 /* CoordinateView.swift */; };
-		18652F3B264C0696009A0C8E /* GridPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18652F3A264C0696009A0C8E /* GridPattern.swift */; };
 		18671C80260784A800949BC4 /* SurfaceEdgeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18671C7F260784A800949BC4 /* SurfaceEdgeCoordinator.swift */; };
 		1870D16F2555434C00B39F8C /* SurfaceInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870D16E2555434C00B39F8C /* SurfaceInspectorViewController.swift */; };
 		1870D1722555437600B39F8C /* SurfaceInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870D1712555437600B39F8C /* SurfaceInspectorCoordinator.swift */; };
@@ -138,7 +137,6 @@
 		18534C9626077E9400500535 /* WaterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterViewModel.swift; sourceTree = "<group>"; };
 		185914092558105A003618DB /* NumberStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberStepper.swift; sourceTree = "<group>"; };
 		185F87D22556FA84008BFF30 /* CoordinateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateView.swift; sourceTree = "<group>"; };
-		18652F3A264C0696009A0C8E /* GridPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridPattern.swift; sourceTree = "<group>"; };
 		18671C7F260784A800949BC4 /* SurfaceEdgeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceEdgeCoordinator.swift; sourceTree = "<group>"; };
 		1870D16E2555434C00B39F8C /* SurfaceInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceInspectorViewController.swift; sourceTree = "<group>"; };
 		1870D1712555437600B39F8C /* SurfaceInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceInspectorCoordinator.swift; sourceTree = "<group>"; };
@@ -269,16 +267,16 @@
 		1807F85325542DF3008388DC /* Inspector */ = {
 			isa = PBXGroup;
 			children = (
-				180BEFB5266647C1000AE2E8 /* Seams */,
 				1883768B2610AFBD008BFEC2 /* Actors */,
 				18942CB12613033300F93728 /* Bridges */,
 				187B463E25FF5BF800D7D5B4 /* Buildings */,
-				18942CCE2613090100F93728 /* Stairs */,
 				187B462325FF497000D7D5B4 /* Foliage */,
 				187B46592600A63B00D7D5B4 /* Footpaths */,
 				180FDD0225F7A94C007A208C /* InspectorCoordinator.swift */,
 				18C9E2882600EAB500343B27 /* Portals */,
 				1870D177255543AB00B39F8C /* SceneInspectorCoordinator.swift */,
+				180BEFB5266647C1000AE2E8 /* Seams */,
+				18942CCE2613090100F93728 /* Stairs */,
 				18AFB91825FA4DC300C1B847 /* Surface */,
 				1838E49F26189A2B00E24C44 /* Walls */,
 				18534C8626077D9900500535 /* Water */,
@@ -545,7 +543,6 @@
 				1808EBDE2553F60E00484BEC /* NSResponder.swift */,
 				1833179F257E20CE001CC0A3 /* NSStoryboard.swift */,
 				1809A8E2263701E0008DCA82 /* Harvest.swift */,
-				18652F3A264C0696009A0C8E /* GridPattern.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -731,7 +728,6 @@
 				187B463C25FF5BDE00D7D5B4 /* BuildingInspectorViewController.swift in Sources */,
 				187B462125FF48D800D7D5B4 /* FoliageInspectorViewController.swift in Sources */,
 				18FB3842255178ED0036CA95 /* SceneViewController.swift in Sources */,
-				18652F3B264C0696009A0C8E /* GridPattern.swift in Sources */,
 				187B462525FF498200D7D5B4 /* FoliageInspectorCoordinator.swift in Sources */,
 				1838E4AE26189A9900E24C44 /* WallInspectorViewController.swift in Sources */,
 				1883769C2610B072008BFEC2 /* ActorInspectorCoordinator.swift in Sources */,

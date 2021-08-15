@@ -52,7 +52,8 @@ class StairsInspectorCoordinator: StairsCoordinator, MouseObservable {
         
         controller.nodeRenderingButton.state = tile.isHidden ? .off : .on
         controller.nodeCoordinateView.coordinate = tile.coordinate
-        controller.inspectorTypePopUp.selectItem(at: tile.stairType.rawValue)
+        controller.inspectorTypePopUp.selectItem(at: tile.tileType.rawValue)
+        controller.inspectorMaterialPopUp.selectItem(at: tile.material.rawValue)
         controller.inspectorDirectionPopUp.selectItem(at: tile.footprint.rotation.rawValue)
     }
 }
@@ -73,14 +74,12 @@ extension StairsInspectorCoordinator {
                 
                 let hit = map.hitTest(point: position.end)
                 
-                guard let node = map.harvest.bridges.find(chunk: hit) else { return }
+                guard let node = map.harvest.stairs.find(chunk: hit) else { return }
                 
-                self.toggle(inspector: .surface, with: BridgeUtilityCoordinator.ViewState.inspector(node: node))
+                self.toggle(inspector: .stairs, with: StairsUtilityCoordinator.ViewState.inspector(node: node))
                 
             default: break
             }
         }
     }
 }
-
-
