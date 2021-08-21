@@ -18,6 +18,9 @@ class BridgeBuildCoordinator: BridgeCoordinator, MouseObservable {
         
         subscribeToMouseEvents(tracksIdleEvents: true)
         
+        editor?.harvest.surface.overlay = .none
+        editor?.harvest.bridges.overlay = .pattern
+        
         guard controller.isViewLoaded else { return }
         
         refresh()
@@ -27,6 +30,9 @@ class BridgeBuildCoordinator: BridgeCoordinator, MouseObservable {
         
         unsubscribeFromMouseEvents()
         
+        editor?.harvest.surface.overlay = .elevation
+        editor?.harvest.bridges.overlay = .none
+        
         super.stop(then: completion)
     }
     
@@ -35,9 +41,9 @@ class BridgeBuildCoordinator: BridgeCoordinator, MouseObservable {
         guard let bridges = editor?.harvest.bridges else { return }
         
         controller.gridRenderingButton.state = bridges.isHidden ? .off : .on
-        controller.nodeCountLabel.integerValue = bridges.chunks.count
+        controller.chunkCountLabel.integerValue = bridges.chunks.count
                  
-        controller.nodeBox.isHidden = true
+        controller.tileBox.isHidden = true
         controller.buildBox.isHidden = false
     }
 }
@@ -50,7 +56,8 @@ extension BridgeBuildCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Scene2D else { return }
+                  let map = spriteView.scene as? Scene2D,
+                  let material = BridgeMaterial(rawValue: self.controller.buildMaterialPopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
             
@@ -59,26 +66,25 @@ extension BridgeBuildCoordinator {
                 let startHit = map.hitTest(point: position.start)
                 let endHit = map.hitTest(point: position.end)
                 
-                switch clickType {
+                guard let surfaceTile = map.harvest.surface.find(tile: startHit) else { return }
                 
-                case .right:
+                let bounds = GridBounds(start: startHit, end: endHit)
+                
+                bounds.enumerate(y: surfaceTile.coordinate.y) { coordinate in
+                 
+                    switch clickType {
                     
-                    let bounds = GridBounds(start: startHit, end: endHit)
-                    
-                    bounds.enumerate(y: 0) { coordinate in
-                     
-                        map.harvest.bridges.remove(chunk: coordinate)
+                    case .right:
+                        
+                        map.harvest.bridges.remove(tile: coordinate)
+                        
+                    default:
+                        
+                        _ = map.harvest.bridges.add(tile: coordinate) { bridge in
+                            
+                            bridge.material = material
+                        }
                     }
-                    
-                default:
-                    
-                    guard let startSurfaceTile = map.harvest.surface.find(tile: startHit),
-                          let endSurfaceTile = map.harvest.surface.find(tile: endHit),
-                          startSurfaceTile.coordinate.y == endSurfaceTile.coordinate.y else { return }
-                    
-                    let bounds = GridBounds(start: startSurfaceTile.coordinate, end: endSurfaceTile.coordinate)
-                    
-                    _ = map.harvest.bridges.add(bridge: bounds)
                 }
                 
             default: break

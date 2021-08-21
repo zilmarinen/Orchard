@@ -26,7 +26,7 @@ class BuildingInspectorViewController: NSViewController {
             
             for option in BuildingType.allCases {
                 
-                inspectorTypePopUp.addItem(withTitle: option.description)
+                inspectorTypePopUp.addItem(withTitle: option.id.replacingOccurrences(of: "_", with: " ").capitalized)
             }
         }
     }
@@ -39,7 +39,7 @@ class BuildingInspectorViewController: NSViewController {
             
             for option in BuildingType.allCases {
                 
-                buildTypePopUp.addItem(withTitle: option.description)
+                buildTypePopUp.addItem(withTitle: option.id.replacingOccurrences(of: "_", with: " ").capitalized)
             }
         }
     }

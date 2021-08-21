@@ -12,7 +12,7 @@ class BridgeInspectorCoordinator: BridgeCoordinator, MouseObservable {
     
     var mouseObserver: UUID?
     
-    weak var chunk: BridgeChunk2D?
+    weak var tile: BridgeTile2D?
     
     override func start(with option: StartOption?) {
         
@@ -23,7 +23,7 @@ class BridgeInspectorCoordinator: BridgeCoordinator, MouseObservable {
         guard let option = option as? BridgeUtilityCoordinator.ViewState,
               case let .inspector(node) = option else { return }
         
-        chunk = node
+        tile = node
         
         guard controller.isViewLoaded else { return }
         
@@ -32,7 +32,7 @@ class BridgeInspectorCoordinator: BridgeCoordinator, MouseObservable {
     
     override func stop(then completion: CoordinatorCompletionBlock?) {
         
-        chunk = nil
+        tile = nil
         
         unsubscribeFromMouseEvents()
         
@@ -42,17 +42,16 @@ class BridgeInspectorCoordinator: BridgeCoordinator, MouseObservable {
     override func refresh() {
         
         guard let buildings = editor?.harvest.buildings,
-              let chunk = chunk else { return }
+              let tile = tile else { return }
         
         controller.gridRenderingButton.state = buildings.isHidden ? .off : .on
-        controller.nodeCountLabel.integerValue = buildings.chunks.count
+        controller.chunkCountLabel.integerValue = buildings.chunks.count
                  
-        controller.nodeBox.isHidden = false
+        controller.tileBox.isHidden = false
         controller.buildBox.isHidden = true
         
-        controller.nodeRenderingButton.state = chunk.isHidden ? .off : .on
-        controller.nodeCoordinateView.coordinate = chunk.footprint.coordinate
-        controller.directionLabel.stringValue = "\(chunk.direction.description) - \(chunk.direction.opposite.description)"
+        controller.tileRenderingButton.state = tile.isHidden ? .off : .on
+        controller.nodeCoordinateView.coordinate = tile.coordinate
     }
 }
 
@@ -72,7 +71,7 @@ extension BridgeInspectorCoordinator {
                 
                 let hit = map.hitTest(point: position.end)
                 
-                guard let node = map.harvest.bridges.find(chunk: hit) else { return }
+                guard let node = map.harvest.bridges.find(tile: hit) else { return }
                 
                 self.toggle(inspector: .bridge, with: BridgeUtilityCoordinator.ViewState.inspector(node: node))
                 
@@ -81,5 +80,3 @@ extension BridgeInspectorCoordinator {
         }
     }
 }
-
-

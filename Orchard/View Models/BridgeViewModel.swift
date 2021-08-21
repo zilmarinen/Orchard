@@ -13,7 +13,7 @@ extension BridgeUtilityCoordinator {
     enum ViewState: State, StartOption {
         
         case empty
-        case inspector(node: BridgeChunk2D)
+        case inspector(node: BridgeTile2D)
         case build
         
         public func shouldTransition(to newState: ViewState) -> Should<ViewState> {

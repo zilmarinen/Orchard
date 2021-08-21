@@ -10,38 +10,37 @@ import Meadow
 class BridgeInspectorViewController: NSViewController {
     
     @IBOutlet weak var gridBox: NSBox!
-    @IBOutlet weak var nodeBox: NSBox!
+    @IBOutlet weak var tileBox: NSBox!
     @IBOutlet weak var buildBox: NSBox!
     
-    @IBOutlet weak var nodeCountLabel: NSTextField!
+    @IBOutlet weak var chunkCountLabel: NSTextField!
+    @IBOutlet weak var neighbourCountLabel: NSTextField!
     
     @IBOutlet weak var gridRenderingButton: NSButton!
-    @IBOutlet weak var nodeRenderingButton: NSButton!
+    @IBOutlet weak var tileRenderingButton: NSButton!
     
-    @IBOutlet weak var directionLabel: NSTextFieldCell!
-    
-    @IBOutlet weak var inspectorTypePopUp: NSPopUpButton! {
+    @IBOutlet weak var inspectorMaterialPopUp: NSPopUpButton! {
         
         didSet {
             
-            inspectorTypePopUp.removeAllItems()
+            inspectorMaterialPopUp.removeAllItems()
             
-            for option in FoliageType.allCases {
+            for option in BridgeMaterial.allCases {
                 
-                inspectorTypePopUp.addItem(withTitle: option.description)
+                inspectorMaterialPopUp.addItem(withTitle: option.id.capitalized)
             }
         }
     }
     
-    @IBOutlet weak var buildTypePopUp: NSPopUpButton! {
+    @IBOutlet weak var buildMaterialPopUp: NSPopUpButton! {
         
         didSet {
             
-            buildTypePopUp.removeAllItems()
+            buildMaterialPopUp.removeAllItems()
             
-            for option in FoliageType.allCases {
+            for option in BridgeMaterial.allCases {
                 
-                buildTypePopUp.addItem(withTitle: option.description)
+                buildMaterialPopUp.addItem(withTitle: option.id.capitalized)
             }
         }
     }
@@ -73,4 +72,3 @@ class BridgeInspectorViewController: NSViewController {
         coordinator?.refresh()
     }
 }
-

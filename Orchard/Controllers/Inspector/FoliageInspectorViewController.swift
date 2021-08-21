@@ -26,7 +26,7 @@ class FoliageInspectorViewController: NSViewController {
             
             for option in FoliageType.allCases {
                 
-                inspectorTypePopUp.addItem(withTitle: option.description)
+                inspectorTypePopUp.addItem(withTitle: option.id.capitalized)
             }
         }
     }
@@ -39,7 +39,7 @@ class FoliageInspectorViewController: NSViewController {
             
             for option in FoliageType.allCases {
                 
-                plantTypePopUp.addItem(withTitle: option.description)
+                plantTypePopUp.addItem(withTitle: option.id.capitalized)
             }
         }
     }

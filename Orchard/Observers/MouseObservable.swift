@@ -25,8 +25,6 @@ extension MouseObservable {
         spriteView.mouseObserver.tracksIdleEvents = tracksIdleEvents
         
         mouseObserver = spriteView.mouseObserver.subscribe(stateDidChange(from:to:))
-        
-        print("\(self) subscribing to mouse observer")
     }
     
     func unsubscribeFromMouseEvents() {
@@ -36,7 +34,5 @@ extension MouseObservable {
         
         spriteView.mouseObserver.tracksIdleEvents = false
         spriteView.mouseObserver.unsubscribe(mouseObserver)
-        
-        print("\(self) unsubscribing from mouse observer")
     }
 }

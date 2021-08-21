@@ -72,12 +72,13 @@ extension SurfaceMaterialCoordinator {
                     case .right:
                         
                         map.harvest.actors.remove(actor: coordinate)
-                        map.harvest.bridges.remove(chunk: coordinate)
+                        map.harvest.bridges.remove(tile: coordinate)
                         map.harvest.buildings.remove(chunk: coordinate)
                         map.harvest.foliage.remove(chunk: coordinate)
                         map.harvest.footpath.remove(tile: coordinate)
                         map.harvest.stairs.remove(chunk: coordinate)
                         map.harvest.surface.remove(tile: coordinate)
+                        map.harvest.walls.remove(tile: coordinate)
                         map.harvest.water.remove(tile: coordinate)
                         
                     default:

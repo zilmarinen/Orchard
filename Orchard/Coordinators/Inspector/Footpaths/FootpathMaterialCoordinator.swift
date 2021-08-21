@@ -18,6 +18,9 @@ class FootpathMaterialCoordinator: FootpathCoordinator, MouseObservable {
         
         subscribeToMouseEvents(tracksIdleEvents: true)
         
+        editor?.harvest.surface.overlay = .none
+        editor?.harvest.footpath.overlay = .pattern
+        
         guard controller.isViewLoaded else { return }
         
         refresh()
@@ -26,6 +29,9 @@ class FootpathMaterialCoordinator: FootpathCoordinator, MouseObservable {
     override func stop(then completion: CoordinatorCompletionBlock?) {
         
         unsubscribeFromMouseEvents()
+        
+        editor?.harvest.surface.overlay = .elevation
+        editor?.harvest.footpath.overlay = .none
         
         super.stop(then: completion)
     }

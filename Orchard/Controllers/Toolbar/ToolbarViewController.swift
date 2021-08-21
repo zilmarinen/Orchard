@@ -141,7 +141,7 @@ import Cocoa
             
         case bridgeInspectorItem:
             
-            guard let node = coordinator?.editor?.harvest.bridges.chunks.first else { return }
+            guard let node = coordinator?.editor?.harvest.bridges.tiles.first else { return }
             
             coordinator?.toggle(inspector: .bridge, with: BridgeUtilityCoordinator.ViewState.inspector(node: node))
             

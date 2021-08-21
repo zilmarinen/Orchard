@@ -26,7 +26,7 @@ class WallInspectorViewController: NSViewController {
             
             for option in FoliageType.allCases {
                 
-                inspectorTypePopUp.addItem(withTitle: option.description)
+                inspectorTypePopUp.addItem(withTitle: option.id.capitalized)
             }
         }
     }
