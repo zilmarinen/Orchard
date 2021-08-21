@@ -77,7 +77,7 @@ extension WindowCoordinator {
         panel.canCreateDirectories = true
         panel.prompt = "Export"
         panel.title = "Export"
-        panel.nameFieldStringValue = "\(scene.harvest.identifier).\(Document.Constants.sceneGraphFileType)"
+        panel.nameFieldStringValue = "\(scene.map.identifier).\(Document.Constants.sceneGraphFileType)"
         
         panel.begin { (response) in
             
@@ -85,7 +85,7 @@ extension WindowCoordinator {
             
             let encoder = JSONEncoder()
             
-            let sceneGraph = try? encoder.encode(scene.harvest)
+            let sceneGraph = try? encoder.encode(scene.map)
             
             try? sceneGraph?.write(to: url, options: .atomic)
         }

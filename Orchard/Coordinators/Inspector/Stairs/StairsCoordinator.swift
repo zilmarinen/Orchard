@@ -29,7 +29,7 @@ class StairsCoordinator: Coordinator<StairsInspectorViewController> {
         
         case controller.gridRenderingButton:
             
-            editor?.harvest.stairs.isHidden = button.state == .off
+            editor?.map.stairs.isHidden = button.state == .off
             
         default: break
         }

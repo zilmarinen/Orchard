@@ -41,7 +41,7 @@ class BuildingInspectorCoordinator: BuildingCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let buildings = editor?.harvest.buildings,
+        guard let buildings = editor?.map.buildings,
               let chunk = chunk else { return }
         
         controller.gridRenderingButton.state = buildings.isHidden ? .off : .on
@@ -63,15 +63,15 @@ extension BuildingInspectorCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Scene2D else { return }
+                  let scene = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
             case .up(let position, _):
                 
-                let hit = map.hitTest(point: position.end)
+                let hit = scene.hitTest(point: position.end)
                 
-                guard let node = map.harvest.buildings.find(chunk: hit) else { return }
+                guard let node = scene.map.buildings.find(chunk: hit) else { return }
                 
                 self.toggle(inspector: .surface, with: BuildingUtilityCoordinator.ViewState.inspector(node: node))
                 

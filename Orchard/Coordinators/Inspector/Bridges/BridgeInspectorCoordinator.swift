@@ -41,7 +41,7 @@ class BridgeInspectorCoordinator: BridgeCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let buildings = editor?.harvest.buildings,
+        guard let buildings = editor?.map.buildings,
               let tile = tile else { return }
         
         controller.gridRenderingButton.state = buildings.isHidden ? .off : .on
@@ -63,15 +63,15 @@ extension BridgeInspectorCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Scene2D else { return }
+                  let scene = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
             case .up(let position, _):
                 
-                let hit = map.hitTest(point: position.end)
+                let hit = scene.hitTest(point: position.end)
                 
-                guard let node = map.harvest.bridges.find(tile: hit) else { return }
+                guard let node = scene.map.bridges.find(tile: hit) else { return }
                 
                 self.toggle(inspector: .bridge, with: BridgeUtilityCoordinator.ViewState.inspector(node: node))
                 

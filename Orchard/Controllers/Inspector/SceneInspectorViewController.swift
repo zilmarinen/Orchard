@@ -63,11 +63,11 @@ extension SceneInspectorViewController: NSTextFieldDelegate {
         
         case sceneNameLabel:
             
-            scene.harvest.name = sender.stringValue
+            scene.map.name = sender.stringValue
             
         case sceneIdentifierLabel:
             
-            scene.harvest.identifier = sender.stringValue
+            scene.map.identifier = sender.stringValue
             
         default: break
         }

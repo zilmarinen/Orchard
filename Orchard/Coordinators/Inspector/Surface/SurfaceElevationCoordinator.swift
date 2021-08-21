@@ -18,7 +18,7 @@ class SurfaceElevationCoordinator: SurfaceCoordinator, MouseObservable {
         
         subscribeToMouseEvents(tracksIdleEvents: true)
         
-        editor?.harvest.surface.overlay = .elevation
+        editor?.map.surface.overlay = .elevation
         
         guard controller.isViewLoaded else { return }
         
@@ -29,14 +29,14 @@ class SurfaceElevationCoordinator: SurfaceCoordinator, MouseObservable {
         
         unsubscribeFromMouseEvents()
         
-        editor?.harvest.surface.overlay = .material
+        editor?.map.surface.overlay = .material
         
         super.stop(then: completion)
     }
     
     override func refresh() {
         
-        guard let surface = editor?.harvest.surface else { return }
+        guard let surface = editor?.map.surface else { return }
         
         controller.gridRenderingButton.state = surface.isHidden ? .off : .on
         controller.chunkCountLabel.integerValue = surface.chunks.count
@@ -56,24 +56,24 @@ extension SurfaceElevationCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Scene2D else { return }
+                  let scene = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
             case .up(let position, _):
                 
-                let startHit = map.hitTest(point: position.start)
-                let endHit = map.hitTest(point: position.end)
+                let startHit = scene.hitTest(point: position.start)
+                let endHit = scene.hitTest(point: position.end)
                 
                 let bounds = GridBounds(start: startHit, end: endHit)
                 
                 bounds.enumerate(y: 0) { coordinate in
                     
-                    guard let tile = map.harvest.surface.find(tile: coordinate) else { return }
+                    guard let tile = scene.map.surface.find(tile: coordinate) else { return }
                     
                     tile.coordinate = Coordinate(x: coordinate.x, y: self.controller.elevationLayerStepper.integerValue, z: coordinate.z)
                     
-                    if let footpathTile = map.harvest.footpath.find(tile: coordinate) {
+                    if let footpathTile = scene.map.footpath.find(tile: coordinate) {
                         
                         footpathTile.coordinate = coordinate
                     }

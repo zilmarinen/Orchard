@@ -32,7 +32,7 @@ class BuildingBuildCoordinator: BuildingCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let buildings = editor?.harvest.buildings else { return }
+        guard let buildings = editor?.map.buildings else { return }
         
         controller.gridRenderingButton.state = buildings.isHidden ? .off : .on
         controller.nodeCountLabel.integerValue = buildings.chunks.count
@@ -50,7 +50,7 @@ extension BuildingBuildCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Scene2D,
+                  let scene = spriteView.scene as? Scene2D,
                   let buildingType = BuildingType(rawValue: self.controller.buildTypePopUp.indexOfSelectedItem),
                   let rotation = Cardinal(rawValue: self.controller.buildRotationPopUp.indexOfSelectedItem) else { return }
             
@@ -58,8 +58,8 @@ extension BuildingBuildCoordinator {
             
             case .up(let position, let clickType):
                 
-                let startHit = map.hitTest(point: position.start)
-                let endHit = map.hitTest(point: position.end)
+                let startHit = scene.hitTest(point: position.start)
+                let endHit = scene.hitTest(point: position.end)
                 
                 switch clickType {
                 
@@ -69,14 +69,14 @@ extension BuildingBuildCoordinator {
                     
                     bounds.enumerate(y: 0) { coordinate in
                      
-                        map.harvest.buildings.remove(chunk: coordinate)
+                        scene.map.buildings.remove(chunk: coordinate)
                     }
                     
                 default:
                     
-                    guard let surfaceTile = map.harvest.surface.find(tile: startHit) else { return }
+                    guard let surfaceTile = scene.map.surface.find(tile: startHit) else { return }
                     
-                    _ = map.harvest.buildings.add(building: surfaceTile.coordinate, rotation: rotation, buildingType: buildingType)
+                    _ = scene.map.buildings.add(building: surfaceTile.coordinate, rotation: rotation, buildingType: buildingType)
                 }
                 
             default: break

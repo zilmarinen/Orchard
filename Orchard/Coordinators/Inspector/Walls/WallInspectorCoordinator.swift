@@ -41,7 +41,7 @@ class WallInspectorCoordinator: WallCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let walls = editor?.harvest.walls,
+        guard let walls = editor?.map.walls,
               let tile = tile else { return }
         
         controller.gridRenderingButton.state = walls.isHidden ? .off : .on
@@ -63,15 +63,15 @@ extension WallInspectorCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Scene2D else { return }
+                  let scene = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
             case .up(let position, _):
                 
-                let hit = map.hitTest(point: position.end)
+                let hit = scene.hitTest(point: position.end)
                 
-                guard let node = map.harvest.walls.find(tile: hit) else { return }
+                guard let node = scene.map.walls.find(tile: hit) else { return }
                 
                 self.toggle(inspector: .wall, with: WallUtilityCoordinator.ViewState.inspector(node: node))
                 

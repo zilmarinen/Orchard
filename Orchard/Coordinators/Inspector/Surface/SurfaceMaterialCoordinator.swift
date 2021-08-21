@@ -32,7 +32,7 @@ class SurfaceMaterialCoordinator: SurfaceCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let surface = editor?.harvest.surface else { return }
+        guard let surface = editor?.map.surface else { return }
         
         controller.gridRenderingButton.state = surface.isHidden ? .off : .on
         controller.chunkCountLabel.integerValue = surface.chunks.count
@@ -52,7 +52,7 @@ extension SurfaceMaterialCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Scene2D,
+                  let scene = spriteView.scene as? Scene2D,
                   let tileType = SurfaceTileType(rawValue: self.controller.materialTypePopUp.indexOfSelectedItem),
                   let edgeType = SurfaceEdgeType(rawValue: self.controller.materialEdgeTypePopUp.indexOfSelectedItem) else { return }
             
@@ -60,8 +60,8 @@ extension SurfaceMaterialCoordinator {
             
             case .up(let position, let clickType):
                 
-                let startHit = map.hitTest(point: position.start)
-                let endHit = map.hitTest(point: position.end)
+                let startHit = scene.hitTest(point: position.start)
+                let endHit = scene.hitTest(point: position.end)
                 
                 let bounds = GridBounds(start: startHit, end: endHit)
                 
@@ -71,19 +71,19 @@ extension SurfaceMaterialCoordinator {
                     
                     case .right:
                         
-                        map.harvest.actors.remove(actor: coordinate)
-                        map.harvest.bridges.remove(tile: coordinate)
-                        map.harvest.buildings.remove(chunk: coordinate)
-                        map.harvest.foliage.remove(chunk: coordinate)
-                        map.harvest.footpath.remove(tile: coordinate)
-                        map.harvest.stairs.remove(chunk: coordinate)
-                        map.harvest.surface.remove(tile: coordinate)
-                        map.harvest.walls.remove(tile: coordinate)
-                        map.harvest.water.remove(tile: coordinate)
+                        scene.map.actors.remove(actor: coordinate)
+                        scene.map.bridges.remove(tile: coordinate)
+                        scene.map.buildings.remove(chunk: coordinate)
+                        scene.map.foliage.remove(chunk: coordinate)
+                        scene.map.footpath.remove(tile: coordinate)
+                        scene.map.stairs.remove(chunk: coordinate)
+                        scene.map.surface.remove(tile: coordinate)
+                        scene.map.walls.remove(tile: coordinate)
+                        scene.map.water.remove(tile: coordinate)
                         
                     default:
                         
-                        guard let tile = map.harvest.surface.add(tile: coordinate) else { break }
+                        guard let tile = scene.map.surface.add(tile: coordinate) else { break }
                         
                         tile.coordinate = coordinate
                         tile.tileType.primary = tileType

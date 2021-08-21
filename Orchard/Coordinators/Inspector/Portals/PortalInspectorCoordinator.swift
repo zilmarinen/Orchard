@@ -41,7 +41,7 @@ class PortalInspectorCoordinator: PortalCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let portals = editor?.harvest.portals,
+        guard let portals = editor?.map.portals,
               let chunk = chunk else { return }
         
         controller.gridRenderingButton.state = portals.isHidden ? .off : .on
@@ -72,15 +72,15 @@ extension PortalInspectorCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Scene2D else { return }
+                  let scene = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
             case .up(let position, _):
                 
-                let hit = map.hitTest(point: position.end)
+                let hit = scene.hitTest(point: position.end)
                 
-                guard let node = map.harvest.portals.find(chunk: hit) else { return }
+                guard let node = scene.map.portals.find(chunk: hit) else { return }
                 
                 self.toggle(inspector: .portal, with: PortalUtilityCoordinator.ViewState.inspector(node: node))
                 

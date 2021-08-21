@@ -91,7 +91,7 @@ class SurfaceInspectorCoordinator: SurfaceCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let surface = editor?.harvest.surface,
+        guard let surface = editor?.map.surface,
               let tile = tile else { return }
         
         controller.gridRenderingButton.state = surface.isHidden ? .off : .on
@@ -117,15 +117,15 @@ extension SurfaceInspectorCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Scene2D else { return }
+                  let scene = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
             case .up(let position, _):
                 
-                let hit = map.hitTest(point: position.end)
+                let hit = scene.hitTest(point: position.end)
                 
-                guard let node = map.harvest.surface.find(tile: hit) else { return }
+                guard let node = scene.map.surface.find(tile: hit) else { return }
                 
                 self.toggle(inspector: .surface, with: SurfaceUtilityCoordinator.ViewState.inspector(node: node))
                 

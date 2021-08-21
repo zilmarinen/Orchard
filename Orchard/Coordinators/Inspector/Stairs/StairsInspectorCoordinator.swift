@@ -41,7 +41,7 @@ class StairsInspectorCoordinator: StairsCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let stairs = editor?.harvest.stairs,
+        guard let stairs = editor?.map.stairs,
               let tile = tile else { return }
         
         controller.gridRenderingButton.state = stairs.isHidden ? .off : .on
@@ -66,15 +66,15 @@ extension StairsInspectorCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Scene2D else { return }
+                  let scene = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
             case .up(let position, _):
                 
-                let hit = map.hitTest(point: position.end)
+                let hit = scene.hitTest(point: position.end)
                 
-                guard let node = map.harvest.stairs.find(chunk: hit) else { return }
+                guard let node = scene.map.stairs.find(chunk: hit) else { return }
                 
                 self.toggle(inspector: .stairs, with: StairsUtilityCoordinator.ViewState.inspector(node: node))
                 

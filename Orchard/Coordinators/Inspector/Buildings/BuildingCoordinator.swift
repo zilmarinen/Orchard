@@ -29,7 +29,7 @@ class BuildingCoordinator: Coordinator<BuildingInspectorViewController> {
         
         case controller.gridRenderingButton:
             
-            editor?.harvest.buildings.isHidden = button.state == .off
+            editor?.map.buildings.isHidden = button.state == .off
             
         default: break
         }

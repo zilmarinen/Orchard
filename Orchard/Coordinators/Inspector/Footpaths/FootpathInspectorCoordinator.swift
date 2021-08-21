@@ -75,7 +75,7 @@ class FootpathInspectorCoordinator: FootpathCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let footpath = editor?.harvest.footpath,
+        guard let footpath = editor?.map.footpath,
               let tile = tile else { return }
         
         controller.gridRenderingButton.state = footpath.isHidden ? .off : .on
@@ -99,15 +99,15 @@ extension FootpathInspectorCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Scene2D else { return }
+                  let scene = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
             case .up(let position, _):
                 
-                let hit = map.hitTest(point: position.end)
+                let hit = scene.hitTest(point: position.end)
                 
-                guard let tile = map.harvest.footpath.find(tile: hit) else { return }
+                guard let tile = scene.map.footpath.find(tile: hit) else { return }
                 
                 self.toggle(inspector: .footpath, with: FootpathUtilityCoordinator.ViewState.inspector(node: tile))
                 

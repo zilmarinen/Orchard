@@ -32,7 +32,7 @@ class StairsBuildCoordinator: StairsCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let stairs = editor?.harvest.stairs else { return }
+        guard let stairs = editor?.map.stairs else { return }
         
         controller.gridRenderingButton.state = stairs.isHidden ? .off : .on
         controller.nodeCountLabel.integerValue = stairs.chunks.count
@@ -50,7 +50,7 @@ extension StairsBuildCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Scene2D,
+                  let scene = spriteView.scene as? Scene2D,
                   let rotation = Cardinal(rawValue: self.controller.buildDirectionPopUp.indexOfSelectedItem),
                   let tileType = StairType(rawValue: self.controller.buildTypePopUp.indexOfSelectedItem),
                   let material = StairMaterial(rawValue: self.controller.buildMaterialPopUp.indexOfSelectedItem) else { return }
@@ -59,8 +59,8 @@ extension StairsBuildCoordinator {
             
             case .up(let position, let clickType):
                 
-                let startHit = map.hitTest(point: position.start)
-                let endHit = map.hitTest(point: position.end)
+                let startHit = scene.hitTest(point: position.start)
+                let endHit = scene.hitTest(point: position.end)
                 
                 switch clickType {
                 
@@ -70,14 +70,14 @@ extension StairsBuildCoordinator {
                     
                     bounds.enumerate(y: 0) { coordinate in
                      
-                        map.harvest.stairs.remove(chunk: coordinate)
+                        scene.map.stairs.remove(chunk: coordinate)
                     }
                     
                 default:
                     
-                    guard let surfaceTile = map.harvest.surface.find(tile: startHit) else { return }
+                    guard let surfaceTile = scene.map.surface.find(tile: startHit) else { return }
                     
-                    _ = map.harvest.stairs.add(stairs: surfaceTile.coordinate, rotation: rotation, tileType: tileType, material: material)
+                    _ = scene.map.stairs.add(stairs: surfaceTile.coordinate, rotation: rotation, tileType: tileType, material: material)
                 }
                 
             default: break

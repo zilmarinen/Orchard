@@ -131,7 +131,7 @@ import Cocoa
         
         case actorInspectorItem:
             
-            guard let node = coordinator?.editor?.harvest.actors.npcs.first else { return }
+            guard let node = coordinator?.editor?.map.actors.npcs.first else { return }
             
             coordinator?.toggle(inspector: .actor, with: ActorUtilityCoordinator.ViewState.inspector(node: node))
             
@@ -141,7 +141,7 @@ import Cocoa
             
         case bridgeInspectorItem:
             
-            guard let node = coordinator?.editor?.harvest.bridges.tiles.first else { return }
+            guard let node = coordinator?.editor?.map.bridges.tiles.first else { return }
             
             coordinator?.toggle(inspector: .bridge, with: BridgeUtilityCoordinator.ViewState.inspector(node: node))
             
@@ -151,7 +151,7 @@ import Cocoa
             
         case buildingInspectorItem:
             
-            guard let node = coordinator?.editor?.harvest.buildings.chunks.first else { return }
+            guard let node = coordinator?.editor?.map.buildings.chunks.first else { return }
             
             coordinator?.toggle(inspector: .building, with: BuildingUtilityCoordinator.ViewState.inspector(node: node))
             
@@ -161,7 +161,7 @@ import Cocoa
         
         case foliageInspectorItem:
             
-            guard let node = coordinator?.editor?.harvest.foliage.chunks.first else { return }
+            guard let node = coordinator?.editor?.map.foliage.chunks.first else { return }
             
             coordinator?.toggle(inspector: .foliage, with: FoliageUtilityCoordinator.ViewState.inspector(node: node))
             
@@ -171,7 +171,7 @@ import Cocoa
             
         case footpathInspectorItem:
             
-            guard let node = coordinator?.editor?.harvest.footpath.tiles.first else { return }
+            guard let node = coordinator?.editor?.map.footpath.tiles.first else { return }
             
             coordinator?.toggle(inspector: .footpath, with: FootpathUtilityCoordinator.ViewState.inspector(node: node))
             
@@ -181,7 +181,7 @@ import Cocoa
             
         case portalInspectorItem:
             
-            guard let node = coordinator?.editor?.harvest.portals.chunks.first else { return }
+            guard let node = coordinator?.editor?.map.portals.chunks.first else { return }
             
             coordinator?.toggle(inspector: .portal, with: PortalUtilityCoordinator.ViewState.inspector(node: node))
             
@@ -191,7 +191,7 @@ import Cocoa
             
         case seamInspectorItem:
             
-            guard let node = coordinator?.editor?.harvest.seams.tiles.first else { return }
+            guard let node = coordinator?.editor?.map.seams.tiles.first else { return }
             
             coordinator?.toggle(inspector: .seam, with: SeamUtilityCoordinator.ViewState.inspector(node: node))
             
@@ -201,7 +201,7 @@ import Cocoa
             
         case stairsInspectorItem:
             
-            guard let node = coordinator?.editor?.harvest.stairs.chunks.first else { return }
+            guard let node = coordinator?.editor?.map.stairs.chunks.first else { return }
             
             coordinator?.toggle(inspector: .stairs, with: StairsUtilityCoordinator.ViewState.inspector(node: node))
             
@@ -211,7 +211,7 @@ import Cocoa
         
         case surfaceInspectorItem:
             
-            guard let node = coordinator?.editor?.harvest.surface.tiles.first else { return }
+            guard let node = coordinator?.editor?.map.surface.tiles.first else { return }
             
             coordinator?.toggle(inspector: .surface, with: SurfaceUtilityCoordinator.ViewState.inspector(node: node))
             
@@ -229,7 +229,7 @@ import Cocoa
             
         case wallInspectorItem:
             
-            guard let node = coordinator?.editor?.harvest.walls.tiles.first else { return }
+            guard let node = coordinator?.editor?.map.walls.tiles.first else { return }
             
             coordinator?.toggle(inspector: .wall, with: WallUtilityCoordinator.ViewState.inspector(node: node))
             
@@ -239,7 +239,7 @@ import Cocoa
             
         case waterInspectorItem:
             
-            guard let node = coordinator?.editor?.harvest.water.tiles.first else { return }
+            guard let node = coordinator?.editor?.map.water.tiles.first else { return }
             
             coordinator?.toggle(inspector: .water, with: WaterUtilityCoordinator.ViewState.inspector(node: node))
             

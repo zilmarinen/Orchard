@@ -18,8 +18,8 @@ class FootpathMaterialCoordinator: FootpathCoordinator, MouseObservable {
         
         subscribeToMouseEvents(tracksIdleEvents: true)
         
-        editor?.harvest.surface.overlay = .none
-        editor?.harvest.footpath.overlay = .pattern
+        editor?.map.surface.overlay = .none
+        editor?.map.footpath.overlay = .pattern
         
         guard controller.isViewLoaded else { return }
         
@@ -30,15 +30,15 @@ class FootpathMaterialCoordinator: FootpathCoordinator, MouseObservable {
         
         unsubscribeFromMouseEvents()
         
-        editor?.harvest.surface.overlay = .elevation
-        editor?.harvest.footpath.overlay = .none
+        editor?.map.surface.overlay = .elevation
+        editor?.map.footpath.overlay = .none
         
         super.stop(then: completion)
     }
     
     override func refresh() {
         
-        guard let footpath = editor?.harvest.footpath else { return }
+        guard let footpath = editor?.map.footpath else { return }
         
         controller.gridRenderingButton.state = footpath.isHidden ? .off : .on
         controller.chunkCountLabel.integerValue = footpath.chunks.count
@@ -56,15 +56,15 @@ extension FootpathMaterialCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Scene2D,
+                  let scene = spriteView.scene as? Scene2D,
                   let tileType = FootpathTileType(rawValue: self.controller.materialTypePopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
             
             case .up(let position, let clickType):
                 
-                let startHit = map.hitTest(point: position.start)
-                let endHit = map.hitTest(point: position.end)
+                let startHit = scene.hitTest(point: position.start)
+                let endHit = scene.hitTest(point: position.end)
                 
                 let bounds = GridBounds(start: startHit, end: endHit)
                 
@@ -74,11 +74,11 @@ extension FootpathMaterialCoordinator {
                     
                     case .right:
                         
-                        map.harvest.footpath.remove(tile: coordinate)
+                        scene.map.footpath.remove(tile: coordinate)
                         
                     default:
                         
-                        _ = map.harvest.footpath.add(tile: coordinate) { tile in 
+                        _ = scene.map.footpath.add(tile: coordinate) { tile in 
                         
                             tile.tileType = tileType
                         }

@@ -41,7 +41,7 @@ class SeamInspectorCoordinator: SeamCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let seams = editor?.harvest.seams,
+        guard let seams = editor?.map.seams,
               let tile = tile else { return }
         
         controller.gridRenderingButton.state = seams.isHidden ? .off : .on
@@ -71,15 +71,15 @@ extension SeamInspectorCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Scene2D else { return }
+                  let scene = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
             case .up(let position, _):
                 
-                let hit = map.hitTest(point: position.end)
+                let hit = scene.hitTest(point: position.end)
                 
-                guard let node = map.harvest.seams.find(tile: hit) else { return }
+                guard let node = scene.map.seams.find(tile: hit) else { return }
                 
                 self.toggle(inspector: .seam, with: SeamUtilityCoordinator.ViewState.inspector(node: node))
                 

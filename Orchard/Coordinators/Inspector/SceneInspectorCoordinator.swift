@@ -38,7 +38,7 @@ extension SceneInspectorCoordinator {
         guard let spriteView = spriteView,
               let scene = spriteView.scene as? Scene2D else { return }
         
-        controller.sceneNameLabel.stringValue = scene.harvest.name ?? ""
-        controller.sceneIdentifierLabel.stringValue = scene.harvest.identifier
+        controller.sceneNameLabel.stringValue = scene.map.name ?? ""
+        controller.sceneIdentifierLabel.stringValue = scene.map.identifier
     }
 }

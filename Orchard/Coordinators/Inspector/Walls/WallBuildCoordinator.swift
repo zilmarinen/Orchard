@@ -18,8 +18,8 @@ class WallBuildCoordinator: WallCoordinator, MouseObservable {
         
         subscribeToMouseEvents(tracksIdleEvents: true)
         
-        editor?.harvest.surface.overlay = .none
-        editor?.harvest.walls.overlay = .type
+        editor?.map.surface.overlay = .none
+        editor?.map.walls.overlay = .type
         
         guard controller.isViewLoaded else { return }
         
@@ -30,15 +30,15 @@ class WallBuildCoordinator: WallCoordinator, MouseObservable {
         
         unsubscribeFromMouseEvents()
         
-        editor?.harvest.surface.overlay = .elevation
-        editor?.harvest.walls.overlay = .none
+        editor?.map.surface.overlay = .elevation
+        editor?.map.walls.overlay = .none
         
         super.stop(then: completion)
     }
     
     override func refresh() {
         
-        guard let buildings = editor?.harvest.buildings else { return }
+        guard let buildings = editor?.map.buildings else { return }
         
         controller.gridRenderingButton.state = buildings.isHidden ? .off : .on
         controller.nodeCountLabel.integerValue = buildings.chunks.count
@@ -56,15 +56,15 @@ extension WallBuildCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Scene2D,
+                  let scene = spriteView.scene as? Scene2D,
                   let material = WallTileMaterial(rawValue: self.controller.buildMaterialPopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
             
             case .up(let position, let clickType):
                 
-                let startHit = map.hitTest(point: position.start)
-                let endHit = map.hitTest(point: position.end)
+                let startHit = scene.hitTest(point: position.start)
+                let endHit = scene.hitTest(point: position.end)
                 
                 let bounds = GridBounds(start: startHit, end: endHit)
                 
@@ -76,11 +76,11 @@ extension WallBuildCoordinator {
                     
                     case .right:
                         
-                        map.harvest.walls.remove(tile: coordinate)
+                        scene.map.walls.remove(tile: coordinate)
                         
                     default:
                         
-                        _ = map.harvest.walls.add(tile: coordinate) { wall in
+                        _ = scene.map.walls.add(tile: coordinate) { wall in
                             
                             wall.tileType = tileType
                             wall.material = material

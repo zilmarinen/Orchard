@@ -29,7 +29,7 @@ class FootpathCoordinator: Coordinator<FootpathInspectorViewController> {
         
         case controller.gridRenderingButton:
             
-            editor?.harvest.footpath.isHidden = button.state == .off
+            editor?.map.footpath.isHidden = button.state == .off
             
         default: break
         }

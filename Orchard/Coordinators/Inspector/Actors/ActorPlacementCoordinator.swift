@@ -32,7 +32,7 @@ class ActorPlacementCoordinator: ActorCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let actors = editor?.harvest.actors else { return }
+        guard let actors = editor?.map.actors else { return }
         
         controller.gridRenderingButton.state = actors.isHidden ? .off : .on
         controller.nodeCountLabel.integerValue = actors.npcs.count
@@ -50,32 +50,32 @@ extension ActorPlacementCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Scene2D else { return }
+                  let scene = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
             case .up(let position, let clickType):
                 
-                let startHit = map.hitTest(point: position.start)
+                let startHit = scene.hitTest(point: position.start)
                 
                 switch clickType {
                 
                 case .right:
                     
-                    let endHit = map.hitTest(point: position.end)
+                    let endHit = scene.hitTest(point: position.end)
                     
                     let bounds = GridBounds(start: startHit, end: endHit)
                     
                     bounds.enumerate(y: 0) { coordinate in
                     
-                        map.harvest.actors.remove(actor: coordinate)
+                        scene.map.actors.remove(actor: coordinate)
                     }
                     
                 default:
                     
-                    guard let surfaceTile = map.harvest.surface.find(tile: startHit) else { return }
+                    guard let surfaceTile = scene.map.surface.find(tile: startHit) else { return }
                     
-                    _ = map.harvest.actors.add(actor: surfaceTile.coordinate) { actor in
+                    _ = scene.map.actors.add(actor: surfaceTile.coordinate) { actor in
                         
                         //TODO: set actor properties
                     }

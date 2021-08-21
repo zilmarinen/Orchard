@@ -37,7 +37,7 @@ class SeamStitchCoordinator: SeamCoordinator, MouseObservable {
     
     override func refresh() {
         
-        guard let seams = editor?.harvest.seams else { return }
+        guard let seams = editor?.map.seams else { return }
         
         controller.gridRenderingButton.state = seams.isHidden ? .off : .on
         controller.nodeCountLabel.integerValue = seams.chunks.count
@@ -56,15 +56,15 @@ extension SeamStitchCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Scene2D,
+                  let scene = spriteView.scene as? Scene2D,
                   let direction = Cardinal(rawValue: self.controller.buildDirectionPopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
             
             case .up(let position, let clickType):
                 
-                let startHit = map.hitTest(point: position.start)
-                let endHit = map.hitTest(point: position.end)
+                let startHit = scene.hitTest(point: position.start)
+                let endHit = scene.hitTest(point: position.end)
                 
                 switch clickType {
                 
@@ -74,7 +74,7 @@ extension SeamStitchCoordinator {
                 
                     bounds.enumerate(y: 0) { coordinate in
                     
-                        map.harvest.seams.remove(tile: coordinate)
+                        scene.map.seams.remove(tile: coordinate)
                     }
                     
                 default:
@@ -87,7 +87,7 @@ extension SeamStitchCoordinator {
                           !segueScene.isEmpty,
                           !segueIdentifier.isEmpty else { return }
                     
-                    _ = map.harvest.seams.add(seam: startHit) { seam in
+                    _ = scene.map.seams.add(seam: startHit) { seam in
                         
                         seam.identifier = identifier
                         seam.segue = PortalSegue(direction: direction, scene: segueScene, identifier: segueIdentifier)

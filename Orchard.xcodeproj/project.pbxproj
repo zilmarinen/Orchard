@@ -10,7 +10,7 @@
 		1807F84125542971008388DC /* InspectorTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F84025542971008388DC /* InspectorTabViewController.swift */; };
 		1807F84C255429C4008388DC /* InspectorTabViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F84B255429C4008388DC /* InspectorTabViewCoordinator.swift */; };
 		1808EBDF2553F60E00484BEC /* NSResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1808EBDE2553F60E00484BEC /* NSResponder.swift */; };
-		1809A8E3263701E0008DCA82 /* Harvest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1809A8E2263701E0008DCA82 /* Harvest.swift */; };
+		1809A8E3263701E0008DCA82 /* Map2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1809A8E2263701E0008DCA82 /* Map2D.swift */; };
 		180BEFB42666479E000AE2E8 /* SeamInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180BEFB32666479E000AE2E8 /* SeamInspectorViewController.swift */; };
 		180BEFB7266647E0000AE2E8 /* SeamCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180BEFB6266647E0000AE2E8 /* SeamCoordinator.swift */; };
 		180BEFB9266647ED000AE2E8 /* SeamUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180BEFB8266647ED000AE2E8 /* SeamUtilityCoordinator.swift */; };
@@ -113,7 +113,7 @@
 		1807F84025542971008388DC /* InspectorTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorTabViewController.swift; sourceTree = "<group>"; };
 		1807F84B255429C4008388DC /* InspectorTabViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorTabViewCoordinator.swift; sourceTree = "<group>"; };
 		1808EBDE2553F60E00484BEC /* NSResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSResponder.swift; sourceTree = "<group>"; };
-		1809A8E2263701E0008DCA82 /* Harvest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Harvest.swift; sourceTree = "<group>"; };
+		1809A8E2263701E0008DCA82 /* Map2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map2D.swift; sourceTree = "<group>"; };
 		180BEFB32666479E000AE2E8 /* SeamInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamInspectorViewController.swift; sourceTree = "<group>"; };
 		180BEFB6266647E0000AE2E8 /* SeamCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamCoordinator.swift; sourceTree = "<group>"; };
 		180BEFB8266647ED000AE2E8 /* SeamUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamUtilityCoordinator.swift; sourceTree = "<group>"; };
@@ -542,7 +542,7 @@
 			children = (
 				1808EBDE2553F60E00484BEC /* NSResponder.swift */,
 				1833179F257E20CE001CC0A3 /* NSStoryboard.swift */,
-				1809A8E2263701E0008DCA82 /* Harvest.swift */,
+				1809A8E2263701E0008DCA82 /* Map2D.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -741,7 +741,7 @@
 				18942CDD261309E500F93728 /* StairsViewModel.swift in Sources */,
 				187B46682600A72500D7D5B4 /* FootpathInspectorCoordinator.swift in Sources */,
 				1870D16F2555434C00B39F8C /* SurfaceInspectorViewController.swift in Sources */,
-				1809A8E3263701E0008DCA82 /* Harvest.swift in Sources */,
+				1809A8E3263701E0008DCA82 /* Map2D.swift in Sources */,
 				18814F8225838D2D004689E5 /* KeyboardObserver.swift in Sources */,
 				18FB383B255177AC0036CA95 /* SplitViewCoordinator.swift in Sources */,
 				1883769F2610B089008BFEC2 /* ActorPlacementCoordinator.swift in Sources */,

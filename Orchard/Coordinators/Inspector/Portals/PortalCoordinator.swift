@@ -29,7 +29,7 @@ class PortalCoordinator: Coordinator<PortalInspectorViewController> {
         
         case controller.gridRenderingButton:
             
-            editor?.harvest.portals.isHidden = button.state == .off
+            editor?.map.portals.isHidden = button.state == .off
             
         default: break
         }

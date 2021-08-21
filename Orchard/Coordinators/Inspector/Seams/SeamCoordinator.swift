@@ -29,7 +29,7 @@ class SeamCoordinator: Coordinator<SeamInspectorViewController> {
         
         case controller.gridRenderingButton:
             
-            editor?.harvest.seams.isHidden = button.state == .off
+            editor?.map.seams.isHidden = button.state == .off
             
         default: break
         }

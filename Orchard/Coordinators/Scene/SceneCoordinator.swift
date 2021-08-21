@@ -43,13 +43,13 @@ class SceneCoordinator: Coordinator<SceneViewController> {
               let sceneView = sceneView,
               let device = sceneView.device else { fatalError("Invalid start option") }
         
-        sceneView.library = try? device.makeDefaultLibrary(bundle: Meadow.bundle)
+        sceneView.library = try? device.makeDefaultLibrary(bundle: Map.bundle)
         
         spriteView.ignoresSiblingOrder = true
         
-        if let harvest = option as? Harvest {
+        if let map = option as? Map2D {
             
-            let scene = Scene2D(size: Constants.size, harvest: harvest)
+            let scene = Scene2D(size: Constants.size, map: map)
             
             scene.isPaused = false
             
@@ -65,25 +65,7 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         
             spriteView.presentScene(scene)
             
-            _ = scene.harvest.surface.add(tile: .zero)
-//
-//            let size = 32
-//            let halfSize = size / 2
-//            let y = Int(World.Constants.ceiling / 2)
-//
-//            for x in -halfSize...halfSize {
-//
-//                for z in -halfSize...halfSize {
-//
-//                    _ = scene.harvest.surface.add(tile: Coordinate(x: x, y: y, z: z)) { tile in
-//
-//                        if tile.coordinate.x == 0 && tile.coordinate.z == 0 {
-//
-//                            tile.tileType = .init(primary: .grass, secondary: .grass)
-//                        }
-//                    }
-//                }
-//            }
+            _ = scene.map.surface.add(tile: .zero)
         }
     }
 }
@@ -124,14 +106,14 @@ extension SceneCoordinator {
             
         case .meadow:
             
-            guard let map = spriteView.scene as? Scene2D else { return }
+            guard let scene = spriteView.scene as? Scene2D else { return }
             
             let decoder = JSONDecoder()
             let encoder = JSONEncoder()
             
             do {
             
-                let data = try encoder.encode(map)
+                let data = try encoder.encode(scene)
                 
                 let scene = try decoder.decode(Scene.self, from: data)
                 
@@ -144,7 +126,7 @@ extension SceneCoordinator {
             }
             
             sceneView.isHidden = false
-            sceneView.backgroundColor = map.backgroundColor
+            sceneView.backgroundColor = scene.backgroundColor
             sceneView.allowsCameraControl = true
             
             spriteView.isHidden = true

@@ -18,7 +18,7 @@ class WaterMaterialCoordinator: WaterCoordinator, MouseObservable {
         
         subscribeToMouseEvents(tracksIdleEvents: true)
         
-        editor?.harvest.water.overlay = .elevation
+        editor?.map.water.overlay = .elevation
         
         guard controller.isViewLoaded else { return }
         
@@ -29,14 +29,14 @@ class WaterMaterialCoordinator: WaterCoordinator, MouseObservable {
         
         unsubscribeFromMouseEvents()
         
-        editor?.harvest.water.overlay = .none
+        editor?.map.water.overlay = .none
         
         super.stop(then: completion)
     }
     
     override func refresh() {
         
-        guard let water = editor?.harvest.water else { return }
+        guard let water = editor?.map.water else { return }
         
         controller.gridRenderingButton.state = water.isHidden ? .off : .on
         controller.chunkCountLabel.integerValue = water.chunks.count
@@ -54,15 +54,15 @@ extension WaterMaterialCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let map = spriteView.scene as? Scene2D,
+                  let scene = spriteView.scene as? Scene2D,
                   let tileType = WaterTileType(rawValue: self.controller.materialTypePopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
             
             case .up(let position, let clickType):
                 
-                let startHit = map.hitTest(point: position.start)
-                let endHit = map.hitTest(point: position.end)
+                let startHit = scene.hitTest(point: position.start)
+                let endHit = scene.hitTest(point: position.end)
                 
                 let bounds = GridBounds(start: startHit, end: endHit)
                 
@@ -72,11 +72,11 @@ extension WaterMaterialCoordinator {
                     
                     case .right:
                         
-                        map.harvest.water.remove(tile: coordinate)
+                        scene.map.water.remove(tile: coordinate)
                         
                     default:
                         
-                        _ = map.harvest.water.add(tile: coordinate) { tile in
+                        _ = scene.map.water.add(tile: coordinate) { tile in
                         
                             tile.tileType = tileType
                             tile.coordinate = coordinate
