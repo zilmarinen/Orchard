@@ -51,7 +51,6 @@ extension StairsBuildCoordinator {
             guard let self = self,
                   let spriteView = self.spriteView,
                   let scene = spriteView.scene as? Scene2D,
-                  let rotation = Cardinal(rawValue: self.controller.buildDirectionPopUp.indexOfSelectedItem),
                   let tileType = StairType(rawValue: self.controller.buildTypePopUp.indexOfSelectedItem),
                   let material = StairMaterial(rawValue: self.controller.buildMaterialPopUp.indexOfSelectedItem) else { return }
             
@@ -76,6 +75,8 @@ extension StairsBuildCoordinator {
                 default:
                     
                     guard let surfaceTile = scene.map.surface.find(tile: startHit) else { return }
+                    
+                    let rotation = Cardinal.allCases[self.controller.buildDirectionPopUp.indexOfSelectedItem]
                     
                     _ = scene.map.stairs.add(stairs: surfaceTile.coordinate, rotation: rotation, tileType: tileType, material: material)
                 }

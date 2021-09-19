@@ -61,8 +61,7 @@ extension PortalBuildCoordinator {
             guard let self = self,
                   let spriteView = self.spriteView,
                   let scene = spriteView.scene as? Scene2D,
-                  let portalType = PortalType(rawValue: self.controller.buildTypePopUp.indexOfSelectedItem),
-                  let direction = Cardinal(rawValue: self.controller.buildDirectionPopUp.indexOfSelectedItem) else { return }
+                  let portalType = PortalType(rawValue: self.controller.buildTypePopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
             
@@ -98,6 +97,8 @@ extension PortalBuildCoordinator {
                     }
                     
                     guard let surfaceTile = scene.map.surface.find(tile: startHit) else { return }
+                    
+                    let direction = Cardinal.allCases[self.controller.buildDirectionPopUp.indexOfSelectedItem]
                     
                     _ = scene.map.portals.add(portal: portalType, coordinate: surfaceTile.coordinate) { portal in
                         

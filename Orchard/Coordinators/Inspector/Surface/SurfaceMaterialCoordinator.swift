@@ -53,8 +53,8 @@ extension SurfaceMaterialCoordinator {
             guard let self = self,
                   let spriteView = self.spriteView,
                   let scene = spriteView.scene as? Scene2D,
-                  let tileType = SurfaceTileType(rawValue: self.controller.materialTypePopUp.indexOfSelectedItem),
-                  let edgeType = SurfaceEdgeType(rawValue: self.controller.materialEdgeTypePopUp.indexOfSelectedItem) else { return }
+                  let tileType = SurfaceTileType(rawValue: self.controller.buildTileTypePopUp.indexOfSelectedItem),
+                  let surfaceType = SurfaceType(rawValue: self.controller.buildSurfaceTypePopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
             
@@ -86,8 +86,9 @@ extension SurfaceMaterialCoordinator {
                         guard let tile = scene.map.surface.add(tile: coordinate) else { break }
                         
                         tile.coordinate = coordinate
-                        tile.tileType.primary = tileType
-                        tile.edgeType = edgeType
+                        tile.tileType = tileType
+                        tile.material = SurfaceMaterial(rawValue: self.controller.buildMaterialPopUp.indexOfSelectedItem)
+                        tile.surfaceType = surfaceType
                         
                         //TODO: adjust elevation of other grid tiles
                     }

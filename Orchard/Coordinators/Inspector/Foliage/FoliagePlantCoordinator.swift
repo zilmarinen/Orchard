@@ -51,8 +51,7 @@ extension FoliagePlantCoordinator {
             guard let self = self,
                   let spriteView = self.spriteView,
                   let scene = spriteView.scene as? Scene2D,
-                  let foliageType = FoliageType(rawValue: self.controller.plantTypePopUp.indexOfSelectedItem),
-                  let rotation = Cardinal(rawValue: self.controller.plantRotationPopUp.indexOfSelectedItem) else { return }
+                  let foliageType = FoliageType(rawValue: self.controller.plantTypePopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
             
@@ -75,6 +74,8 @@ extension FoliagePlantCoordinator {
                 default:
                     
                     guard let surfaceTile = scene.map.surface.find(tile: startHit) else { return }
+                    
+                    let rotation = Cardinal.allCases[self.controller.plantRotationPopUp.indexOfSelectedItem]
                     
                     _ = scene.map.foliage.add(foliage: foliageType, coordinate: surfaceTile.coordinate, rotation: rotation)
                 }

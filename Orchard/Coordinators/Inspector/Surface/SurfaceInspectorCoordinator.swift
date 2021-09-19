@@ -79,11 +79,17 @@ class SurfaceInspectorCoordinator: SurfaceCoordinator, MouseObservable {
         
         switch popUp {
         
-        case controller.inspectorTypePopUp:
+        case controller.inspectorTileTypePopUp:
             
             guard let tileType = SurfaceTileType(rawValue: popUp.indexOfSelectedItem) else { return }
             
-            tile.tileType.primary = tileType
+            tile.tileType = tileType
+            
+        case controller.inspectorMaterialPopUp:
+            
+            guard let material = SurfaceMaterial(rawValue: popUp.indexOfSelectedItem) else { return }
+            
+            tile.material = material
             
         default: break
         }
@@ -105,7 +111,9 @@ class SurfaceInspectorCoordinator: SurfaceCoordinator, MouseObservable {
         controller.neighbourCountLabel.integerValue = tile.neighbours.count
         controller.tileRenderingButton.state = tile.isHidden ? .off : .on
         controller.tileCoordinateView.coordinate = tile.coordinate
-        controller.inspectorTypePopUp.selectItem(at: tile.tileType.primary.rawValue)
+        controller.inspectorTileTypePopUp.selectItem(at: tile.tileType.rawValue)
+        
+        controller.inspectorMaterialPopUp.selectItem(at: tile.material?.rawValue ?? SurfaceMaterial.allCases.count)
     }
 }
 

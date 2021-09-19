@@ -57,7 +57,7 @@ extension SurfaceEdgeCoordinator {
             guard let self = self,
                   let spriteView = self.spriteView,
                   let scene = spriteView.scene as? Scene2D,
-                  let edgeType = SurfaceEdgeType(rawValue: self.controller.edgeTypePopUp.indexOfSelectedItem) else { return }
+                  let surfaceType = SurfaceType(rawValue: self.controller.surfaceTypePopUp.indexOfSelectedItem) else { return }
             
             switch currentState {
             
@@ -72,7 +72,7 @@ extension SurfaceEdgeCoordinator {
                     
                     guard let tile = scene.map.surface.find(tile: coordinate) else { return }
                     
-                    tile.edgeType = edgeType
+                    tile.surfaceType = surfaceType
                 }
                 
             default: break

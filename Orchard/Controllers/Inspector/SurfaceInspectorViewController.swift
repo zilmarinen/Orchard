@@ -21,29 +21,61 @@ class SurfaceInspectorViewController: NSViewController {
     @IBOutlet weak var gridRenderingButton: NSButton!
     @IBOutlet weak var tileRenderingButton: NSButton!
     
-    @IBOutlet weak var inspectorTypePopUp: NSPopUpButton! {
+    @IBOutlet weak var inspectorTileTypePopUp: NSPopUpButton! {
         
         didSet {
             
-            inspectorTypePopUp.removeAllItems()
+            inspectorTileTypePopUp.removeAllItems()
             
             for option in SurfaceTileType.allCases {
                 
-                inspectorTypePopUp.addItem(withTitle: option.description)
+                inspectorTileTypePopUp.addItem(withTitle: option.description)
             }
         }
     }
     
-    @IBOutlet weak var materialTypePopUp: NSPopUpButton! {
+    @IBOutlet weak var buildTileTypePopUp: NSPopUpButton! {
         
         didSet {
             
-            materialTypePopUp.removeAllItems()
+            buildTileTypePopUp.removeAllItems()
             
             for option in SurfaceTileType.allCases {
                 
-                materialTypePopUp.addItem(withTitle: option.description)
+                buildTileTypePopUp.addItem(withTitle: option.description)
             }
+        }
+    }
+    
+    @IBOutlet weak var inspectorMaterialPopUp: NSPopUpButton! {
+        
+        didSet {
+            
+            inspectorMaterialPopUp.removeAllItems()
+            
+            for option in SurfaceMaterial.allCases {
+                
+                inspectorMaterialPopUp.addItem(withTitle: option.description)
+            }
+            
+            inspectorMaterialPopUp.addItem(withTitle: "None")
+            inspectorMaterialPopUp.selectItem(at: inspectorMaterialPopUp.numberOfItems - 1)
+        }
+    }
+    
+    @IBOutlet weak var buildMaterialPopUp: NSPopUpButton! {
+        
+        didSet {
+            
+            buildMaterialPopUp.removeAllItems()
+            
+            for option in SurfaceMaterial.allCases {
+                
+                buildMaterialPopUp.addItem(withTitle: option.description)
+            }
+            
+            buildMaterialPopUp.addItem(withTitle: "None")
+            buildMaterialPopUp.selectItem(at: buildMaterialPopUp.numberOfItems - 1)
         }
     }
     
@@ -86,28 +118,28 @@ class SurfaceInspectorViewController: NSViewController {
         }
     }
     
-    @IBOutlet weak var materialEdgeTypePopUp: NSPopUpButton! {
+    @IBOutlet weak var buildSurfaceTypePopUp: NSPopUpButton! {
         
         didSet {
             
-            materialEdgeTypePopUp.removeAllItems()
+            buildSurfaceTypePopUp.removeAllItems()
             
-            for option in SurfaceEdgeType.allCases {
+            for option in SurfaceType.allCases {
                 
-                materialEdgeTypePopUp.addItem(withTitle: option.description)
+                buildSurfaceTypePopUp.addItem(withTitle: option.description)
             }
         }
     }
     
-    @IBOutlet weak var edgeTypePopUp: NSPopUpButton! {
+    @IBOutlet weak var surfaceTypePopUp: NSPopUpButton! {
         
         didSet {
             
-            edgeTypePopUp.removeAllItems()
+            surfaceTypePopUp.removeAllItems()
             
-            for option in SurfaceEdgeType.allCases {
+            for option in SurfaceType.allCases {
                 
-                edgeTypePopUp.addItem(withTitle: option.description)
+                surfaceTypePopUp.addItem(withTitle: option.description)
             }
         }
     }

@@ -56,8 +56,7 @@ extension SeamStitchCoordinator {
             
             guard let self = self,
                   let spriteView = self.spriteView,
-                  let scene = spriteView.scene as? Scene2D,
-                  let direction = Cardinal(rawValue: self.controller.buildDirectionPopUp.indexOfSelectedItem) else { return }
+                  let scene = spriteView.scene as? Scene2D else { return }
             
             switch currentState {
             
@@ -86,6 +85,8 @@ extension SeamStitchCoordinator {
                     guard !identifier.isEmpty,
                           !segueScene.isEmpty,
                           !segueIdentifier.isEmpty else { return }
+                    
+                    let direction = Cardinal.allCases[self.controller.buildDirectionPopUp.indexOfSelectedItem]
                     
                     _ = scene.map.seams.add(seam: startHit) { seam in
                         

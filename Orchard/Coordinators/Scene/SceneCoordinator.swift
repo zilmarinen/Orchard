@@ -5,6 +5,7 @@
 //
 
 import Cocoa
+import Euclid
 import Harvest
 import Meadow
 import SpriteKit
@@ -39,11 +40,7 @@ class SceneCoordinator: Coordinator<SceneViewController> {
         
         super.start(with: option)
         
-        guard let spriteView = spriteView,
-              let sceneView = sceneView,
-              let device = sceneView.device else { fatalError("Invalid start option") }
-        
-        sceneView.library = try? device.makeDefaultLibrary(bundle: Map.bundle)
+        guard let spriteView = spriteView else { fatalError("Invalid start option") }
         
         spriteView.ignoresSiblingOrder = true
         
@@ -61,7 +58,7 @@ class SceneCoordinator: Coordinator<SceneViewController> {
             let scene = Scene2D(size: Constants.size)
         
             scene.isPaused = false
-            scene.backgroundColor = Color(red: 0.91, green: 0.91, blue: 0.91).color
+            scene.backgroundColor = Color(0.91,0.91,0.91).osColor
         
             spriteView.presentScene(scene)
             
@@ -106,19 +103,30 @@ extension SceneCoordinator {
             
         case .meadow:
             
-            guard let scene = spriteView.scene as? Scene2D else { return }
+            guard let scene2D = spriteView.scene as? Scene2D else { return }
             
             let decoder = JSONDecoder()
             let encoder = JSONEncoder()
             
             do {
             
-                let data = try encoder.encode(scene)
+                let data = try encoder.encode(scene2D.map)
                 
-                let scene = try decoder.decode(Scene.self, from: data)
+                let map = try decoder.decode(Map.self, from: data)
+                
+                let scene = MDWScene(map: map)
                 
                 sceneView.scene = scene
                 sceneView.delegate = scene
+                
+                let device = MTLCreateSystemDefaultDevice()
+                
+                scene.library = try? device?.makeDefaultLibrary(bundle: Map.bundle)
+                
+                if let spawn = scene.map.portals.find(portal: .spawn) {
+                    
+                    scene.protagonist.controller.spawn(at: spawn.coordinate)
+                }
             }
             catch {
                 
@@ -126,7 +134,7 @@ extension SceneCoordinator {
             }
             
             sceneView.isHidden = false
-            sceneView.backgroundColor = scene.backgroundColor
+            sceneView.backgroundColor = .black
             sceneView.allowsCameraControl = true
             
             spriteView.isHidden = true
