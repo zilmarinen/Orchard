@@ -9,38 +9,42 @@ import SwiftUI
 
 struct StairTool: View {
     
-    @ObservedObject private(set) var model: AppViewModel
+    let tool: Tool
     
-    @State private(set) var toolModel: StairToolModel
+    @ObservedObject private(set) var appModel: AppViewModel
     
-    init(model: AppViewModel, tool: Tool) {
+    @ObservedObject private(set) var toolModel: StairToolModel
+    
+    init(tool: Tool, appModel: AppViewModel) {
         
-        self.model = model
-        self.toolModel = StairToolModel(tool: tool, rendering: !model.harvest.map.stairs.isHidden)
+        self.tool = tool
+        self.appModel = appModel
+        self.toolModel = appModel.toolModel.stairModel
+        
+        toolModel.rendering = !(appModel.editorModel.harvest?.map.stairs.isHidden ?? false)
     }
     
     var body: some View {
         
         ToolPropertySection {
             
-            ToolPropertyGroup(model: .init(title: toolModel.tool.id.capitalized, imageName: toolModel.tool.imageName, badge: model.badge(for: toolModel.tool))) {
+            ToolPropertyGroup(model: .init(title: tool.id.capitalized, imageName: tool.imageName, badge: appModel.badge(for: tool))) {
                 
-                ToolPropertyView(title: "Rendering", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Rendering", color: tool.color) {
                     
                     Toggle("Rendering", isOn: $toolModel.rendering)
                         .onChange(of: toolModel.rendering) { _ in
                             
-                            model.harvest.map.stairs.isHidden = !toolModel.rendering
+                            appModel.editorModel.harvest?.map.stairs.isHidden = !toolModel.rendering
                         }
                 }
             }
         }
         
         ToolPropertySection {
-            
             ToolPropertyGroup(model: .init(title: "Material")) {
                 
-                ToolPropertyView(title: "Material", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Material", color: tool.color) {
                     
                     Picker("Material", selection: $toolModel.material) {
                         
@@ -51,7 +55,7 @@ struct StairTool: View {
                     }
                 }
                 
-                ToolPropertyView(title: "Type", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Type", color: tool.color) {
                     
                     Picker("Type", selection: $toolModel.stairType) {
                         
@@ -62,7 +66,7 @@ struct StairTool: View {
                     }
                 }
                 
-                ToolPropertyView(title: "Direction", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Direction", color: tool.color) {
                     
                     Picker("Direction", selection: $toolModel.direction) {
                         

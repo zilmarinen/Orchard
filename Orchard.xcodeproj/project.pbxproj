@@ -33,8 +33,10 @@
 		185039872709C2520075EB9A /* ToolPropertyGroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185039862709C2520075EB9A /* ToolPropertyGroupModel.swift */; };
 		185039892709D5C70075EB9A /* BushTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185039882709D5C70075EB9A /* BushTool.swift */; };
 		1850398B2709D5F80075EB9A /* RockTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1850398A2709D5F70075EB9A /* RockTool.swift */; };
+		1857748A270B60140040C79E /* EditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18577489270B60140040C79E /* EditorViewModel.swift */; };
 		187948F02708A7DF001C705C /* SeamTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187948EF2708A7DF001C705C /* SeamTool.swift */; };
 		188BFA542708C7BC00A65F9C /* Segue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BFA532708C7BC00A65F9C /* Segue.swift */; };
+		18A7B48F270C5DC900CC7194 /* ToolViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A7B48E270C5DC900CC7194 /* ToolViewModel.swift */; };
 		18C284642705A362001546B2 /* ToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C284632705A362001546B2 /* ToolView.swift */; };
 		18C284662705A526001546B2 /* SidebarToolGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C284652705A526001546B2 /* SidebarToolGroup.swift */; };
 		18C2846C2705A64F001546B2 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2846B2705A64F001546B2 /* Tool.swift */; };
@@ -87,8 +89,10 @@
 		185039862709C2520075EB9A /* ToolPropertyGroupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolPropertyGroupModel.swift; sourceTree = "<group>"; };
 		185039882709D5C70075EB9A /* BushTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BushTool.swift; sourceTree = "<group>"; };
 		1850398A2709D5F70075EB9A /* RockTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockTool.swift; sourceTree = "<group>"; };
+		18577489270B60140040C79E /* EditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewModel.swift; sourceTree = "<group>"; };
 		187948EF2708A7DF001C705C /* SeamTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamTool.swift; sourceTree = "<group>"; };
 		188BFA532708C7BC00A65F9C /* Segue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segue.swift; sourceTree = "<group>"; };
+		18A7B48E270C5DC900CC7194 /* ToolViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolViewModel.swift; sourceTree = "<group>"; };
 		18C284632705A362001546B2 /* ToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolView.swift; sourceTree = "<group>"; };
 		18C284652705A526001546B2 /* SidebarToolGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarToolGroup.swift; sourceTree = "<group>"; };
 		18C2846B2705A64F001546B2 /* Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
@@ -162,11 +166,20 @@
 				18167846270B17A5006D5D71 /* StairToolModel.swift */,
 				18167848270B17B1006D5D71 /* SurfaceToolModel.swift */,
 				185039862709C2520075EB9A /* ToolPropertyGroupModel.swift */,
+				18A7B48E270C5DC900CC7194 /* ToolViewModel.swift */,
 				1816784A270B17C0006D5D71 /* TreeToolModel.swift */,
 				1816784C270B17CE006D5D71 /* WallToolModel.swift */,
 				1816784F270B17DD006D5D71 /* WaterToolModel.swift */,
 			);
 			path = Tools;
+			sourceTree = "<group>";
+		};
+		18577488270B600C0040C79E /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				18577489270B60140040C79E /* EditorViewModel.swift */,
+			);
+			path = Editor;
 			sourceTree = "<group>";
 		};
 		18C284622705A31A001546B2 /* Tools */ = {
@@ -268,6 +281,7 @@
 		18CCAA9A2704BF7700C518EF /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				18577488270B600C0040C79E /* Editor */,
 				185039852709C2470075EB9A /* Tools */,
 				18EC2E462706FAE300450605 /* Meadow */,
 				18C284682705A567001546B2 /* Sidebar */,
@@ -407,6 +421,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1857748A270B60140040C79E /* EditorViewModel.swift in Sources */,
 				18CCAA8A2704BF6800C518EF /* Document.swift in Sources */,
 				18CCAAA82705937500C518EF /* SidebarView.swift in Sources */,
 				18CCAAAE2705938100C518EF /* SidebarItemModel.swift in Sources */,
@@ -440,6 +455,7 @@
 				18CCAAA02704C36600C518EF /* EditorView.swift in Sources */,
 				18472F532708847F00017BAF /* TreeTool.swift in Sources */,
 				187948F02708A7DF001C705C /* SeamTool.swift in Sources */,
+				18A7B48F270C5DC900CC7194 /* ToolViewModel.swift in Sources */,
 				18167852270B17EF006D5D71 /* BushToolModel.swift in Sources */,
 				18CCAA9C2704C02A00C518EF /* AppViewModel.swift in Sources */,
 				18472F5A2708866D00017BAF /* ToolPropertyGroup.swift in Sources */,

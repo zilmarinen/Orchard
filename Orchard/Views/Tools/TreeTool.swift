@@ -9,28 +9,33 @@ import SwiftUI
 
 struct TreeTool: View {
     
-    @ObservedObject private(set) var model: AppViewModel
+    let tool: Tool
     
-    @State private(set) var toolModel: TreeToolModel
+    @ObservedObject private(set) var appModel: AppViewModel
     
-    init(model: AppViewModel, tool: Tool) {
+    @ObservedObject private(set) var toolModel: TreeToolModel
+    
+    init(tool: Tool, appModel: AppViewModel) {
         
-        self.model = model
-        self.toolModel = TreeToolModel(tool: tool, rendering: !model.harvest.map.foliage.isHidden)
+        self.tool = tool
+        self.appModel = appModel
+        self.toolModel = appModel.toolModel.treeModel
+        
+        toolModel.rendering = !(appModel.editorModel.harvest?.map.foliage.isHidden ?? false)
     }
     
     var body: some View {
         
         ToolPropertySection {
             
-            ToolPropertyGroup(model: .init(title: toolModel.tool.id.capitalized, imageName: toolModel.tool.imageName, badge: model.badge(for: toolModel.tool))) {
+            ToolPropertyGroup(model: .init(title: tool.id.capitalized, imageName: tool.imageName, badge: appModel.badge(for: tool))) {
                 
-                ToolPropertyView(title: "Rendering", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Rendering", color: tool.color) {
                     
                     Toggle("Rendering", isOn: $toolModel.rendering)
                         .onChange(of: toolModel.rendering) { _ in
                             
-                            model.harvest.map.foliage.isHidden = !toolModel.rendering
+                            appModel.editorModel.harvest?.map.foliage.isHidden = !toolModel.rendering
                         }
                 }
             }
@@ -40,7 +45,7 @@ struct TreeTool: View {
             
             ToolPropertyGroup(model: .init(title: "Foliage")) {
                 
-                ToolPropertyView(title: "Species", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Species", color: tool.color) {
                     
                     Picker("Species", selection: $toolModel.species) {
                         
@@ -51,7 +56,7 @@ struct TreeTool: View {
                     }
                 }
                 
-                ToolPropertyView(title: "Direction", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Direction", color: tool.color) {
                     
                     Picker("Direction", selection: $toolModel.direction) {
                         

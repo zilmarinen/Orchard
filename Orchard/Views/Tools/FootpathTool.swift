@@ -9,28 +9,33 @@ import SwiftUI
 
 struct FootpathTool: View {
     
-    @ObservedObject private(set) var model: AppViewModel
+    let tool: Tool
     
-    @State private(set) var toolModel: FootpathToolModel
+    @ObservedObject private(set) var appModel: AppViewModel
     
-    init(model: AppViewModel, tool: Tool) {
+    @ObservedObject private(set) var toolModel: FootpathToolModel
+    
+    init(tool: Tool, appModel: AppViewModel) {
         
-        self.model = model
-        self.toolModel = FootpathToolModel(tool: tool, rendering: !model.harvest.map.footpath.isHidden)
+        self.tool = tool
+        self.appModel = appModel
+        self.toolModel = appModel.toolModel.footpathModel
+        
+        toolModel.rendering = !(appModel.editorModel.harvest?.map.footpath.isHidden ?? false)
     }
     
     var body: some View {
         
         ToolPropertySection {
             
-            ToolPropertyGroup(model: .init(title: toolModel.tool.id.capitalized, imageName: toolModel.tool.imageName, badge: model.badge(for: toolModel.tool))) {
+            ToolPropertyGroup(model: .init(title: tool.id.capitalized, imageName: tool.imageName, badge: appModel.badge(for: tool))) {
                 
-                ToolPropertyView(title: "Rendering", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Rendering", color: tool.color) {
                     
                     Toggle("Rendering", isOn: $toolModel.rendering)
                         .onChange(of: toolModel.rendering) { _ in
                             
-                            model.harvest.map.footpath.isHidden = !toolModel.rendering
+                            appModel.editorModel.harvest?.map.footpath.isHidden = !toolModel.rendering
                         }
                 }
             }
@@ -40,7 +45,7 @@ struct FootpathTool: View {
         
             ToolPropertyGroup(model: .init(title: "Material")) {
                 
-                ToolPropertyView(title: "Material", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Material", color: tool.color) {
                     
                     Picker("Material", selection: $toolModel.material) {
                         

@@ -7,10 +7,8 @@
 import Meadow
 import SwiftUI
 
-struct MapToolModel {
+class MapToolModel: ObservableObject {
     
-    let tool: Tool
-    
-    @State var name: String
-    @State var identifier: String
+    @Published var name: String = ""
+    @Published var identifier: String = ""
 }

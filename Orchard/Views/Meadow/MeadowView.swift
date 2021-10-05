@@ -4,12 +4,13 @@
 //  Created by Zack Brown on 01/10/2021.
 //
 
+import Harvest
 import SceneKit
 import SwiftUI
 
 struct MeadowView: View {
     
-    let model = MeadowViewModel()
+    let model = MeadowViewModel(map: Map2D())
     
     var body: some View {
         
@@ -23,8 +24,13 @@ struct MeadowView: View {
             
         case .loading(let map, let progress):
             
-            ProgressView(progress)
-            Text("Loading \(map.name ?? "")")
+            VStack {
+            
+                Text("Loading \(map.name ?? "")")
+                
+                ProgressView(progress)
+                .progressViewStyle(CircularProgressViewStyle())
+            }
             
         case .rendering(let scene):
             

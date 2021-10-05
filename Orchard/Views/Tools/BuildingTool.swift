@@ -9,28 +9,33 @@ import SwiftUI
 
 struct BuildingTool: View {
     
-    @ObservedObject private(set) var model: AppViewModel
+    let tool: Tool
     
-    @State private(set) var toolModel: BuildingToolModel
+    @ObservedObject private(set) var appModel: AppViewModel
     
-    init(model: AppViewModel, tool: Tool) {
+    @ObservedObject private(set) var toolModel: BuildingToolModel
+    
+    init(tool: Tool, appModel: AppViewModel) {
         
-        self.model = model
-        self.toolModel = BuildingToolModel(tool: tool, rendering: !model.harvest.map.buildings.isHidden)
+        self.tool = tool
+        self.appModel = appModel
+        self.toolModel = appModel.toolModel.buildingModel
+        
+        toolModel.rendering = !(appModel.editorModel.harvest?.map.buildings.isHidden ?? false)
     }
     
     var body: some View {
         
         ToolPropertySection {
             
-            ToolPropertyGroup(model: .init(title: toolModel.tool.id.capitalized, imageName: toolModel.tool.imageName, badge: model.badge(for: toolModel.tool))) {
+            ToolPropertyGroup(model: .init(title: tool.id.capitalized, imageName: tool.imageName, badge: appModel.badge(for: tool))) {
                 
-                ToolPropertyView(title: "Rendering", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Rendering", color: tool.color) {
                     
                     Toggle("Rendering", isOn: $toolModel.rendering)
                         .onChange(of: toolModel.rendering) { _ in
                             
-                            model.harvest.map.buildings.isHidden = !toolModel.rendering
+                            appModel.editorModel.harvest?.map.buildings.isHidden = !toolModel.rendering
                         }
                 }
             }
@@ -40,7 +45,7 @@ struct BuildingTool: View {
             
             ToolPropertyGroup(model: .init(title: "Architecture")) {
                 
-                ToolPropertyView(title: "Architecture", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Architecture", color: tool.color) {
                     
                     Picker("Architecture", selection: $toolModel.architecture) {
                         
@@ -51,7 +56,7 @@ struct BuildingTool: View {
                     }
                 }
                 
-                ToolPropertyView(title: "Polyomino", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Polyomino", color: tool.color) {
                     
                     Picker("Polyomino", selection: $toolModel.polyomino) {
                         
@@ -62,7 +67,7 @@ struct BuildingTool: View {
                     }
                 }
                 
-                ToolPropertyView(title: "Direction", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Direction", color: tool.color) {
                     
                     Picker("Direction", selection: $toolModel.direction) {
                         

@@ -7,12 +7,10 @@
 import Meadow
 import SwiftUI
 
-struct WallToolModel {
+class WallToolModel: ObservableObject {
     
-    let tool: Tool
+    @Published var rendering: Bool = true
     
-    @State var rendering: Bool
-    
-    @State var wallType: WallType = .wall
-    @State var material: WallMaterial = .concrete
+    @Published var wallType: WallType = .wall
+    @Published var material: WallMaterial = .concrete
 }

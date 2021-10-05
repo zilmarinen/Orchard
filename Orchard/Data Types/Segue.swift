@@ -7,9 +7,9 @@
 import Meadow
 import SwiftUI
 
-struct Segue {
+class Segue: ObservableObject {
     
-    @State var direction: Cardinal
-    @State var map: String
-    @State var identifier: String
+    @Published var direction: Cardinal = .north
+    @Published var map: String = ""
+    @Published var identifier: String = ""
 }

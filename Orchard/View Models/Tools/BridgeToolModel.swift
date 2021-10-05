@@ -4,14 +4,13 @@
 //  Created by Zack Brown on 04/10/2021.
 //
 
+import Harvest
 import Meadow
 import SwiftUI
 
-struct BridgeToolModel {
+class BridgeToolModel: ObservableObject {
     
-    let tool: Tool
+    @Published var rendering: Bool = true
     
-    @State var rendering: Bool
-    
-    @State var material: BridgeMaterial = .stone
+    @Published var material: BridgeMaterial = .stone
 }

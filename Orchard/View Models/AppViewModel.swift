@@ -4,29 +4,26 @@
 //  Created by Zack Brown on 29/09/2021.
 //
 
+import Combine
 import Foundation
 import Harvest
 import SwiftUI
 
 class AppViewModel: ObservableObject {
     
-    enum Constants {
-        
-        static let sceneSize = CGSize(width: 128, height: 128)
-    }
-    
     @Environment(\.openURL) var openURL
     
-    @Published var selectedTool: Tool? = .surface
-    @Published var myBool: Bool = false
+    @ObservedObject var editorModel: EditorViewModel
+    @ObservedObject var toolModel = ToolViewModel()
     
-    var harvest: Scene2D
+    var editorSink: AnyCancellable? = nil
+    var toolSink: AnyCancellable? = nil
     
     init() {
         
-        harvest = Scene2D(size: Constants.sceneSize, map: Map2D())
+        editorModel = EditorViewModel(map: Map2D())
         
-        harvest.cursorObserver.subscribe(stateDidChange(from:to:))
+        startObserving()
     }
     
     init(fileWrapper: FileWrapper) throws {
@@ -37,9 +34,9 @@ class AppViewModel: ObservableObject {
             
             let map = try JSONDecoder().decode(Map2D.self, from: mapData)
             
-            harvest = Scene2D(size: Constants.sceneSize, map: map)
+            editorModel = EditorViewModel(map: map)
             
-            harvest.cursorObserver.subscribe(stateDidChange(from:to:))
+            startObserving()
         }
         catch {
             
@@ -51,7 +48,7 @@ class AppViewModel: ObservableObject {
         
         do {
             
-            let data = try JSONEncoder().encode(harvest.map)
+            let data = try JSONEncoder().encode(editorModel.harvest?.map)
             
             var wrappers: [String : FileWrapper] = [:]
             
@@ -62,6 +59,19 @@ class AppViewModel: ObservableObject {
         catch {
             
             throw error
+        }
+    }
+    
+    func startObserving() {
+        
+        editorSink = editorModel.objectWillChange.sink { [weak self] (_) in
+            
+            self?.objectWillChange.send()
+        }
+        
+        toolSink = toolModel.objectWillChange.sink { [weak self] (_) in
+            
+            self?.objectWillChange.send()
         }
     }
 }
@@ -80,36 +90,23 @@ extension AppViewModel {
     
     func badge(for tool: Tool) -> BadgeModel? {
         
+        guard let map = editorModel.harvest?.map else { return nil }
+        
         switch tool {
             
-        case .bridges: return .init(title: "\(harvest.map.bridges.chunks.count) | \(harvest.map.bridges.tiles.count)", color: tool.color)
-        case .bushes: return .init(title: "\(harvest.map.foliage.chunks.count)", color: tool.color)
-        case .buildings: return .init(title: "\(harvest.map.buildings.chunks.count)", color: tool.color)
-        case .footpaths: return .init(title: "\(harvest.map.footpath.chunks.count) | \(harvest.map.footpath.tiles.count)", color: tool.color)
-        case .portals: return .init(title: "\(harvest.map.portals.chunks.count)", color: tool.color)
-        case .rocks: return .init(title: "\(harvest.map.foliage.chunks.count)", color: tool.color)
-        case .seams: return .init(title: "\(harvest.map.seams.chunks.count)", color: tool.color)
-        case .stairs: return .init(title: "\(harvest.map.stairs.chunks.count)", color: tool.color)
-        case .surface: return .init(title: "\(harvest.map.surface.chunks.count) | \(harvest.map.surface.tiles.count)", color: tool.color)
-        case .trees: return .init(title: "\(harvest.map.foliage.chunks.count)", color: tool.color)
-        case .walls: return .init(title: "\(harvest.map.walls.chunks.count) | \(harvest.map.walls.tiles.count)", color: tool.color)
-        case .water: return .init(title: "\(harvest.map.water.chunks.count) | \(harvest.map.water.tiles.count)", color: tool.color)
+        case .bridges: return .init(title: "\(map.bridges.chunks.count) | \(map.bridges.tiles.count)", color: tool.color)
+        case .bushes: return .init(title: "\(map.foliage.chunks.count)", color: tool.color)
+        case .buildings: return .init(title: "\(map.buildings.chunks.count)", color: tool.color)
+        case .footpaths: return .init(title: "\(map.footpath.chunks.count) | \(map.footpath.tiles.count)", color: tool.color)
+        case .portals: return .init(title: "\(map.portals.chunks.count)", color: tool.color)
+        case .rocks: return .init(title: "\(map.foliage.chunks.count)", color: tool.color)
+        case .seams: return .init(title: "\(map.seams.chunks.count)", color: tool.color)
+        case .stairs: return .init(title: "\(map.stairs.chunks.count)", color: tool.color)
+        case .surface: return .init(title: "\(map.surface.chunks.count) | \(map.surface.tiles.count)", color: tool.color)
+        case .trees: return .init(title: "\(map.foliage.chunks.count)", color: tool.color)
+        case .walls: return .init(title: "\(map.walls.chunks.count) | \(map.walls.tiles.count)", color: tool.color)
+        case .water: return .init(title: "\(map.water.chunks.count) | \(map.water.tiles.count)", color: tool.color)
         default: return nil
-        }
-    }
-}
-
-extension AppViewModel {
-    
-    func stateDidChange(from: Scene2D.CursorState?, to: Scene2D.CursorState) {
-        
-        switch to {
-            
-        case .tracking(let position, _):
-            
-            print("P: \(position.start) -> \(position.end)")
-            
-        default: break
         }
     }
 }

@@ -7,12 +7,10 @@
 import Meadow
 import SwiftUI
 
-struct SeamToolModel {
+class SeamToolModel: ObservableObject {
     
-    let tool: Tool
+    @Published var rendering: Bool = true
     
-    @State var rendering: Bool
-    
-    @State var identifier: String = ""
-    @State var segue = Segue(direction: .north, map: "", identifier: "")
+    @Published var identifier: String = ""
+    @Published var segue = Segue()
 }

@@ -9,28 +9,33 @@ import SwiftUI
 
 struct PortalTool: View {
     
-    @ObservedObject private(set) var model: AppViewModel
+    let tool: Tool
     
-    @State private(set) var toolModel: PortalToolModel
+    @ObservedObject private(set) var appModel: AppViewModel
     
-    init(model: AppViewModel, tool: Tool) {
+    @ObservedObject private(set) var toolModel: PortalToolModel
+    
+    init(tool: Tool, appModel: AppViewModel) {
         
-        self.model = model
-        self.toolModel = PortalToolModel(tool: tool, rendering: !model.harvest.map.portals.isHidden)
+        self.tool = tool
+        self.appModel = appModel
+        self.toolModel = appModel.toolModel.portalModel
+        
+        toolModel.rendering = !(appModel.editorModel.harvest?.map.portals.isHidden ?? false)
     }
     
     var body: some View {
         
         ToolPropertySection {
             
-            ToolPropertyGroup(model: .init(title: toolModel.tool.id.capitalized, imageName: toolModel.tool.imageName, badge: model.badge(for: toolModel.tool))) {
+            ToolPropertyGroup(model: .init(title: tool.id.capitalized, imageName: tool.imageName, badge: appModel.badge(for: tool))) {
                 
-                ToolPropertyView(title: "Rendering", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Rendering", color: tool.color) {
                     
                     Toggle("Rendering", isOn: $toolModel.rendering)
                         .onChange(of: toolModel.rendering) { _ in
                             
-                            model.harvest.map.portals.isHidden = !toolModel.rendering
+                            appModel.editorModel.harvest?.map.portals.isHidden = !toolModel.rendering
                         }
                 }
             }
@@ -40,12 +45,12 @@ struct PortalTool: View {
             
             ToolPropertyGroup(model: .init(title: "Portal")) {
                 
-                ToolPropertyView(title: "Identifier", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Identifier", color: tool.color) {
                 
                     TextField("Identifier", text: $toolModel.identifier)
                 }
                 
-                ToolPropertyView(title: "Type", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Type", color: tool.color) {
                     
                     Picker("Type", selection: $toolModel.portalType) {
                         
@@ -58,23 +63,23 @@ struct PortalTool: View {
             }
         }
         
-        if toolModel.portalType == .portal {
+        if appModel.toolModel.portalModel.portalType == .portal {
         
             ToolPropertySection {
             
                 ToolPropertyGroup(model: .init(title: "Segue")) {
                     
-                    ToolPropertyView(title: "Map", color: toolModel.tool.color) {
+                    ToolPropertyView(title: "Map", color: tool.color) {
                     
                         TextField("Map", text: $toolModel.segue.map)
                     }
                     
-                    ToolPropertyView(title: "Identifier", color: toolModel.tool.color) {
+                    ToolPropertyView(title: "Identifier", color: tool.color) {
                     
                         TextField("Identifier", text: $toolModel.segue.identifier)
                     }
                     
-                    ToolPropertyView(title: "Direction", color: toolModel.tool.color) {
+                    ToolPropertyView(title: "Direction", color: tool.color) {
                         
                         Picker("Direction", selection: $toolModel.segue.direction) {
                             

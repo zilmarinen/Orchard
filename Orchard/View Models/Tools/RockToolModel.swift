@@ -7,12 +7,10 @@
 import Meadow
 import SwiftUI
 
-struct RockToolModel {
+class RockToolModel: ObservableObject {
     
-    let tool: Tool
+    @Published var rendering: Bool = true
     
-    @State var rendering: Bool
-    
-    @State var rockType: RockType = .causeway
-    @State var direction: Cardinal = .north
+    @Published var rockType: RockType = .causeway
+    @Published var direction: Cardinal = .north
 }

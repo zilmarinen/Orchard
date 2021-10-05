@@ -7,13 +7,11 @@
 import Meadow
 import SwiftUI
 
-struct WaterToolModel {
+class WaterToolModel: ObservableObject {
     
-    let tool: Tool
+    @Published var rendering: Bool = true
     
-    @State var rendering: Bool
+    @Published var material: WaterMaterial = .water
     
-    @State var material: WaterMaterial = .water
-    
-    @State var elevation: Int = World.Constants.ceiling / 2
+    @Published var elevation: Int = 0
 }

@@ -7,13 +7,11 @@
 import Meadow
 import SwiftUI
 
-struct BuildingToolModel {
+class BuildingToolModel: ObservableObject {
     
-    let tool: Tool
+    @Published var rendering: Bool = true
     
-    @State var rendering: Bool
-    
-    @State var architecture: BuildingArchitecture = .bernina
-    @State var polyomino: Polyomino = .z
-    @State var direction: Cardinal = .north
+    @Published var architecture: BuildingArchitecture = .bernina
+    @Published var polyomino: Polyomino = .z
+    @Published var direction: Cardinal = .north
 }

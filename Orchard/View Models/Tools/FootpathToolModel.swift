@@ -7,11 +7,9 @@
 import Meadow
 import SwiftUI
 
-struct FootpathToolModel {
+class FootpathToolModel: ObservableObject {
     
-    let tool: Tool
+    @Published var rendering: Bool = true
     
-    @State var rendering: Bool
-    
-    @State var material: FootpathMaterial = .dirt
+    @Published var material: FootpathMaterial = .dirt
 }

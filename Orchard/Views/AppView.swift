@@ -14,7 +14,7 @@ struct AppView: View {
         
         NavigationView {
             
-            SidebarView(model: document.model)
+            SidebarView(appModel: document.model)
                 .frame(minWidth: 210)
                 .toolbar {
                     
@@ -27,7 +27,7 @@ struct AppView: View {
             
             Text("No Selection")
             
-            EditorView(model: document.model)
+            EditorView(appModel: document.model)
                 .frame(minWidth: 210, minHeight: 210)
         }
     }

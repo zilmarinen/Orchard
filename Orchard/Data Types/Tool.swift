@@ -6,7 +6,7 @@
 
 import SwiftUI
 
-enum Tool: String, Identifiable {
+enum Tool: String, Equatable, Identifiable {
     
     static let scene: [Tool] = [.map,
                                 .portals,
@@ -51,7 +51,7 @@ enum Tool: String, Identifiable {
         case .footpaths: return Color(red: 1.0, green: 0.36, blue: 0.34)
         case .map : return Color(red: 1.0, green: 0.36, blue: 0.34)
         case .portals: return Color(red: 1.0, green: 0.36, blue: 0.34)
-        case .rocks: return Color(red: 0.0, green: 0.63, blue: 0.61)
+        case .rocks: return Color(red: 0.70, green: 0.64, blue: 0.64)
         case .seams: return Color(red: 1.0, green: 0.36, blue: 0.34)
         case .stairs: return Color(red: 1.0, green: 0.36, blue: 0.34)
         case .surface: return Color(red: 0.23, green: 0.69, blue: 1.0)

@@ -9,28 +9,33 @@ import Meadow
 
 struct WaterTool: View {
     
-    @ObservedObject private(set) var model: AppViewModel
+    let tool: Tool
     
-    @State private(set) var toolModel: WaterToolModel
+    @ObservedObject private(set) var appModel: AppViewModel
     
-    init(model: AppViewModel, tool: Tool) {
+    @ObservedObject private(set) var toolModel: WaterToolModel
+    
+    init(tool: Tool, appModel: AppViewModel) {
         
-        self.model = model
-        self.toolModel = WaterToolModel(tool: tool, rendering: !model.harvest.map.water.isHidden)
+        self.tool = tool
+        self.appModel = appModel
+        self.toolModel = appModel.toolModel.waterModel
+        
+        toolModel.rendering = !(appModel.editorModel.harvest?.map.water.isHidden ?? false)
     }
     
     var body: some View {
         
         ToolPropertySection {
             
-            ToolPropertyGroup(model: .init(title: toolModel.tool.id.capitalized, imageName: toolModel.tool.imageName, badge: model.badge(for: toolModel.tool))) {
+            ToolPropertyGroup(model: .init(title: tool.id.capitalized, imageName: tool.imageName, badge: appModel.badge(for: tool))) {
                 
-                ToolPropertyView(title: "Rendering", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Rendering", color: tool.color) {
                     
                     Toggle("Rendering", isOn: $toolModel.rendering)
                         .onChange(of: toolModel.rendering) { _ in
                             
-                            model.harvest.map.water.isHidden = !toolModel.rendering
+                            appModel.editorModel.harvest?.map.water.isHidden = !toolModel.rendering
                         }
                 }
             }
@@ -40,7 +45,7 @@ struct WaterTool: View {
             
             ToolPropertyGroup(model: .init(title: "Material")) {
                 
-                ToolPropertyView(title: "Material", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Material", color: tool.color) {
                     
                     Picker("Material", selection: $toolModel.material) {
                         
@@ -57,11 +62,11 @@ struct WaterTool: View {
             
             ToolPropertyGroup(model: .init(title: "Surface")) {
                 
-                ToolPropertyView(title: "Elevation", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Elevation", color: tool.color) {
                     
                     HStack {
                      
-                        BadgeView(model: .init(title: "\(toolModel.elevation)", color: toolModel.tool.color))
+                        BadgeView(model: .init(title: "\(toolModel.elevation)", color: tool.color))
                         
                         Stepper("Elevation", value: $toolModel.elevation, in: World.Constants.floor...World.Constants.ceiling)
                     }

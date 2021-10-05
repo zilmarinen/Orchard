@@ -8,9 +8,15 @@ import SwiftUI
 
 struct ToolView: View {
     
-    @ObservedObject private(set) var model: AppViewModel
+    let tool: Tool
     
-    @State private(set) var tool: Tool
+    @ObservedObject private(set) var appModel: AppViewModel
+    
+    init(tool: Tool, appModel: AppViewModel) {
+        
+        self.tool = tool
+        self.appModel = appModel
+    }
     
     var body: some View {
         
@@ -20,19 +26,19 @@ struct ToolView: View {
         
                 switch tool {
                 
-                case .bridges: BridgeTool(model: model, tool: tool)
-                case .bushes: BushTool(model: model, tool: tool)
-                case .buildings: BuildingTool(model: model, tool: tool)
-                case .footpaths: FootpathTool(model: model, tool: tool)
-                case .map: MapTool(model: model, tool: tool)
-                case .portals: PortalTool(model: model, tool: tool)
-                case .rocks: RockTool(model: model, tool: tool)
-                case .seams: SeamTool(model: model, tool: tool)
-                case .stairs: StairTool(model: model, tool: tool)
-                case .surface: SurfaceTool(model: model, tool: tool)
-                case .trees: TreeTool(model: model, tool: tool)
-                case .walls: WallTool(model: model, tool: tool)
-                case .water: WaterTool(model: model, tool: tool)
+                case .bridges: BridgeTool(tool: tool, appModel: appModel)
+                case .buildings: BuildingTool(tool: tool, appModel: appModel)
+                case .bushes: BushTool(tool: tool, appModel: appModel)
+                case .footpaths: FootpathTool(tool: tool, appModel: appModel)
+                case .map: MapTool(tool: tool, appModel: appModel)
+                case .portals: PortalTool(tool: tool, appModel: appModel)
+                case .rocks: RockTool(tool: tool, appModel: appModel)
+                case .seams: SeamTool(tool: tool, appModel: appModel)
+                case .stairs: StairTool(tool: tool, appModel: appModel)
+                case .surface: SurfaceTool(tool: tool, appModel: appModel)
+                case .trees: TreeTool(tool: tool, appModel: appModel)
+                case .walls: WallTool(tool: tool, appModel: appModel)
+                case .water: WaterTool(tool: tool, appModel: appModel)
                 }
             
                 Spacer()

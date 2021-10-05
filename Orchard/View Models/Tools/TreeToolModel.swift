@@ -7,12 +7,10 @@
 import Meadow
 import SwiftUI
 
-struct TreeToolModel {
+class TreeToolModel: ObservableObject {
     
-    let tool: Tool
+    @Published var rendering: Bool = true
     
-    @State var rendering: Bool
-    
-    @State var species: TreeSpecies = .spruce
-    @State var direction: Cardinal = .north
+    @Published var species: TreeSpecies = .spruce
+    @Published var direction: Cardinal = .north
 }

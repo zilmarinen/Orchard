@@ -8,37 +8,40 @@ import SwiftUI
 
 struct MapTool: View {
     
-    @ObservedObject private(set) var model: AppViewModel
+    let tool: Tool
     
-    @State private(set) var toolModel: MapToolModel
+    @ObservedObject private(set) var appModel: AppViewModel
     
-    init(model: AppViewModel, tool: Tool) {
+    @ObservedObject private(set) var toolModel: MapToolModel
+    
+    init(tool: Tool, appModel: AppViewModel) {
         
-        self.model = model
-        self.toolModel = MapToolModel(tool: tool, name: model.harvest.map.name ?? "", identifier: model.harvest.map.identifier)
+        self.tool = tool
+        self.appModel = appModel
+        self.toolModel = appModel.toolModel.mapModel
     }
     
     var body: some View {
         
         ToolPropertySection {
             
-            ToolPropertyGroup(model: .init(title: toolModel.tool.id.capitalized, imageName: toolModel.tool.imageName, badge: model.badge(for: toolModel.tool))) {
+            ToolPropertyGroup(model: .init(title: tool.id.capitalized, imageName: tool.imageName, badge: appModel.badge(for: tool))) {
             
-                ToolPropertyView(title: "Name", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Name", color: tool.color) {
                 
                     TextField("Name", text: $toolModel.name)
                         .onChange(of: toolModel.name) { _ in
                             
-                            model.harvest.map.name = toolModel.name
+                            appModel.editorModel.harvest?.map.name = toolModel.name
                         }
                 }
             
-                ToolPropertyView(title: "Identifier", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Identifier", color: tool.color) {
                 
                     TextField("Identifier", text: $toolModel.identifier)
                         .onChange(of: toolModel.identifier) { _ in
                             
-                            model.harvest.map.identifier = toolModel.identifier
+                            appModel.editorModel.harvest?.map.identifier = toolModel.identifier
                         }
                 }
             }

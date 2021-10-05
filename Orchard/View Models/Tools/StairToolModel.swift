@@ -7,13 +7,11 @@
 import Meadow
 import SwiftUI
 
-struct StairToolModel {
+class StairToolModel: ObservableObject {
     
-    let tool: Tool
+    @Published var rendering: Bool = true
     
-    @State var rendering: Bool
-    
-    @State var material: StairMaterial = .stone
-    @State var stairType: StairType = .sloped_1x1
-    @State var direction: Cardinal = .north
+    @Published var material: StairMaterial = .stone
+    @Published var stairType: StairType = .sloped_1x1
+    @Published var direction: Cardinal = .north
 }

@@ -7,14 +7,12 @@
 import Meadow
 import SwiftUI
 
-struct PortalToolModel {
+class PortalToolModel: ObservableObject {
     
-    let tool: Tool
+    @Published var rendering: Bool = true
     
-    @State var rendering: Bool
+    @Published var portalType: PortalType = .portal
+    @Published var identifier: String = ""
     
-    @State var portalType: PortalType = .portal
-    @State var identifier: String = ""
-    
-    @State var segue = Segue(direction: .north, map: "", identifier: "")
+    @Published var segue = Segue()
 }

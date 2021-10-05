@@ -7,12 +7,10 @@
 import Meadow
 import SwiftUI
 
-struct BushToolModel {
+class BushToolModel: ObservableObject {
     
-    let tool: Tool
+    @Published var rendering: Bool = true
     
-    @State var rendering: Bool
-    
-    @State var species: BushSpecies = .honeysuckle
-    @State var direction: Cardinal = .north
+    @Published var species: BushSpecies = .honeysuckle
+    @Published var direction: Cardinal = .north
 }

@@ -9,28 +9,33 @@ import SwiftUI
 
 struct SurfaceTool: View {
     
-    @ObservedObject private(set) var model: AppViewModel
+    let tool: Tool
     
-    @State private(set) var toolModel: SurfaceToolModel
+    @ObservedObject private(set) var appModel: AppViewModel
     
-    init(model: AppViewModel, tool: Tool) {
+    @ObservedObject private(set) var toolModel: SurfaceToolModel
+    
+    init(tool: Tool, appModel: AppViewModel) {
         
-        self.model = model
-        self.toolModel = SurfaceToolModel(tool: tool, rendering: !model.harvest.map.surface.isHidden)
+        self.tool = tool
+        self.appModel = appModel
+        self.toolModel = appModel.toolModel.surfaceModel
+        
+        toolModel.rendering = !(appModel.editorModel.harvest?.map.surface.isHidden ?? false)
     }
     
     var body: some View {
         
         ToolPropertySection {
             
-            ToolPropertyGroup(model: .init(title: toolModel.tool.id.capitalized, imageName: toolModel.tool.imageName, badge: model.badge(for: toolModel.tool))) {
+            ToolPropertyGroup(model: .init(title: tool.id.capitalized, imageName: tool.imageName, badge: appModel.badge(for: tool))) {
                 
-                ToolPropertyView(title: "Rendering", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Rendering", color: tool.color) {
                     
-                    Toggle("Rendering", isOn: $toolModel.rendering)
-                        .onChange(of: toolModel.rendering) { _ in
+                    Toggle("Rendering", isOn: $appModel.toolModel.surfaceModel.rendering)
+                        .onChange(of: appModel.toolModel.surfaceModel.rendering) { _ in
                             
-                            model.harvest.map.surface.isHidden = !toolModel.rendering
+                            appModel.editorModel.harvest?.map.surface.isHidden = !toolModel.rendering
                         }
                 }
             }
@@ -40,9 +45,9 @@ struct SurfaceTool: View {
         
             ToolPropertyGroup(model: .init(title: "Material")) {
                 
-                ToolPropertyView(title: "Material", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Material", color: tool.color) {
                     
-                    Picker("Material", selection: $toolModel.material) {
+                    Picker("Material", selection: $appModel.toolModel.surfaceModel.material) {
                     
                         ForEach(SurfaceMaterial.allCases, id: \.self) { material in
                         
@@ -57,9 +62,9 @@ struct SurfaceTool: View {
             
             ToolPropertyGroup(model: .init(title: "Overlay")) {
                 
-                ToolPropertyView(title: "Overlay", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Overlay", color: tool.color) {
                     
-                    Picker("Overlay", selection: $toolModel.overlay) {
+                    Picker("Overlay", selection: $appModel.toolModel.surfaceModel.overlay) {
                     
                         Text("None").tag(nil as SurfaceOverlay?)
                         
@@ -78,19 +83,19 @@ struct SurfaceTool: View {
             
             ToolPropertyGroup(model: .init(title: "Surface")) {
                 
-                ToolPropertyView(title: "Elevation", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Elevation", color: tool.color) {
                     
                     HStack {
                      
-                        BadgeView(model: .init(title: "\(toolModel.elevation)", color: toolModel.tool.color))
+                        BadgeView(model: .init(title: "\(appModel.toolModel.surfaceModel.elevation)", color: tool.color))
                         
-                        Stepper("Elevation", value: $toolModel.elevation, in: World.Constants.floor...World.Constants.ceiling)
+                        Stepper("Elevation", value: $appModel.toolModel.surfaceModel.elevation, in: World.Constants.floor...World.Constants.ceiling)
                     }
                 }
                 
-                ToolPropertyView(title: "Surface", color: toolModel.tool.color) {
+                ToolPropertyView(title: "Surface", color: tool.color) {
                     
-                    Picker("Surface", selection: $toolModel.tileType) {
+                    Picker("Surface", selection: $appModel.toolModel.surfaceModel.tileType) {
                     
                         ForEach(SurfaceTileType.allCases, id: \.self) { tileType in
                         

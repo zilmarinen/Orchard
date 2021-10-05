@@ -10,21 +10,38 @@ import SwiftUI
 
 struct EditorView: View {
     
-    @ObservedObject var model: AppViewModel
+    @ObservedObject var appModel: AppViewModel
     
     var body: some View {
         
         ZStack {
             
-            SpriteView(scene: model.harvest)
-                .ignoresSafeArea()
-            
-            Text(model.selectedTool?.id ?? "No selection")
-                .foregroundColor(Color.black)
+            switch appModel.editorModel.state {
+                
+            case .idle: Text("Orchard")
+                
+            case .error(let error):
+                
+                Text("Error: \(error.localizedDescription)")
+                
+            case .loading(let map, let progress):
+                
+                VStack {
+                
+                    Text("Loading \(map.name ?? "")")
+                    
+                    ProgressView(progress)
+                    .progressViewStyle(CircularProgressViewStyle())
+                }
+                
+            case .rendering(let scene):
+                
+                SpriteView(scene: scene)
+            }
         }
         .toolbar {
             
-            Button(action: model.preview) {
+            Button(action: appModel.preview) {
                 
                 Image(systemName: "sidebar.right")
                     .help("Preview Scene")

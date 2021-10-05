@@ -8,7 +8,9 @@ import SwiftUI
 
 struct SidebarView: View {
     
-    @ObservedObject var model: AppViewModel
+    @ObservedObject var appModel: AppViewModel
+    
+    @State var tool: Tool? = .surface
     
     var body: some View {
         
@@ -17,10 +19,10 @@ struct SidebarView: View {
             SidebarToolGroup(title: "Scene") {
                 
                 ForEach(Tool.scene, id: \.self) { tool in
+                    
+                    NavigationLink(destination: ToolView(tool: tool, appModel: appModel), tag: tool, selection: $tool) {
                 
-                    NavigationLink(destination: ToolView(model: model, tool: tool), tag: tool, selection: $model.selectedTool) {
-                
-                        SidebarItem(model: .init(title: tool.id.capitalized, imageName: tool.imageName, badge: model.badge(for: tool)))
+                        SidebarItem(model: .init(title: tool.id.capitalized, imageName: tool.imageName, badge: appModel.badge(for: tool)))
                     }
                 }
             }
@@ -29,9 +31,9 @@ struct SidebarView: View {
                 
                 ForEach(Tool.foliage, id: \.self) { tool in
                 
-                    NavigationLink(destination: ToolView(model: model, tool: tool), tag: tool, selection: $model.selectedTool) {
+                    NavigationLink(destination: ToolView(tool: tool, appModel: appModel), tag: tool, selection: $tool) {
                 
-                        SidebarItem(model: .init(title: tool.id.capitalized, imageName: tool.imageName, badge: model.badge(for: tool)))
+                        SidebarItem(model: .init(title: tool.id.capitalized, imageName: tool.imageName, badge: appModel.badge(for: tool)))
                     }
                 }
             }
@@ -40,9 +42,9 @@ struct SidebarView: View {
                 
                 ForEach(Tool.props, id: \.self) { tool in
                 
-                    NavigationLink(destination: ToolView(model: model, tool: tool), tag: tool, selection: $model.selectedTool) {
+                    NavigationLink(destination: ToolView(tool: tool, appModel: appModel), tag: tool, selection: $tool) {
                 
-                        SidebarItem(model: .init(title: tool.id.capitalized, imageName: tool.imageName, badge: model.badge(for: tool)))
+                        SidebarItem(model: .init(title: tool.id.capitalized, imageName: tool.imageName, badge: appModel.badge(for: tool)))
                     }
                 }
             }
@@ -51,9 +53,9 @@ struct SidebarView: View {
                 
                 ForEach(Tool.surfaces, id: \.self) { tool in
                 
-                    NavigationLink(destination: ToolView(model: model, tool: tool), tag: tool, selection: $model.selectedTool) {
+                    NavigationLink(destination: ToolView(tool: tool, appModel: appModel), tag: tool, selection: $tool) {
                 
-                        SidebarItem(model: .init(title: tool.id.capitalized, imageName: tool.imageName, badge: model.badge(for: tool)))
+                        SidebarItem(model: .init(title: tool.id.capitalized, imageName: tool.imageName, badge: appModel.badge(for: tool)))
                     }
                 }
             }
