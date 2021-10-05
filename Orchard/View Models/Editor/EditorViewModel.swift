@@ -71,3 +71,46 @@ class EditorViewModel: ObservableObject {
         state = .loading(map: map, progress: progress)
     }
 }
+
+extension EditorViewModel {
+    
+    func toggle(tool: Tool, isHidden: Bool) {
+        
+        switch tool {
+            
+        case .bridges: harvest?.map.bridges.isHidden = isHidden
+        case .bushes,
+                .rocks,
+                .trees: harvest?.map.foliage.isHidden = isHidden
+        case .buildings: harvest?.map.buildings.isHidden = isHidden
+        case .footpaths: harvest?.map.footpath.isHidden = isHidden
+        case .map : harvest?.map.isHidden = isHidden
+        case .portals: harvest?.map.portals.isHidden = isHidden
+        case .seams: harvest?.map.seams.isHidden = isHidden
+        case .stairs: harvest?.map.stairs.isHidden = isHidden
+        case .surface: harvest?.map.surface.isHidden = isHidden
+        case .walls: harvest?.map.walls.isHidden = isHidden
+        case .water: harvest?.map.water.isHidden = isHidden
+        }
+    }
+    
+    func grid(isHidden tool: Tool) -> Bool {
+        
+        switch tool {
+            
+        case .bridges: return harvest?.map.bridges.isHidden ?? false
+        case .bushes,
+                .rocks,
+                .trees: return harvest?.map.foliage.isHidden ?? false
+        case .buildings: return harvest?.map.buildings.isHidden ?? false
+        case .footpaths: return harvest?.map.footpath.isHidden ?? false
+        case .map : return harvest?.map.isHidden ?? false
+        case .portals: return harvest?.map.portals.isHidden ?? false
+        case .seams: return harvest?.map.seams.isHidden ?? false
+        case .stairs: return harvest?.map.stairs.isHidden ?? false
+        case .surface: return harvest?.map.surface.isHidden ?? false
+        case .walls: return harvest?.map.walls.isHidden ?? false
+        case .water: return harvest?.map.water.isHidden ?? false
+        }
+    }
+}

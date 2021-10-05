@@ -21,7 +21,7 @@ struct PortalTool: View {
         self.appModel = appModel
         self.toolModel = appModel.toolModel.portalModel
         
-        toolModel.rendering = !(appModel.editorModel.harvest?.map.portals.isHidden ?? false)
+        toolModel.rendering = !appModel.editorModel.grid(isHidden: tool)
     }
     
     var body: some View {
@@ -35,7 +35,7 @@ struct PortalTool: View {
                     Toggle("Rendering", isOn: $toolModel.rendering)
                         .onChange(of: toolModel.rendering) { _ in
                             
-                            appModel.editorModel.harvest?.map.portals.isHidden = !toolModel.rendering
+                            appModel.editorModel.toggle(tool: tool, isHidden: !toolModel.rendering)
                         }
                 }
             }

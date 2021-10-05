@@ -21,7 +21,7 @@ struct BuildingTool: View {
         self.appModel = appModel
         self.toolModel = appModel.toolModel.buildingModel
         
-        toolModel.rendering = !(appModel.editorModel.harvest?.map.buildings.isHidden ?? false)
+        toolModel.rendering = !appModel.editorModel.grid(isHidden: tool)
     }
     
     var body: some View {
@@ -35,7 +35,7 @@ struct BuildingTool: View {
                     Toggle("Rendering", isOn: $toolModel.rendering)
                         .onChange(of: toolModel.rendering) { _ in
                             
-                            appModel.editorModel.harvest?.map.buildings.isHidden = !toolModel.rendering
+                            appModel.editorModel.toggle(tool: tool, isHidden: !toolModel.rendering)
                         }
                 }
             }
