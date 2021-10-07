@@ -87,7 +87,7 @@ struct SurfaceTool: View {
                     
                     HStack {
                      
-                        BadgeView(model: .init(title: "\($toolModel.elevation)", color: tool.color))
+                        BadgeView(model: .init(title: "\(toolModel.elevation)", color: tool.color))
                         
                         Stepper("Elevation", value: $toolModel.elevation, in: World.Constants.floor...World.Constants.ceiling)
                     }

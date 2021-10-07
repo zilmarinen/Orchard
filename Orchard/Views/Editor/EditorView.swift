@@ -14,38 +14,39 @@ struct EditorView: View {
     
     var body: some View {
         
-        ZStack {
+        switch appModel.editorModel.state {
             
-            switch appModel.editorModel.state {
+        case .idle: Text("Orchard")
+            
+        case .error(let error):
+            
+            Text("Error: \(error.localizedDescription)")
+            
+        case .loading(let map, let progress):
+            
+            VStack {
+            
+                Text("Loading \(map.name ?? "")")
                 
-            case .idle: Text("Orchard")
-                
-            case .error(let error):
-                
-                Text("Error: \(error.localizedDescription)")
-                
-            case .loading(let map, let progress):
-                
-                VStack {
-                
-                    Text("Loading \(map.name ?? "")")
+                ProgressView(progress)
+                .progressViewStyle(CircularProgressViewStyle())
+            }
+            
+        case .rendering(let scene):
+            
+            SpriteView(scene: scene)
+                .toolbar {
                     
-                    ProgressView(progress)
-                    .progressViewStyle(CircularProgressViewStyle())
+                    Button {
+                        
+                        appModel.preview(scene: scene)
+                        
+                    } label: {
+                        
+                        Image(systemName: "sidebar.right")
+                            .help("Preview Scene")
+                    }
                 }
-                
-            case .rendering(let scene):
-                
-                SpriteView(scene: scene)
-            }
-        }
-        .toolbar {
-            
-            Button(action: appModel.preview) {
-                
-                Image(systemName: "sidebar.right")
-                    .help("Preview Scene")
-            }
         }
     }
 }

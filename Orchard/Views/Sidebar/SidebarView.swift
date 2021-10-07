@@ -10,8 +10,6 @@ struct SidebarView: View {
     
     @ObservedObject var appModel: AppViewModel
     
-    @State var tool: Tool? = .surface
-    
     var body: some View {
         
         List {
@@ -20,7 +18,7 @@ struct SidebarView: View {
                 
                 ForEach(Tool.scene, id: \.self) { tool in
                     
-                    NavigationLink(destination: ToolView(tool: tool, appModel: appModel), tag: tool, selection: $tool) {
+                    NavigationLink(destination: ToolView(tool: tool, appModel: appModel), tag: tool, selection: $appModel.toolModel.tool) {
                 
                         SidebarItem(model: .init(title: tool.id.capitalized, imageName: tool.imageName, badge: appModel.badge(for: tool)))
                     }
@@ -31,7 +29,7 @@ struct SidebarView: View {
                 
                 ForEach(Tool.foliage, id: \.self) { tool in
                 
-                    NavigationLink(destination: ToolView(tool: tool, appModel: appModel), tag: tool, selection: $tool) {
+                    NavigationLink(destination: ToolView(tool: tool, appModel: appModel), tag: tool, selection: $appModel.toolModel.tool) {
                 
                         SidebarItem(model: .init(title: tool.id.capitalized, imageName: tool.imageName, badge: appModel.badge(for: tool)))
                     }
@@ -42,7 +40,7 @@ struct SidebarView: View {
                 
                 ForEach(Tool.props, id: \.self) { tool in
                 
-                    NavigationLink(destination: ToolView(tool: tool, appModel: appModel), tag: tool, selection: $tool) {
+                    NavigationLink(destination: ToolView(tool: tool, appModel: appModel), tag: tool, selection: $appModel.toolModel.tool) {
                 
                         SidebarItem(model: .init(title: tool.id.capitalized, imageName: tool.imageName, badge: appModel.badge(for: tool)))
                     }
@@ -53,7 +51,7 @@ struct SidebarView: View {
                 
                 ForEach(Tool.surfaces, id: \.self) { tool in
                 
-                    NavigationLink(destination: ToolView(tool: tool, appModel: appModel), tag: tool, selection: $tool) {
+                    NavigationLink(destination: ToolView(tool: tool, appModel: appModel), tag: tool, selection: $appModel.toolModel.tool) {
                 
                         SidebarItem(model: .init(title: tool.id.capitalized, imageName: tool.imageName, badge: appModel.badge(for: tool)))
                     }

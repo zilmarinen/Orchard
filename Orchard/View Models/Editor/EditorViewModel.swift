@@ -46,8 +46,9 @@ class EditorViewModel: ObservableObject {
     init(map: Map2D) {
         
         let atlasOperation = TextureAtlasOperation(season: .spring)
+        let tilesetOperation = TilesetLoadingOperation()
         
-        let progress = atlasOperation.enqueueWithProgress(on: operationQueue) { result in
+        let progress = atlasOperation.passesResult(to: tilesetOperation).enqueueWithProgress(on: operationQueue) { result in
             
             DispatchQueue.main.async { [weak self] in
                 
@@ -59,9 +60,11 @@ class EditorViewModel: ObservableObject {
                     
                     self.state = .error(error: error)
                     
-                case .success(let atlas):
+                case .success(let output):
                     
-                    let scene = Scene2D(size: Constants.sceneSize, map: map, atlas: atlas)
+                    let (atlas, tileset) = output
+                    
+                    let scene = Scene2D(size: Constants.sceneSize, map: map, atlas: atlas, tileset: tileset)
                     
                     self.state = .rendering(scene: scene)
                 }
