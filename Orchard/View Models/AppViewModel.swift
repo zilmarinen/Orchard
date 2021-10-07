@@ -73,16 +73,29 @@ class AppViewModel: ObservableObject {
             
             self?.objectWillChange.send()
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(cursorEvent(_:)), name: Scene2D.CursorObserver.cursorEvent, object: nil)
     }
 }
 
 extension AppViewModel {
     
-    func preview() {
+    func preview(scene: Scene2D) {
         
         guard let url = URL(string: "orchard://com.so.orchard.meadow") else { return }
+        
+        Container.shared.scene = scene
             
         openURL(url)
+    }
+    
+    @objc
+    func cursorEvent(_ notification: Notification) {
+        
+        guard let event = notification.object as? Scene2D.CursorObserver.CursorEvent,
+              let harvest = editorModel.harvest?.map else { return }
+        
+        toolModel.build(harvest: harvest, event: event)
     }
 }
 

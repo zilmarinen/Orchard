@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180C50BD270F030C00D75694 /* GridBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C50BC270F030C00D75694 /* GridBuilder.swift */; };
 		1816783B270B1619006D5D71 /* BridgeToolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1816783A270B1619006D5D71 /* BridgeToolModel.swift */; };
 		1816783D270B1757006D5D71 /* BuildingToolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1816783C270B1757006D5D71 /* BuildingToolModel.swift */; };
 		1816783F270B176A006D5D71 /* FootpathToolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1816783E270B176A006D5D71 /* FootpathToolModel.swift */; };
@@ -63,6 +64,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		180C50BC270F030C00D75694 /* GridBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridBuilder.swift; sourceTree = "<group>"; };
 		1816783A270B1619006D5D71 /* BridgeToolModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeToolModel.swift; sourceTree = "<group>"; };
 		1816783C270B1757006D5D71 /* BuildingToolModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingToolModel.swift; sourceTree = "<group>"; };
 		1816783E270B176A006D5D71 /* FootpathToolModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathToolModel.swift; sourceTree = "<group>"; };
@@ -134,6 +136,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		180C50BB270F030200D75694 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				180C50BC270F030C00D75694 /* GridBuilder.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		18472F4527071C0700017BAF /* Operations */ = {
 			isa = PBXGroup;
 			children = (
@@ -250,6 +260,7 @@
 		18CCAA862704BF6800C518EF /* Orchard */ = {
 			isa = PBXGroup;
 			children = (
+				180C50BB270F030200D75694 /* Protocols */,
 				18472F4527071C0700017BAF /* Operations */,
 				18EC2E432706EA3100450605 /* Extensions */,
 				18C2846F2705AEC8001546B2 /* Data Types */,
@@ -460,6 +471,7 @@
 				18CCAA9C2704C02A00C518EF /* AppViewModel.swift in Sources */,
 				18472F5A2708866D00017BAF /* ToolPropertyGroup.swift in Sources */,
 				18472F472707325000017BAF /* MapConversionOperation.swift in Sources */,
+				180C50BD270F030C00D75694 /* GridBuilder.swift in Sources */,
 				18CCAA8C2704BF6800C518EF /* AppView.swift in Sources */,
 				18EC2E452706EA3A00450605 /* UTType.swift in Sources */,
 				18C284662705A526001546B2 /* SidebarToolGroup.swift in Sources */,
