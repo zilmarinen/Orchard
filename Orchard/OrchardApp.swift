@@ -5,6 +5,7 @@
 //
 
 import SwiftUI
+import Harvest
 
 @main
 struct OrchardApp: App {
@@ -26,9 +27,17 @@ struct OrchardApp: App {
         
         WindowGroup("Meadow Scene Preview") {
         
-            MeadowView()
-            .frame(minWidth: 350, minHeight: 350)
+            MeadowView(model: .init())
+            .handlesExternalEvents(preferring: ["com.so.orchard.meadow"], allowing: Set(arrayLiteral: "*"))
+            .frame(minWidth: 800, minHeight: 600)
         }
         .handlesExternalEvents(matching: ["com.so.orchard.meadow"])
     }
+}
+
+struct Container {
+    
+    static var shared = Container()
+    
+    var scene: Scene2D? = nil
 }

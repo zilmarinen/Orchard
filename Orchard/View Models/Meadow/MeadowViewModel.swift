@@ -29,7 +29,9 @@ class MeadowViewModel: ObservableObject {
     
     @Published var state: ViewState = .idle
     
-    init(map: Map2D) {
+    func load(map: Map2D) {
+        
+        print("Loading map: \(map.name ?? "")")
         
         let atlasOperation = TextureAtlasOperation(season: .spring)
         let mapOperation = MapConversionOperation(map: map)

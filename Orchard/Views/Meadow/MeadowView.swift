@@ -10,31 +10,46 @@ import SwiftUI
 
 struct MeadowView: View {
     
-    let model = MeadowViewModel(map: Map2D())
+    @ObservedObject var model: MeadowViewModel
     
     var body: some View {
         
-        switch model.state {
-            
-        case .idle: Text("Meadow")
-            
-        case .error(let error):
-            
-            Text("Error: \(error.localizedDescription)")
-            
-        case .loading(let map, let progress):
-            
-            VStack {
-            
-                Text("Loading \(map.name ?? "")")
+        ZStack {
+        
+            switch model.state {
                 
-                ProgressView(progress)
-                .progressViewStyle(CircularProgressViewStyle())
+            case .idle:
+                
+                Text("Meadow")
+                
+            case .error(let error):
+                
+                Text("Error: \(error.localizedDescription)")
+                
+            case .loading(let map, let progress):
+                
+                VStack {
+                
+                    Text("Loading \(map.name ?? "")")
+                    
+                    ProgressView(progress)
+                    .progressViewStyle(CircularProgressViewStyle())
+                }
+                
+            case .rendering(let scene):
+                
+                SceneView(scene: scene,
+                          pointOfView: scene.camera.jig,
+                          options: .allowsCameraControl,
+                          delegate: scene)
             }
+        }
+        .onOpenURL { url in
             
-        case .rendering(let scene):
+            guard url.scheme == "orchard",
+                  let map = Container.shared.scene?.map else { return }
             
-            SceneView(scene: scene)
+            model.load(map: map)
         }
     }
 }
