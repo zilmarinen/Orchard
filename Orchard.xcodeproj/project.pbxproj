@@ -3,662 +3,372 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1807F84125542971008388DC /* InspectorTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F84025542971008388DC /* InspectorTabViewController.swift */; };
-		1807F84C255429C4008388DC /* InspectorTabViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807F84B255429C4008388DC /* InspectorTabViewCoordinator.swift */; };
-		1808EBDF2553F60E00484BEC /* NSResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1808EBDE2553F60E00484BEC /* NSResponder.swift */; };
-		1809A8E3263701E0008DCA82 /* Map2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1809A8E2263701E0008DCA82 /* Map2D.swift */; };
-		180BEFB42666479E000AE2E8 /* SeamInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180BEFB32666479E000AE2E8 /* SeamInspectorViewController.swift */; };
-		180BEFB7266647E0000AE2E8 /* SeamCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180BEFB6266647E0000AE2E8 /* SeamCoordinator.swift */; };
-		180BEFB9266647ED000AE2E8 /* SeamUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180BEFB8266647ED000AE2E8 /* SeamUtilityCoordinator.swift */; };
-		180BEFBC26664805000AE2E8 /* SeamInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180BEFBB26664805000AE2E8 /* SeamInspectorCoordinator.swift */; };
-		180BEFBE26664812000AE2E8 /* SeamStitchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180BEFBD26664812000AE2E8 /* SeamStitchCoordinator.swift */; };
-		180FDD0025F7A918007A208C /* InspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180FDCFF25F7A918007A208C /* InspectorViewController.swift */; };
-		180FDD0325F7A94C007A208C /* InspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180FDD0225F7A94C007A208C /* InspectorCoordinator.swift */; };
-		183317A0257E20CE001CC0A3 /* NSStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833179F257E20CE001CC0A3 /* NSStoryboard.swift */; };
-		1838E4A126189A3900E24C44 /* WallCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838E4A026189A3900E24C44 /* WallCoordinator.swift */; };
-		1838E4A526189A4800E24C44 /* WallUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838E4A426189A4800E24C44 /* WallUtilityCoordinator.swift */; };
-		1838E4A826189A5700E24C44 /* WallBuildCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838E4A726189A5700E24C44 /* WallBuildCoordinator.swift */; };
-		1838E4AB26189A6300E24C44 /* WallInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838E4AA26189A6300E24C44 /* WallInspectorCoordinator.swift */; };
-		1838E4AE26189A9900E24C44 /* WallInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838E4AD26189A9900E24C44 /* WallInspectorViewController.swift */; };
-		1838E4B126189B0800E24C44 /* WallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838E4B026189B0800E24C44 /* WallViewModel.swift */; };
-		185274A42666499E007DF1A0 /* SeamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185274A32666499E007DF1A0 /* SeamViewModel.swift */; };
-		18534C8426077D6400500535 /* WaterInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18534C8326077D6400500535 /* WaterInspectorViewController.swift */; };
-		18534C8826077DAD00500535 /* WaterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18534C8726077DAD00500535 /* WaterCoordinator.swift */; };
-		18534C8B26077DB800500535 /* WaterUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18534C8A26077DB800500535 /* WaterUtilityCoordinator.swift */; };
-		18534C8E26077DC200500535 /* WaterInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18534C8D26077DC200500535 /* WaterInspectorCoordinator.swift */; };
-		18534C9126077DCE00500535 /* WaterMaterialCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18534C9026077DCE00500535 /* WaterMaterialCoordinator.swift */; };
-		18534C9726077E9400500535 /* WaterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18534C9626077E9400500535 /* WaterViewModel.swift */; };
-		1859140A2558105A003618DB /* NumberStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185914092558105A003618DB /* NumberStepper.swift */; };
-		185F87D32556FA84008BFF30 /* CoordinateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F87D22556FA84008BFF30 /* CoordinateView.swift */; };
-		18671C80260784A800949BC4 /* SurfaceEdgeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18671C7F260784A800949BC4 /* SurfaceEdgeCoordinator.swift */; };
-		1870D16F2555434C00B39F8C /* SurfaceInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870D16E2555434C00B39F8C /* SurfaceInspectorViewController.swift */; };
-		1870D1722555437600B39F8C /* SurfaceInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870D1712555437600B39F8C /* SurfaceInspectorCoordinator.swift */; };
-		1870D1752555439900B39F8C /* SceneInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870D1742555439900B39F8C /* SceneInspectorViewController.swift */; };
-		1870D178255543AB00B39F8C /* SceneInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870D177255543AB00B39F8C /* SceneInspectorCoordinator.swift */; };
-		1874BF4A257F712A00976F82 /* Meadow in Frameworks */ = {isa = PBXBuildFile; productRef = 1874BF49257F712A00976F82 /* Meadow */; };
-		187B462125FF48D800D7D5B4 /* FoliageInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B462025FF48D800D7D5B4 /* FoliageInspectorViewController.swift */; };
-		187B462525FF498200D7D5B4 /* FoliageInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B462425FF498200D7D5B4 /* FoliageInspectorCoordinator.swift */; };
-		187B462825FF4A1B00D7D5B4 /* FoliageUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B462725FF4A1B00D7D5B4 /* FoliageUtilityCoordinator.swift */; };
-		187B462B25FF4A6500D7D5B4 /* FoliageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B462A25FF4A6500D7D5B4 /* FoliageCoordinator.swift */; };
-		187B462E25FF4ACC00D7D5B4 /* FoliageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B462D25FF4ACC00D7D5B4 /* FoliageViewModel.swift */; };
-		187B463125FF542000D7D5B4 /* FoliagePlantCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B463025FF542000D7D5B4 /* FoliagePlantCoordinator.swift */; };
-		187B463C25FF5BDE00D7D5B4 /* BuildingInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B463B25FF5BDE00D7D5B4 /* BuildingInspectorViewController.swift */; };
-		187B464025FF5C0300D7D5B4 /* BuildingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B463F25FF5C0300D7D5B4 /* BuildingCoordinator.swift */; };
-		187B464325FF5C3A00D7D5B4 /* BuildingUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B464225FF5C3A00D7D5B4 /* BuildingUtilityCoordinator.swift */; };
-		187B464625FF5C5D00D7D5B4 /* BuildingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B464525FF5C5D00D7D5B4 /* BuildingViewModel.swift */; };
-		187B464925FF5CDA00D7D5B4 /* BuildingInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B464825FF5CDA00D7D5B4 /* BuildingInspectorCoordinator.swift */; };
-		187B464C25FF5CE600D7D5B4 /* BuildingBuildCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B464B25FF5CE600D7D5B4 /* BuildingBuildCoordinator.swift */; };
-		187B465B2600A65000D7D5B4 /* FootpathInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B465A2600A65000D7D5B4 /* FootpathInspectorViewController.swift */; };
-		187B465F2600A66B00D7D5B4 /* FootpathViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B465E2600A66B00D7D5B4 /* FootpathViewModel.swift */; };
-		187B46622600A70F00D7D5B4 /* FootpathCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B46612600A70F00D7D5B4 /* FootpathCoordinator.swift */; };
-		187B46652600A71A00D7D5B4 /* FootpathUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B46642600A71A00D7D5B4 /* FootpathUtilityCoordinator.swift */; };
-		187B46682600A72500D7D5B4 /* FootpathInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B46672600A72500D7D5B4 /* FootpathInspectorCoordinator.swift */; };
-		187B466B2600A79500D7D5B4 /* FootpathMaterialCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B466A2600A79500D7D5B4 /* FootpathMaterialCoordinator.swift */; };
-		18814F7D25838A62004689E5 /* SpriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18814F7C25838A62004689E5 /* SpriteView.swift */; };
-		18814F8225838D2D004689E5 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18814F8125838D2D004689E5 /* KeyboardObserver.swift */; };
-		18814F8525838D4A004689E5 /* MouseObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18814F8425838D4A004689E5 /* MouseObserver.swift */; };
-		18814F882583A48A004689E5 /* KeyboardObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18814F872583A48A004689E5 /* KeyboardObservable.swift */; };
-		18814F8B2583A496004689E5 /* MouseObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18814F8A2583A496004689E5 /* MouseObservable.swift */; };
-		1883768D2610AFD0008BFEC2 /* ActorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1883768C2610AFD0008BFEC2 /* ActorViewModel.swift */; };
-		188376922610B02A008BFEC2 /* ActorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188376912610B02A008BFEC2 /* ActorCoordinator.swift */; };
-		188376952610B03B008BFEC2 /* ActorInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188376942610B03B008BFEC2 /* ActorInspectorViewController.swift */; };
-		188376982610B067008BFEC2 /* ActorUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188376972610B067008BFEC2 /* ActorUtilityCoordinator.swift */; };
-		1883769C2610B072008BFEC2 /* ActorInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1883769B2610B072008BFEC2 /* ActorInspectorCoordinator.swift */; };
-		1883769F2610B089008BFEC2 /* ActorPlacementCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1883769E2610B089008BFEC2 /* ActorPlacementCoordinator.swift */; };
-		18942CAF261302F600F93728 /* BridgeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CAE261302F600F93728 /* BridgeViewModel.swift */; };
-		18942CB32613034300F93728 /* BridgeUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CB22613034300F93728 /* BridgeUtilityCoordinator.swift */; };
-		18942CB62613034F00F93728 /* BridgeBuildCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CB52613034F00F93728 /* BridgeBuildCoordinator.swift */; };
-		18942CB92613035C00F93728 /* BridgeInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CB82613035C00F93728 /* BridgeInspectorCoordinator.swift */; };
-		18942CBC2613036900F93728 /* BridgeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CBB2613036900F93728 /* BridgeCoordinator.swift */; };
-		18942CBF2613037700F93728 /* BridgeInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CBE2613037700F93728 /* BridgeInspectorViewController.swift */; };
-		18942CCC261308A600F93728 /* StairsInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CCB261308A600F93728 /* StairsInspectorViewController.swift */; };
-		18942CD02613091000F93728 /* StairsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CCF2613091000F93728 /* StairsCoordinator.swift */; };
-		18942CD32613091900F93728 /* StairsUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CD22613091900F93728 /* StairsUtilityCoordinator.swift */; };
-		18942CD62613092100F93728 /* StairsBuildCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CD52613092100F93728 /* StairsBuildCoordinator.swift */; };
-		18942CD92613092B00F93728 /* StairsInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CD82613092B00F93728 /* StairsInspectorCoordinator.swift */; };
-		18942CDD261309E500F93728 /* StairsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18942CDC261309E500F93728 /* StairsViewModel.swift */; };
-		18AFB91625FA4C3400C1B847 /* SurfaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AFB91525FA4C3400C1B847 /* SurfaceViewModel.swift */; };
-		18AFB91A25FA4DD800C1B847 /* SurfaceMaterialCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AFB91925FA4DD800C1B847 /* SurfaceMaterialCoordinator.swift */; };
-		18AFB91E25FA503B00C1B847 /* SurfaceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AFB91D25FA503B00C1B847 /* SurfaceCoordinator.swift */; };
-		18AFB92125FA554500C1B847 /* SurfaceUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AFB92025FA554500C1B847 /* SurfaceUtilityCoordinator.swift */; };
-		18C9E2862600EA8B00343B27 /* PortalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C9E2852600EA8B00343B27 /* PortalViewModel.swift */; };
-		18C9E28A2600EAC300343B27 /* PortalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C9E2892600EAC300343B27 /* PortalCoordinator.swift */; };
-		18C9E28D2600EADE00343B27 /* PortalInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C9E28C2600EADE00343B27 /* PortalInspectorViewController.swift */; };
-		18C9E2902600EAFD00343B27 /* PortalUtilityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C9E28F2600EAFD00343B27 /* PortalUtilityCoordinator.swift */; };
-		18C9E2932600EB0600343B27 /* PortalBuildCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C9E2922600EB0600343B27 /* PortalBuildCoordinator.swift */; };
-		18C9E2962600EB1000343B27 /* PortalInspectorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C9E2952600EB1000343B27 /* PortalInspectorCoordinator.swift */; };
-		18D3A16725515D3A00031CA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3A16625515D3A00031CA7 /* AppDelegate.swift */; };
-		18D3A16B25515D3A00031CA7 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3A16A25515D3A00031CA7 /* Document.swift */; };
-		18D3A16D25515D3C00031CA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D3A16C25515D3C00031CA7 /* Assets.xcassets */; };
-		18D3A17025515D3C00031CA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18D3A16E25515D3C00031CA7 /* Main.storyboard */; };
-		18D3A1802551652000031CA7 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3A17F2551652000031CA7 /* WindowController.swift */; };
-		18D60ADC2636F91500031F69 /* Harvest in Frameworks */ = {isa = PBXBuildFile; productRef = 18D60ADB2636F91500031F69 /* Harvest */; };
-		18EDA9FD25FBB452008A7AF0 /* SurfaceElevationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EDA9FC25FBB452008A7AF0 /* SurfaceElevationCoordinator.swift */; };
-		18F1CA402600C86000E26398 /* SceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F1CA3F2600C86000E26398 /* SceneViewModel.swift */; };
-		18FB382C25516F5A0036CA95 /* WindowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB382B25516F5A0036CA95 /* WindowCoordinator.swift */; };
-		18FB382F2551752B0036CA95 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB382E2551752B0036CA95 /* Coordinator.swift */; };
-		18FB38352551778A0036CA95 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB38342551778A0036CA95 /* SplitViewController.swift */; };
-		18FB383B255177AC0036CA95 /* SplitViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB383A255177AC0036CA95 /* SplitViewCoordinator.swift */; };
-		18FB383F255178D30036CA95 /* ToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB383E255178D30036CA95 /* ToolbarViewController.swift */; };
-		18FB3842255178ED0036CA95 /* SceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB3841255178ED0036CA95 /* SceneViewController.swift */; };
-		18FB384B2551792E0036CA95 /* SceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB384A2551792E0036CA95 /* SceneCoordinator.swift */; };
-		18FB384F255179380036CA95 /* ToolbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB384E255179380036CA95 /* ToolbarCoordinator.swift */; };
+		180C50BD270F030C00D75694 /* GridBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C50BC270F030C00D75694 /* GridBuilder.swift */; };
+		1816783B270B1619006D5D71 /* BridgeToolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1816783A270B1619006D5D71 /* BridgeToolModel.swift */; };
+		1816783D270B1757006D5D71 /* BuildingToolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1816783C270B1757006D5D71 /* BuildingToolModel.swift */; };
+		1816783F270B176A006D5D71 /* FootpathToolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1816783E270B176A006D5D71 /* FootpathToolModel.swift */; };
+		18167841270B1782006D5D71 /* MapToolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18167840270B1782006D5D71 /* MapToolModel.swift */; };
+		18167843270B178F006D5D71 /* PortalToolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18167842270B178F006D5D71 /* PortalToolModel.swift */; };
+		18167845270B1799006D5D71 /* SeamToolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18167844270B1799006D5D71 /* SeamToolModel.swift */; };
+		18167847270B17A5006D5D71 /* StairToolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18167846270B17A5006D5D71 /* StairToolModel.swift */; };
+		18167849270B17B1006D5D71 /* SurfaceToolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18167848270B17B1006D5D71 /* SurfaceToolModel.swift */; };
+		1816784B270B17C0006D5D71 /* TreeToolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1816784A270B17C0006D5D71 /* TreeToolModel.swift */; };
+		1816784D270B17CE006D5D71 /* WallToolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1816784C270B17CE006D5D71 /* WallToolModel.swift */; };
+		18167850270B17DD006D5D71 /* WaterToolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1816784F270B17DD006D5D71 /* WaterToolModel.swift */; };
+		18167852270B17EF006D5D71 /* BushToolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18167851270B17EF006D5D71 /* BushToolModel.swift */; };
+		18167854270B17F9006D5D71 /* RockToolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18167853270B17F9006D5D71 /* RockToolModel.swift */; };
+		18472F472707325000017BAF /* MapConversionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18472F462707325000017BAF /* MapConversionOperation.swift */; };
+		18472F4927087B2800017BAF /* ToolPropertySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18472F4827087B2800017BAF /* ToolPropertySection.swift */; };
+		18472F4B2708840500017BAF /* BridgeTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18472F4A2708840500017BAF /* BridgeTool.swift */; };
+		18472F4D2708843F00017BAF /* FootpathTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18472F4C2708843F00017BAF /* FootpathTool.swift */; };
+		18472F4F2708845300017BAF /* PortalTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18472F4E2708845300017BAF /* PortalTool.swift */; };
+		18472F512708846500017BAF /* StairTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18472F502708846500017BAF /* StairTool.swift */; };
+		18472F532708847F00017BAF /* TreeTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18472F522708847F00017BAF /* TreeTool.swift */; };
+		18472F552708849900017BAF /* WallTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18472F542708849900017BAF /* WallTool.swift */; };
+		18472F57270884AC00017BAF /* WaterTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18472F56270884AC00017BAF /* WaterTool.swift */; };
+		18472F5A2708866D00017BAF /* ToolPropertyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18472F592708866D00017BAF /* ToolPropertyGroup.swift */; };
+		185039872709C2520075EB9A /* ToolPropertyGroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185039862709C2520075EB9A /* ToolPropertyGroupModel.swift */; };
+		185039892709D5C70075EB9A /* BushTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185039882709D5C70075EB9A /* BushTool.swift */; };
+		1850398B2709D5F80075EB9A /* RockTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1850398A2709D5F70075EB9A /* RockTool.swift */; };
+		1857748A270B60140040C79E /* EditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18577489270B60140040C79E /* EditorViewModel.swift */; };
+		187948F02708A7DF001C705C /* SeamTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187948EF2708A7DF001C705C /* SeamTool.swift */; };
+		188BFA542708C7BC00A65F9C /* Segue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BFA532708C7BC00A65F9C /* Segue.swift */; };
+		18A7B48F270C5DC900CC7194 /* ToolViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A7B48E270C5DC900CC7194 /* ToolViewModel.swift */; };
+		18C284642705A362001546B2 /* ToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C284632705A362001546B2 /* ToolView.swift */; };
+		18C284662705A526001546B2 /* SidebarToolGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C284652705A526001546B2 /* SidebarToolGroup.swift */; };
+		18C2846C2705A64F001546B2 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2846B2705A64F001546B2 /* Tool.swift */; };
+		18C284732705B5FD001546B2 /* SurfaceTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C284722705B5FD001546B2 /* SurfaceTool.swift */; };
+		18C28477270612A4001546B2 /* ToolPropertyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C28476270612A4001546B2 /* ToolPropertyView.swift */; };
+		18C28479270612DD001546B2 /* BuildingTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C28478270612DD001546B2 /* BuildingTool.swift */; };
+		18CCAA882704BF6800C518EF /* OrchardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CCAA872704BF6800C518EF /* OrchardApp.swift */; };
+		18CCAA8A2704BF6800C518EF /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CCAA892704BF6800C518EF /* Document.swift */; };
+		18CCAA8C2704BF6800C518EF /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CCAA8B2704BF6800C518EF /* AppView.swift */; };
+		18CCAA8E2704BF6900C518EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18CCAA8D2704BF6900C518EF /* Assets.xcassets */; };
+		18CCAA9C2704C02A00C518EF /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CCAA9B2704C02A00C518EF /* AppViewModel.swift */; };
+		18CCAAA02704C36600C518EF /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CCAA9F2704C36600C518EF /* EditorView.swift */; };
+		18CCAAA32705935B00C518EF /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CCAAA22705935B00C518EF /* BadgeView.swift */; };
+		18CCAAA82705937500C518EF /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CCAAA52705937500C518EF /* SidebarView.swift */; };
+		18CCAAAA2705937500C518EF /* SidebarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CCAAA72705937500C518EF /* SidebarItem.swift */; };
+		18CCAAAD2705938100C518EF /* BadgeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CCAAAB2705938100C518EF /* BadgeModel.swift */; };
+		18CCAAAE2705938100C518EF /* SidebarItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CCAAAC2705938100C518EF /* SidebarItemModel.swift */; };
+		18EC2E3E2706167600450605 /* Harvest in Frameworks */ = {isa = PBXBuildFile; productRef = 18EC2E3D2706167600450605 /* Harvest */; };
+		18EC2E402706167B00450605 /* Meadow in Frameworks */ = {isa = PBXBuildFile; productRef = 18EC2E3F2706167B00450605 /* Meadow */; };
+		18EC2E4227061C6700450605 /* MapTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EC2E4127061C6700450605 /* MapTool.swift */; };
+		18EC2E452706EA3A00450605 /* UTType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EC2E442706EA3A00450605 /* UTType.swift */; };
+		18EC2E482706FAEE00450605 /* MeadowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EC2E472706FAEE00450605 /* MeadowViewModel.swift */; };
+		18EC2E4B2706FBE500450605 /* MeadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EC2E4A2706FBE500450605 /* MeadowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1807F84025542971008388DC /* InspectorTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorTabViewController.swift; sourceTree = "<group>"; };
-		1807F84B255429C4008388DC /* InspectorTabViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorTabViewCoordinator.swift; sourceTree = "<group>"; };
-		1808EBDE2553F60E00484BEC /* NSResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSResponder.swift; sourceTree = "<group>"; };
-		1809A8E2263701E0008DCA82 /* Map2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map2D.swift; sourceTree = "<group>"; };
-		180BEFB32666479E000AE2E8 /* SeamInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamInspectorViewController.swift; sourceTree = "<group>"; };
-		180BEFB6266647E0000AE2E8 /* SeamCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamCoordinator.swift; sourceTree = "<group>"; };
-		180BEFB8266647ED000AE2E8 /* SeamUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamUtilityCoordinator.swift; sourceTree = "<group>"; };
-		180BEFBB26664805000AE2E8 /* SeamInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamInspectorCoordinator.swift; sourceTree = "<group>"; };
-		180BEFBD26664812000AE2E8 /* SeamStitchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamStitchCoordinator.swift; sourceTree = "<group>"; };
-		180FDCFF25F7A918007A208C /* InspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorViewController.swift; sourceTree = "<group>"; };
-		180FDD0225F7A94C007A208C /* InspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorCoordinator.swift; sourceTree = "<group>"; };
-		1833179F257E20CE001CC0A3 /* NSStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSStoryboard.swift; sourceTree = "<group>"; };
-		1838E4A026189A3900E24C44 /* WallCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallCoordinator.swift; sourceTree = "<group>"; };
-		1838E4A426189A4800E24C44 /* WallUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallUtilityCoordinator.swift; sourceTree = "<group>"; };
-		1838E4A726189A5700E24C44 /* WallBuildCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallBuildCoordinator.swift; sourceTree = "<group>"; };
-		1838E4AA26189A6300E24C44 /* WallInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallInspectorCoordinator.swift; sourceTree = "<group>"; };
-		1838E4AD26189A9900E24C44 /* WallInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallInspectorViewController.swift; sourceTree = "<group>"; };
-		1838E4B026189B0800E24C44 /* WallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallViewModel.swift; sourceTree = "<group>"; };
-		185274A32666499E007DF1A0 /* SeamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamViewModel.swift; sourceTree = "<group>"; };
-		18534C8326077D6400500535 /* WaterInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterInspectorViewController.swift; sourceTree = "<group>"; };
-		18534C8726077DAD00500535 /* WaterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterCoordinator.swift; sourceTree = "<group>"; };
-		18534C8A26077DB800500535 /* WaterUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterUtilityCoordinator.swift; sourceTree = "<group>"; };
-		18534C8D26077DC200500535 /* WaterInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterInspectorCoordinator.swift; sourceTree = "<group>"; };
-		18534C9026077DCE00500535 /* WaterMaterialCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterMaterialCoordinator.swift; sourceTree = "<group>"; };
-		18534C9626077E9400500535 /* WaterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterViewModel.swift; sourceTree = "<group>"; };
-		185914092558105A003618DB /* NumberStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberStepper.swift; sourceTree = "<group>"; };
-		185F87D22556FA84008BFF30 /* CoordinateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateView.swift; sourceTree = "<group>"; };
-		18671C7F260784A800949BC4 /* SurfaceEdgeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceEdgeCoordinator.swift; sourceTree = "<group>"; };
-		1870D16E2555434C00B39F8C /* SurfaceInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceInspectorViewController.swift; sourceTree = "<group>"; };
-		1870D1712555437600B39F8C /* SurfaceInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceInspectorCoordinator.swift; sourceTree = "<group>"; };
-		1870D1742555439900B39F8C /* SceneInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneInspectorViewController.swift; sourceTree = "<group>"; };
-		1870D177255543AB00B39F8C /* SceneInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneInspectorCoordinator.swift; sourceTree = "<group>"; };
-		1874BF45257F710200976F82 /* Meadow */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Meadow; path = ../Meadow; sourceTree = "<group>"; };
-		187B462025FF48D800D7D5B4 /* FoliageInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageInspectorViewController.swift; sourceTree = "<group>"; };
-		187B462425FF498200D7D5B4 /* FoliageInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageInspectorCoordinator.swift; sourceTree = "<group>"; };
-		187B462725FF4A1B00D7D5B4 /* FoliageUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageUtilityCoordinator.swift; sourceTree = "<group>"; };
-		187B462A25FF4A6500D7D5B4 /* FoliageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageCoordinator.swift; sourceTree = "<group>"; };
-		187B462D25FF4ACC00D7D5B4 /* FoliageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageViewModel.swift; sourceTree = "<group>"; };
-		187B463025FF542000D7D5B4 /* FoliagePlantCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliagePlantCoordinator.swift; sourceTree = "<group>"; };
-		187B463B25FF5BDE00D7D5B4 /* BuildingInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingInspectorViewController.swift; sourceTree = "<group>"; };
-		187B463F25FF5C0300D7D5B4 /* BuildingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingCoordinator.swift; sourceTree = "<group>"; };
-		187B464225FF5C3A00D7D5B4 /* BuildingUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingUtilityCoordinator.swift; sourceTree = "<group>"; };
-		187B464525FF5C5D00D7D5B4 /* BuildingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingViewModel.swift; sourceTree = "<group>"; };
-		187B464825FF5CDA00D7D5B4 /* BuildingInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingInspectorCoordinator.swift; sourceTree = "<group>"; };
-		187B464B25FF5CE600D7D5B4 /* BuildingBuildCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingBuildCoordinator.swift; sourceTree = "<group>"; };
-		187B465A2600A65000D7D5B4 /* FootpathInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathInspectorViewController.swift; sourceTree = "<group>"; };
-		187B465E2600A66B00D7D5B4 /* FootpathViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathViewModel.swift; sourceTree = "<group>"; };
-		187B46612600A70F00D7D5B4 /* FootpathCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathCoordinator.swift; sourceTree = "<group>"; };
-		187B46642600A71A00D7D5B4 /* FootpathUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathUtilityCoordinator.swift; sourceTree = "<group>"; };
-		187B46672600A72500D7D5B4 /* FootpathInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathInspectorCoordinator.swift; sourceTree = "<group>"; };
-		187B466A2600A79500D7D5B4 /* FootpathMaterialCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathMaterialCoordinator.swift; sourceTree = "<group>"; };
-		18814F7C25838A62004689E5 /* SpriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteView.swift; sourceTree = "<group>"; };
-		18814F8125838D2D004689E5 /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
-		18814F8425838D4A004689E5 /* MouseObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseObserver.swift; sourceTree = "<group>"; };
-		18814F872583A48A004689E5 /* KeyboardObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObservable.swift; sourceTree = "<group>"; };
-		18814F8A2583A496004689E5 /* MouseObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseObservable.swift; sourceTree = "<group>"; };
-		1883768C2610AFD0008BFEC2 /* ActorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorViewModel.swift; sourceTree = "<group>"; };
-		188376912610B02A008BFEC2 /* ActorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorCoordinator.swift; sourceTree = "<group>"; };
-		188376942610B03B008BFEC2 /* ActorInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorInspectorViewController.swift; sourceTree = "<group>"; };
-		188376972610B067008BFEC2 /* ActorUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorUtilityCoordinator.swift; sourceTree = "<group>"; };
-		1883769B2610B072008BFEC2 /* ActorInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorInspectorCoordinator.swift; sourceTree = "<group>"; };
-		1883769E2610B089008BFEC2 /* ActorPlacementCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorPlacementCoordinator.swift; sourceTree = "<group>"; };
-		18942CAE261302F600F93728 /* BridgeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeViewModel.swift; sourceTree = "<group>"; };
-		18942CB22613034300F93728 /* BridgeUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeUtilityCoordinator.swift; sourceTree = "<group>"; };
-		18942CB52613034F00F93728 /* BridgeBuildCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeBuildCoordinator.swift; sourceTree = "<group>"; };
-		18942CB82613035C00F93728 /* BridgeInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeInspectorCoordinator.swift; sourceTree = "<group>"; };
-		18942CBB2613036900F93728 /* BridgeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeCoordinator.swift; sourceTree = "<group>"; };
-		18942CBE2613037700F93728 /* BridgeInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeInspectorViewController.swift; sourceTree = "<group>"; };
-		18942CCB261308A600F93728 /* StairsInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StairsInspectorViewController.swift; sourceTree = "<group>"; };
-		18942CCF2613091000F93728 /* StairsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StairsCoordinator.swift; sourceTree = "<group>"; };
-		18942CD22613091900F93728 /* StairsUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StairsUtilityCoordinator.swift; sourceTree = "<group>"; };
-		18942CD52613092100F93728 /* StairsBuildCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StairsBuildCoordinator.swift; sourceTree = "<group>"; };
-		18942CD82613092B00F93728 /* StairsInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StairsInspectorCoordinator.swift; sourceTree = "<group>"; };
-		18942CDC261309E500F93728 /* StairsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StairsViewModel.swift; sourceTree = "<group>"; };
-		18AFB91525FA4C3400C1B847 /* SurfaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceViewModel.swift; sourceTree = "<group>"; };
-		18AFB91925FA4DD800C1B847 /* SurfaceMaterialCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceMaterialCoordinator.swift; sourceTree = "<group>"; };
-		18AFB91D25FA503B00C1B847 /* SurfaceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceCoordinator.swift; sourceTree = "<group>"; };
-		18AFB92025FA554500C1B847 /* SurfaceUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceUtilityCoordinator.swift; sourceTree = "<group>"; };
-		18C9E2852600EA8B00343B27 /* PortalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalViewModel.swift; sourceTree = "<group>"; };
-		18C9E2892600EAC300343B27 /* PortalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalCoordinator.swift; sourceTree = "<group>"; };
-		18C9E28C2600EADE00343B27 /* PortalInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalInspectorViewController.swift; sourceTree = "<group>"; };
-		18C9E28F2600EAFD00343B27 /* PortalUtilityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalUtilityCoordinator.swift; sourceTree = "<group>"; };
-		18C9E2922600EB0600343B27 /* PortalBuildCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalBuildCoordinator.swift; sourceTree = "<group>"; };
-		18C9E2952600EB1000343B27 /* PortalInspectorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalInspectorCoordinator.swift; sourceTree = "<group>"; };
-		18D3A16325515D3A00031CA7 /* Orchard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Orchard.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		18D3A16625515D3A00031CA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		18D3A16A25515D3A00031CA7 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
-		18D3A16C25515D3C00031CA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		18D3A16F25515D3C00031CA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		18D3A17125515D3C00031CA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		18D3A17225515D3C00031CA7 /* Orchard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Orchard.entitlements; sourceTree = "<group>"; };
-		18D3A17F2551652000031CA7 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
-		18D60AD92636F90E00031F69 /* Harvest */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Harvest; path = ../Harvest; sourceTree = "<group>"; };
-		18EDA9FC25FBB452008A7AF0 /* SurfaceElevationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceElevationCoordinator.swift; sourceTree = "<group>"; };
-		18F1CA3F2600C86000E26398 /* SceneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneViewModel.swift; sourceTree = "<group>"; };
-		18FB382B25516F5A0036CA95 /* WindowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCoordinator.swift; sourceTree = "<group>"; };
-		18FB382E2551752B0036CA95 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		18FB38342551778A0036CA95 /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
-		18FB383A255177AC0036CA95 /* SplitViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewCoordinator.swift; sourceTree = "<group>"; };
-		18FB383E255178D30036CA95 /* ToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarViewController.swift; sourceTree = "<group>"; };
-		18FB3841255178ED0036CA95 /* SceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneViewController.swift; sourceTree = "<group>"; };
-		18FB384A2551792E0036CA95 /* SceneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinator.swift; sourceTree = "<group>"; };
-		18FB384E255179380036CA95 /* ToolbarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarCoordinator.swift; sourceTree = "<group>"; };
+		180C50BC270F030C00D75694 /* GridBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridBuilder.swift; sourceTree = "<group>"; };
+		1816783A270B1619006D5D71 /* BridgeToolModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeToolModel.swift; sourceTree = "<group>"; };
+		1816783C270B1757006D5D71 /* BuildingToolModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingToolModel.swift; sourceTree = "<group>"; };
+		1816783E270B176A006D5D71 /* FootpathToolModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathToolModel.swift; sourceTree = "<group>"; };
+		18167840270B1782006D5D71 /* MapToolModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapToolModel.swift; sourceTree = "<group>"; };
+		18167842270B178F006D5D71 /* PortalToolModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalToolModel.swift; sourceTree = "<group>"; };
+		18167844270B1799006D5D71 /* SeamToolModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamToolModel.swift; sourceTree = "<group>"; };
+		18167846270B17A5006D5D71 /* StairToolModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StairToolModel.swift; sourceTree = "<group>"; };
+		18167848270B17B1006D5D71 /* SurfaceToolModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceToolModel.swift; sourceTree = "<group>"; };
+		1816784A270B17C0006D5D71 /* TreeToolModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeToolModel.swift; sourceTree = "<group>"; };
+		1816784C270B17CE006D5D71 /* WallToolModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallToolModel.swift; sourceTree = "<group>"; };
+		1816784F270B17DD006D5D71 /* WaterToolModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterToolModel.swift; sourceTree = "<group>"; };
+		18167851270B17EF006D5D71 /* BushToolModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BushToolModel.swift; sourceTree = "<group>"; };
+		18167853270B17F9006D5D71 /* RockToolModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockToolModel.swift; sourceTree = "<group>"; };
+		18472F462707325000017BAF /* MapConversionOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapConversionOperation.swift; sourceTree = "<group>"; };
+		18472F4827087B2800017BAF /* ToolPropertySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolPropertySection.swift; sourceTree = "<group>"; };
+		18472F4A2708840500017BAF /* BridgeTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeTool.swift; sourceTree = "<group>"; };
+		18472F4C2708843F00017BAF /* FootpathTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathTool.swift; sourceTree = "<group>"; };
+		18472F4E2708845300017BAF /* PortalTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalTool.swift; sourceTree = "<group>"; };
+		18472F502708846500017BAF /* StairTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StairTool.swift; sourceTree = "<group>"; };
+		18472F522708847F00017BAF /* TreeTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeTool.swift; sourceTree = "<group>"; };
+		18472F542708849900017BAF /* WallTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallTool.swift; sourceTree = "<group>"; };
+		18472F56270884AC00017BAF /* WaterTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterTool.swift; sourceTree = "<group>"; };
+		18472F592708866D00017BAF /* ToolPropertyGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolPropertyGroup.swift; sourceTree = "<group>"; };
+		185039862709C2520075EB9A /* ToolPropertyGroupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolPropertyGroupModel.swift; sourceTree = "<group>"; };
+		185039882709D5C70075EB9A /* BushTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BushTool.swift; sourceTree = "<group>"; };
+		1850398A2709D5F70075EB9A /* RockTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockTool.swift; sourceTree = "<group>"; };
+		18577489270B60140040C79E /* EditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewModel.swift; sourceTree = "<group>"; };
+		187948EF2708A7DF001C705C /* SeamTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamTool.swift; sourceTree = "<group>"; };
+		188BFA532708C7BC00A65F9C /* Segue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segue.swift; sourceTree = "<group>"; };
+		18A7B48E270C5DC900CC7194 /* ToolViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolViewModel.swift; sourceTree = "<group>"; };
+		18C284632705A362001546B2 /* ToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolView.swift; sourceTree = "<group>"; };
+		18C284652705A526001546B2 /* SidebarToolGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarToolGroup.swift; sourceTree = "<group>"; };
+		18C2846B2705A64F001546B2 /* Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
+		18C284722705B5FD001546B2 /* SurfaceTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceTool.swift; sourceTree = "<group>"; };
+		18C28476270612A4001546B2 /* ToolPropertyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolPropertyView.swift; sourceTree = "<group>"; };
+		18C28478270612DD001546B2 /* BuildingTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingTool.swift; sourceTree = "<group>"; };
+		18CCAA842704BF6800C518EF /* Orchard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Orchard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		18CCAA872704BF6800C518EF /* OrchardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrchardApp.swift; sourceTree = "<group>"; };
+		18CCAA892704BF6800C518EF /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		18CCAA8B2704BF6800C518EF /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		18CCAA8D2704BF6900C518EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		18CCAA922704BF6900C518EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18CCAA932704BF6900C518EF /* Orchard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Orchard.entitlements; sourceTree = "<group>"; };
+		18CCAA9B2704C02A00C518EF /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		18CCAA9F2704C36600C518EF /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
+		18CCAAA22705935B00C518EF /* BadgeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeView.swift; sourceTree = "<group>"; };
+		18CCAAA52705937500C518EF /* SidebarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		18CCAAA72705937500C518EF /* SidebarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarItem.swift; sourceTree = "<group>"; };
+		18CCAAAB2705938100C518EF /* BadgeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeModel.swift; sourceTree = "<group>"; };
+		18CCAAAC2705938100C518EF /* SidebarItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarItemModel.swift; sourceTree = "<group>"; };
+		18EC2E3A2706165F00450605 /* Meadow */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Meadow; path = ../Meadow; sourceTree = "<group>"; };
+		18EC2E3B2706166200450605 /* Harvest */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Harvest; path = ../Harvest; sourceTree = "<group>"; };
+		18EC2E4127061C6700450605 /* MapTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTool.swift; sourceTree = "<group>"; };
+		18EC2E442706EA3A00450605 /* UTType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UTType.swift; sourceTree = "<group>"; };
+		18EC2E472706FAEE00450605 /* MeadowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeadowViewModel.swift; sourceTree = "<group>"; };
+		18EC2E4A2706FBE500450605 /* MeadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeadowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		18D3A16025515D3A00031CA7 /* Frameworks */ = {
+		18CCAA812704BF6800C518EF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18D60ADC2636F91500031F69 /* Harvest in Frameworks */,
-				1874BF4A257F712A00976F82 /* Meadow in Frameworks */,
+				18EC2E3E2706167600450605 /* Harvest in Frameworks */,
+				18EC2E402706167B00450605 /* Meadow in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1807F82F255427DF008388DC /* Tab View */ = {
+		180C50BB270F030200D75694 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				1807F84025542971008388DC /* InspectorTabViewController.swift */,
+				180C50BC270F030C00D75694 /* GridBuilder.swift */,
 			);
-			path = "Tab View";
+			path = Protocols;
 			sourceTree = "<group>";
 		};
-		1807F84325542998008388DC /* Tab View */ = {
+		18472F4527071C0700017BAF /* Operations */ = {
 			isa = PBXGroup;
 			children = (
-				1807F84B255429C4008388DC /* InspectorTabViewCoordinator.swift */,
+				18472F462707325000017BAF /* MapConversionOperation.swift */,
 			);
-			path = "Tab View";
+			path = Operations;
 			sourceTree = "<group>";
 		};
-		1807F85125542DE9008388DC /* Inspector */ = {
+		18472F58270884E000017BAF /* Tool Properties */ = {
 			isa = PBXGroup;
 			children = (
-				188376942610B03B008BFEC2 /* ActorInspectorViewController.swift */,
-				18942CBE2613037700F93728 /* BridgeInspectorViewController.swift */,
-				187B463B25FF5BDE00D7D5B4 /* BuildingInspectorViewController.swift */,
-				187B462025FF48D800D7D5B4 /* FoliageInspectorViewController.swift */,
-				187B465A2600A65000D7D5B4 /* FootpathInspectorViewController.swift */,
-				180FDCFF25F7A918007A208C /* InspectorViewController.swift */,
-				18C9E28C2600EADE00343B27 /* PortalInspectorViewController.swift */,
-				1870D1742555439900B39F8C /* SceneInspectorViewController.swift */,
-				180BEFB32666479E000AE2E8 /* SeamInspectorViewController.swift */,
-				18942CCB261308A600F93728 /* StairsInspectorViewController.swift */,
-				1870D16E2555434C00B39F8C /* SurfaceInspectorViewController.swift */,
-				1838E4AD26189A9900E24C44 /* WallInspectorViewController.swift */,
-				18534C8326077D6400500535 /* WaterInspectorViewController.swift */,
+				18472F592708866D00017BAF /* ToolPropertyGroup.swift */,
+				18472F4827087B2800017BAF /* ToolPropertySection.swift */,
+				18C28476270612A4001546B2 /* ToolPropertyView.swift */,
 			);
-			path = Inspector;
+			path = "Tool Properties";
 			sourceTree = "<group>";
 		};
-		1807F85325542DF3008388DC /* Inspector */ = {
+		185039852709C2470075EB9A /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				1883768B2610AFBD008BFEC2 /* Actors */,
-				18942CB12613033300F93728 /* Bridges */,
-				187B463E25FF5BF800D7D5B4 /* Buildings */,
-				187B462325FF497000D7D5B4 /* Foliage */,
-				187B46592600A63B00D7D5B4 /* Footpaths */,
-				180FDD0225F7A94C007A208C /* InspectorCoordinator.swift */,
-				18C9E2882600EAB500343B27 /* Portals */,
-				1870D177255543AB00B39F8C /* SceneInspectorCoordinator.swift */,
-				180BEFB5266647C1000AE2E8 /* Seams */,
-				18942CCE2613090100F93728 /* Stairs */,
-				18AFB91825FA4DC300C1B847 /* Surface */,
-				1838E49F26189A2B00E24C44 /* Walls */,
-				18534C8626077D9900500535 /* Water */,
+				1816783A270B1619006D5D71 /* BridgeToolModel.swift */,
+				1816783C270B1757006D5D71 /* BuildingToolModel.swift */,
+				18167851270B17EF006D5D71 /* BushToolModel.swift */,
+				1816783E270B176A006D5D71 /* FootpathToolModel.swift */,
+				18167840270B1782006D5D71 /* MapToolModel.swift */,
+				18167842270B178F006D5D71 /* PortalToolModel.swift */,
+				18167853270B17F9006D5D71 /* RockToolModel.swift */,
+				18167844270B1799006D5D71 /* SeamToolModel.swift */,
+				18167846270B17A5006D5D71 /* StairToolModel.swift */,
+				18167848270B17B1006D5D71 /* SurfaceToolModel.swift */,
+				185039862709C2520075EB9A /* ToolPropertyGroupModel.swift */,
+				18A7B48E270C5DC900CC7194 /* ToolViewModel.swift */,
+				1816784A270B17C0006D5D71 /* TreeToolModel.swift */,
+				1816784C270B17CE006D5D71 /* WallToolModel.swift */,
+				1816784F270B17DD006D5D71 /* WaterToolModel.swift */,
 			);
-			path = Inspector;
+			path = Tools;
 			sourceTree = "<group>";
 		};
-		180BEFB5266647C1000AE2E8 /* Seams */ = {
+		18577488270B600C0040C79E /* Editor */ = {
 			isa = PBXGroup;
 			children = (
-				180BEFB6266647E0000AE2E8 /* SeamCoordinator.swift */,
-				180BEFB8266647ED000AE2E8 /* SeamUtilityCoordinator.swift */,
-				180BEFBB26664805000AE2E8 /* SeamInspectorCoordinator.swift */,
-				180BEFBD26664812000AE2E8 /* SeamStitchCoordinator.swift */,
+				18577489270B60140040C79E /* EditorViewModel.swift */,
 			);
-			path = Seams;
+			path = Editor;
 			sourceTree = "<group>";
 		};
-		181002612551951800FFE101 /* Supporting Files */ = {
+		18C284622705A31A001546B2 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				18D3A17125515D3C00031CA7 /* Info.plist */,
-				18D3A17225515D3C00031CA7 /* Orchard.entitlements */,
+				18472F4A2708840500017BAF /* BridgeTool.swift */,
+				18C28478270612DD001546B2 /* BuildingTool.swift */,
+				185039882709D5C70075EB9A /* BushTool.swift */,
+				18472F4C2708843F00017BAF /* FootpathTool.swift */,
+				18EC2E4127061C6700450605 /* MapTool.swift */,
+				18472F4E2708845300017BAF /* PortalTool.swift */,
+				1850398A2709D5F70075EB9A /* RockTool.swift */,
+				187948EF2708A7DF001C705C /* SeamTool.swift */,
+				18472F502708846500017BAF /* StairTool.swift */,
+				18C284722705B5FD001546B2 /* SurfaceTool.swift */,
+				18C284632705A362001546B2 /* ToolView.swift */,
+				18472F522708847F00017BAF /* TreeTool.swift */,
+				18472F542708849900017BAF /* WallTool.swift */,
+				18472F56270884AC00017BAF /* WaterTool.swift */,
 			);
-			path = "Supporting Files";
+			path = Tools;
 			sourceTree = "<group>";
 		};
-		1838E49F26189A2B00E24C44 /* Walls */ = {
+		18C284672705A55D001546B2 /* Badge */ = {
 			isa = PBXGroup;
 			children = (
-				1838E4A726189A5700E24C44 /* WallBuildCoordinator.swift */,
-				1838E4A026189A3900E24C44 /* WallCoordinator.swift */,
-				1838E4AA26189A6300E24C44 /* WallInspectorCoordinator.swift */,
-				1838E4A426189A4800E24C44 /* WallUtilityCoordinator.swift */,
+				18CCAAAB2705938100C518EF /* BadgeModel.swift */,
 			);
-			path = Walls;
+			path = Badge;
 			sourceTree = "<group>";
 		};
-		18534C8626077D9900500535 /* Water */ = {
+		18C284682705A567001546B2 /* Sidebar */ = {
 			isa = PBXGroup;
 			children = (
-				18534C8726077DAD00500535 /* WaterCoordinator.swift */,
-				18534C8D26077DC200500535 /* WaterInspectorCoordinator.swift */,
-				18534C9026077DCE00500535 /* WaterMaterialCoordinator.swift */,
-				18534C8A26077DB800500535 /* WaterUtilityCoordinator.swift */,
+				18CCAAAC2705938100C518EF /* SidebarItemModel.swift */,
 			);
-			path = Water;
+			path = Sidebar;
 			sourceTree = "<group>";
 		};
-		1859140825581048003618DB /* NumberStepper */ = {
+		18C2846F2705AEC8001546B2 /* Data Types */ = {
 			isa = PBXGroup;
 			children = (
-				185914092558105A003618DB /* NumberStepper.swift */,
+				18C2846B2705A64F001546B2 /* Tool.swift */,
+				188BFA532708C7BC00A65F9C /* Segue.swift */,
 			);
-			path = NumberStepper;
+			path = "Data Types";
 			sourceTree = "<group>";
 		};
-		185F87D12556FA51008BFF30 /* Views */ = {
+		18CCAA7B2704BF6800C518EF = {
 			isa = PBXGroup;
 			children = (
-				185F87D62556FA87008BFF30 /* Coordinate View */,
-				1859140825581048003618DB /* NumberStepper */,
-				18814F7B25838A54004689E5 /* Sprite View */,
+				18EC2E3B2706166200450605 /* Harvest */,
+				18EC2E3A2706165F00450605 /* Meadow */,
+				18CCAA862704BF6800C518EF /* Orchard */,
+				18CCAA852704BF6800C518EF /* Products */,
+				18EC2E3C2706167600450605 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		18CCAA852704BF6800C518EF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				18CCAA842704BF6800C518EF /* Orchard.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		18CCAA862704BF6800C518EF /* Orchard */ = {
+			isa = PBXGroup;
+			children = (
+				180C50BB270F030200D75694 /* Protocols */,
+				18472F4527071C0700017BAF /* Operations */,
+				18EC2E432706EA3100450605 /* Extensions */,
+				18C2846F2705AEC8001546B2 /* Data Types */,
+				18CCAA8D2704BF6900C518EF /* Assets.xcassets */,
+				18CCAA892704BF6800C518EF /* Document.swift */,
+				18CCAA922704BF6900C518EF /* Info.plist */,
+				18CCAA932704BF6900C518EF /* Orchard.entitlements */,
+				18CCAA872704BF6800C518EF /* OrchardApp.swift */,
+				18CCAA9A2704BF7700C518EF /* View Models */,
+				18CCAA992704BF7100C518EF /* Views */,
+			);
+			path = Orchard;
+			sourceTree = "<group>";
+		};
+		18CCAA992704BF7100C518EF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				18472F58270884E000017BAF /* Tool Properties */,
+				18EC2E492706FBDC00450605 /* Meadow */,
+				18C284622705A31A001546B2 /* Tools */,
+				18CCAAAF2705938F00C518EF /* Editor */,
+				18CCAAA42705937500C518EF /* Sidebar */,
+				18CCAAA12705935B00C518EF /* Badge */,
+				18CCAA8B2704BF6800C518EF /* AppView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		185F87D62556FA87008BFF30 /* Coordinate View */ = {
+		18CCAA9A2704BF7700C518EF /* View Models */ = {
 			isa = PBXGroup;
 			children = (
-				185F87D22556FA84008BFF30 /* CoordinateView.swift */,
+				18577488270B600C0040C79E /* Editor */,
+				185039852709C2470075EB9A /* Tools */,
+				18EC2E462706FAE300450605 /* Meadow */,
+				18C284682705A567001546B2 /* Sidebar */,
+				18C284672705A55D001546B2 /* Badge */,
+				18CCAA9B2704C02A00C518EF /* AppViewModel.swift */,
 			);
-			path = "Coordinate View";
+			path = "View Models";
 			sourceTree = "<group>";
 		};
-		1874BF48257F712A00976F82 /* Frameworks */ = {
+		18CCAAA12705935B00C518EF /* Badge */ = {
+			isa = PBXGroup;
+			children = (
+				18CCAAA22705935B00C518EF /* BadgeView.swift */,
+			);
+			path = Badge;
+			sourceTree = "<group>";
+		};
+		18CCAAA42705937500C518EF /* Sidebar */ = {
+			isa = PBXGroup;
+			children = (
+				18CCAAA52705937500C518EF /* SidebarView.swift */,
+				18CCAAA72705937500C518EF /* SidebarItem.swift */,
+				18C284652705A526001546B2 /* SidebarToolGroup.swift */,
+			);
+			path = Sidebar;
+			sourceTree = "<group>";
+		};
+		18CCAAAF2705938F00C518EF /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				18CCAA9F2704C36600C518EF /* EditorView.swift */,
+			);
+			path = Editor;
+			sourceTree = "<group>";
+		};
+		18EC2E3C2706167600450605 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		187B462325FF497000D7D5B4 /* Foliage */ = {
+		18EC2E432706EA3100450605 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				187B462425FF498200D7D5B4 /* FoliageInspectorCoordinator.swift */,
-				187B462725FF4A1B00D7D5B4 /* FoliageUtilityCoordinator.swift */,
-				187B462A25FF4A6500D7D5B4 /* FoliageCoordinator.swift */,
-				187B463025FF542000D7D5B4 /* FoliagePlantCoordinator.swift */,
-			);
-			path = Foliage;
-			sourceTree = "<group>";
-		};
-		187B463E25FF5BF800D7D5B4 /* Buildings */ = {
-			isa = PBXGroup;
-			children = (
-				187B464B25FF5CE600D7D5B4 /* BuildingBuildCoordinator.swift */,
-				187B463F25FF5C0300D7D5B4 /* BuildingCoordinator.swift */,
-				187B464825FF5CDA00D7D5B4 /* BuildingInspectorCoordinator.swift */,
-				187B464225FF5C3A00D7D5B4 /* BuildingUtilityCoordinator.swift */,
-			);
-			path = Buildings;
-			sourceTree = "<group>";
-		};
-		187B46592600A63B00D7D5B4 /* Footpaths */ = {
-			isa = PBXGroup;
-			children = (
-				187B46612600A70F00D7D5B4 /* FootpathCoordinator.swift */,
-				187B46642600A71A00D7D5B4 /* FootpathUtilityCoordinator.swift */,
-				187B46672600A72500D7D5B4 /* FootpathInspectorCoordinator.swift */,
-				187B466A2600A79500D7D5B4 /* FootpathMaterialCoordinator.swift */,
-			);
-			path = Footpaths;
-			sourceTree = "<group>";
-		};
-		18814F7B25838A54004689E5 /* Sprite View */ = {
-			isa = PBXGroup;
-			children = (
-				18814F7C25838A62004689E5 /* SpriteView.swift */,
-			);
-			path = "Sprite View";
-			sourceTree = "<group>";
-		};
-		18814F8025838D1B004689E5 /* Observers */ = {
-			isa = PBXGroup;
-			children = (
-				18814F872583A48A004689E5 /* KeyboardObservable.swift */,
-				18814F8125838D2D004689E5 /* KeyboardObserver.swift */,
-				18814F8A2583A496004689E5 /* MouseObservable.swift */,
-				18814F8425838D4A004689E5 /* MouseObserver.swift */,
-			);
-			path = Observers;
-			sourceTree = "<group>";
-		};
-		1883768B2610AFBD008BFEC2 /* Actors */ = {
-			isa = PBXGroup;
-			children = (
-				188376912610B02A008BFEC2 /* ActorCoordinator.swift */,
-				188376972610B067008BFEC2 /* ActorUtilityCoordinator.swift */,
-				1883769B2610B072008BFEC2 /* ActorInspectorCoordinator.swift */,
-				1883769E2610B089008BFEC2 /* ActorPlacementCoordinator.swift */,
-			);
-			path = Actors;
-			sourceTree = "<group>";
-		};
-		18942CB12613033300F93728 /* Bridges */ = {
-			isa = PBXGroup;
-			children = (
-				18942CB52613034F00F93728 /* BridgeBuildCoordinator.swift */,
-				18942CBB2613036900F93728 /* BridgeCoordinator.swift */,
-				18942CB82613035C00F93728 /* BridgeInspectorCoordinator.swift */,
-				18942CB22613034300F93728 /* BridgeUtilityCoordinator.swift */,
-			);
-			path = Bridges;
-			sourceTree = "<group>";
-		};
-		18942CCE2613090100F93728 /* Stairs */ = {
-			isa = PBXGroup;
-			children = (
-				18942CD52613092100F93728 /* StairsBuildCoordinator.swift */,
-				18942CCF2613091000F93728 /* StairsCoordinator.swift */,
-				18942CD82613092B00F93728 /* StairsInspectorCoordinator.swift */,
-				18942CD22613091900F93728 /* StairsUtilityCoordinator.swift */,
-			);
-			path = Stairs;
-			sourceTree = "<group>";
-		};
-		18AFB91425FA4C2600C1B847 /* View Models */ = {
-			isa = PBXGroup;
-			children = (
-				1883768C2610AFD0008BFEC2 /* ActorViewModel.swift */,
-				18942CAE261302F600F93728 /* BridgeViewModel.swift */,
-				187B464525FF5C5D00D7D5B4 /* BuildingViewModel.swift */,
-				187B462D25FF4ACC00D7D5B4 /* FoliageViewModel.swift */,
-				187B465E2600A66B00D7D5B4 /* FootpathViewModel.swift */,
-				18C9E2852600EA8B00343B27 /* PortalViewModel.swift */,
-				18F1CA3F2600C86000E26398 /* SceneViewModel.swift */,
-				185274A32666499E007DF1A0 /* SeamViewModel.swift */,
-				18942CDC261309E500F93728 /* StairsViewModel.swift */,
-				18AFB91525FA4C3400C1B847 /* SurfaceViewModel.swift */,
-				1838E4B026189B0800E24C44 /* WallViewModel.swift */,
-				18534C9626077E9400500535 /* WaterViewModel.swift */,
-			);
-			path = "View Models";
-			sourceTree = "<group>";
-		};
-		18AFB91825FA4DC300C1B847 /* Surface */ = {
-			isa = PBXGroup;
-			children = (
-				18AFB91D25FA503B00C1B847 /* SurfaceCoordinator.swift */,
-				18EDA9FC25FBB452008A7AF0 /* SurfaceElevationCoordinator.swift */,
-				1870D1712555437600B39F8C /* SurfaceInspectorCoordinator.swift */,
-				18AFB91925FA4DD800C1B847 /* SurfaceMaterialCoordinator.swift */,
-				18AFB92025FA554500C1B847 /* SurfaceUtilityCoordinator.swift */,
-				18671C7F260784A800949BC4 /* SurfaceEdgeCoordinator.swift */,
-			);
-			path = Surface;
-			sourceTree = "<group>";
-		};
-		18C9E2882600EAB500343B27 /* Portals */ = {
-			isa = PBXGroup;
-			children = (
-				18C9E2892600EAC300343B27 /* PortalCoordinator.swift */,
-				18C9E28F2600EAFD00343B27 /* PortalUtilityCoordinator.swift */,
-				18C9E2922600EB0600343B27 /* PortalBuildCoordinator.swift */,
-				18C9E2952600EB1000343B27 /* PortalInspectorCoordinator.swift */,
-			);
-			path = Portals;
-			sourceTree = "<group>";
-		};
-		18D3A15A25515D3A00031CA7 = {
-			isa = PBXGroup;
-			children = (
-				18D60AD92636F90E00031F69 /* Harvest */,
-				1874BF45257F710200976F82 /* Meadow */,
-				18D3A16525515D3A00031CA7 /* Orchard */,
-				18D3A16425515D3A00031CA7 /* Products */,
-				1874BF48257F712A00976F82 /* Frameworks */,
-			);
-			sourceTree = "<group>";
-		};
-		18D3A16425515D3A00031CA7 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				18D3A16325515D3A00031CA7 /* Orchard.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		18D3A16525515D3A00031CA7 /* Orchard */ = {
-			isa = PBXGroup;
-			children = (
-				18D3A16625515D3A00031CA7 /* AppDelegate.swift */,
-				18D3A16C25515D3C00031CA7 /* Assets.xcassets */,
-				18D3A17E2551650800031CA7 /* Controllers */,
-				18FB3825255167790036CA95 /* Coordinators */,
-				18FB382A255167B40036CA95 /* Document */,
-				18F4F5DA2552BC74007AC940 /* Extensions */,
-				18814F8025838D1B004689E5 /* Observers */,
-				18FB38242551674F0036CA95 /* Storyboards */,
-				181002612551951800FFE101 /* Supporting Files */,
-				18AFB91425FA4C2600C1B847 /* View Models */,
-				185F87D12556FA51008BFF30 /* Views */,
-			);
-			path = Orchard;
-			sourceTree = "<group>";
-		};
-		18D3A17E2551650800031CA7 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				1807F85125542DE9008388DC /* Inspector */,
-				18FB3828255167940036CA95 /* Scene */,
-				18FB38272551678D0036CA95 /* Toolbar */,
-				18FB38332551777B0036CA95 /* Split View */,
-				1807F82F255427DF008388DC /* Tab View */,
-				18FB3826255167850036CA95 /* Window */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		18F4F5DA2552BC74007AC940 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				1808EBDE2553F60E00484BEC /* NSResponder.swift */,
-				1833179F257E20CE001CC0A3 /* NSStoryboard.swift */,
-				1809A8E2263701E0008DCA82 /* Map2D.swift */,
+				18EC2E442706EA3A00450605 /* UTType.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		18FB38242551674F0036CA95 /* Storyboards */ = {
+		18EC2E462706FAE300450605 /* Meadow */ = {
 			isa = PBXGroup;
 			children = (
-				18D3A16E25515D3C00031CA7 /* Main.storyboard */,
+				18EC2E472706FAEE00450605 /* MeadowViewModel.swift */,
 			);
-			path = Storyboards;
+			path = Meadow;
 			sourceTree = "<group>";
 		};
-		18FB3825255167790036CA95 /* Coordinators */ = {
+		18EC2E492706FBDC00450605 /* Meadow */ = {
 			isa = PBXGroup;
 			children = (
-				18FB38312551752E0036CA95 /* Coordinator */,
-				1807F85325542DF3008388DC /* Inspector */,
-				18FB3847255179160036CA95 /* Scene */,
-				18FB38482551791C0036CA95 /* Toolbar */,
-				18FB3839255177A20036CA95 /* Split View */,
-				1807F84325542998008388DC /* Tab View */,
-				18FB38382551779C0036CA95 /* Window */,
+				18EC2E4A2706FBE500450605 /* MeadowView.swift */,
 			);
-			path = Coordinators;
-			sourceTree = "<group>";
-		};
-		18FB3826255167850036CA95 /* Window */ = {
-			isa = PBXGroup;
-			children = (
-				18D3A17F2551652000031CA7 /* WindowController.swift */,
-			);
-			path = Window;
-			sourceTree = "<group>";
-		};
-		18FB38272551678D0036CA95 /* Toolbar */ = {
-			isa = PBXGroup;
-			children = (
-				18FB383E255178D30036CA95 /* ToolbarViewController.swift */,
-			);
-			path = Toolbar;
-			sourceTree = "<group>";
-		};
-		18FB3828255167940036CA95 /* Scene */ = {
-			isa = PBXGroup;
-			children = (
-				18FB3841255178ED0036CA95 /* SceneViewController.swift */,
-			);
-			path = Scene;
-			sourceTree = "<group>";
-		};
-		18FB382A255167B40036CA95 /* Document */ = {
-			isa = PBXGroup;
-			children = (
-				18D3A16A25515D3A00031CA7 /* Document.swift */,
-			);
-			path = Document;
-			sourceTree = "<group>";
-		};
-		18FB38312551752E0036CA95 /* Coordinator */ = {
-			isa = PBXGroup;
-			children = (
-				18FB382E2551752B0036CA95 /* Coordinator.swift */,
-			);
-			path = Coordinator;
-			sourceTree = "<group>";
-		};
-		18FB38332551777B0036CA95 /* Split View */ = {
-			isa = PBXGroup;
-			children = (
-				18FB38342551778A0036CA95 /* SplitViewController.swift */,
-			);
-			path = "Split View";
-			sourceTree = "<group>";
-		};
-		18FB38382551779C0036CA95 /* Window */ = {
-			isa = PBXGroup;
-			children = (
-				18FB382B25516F5A0036CA95 /* WindowCoordinator.swift */,
-			);
-			path = Window;
-			sourceTree = "<group>";
-		};
-		18FB3839255177A20036CA95 /* Split View */ = {
-			isa = PBXGroup;
-			children = (
-				18FB383A255177AC0036CA95 /* SplitViewCoordinator.swift */,
-			);
-			path = "Split View";
-			sourceTree = "<group>";
-		};
-		18FB3847255179160036CA95 /* Scene */ = {
-			isa = PBXGroup;
-			children = (
-				18FB384A2551792E0036CA95 /* SceneCoordinator.swift */,
-			);
-			path = Scene;
-			sourceTree = "<group>";
-		};
-		18FB38482551791C0036CA95 /* Toolbar */ = {
-			isa = PBXGroup;
-			children = (
-				18FB384E255179380036CA95 /* ToolbarCoordinator.swift */,
-			);
-			path = Toolbar;
+			path = Meadow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		18D3A16225515D3A00031CA7 /* Orchard */ = {
+		18CCAA832704BF6800C518EF /* Orchard */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 18D3A17525515D3C00031CA7 /* Build configuration list for PBXNativeTarget "Orchard" */;
+			buildConfigurationList = 18CCAA962704BF6900C518EF /* Build configuration list for PBXNativeTarget "Orchard" */;
 			buildPhases = (
-				18D3A15F25515D3A00031CA7 /* Sources */,
-				18D3A16025515D3A00031CA7 /* Frameworks */,
-				18D3A16125515D3A00031CA7 /* Resources */,
+				18CCAA802704BF6800C518EF /* Sources */,
+				18CCAA812704BF6800C518EF /* Frameworks */,
+				18CCAA822704BF6800C518EF /* Resources */,
 			);
 			buildRules = (
 			);
@@ -666,184 +376,126 @@
 			);
 			name = Orchard;
 			packageProductDependencies = (
-				1874BF49257F712A00976F82 /* Meadow */,
-				18D60ADB2636F91500031F69 /* Harvest */,
+				18EC2E3D2706167600450605 /* Harvest */,
+				18EC2E3F2706167B00450605 /* Meadow */,
 			);
 			productName = Orchard;
-			productReference = 18D3A16325515D3A00031CA7 /* Orchard.app */;
+			productReference = 18CCAA842704BF6800C518EF /* Orchard.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		18D3A15B25515D3A00031CA7 /* Project object */ = {
+		18CCAA7C2704BF6800C518EF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1210;
-				LastUpgradeCheck = 1220;
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1300;
+				LastUpgradeCheck = 1300;
 				TargetAttributes = {
-					18D3A16225515D3A00031CA7 = {
-						CreatedOnToolsVersion = 12.1;
+					18CCAA832704BF6800C518EF = {
+						CreatedOnToolsVersion = 13.0;
 					};
 				};
 			};
-			buildConfigurationList = 18D3A15E25515D3A00031CA7 /* Build configuration list for PBXProject "Orchard" */;
-			compatibilityVersion = "Xcode 9.3";
+			buildConfigurationList = 18CCAA7F2704BF6800C518EF /* Build configuration list for PBXProject "Orchard" */;
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 18D3A15A25515D3A00031CA7;
-			packageReferences = (
-			);
-			productRefGroup = 18D3A16425515D3A00031CA7 /* Products */;
+			mainGroup = 18CCAA7B2704BF6800C518EF;
+			productRefGroup = 18CCAA852704BF6800C518EF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				18D3A16225515D3A00031CA7 /* Orchard */,
+				18CCAA832704BF6800C518EF /* Orchard */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		18D3A16125515D3A00031CA7 /* Resources */ = {
+		18CCAA822704BF6800C518EF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18D3A16D25515D3C00031CA7 /* Assets.xcassets in Resources */,
-				18D3A17025515D3C00031CA7 /* Main.storyboard in Resources */,
+				18CCAA8E2704BF6900C518EF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		18D3A15F25515D3A00031CA7 /* Sources */ = {
+		18CCAA802704BF6800C518EF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18534C8E26077DC200500535 /* WaterInspectorCoordinator.swift in Sources */,
-				187B463C25FF5BDE00D7D5B4 /* BuildingInspectorViewController.swift in Sources */,
-				187B462125FF48D800D7D5B4 /* FoliageInspectorViewController.swift in Sources */,
-				18FB3842255178ED0036CA95 /* SceneViewController.swift in Sources */,
-				187B462525FF498200D7D5B4 /* FoliageInspectorCoordinator.swift in Sources */,
-				1838E4AE26189A9900E24C44 /* WallInspectorViewController.swift in Sources */,
-				1883769C2610B072008BFEC2 /* ActorInspectorCoordinator.swift in Sources */,
-				18534C9726077E9400500535 /* WaterViewModel.swift in Sources */,
-				18AFB91A25FA4DD800C1B847 /* SurfaceMaterialCoordinator.swift in Sources */,
-				18942CB92613035C00F93728 /* BridgeInspectorCoordinator.swift in Sources */,
-				187B462E25FF4ACC00D7D5B4 /* FoliageViewModel.swift in Sources */,
-				18FB383F255178D30036CA95 /* ToolbarViewController.swift in Sources */,
-				187B465B2600A65000D7D5B4 /* FootpathInspectorViewController.swift in Sources */,
-				1883768D2610AFD0008BFEC2 /* ActorViewModel.swift in Sources */,
-				18942CDD261309E500F93728 /* StairsViewModel.swift in Sources */,
-				187B46682600A72500D7D5B4 /* FootpathInspectorCoordinator.swift in Sources */,
-				1870D16F2555434C00B39F8C /* SurfaceInspectorViewController.swift in Sources */,
-				1809A8E3263701E0008DCA82 /* Map2D.swift in Sources */,
-				18814F8225838D2D004689E5 /* KeyboardObserver.swift in Sources */,
-				18FB383B255177AC0036CA95 /* SplitViewCoordinator.swift in Sources */,
-				1883769F2610B089008BFEC2 /* ActorPlacementCoordinator.swift in Sources */,
-				18942CAF261302F600F93728 /* BridgeViewModel.swift in Sources */,
-				18814F7D25838A62004689E5 /* SpriteView.swift in Sources */,
-				18814F8525838D4A004689E5 /* MouseObserver.swift in Sources */,
-				1870D1722555437600B39F8C /* SurfaceInspectorCoordinator.swift in Sources */,
-				18814F8B2583A496004689E5 /* MouseObservable.swift in Sources */,
-				1808EBDF2553F60E00484BEC /* NSResponder.swift in Sources */,
-				18534C8426077D6400500535 /* WaterInspectorViewController.swift in Sources */,
-				187B46622600A70F00D7D5B4 /* FootpathCoordinator.swift in Sources */,
-				18C9E28D2600EADE00343B27 /* PortalInspectorViewController.swift in Sources */,
-				18814F882583A48A004689E5 /* KeyboardObservable.swift in Sources */,
-				1838E4B126189B0800E24C44 /* WallViewModel.swift in Sources */,
-				18942CB32613034300F93728 /* BridgeUtilityCoordinator.swift in Sources */,
-				187B466B2600A79500D7D5B4 /* FootpathMaterialCoordinator.swift in Sources */,
-				18F1CA402600C86000E26398 /* SceneViewModel.swift in Sources */,
-				1859140A2558105A003618DB /* NumberStepper.swift in Sources */,
-				18AFB91E25FA503B00C1B847 /* SurfaceCoordinator.swift in Sources */,
-				18942CD32613091900F93728 /* StairsUtilityCoordinator.swift in Sources */,
-				18942CD92613092B00F93728 /* StairsInspectorCoordinator.swift in Sources */,
-				187B462825FF4A1B00D7D5B4 /* FoliageUtilityCoordinator.swift in Sources */,
-				1807F84C255429C4008388DC /* InspectorTabViewCoordinator.swift in Sources */,
-				187B462B25FF4A6500D7D5B4 /* FoliageCoordinator.swift in Sources */,
-				188376922610B02A008BFEC2 /* ActorCoordinator.swift in Sources */,
-				18C9E2962600EB1000343B27 /* PortalInspectorCoordinator.swift in Sources */,
-				18942CBC2613036900F93728 /* BridgeCoordinator.swift in Sources */,
-				187B465F2600A66B00D7D5B4 /* FootpathViewModel.swift in Sources */,
-				180BEFBE26664812000AE2E8 /* SeamStitchCoordinator.swift in Sources */,
-				180FDD0025F7A918007A208C /* InspectorViewController.swift in Sources */,
-				1870D178255543AB00B39F8C /* SceneInspectorCoordinator.swift in Sources */,
-				18D3A1802551652000031CA7 /* WindowController.swift in Sources */,
-				180FDD0325F7A94C007A208C /* InspectorCoordinator.swift in Sources */,
-				18942CD62613092100F93728 /* StairsBuildCoordinator.swift in Sources */,
-				187B464C25FF5CE600D7D5B4 /* BuildingBuildCoordinator.swift in Sources */,
-				187B464025FF5C0300D7D5B4 /* BuildingCoordinator.swift in Sources */,
-				187B464625FF5C5D00D7D5B4 /* BuildingViewModel.swift in Sources */,
-				18D3A16725515D3A00031CA7 /* AppDelegate.swift in Sources */,
-				18FB384F255179380036CA95 /* ToolbarCoordinator.swift in Sources */,
-				18942CD02613091000F93728 /* StairsCoordinator.swift in Sources */,
-				18C9E2902600EAFD00343B27 /* PortalUtilityCoordinator.swift in Sources */,
-				18C9E28A2600EAC300343B27 /* PortalCoordinator.swift in Sources */,
-				188376952610B03B008BFEC2 /* ActorInspectorViewController.swift in Sources */,
-				1838E4A126189A3900E24C44 /* WallCoordinator.swift in Sources */,
-				1838E4A526189A4800E24C44 /* WallUtilityCoordinator.swift in Sources */,
-				18FB382F2551752B0036CA95 /* Coordinator.swift in Sources */,
-				18C9E2932600EB0600343B27 /* PortalBuildCoordinator.swift in Sources */,
-				18671C80260784A800949BC4 /* SurfaceEdgeCoordinator.swift in Sources */,
-				18C9E2862600EA8B00343B27 /* PortalViewModel.swift in Sources */,
-				180BEFB9266647ED000AE2E8 /* SeamUtilityCoordinator.swift in Sources */,
-				18534C9126077DCE00500535 /* WaterMaterialCoordinator.swift in Sources */,
-				18EDA9FD25FBB452008A7AF0 /* SurfaceElevationCoordinator.swift in Sources */,
-				18FB382C25516F5A0036CA95 /* WindowCoordinator.swift in Sources */,
-				18AFB91625FA4C3400C1B847 /* SurfaceViewModel.swift in Sources */,
-				188376982610B067008BFEC2 /* ActorUtilityCoordinator.swift in Sources */,
-				185274A42666499E007DF1A0 /* SeamViewModel.swift in Sources */,
-				180BEFB42666479E000AE2E8 /* SeamInspectorViewController.swift in Sources */,
-				18D3A16B25515D3A00031CA7 /* Document.swift in Sources */,
-				18534C8826077DAD00500535 /* WaterCoordinator.swift in Sources */,
-				183317A0257E20CE001CC0A3 /* NSStoryboard.swift in Sources */,
-				187B464325FF5C3A00D7D5B4 /* BuildingUtilityCoordinator.swift in Sources */,
-				1838E4A826189A5700E24C44 /* WallBuildCoordinator.swift in Sources */,
-				185F87D32556FA84008BFF30 /* CoordinateView.swift in Sources */,
-				18AFB92125FA554500C1B847 /* SurfaceUtilityCoordinator.swift in Sources */,
-				18534C8B26077DB800500535 /* WaterUtilityCoordinator.swift in Sources */,
-				18FB38352551778A0036CA95 /* SplitViewController.swift in Sources */,
-				18942CCC261308A600F93728 /* StairsInspectorViewController.swift in Sources */,
-				18FB384B2551792E0036CA95 /* SceneCoordinator.swift in Sources */,
-				180BEFBC26664805000AE2E8 /* SeamInspectorCoordinator.swift in Sources */,
-				187B463125FF542000D7D5B4 /* FoliagePlantCoordinator.swift in Sources */,
-				18942CBF2613037700F93728 /* BridgeInspectorViewController.swift in Sources */,
-				1870D1752555439900B39F8C /* SceneInspectorViewController.swift in Sources */,
-				1807F84125542971008388DC /* InspectorTabViewController.swift in Sources */,
-				18942CB62613034F00F93728 /* BridgeBuildCoordinator.swift in Sources */,
-				187B464925FF5CDA00D7D5B4 /* BuildingInspectorCoordinator.swift in Sources */,
-				1838E4AB26189A6300E24C44 /* WallInspectorCoordinator.swift in Sources */,
-				187B46652600A71A00D7D5B4 /* FootpathUtilityCoordinator.swift in Sources */,
-				180BEFB7266647E0000AE2E8 /* SeamCoordinator.swift in Sources */,
+				1857748A270B60140040C79E /* EditorViewModel.swift in Sources */,
+				18CCAA8A2704BF6800C518EF /* Document.swift in Sources */,
+				18CCAAA82705937500C518EF /* SidebarView.swift in Sources */,
+				18CCAAAE2705938100C518EF /* SidebarItemModel.swift in Sources */,
+				18167850270B17DD006D5D71 /* WaterToolModel.swift in Sources */,
+				18C284732705B5FD001546B2 /* SurfaceTool.swift in Sources */,
+				18C2846C2705A64F001546B2 /* Tool.swift in Sources */,
+				185039892709D5C70075EB9A /* BushTool.swift in Sources */,
+				18C28479270612DD001546B2 /* BuildingTool.swift in Sources */,
+				1850398B2709D5F80075EB9A /* RockTool.swift in Sources */,
+				1816783F270B176A006D5D71 /* FootpathToolModel.swift in Sources */,
+				18167849270B17B1006D5D71 /* SurfaceToolModel.swift in Sources */,
+				18167841270B1782006D5D71 /* MapToolModel.swift in Sources */,
+				18472F512708846500017BAF /* StairTool.swift in Sources */,
+				1816784D270B17CE006D5D71 /* WallToolModel.swift in Sources */,
+				18CCAAA32705935B00C518EF /* BadgeView.swift in Sources */,
+				18CCAAAA2705937500C518EF /* SidebarItem.swift in Sources */,
+				18CCAA882704BF6800C518EF /* OrchardApp.swift in Sources */,
+				1816783D270B1757006D5D71 /* BuildingToolModel.swift in Sources */,
+				18472F4F2708845300017BAF /* PortalTool.swift in Sources */,
+				18EC2E482706FAEE00450605 /* MeadowViewModel.swift in Sources */,
+				18167843270B178F006D5D71 /* PortalToolModel.swift in Sources */,
+				18EC2E4227061C6700450605 /* MapTool.swift in Sources */,
+				18C28477270612A4001546B2 /* ToolPropertyView.swift in Sources */,
+				18CCAAAD2705938100C518EF /* BadgeModel.swift in Sources */,
+				18167847270B17A5006D5D71 /* StairToolModel.swift in Sources */,
+				18472F4B2708840500017BAF /* BridgeTool.swift in Sources */,
+				18472F57270884AC00017BAF /* WaterTool.swift in Sources */,
+				18472F4927087B2800017BAF /* ToolPropertySection.swift in Sources */,
+				18167854270B17F9006D5D71 /* RockToolModel.swift in Sources */,
+				18472F552708849900017BAF /* WallTool.swift in Sources */,
+				18CCAAA02704C36600C518EF /* EditorView.swift in Sources */,
+				18472F532708847F00017BAF /* TreeTool.swift in Sources */,
+				187948F02708A7DF001C705C /* SeamTool.swift in Sources */,
+				18A7B48F270C5DC900CC7194 /* ToolViewModel.swift in Sources */,
+				18167852270B17EF006D5D71 /* BushToolModel.swift in Sources */,
+				18CCAA9C2704C02A00C518EF /* AppViewModel.swift in Sources */,
+				18472F5A2708866D00017BAF /* ToolPropertyGroup.swift in Sources */,
+				18472F472707325000017BAF /* MapConversionOperation.swift in Sources */,
+				180C50BD270F030C00D75694 /* GridBuilder.swift in Sources */,
+				18CCAA8C2704BF6800C518EF /* AppView.swift in Sources */,
+				18EC2E452706EA3A00450605 /* UTType.swift in Sources */,
+				18C284662705A526001546B2 /* SidebarToolGroup.swift in Sources */,
+				18EC2E4B2706FBE500450605 /* MeadowView.swift in Sources */,
+				1816784B270B17C0006D5D71 /* TreeToolModel.swift in Sources */,
+				18167845270B1799006D5D71 /* SeamToolModel.swift in Sources */,
+				18C284642705A362001546B2 /* ToolView.swift in Sources */,
+				1816783B270B1619006D5D71 /* BridgeToolModel.swift in Sources */,
+				185039872709C2520075EB9A /* ToolPropertyGroupModel.swift in Sources */,
+				18472F4D2708843F00017BAF /* FootpathTool.swift in Sources */,
+				188BFA542708C7BC00A65F9C /* Segue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		18D3A16E25515D3C00031CA7 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				18D3A16F25515D3C00031CA7 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
-		18D3A17325515D3C00031CA7 /* Debug */ = {
+		18CCAA942704BF6900C518EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -888,7 +540,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -898,13 +550,13 @@
 			};
 			name = Debug;
 		};
-		18D3A17425515D3C00031CA7 /* Release */ = {
+		18CCAA952704BF6900C518EF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -943,7 +595,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -952,50 +604,54 @@
 			};
 			name = Release;
 		};
-		18D3A17625515D3C00031CA7 /* Debug */ = {
+		18CCAA972704BF6900C518EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Orchard/Supporting Files/Orchard.entitlements";
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = Orchard/Orchard.entitlements;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = "Orchard/Supporting Files/Info.plist";
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Orchard/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.Orchard";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.so.Orchard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
-		18D3A17725515D3C00031CA7 /* Release */ = {
+		18CCAA982704BF6900C518EF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Orchard/Supporting Files/Orchard.entitlements";
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = Orchard/Orchard.entitlements;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = "Orchard/Supporting Files/Info.plist";
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Orchard/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.script-orchard.Orchard";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.so.Orchard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -1003,20 +659,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		18D3A15E25515D3A00031CA7 /* Build configuration list for PBXProject "Orchard" */ = {
+		18CCAA7F2704BF6800C518EF /* Build configuration list for PBXProject "Orchard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				18D3A17325515D3C00031CA7 /* Debug */,
-				18D3A17425515D3C00031CA7 /* Release */,
+				18CCAA942704BF6900C518EF /* Debug */,
+				18CCAA952704BF6900C518EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		18D3A17525515D3C00031CA7 /* Build configuration list for PBXNativeTarget "Orchard" */ = {
+		18CCAA962704BF6900C518EF /* Build configuration list for PBXNativeTarget "Orchard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				18D3A17625515D3C00031CA7 /* Debug */,
-				18D3A17725515D3C00031CA7 /* Release */,
+				18CCAA972704BF6900C518EF /* Debug */,
+				18CCAA982704BF6900C518EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1024,15 +680,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1874BF49257F712A00976F82 /* Meadow */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Meadow;
-		};
-		18D60ADB2636F91500031F69 /* Harvest */ = {
+		18EC2E3D2706167600450605 /* Harvest */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Harvest;
 		};
+		18EC2E3F2706167B00450605 /* Meadow */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Meadow;
+		};
 /* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = 18D3A15B25515D3A00031CA7 /* Project object */;
+	rootObject = 18CCAA7C2704BF6800C518EF /* Project object */;
 }
