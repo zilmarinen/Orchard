@@ -12,7 +12,7 @@ class EditorViewModel: ObservableObject {
     
     enum Constants {
         
-        static let sceneSize = CGSize(width: 128, height: 128)
+        static let sceneSize = CGSize(width: 96, height: 96)
     }
     
     enum ViewState {

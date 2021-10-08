@@ -19,6 +19,9 @@ struct MapTool: View {
         self.tool = tool
         self.appModel = appModel
         self.toolModel = appModel.toolModel.mapModel
+        
+        toolModel.name = appModel.editorModel.harvest?.map.name ?? ""
+        toolModel.identifier = appModel.editorModel.harvest?.map.identifier ?? ""
     }
     
     var body: some View {

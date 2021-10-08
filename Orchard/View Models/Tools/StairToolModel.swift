@@ -6,6 +6,7 @@
 
 import Harvest
 import Meadow
+import PeakOperation
 import SwiftUI
 
 class StairToolModel: GridBuilder, ObservableObject {
@@ -19,8 +20,17 @@ class StairToolModel: GridBuilder, ObservableObject {
 
 extension StairToolModel {
     
-    func build(harvest: Map2D, event: Scene2D.CursorObserver.CursorEvent) {
-        
-        //
+    func operation(for event: Scene2D.CursorObserver.CursorEvent, in scene: Scene2D) -> ConcurrentOperation? {
+     
+        switch event.eventType {
+            
+        case .left:
+            
+            let prop = Prop.stairs(stairType: stairType, material: material)
+            
+            return PropBuilderOperation(event: event, scene: scene, prop: prop, rotation: direction)
+            
+        default: return GridRemovalOperation(event: event, scene: scene, tool: .stairs)
+        }
     }
 }

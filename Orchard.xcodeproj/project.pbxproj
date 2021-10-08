@@ -35,6 +35,11 @@
 		185039892709D5C70075EB9A /* BushTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185039882709D5C70075EB9A /* BushTool.swift */; };
 		1850398B2709D5F80075EB9A /* RockTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1850398A2709D5F70075EB9A /* RockTool.swift */; };
 		1857748A270B60140040C79E /* EditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18577489270B60140040C79E /* EditorViewModel.swift */; };
+		186A587F2710414F000CEF0D /* GridRemovalOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A587E2710414F000CEF0D /* GridRemovalOperation.swift */; };
+		186A588327104C1B000CEF0D /* SurfaceToolOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A588227104C1B000CEF0D /* SurfaceToolOperation.swift */; };
+		186A588527104C86000CEF0D /* FoliageToolOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A588427104C86000CEF0D /* FoliageToolOperation.swift */; };
+		186A588727105827000CEF0D /* WaterToolOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A588627105827000CEF0D /* WaterToolOperation.swift */; };
+		186A588927105854000CEF0D /* FootpathToolOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A588827105854000CEF0D /* FootpathToolOperation.swift */; };
 		187948F02708A7DF001C705C /* SeamTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187948EF2708A7DF001C705C /* SeamTool.swift */; };
 		188BFA542708C7BC00A65F9C /* Segue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BFA532708C7BC00A65F9C /* Segue.swift */; };
 		18A7B48F270C5DC900CC7194 /* ToolViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A7B48E270C5DC900CC7194 /* ToolViewModel.swift */; };
@@ -92,6 +97,11 @@
 		185039882709D5C70075EB9A /* BushTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BushTool.swift; sourceTree = "<group>"; };
 		1850398A2709D5F70075EB9A /* RockTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockTool.swift; sourceTree = "<group>"; };
 		18577489270B60140040C79E /* EditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewModel.swift; sourceTree = "<group>"; };
+		186A587E2710414F000CEF0D /* GridRemovalOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridRemovalOperation.swift; sourceTree = "<group>"; };
+		186A588227104C1B000CEF0D /* SurfaceToolOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceToolOperation.swift; sourceTree = "<group>"; };
+		186A588427104C86000CEF0D /* FoliageToolOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageToolOperation.swift; sourceTree = "<group>"; };
+		186A588627105827000CEF0D /* WaterToolOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterToolOperation.swift; sourceTree = "<group>"; };
+		186A588827105854000CEF0D /* FootpathToolOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathToolOperation.swift; sourceTree = "<group>"; };
 		187948EF2708A7DF001C705C /* SeamTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamTool.swift; sourceTree = "<group>"; };
 		188BFA532708C7BC00A65F9C /* Segue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segue.swift; sourceTree = "<group>"; };
 		18A7B48E270C5DC900CC7194 /* ToolViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolViewModel.swift; sourceTree = "<group>"; };
@@ -148,6 +158,11 @@
 			isa = PBXGroup;
 			children = (
 				18472F462707325000017BAF /* MapConversionOperation.swift */,
+				186A587E2710414F000CEF0D /* GridRemovalOperation.swift */,
+				186A588227104C1B000CEF0D /* SurfaceToolOperation.swift */,
+				186A588427104C86000CEF0D /* FoliageToolOperation.swift */,
+				186A588627105827000CEF0D /* WaterToolOperation.swift */,
+				186A588827105854000CEF0D /* FootpathToolOperation.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -444,6 +459,7 @@
 				1850398B2709D5F80075EB9A /* RockTool.swift in Sources */,
 				1816783F270B176A006D5D71 /* FootpathToolModel.swift in Sources */,
 				18167849270B17B1006D5D71 /* SurfaceToolModel.swift in Sources */,
+				186A588327104C1B000CEF0D /* SurfaceToolOperation.swift in Sources */,
 				18167841270B1782006D5D71 /* MapToolModel.swift in Sources */,
 				18472F512708846500017BAF /* StairTool.swift in Sources */,
 				1816784D270B17CE006D5D71 /* WallToolModel.swift in Sources */,
@@ -454,6 +470,7 @@
 				18472F4F2708845300017BAF /* PortalTool.swift in Sources */,
 				18EC2E482706FAEE00450605 /* MeadowViewModel.swift in Sources */,
 				18167843270B178F006D5D71 /* PortalToolModel.swift in Sources */,
+				186A587F2710414F000CEF0D /* GridRemovalOperation.swift in Sources */,
 				18EC2E4227061C6700450605 /* MapTool.swift in Sources */,
 				18C28477270612A4001546B2 /* ToolPropertyView.swift in Sources */,
 				18CCAAAD2705938100C518EF /* BadgeModel.swift in Sources */,
@@ -464,16 +481,19 @@
 				18167854270B17F9006D5D71 /* RockToolModel.swift in Sources */,
 				18472F552708849900017BAF /* WallTool.swift in Sources */,
 				18CCAAA02704C36600C518EF /* EditorView.swift in Sources */,
+				186A588927105854000CEF0D /* FootpathToolOperation.swift in Sources */,
 				18472F532708847F00017BAF /* TreeTool.swift in Sources */,
 				187948F02708A7DF001C705C /* SeamTool.swift in Sources */,
 				18A7B48F270C5DC900CC7194 /* ToolViewModel.swift in Sources */,
 				18167852270B17EF006D5D71 /* BushToolModel.swift in Sources */,
 				18CCAA9C2704C02A00C518EF /* AppViewModel.swift in Sources */,
 				18472F5A2708866D00017BAF /* ToolPropertyGroup.swift in Sources */,
+				186A588527104C86000CEF0D /* FoliageToolOperation.swift in Sources */,
 				18472F472707325000017BAF /* MapConversionOperation.swift in Sources */,
 				180C50BD270F030C00D75694 /* GridBuilder.swift in Sources */,
 				18CCAA8C2704BF6800C518EF /* AppView.swift in Sources */,
 				18EC2E452706EA3A00450605 /* UTType.swift in Sources */,
+				186A588727105827000CEF0D /* WaterToolOperation.swift in Sources */,
 				18C284662705A526001546B2 /* SidebarToolGroup.swift in Sources */,
 				18EC2E4B2706FBE500450605 /* MeadowView.swift in Sources */,
 				1816784B270B17C0006D5D71 /* TreeToolModel.swift in Sources */,

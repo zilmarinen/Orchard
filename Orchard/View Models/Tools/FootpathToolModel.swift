@@ -6,6 +6,7 @@
 
 import Harvest
 import Meadow
+import PeakOperation
 import SwiftUI
 
 class FootpathToolModel: GridBuilder, ObservableObject {
@@ -17,23 +18,12 @@ class FootpathToolModel: GridBuilder, ObservableObject {
 
 extension FootpathToolModel {
     
-    func build(harvest: Map2D, event: Scene2D.CursorObserver.CursorEvent) {
-        
-        event.position.enumerate(y: World.Constants.floor) { coordinate in
+    func operation(for event: Scene2D.CursorObserver.CursorEvent, in scene: Scene2D) -> ConcurrentOperation? {
+     
+        switch event.eventType {
             
-            switch event.eventType {
-                
-            case .left:
-                
-                _ = harvest.footpath.add(tile: coordinate) { [weak self] tile in
-                
-                    guard let self = self else { return }
-                    
-                    tile.material = self.material
-                }
-                
-            default: harvest.footpath.remove(tile: coordinate)
-            }
+        case .left: return FootpathToolOperation(event: event, scene: scene, model: self)
+        default: return GridRemovalOperation(event: event, scene: scene, tool: .footpaths)
         }
     }
 }

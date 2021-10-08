@@ -6,6 +6,7 @@
 
 import Harvest
 import Meadow
+import PeakOperation
 import SwiftUI
 
 class WaterToolModel: GridBuilder, ObservableObject {
@@ -19,8 +20,12 @@ class WaterToolModel: GridBuilder, ObservableObject {
 
 extension WaterToolModel {
     
-    func build(harvest: Map2D, event: Scene2D.CursorObserver.CursorEvent) {
-        
-        //
+    func operation(for event: Scene2D.CursorObserver.CursorEvent, in scene: Scene2D) -> ConcurrentOperation? {
+     
+        switch event.eventType {
+            
+        case .left: return WaterToolOperation(event: event, scene: scene, model: self)
+        default: return GridRemovalOperation(event: event, scene: scene, tool: .water)
+        }
     }
 }

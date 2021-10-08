@@ -6,6 +6,7 @@
 
 import Harvest
 import Meadow
+import PeakOperation
 import SwiftUI
 
 class SurfaceToolModel: GridBuilder, ObservableObject {
@@ -20,25 +21,12 @@ class SurfaceToolModel: GridBuilder, ObservableObject {
 
 extension SurfaceToolModel {
     
-    func build(harvest: Map2D, event: Scene2D.CursorObserver.CursorEvent) {
-        
-        event.position.enumerate(y: elevation) { coordinate in
+    func operation(for event: Scene2D.CursorObserver.CursorEvent, in scene: Scene2D) -> ConcurrentOperation? {
+     
+        switch event.eventType {
             
-            switch event.eventType {
-                
-            case .left:
-                
-                _ = harvest.surface.add(tile: coordinate) { [weak self] tile in
-                
-                    guard let self = self else { return }
-                    
-                    tile.material = self.material
-                    tile.overlay = self.overlay
-                    tile.tileType = self.tileType
-                }
-                
-            default: harvest.surface.remove(tile: coordinate)
-            }
+        case .left: return SurfaceToolOperation(event: event, scene: scene, model: self)
+        default: return GridRemovalOperation(event: event, scene: scene, tool: .surface)
         }
     }
 }

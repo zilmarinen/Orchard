@@ -6,6 +6,7 @@
 
 import Harvest
 import Meadow
+import PeakOperation
 import SwiftUI
 
 class WallToolModel: GridBuilder, ObservableObject {
@@ -18,8 +19,17 @@ class WallToolModel: GridBuilder, ObservableObject {
 
 extension WallToolModel {
     
-    func build(harvest: Map2D, event: Scene2D.CursorObserver.CursorEvent) {
-        
-        //
+    func operation(for event: Scene2D.CursorObserver.CursorEvent, in scene: Scene2D) -> ConcurrentOperation? {
+     
+        switch event.eventType {
+            
+        case .left:
+            
+            let prop = Prop.wall(tileType: wallType, material: material, pattern: .north, external: false)
+            
+            return PropBuilderOperation(event: event, scene: scene, prop: prop, rotation: .north)
+            
+        default: return GridRemovalOperation(event: event, scene: scene, tool: .walls)
+        }
     }
 }

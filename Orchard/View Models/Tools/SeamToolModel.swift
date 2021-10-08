@@ -6,6 +6,7 @@
 
 import Harvest
 import Meadow
+import PeakOperation
 import SwiftUI
 
 class SeamToolModel: GridBuilder, ObservableObject {
@@ -18,30 +19,16 @@ class SeamToolModel: GridBuilder, ObservableObject {
 
 extension SeamToolModel {
     
-    func build(harvest: Map2D, event: Scene2D.CursorObserver.CursorEvent) {
-        
+    func operation(for event: Scene2D.CursorObserver.CursorEvent, in scene: Scene2D) -> ConcurrentOperation? {
+     
         switch event.eventType {
             
         case .left:
             
-            guard let surface = harvest.surface.find(tile: event.position.start) else { return }
+            //TODO: implement seam building operation
+            return nil
             
-            _ = harvest.seams.add(seam: surface.coordinate) { [weak self] seam in
-                
-                guard let self = self else { return }
-                
-                seam.identifier = self.identifier
-                seam.segue = PortalSegue(direction: self.segue.direction, map: self.segue.map, identifier: self.segue.identifier)
-            }
-            
-            break
-            
-        default:
-            
-            event.position.enumerate(y: World.Constants.floor) { coordinate in
-                
-                harvest.buildings.remove(chunk: coordinate)
-            }
+        default: return GridRemovalOperation(event: event, scene: scene, tool: .seams)
         }
     }
 }

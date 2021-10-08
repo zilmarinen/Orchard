@@ -92,10 +92,16 @@ extension AppViewModel {
     @objc
     func cursorEvent(_ notification: Notification) {
         
-        guard let event = notification.object as? Scene2D.CursorObserver.CursorEvent,
-              let harvest = editorModel.harvest?.map else { return }
+        guard let event = notification.object as? Scene2D.CursorObserver.CursorEvent else { return }
         
-        toolModel.build(harvest: harvest, event: event)
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self,
+                  let scene = self.editorModel.harvest,
+                  let operation = self.toolModel.operation(for: event, in: scene) else { return }
+            
+            operation.enqueue(on: self.editorModel.operationQueue)
+        }
     }
 }
 

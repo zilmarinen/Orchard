@@ -6,6 +6,7 @@
 
 import Harvest
 import Meadow
+import PeakOperation
 import SwiftUI
 
 class PortalToolModel: GridBuilder, ObservableObject {
@@ -20,8 +21,16 @@ class PortalToolModel: GridBuilder, ObservableObject {
 
 extension PortalToolModel {
     
-    func build(harvest: Map2D, event: Scene2D.CursorObserver.CursorEvent) {
-        
-        //
+    func operation(for event: Scene2D.CursorObserver.CursorEvent, in scene: Scene2D) -> ConcurrentOperation? {
+     
+        switch event.eventType {
+            
+        case .left:
+            
+            //TODO: implement portal building operation
+            return nil
+            
+        default: return GridRemovalOperation(event: event, scene: scene, tool: .portals)
+        }
     }
 }

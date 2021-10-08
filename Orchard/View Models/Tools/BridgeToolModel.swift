@@ -6,6 +6,7 @@
 
 import Harvest
 import Meadow
+import PeakOperation
 import SwiftUI
 
 class BridgeToolModel: GridBuilder, ObservableObject {
@@ -17,8 +18,17 @@ class BridgeToolModel: GridBuilder, ObservableObject {
 
 extension BridgeToolModel {
     
-    func build(harvest: Map2D, event: Scene2D.CursorObserver.CursorEvent) {
-        
-        print("Event: \(event)")
+    func operation(for event: Scene2D.CursorObserver.CursorEvent, in scene: Scene2D) -> ConcurrentOperation? {
+     
+        switch event.eventType {
+            
+        case .left:
+            
+            let prop = Prop.bridge(tileType: .wall, material: material, pattern: .north)
+            
+            return PropBuilderOperation(event: event, scene: scene, prop: prop, rotation: .north)
+            
+        default: return GridRemovalOperation(event: event, scene: scene, tool: .bridges)
+        }
     }
 }

@@ -5,8 +5,9 @@
 //
 
 import Harvest
+import PeakOperation
 
 protocol GridBuilder {
     
-    func build(harvest: Map2D, event: Scene2D.CursorObserver.CursorEvent)
+    func operation(for event: Scene2D.CursorObserver.CursorEvent, in scene: Scene2D) -> ConcurrentOperation?
 }

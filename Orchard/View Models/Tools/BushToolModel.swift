@@ -6,6 +6,7 @@
 
 import Harvest
 import Meadow
+import PeakOperation
 import SwiftUI
 
 class BushToolModel: GridBuilder, ObservableObject {
@@ -18,26 +19,17 @@ class BushToolModel: GridBuilder, ObservableObject {
 
 extension BushToolModel {
     
-    func build(harvest: Map2D, event: Scene2D.CursorObserver.CursorEvent) {
-        
+    func operation(for event: Scene2D.CursorObserver.CursorEvent, in scene: Scene2D) -> ConcurrentOperation? {
+     
         switch event.eventType {
             
         case .left:
             
-            guard let surface = harvest.surface.find(tile: event.position.start) else { return }
-            
             let prop = Prop.foliage(foliageType: .bush(species: species))
             
-            _ = harvest.foliage.add(prop: prop, coordinate: surface.coordinate, rotation: direction)
+            return PropBuilderOperation(event: event, scene: scene, prop: prop, rotation: direction)
             
-            break
-            
-        default:
-            
-            event.position.enumerate(y: World.Constants.floor) { coordinate in
-                
-                harvest.foliage.remove(chunk: coordinate)
-            }
+        default: return GridRemovalOperation(event: event, scene: scene, tool: .bushes)
         }
     }
 }

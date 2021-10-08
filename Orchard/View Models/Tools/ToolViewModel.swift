@@ -6,6 +6,7 @@
 
 import Foundation
 import Harvest
+import PeakOperation
 import SwiftUI
 
 class ToolViewModel: GridBuilder, ObservableObject {
@@ -29,24 +30,23 @@ class ToolViewModel: GridBuilder, ObservableObject {
 
 extension ToolViewModel {
     
-    func build(harvest: Map2D, event: Scene2D.CursorObserver.CursorEvent) {
+    func operation(for event: Scene2D.CursorObserver.CursorEvent, in scene: Scene2D) -> ConcurrentOperation? {
         
-        print("Building: \(event.position.start) -> \(event.position.end)")
         switch tool {
             
-        case .bridges: bridgeModel.build(harvest: harvest, event: event)
-        case .bushes: bushModel.build(harvest: harvest, event: event)
-        case .buildings: buildingModel.build(harvest: harvest, event: event)
-        case .footpaths: footpathModel.build(harvest: harvest, event: event)
-        case .portals: portalModel.build(harvest: harvest, event: event)
-        case .rocks: rockModel.build(harvest: harvest, event: event)
-        case .seams: seamModel.build(harvest: harvest, event: event)
-        case .stairs: stairModel.build(harvest: harvest, event: event)
-        case .surface: surfaceModel.build(harvest: harvest, event: event)
-        case .trees: treeModel.build(harvest: harvest, event: event)
-        case .walls: wallModel.build(harvest: harvest, event: event)
-        case .water: waterModel.build(harvest: harvest, event: event)
-        default: break
+        case .bridges: return bridgeModel.operation(for: event, in: scene)
+        case .bushes: return bushModel.operation(for: event, in: scene)
+        case .buildings: return buildingModel.operation(for: event, in: scene)
+        case .footpaths: return footpathModel.operation(for: event, in: scene)
+        case .portals: return portalModel.operation(for: event, in: scene)
+        case .rocks: return rockModel.operation(for: event, in: scene)
+        case .seams: return seamModel.operation(for: event, in: scene)
+        case .stairs: return stairModel.operation(for: event, in: scene)
+        case .surface: return surfaceModel.operation(for: event, in: scene)
+        case .trees: return treeModel.operation(for: event, in: scene)
+        case .walls: return wallModel.operation(for: event, in: scene)
+        case .water: return waterModel.operation(for: event, in: scene)
+        default: return nil
         }
     }
 }
