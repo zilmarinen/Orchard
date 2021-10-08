@@ -40,6 +40,9 @@
 		186A588527104C86000CEF0D /* FoliageToolOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A588427104C86000CEF0D /* FoliageToolOperation.swift */; };
 		186A588727105827000CEF0D /* WaterToolOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A588627105827000CEF0D /* WaterToolOperation.swift */; };
 		186A588927105854000CEF0D /* FootpathToolOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A588827105854000CEF0D /* FootpathToolOperation.swift */; };
+		186A588B271059B9000CEF0D /* ExportCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A588A271059B9000CEF0D /* ExportCommand.swift */; };
+		186A588D271059EA000CEF0D /* FocusedValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A588C271059EA000CEF0D /* FocusedValues.swift */; };
+		186A588F27106305000CEF0D /* WriteOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A588E27106305000CEF0D /* WriteOperation.swift */; };
 		187948F02708A7DF001C705C /* SeamTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187948EF2708A7DF001C705C /* SeamTool.swift */; };
 		188BFA542708C7BC00A65F9C /* Segue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BFA532708C7BC00A65F9C /* Segue.swift */; };
 		18A7B48F270C5DC900CC7194 /* ToolViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A7B48E270C5DC900CC7194 /* ToolViewModel.swift */; };
@@ -102,6 +105,9 @@
 		186A588427104C86000CEF0D /* FoliageToolOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoliageToolOperation.swift; sourceTree = "<group>"; };
 		186A588627105827000CEF0D /* WaterToolOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterToolOperation.swift; sourceTree = "<group>"; };
 		186A588827105854000CEF0D /* FootpathToolOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootpathToolOperation.swift; sourceTree = "<group>"; };
+		186A588A271059B9000CEF0D /* ExportCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportCommand.swift; sourceTree = "<group>"; };
+		186A588C271059EA000CEF0D /* FocusedValues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusedValues.swift; sourceTree = "<group>"; };
+		186A588E27106305000CEF0D /* WriteOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriteOperation.swift; sourceTree = "<group>"; };
 		187948EF2708A7DF001C705C /* SeamTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamTool.swift; sourceTree = "<group>"; };
 		188BFA532708C7BC00A65F9C /* Segue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segue.swift; sourceTree = "<group>"; };
 		18A7B48E270C5DC900CC7194 /* ToolViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolViewModel.swift; sourceTree = "<group>"; };
@@ -157,6 +163,7 @@
 		18472F4527071C0700017BAF /* Operations */ = {
 			isa = PBXGroup;
 			children = (
+				186A588E27106305000CEF0D /* WriteOperation.swift */,
 				18472F462707325000017BAF /* MapConversionOperation.swift */,
 				186A587E2710414F000CEF0D /* GridRemovalOperation.swift */,
 				186A588227104C1B000CEF0D /* SurfaceToolOperation.swift */,
@@ -293,6 +300,7 @@
 		18CCAA992704BF7100C518EF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				186A588A271059B9000CEF0D /* ExportCommand.swift */,
 				18472F58270884E000017BAF /* Tool Properties */,
 				18EC2E492706FBDC00450605 /* Meadow */,
 				18C284622705A31A001546B2 /* Tools */,
@@ -353,6 +361,7 @@
 		18EC2E432706EA3100450605 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				186A588C271059EA000CEF0D /* FocusedValues.swift */,
 				18EC2E442706EA3A00450605 /* UTType.swift */,
 			);
 			path = Extensions;
@@ -468,6 +477,7 @@
 				18CCAA882704BF6800C518EF /* OrchardApp.swift in Sources */,
 				1816783D270B1757006D5D71 /* BuildingToolModel.swift in Sources */,
 				18472F4F2708845300017BAF /* PortalTool.swift in Sources */,
+				186A588B271059B9000CEF0D /* ExportCommand.swift in Sources */,
 				18EC2E482706FAEE00450605 /* MeadowViewModel.swift in Sources */,
 				18167843270B178F006D5D71 /* PortalToolModel.swift in Sources */,
 				186A587F2710414F000CEF0D /* GridRemovalOperation.swift in Sources */,
@@ -485,6 +495,7 @@
 				18472F532708847F00017BAF /* TreeTool.swift in Sources */,
 				187948F02708A7DF001C705C /* SeamTool.swift in Sources */,
 				18A7B48F270C5DC900CC7194 /* ToolViewModel.swift in Sources */,
+				186A588F27106305000CEF0D /* WriteOperation.swift in Sources */,
 				18167852270B17EF006D5D71 /* BushToolModel.swift in Sources */,
 				18CCAA9C2704C02A00C518EF /* AppViewModel.swift in Sources */,
 				18472F5A2708866D00017BAF /* ToolPropertyGroup.swift in Sources */,
@@ -499,6 +510,7 @@
 				1816784B270B17C0006D5D71 /* TreeToolModel.swift in Sources */,
 				18167845270B1799006D5D71 /* SeamToolModel.swift in Sources */,
 				18C284642705A362001546B2 /* ToolView.swift in Sources */,
+				186A588D271059EA000CEF0D /* FocusedValues.swift in Sources */,
 				1816783B270B1619006D5D71 /* BridgeToolModel.swift in Sources */,
 				185039872709C2520075EB9A /* ToolPropertyGroupModel.swift in Sources */,
 				18472F4D2708843F00017BAF /* FootpathTool.swift in Sources */,

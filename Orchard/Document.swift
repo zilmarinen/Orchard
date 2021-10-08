@@ -26,7 +26,7 @@ class Document: FileDocument, ObservableObject {
     
     static var readableContentTypes: [UTType] { [.model] }
     
-    @ObservedObject var model: AppViewModel
+    @Published var model: AppViewModel
 
     init(model: AppViewModel) {
         

@@ -45,6 +45,6 @@ struct ToolView: View {
             }
             .padding()
         }
-        .frame(minWidth: 280, idealWidth: 280.0)
+        .frame(minWidth: AppView.Constants.toolWidth, idealWidth: AppView.Constants.toolWidth)
     }
 }

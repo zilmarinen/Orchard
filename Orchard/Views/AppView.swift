@@ -8,6 +8,13 @@ import SwiftUI
 
 struct AppView: View {
     
+    enum Constants {
+        
+        static let sidebarWidth = 210.0
+        static let toolWidth = 280.0
+        static let editorWidth = 350.0
+    }
+    
     @ObservedObject var document: Document
 
     var body: some View {
@@ -15,7 +22,7 @@ struct AppView: View {
         NavigationView {
             
             SidebarView(appModel: document.model)
-                .frame(minWidth: 210)
+                .frame(minWidth: Constants.sidebarWidth)
                 .toolbar {
                     
                     Button(action: toggleSidebar) {
@@ -28,7 +35,7 @@ struct AppView: View {
             Text("No Selection")
             
             EditorView(appModel: document.model)
-                .frame(minWidth: 210, minHeight: 210)
+                .frame(idealWidth: Constants.editorWidth, idealHeight: Constants.editorWidth)
         }
     }
     

@@ -23,6 +23,16 @@ struct OrchardApp: App {
         DocumentGroup(newDocument: Document(model: AppViewModel())) { file in
             
             AppView(document: file.document)
+                .focusedValue(\.document, file.$document)
+        }
+        .commands {
+            
+            SidebarCommands()
+            
+            CommandGroup(after: .saveItem) {
+                
+                ExportCommand()
+            }
         }
         
         WindowGroup("Meadow Scene Preview") {

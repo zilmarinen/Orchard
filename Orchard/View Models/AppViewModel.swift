@@ -11,10 +11,18 @@ import SwiftUI
 
 class AppViewModel: ObservableObject {
     
+    enum ViewState {
+        
+        case editing
+        case exporting(map: Map2D, progress: Progress)
+    }
+    
     @Environment(\.openURL) var openURL
     
     @ObservedObject var editorModel: EditorViewModel
     @ObservedObject var toolModel = ToolViewModel()
+    
+    @Published var viewState: ViewState = .editing
     
     var editorSink: AnyCancellable? = nil
     var toolSink: AnyCancellable? = nil
@@ -75,6 +83,41 @@ class AppViewModel: ObservableObject {
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(cursorEvent(_:)), name: Scene2D.CursorObserver.cursorEvent, object: nil)
+    }
+    
+    func export(scene: Scene2D) {
+        
+        let panel = NSOpenPanel()
+        
+        panel.allowsMultipleSelection = false
+        panel.canChooseDirectories = true
+        panel.canChooseFiles = false
+        panel.canCreateDirectories = true
+        panel.prompt = "Export"
+        
+        switch panel.runModal() {
+            
+        case .OK:
+            
+            guard let url = panel.url else { return }
+            
+            let encodingOperation = MapEncodingOperation(map: scene.map)
+            let writeOperation = WriteOperation(url: url, filename: scene.map.name ?? "meadow")
+            
+            let progress = encodingOperation.passesResult(to: writeOperation).enqueueWithProgress(on: editorModel.operationQueue) { result in
+                
+                DispatchQueue.main.async { [weak self] in
+                    
+                    guard let self = self else { return }
+                
+                    self.viewState = .editing
+                }
+            }
+            
+            viewState = .exporting(map: scene.map, progress: progress)
+            
+        default: break
+        }
     }
 }
 

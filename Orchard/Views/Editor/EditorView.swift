@@ -39,11 +39,21 @@ struct EditorView: View {
                     
                     Button {
                         
+                        appModel.export(scene: scene)
+                        
+                    } label: {
+                        
+                        Image(systemName: "square.and.arrow.up")
+                            .help("Export Scene")
+                    }
+                    
+                    Button {
+                        
                         appModel.preview(scene: scene)
                         
                     } label: {
                         
-                        Image(systemName: "sidebar.right")
+                        Image(systemName: "play.circle")
                             .help("Preview Scene")
                     }
                 }
