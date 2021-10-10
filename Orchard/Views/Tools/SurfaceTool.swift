@@ -72,7 +72,7 @@ struct SurfaceTool: View {
                         
                         ForEach(SurfaceOverlay.allCases, id: \.self) { overlay in
                         
-                            Text(overlay.id.capitalized).tag(overlay)
+                            Text(overlay.id.capitalized).tag(overlay as SurfaceOverlay?)
                         }
                     }
                 }
