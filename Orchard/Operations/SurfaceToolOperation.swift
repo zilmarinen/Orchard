@@ -34,6 +34,7 @@ class SurfaceToolOperation: ConcurrentOperation {
                 
                 guard let self = self else { return }
                 
+                tile.coordinate = coordinate
                 tile.material = self.model.material
                 tile.overlay = self.model.overlay
                 tile.tileType = self.model.tileType
