@@ -37,21 +37,13 @@ struct EditorView: View {
             SpriteView(scene: scene)
                 .toolbar {
                     
-                    Button {
-                        
-                        appModel.export(scene: scene)
-                        
-                    } label: {
+                    Button { appModel.export(scene: scene) } label: {
                         
                         Image(systemName: "square.and.arrow.up")
                             .help("Export Scene")
                     }
                     
-                    Button {
-                        
-                        appModel.preview(scene: scene)
-                        
-                    } label: {
+                    Button { appModel.preview(scene: scene) } label: {
                         
                         Image(systemName: "play.circle")
                             .help("Preview Scene")

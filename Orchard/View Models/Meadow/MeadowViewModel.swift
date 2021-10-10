@@ -31,37 +31,45 @@ class MeadowViewModel: ObservableObject {
     
     func load(map: Map2D) {
         
-        print("Loading map: \(map.name ?? "")")
-        
-        let atlasOperation = TextureAtlasOperation(season: .spring)
-        let mapOperation = MapConversionOperation(map: map)
-        let propOperation = PropLoadingOperation()
-        
-        let progress = atlasOperation.passesResult(to: mapOperation).passesResult(to: propOperation).enqueueWithProgress(on: operationQueue) { result in
+        DispatchQueue.main.async { [weak self] in
             
-            DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            let atlasOperation = TextureAtlasOperation(season: .spring)
+            let mapOperation = MapConversionOperation(map: map)
+            let propOperation = PropLoadingOperation()
+            
+            let progress = atlasOperation.passesResult(to: mapOperation).passesResult(to: propOperation).enqueueWithProgress(on: self.operationQueue) { result in
                 
-                guard let self = self else { return }
-                
-                switch result {
+                DispatchQueue.main.async { [weak self] in
                     
-                case .failure(let error):
+                    guard let self = self else { return }
                     
-                    self.state = .error(error: error)
-                    
-                case .success(let output):
-                    
-                    let (maps, atlas, props) = output
-                    
-                    guard let map = maps.first else { fatalError("Invalid map") }
-                    
-                    let scene = MDWScene(map: map, atlas: atlas, props: props)
-                    
-                    self.state = .rendering(scene: scene)
+                    switch result {
+                        
+                    case .failure(let error):
+                        
+                        self.state = .error(error: error)
+                        
+                    case .success(let output):
+                        
+                        let (maps, atlas, props) = output
+                        
+                        guard let map = maps.first else { fatalError("Invalid map") }
+                        
+                        let scene = MDWScene(map: map, atlas: atlas, props: props)
+                        
+                        self.state = .rendering(scene: scene)
+                        
+                        //TODO: catch device library errrors
+                        guard let device = MTLCreateSystemDefaultDevice() else { return }
+                        
+                        scene.library = try? device.makeDefaultLibrary(bundle: Map.bundle)
+                    }
                 }
             }
+            
+            self.state = .loading(map: map, progress: progress)
         }
-        
-        state = .loading(map: map, progress: progress)
     }
 }
