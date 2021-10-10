@@ -163,13 +163,13 @@
 		18472F4527071C0700017BAF /* Operations */ = {
 			isa = PBXGroup;
 			children = (
-				186A588E27106305000CEF0D /* WriteOperation.swift */,
-				18472F462707325000017BAF /* MapConversionOperation.swift */,
-				186A587E2710414F000CEF0D /* GridRemovalOperation.swift */,
-				186A588227104C1B000CEF0D /* SurfaceToolOperation.swift */,
 				186A588427104C86000CEF0D /* FoliageToolOperation.swift */,
-				186A588627105827000CEF0D /* WaterToolOperation.swift */,
 				186A588827105854000CEF0D /* FootpathToolOperation.swift */,
+				186A587E2710414F000CEF0D /* GridRemovalOperation.swift */,
+				18472F462707325000017BAF /* MapConversionOperation.swift */,
+				186A588227104C1B000CEF0D /* SurfaceToolOperation.swift */,
+				186A588627105827000CEF0D /* WaterToolOperation.swift */,
+				186A588E27106305000CEF0D /* WriteOperation.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -254,8 +254,8 @@
 		18C2846F2705AEC8001546B2 /* Data Types */ = {
 			isa = PBXGroup;
 			children = (
-				18C2846B2705A64F001546B2 /* Tool.swift */,
 				188BFA532708C7BC00A65F9C /* Segue.swift */,
+				18C2846B2705A64F001546B2 /* Tool.swift */,
 			);
 			path = "Data Types";
 			sourceTree = "<group>";
@@ -282,15 +282,15 @@
 		18CCAA862704BF6800C518EF /* Orchard */ = {
 			isa = PBXGroup;
 			children = (
-				180C50BB270F030200D75694 /* Protocols */,
-				18472F4527071C0700017BAF /* Operations */,
-				18EC2E432706EA3100450605 /* Extensions */,
-				18C2846F2705AEC8001546B2 /* Data Types */,
 				18CCAA8D2704BF6900C518EF /* Assets.xcassets */,
+				18C2846F2705AEC8001546B2 /* Data Types */,
 				18CCAA892704BF6800C518EF /* Document.swift */,
+				18EC2E432706EA3100450605 /* Extensions */,
 				18CCAA922704BF6900C518EF /* Info.plist */,
+				18472F4527071C0700017BAF /* Operations */,
 				18CCAA932704BF6900C518EF /* Orchard.entitlements */,
 				18CCAA872704BF6800C518EF /* OrchardApp.swift */,
+				180C50BB270F030200D75694 /* Protocols */,
 				18CCAA9A2704BF7700C518EF /* View Models */,
 				18CCAA992704BF7100C518EF /* Views */,
 			);
@@ -300,14 +300,14 @@
 		18CCAA992704BF7100C518EF /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				186A588A271059B9000CEF0D /* ExportCommand.swift */,
-				18472F58270884E000017BAF /* Tool Properties */,
-				18EC2E492706FBDC00450605 /* Meadow */,
-				18C284622705A31A001546B2 /* Tools */,
-				18CCAAAF2705938F00C518EF /* Editor */,
-				18CCAAA42705937500C518EF /* Sidebar */,
-				18CCAAA12705935B00C518EF /* Badge */,
 				18CCAA8B2704BF6800C518EF /* AppView.swift */,
+				18CCAAA12705935B00C518EF /* Badge */,
+				18CCAAAF2705938F00C518EF /* Editor */,
+				186A588A271059B9000CEF0D /* ExportCommand.swift */,
+				18EC2E492706FBDC00450605 /* Meadow */,
+				18CCAAA42705937500C518EF /* Sidebar */,
+				18472F58270884E000017BAF /* Tool Properties */,
+				18C284622705A31A001546B2 /* Tools */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -315,12 +315,12 @@
 		18CCAA9A2704BF7700C518EF /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				18CCAA9B2704C02A00C518EF /* AppViewModel.swift */,
+				18C284672705A55D001546B2 /* Badge */,
 				18577488270B600C0040C79E /* Editor */,
-				185039852709C2470075EB9A /* Tools */,
 				18EC2E462706FAE300450605 /* Meadow */,
 				18C284682705A567001546B2 /* Sidebar */,
-				18C284672705A55D001546B2 /* Badge */,
-				18CCAA9B2704C02A00C518EF /* AppViewModel.swift */,
+				185039852709C2470075EB9A /* Tools */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";

@@ -14,8 +14,8 @@
         "package": "PeakOperation",
         "repositoryURL": "git@github.com:3Squared/PeakOperation.git",
         "state": {
-          "branch": "feature/macos_compatability",
-          "revision": "ca4c96ce162d14ed00d9c61c73dc4867c72ad72f",
+          "branch": "develop",
+          "revision": "35811e5f3dc539a185601c6b3d54e0a9f9481cb1",
           "version": null
         }
       }
