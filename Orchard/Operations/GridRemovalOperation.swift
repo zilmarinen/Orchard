@@ -32,13 +32,25 @@ class GridRemovalOperation: ConcurrentOperation {
          
             switch tool {
                 
+            case .surface:
+                
+                scene.map.bridges.remove(tile: coordinate)
+                scene.map.buildings.remove(chunk: coordinate)
+                scene.map.foliage.remove(chunk: coordinate)
+                scene.map.footpath.remove(tile: coordinate)
+                scene.map.portals.remove(chunk: coordinate)
+                scene.map.seams.remove(tile: coordinate)
+                scene.map.surface.remove(tile: coordinate)
+                scene.map.stairs.remove(chunk: coordinate)
+                scene.map.walls.remove(tile: coordinate)
+                scene.map.water.remove(tile: coordinate)
+                
             case .bridges: scene.map.bridges.remove(tile: coordinate)
             case .buildings: scene.map.buildings.remove(chunk: coordinate)
             case .footpaths: scene.map.footpath.remove(tile: coordinate)
             case .portals: scene.map.portals.remove(chunk: coordinate)
             case .seams: scene.map.seams.remove(tile: coordinate)
             case .stairs: scene.map.stairs.remove(chunk: coordinate)
-            case .surface: scene.map.surface.remove(tile: coordinate)
             case .walls: scene.map.walls.remove(tile: coordinate)
             case .water: scene.map.water.remove(tile: coordinate)
             default: scene.map.foliage.remove(chunk: coordinate)
