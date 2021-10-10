@@ -102,7 +102,7 @@ class AppViewModel: ObservableObject {
             guard let url = panel.url else { return }
             
             let encodingOperation = MapEncodingOperation(map: scene.map)
-            let writeOperation = WriteOperation(url: url, filename: scene.map.name ?? "meadow")
+            let writeOperation = WriteOperation(url: url, filename: scene.map.identifier)
             
             let progress = encodingOperation.passesResult(to: writeOperation).enqueueWithProgress(on: editorModel.operationQueue) { result in
                 
