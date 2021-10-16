@@ -23,11 +23,7 @@ extension SeamToolModel {
      
         switch event.eventType {
             
-        case .left:
-            
-            //TODO: implement seam building operation
-            return nil
-            
+        case .left: return SeamBuilderOperation(event: event, scene: scene, model: self)
         default: return GridRemovalOperation(event: event, scene: scene, tool: .seams)
         }
     }

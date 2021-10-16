@@ -59,6 +59,13 @@ class PropBuilderOperation: ConcurrentOperation {
                 foliage.foliageType = foliageType
             }
             
+        case .portal(let portalType):
+            
+            _ = scene.map.portals.add(prop: prop, coordinate: surface.coordinate, rotation: rotation, configure: { portal in
+                
+                portal.portalType = portalType
+            })
+            
         case .stairs(let stairType, let material):
             
             _ = scene.map.stairs.add(prop: prop, coordinate: surface.coordinate, rotation: rotation) { stairs in

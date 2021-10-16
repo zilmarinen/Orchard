@@ -15,6 +15,7 @@ class PortalToolModel: GridBuilder, ObservableObject {
     
     @Published var portalType: PortalType = .portal
     @Published var identifier: String = ""
+    @Published var direction: Cardinal = .north
     
     @Published var segue = Segue()
 }
@@ -27,8 +28,9 @@ extension PortalToolModel {
             
         case .left:
             
-            //TODO: implement portal building operation
-            return nil
+            let prop = Prop.portal(portalType: portalType)
+            
+            return PropBuilderOperation(event: event, scene: scene, prop: prop, rotation: direction)
             
         default: return GridRemovalOperation(event: event, scene: scene, tool: .portals)
         }

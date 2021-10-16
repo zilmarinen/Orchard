@@ -60,6 +60,17 @@ struct PortalTool: View {
                         }
                     }
                 }
+                
+                ToolPropertyView(title: "Direction", color: tool.color) {
+                    
+                    Picker("Direction", selection: $toolModel.direction) {
+                        
+                        ForEach(Cardinal.allCases, id: \.self) { cardinal in
+                        
+                            Text(cardinal.id.capitalized).tag(cardinal)
+                        }
+                    }
+                }
             }
         }
         
