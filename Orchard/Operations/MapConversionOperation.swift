@@ -9,10 +9,9 @@ import Harvest
 import Meadow
 import PeakOperation
 
-public class MapConversionOperation: ConcurrentOperation, ConsumesResult, ProducesResult {
+public class MapConversionOperation: ConcurrentOperation, ProducesResult {
  
-    public var input: Result<TextureAtlas, Error> = Result { throw ResultError.noResult }
-    public var output: Result<([Map], TextureAtlas), Error> = Result { throw ResultError.noResult }
+    public var output: Result<Map, Error> = Result { throw ResultError.noResult }
     
     let map: Map2D
     
@@ -25,44 +24,35 @@ public class MapConversionOperation: ConcurrentOperation, ConsumesResult, Produc
     
     public override func execute() {
         
-        do {
+        let group = DispatchGroup()
+        
+        let encodingOperation = MapEncodingOperation(map: map)
+        let decodingOperation = MapDecodingOperation()
+        
+        group.enter()
+        
+        encodingOperation.passesResult(to: decodingOperation).enqueue(on: internalQueue) { result in
             
-            let atlas = try input.get()
-            
-            let group = DispatchGroup()
-            
-            let encodingOperation = MapEncodingOperation(map: map)
-            let decodingOperation = MapDecodingOperation()
-            
-            group.enter()
-            
-            encodingOperation.passesResult(to: decodingOperation).enqueue(on: internalQueue) { result in
+            DispatchQueue.main.async { [weak self] in
                 
-                DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                
+                switch result {
                     
-                    guard let self = self else { return }
+                case .failure(let error):
                     
-                    switch result {
-                        
-                    case .failure(let error):
-                        
-                        self.output = .failure(error)
-                        
-                    case .success(let map):
-                        
-                        self.output = .success(([map], atlas))
-                    }
+                    self.output = .failure(error)
                     
-                    group.leave()
+                case .success(let map):
+                    
+                    self.output = .success(map)
                 }
+                
+                group.leave()
             }
-            
-            group.wait()
         }
-        catch {
-            
-            output = .failure(error)
-        }
+        
+        group.wait()
         
         finish()
     }

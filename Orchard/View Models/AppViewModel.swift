@@ -29,7 +29,11 @@ class AppViewModel: ObservableObject {
     
     init() {
         
-        editorModel = EditorViewModel(map: Map2D())
+        let map = Map2D()
+        
+        _ = map.surface.add(tile: .zero)
+        
+        editorModel = EditorViewModel(map: map)
         
         startObserving()
     }

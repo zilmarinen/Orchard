@@ -63,6 +63,8 @@
 		18CCAAAA2705937500C518EF /* SidebarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CCAAA72705937500C518EF /* SidebarItem.swift */; };
 		18CCAAAD2705938100C518EF /* BadgeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CCAAAB2705938100C518EF /* BadgeModel.swift */; };
 		18CCAAAE2705938100C518EF /* SidebarItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CCAAAC2705938100C518EF /* SidebarItemModel.swift */; };
+		18E6F2E4271472DD00969475 /* MeadowPreviewOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6F2E3271472DD00969475 /* MeadowPreviewOperation.swift */; };
+		18E6F2E627147CF500969475 /* SeamBuilderOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6F2E527147CF500969475 /* SeamBuilderOperation.swift */; };
 		18EC2E3E2706167600450605 /* Harvest in Frameworks */ = {isa = PBXBuildFile; productRef = 18EC2E3D2706167600450605 /* Harvest */; };
 		18EC2E402706167B00450605 /* Meadow in Frameworks */ = {isa = PBXBuildFile; productRef = 18EC2E3F2706167B00450605 /* Meadow */; };
 		18EC2E4227061C6700450605 /* MapTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EC2E4127061C6700450605 /* MapTool.swift */; };
@@ -131,6 +133,8 @@
 		18CCAAA72705937500C518EF /* SidebarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarItem.swift; sourceTree = "<group>"; };
 		18CCAAAB2705938100C518EF /* BadgeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeModel.swift; sourceTree = "<group>"; };
 		18CCAAAC2705938100C518EF /* SidebarItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarItemModel.swift; sourceTree = "<group>"; };
+		18E6F2E3271472DD00969475 /* MeadowPreviewOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeadowPreviewOperation.swift; sourceTree = "<group>"; };
+		18E6F2E527147CF500969475 /* SeamBuilderOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeamBuilderOperation.swift; sourceTree = "<group>"; };
 		18EC2E3A2706165F00450605 /* Meadow */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Meadow; path = ../Meadow; sourceTree = "<group>"; };
 		18EC2E3B2706166200450605 /* Harvest */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Harvest; path = ../Harvest; sourceTree = "<group>"; };
 		18EC2E4127061C6700450605 /* MapTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTool.swift; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 				186A588827105854000CEF0D /* FootpathToolOperation.swift */,
 				186A587E2710414F000CEF0D /* GridRemovalOperation.swift */,
 				18472F462707325000017BAF /* MapConversionOperation.swift */,
+				18E6F2E3271472DD00969475 /* MeadowPreviewOperation.swift */,
+				18E6F2E527147CF500969475 /* SeamBuilderOperation.swift */,
 				186A588227104C1B000CEF0D /* SurfaceToolOperation.swift */,
 				186A588627105827000CEF0D /* WaterToolOperation.swift */,
 				186A588E27106305000CEF0D /* WriteOperation.swift */,
@@ -471,6 +477,7 @@
 				186A588327104C1B000CEF0D /* SurfaceToolOperation.swift in Sources */,
 				18167841270B1782006D5D71 /* MapToolModel.swift in Sources */,
 				18472F512708846500017BAF /* StairTool.swift in Sources */,
+				18E6F2E4271472DD00969475 /* MeadowPreviewOperation.swift in Sources */,
 				1816784D270B17CE006D5D71 /* WallToolModel.swift in Sources */,
 				18CCAAA32705935B00C518EF /* BadgeView.swift in Sources */,
 				18CCAAAA2705937500C518EF /* SidebarItem.swift in Sources */,
@@ -496,6 +503,7 @@
 				187948F02708A7DF001C705C /* SeamTool.swift in Sources */,
 				18A7B48F270C5DC900CC7194 /* ToolViewModel.swift in Sources */,
 				186A588F27106305000CEF0D /* WriteOperation.swift in Sources */,
+				18E6F2E627147CF500969475 /* SeamBuilderOperation.swift in Sources */,
 				18167852270B17EF006D5D71 /* BushToolModel.swift in Sources */,
 				18CCAA9C2704C02A00C518EF /* AppViewModel.swift in Sources */,
 				18472F5A2708866D00017BAF /* ToolPropertyGroup.swift in Sources */,

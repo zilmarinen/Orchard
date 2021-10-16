@@ -36,35 +36,23 @@ class MeadowViewModel: ObservableObject {
             guard let self = self else { return }
             
             let atlasOperation = TextureAtlasOperation(season: .spring)
-            let mapOperation = MapConversionOperation(map: map)
-            let propOperation = PropLoadingOperation()
+            let previewOperation = MeadowPreviewOperation(map: map)
             
-            let progress = atlasOperation.passesResult(to: mapOperation).passesResult(to: propOperation).enqueueWithProgress(on: self.operationQueue) { result in
-                
+            let progress = atlasOperation.passesResult(to: previewOperation).enqueueWithProgress(on: self.operationQueue) { result in
+
                 DispatchQueue.main.async { [weak self] in
-                    
+
                     guard let self = self else { return }
-                    
+
                     switch result {
-                        
+
                     case .failure(let error):
-                        
+
                         self.state = .error(error: error)
-                        
-                    case .success(let output):
-                        
-                        let (maps, atlas, props) = output
-                        
-                        guard let map = maps.first else { fatalError("Invalid map") }
-                        
-                        let scene = MDWScene(map: map, atlas: atlas, props: props)
-                        
+
+                    case .success(let scene):
+
                         self.state = .rendering(scene: scene)
-                        
-                        //TODO: catch device library errrors
-                        guard let device = MTLCreateSystemDefaultDevice() else { return }
-                        
-                        scene.library = try? device.makeDefaultLibrary(bundle: Map.bundle)
                     }
                 }
             }
