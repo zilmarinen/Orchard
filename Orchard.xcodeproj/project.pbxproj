@@ -8,21 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		188783C82AAC7C4100723A76 /* OrchardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188783C72AAC7C4100723A76 /* OrchardApp.swift */; };
-		188783CA2AAC7C4100723A76 /* OrchardDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188783C92AAC7C4100723A76 /* OrchardDocument.swift */; };
-		188783CC2AAC7C4100723A76 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188783CB2AAC7C4100723A76 /* ContentView.swift */; };
+		188783CA2AAC7C4100723A76 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188783C92AAC7C4100723A76 /* Document.swift */; };
 		188783CE2AAC7C4200723A76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 188783CD2AAC7C4200723A76 /* Assets.xcassets */; };
-		188783D32AAC7C4200723A76 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 188783D22AAC7C4200723A76 /* Preview Assets.xcassets */; };
+		188783DC2AAC7C7000723A76 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188783DB2AAC7C7000723A76 /* AppView.swift */; };
+		188783DE2AAC7C7700723A76 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188783DD2AAC7C7700723A76 /* AppViewModel.swift */; };
+		188783E12AAC7CE900723A76 /* UTType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188783E02AAC7CE900723A76 /* UTType.swift */; };
+		188783E62AAC7D8300723A76 /* Harvest in Frameworks */ = {isa = PBXBuildFile; productRef = 188783E52AAC7D8300723A76 /* Harvest */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		188783C42AAC7C4100723A76 /* Orchard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Orchard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		188783C72AAC7C4100723A76 /* OrchardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrchardApp.swift; sourceTree = "<group>"; };
-		188783C92AAC7C4100723A76 /* OrchardDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrchardDocument.swift; sourceTree = "<group>"; };
-		188783CB2AAC7C4100723A76 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		188783C92AAC7C4100723A76 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		188783CD2AAC7C4200723A76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		188783CF2AAC7C4200723A76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		188783D02AAC7C4200723A76 /* Orchard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Orchard.entitlements; sourceTree = "<group>"; };
-		188783D22AAC7C4200723A76 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		188783DB2AAC7C7000723A76 /* AppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		188783DD2AAC7C7700723A76 /* AppViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		188783E02AAC7CE900723A76 /* UTType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UTType.swift; sourceTree = "<group>"; };
+		188783E32AAC7D7800723A76 /* Harvest */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Harvest; path = ../Harvest; sourceTree = "<group>"; };
+		189AAFD92AADDA0000C1007E /* Regolith */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Regolith; path = ../Regolith; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				188783E62AAC7D8300723A76 /* Harvest in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -39,8 +45,10 @@
 		188783BB2AAC7C4100723A76 = {
 			isa = PBXGroup;
 			children = (
+				188783E22AAC7D7800723A76 /* Packages */,
 				188783C62AAC7C4100723A76 /* Orchard */,
 				188783C52AAC7C4100723A76 /* Products */,
+				188783E42AAC7D8300723A76 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,23 +63,56 @@
 		188783C62AAC7C4100723A76 /* Orchard */ = {
 			isa = PBXGroup;
 			children = (
-				188783C72AAC7C4100723A76 /* OrchardApp.swift */,
-				188783C92AAC7C4100723A76 /* OrchardDocument.swift */,
-				188783CB2AAC7C4100723A76 /* ContentView.swift */,
+				188783DF2AAC7CC900723A76 /* Extensions */,
 				188783CD2AAC7C4200723A76 /* Assets.xcassets */,
 				188783CF2AAC7C4200723A76 /* Info.plist */,
 				188783D02AAC7C4200723A76 /* Orchard.entitlements */,
-				188783D12AAC7C4200723A76 /* Preview Content */,
+				188783C72AAC7C4100723A76 /* OrchardApp.swift */,
+				188783C92AAC7C4100723A76 /* Document.swift */,
+				188783DA2AAC7C6400723A76 /* View Models */,
+				188783D92AAC7C5E00723A76 /* Views */,
 			);
 			path = Orchard;
 			sourceTree = "<group>";
 		};
-		188783D12AAC7C4200723A76 /* Preview Content */ = {
+		188783D92AAC7C5E00723A76 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				188783D22AAC7C4200723A76 /* Preview Assets.xcassets */,
+				188783DB2AAC7C7000723A76 /* AppView.swift */,
 			);
-			path = "Preview Content";
+			path = Views;
+			sourceTree = "<group>";
+		};
+		188783DA2AAC7C6400723A76 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				188783DD2AAC7C7700723A76 /* AppViewModel.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		188783DF2AAC7CC900723A76 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				188783E02AAC7CE900723A76 /* UTType.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		188783E22AAC7D7800723A76 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				188783E32AAC7D7800723A76 /* Harvest */,
+				189AAFD92AADDA0000C1007E /* Regolith */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		188783E42AAC7D8300723A76 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -90,6 +131,9 @@
 			dependencies = (
 			);
 			name = Orchard;
+			packageProductDependencies = (
+				188783E52AAC7D8300723A76 /* Harvest */,
+			);
 			productName = Orchard;
 			productReference = 188783C42AAC7C4100723A76 /* Orchard.app */;
 			productType = "com.apple.product-type.application";
@@ -132,7 +176,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				188783D32AAC7C4200723A76 /* Preview Assets.xcassets in Resources */,
 				188783CE2AAC7C4200723A76 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,9 +187,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				188783CA2AAC7C4100723A76 /* OrchardDocument.swift in Sources */,
+				188783CA2AAC7C4100723A76 /* Document.swift in Sources */,
+				188783E12AAC7CE900723A76 /* UTType.swift in Sources */,
 				188783C82AAC7C4100723A76 /* OrchardApp.swift in Sources */,
-				188783CC2AAC7C4100723A76 /* ContentView.swift in Sources */,
+				188783DE2AAC7C7700723A76 /* AppViewModel.swift in Sources */,
+				188783DC2AAC7C7000723A76 /* AppView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,7 +315,6 @@
 				CODE_SIGN_ENTITLEMENTS = Orchard/Orchard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Orchard/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Orchard/Info.plist;
@@ -309,7 +353,6 @@
 				CODE_SIGN_ENTITLEMENTS = Orchard/Orchard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Orchard/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Orchard/Info.plist;
@@ -362,6 +405,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		188783E52AAC7D8300723A76 /* Harvest */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Harvest;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 188783BC2AAC7C4100723A76 /* Project object */;
 }
