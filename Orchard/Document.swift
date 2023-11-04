@@ -14,20 +14,20 @@ class Document: FileDocument, ObservableObject {
         case invalidDocumentFormat
     }
     
-    static var readableContentTypes: [UTType] { [.document] }
+    internal static var readableContentTypes: [UTType] { [.document] }
     
-    internal var file: FileWrapper
+    internal var fileWrapper: FileWrapper
     
     init() {
         
-        self.file = FileWrapper(directoryWithFileWrappers: [:])
+        self.fileWrapper = FileWrapper(directoryWithFileWrappers: [:])
     }
 
     required init(configuration: ReadConfiguration) throws {
         
         guard configuration.contentType == .document else { throw CocoaError(.fileReadUnsupportedScheme) }
         
-        self.file = configuration.file
+        self.fileWrapper = configuration.file
         
         //read file contents
     }
@@ -36,6 +36,6 @@ class Document: FileDocument, ObservableObject {
         
         //write file contents
         
-        return file
+        return fileWrapper
     }
 }

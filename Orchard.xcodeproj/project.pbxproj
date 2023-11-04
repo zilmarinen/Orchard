@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		184FCC342AF67A6200A71088 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184FCC332AF67A6200A71088 /* SplashView.swift */; };
 		188783C82AAC7C4100723A76 /* OrchardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188783C72AAC7C4100723A76 /* OrchardApp.swift */; };
 		188783CA2AAC7C4100723A76 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188783C92AAC7C4100723A76 /* Document.swift */; };
 		188783CE2AAC7C4200723A76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 188783CD2AAC7C4200723A76 /* Assets.xcassets */; };
@@ -14,9 +15,12 @@
 		188783DE2AAC7C7700723A76 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188783DD2AAC7C7700723A76 /* AppViewModel.swift */; };
 		188783E12AAC7CE900723A76 /* UTType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188783E02AAC7CE900723A76 /* UTType.swift */; };
 		188783E62AAC7D8300723A76 /* Harvest in Frameworks */ = {isa = PBXBuildFile; productRef = 188783E52AAC7D8300723A76 /* Harvest */; };
+		18A70AA22ABDDCBB00BA4577 /* Regolith in Frameworks */ = {isa = PBXBuildFile; productRef = 18A70AA12ABDDCBB00BA4577 /* Regolith */; };
+		18A70AA42ABDDCBB00BA4577 /* Verdure in Frameworks */ = {isa = PBXBuildFile; productRef = 18A70AA32ABDDCBB00BA4577 /* Verdure */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		184FCC332AF67A6200A71088 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		188783C42AAC7C4100723A76 /* Orchard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Orchard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		188783C72AAC7C4100723A76 /* OrchardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrchardApp.swift; sourceTree = "<group>"; };
 		188783C92AAC7C4100723A76 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -28,6 +32,7 @@
 		188783E02AAC7CE900723A76 /* UTType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UTType.swift; sourceTree = "<group>"; };
 		188783E32AAC7D7800723A76 /* Harvest */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Harvest; path = ../Harvest; sourceTree = "<group>"; };
 		189AAFD92AADDA0000C1007E /* Regolith */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Regolith; path = ../Regolith; sourceTree = "<group>"; };
+		18A70AA02ABDD5DF00BA4577 /* Verdure */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Verdure; path = ../Verdure; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +40,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18A70AA42ABDDCBB00BA4577 /* Verdure in Frameworks */,
+				18A70AA22ABDDCBB00BA4577 /* Regolith in Frameworks */,
 				188783E62AAC7D8300723A76 /* Harvest in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -79,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				188783DB2AAC7C7000723A76 /* AppView.swift */,
+				184FCC332AF67A6200A71088 /* SplashView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -104,6 +112,7 @@
 			children = (
 				188783E32AAC7D7800723A76 /* Harvest */,
 				189AAFD92AADDA0000C1007E /* Regolith */,
+				18A70AA02ABDD5DF00BA4577 /* Verdure */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -133,6 +142,8 @@
 			name = Orchard;
 			packageProductDependencies = (
 				188783E52AAC7D8300723A76 /* Harvest */,
+				18A70AA12ABDDCBB00BA4577 /* Regolith */,
+				18A70AA32ABDDCBB00BA4577 /* Verdure */,
 			);
 			productName = Orchard;
 			productReference = 188783C42AAC7C4100723A76 /* Orchard.app */;
@@ -192,6 +203,7 @@
 				188783C82AAC7C4100723A76 /* OrchardApp.swift in Sources */,
 				188783DE2AAC7C7700723A76 /* AppViewModel.swift in Sources */,
 				188783DC2AAC7C7000723A76 /* AppView.swift in Sources */,
+				184FCC342AF67A6200A71088 /* SplashView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +422,14 @@
 		188783E52AAC7D8300723A76 /* Harvest */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Harvest;
+		};
+		18A70AA12ABDDCBB00BA4577 /* Regolith */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Regolith;
+		};
+		18A70AA32ABDDCBB00BA4577 /* Verdure */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Verdure;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

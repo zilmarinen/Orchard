@@ -13,7 +13,12 @@ struct OrchardApp: App {
         
         DocumentGroup(newDocument: Document()) { file in
             
-            AppView(document: file.$document)
+            AppView(document: file.$document,
+                    viewModel: AppViewModel())
+        }
+        .commands {
+            
+            SidebarCommands()
         }
     }
 }
