@@ -36,7 +36,7 @@ open class ContainerViewController: NSViewController {
         view.translatesAutoresizingMaskIntoConstraints = true
         view.autoresizingMask = [.maxXMargin, .maxYMargin]
         
-        guard let content = content else { return }
+        guard let content else { return }
             
         swap(from: nil,
              to: content)
@@ -44,7 +44,7 @@ open class ContainerViewController: NSViewController {
         
     public func set(content newContent: NSViewController?) {
         
-        if let newContent = newContent {
+        if let newContent {
             
             title = newContent.title
             
@@ -57,10 +57,10 @@ open class ContainerViewController: NSViewController {
             swap(from: oldContent,
                  to: newContent)
             
-        } else if let oldContent = content {
+        } else if let content {
             
-            oldContent.view.removeFromSuperview()
-            oldContent.removeFromParent()
+            content.view.removeFromSuperview()
+            content.removeFromParent()
             
             _content = nil
         }

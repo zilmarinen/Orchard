@@ -10,7 +10,12 @@ let package = Package(
         .library(name: "Base",
                  targets: ["Base"]),
     ],
+    dependencies: [
+        .package(url: "git@github.com:zilmarinen/Deltille.git",
+                 branch: "main")
+    ],
     targets: [
-        .target(name: "Base"),
+        .target(name: "Base",
+               dependencies: ["Deltille"]),
     ]
 )

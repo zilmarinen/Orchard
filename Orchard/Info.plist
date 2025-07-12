@@ -14,7 +14,7 @@
 				<string>com.zrb.orchard.document</string>
 			</array>
 			<key>NSDocumentClass</key>
-			<string>$(PRODUCT_MODULE_NAME).Document</string>
+			<string>Base.Document</string>
 		</dict>
 	</array>
 	<key>UTExportedTypeDeclarations</key>

@@ -7,7 +7,7 @@
 
 import Container
 
-public protocol RegionContainerDelegate: ContainerViewController {}
+public protocol RegionContainerDelegate: AnyObject {}
 
 public class RegionContainerController: ContainerViewController {
     

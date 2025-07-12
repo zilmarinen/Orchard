@@ -20,12 +20,16 @@ let package = Package(
     targets: [
         .target(name: "Region",
                 dependencies: [.product(name: "Container",
+                                        package: "Core"),
+                               .product(name: "Editor",
                                         package: "Core")]),
         .target(name: "Splash",
                 dependencies: [.product(name: "Container",
                                         package: "Core")]),
         .target(name: "World",
                 dependencies: [.product(name: "Container",
+                                        package: "Core"),
+                               .product(name: "Editor",
                                         package: "Core")]),
     ]
 )

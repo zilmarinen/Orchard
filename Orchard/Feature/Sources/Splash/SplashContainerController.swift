@@ -9,7 +9,7 @@ import AppKit
 import Base
 import Container
 
-public protocol SplashContainerDelegate: ContainerViewController {
+public protocol SplashContainerDelegate: AnyObject {
     
     func splashContainerDidFinish(_ container: SplashContainerController)
 }
