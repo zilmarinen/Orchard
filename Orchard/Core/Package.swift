@@ -11,11 +11,13 @@ let package = Package(
                  targets: ["Container"]),
         .library(name: "Editor",
                  targets: ["Editor"]),
+        .library(name: "Inspector",
+                 targets: ["Inspector"]),
+        .library(name: "OutlineView",
+                 targets: ["OutlineView"]),
     ],
     dependencies: [
         .package(path: "../Base"),
-//        .package(url: "git@github.com:zilmarinen/Deltille.git",
-//                 branch: "feature/refactor")
     ],
     targets: [
         .target(name: "Container",
@@ -23,6 +25,13 @@ let package = Package(
                                         package: "Base")]),
         .target(name: "Editor",
                 dependencies: [.product(name: "Base",
+                                        package: "Base"),
+                               "Container"]),
+        .target(name: "Inspector",
+                dependencies: [.product(name: "Base",
                                         package: "Base")]),
+        .target(name: "OutlineView",
+                dependencies: [.product(name: "Base",
+                                        package: "Base")])
     ]
 )

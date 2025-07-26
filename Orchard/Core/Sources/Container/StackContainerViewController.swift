@@ -1,6 +1,6 @@
 //
 //  StackContainerViewController.swift
-//  Base
+//  Core
 //
 //  Created by Zack Brown on 09/07/2025.
 //
@@ -19,13 +19,10 @@ open class StackContainerViewController: NSViewController {
         case before(viewController: NSViewController)
     }
     
-    public lazy var stackView = with(NSStackView()) {
+    internal lazy var stackView = with(NSStackView()) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.spacing = 0
-        
-        $0.wantsLayer = true
-        $0.layer?.backgroundColor = NSColor.systemBlue.cgColor
     }
     
     private var childContainerViews: [ObjectIdentifier: NSView] = [:]
