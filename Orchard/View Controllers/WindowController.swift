@@ -34,7 +34,6 @@ public class WindowController: NSWindowController {
         
         window?.toolbar = toolbar
         window?.toolbarStyle = .unifiedCompact
-        window?.subtitle = "Orchard"
         
         showSplash()
     }
@@ -66,6 +65,7 @@ extension WindowController {
         guard !presentingRegion else { return }
         
         toolbar.isVisible = true
+        window?.subtitle = "Region"
         
         set(content: RegionContainerController(delegate: self))
     }
@@ -75,6 +75,7 @@ extension WindowController {
         guard !presentingSplash else { return }
         
         toolbar.isVisible = false
+        window?.subtitle = "Orchard"
         
         set(content: SplashContainerController(delegate: self))
     }
@@ -85,6 +86,7 @@ extension WindowController {
               let document = self.document as? Document else { return }
         
         toolbar.isVisible = true
+        window?.subtitle = "World"
         
         set(content: WorldContainerController(document: document,
                                               delegate: self))
@@ -98,11 +100,4 @@ extension WindowController: SplashContainerDelegate {
     public func splashContainerDidFinish(_ container: SplashContainerController) { showWorld() }
 }
 
-extension WindowController: WorldContainerDelegate {
-    
-    public func worldContainer(_ container: WorldContainerController,
-                               didSelect region: Bool) {
-        
-        showRegion()
-    }
-}
+extension WindowController: WorldContainerDelegate {}
