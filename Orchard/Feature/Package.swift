@@ -30,6 +30,10 @@ let package = Package(
                 dependencies: [.product(name: "Container",
                                         package: "Core"),
                                .product(name: "Editor",
+                                        package: "Core"),
+                               .product(name: "Inspector",
+                                        package: "Core"),
+                               .product(name: "OutlineView",
                                         package: "Core")]),
     ]
 )

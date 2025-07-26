@@ -7,24 +7,29 @@
 
 import AppKit
 import Base
+import Deltille
 
-public protocol WorldContainerDelegate: AnyObject {
-    
-    func worldContainer(_ container: WorldContainerController,
-                        didSelect region: Bool)
-}
+public protocol WorldContainerDelegate: AnyObject {}
 
 public class WorldContainerController: NSSplitViewController {
     
-    private let sidebarContainer = WorldSidebarContainer()
-    private lazy var editorContainer = WorldEditorContainer(delegate: self)
-    private let inspectorContainer = NSViewController()
+    private enum Constant {
+        
+        static let defaultSidebarThickness = 256.0
+    }
+    
+    private lazy var sidebarContainer = WorldSidebarContainer(viewModel: viewModel,
+                                                              delegate: self)
+    private lazy var editorContainer = WorldEditorContainer(viewModel: viewModel,
+                                                            delegate: self)
+    private lazy var inspectorContainer = WorldInspectorContainer(viewModel: viewModel,
+                                                                  delegate: self)
     
     private lazy var sidebarItem = with(NSSplitViewItem(sidebarWithViewController: sidebarContainer)) {
         
         $0.allowsFullHeightLayout = true
-        $0.maximumThickness = 256
-        $0.minimumThickness = 128
+        $0.maximumThickness = Constant.defaultSidebarThickness
+        $0.minimumThickness = Constant.defaultSidebarThickness
         $0.titlebarSeparatorStyle = .line
     }
     
@@ -32,18 +37,18 @@ public class WorldContainerController: NSSplitViewController {
     private lazy var inspectorItem = with(NSSplitViewItem(inspectorWithViewController: inspectorContainer)) {
         
         $0.allowsFullHeightLayout = true
-        $0.maximumThickness = 256
-        $0.minimumThickness = 128
+        $0.maximumThickness = Constant.defaultSidebarThickness
+        $0.minimumThickness = Constant.defaultSidebarThickness
         $0.titlebarSeparatorStyle = .line
     }
     
-    unowned(unsafe) private let document: Document
+    private let viewModel: WorldViewModel
     private weak var delegate: WorldContainerDelegate?
     
     public init(document: Document,
                 delegate: WorldContainerDelegate) {
         
-        self.document = document
+        self.viewModel = .init(document: document)
         self.delegate = delegate
         
         super.init(nibName: nil,
@@ -61,12 +66,40 @@ public class WorldContainerController: NSSplitViewController {
     required public init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 
-extension WorldContainerController: @preconcurrency WorldEditorDelegate {
+extension WorldContainerController: @preconcurrency WorldSidebarContainerDelegate {
+    
+    internal func worldSidebarContainer(_ container: WorldSidebarContainer,
+                                        didSelect coordinate: Coordinate?) {
+        
+        if let coordinate{
+            
+            viewModel.update(selection: .region(coordinate: coordinate))
+        }
+        else {
+            
+            viewModel.update(selection: .none)
+        }
+        
+        inspectorContainer.reload()
+    }
+}
+
+extension WorldContainerController: @preconcurrency WorldEditorContainerDelegate {
     
     internal func worldEditorContainer(_ container: WorldEditorContainer,
-                                       didSelect region: Bool) {
+                                       didSelect coordinate: Coordinate) {
         
-        delegate?.worldContainer(self,
-                                 didSelect: region)
+        print("Editor selected Region: \(coordinate.id)")
+        
+        viewModel.update(selection: .region(coordinate: coordinate))
+    }
+}
+
+extension WorldContainerController: @preconcurrency WorldInspectorContainerDelegate {
+    
+    func worldInspectorContainer(_ container: WorldInspectorContainer,
+                                 didUpdate coordinate: Coordinate) {
+        
+        //
     }
 }

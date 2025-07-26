@@ -13,8 +13,8 @@ extension NSView {
         
         NSLayoutConstraint.activate([
             
-            centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ])
     }
     
@@ -22,10 +22,10 @@ extension NSView {
         
         NSLayoutConstraint.activate([
             
-            topAnchor.constraint(equalTo: view.topAnchor),
-            leftAnchor.constraint(equalTo: view.leftAnchor),
-            bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            rightAnchor.constraint(equalTo: view.rightAnchor)
+            topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
         ])
     }
 }

@@ -1,0 +1,24 @@
+{
+  "originHash" : "d38ee38f1e54de24f4ce97f1cae577d5446b8fa42e91669f21760f2ac483817c",
+  "pins" : [
+    {
+      "identity" : "deltille",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:zilmarinen/Deltille.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "96ca32c77fa9b7de78b975a329b7daba26d7daae"
+      }
+    },
+    {
+      "identity" : "euclid",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:nicklockwood/Euclid.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "1aeb8a7c36c22d31c74d4bd2c7e4529e3d43c097"
+      }
+    }
+  ],
+  "version" : 3
+}
