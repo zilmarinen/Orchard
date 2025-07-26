@@ -9,5 +9,6 @@ import UniformTypeIdentifiers
 
 public extension UTType {
     
-    static var document: UTType { UTType(importedAs: "com.zrb.orchard.document") }
+    static var documentReadableType: UTType { UTType(importedAs: "com.zrb.orchard.document") }
+    static var documentWriteableType: UTType { UTType(exportedAs: "com.zrb.orchard.document") }
 }

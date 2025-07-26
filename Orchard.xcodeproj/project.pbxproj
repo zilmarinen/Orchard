@@ -12,6 +12,7 @@
 		1837A6FF2E1EAAF200CC554A /* World in Frameworks */ = {isa = PBXBuildFile; productRef = 1837A6FE2E1EAAF200CC554A /* World */; };
 		1837A71E2E1EB2E400CC554A /* Splash in Frameworks */ = {isa = PBXBuildFile; productRef = 1837A71D2E1EB2E400CC554A /* Splash */; };
 		1837A7202E1EB3A300CC554A /* Region in Frameworks */ = {isa = PBXBuildFile; productRef = 1837A71F2E1EB3A300CC554A /* Region */; };
+		183D4ABF2E33CD7E00FED5D9 /* Inspector in Frameworks */ = {isa = PBXBuildFile; productRef = 183D4ABE2E33CD7E00FED5D9 /* Inspector */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				183D4ABF2E33CD7E00FED5D9 /* Inspector in Frameworks */,
 				1837A7202E1EB3A300CC554A /* Region in Frameworks */,
 				1837A6FF2E1EAAF200CC554A /* World in Frameworks */,
 				1837A71E2E1EB2E400CC554A /* Splash in Frameworks */,
@@ -104,6 +106,7 @@
 				1837A6FE2E1EAAF200CC554A /* World */,
 				1837A71D2E1EB2E400CC554A /* Splash */,
 				1837A71F2E1EB3A300CC554A /* Region */,
+				183D4ABE2E33CD7E00FED5D9 /* Inspector */,
 			);
 			productName = Orchard;
 			productReference = 18DBB9F12E1EA498001D1C08 /* Orchard.app */;
@@ -401,6 +404,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1837A6FD2E1EAAF200CC554A /* XCLocalSwiftPackageReference "Orchard/Feature" */;
 			productName = Region;
+		};
+		183D4ABE2E33CD7E00FED5D9 /* Inspector */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Inspector;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

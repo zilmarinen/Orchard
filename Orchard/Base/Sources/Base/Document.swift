@@ -1,4 +1,4 @@
-//
+ //
 //  Document.swift
 //  Base
 //
@@ -6,47 +6,123 @@
 //
 
 import Cocoa
+import Deltille
+import UniformTypeIdentifiers
 
 public class Document: NSDocument {
-
+    
+    public override class var autosavesInPlace: Bool { true }
+    public override nonisolated var isEntireFileLoaded: Bool { true }
+    public override class var readableTypes: [String] { [UTType.documentReadableType.identifier] }
+    public override class var writableTypes: [String] { [UTType.documentWriteableType.identifier] }
+    
+    private let encoder = JSONEncoder()
+    private let decoder = JSONDecoder()
+    
+    private var regions: [Coordinate : RegionIntermediate]
+    private var zones: [Coordinate : ZoneIntermediate]
+    
+    public var regionIntermediates: [RegionIntermediate]? { Array(regions.values) }
+    public var zoneIntermediates: [ZoneIntermediate]? { Array(zones.values) }
+    
     override init() {
         
-        super.init()
+        self.regions = [.zero : .init(coordinate: .zero)]
+        self.zones = [.zero : .init(coordinate: .zero)]
         
-        //
+        super.init()
     }
-
-    public override class var autosavesInPlace: Bool { true }
-
+    
     public override func makeWindowControllers() {
         
         let storyboard = NSStoryboard(name: NSStoryboard.main,
                                       bundle: nil)
         
-        let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.scene) as! NSWindowController
+        guard let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.scene) as? NSWindowController else { fatalError("Invalid window controller") }
         
         addWindowController(windowController)
     }
-    
+
     public override func fileWrapper(ofType typeName: String) throws -> FileWrapper {
         
-        let wrappers: [String: FileWrapper] = [:]
+        let world = WorldIntermediate(regions: Array(regions.keys),
+                                      zones: Array(zones.keys))
         
-        return FileWrapper(directoryWithFileWrappers: wrappers)
+        var package: [String : FileWrapper] = [:]
         
-//        throw NSError(domain: NSOSStatusErrorDomain,
-//                      code: unimpErr,
-//                      userInfo: nil)
+        // MARK: World
+        
+        package.write(value: FileWrapper(regularFileWithContents: try encoder.encode(world)),
+                           forKey: .world)
+        
+        // MARK: Regions
+        
+        let regionsFileWrappers = try regions.reduce(into: [String : FileWrapper]()) { result, region in
+            
+            let data = try encoder.encode(region.value)
+            
+            result.write(value: .init(regularFileWithContents: data),
+                         forKey: .region(coordinate: region.key))
+        }
+        
+        package.write(value: .init(directoryWithFileWrappers: regionsFileWrappers),
+                           forKey: .regions)
+        
+        // MARK: Zones
+        
+        let zonesFileWrappers = try zones.reduce(into: [String : FileWrapper]()) { result, zone in
+            
+            
+            let data = try encoder.encode(zone.value)
+            
+            result.write(value: .init(regularFileWithContents: data),
+                         forKey: .zone(coordinate: zone.key))
+        }
+        
+        package.write(value: .init(directoryWithFileWrappers: zonesFileWrappers),
+                      forKey: .zones)
+        
+        return FileWrapper(directoryWithFileWrappers: package)
     }
-    public override nonisolated func read(from fileWrapper: FileWrapper,
-                                   ofType typeName: String) throws {
+    
+    public override func read(from fileWrapper: FileWrapper,
+                              ofType typeName: String) throws {
         
-        //
+        guard let worldData = fileWrapper.regularFileContents(forKey: .world),
+              let regionsFileWrapper = fileWrapper.fileWrapper(forKey: .regions),
+              let zonesFileWrapper = fileWrapper.fileWrapper(forKey: .zones) else { throw CocoaError(.fileReadNoSuchFile) }
         
-        // Insert code here to read your document from the given data of the specified type, throwing an error in case of failure.
-        // Alternatively, you could remove this method and override read(from:ofType:) instead.
-        // If you do, you should also override isEntireFileLoaded to return false if the contents are lazily loaded.
+        // MARK: World
         
-        //throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
+        let world = try decoder.decode(WorldIntermediate.self,
+                                       from: worldData)
+        
+        // MARK: Regions
+        
+        self.regions = try world.regions.reduce(into: [:]) { result, coordinate in
+            
+            guard let regionData = regionsFileWrapper.regularFileContents(forKey: .region(coordinate: coordinate)) else { throw CocoaError(.fileReadNoSuchFile) }
+            
+            result[coordinate] = try decoder.decode(RegionIntermediate.self,
+                                                    from: regionData)
+        }
+        
+        // MARK: Zones
+        
+        self.zones = try world.zones.reduce(into: [:]) { result, coordinate in
+        
+            guard let zoneData = zonesFileWrapper.regularFileContents(forKey: .zone(coordinate: coordinate)) else { throw CocoaError(.fileReadNoSuchFile) }
+            
+            result[coordinate] = try decoder.decode(ZoneIntermediate.self,
+                                                    from: zoneData)
+        }
+    }
+}
+
+extension Document {
+    
+    public func regionIntermediate(for coordinate: Coordinate) -> RegionIntermediate? {
+        
+        regions[coordinate]
     }
 }

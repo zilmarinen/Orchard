@@ -1,0 +1,26 @@
+//
+//  NSImage.swift
+//  Base
+//
+//  Created by Zack Brown on 23/07/2025.
+//
+
+import AppKit
+
+extension NSImage {
+    
+    public enum Image: String {
+        
+        case circle
+        case hexagon
+        case square
+        case rhombus
+        case triangle
+    }
+    
+    public convenience init?(image: Image) {
+        
+        self.init(systemSymbolName: image.rawValue,
+                  accessibilityDescription: image.rawValue)
+    }
+}

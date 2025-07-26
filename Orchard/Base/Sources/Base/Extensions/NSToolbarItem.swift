@@ -37,7 +37,7 @@ extension NSToolbarItem {
             
             switch self {
                 
-            case .debug: return "ladybug"
+            case .debug: "ladybug"
             }
         }
     }
