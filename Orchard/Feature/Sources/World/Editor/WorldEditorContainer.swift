@@ -8,13 +8,12 @@
 import AppKit
 import Base
 import Container
-import Deltille
 import Editor
 
 internal protocol WorldEditorContainerDelegate: AnyObject {
     
     func worldEditorContainer(_ container: WorldEditorContainer,
-                              didSelect coordinate: Coordinate)
+                              didSelect selection: Document.Selection)
 }
 
 internal class WorldEditorContainer: ContainerViewController {

@@ -7,13 +7,12 @@
 
 import AppKit
 import Base
+import Deltille
 import Region
 import Splash
 import World
 
 public class WindowController: NSWindowController {
-    
-    private lazy var toolbar = Toolbar(eventHandler: self)
     
     private var regionContainerController: RegionContainerController? { contentViewController as? RegionContainerController }
     private var splashContainerController: SplashContainerController? { contentViewController as? SplashContainerController }
@@ -32,50 +31,42 @@ public class WindowController: NSWindowController {
         
         super.windowDidLoad()
         
-        window?.toolbar = toolbar
-        window?.toolbarStyle = .unifiedCompact
-        
         showSplash()
     }
     
     private func set(content: NSViewController) {
         
+        window?.subtitle = content.title ?? ""
+        window?.toolbarStyle = .unifiedCompact
+        
         contentViewController = content
         
-        toolbar.validateVisibleItems()
-    }
-}
-
-extension WindowController: ToolbarDelegate {
-    
-    func toolbar(_ toolbar: Toolbar,
-                 didTap toolbarItem: NSToolbarItem.ItemIdentifier) {
-        
-        switch toolbarItem {
+        guard let content = content as? HasToolbar else {
             
-        case .debug: print("Debug")
+            window?.toolbar = nil
+            
+            return
         }
+        
+        window?.toolbar = content.toolbar
     }
 }
 
 extension WindowController {
     
-    private func showRegion() {
+    private func showRegion(coordinate: Coordinate) {
         
-        guard !presentingRegion else { return }
+        guard !presentingRegion,
+              let document = self.document as? Document else { return }
         
-        toolbar.isVisible = true
-        window?.subtitle = "Region"
-        
-        set(content: RegionContainerController(delegate: self))
+        set(content: RegionContainerController(coordinate: coordinate,
+                                               document: document,
+                                               delegate: self))
     }
     
     private func showSplash() {
         
         guard !presentingSplash else { return }
-        
-        toolbar.isVisible = false
-        window?.subtitle = "Orchard"
         
         set(content: SplashContainerController(delegate: self))
     }
@@ -85,19 +76,42 @@ extension WindowController {
         guard !presentingWorld,
               let document = self.document as? Document else { return }
         
-        toolbar.isVisible = true
-        window?.subtitle = "World"
-        
         set(content: WorldContainerController(document: document,
                                               delegate: self))
     }
+    
+    private func showZone(coordinate: Coordinate) {
+        
+        //
+    }
 }
 
-extension WindowController: RegionContainerDelegate {}
+extension WindowController: RegionContainerDelegate {
+    
+    public func regionContainerDidFinish(_ container: RegionContainerController) {
+        
+        showWorld()
+    }
+}
 
 extension WindowController: SplashContainerDelegate {
     
-    public func splashContainerDidFinish(_ container: SplashContainerController) { showWorld() }
+    public func splashContainerDidFinish(_ container: SplashContainerController) {
+        
+        showWorld()
+    }
 }
 
-extension WindowController: WorldContainerDelegate {}
+extension WindowController: WorldContainerDelegate {
+    
+    public func worldContainerController(_ container: WorldContainerController,
+                                         didRequestEditingFor selection: Document.Selection) {
+        
+        switch selection {
+            
+        case .region(let coordinate): showRegion(coordinate: coordinate)
+        case .zone(let coordinate): showZone(coordinate: coordinate)
+        default: break
+        }
+    }
+}

@@ -11,6 +11,13 @@ import UniformTypeIdentifiers
 
 public class Document: NSDocument {
     
+    public enum Selection {
+        
+        case none
+        case region(coordinate: Coordinate)
+        case zone(coordinate: Coordinate)
+    }
+    
     public override class var autosavesInPlace: Bool { true }
     public override nonisolated var isEntireFileLoaded: Bool { true }
     public override class var readableTypes: [String] { [UTType.documentReadableType.identifier] }
@@ -19,8 +26,8 @@ public class Document: NSDocument {
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
     
-    private var regions: [Coordinate : RegionIntermediate]
-    private var zones: [Coordinate : ZoneIntermediate]
+    nonisolated(unsafe) private var regions: [Coordinate : RegionIntermediate]
+    nonisolated(unsafe) private var zones: [Coordinate : ZoneIntermediate]
     
     public var regionIntermediates: [RegionIntermediate]? { Array(regions.values) }
     public var zoneIntermediates: [ZoneIntermediate]? { Array(zones.values) }
@@ -124,5 +131,10 @@ extension Document {
     public func regionIntermediate(for coordinate: Coordinate) -> RegionIntermediate? {
         
         regions[coordinate]
+    }
+    
+    public func zoneIntermediate(for coordinate: Coordinate) -> ZoneIntermediate? {
+        
+        zones[coordinate]
     }
 }

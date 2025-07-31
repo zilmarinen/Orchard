@@ -30,6 +30,8 @@ public class SplashContainerController: ContainerViewController {
         self.delegate = delegate
         
         super.init()
+        
+        title = "Orchard"
     }
     
     public override func viewDidLoad() {

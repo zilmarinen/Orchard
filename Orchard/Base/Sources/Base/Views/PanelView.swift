@@ -11,8 +11,27 @@ public class PanelView: NSView {
     
     private enum Constant {
         
-        static let padding = 4.0
         static let columnWidthMultiplier = 0.33
+        static let cornerRadius = 4.0
+        static let padding = 6.0
+    }
+    
+    // MARK: Content View
+    
+    private let contentView = with(NSView()) {
+        
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.wantsLayer = true
+        $0.layer?.backgroundColor = NSColor.windowBackgroundColor.cgColor
+        $0.layer?.cornerRadius = Constant.cornerRadius
+    }
+    
+    private let groupView = with(NSView()) {
+        
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.wantsLayer = true
+        $0.layer?.backgroundColor = NSColor.controlBackgroundColor.cgColor
+        $0.layer?.cornerRadius = Constant.cornerRadius
     }
     
     private let titleLabel = with(NSTextField()) {
@@ -30,7 +49,7 @@ public class PanelView: NSView {
     private let gridView = with(NSGridView()) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.xPlacement = .center
+        $0.xPlacement = .fill
         $0.yPlacement = .center
         $0.columnSpacing = Constant.padding
         $0.rowSpacing = Constant.padding
@@ -50,25 +69,46 @@ public class PanelView: NSView {
         
         self.title = title
         
-        addSubview(titleLabel)
-        addSubview(gridView)
+        addSubview(contentView)
+        
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(groupView)
+        groupView.addSubview(gridView)
         
         NSLayoutConstraint.activate([
             
-            titleLabel.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor,
+            contentView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor,
                                              constant: Constant.padding),
-            titleLabel.rightAnchor.constraint(lessThanOrEqualTo: safeAreaLayoutGuide.rightAnchor),
-            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor,
+            contentView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor,
+                                              constant: Constant.padding),
+            contentView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor,
+                                                constant: -Constant.padding),
+            contentView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor,
+                                               constant: -Constant.padding),
+            
+            titleLabel.leftAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leftAnchor,
+                                             constant: Constant.padding),
+            titleLabel.rightAnchor.constraint(lessThanOrEqualTo: contentView.safeAreaLayoutGuide.rightAnchor),
+            titleLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor,
                                             constant: Constant.padding),
             
-            gridView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor,
+            groupView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor,
                                           constant: Constant.padding),
-            gridView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor,
+            groupView.leftAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leftAnchor,
                                            constant: Constant.padding),
-            gridView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor,
+            groupView.rightAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.rightAnchor,
                                             constant: -Constant.padding),
-            gridView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor,
+            groupView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor,
                                              constant: -Constant.padding),
+            
+            gridView.topAnchor.constraint(equalTo: groupView.topAnchor,
+                                             constant: Constant.padding),
+            gridView.leftAnchor.constraint(equalTo: groupView.leftAnchor,
+                                              constant: Constant.padding),
+            gridView.bottomAnchor.constraint(equalTo: groupView.bottomAnchor,
+                                                constant: -Constant.padding),
+            gridView.rightAnchor.constraint(equalTo: groupView.rightAnchor,
+                                               constant: -Constant.padding),
         ])
     }
     

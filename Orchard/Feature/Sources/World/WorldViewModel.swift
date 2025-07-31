@@ -7,23 +7,16 @@
 
 import AppKit
 import Base
-import Deltille
 import OutlineView
 
 @MainActor
 internal class WorldViewModel {
     
-    internal enum Selection {
-        
-        case none
-        case region(coordinate: Coordinate)
-    }
-    
-    private(set) var selection: Selection = .none
+    private(set) var selection: Document.Selection = .none
     
     private(set) unowned(unsafe) var document: Document
     
-    init(document: Document) {
+    internal init(document: Document) {
      
         self.document = document
     }
@@ -53,5 +46,5 @@ extension WorldViewModel {
 
 extension WorldViewModel {
     
-    internal func update(selection value: Selection) { selection = value }
+    internal func update(selection value: Document.Selection) { selection = value }
 }

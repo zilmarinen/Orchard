@@ -92,8 +92,9 @@ public class CoordinateView: NSControl {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.orientation = .horizontal
-        $0.distribution = .fill
-        $0.alignment = .centerY
+        $0.distribution = .equalSpacing
+        $0.alignment = .top
+        $0.spacing = 0
         $0.addArrangedSubview(xStackView)
         $0.addArrangedSubview(yStackView)
         $0.addArrangedSubview(zStackView)
@@ -104,6 +105,7 @@ public class CoordinateView: NSControl {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.orientation = .vertical
         $0.alignment = .centerX
+        $0.spacing = 0
         $0.addArrangedSubview(xField)
         $0.addArrangedSubview(xLabel)
     }
@@ -113,6 +115,7 @@ public class CoordinateView: NSControl {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.orientation = .vertical
         $0.alignment = .centerX
+        $0.spacing = 0
         $0.addArrangedSubview(yField)
         $0.addArrangedSubview(yLabel)
     }
@@ -122,6 +125,7 @@ public class CoordinateView: NSControl {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.orientation = .vertical
         $0.alignment = .centerX
+        $0.spacing = 0
         $0.addArrangedSubview(zField)
         $0.addArrangedSubview(zLabel)
     }

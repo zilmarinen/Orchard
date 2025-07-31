@@ -7,16 +7,22 @@
 
 import AppKit
 import Base
-import Deltille
 
-public protocol WorldContainerDelegate: AnyObject {}
+public protocol WorldContainerDelegate: AnyObject {
+    
+    func worldContainerController(_ container: WorldContainerController,
+                                  didRequestEditingFor selection: Document.Selection)
+}
 
-public class WorldContainerController: NSSplitViewController {
+public class WorldContainerController: NSSplitViewController,
+                                       @preconcurrency HasToolbar {
     
     private enum Constant {
         
         static let defaultSidebarThickness = 256.0
     }
+    
+    public lazy var toolbar = Toolbar(eventHandler: self)
     
     private lazy var sidebarContainer = WorldSidebarContainer(viewModel: viewModel,
                                                               delegate: self)
@@ -54,6 +60,8 @@ public class WorldContainerController: NSSplitViewController {
         super.init(nibName: nil,
                    bundle: nil)
         
+        title = "World"
+        
         insertSplitViewItem(sidebarItem,
                             at: splitViewItems.count)
         insertSplitViewItem(editorItem,
@@ -66,19 +74,34 @@ public class WorldContainerController: NSSplitViewController {
     required public init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 
+extension WorldContainerController: @preconcurrency ToolbarDelegate {
+    
+    public func toolbar(_ toolbar: Toolbar,
+                        didTap toolbarItem: NSToolbarItem.Item) {
+        
+        print("Toolbar item [\(toolbarItem.identifier)]")
+    }
+    
+    public func toolbarDefaultItemIdentifiers(_ toolbar: Toolbar) -> [NSToolbarItem.Identifier] {
+        
+        [.toggleSidebar,
+         .sidebarTrackingSeparator,
+         .inspectorTrackingSeparator,
+         .flexibleSpace,
+         .toggleInspector]
+    }
+}
+
 extension WorldContainerController: @preconcurrency WorldSidebarContainerDelegate {
     
+    // When item is selected from sidebar;
+    // - focus editor view
+    // - select appropriate inspector view
+    
     internal func worldSidebarContainer(_ container: WorldSidebarContainer,
-                                        didSelect coordinate: Coordinate?) {
+                                        didSelect selection: Document.Selection) {
         
-        if let coordinate{
-            
-            viewModel.update(selection: .region(coordinate: coordinate))
-        }
-        else {
-            
-            viewModel.update(selection: .none)
-        }
+        viewModel.update(selection: selection)
         
         inspectorContainer.reload()
     }
@@ -86,19 +109,34 @@ extension WorldContainerController: @preconcurrency WorldSidebarContainerDelegat
 
 extension WorldContainerController: @preconcurrency WorldEditorContainerDelegate {
     
+    // When item is selected from editor;
+    // - select appropriate item in sidebar
+    // - select appropriate inspector view
+    
     internal func worldEditorContainer(_ container: WorldEditorContainer,
-                                       didSelect coordinate: Coordinate) {
+                                       didSelect selection: Document.Selection) {
         
-        print("Editor selected Region: \(coordinate.id)")
+        viewModel.update(selection: selection)
         
-        viewModel.update(selection: .region(coordinate: coordinate))
+        //
     }
 }
 
 extension WorldContainerController: @preconcurrency WorldInspectorContainerDelegate {
     
     func worldInspectorContainer(_ container: WorldInspectorContainer,
-                                 didUpdate coordinate: Coordinate) {
+                                 didRequestEditingFor selection: Document.Selection) {
+        
+        delegate?.worldContainerController(self,
+                                           didRequestEditingFor: selection)
+    }
+    
+    // When item properties are modified from inspector;
+    // - select appropriate item in sidebar
+    // - focus editor view
+    
+    func worldInspectorContainer(_ container: WorldInspectorContainer,
+                                 didUpdate selection: Document.Selection) {
         
         //
     }
