@@ -41,6 +41,7 @@ public class SidebarItemView: NSTableRowView {
         $0.isBordered = false
         $0.maximumNumberOfLines = 1
         $0.backgroundColor = .clear
+        $0.alignment = .right
     }
     
     public var image: NSImage? {

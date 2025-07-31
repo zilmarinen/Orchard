@@ -8,16 +8,15 @@
 import AppKit
 import Base
 import Container
-import Deltille
 import OutlineView
 
 internal protocol WorldSidebarContainerDelegate: AnyObject {
     
     func worldSidebarContainer(_ container: WorldSidebarContainer,
-                               didSelect coordinate: Coordinate?)
+                               didSelect selection: Document.Selection)
 }
 
-internal class WorldSidebarContainer: VerticalStackContainerViewController {
+internal class WorldSidebarContainer: ContainerViewController {
     
     private lazy var outlineViewController = OutlineViewController(delegate: self)
     
@@ -37,7 +36,7 @@ internal class WorldSidebarContainer: VerticalStackContainerViewController {
         
         super.viewDidLoad()
         
-        insert(viewController: outlineViewController)
+        set(content: outlineViewController)
     }
 }
 
@@ -70,15 +69,23 @@ extension WorldSidebarContainer: @preconcurrency OutlineViewControllerDelegate {
                                         didSelect item: any TreeNode,
                                         atIndex index: Int) {
         
-        guard let item = item as? RegionIntermediate else {
+        switch item {
+            
+        case let item as RegionIntermediate:
             
             delegate?.worldSidebarContainer(self,
-                                            //didSelect: nil)
-                                            didSelect: .unitX)
-            return
+                                            didSelect: .region(coordinate: item.coordinate))
+            
+        case let item as ZoneIntermediate:
+            
+            delegate?.worldSidebarContainer(self,
+                                            didSelect: .zone(coordinate: item.coordinate))
+            
+        default:
+            
+            delegate?.worldSidebarContainer(self,
+                                            //didSelect: .none)
+                                            didSelect: .region(coordinate: .unitZ))
         }
-        
-        delegate?.worldSidebarContainer(self,
-                                        didSelect: item.coordinate)
     }
 }

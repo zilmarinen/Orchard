@@ -11,6 +11,7 @@ extension NSImage {
     
     public enum Image: String {
         
+        case chevronBackward = "chevron.backward"
         case circle
         case hexagon
         case square
