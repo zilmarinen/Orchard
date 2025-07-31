@@ -1,25 +1,26 @@
 //
 //  Toolbar.swift
-//  Orchard
+//  Base
 //
 //  Created by Zack Brown on 11/07/2025.
 //
 
 import AppKit
-import Base
 
-protocol ToolbarDelegate: AnyObject {
+public protocol ToolbarDelegate: AnyObject {
     
     func toolbar(_ toolbar: Toolbar,
-                 didTap toolbarItem: NSToolbarItem.ItemIdentifier)
+                 didTap toolbarItem: NSToolbarItem.Item)
+    
+    func toolbarDefaultItemIdentifiers(_ toolbar: Toolbar) -> [NSToolbarItem.Identifier]
 }
 
-internal class Toolbar: NSToolbar,
-                        NSToolbarDelegate {
+public class Toolbar: NSToolbar,
+                      NSToolbarDelegate {
     
     private static let identifier: NSToolbar.Identifier = .init("orchard.toolbar")
-
-    private lazy var debug = with(NSToolbarItem(identifier: .debug)) {
+    
+    private lazy var back = with(NSToolbarItem(item: .chevronBackward)) {
         
         $0.target = self
         $0.action = #selector(toolbarItem(_:))
@@ -27,7 +28,7 @@ internal class Toolbar: NSToolbar,
     
     private weak var eventHandler: ToolbarDelegate?
     
-    init(eventHandler: ToolbarDelegate) {
+    public init(eventHandler: ToolbarDelegate) {
         
         self.eventHandler = eventHandler
         
@@ -46,7 +47,7 @@ extension Toolbar {
     @objc
     private func toolbarItem(_ sender: NSToolbarItem) {
         
-        guard let identifier = NSToolbarItem.ItemIdentifier(rawValue: sender.itemIdentifier.rawValue) else { return }
+        guard let identifier = NSToolbarItem.Item(rawValue: sender.label) else { return }
         
         eventHandler?.toolbar(self,
                               didTap: identifier)
@@ -59,21 +60,16 @@ extension Toolbar {
                         itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier,
                         willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
         
-        guard let identifier = NSToolbarItem.ItemIdentifier(rawValue: itemIdentifier.rawValue) else { return nil }
-        
-        switch identifier {
+        switch itemIdentifier {
             
-        case .debug: return debug
+        case .chevronBackward: return back
+        default: fatalError("Invalid toolbar item [\(itemIdentifier.rawValue)]")
         }
     }
     
     public func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
         
-        [.toggleSidebar,
-         .sidebarTrackingSeparator,
-         .inspectorTrackingSeparator,
-         .flexibleSpace,
-         .toggleInspector]
+        eventHandler?.toolbarDefaultItemIdentifiers(self) ?? []
     }
     
     public func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] { toolbarDefaultItemIdentifiers(toolbar) }

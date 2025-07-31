@@ -9,36 +9,47 @@ import AppKit
 
 extension NSToolbarItem {
     
-    public convenience init(identifier: ItemIdentifier) {
+    public convenience init(item: Item) {
         
-        self.init(itemIdentifier: identifier.identifier)
+        self.init(itemIdentifier: item.identifier)
         
-        label = identifier.id
-        title = identifier.id
-        toolTip = identifier.id
-        paletteLabel = identifier.id
-        image = identifier.image
+        label = item.id
+        title = item.id
+        toolTip = item.id
+        paletteLabel = item.id
+        image = item.image
+        isNavigational = item.isNavigational
         isBordered = false
     }
     
-    public enum ItemIdentifier: String,
-                                Identifiable {
+    public enum Item: String,
+                      Identifiable {
         
-        case debug = "Debug"
+        case chevronBackward = "Back"
         
         public var id: String { rawValue }
         
-        public var identifier: NSToolbarItem.Identifier { .init(rawValue) }
+        public var isNavigational: Bool { self == .chevronBackward }
         
-        public var image: NSImage? { NSImage(systemSymbolName: symbolName,
-                                              accessibilityDescription: id) }
-        
-        private var symbolName: String {
+        public var identifier: NSToolbarItem.Identifier {
             
             switch self {
                 
-            case .debug: "ladybug"
+            case .chevronBackward: .chevronBackward
+            }
+        }
+        
+        internal var image: NSImage? {
+            
+            switch self {
+                
+            case .chevronBackward: .init(image: .chevronBackward)
             }
         }
     }
+}
+
+extension NSToolbarItem.Identifier {
+    
+    public static let chevronBackward = NSToolbarItem.Identifier("chevronBackward")
 }
