@@ -7,13 +7,15 @@
 
 import Base
 import Container
-import Deltille
 import Inspector
 
 internal protocol WorldInspectorContainerDelegate: AnyObject {
     
     func worldInspectorContainer(_ container: WorldInspectorContainer,
-                                 didUpdate coordinate: Coordinate)
+                                 didRequestEditingFor selection: Document.Selection)
+    
+    func worldInspectorContainer(_ container: WorldInspectorContainer,
+                                 didUpdate selection: Document.Selection)
 }
 
 internal class WorldInspectorContainer: ContainerViewController {
@@ -49,6 +51,12 @@ internal class WorldInspectorContainer: ContainerViewController {
             set(content: RegionInspectorViewController(coordinate: coordinate,
                                                        document: viewModel.document,
                                                        delegate: self))
+            
+        case .zone(let coordinate):
+            
+            set(content: ZoneInspectorViewController(coordinate: coordinate,
+                                                     document: viewModel.document,
+                                                     delegate: self))
         }
     }
 }
@@ -56,15 +64,33 @@ internal class WorldInspectorContainer: ContainerViewController {
 extension WorldInspectorContainer: @preconcurrency RegionInspectorDelegate {
     
     func regionInsepectorViewController(_ viewController: RegionInspectorViewController,
-                                        didRequestEditingFor coordinate: Coordinate) {
+                                        didRequestEditingFor selection: Document.Selection) {
         
-        print("Coordinate: \(coordinate.id)")
+        delegate?.worldInspectorContainer(self,
+                                          didRequestEditingFor: selection)
     }
     
     func regionInsepectorViewController(_ viewController: RegionInspectorViewController,
-                                        didUpdate coordinate: Coordinate) {
+                                        didUpdate selection: Document.Selection) {
         
         delegate?.worldInspectorContainer(self,
-                                          didUpdate: coordinate)
+                                          didUpdate: selection)
+    }
+}
+
+extension WorldInspectorContainer: @preconcurrency ZoneInspectorDelegate {
+    
+    func zoneInsepectorViewController(_ viewController: ZoneInspectorViewController,
+                                      didRequestEditingFor selection: Document.Selection) {
+        
+        delegate?.worldInspectorContainer(self,
+                                          didRequestEditingFor: selection)
+    }
+    
+    func zoneInsepectorViewController(_ viewController: ZoneInspectorViewController,
+                                      didUpdate selection: Document.Selection) {
+        
+        delegate?.worldInspectorContainer(self,
+                                          didUpdate: selection)
     }
 }

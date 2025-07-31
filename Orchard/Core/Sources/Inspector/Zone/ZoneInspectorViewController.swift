@@ -1,26 +1,26 @@
 //
-//  RegionInspectorViewController.swift
-//  Feature
+//  ZoneInspectorViewController.swift
+//  Core
 //
-//  Created by Zack Brown on 24/07/2025.
+//  Created by Zack Brown on 28/07/2025.
 //
 
 import AppKit
 import Base
 import Deltille
 
-public protocol RegionInspectorDelegate: AnyObject {
+public protocol ZoneInspectorDelegate: AnyObject {
     
-    func regionInsepectorViewController(_ viewController: RegionInspectorViewController,
-                                        didRequestEditingFor selection: Document.Selection)
+    func zoneInsepectorViewController(_ viewController: ZoneInspectorViewController,
+                                      didRequestEditingFor selection: Document.Selection)
     
-    func regionInsepectorViewController(_ viewController: RegionInspectorViewController,
-                                        didUpdate selection: Document.Selection)
+    func zoneInsepectorViewController(_ viewController: ZoneInspectorViewController,
+                                      didUpdate selection: Document.Selection)
 }
 
-public class RegionInspectorViewController: InspectorViewController {
+public class ZoneInspectorViewController: InspectorViewController {
     
-    private lazy var regionPanel = with(PanelView(title: "Region")) {
+    private lazy var zonePanel = with(PanelView(title: "Zone")) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.addRow(label: "Coordinate",
@@ -47,7 +47,7 @@ public class RegionInspectorViewController: InspectorViewController {
         $0.isBordered = true
         $0.maximumNumberOfLines = 1
         $0.backgroundColor = .clear
-        $0.placeholderString = "Region Name"
+        $0.placeholderString = "Zone Name"
         $0.stringValue = viewModel.identifier
         $0.delegate = self
     }
@@ -57,15 +57,15 @@ public class RegionInspectorViewController: InspectorViewController {
                                             action: #selector(button(_:)))) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.title = viewModel.hasIntermediate ? "Edit Region" : "Create Region"
+        $0.title = "Edit Zone"
     }
     
-    private let viewModel: RegionInspectorViewModel
-    private weak var delegate: RegionInspectorDelegate?
+    private let viewModel: ZoneInspectorViewModel
+    private weak var delegate: ZoneInspectorDelegate?
     
     public init(coordinate: Coordinate,
                 document: Document,
-                delegate: RegionInspectorDelegate) {
+                delegate: ZoneInspectorDelegate) {
         
         self.viewModel = .init(coordinate: coordinate,
                                document: document)
@@ -82,23 +82,18 @@ public class RegionInspectorViewController: InspectorViewController {
         
         super.viewDidLoad()
         
-        stackView.addArrangedSubview(regionPanel)
-        
-        if viewModel.hasIntermediate {
-            
-            stackView.addArrangedSubview(intermediatePanel)
-        }
-        
+        stackView.addArrangedSubview(zonePanel)
+        stackView.addArrangedSubview(intermediatePanel)
         stackView.addArrangedSubview(button)
     }
 }
 
-extension RegionInspectorViewController: NSTextFieldDelegate {
+extension ZoneInspectorViewController: NSTextFieldDelegate {
     
     @objc internal func button(_ sender: NSButton) {
         
-        delegate?.regionInsepectorViewController(self,
-                                                 didRequestEditingFor: .region(coordinate: viewModel.coordinate))
+        delegate?.zoneInsepectorViewController(self,
+                                               didRequestEditingFor: .zone(coordinate: viewModel.coordinate))
     }
     
     public func controlTextDidChange(_ notification: Notification) {
@@ -110,7 +105,7 @@ extension RegionInspectorViewController: NSTextFieldDelegate {
         
         guard viewModel.hasIntermediate else { return }
         
-        delegate?.regionInsepectorViewController(self,
-                                                 didUpdate: .region(coordinate: viewModel.coordinate))
+        delegate?.zoneInsepectorViewController(self,
+                                               didUpdate: .zone(coordinate: viewModel.coordinate))
     }
 }
