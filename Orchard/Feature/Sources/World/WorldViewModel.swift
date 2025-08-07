@@ -7,10 +7,13 @@
 
 import AppKit
 import Base
+import Deltille
 import OutlineView
 
 @MainActor
 internal class WorldViewModel {
+    
+    private(set) var contents: [any TreeNode] = []
     
     private(set) var selection: Document.Selection = .none
     
@@ -19,32 +22,82 @@ internal class WorldViewModel {
     internal init(document: Document) {
      
         self.document = document
+        
+        updateDefaultSelection()
     }
 }
 
 extension WorldViewModel {
     
-    public var contents: [any TreeNode] {
+    internal func reload() {
         
-        let regions = OutlineViewNode(name: "Regions",
+        let regions = OutlineViewNode(displayName: "Regions",
                                       image: NSImage(image: .hexagon),
                                       children: document.regionIntermediates)
         
-        let zones = OutlineViewNode(name: "Zones",
+        let zones = OutlineViewNode(displayName: "Zones",
                                     image: NSImage(image: .rhombus),
                                     children: document.zoneIntermediates)
         
-        return [OutlineViewNode(name: "World",
-                                children: [regions,
-                                           zones],
-                                isGroup: true),
-                OutlineViewNode(name: "Other",
-                                children: [],
-                                isGroup: true)]
+        contents = [OutlineViewNode(displayName: "World",
+                                    children: [regions,
+                                               zones],
+                                    isGroup: true),
+                    OutlineViewNode(displayName: "Other",
+                                    children: [],
+                                    isGroup: true)]
     }
 }
 
 extension WorldViewModel {
     
+    // MARK: Selection
+    
     internal func update(selection value: Document.Selection) { selection = value }
+    
+    internal func updateDefaultSelection() {
+        
+        guard let region = document.regionIntermediates.first else {
+        
+            selection = .none
+            
+            return
+        }
+        
+        selection = .region(coordinate: region.coordinate)
+    }
+    
+    // MARK: Regions
+    
+    internal func region(for coordinate: Coordinate) -> RegionIntermediate? {
+        
+        document.region(for: coordinate)
+    }
+    
+    internal func create(region coordinate: Coordinate) -> RegionIntermediate {
+        
+        document.create(region: coordinate)
+    }
+    
+    internal func delete(region coordinate: Coordinate) {
+        
+        document.delete(region: coordinate)
+    }
+    
+    // MARK: Zones
+    
+    internal func zone(for coordinate: Coordinate) -> ZoneIntermediate? {
+        
+        document.zone(for: coordinate)
+    }
+    
+    internal func create(zone coordinate: Coordinate) -> ZoneIntermediate {
+        
+        document.create(zone: coordinate)
+    }
+    
+    internal func delete(zone coordinate: Coordinate) {
+        
+        document.delete(zone: coordinate)
+    }
 }

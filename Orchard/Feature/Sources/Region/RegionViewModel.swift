@@ -26,10 +26,10 @@ extension RegionViewModel {
     
     internal var hasIntermediate: Bool { intermediate != nil }
     
-    internal var intermediate: RegionIntermediate? { document.regionIntermediate(for: coordinate) }
+    internal var intermediate: RegionIntermediate? { document.region(for: coordinate) }
     
     internal var identifier: String {
         
-        intermediate?.name ?? ""
+        intermediate?.displayName ?? ""
     }
 }

@@ -13,10 +13,48 @@ import OutlineView
 internal protocol WorldSidebarContainerDelegate: AnyObject {
     
     func worldSidebarContainer(_ container: WorldSidebarContainer,
+                               didRequestDeletionFor selection: Document.Selection)
+    
+    func worldSidebarContainer(_ container: WorldSidebarContainer,
+                               didRequestEditingFor selection: Document.Selection)
+    
+    func worldSidebarContainer(_ container: WorldSidebarContainer,
                                didSelect selection: Document.Selection)
 }
 
 internal class WorldSidebarContainer: ContainerViewController {
+    
+    // MARK: Menu Actions
+    
+    private lazy var deleteRegionAction = NSMenuItem(title: "Delete Region",
+                                                     action: #selector(menuItem(_:)),
+                                                     keyEquivalent: "")
+    
+    private lazy var deleteZoneAction = NSMenuItem(title: "Delete Zone",
+                                                   action: #selector(menuItem(_:)),
+                                                   keyEquivalent: "")
+    
+    private lazy var editRegionAction = NSMenuItem(title: "Edit Region",
+                                                   action: #selector(menuItem(_:)),
+                                                   keyEquivalent: "")
+    
+    private lazy var editZoneAction = NSMenuItem(title: "Edit Zone",
+                                                 action: #selector(menuItem(_:)),
+                                                 keyEquivalent: "")
+    
+    // MARK: Menus
+    
+    private lazy var regionMenu = with(NSMenu(title: "Region")) {
+        
+        $0.addItem(editRegionAction)
+        $0.addItem(deleteRegionAction)
+    }
+    
+    private lazy var zoneMenu = with(NSMenu(title: "Zone")) {
+        
+        $0.addItem(editZoneAction)
+        $0.addItem(deleteZoneAction)
+    }
     
     private lazy var outlineViewController = OutlineViewController(delegate: self)
     
@@ -37,6 +75,76 @@ internal class WorldSidebarContainer: ContainerViewController {
         super.viewDidLoad()
         
         set(content: outlineViewController)
+        
+        reload()
+    }
+    
+    internal func reload() {
+        
+        viewModel.reload()
+        
+        outlineViewController.reload()
+        
+        switch viewModel.selection {
+            
+        case .region(let coordinate):
+            
+            guard let intermediate = viewModel.region(for: coordinate) else { return }
+            
+            outlineViewController.select(item: intermediate)
+            
+        case .zone(let coordinate):
+            
+            guard let intermediate = viewModel.zone(for: coordinate) else { return }
+            
+            outlineViewController.select(item: intermediate)
+            
+        default: break
+        }
+    }
+}
+
+extension WorldSidebarContainer {
+    
+    @objc
+    internal func menuItem(_ sender: NSMenuItem) {
+        
+        switch sender {
+            
+        case deleteRegionAction,
+             editRegionAction:
+            
+            guard let item = sender.representedObject as? RegionIntermediate else { return }
+            
+            guard sender == deleteRegionAction else {
+                
+                delegate?.worldSidebarContainer(self,
+                                                didRequestEditingFor: .region(coordinate: item.coordinate))
+                
+                return
+            }
+            
+            delegate?.worldSidebarContainer(self,
+                                            didRequestDeletionFor: .region(coordinate: item.coordinate))
+            
+        case deleteZoneAction,
+             editZoneAction:
+            
+            guard let item = sender.representedObject as? ZoneIntermediate else { return }
+            
+            guard sender == deleteZoneAction else {
+                
+                delegate?.worldSidebarContainer(self,
+                                                didRequestEditingFor: .zone(coordinate: item.coordinate))
+                
+                return
+            }
+            
+            delegate?.worldSidebarContainer(self,
+                                            didRequestDeletionFor: .zone(coordinate: item.coordinate))
+            
+        default: fatalError("Invalid sender for menu item")
+        }
     }
 }
 
@@ -51,14 +159,14 @@ extension WorldSidebarContainer: @preconcurrency OutlineViewControllerDelegate {
         
             let view = SidebarGroupView()
             
-            view.text = item.name
+            view.text = item.displayName
             
             return view
         }
         
         let view = SidebarItemView()
         
-        view.text = item.name
+        view.text = item.displayName
         view.image = item.image
         view.badge = !item.isLeaf ? "\(item.childCount)" : nil
         
@@ -86,6 +194,33 @@ extension WorldSidebarContainer: @preconcurrency OutlineViewControllerDelegate {
             delegate?.worldSidebarContainer(self,
                                             //didSelect: .none)
                                             didSelect: .region(coordinate: .unitZ))
+        }
+    }
+    
+    internal func outlineViewController(_ controller: OutlineViewController,
+                                        menuFor item: any TreeNode) -> NSMenu? {
+        
+        switch item {
+            
+        case let item as RegionIntermediate:
+            
+            regionMenu.title = item.displayName
+            
+            deleteRegionAction.representedObject = item
+            editRegionAction.representedObject = item
+            
+            return regionMenu
+            
+        case let item as ZoneIntermediate:
+            
+            zoneMenu.title = item.displayName
+            
+            deleteZoneAction.representedObject = item
+            editZoneAction.representedObject = item
+            
+            return zoneMenu
+            
+        default: return nil
         }
     }
 }

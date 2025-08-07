@@ -29,12 +29,13 @@ public class Document: NSDocument {
     nonisolated(unsafe) private var regions: [Coordinate : RegionIntermediate]
     nonisolated(unsafe) private var zones: [Coordinate : ZoneIntermediate]
     
-    public var regionIntermediates: [RegionIntermediate]? { Array(regions.values) }
-    public var zoneIntermediates: [ZoneIntermediate]? { Array(zones.values) }
+    public var regionIntermediates: [RegionIntermediate] { Array(regions.values) }
+    public var zoneIntermediates: [ZoneIntermediate] { Array(zones.values) }
     
     override init() {
         
-        self.regions = [.zero : .init(coordinate: .zero)]
+        self.regions = [.zero : .init(coordinate: .zero),
+                        .unitX : .init(coordinate: .unitX)]
         self.zones = [.zero : .init(coordinate: .zero)]
         
         super.init()
@@ -128,13 +129,45 @@ public class Document: NSDocument {
 
 extension Document {
     
-    public func regionIntermediate(for coordinate: Coordinate) -> RegionIntermediate? {
+    // MARK: Regions
+    
+    public func region(for coordinate: Coordinate) -> RegionIntermediate? {
         
         regions[coordinate]
     }
     
-    public func zoneIntermediate(for coordinate: Coordinate) -> ZoneIntermediate? {
+    public func create(region coordinate: Coordinate) -> RegionIntermediate {
+        
+        let region = RegionIntermediate(coordinate: coordinate)
+        
+        regions[coordinate] = region
+        
+        return region
+    }
+    
+    public func delete(region coordinate: Coordinate) {
+        
+        regions[coordinate] = nil
+    }
+    
+    // MARK: Zones
+    
+    public func zone(for coordinate: Coordinate) -> ZoneIntermediate? {
         
         zones[coordinate]
+    }
+    
+    public func create(zone coordinate: Coordinate) -> ZoneIntermediate {
+        
+        let zone = ZoneIntermediate(coordinate: coordinate)
+        
+        zones[coordinate] = zone
+        
+        return zone
+    }
+    
+    public func delete(zone coordinate: Coordinate) {
+        
+        zones[coordinate] = nil
     }
 }

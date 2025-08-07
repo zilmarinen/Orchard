@@ -7,8 +7,9 @@
 
 import AppKit
 import Base
+import Deltille
 
-public protocol WorldContainerDelegate: AnyObject {
+public protocol WorldContainerDelegate: NSWindowController {
     
     func worldContainerController(_ container: WorldContainerController,
                                   didRequestEditingFor selection: Document.Selection)
@@ -92,7 +93,87 @@ extension WorldContainerController: @preconcurrency ToolbarDelegate {
     }
 }
 
+extension WorldContainerController {
+    
+    private func presentDeletionAlert(selection: Document.Selection) {
+        
+        switch selection {
+            
+        case .region(let coordinate): presentDeleteRegionAlert(coordinate: coordinate)
+        case .zone(let coordinate): presentDeleteZoneAlert(coordinate: coordinate)
+        default: fatalError("Invalid selection for deletion \(selection)")
+        }
+    }
+    
+    private func presentDeleteRegionAlert(coordinate: Coordinate) {
+        
+        guard let window = delegate?.window,
+              let intermediate = viewModel.region(for: coordinate) else { return }
+        
+        let alert = NSAlert(type: .deleteRegion(identifier: intermediate.displayName),
+                            buttons: [.cancel,
+                                      .deleteRegion])
+        
+        alert.beginSheetModal(for: window) { [weak self] response in
+            
+            guard let self,
+                  response != .alertFirstButtonReturn else { return }
+            
+            self.viewModel.delete(region: coordinate)
+            self.viewModel.updateDefaultSelection()
+            
+            // When item is deleted;
+            // - reload sidebar
+            // - reload editor
+            // - select appropriate inspector view
+            
+            self.sidebarContainer.reload()
+            self.inspectorContainer.reload()
+        }
+    }
+    
+    private func presentDeleteZoneAlert(coordinate: Coordinate) {
+        
+        guard let window = delegate?.window,
+              let intermediate = viewModel.zone(for: coordinate) else { return }
+        
+        let alert = NSAlert(type: .deleteZone(identifier: intermediate.displayName),
+                            buttons: [.cancel,
+                                      .deleteZone])
+        
+        alert.beginSheetModal(for: window) { [weak self] response in
+            
+            guard let self,
+                  response != .alertFirstButtonReturn else { return }
+            
+            self.viewModel.delete(zone: coordinate)
+            self.viewModel.updateDefaultSelection()
+            
+            // When item is deleted;
+            // - reload sidebar
+            // - reload editor
+            // - select appropriate inspector view
+            
+            self.sidebarContainer.reload()
+            self.inspectorContainer.reload()
+        }
+    }
+}
+
 extension WorldContainerController: @preconcurrency WorldSidebarContainerDelegate {
+    
+    func worldSidebarContainer(_ container: WorldSidebarContainer,
+                               didRequestDeletionFor selection: Document.Selection) {
+        
+        presentDeletionAlert(selection: selection)
+    }
+    
+    func worldSidebarContainer(_ container: WorldSidebarContainer,
+                               didRequestEditingFor selection: Document.Selection) {
+        
+        delegate?.worldContainerController(self,
+                                           didRequestEditingFor: selection)
+    }
     
     // When item is selected from sidebar;
     // - focus editor view
@@ -125,6 +206,12 @@ extension WorldContainerController: @preconcurrency WorldEditorContainerDelegate
 extension WorldContainerController: @preconcurrency WorldInspectorContainerDelegate {
     
     func worldInspectorContainer(_ container: WorldInspectorContainer,
+                                 didRequestDeletionFor selection: Document.Selection) {
+        
+        presentDeletionAlert(selection: selection)
+    }
+    
+    func worldInspectorContainer(_ container: WorldInspectorContainer,
                                  didRequestEditingFor selection: Document.Selection) {
         
         delegate?.worldContainerController(self,
@@ -138,6 +225,6 @@ extension WorldContainerController: @preconcurrency WorldInspectorContainerDeleg
     func worldInspectorContainer(_ container: WorldInspectorContainer,
                                  didUpdate selection: Document.Selection) {
         
-        //
+        sidebarContainer.reload()
     }
 }
