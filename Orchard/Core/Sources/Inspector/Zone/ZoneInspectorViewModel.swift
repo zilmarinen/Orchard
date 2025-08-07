@@ -36,10 +36,10 @@ extension ZoneInspectorViewModel {
     
     internal var hasIntermediate: Bool { intermediate != nil }
     
-    internal var intermediate: ZoneIntermediate? { document.zoneIntermediate(for: coordinate) }
+    internal var intermediate: ZoneIntermediate? { document.zone(for: coordinate) }
     
     internal var identifier: String {
         
-        intermediate?.name ?? ""
+        intermediate?.displayName ?? ""
     }
 }

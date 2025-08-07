@@ -17,7 +17,7 @@ public class InspectorViewController: NSViewController {
         $0.documentView = stackView
     }
     
-    internal lazy var stackView = with(NSStackView()) {
+    private lazy var stackView = with(NSStackView()) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.orientation = .vertical
@@ -40,5 +40,13 @@ public class InspectorViewController: NSViewController {
             stackView.bottomAnchor.constraint(greaterThanOrEqualTo: scrollView.safeAreaLayoutGuide.bottomAnchor),
             stackView.rightAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.rightAnchor)
         ])
+    }
+    
+    internal func addArrangedSubview(_ view: NSView) {
+        
+        view.setContentHuggingPriority(.defaultLow,
+                                       for: .horizontal)
+        
+        stackView.addArrangedSubview(view)
     }
 }

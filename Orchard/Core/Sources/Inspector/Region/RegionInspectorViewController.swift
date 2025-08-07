@@ -12,6 +12,9 @@ import Deltille
 public protocol RegionInspectorDelegate: AnyObject {
     
     func regionInsepectorViewController(_ viewController: RegionInspectorViewController,
+                                        didRequestDeletionFor selection: Document.Selection)
+    
+    func regionInsepectorViewController(_ viewController: RegionInspectorViewController,
                                         didRequestEditingFor selection: Document.Selection)
     
     func regionInsepectorViewController(_ viewController: RegionInspectorViewController,
@@ -20,45 +23,11 @@ public protocol RegionInspectorDelegate: AnyObject {
 
 public class RegionInspectorViewController: InspectorViewController {
     
-    private lazy var regionPanel = with(PanelView(title: "Region")) {
-        
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.addRow(label: "Coordinate",
-                  detail: coordinateField)
-    }
+    private lazy var intermediatePanel = RegionIntermediateInspector(viewModel: viewModel,
+                                                                     delegate: self)
     
-    private lazy var intermediatePanel = with(PanelView(title: "Intermediate")) {
-        
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.addRow(label: "Identifier",
-                  detail: identifierField)
-    }
-    
-    private lazy var coordinateField = with(CoordinateView()) {
-        
-        $0.coordinate = viewModel.coordinate
-    }
-    
-    private lazy var identifierField = with(NSTextField()) {
-        
-        $0.font = .systemFont(ofSize: NSFont.smallSystemFontSize)
-        $0.textColor = .lightGray
-        $0.isEditable = true
-        $0.isBordered = true
-        $0.maximumNumberOfLines = 1
-        $0.backgroundColor = .clear
-        $0.placeholderString = "Region Name"
-        $0.stringValue = viewModel.identifier
-        $0.delegate = self
-    }
-    
-    private lazy var button = with(NSButton(title: "",
-                                            target: self,
-                                            action: #selector(button(_:)))) {
-        
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.title = viewModel.hasIntermediate ? "Edit Region" : "Create Region"
-    }
+    private lazy var actionsPanel = RegionActionsInspector(viewModel: viewModel,
+                                                           delegate: self)
     
     private let viewModel: RegionInspectorViewModel
     private weak var delegate: RegionInspectorDelegate?
@@ -82,35 +51,34 @@ public class RegionInspectorViewController: InspectorViewController {
         
         super.viewDidLoad()
         
-        stackView.addArrangedSubview(regionPanel)
-        
-        if viewModel.hasIntermediate {
-            
-            stackView.addArrangedSubview(intermediatePanel)
-        }
-        
-        stackView.addArrangedSubview(button)
+        addArrangedSubview(intermediatePanel)
+        addArrangedSubview(actionsPanel)
     }
 }
 
-extension RegionInspectorViewController: NSTextFieldDelegate {
+extension RegionInspectorViewController: @preconcurrency RegionIntermediateInspectorDelegate {
     
-    @objc internal func button(_ sender: NSButton) {
+    func regionIntermediateInspector(_ inspector: RegionIntermediateInspector,
+                                     didUpdate selection: Document.Selection) {
         
         delegate?.regionInsepectorViewController(self,
-                                                 didRequestEditingFor: .region(coordinate: viewModel.coordinate))
+                                                 didUpdate: selection)
+    }
+}
+
+extension RegionInspectorViewController: @preconcurrency RegionActionsInspectorDelegate {
+    
+    func regionActionsInspector(_ inspector: RegionActionsInspector,
+                                didRequestDeletionFor selection: Document.Selection) {
+        
+        delegate?.regionInsepectorViewController(self,
+                                                 didRequestDeletionFor: selection)
     }
     
-    public func controlTextDidChange(_ notification: Notification) {
-        
-        guard let sender = notification.object as? NSTextField,
-              sender == identifierField else { return }
-        
-        viewModel.update(identifier: identifierField.stringValue)
-        
-        guard viewModel.hasIntermediate else { return }
+    func regionActionsInspector(_ inspector: RegionActionsInspector,
+                                didRequestEditingFor selection: Document.Selection) {
         
         delegate?.regionInsepectorViewController(self,
-                                                 didUpdate: .region(coordinate: viewModel.coordinate))
+                                                 didRequestEditingFor: selection)
     }
 }

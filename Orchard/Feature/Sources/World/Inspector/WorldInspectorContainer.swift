@@ -12,6 +12,9 @@ import Inspector
 internal protocol WorldInspectorContainerDelegate: AnyObject {
     
     func worldInspectorContainer(_ container: WorldInspectorContainer,
+                                 didRequestDeletionFor selection: Document.Selection)
+    
+    func worldInspectorContainer(_ container: WorldInspectorContainer,
                                  didRequestEditingFor selection: Document.Selection)
     
     func worldInspectorContainer(_ container: WorldInspectorContainer,
@@ -39,6 +42,8 @@ internal class WorldInspectorContainer: ContainerViewController {
         super.viewDidLoad()
         
         set(content: EmptyViewController.noSelection)
+        
+        reload()
     }
     
     internal func reload() {
@@ -62,6 +67,13 @@ internal class WorldInspectorContainer: ContainerViewController {
 }
 
 extension WorldInspectorContainer: @preconcurrency RegionInspectorDelegate {
+    
+    func regionInsepectorViewController(_ viewController: RegionInspectorViewController,
+                                        didRequestDeletionFor selection: Document.Selection) {
+        
+        delegate?.worldInspectorContainer(self,
+                                          didRequestDeletionFor: selection)
+    }
     
     func regionInsepectorViewController(_ viewController: RegionInspectorViewController,
                                         didRequestEditingFor selection: Document.Selection) {
