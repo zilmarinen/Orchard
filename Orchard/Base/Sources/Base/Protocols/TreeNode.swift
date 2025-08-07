@@ -8,20 +8,20 @@
 import AppKit
 import Foundation
 
-public protocol TreeNode {
+public protocol TreeNode: Equatable,
+                          Hashable {
     
-    associatedtype Child = TreeNode
-    
-    var name: String { get }
+    var displayName: String { get }
     var image: NSImage? { get }
     
     var isGroup: Bool { get }
     var isLeaf: Bool { get }
     
-    var children: [Child]? { get }
+    var children: [any TreeNode]? { get }
     var childCount: Int { get }
     
-    func child(at index: Int) -> Child
+    func child(at index: Int) -> any TreeNode
+    func contains(child: any TreeNode) -> Bool
 }
 
 extension TreeNode {
@@ -32,10 +32,33 @@ extension TreeNode {
     
     public var childCount: Int { children?.count ?? 0 }
     
-    public func child(at index: Int) -> Child {
+    public func child(at index: Int) -> any TreeNode {
      
-        guard let children else { fatalError("Invalid child index") }
+        guard let children,
+              index < childCount else { fatalError("Invalid child index") }
         
         return children[index]
+    }
+    
+    public func contains(child: any TreeNode) -> Bool {
+        
+        guard let children else { return false }
+        
+        for node in children {
+            
+            if node.isEqual(to: child) {
+                
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    public func isEqual<T: Equatable>(to rhs: T) -> Bool {
+        
+        guard let lhs = self as? T else { return false }
+        
+        return lhs == rhs
     }
 }

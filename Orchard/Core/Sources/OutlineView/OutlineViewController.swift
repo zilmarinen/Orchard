@@ -18,6 +18,9 @@ public protocol OutlineViewControllerDelegate: AnyObject {
     func outlineViewController(_ controller: OutlineViewController,
                                didSelect item: any TreeNode,
                                atIndex index: Int)
+    
+    func outlineViewController(_ controller: OutlineViewController,
+                               menuFor item: any TreeNode) -> NSMenu?
 }
 
 public class OutlineViewController: NSViewController,
@@ -26,6 +29,7 @@ public class OutlineViewController: NSViewController,
     
     private enum Constant {
         
+        static let headerHeight = 35.0
         static let rowHeight = 21.0
         static let indentation = 8.0
     }
@@ -37,16 +41,16 @@ public class OutlineViewController: NSViewController,
         $0.documentView = outlineView
     }
     
-    private lazy var outlineView = with(NSOutlineView()) {
+    private lazy var outlineView = with(OutlineView(menuDelegate: self)) {
         
         $0.dataSource = self
         $0.delegate = self
+        $0.addTableColumn(column)
+        $0.indentationPerLevel = Constant.indentation
         $0.style = .sourceList
         $0.rowSizeStyle = .small
         $0.floatsGroupRows = false
-        $0.addTableColumn(column)
         $0.headerView = nil
-        $0.indentationPerLevel = Constant.indentation
     }
     
     private lazy var column = with(NSTableColumn()) {
@@ -75,6 +79,43 @@ public class OutlineViewController: NSViewController,
         view.addSubview(scrollView)
         
         scrollView.pinEdges(to: view)
+    }
+}
+
+extension OutlineViewController {
+    
+    public func reload() {
+        
+        outlineView.reloadData()
+    }
+ 
+    public func select(item: any TreeNode) {
+        
+        expandParent(for: item)
+        
+        let index = outlineView.row(forItem: item)
+        
+        guard index != -1 else { return }
+        
+        //TODO: Renable this - NSTextField loses focus when editing
+//        outlineView.selectRowIndexes([index],
+//                                     byExtendingSelection: false)
+    }
+    
+    private func expandParent(for item: any TreeNode) {
+        
+        var items = [item]
+        
+        var previous = item
+        
+        while let parent = delegate?.contents.parent(for: previous) {
+            
+            items.append(parent)
+            
+            previous = parent
+        }
+        
+        items.reversed().forEach { outlineView.expandItem($0) }
     }
 }
 
@@ -124,7 +165,9 @@ extension OutlineViewController {
     public func outlineView(_ outlineView: NSOutlineView,
                             heightOfRowByItem item: Any) -> CGFloat {
         
-        Constant.rowHeight
+        guard let item = item as? any TreeNode else { return Constant.rowHeight }
+        
+        return item.isGroup ? Constant.headerHeight : Constant.rowHeight
     }
     
     public func outlineView(_ outlineView: NSOutlineView,
@@ -149,6 +192,14 @@ extension OutlineViewController {
         return item.isGroup
     }
     
+    public func outlineView(_ outlineView: NSOutlineView,
+                            shouldSelectItem item: Any) -> Bool {
+        
+        guard let item = item as? any TreeNode else { return false }
+        
+        return !item.isGroup
+    }
+    
     public func outlineViewSelectionDidChange(_ notification: Notification) {
         
         guard let _ = notification.object as? NSOutlineView,
@@ -157,5 +208,17 @@ extension OutlineViewController {
         delegate?.outlineViewController(self,
                                         didSelect: item,
                                         atIndex: outlineView.selectedRow)
+    }
+}
+
+extension OutlineViewController: @preconcurrency OutlineViewMenuDelegate {
+    
+    func outlineView(_ outlineView: OutlineView,
+                     menuFor row: Int) -> NSMenu? {
+        
+        guard let item = outlineView.item(atRow: row) as? any TreeNode else { return nil }
+        
+        return delegate?.outlineViewController(self,
+                                               menuFor: item)
     }
 }

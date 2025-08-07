@@ -21,8 +21,8 @@ public class ZoneIntermediate: NSObject,
         self.coordinate = coordinate
     }
     
-    public var name: String { identifier ?? coordinate.id }
+    public var displayName: String { identifier ?? coordinate.id }
     public var image: NSImage? { NSImage(image: .triangle) }
     
-    public var children: [Any]? { nil }
+    public var children: [any TreeNode]? { nil }
 }
