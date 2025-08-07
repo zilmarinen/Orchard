@@ -10,6 +10,11 @@ import Deltille
 
 public class CoordinateView: NSControl {
     
+    internal enum Constant {
+        
+        static let spacing = 8.0
+    }
+    
     // MARK: Labels
     
     private let xLabel = with(NSTextField()) {
@@ -22,7 +27,9 @@ public class CoordinateView: NSControl {
         $0.maximumNumberOfLines = 1
         $0.backgroundColor = .clear
         $0.alignment = .center
-        $0.stringValue = "x"
+        $0.stringValue = "X"
+        $0.setContentHuggingPriority(.low,
+                                     for: .horizontal)
     }
     
     private let yLabel = with(NSTextField()) {
@@ -35,7 +42,9 @@ public class CoordinateView: NSControl {
         $0.maximumNumberOfLines = 1
         $0.backgroundColor = .clear
         $0.alignment = .center
-        $0.stringValue = "y"
+        $0.stringValue = "Y"
+        $0.setContentHuggingPriority(.low,
+                                     for: .horizontal)
     }
     
     private let zLabel = with(NSTextField()) {
@@ -48,7 +57,9 @@ public class CoordinateView: NSControl {
         $0.maximumNumberOfLines = 1
         $0.backgroundColor = .clear
         $0.alignment = .center
-        $0.stringValue = "z"
+        $0.stringValue = "Z"
+        $0.setContentHuggingPriority(.low,
+                                     for: .horizontal)
     }
     
     // MARK: Fields
@@ -61,7 +72,10 @@ public class CoordinateView: NSControl {
         $0.isBordered = true
         $0.maximumNumberOfLines = 1
         $0.backgroundColor = .clear
+        $0.alignment = .center
         $0.placeholderString = "x"
+        $0.setContentHuggingPriority(.low,
+                                     for: .horizontal)
     }
     
     private lazy var yField = with(NSTextField()) {
@@ -72,7 +86,10 @@ public class CoordinateView: NSControl {
         $0.isBordered = true
         $0.maximumNumberOfLines = 1
         $0.backgroundColor = .clear
+        $0.alignment = .center
         $0.placeholderString = "y"
+        $0.setContentHuggingPriority(.low,
+                                     for: .horizontal)
     }
     
     private lazy var zField = with(NSTextField()) {
@@ -83,7 +100,10 @@ public class CoordinateView: NSControl {
         $0.isBordered = true
         $0.maximumNumberOfLines = 1
         $0.backgroundColor = .clear
+        $0.alignment = .center
         $0.placeholderString = "z"
+        $0.setContentHuggingPriority(.low,
+                                     for: .horizontal)
     }
     
     // MARK: Stack views
@@ -92,9 +112,11 @@ public class CoordinateView: NSControl {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.orientation = .horizontal
-        $0.distribution = .equalSpacing
+        $0.distribution = .fillEqually
         $0.alignment = .top
-        $0.spacing = 0
+        $0.spacing = Constant.spacing
+        $0.setContentHuggingPriority(.required,
+                                     for: .horizontal)
         $0.addArrangedSubview(xStackView)
         $0.addArrangedSubview(yStackView)
         $0.addArrangedSubview(zStackView)
@@ -106,6 +128,8 @@ public class CoordinateView: NSControl {
         $0.orientation = .vertical
         $0.alignment = .centerX
         $0.spacing = 0
+        $0.setContentHuggingPriority(.low,
+                                     for: .horizontal)
         $0.addArrangedSubview(xField)
         $0.addArrangedSubview(xLabel)
     }
@@ -116,6 +140,8 @@ public class CoordinateView: NSControl {
         $0.orientation = .vertical
         $0.alignment = .centerX
         $0.spacing = 0
+        $0.setContentHuggingPriority(.low,
+                                     for: .horizontal)
         $0.addArrangedSubview(yField)
         $0.addArrangedSubview(yLabel)
     }
@@ -126,6 +152,8 @@ public class CoordinateView: NSControl {
         $0.orientation = .vertical
         $0.alignment = .centerX
         $0.spacing = 0
+        $0.setContentHuggingPriority(.low,
+                                     for: .horizontal)
         $0.addArrangedSubview(zField)
         $0.addArrangedSubview(zLabel)
     }
