@@ -11,25 +11,21 @@ import Deltille
 @MainActor
 internal class RegionViewModel {
     
-    internal let coordinate: Coordinate
+    internal let region: RegionIntermediate
     internal unowned(unsafe) var document: Document
     
     internal init(coordinate: Coordinate,
                   document: Document) {
      
-        self.coordinate = coordinate
+        self.region = document.region(for: coordinate) ?? document.create(region: coordinate)
         self.document = document
     }
 }
 
 extension RegionViewModel {
     
-    internal var hasIntermediate: Bool { intermediate != nil }
-    
-    internal var intermediate: RegionIntermediate? { document.region(for: coordinate) }
-    
     internal var identifier: String {
         
-        intermediate?.displayName ?? ""
+        region.displayName
     }
 }

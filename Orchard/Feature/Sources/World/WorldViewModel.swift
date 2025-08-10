@@ -42,9 +42,6 @@ extension WorldViewModel {
         contents = [OutlineViewNode(displayName: "World",
                                     children: [regions,
                                                zones],
-                                    isGroup: true),
-                    OutlineViewNode(displayName: "Other",
-                                    children: [],
                                     isGroup: true)]
     }
 }

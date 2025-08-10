@@ -37,6 +37,25 @@ internal class WorldEditorContainer: ContainerViewController {
         super.viewDidLoad()
         
         set(content: editorContainer)
+        
+        reload()
+    }
+    
+    internal func reload() {
+        
+        //
+    }
+    
+    internal func focus() {
+        
+        switch viewModel.selection {
+            
+        case .region(let coordinate):
+            
+            print("Focusing: \(coordinate.id)")
+            
+        default: break
+        }
     }
 }
 

@@ -93,6 +93,13 @@ extension WorldInspectorContainer: @preconcurrency RegionInspectorDelegate {
 extension WorldInspectorContainer: @preconcurrency ZoneInspectorDelegate {
     
     func zoneInsepectorViewController(_ viewController: ZoneInspectorViewController,
+                                      didRequestDeletionFor selection: Document.Selection) {
+        
+        delegate?.worldInspectorContainer(self,
+                                          didRequestDeletionFor: selection)
+    }
+    
+    func zoneInsepectorViewController(_ viewController: ZoneInspectorViewController,
                                       didRequestEditingFor selection: Document.Selection) {
         
         delegate?.worldInspectorContainer(self,

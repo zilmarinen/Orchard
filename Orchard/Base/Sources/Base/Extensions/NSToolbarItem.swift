@@ -9,6 +9,11 @@ import AppKit
 
 extension NSToolbarItem {
     
+    private enum Constant {
+        
+        static let toolbarItemSize = 24.0
+    }
+    
     public convenience init(item: Item) {
         
         self.init(itemIdentifier: item.identifier)
@@ -26,6 +31,7 @@ extension NSToolbarItem {
                       Identifiable {
         
         case chevronBackward = "Back"
+        case share = "Share"
         
         public var id: String { rawValue }
         
@@ -36,6 +42,7 @@ extension NSToolbarItem {
             switch self {
                 
             case .chevronBackward: .chevronBackward
+            case .share: .share
             }
         }
         
@@ -44,6 +51,7 @@ extension NSToolbarItem {
             switch self {
                 
             case .chevronBackward: .init(image: .chevronBackward)
+            case .share: .init(image: .share)
             }
         }
     }
@@ -52,4 +60,5 @@ extension NSToolbarItem {
 extension NSToolbarItem.Identifier {
     
     public static let chevronBackward = NSToolbarItem.Identifier("chevronBackward")
+    public static let share = NSToolbarItem.Identifier("share")
 }

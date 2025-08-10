@@ -84,6 +84,7 @@ extension RegionContainerController: @preconcurrency ToolbarDelegate {
         switch toolbarItem {
             
         case .chevronBackward: delegate?.regionContainerDidFinish(self)
+        default: fatalError("Invalid sender for toolbar item")
         }
     }
     

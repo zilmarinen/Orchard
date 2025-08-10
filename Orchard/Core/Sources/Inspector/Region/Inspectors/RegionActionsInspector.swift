@@ -19,6 +19,16 @@ internal protocol RegionActionsInspectorDelegate: AnyObject {
 
 internal class RegionActionsInspector: InspectorStackView {
     
+    private lazy var createButton = with(NSButton(title: "Create Region",
+                                            target: self,
+                                            action: #selector(button(_:)))) {
+        
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.bezelColor = .systemPurple
+        $0.setContentHuggingPriority(.low,
+                                     for: .horizontal)
+    }
+    
     private lazy var editButton = with(NSButton(title: "Edit Region",
                                             target: self,
                                             action: #selector(button(_:)))) {
@@ -51,10 +61,14 @@ internal class RegionActionsInspector: InspectorStackView {
         
         super.init(title: "Actions")
         
-        addArrangedSubview(editButton)
+        guard viewModel.hasIntermediate else {
         
-        guard viewModel.hasIntermediate else { return }
-
+            addArrangedSubview(createButton)
+            
+            return
+        }
+        
+        addArrangedSubview(editButton)
         addArrangedSubview(deleteButton)
     }
     
@@ -69,7 +83,8 @@ extension RegionActionsInspector {
         
         switch sender {
             
-        case editButton:
+        case editButton,
+             createButton:
             
             delegate?.regionActionsInspector(self,
                                              didRequestEditingFor: .region(coordinate: viewModel.coordinate))

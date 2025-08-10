@@ -22,7 +22,8 @@ internal class EditorView: ARView {
         
         environment.background = .color(.windowBackgroundColor)
         
-        let anchor = AnchorEntity(plane: .horizontal)
+        //let anchor = AnchorEntity(plane: .horizontal)
+        let anchor = AnchorEntity(world: [0, 0, 0])
         let box = MeshResource.generateBox(size: 0.5)
         let material = SimpleMaterial(color: .red,
                                       isMetallic: true)

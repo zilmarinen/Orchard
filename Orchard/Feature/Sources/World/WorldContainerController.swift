@@ -87,6 +87,7 @@ extension WorldContainerController: @preconcurrency ToolbarDelegate {
         
         [.toggleSidebar,
          .sidebarTrackingSeparator,
+         .share,
          .inspectorTrackingSeparator,
          .flexibleSpace,
          .toggleInspector]
@@ -155,6 +156,7 @@ extension WorldContainerController {
             // - select appropriate inspector view
             
             self.sidebarContainer.reload()
+            self.editorContainer.reload()
             self.inspectorContainer.reload()
         }
     }
@@ -184,6 +186,7 @@ extension WorldContainerController: @preconcurrency WorldSidebarContainerDelegat
         
         viewModel.update(selection: selection)
         
+        editorContainer.focus()
         inspectorContainer.reload()
     }
 }
@@ -199,7 +202,8 @@ extension WorldContainerController: @preconcurrency WorldEditorContainerDelegate
         
         viewModel.update(selection: selection)
         
-        //
+        sidebarContainer.reload()
+        inspectorContainer.reload()
     }
 }
 
@@ -226,5 +230,6 @@ extension WorldContainerController: @preconcurrency WorldInspectorContainerDeleg
                                  didUpdate selection: Document.Selection) {
         
         sidebarContainer.reload()
+        editorContainer.focus()
     }
 }

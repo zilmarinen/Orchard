@@ -18,9 +18,13 @@ public protocol ToolbarDelegate: AnyObject {
 public class Toolbar: NSToolbar,
                       NSToolbarDelegate {
     
-    private static let identifier: NSToolbar.Identifier = .init("orchard.toolbar")
-    
     private lazy var back = with(NSToolbarItem(item: .chevronBackward)) {
+        
+        $0.target = self
+        $0.action = #selector(toolbarItem(_:))
+    }
+    
+    private lazy var share = with(NSToolbarItem(item: .share)) {
         
         $0.target = self
         $0.action = #selector(toolbarItem(_:))
@@ -32,7 +36,7 @@ public class Toolbar: NSToolbar,
         
         self.eventHandler = eventHandler
         
-        super.init(identifier: Self.identifier)
+        super.init(identifier: "orchard.toolbar")
         
         allowsDisplayModeCustomization = false
         allowsExtensionItems = false
@@ -51,6 +55,8 @@ extension Toolbar {
         
         eventHandler?.toolbar(self,
                               didTap: identifier)
+        
+        selectedItemIdentifier = nil
     }
 }
 
@@ -62,7 +68,8 @@ extension Toolbar {
         
         switch itemIdentifier {
             
-        case .chevronBackward: return back
+        case .chevronBackward: back
+        case .share: share
         default: fatalError("Invalid toolbar item [\(itemIdentifier.rawValue)]")
         }
     }
@@ -74,5 +81,9 @@ extension Toolbar {
     
     public func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] { toolbarDefaultItemIdentifiers(toolbar) }
     
-    public func toolbarSelectableItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] { toolbarDefaultItemIdentifiers(toolbar) }
+    public func toolbarSelectableItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+        
+        [.chevronBackward,
+         .share]
+    }
 }
