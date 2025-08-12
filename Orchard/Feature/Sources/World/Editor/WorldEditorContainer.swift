@@ -9,6 +9,7 @@ import AppKit
 import Base
 import Container
 import Editor
+import Harvest
 
 internal protocol WorldEditorContainerDelegate: AnyObject {
     
@@ -16,9 +17,9 @@ internal protocol WorldEditorContainerDelegate: AnyObject {
                               didSelect selection: Document.Selection)
 }
 
-internal class WorldEditorContainer: ContainerViewController {
+internal class WorldEditorContainer: EditorContainer<WorldView> {
     
-    private lazy var editorContainer = EditorContainer(delegate: self)
+    private let overlayController = WorldEditorOverlayController()
     
     private let viewModel: WorldViewModel
     private weak var delegate: WorldEditorContainerDelegate?
@@ -36,7 +37,7 @@ internal class WorldEditorContainer: ContainerViewController {
         
         super.viewDidLoad()
         
-        set(content: editorContainer)
+        insert(viewController: overlayController)
         
         reload()
     }
@@ -57,6 +58,9 @@ internal class WorldEditorContainer: ContainerViewController {
         default: break
         }
     }
+    
+    override func cursor(hover: CGPoint) {
+        
+        overlayController.update(cursor: hover)
+    }
 }
-
-extension WorldEditorContainer: EditorContainerDelegate {}

@@ -8,11 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1837A6E52E1EA88000CC554A /* Base in Frameworks */ = {isa = PBXBuildFile; productRef = 1837A6E42E1EA88000CC554A /* Base */; };
-		1837A6E82E1EA88C00CC554A /* Container in Frameworks */ = {isa = PBXBuildFile; productRef = 1837A6E72E1EA88C00CC554A /* Container */; };
-		1837A6FF2E1EAAF200CC554A /* World in Frameworks */ = {isa = PBXBuildFile; productRef = 1837A6FE2E1EAAF200CC554A /* World */; };
-		1837A71E2E1EB2E400CC554A /* Splash in Frameworks */ = {isa = PBXBuildFile; productRef = 1837A71D2E1EB2E400CC554A /* Splash */; };
-		1837A7202E1EB3A300CC554A /* Region in Frameworks */ = {isa = PBXBuildFile; productRef = 1837A71F2E1EB3A300CC554A /* Region */; };
-		183D4ABF2E33CD7E00FED5D9 /* Inspector in Frameworks */ = {isa = PBXBuildFile; productRef = 183D4ABE2E33CD7E00FED5D9 /* Inspector */; };
+		1846F8112E48E062001C32AE /* Region in Frameworks */ = {isa = PBXBuildFile; productRef = 1846F8102E48E062001C32AE /* Region */; };
+		1846F8132E48E062001C32AE /* Splash in Frameworks */ = {isa = PBXBuildFile; productRef = 1846F8122E48E062001C32AE /* Splash */; };
+		1846F8152E48E062001C32AE /* World in Frameworks */ = {isa = PBXBuildFile; productRef = 1846F8142E48E062001C32AE /* World */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,11 +43,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				183D4ABF2E33CD7E00FED5D9 /* Inspector in Frameworks */,
-				1837A7202E1EB3A300CC554A /* Region in Frameworks */,
-				1837A6FF2E1EAAF200CC554A /* World in Frameworks */,
-				1837A71E2E1EB2E400CC554A /* Splash in Frameworks */,
-				1837A6E82E1EA88C00CC554A /* Container in Frameworks */,
+				1846F8152E48E062001C32AE /* World in Frameworks */,
+				1846F8132E48E062001C32AE /* Splash in Frameworks */,
+				1846F8112E48E062001C32AE /* Region in Frameworks */,
 				1837A6E52E1EA88000CC554A /* Base in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,11 +98,9 @@
 			name = Orchard;
 			packageProductDependencies = (
 				1837A6E42E1EA88000CC554A /* Base */,
-				1837A6E72E1EA88C00CC554A /* Container */,
-				1837A6FE2E1EAAF200CC554A /* World */,
-				1837A71D2E1EB2E400CC554A /* Splash */,
-				1837A71F2E1EB3A300CC554A /* Region */,
-				183D4ABE2E33CD7E00FED5D9 /* Inspector */,
+				1846F8102E48E062001C32AE /* Region */,
+				1846F8122E48E062001C32AE /* Splash */,
+				1846F8142E48E062001C32AE /* World */,
 			);
 			productName = Orchard;
 			productReference = 18DBB9F12E1EA498001D1C08 /* Orchard.app */;
@@ -387,27 +381,17 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = Base;
 		};
-		1837A6E72E1EA88C00CC554A /* Container */ = {
+		1846F8102E48E062001C32AE /* Region */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Container;
-		};
-		1837A6FE2E1EAAF200CC554A /* World */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = World;
-		};
-		1837A71D2E1EB2E400CC554A /* Splash */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1837A6FD2E1EAAF200CC554A /* XCLocalSwiftPackageReference "Orchard/Feature" */;
-			productName = Splash;
-		};
-		1837A71F2E1EB3A300CC554A /* Region */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1837A6FD2E1EAAF200CC554A /* XCLocalSwiftPackageReference "Orchard/Feature" */;
 			productName = Region;
 		};
-		183D4ABE2E33CD7E00FED5D9 /* Inspector */ = {
+		1846F8122E48E062001C32AE /* Splash */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Inspector;
+			productName = Splash;
+		};
+		1846F8142E48E062001C32AE /* World */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = World;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

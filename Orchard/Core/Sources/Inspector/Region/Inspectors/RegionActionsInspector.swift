@@ -20,8 +20,8 @@ internal protocol RegionActionsInspectorDelegate: AnyObject {
 internal class RegionActionsInspector: InspectorStackView {
     
     private lazy var createButton = with(NSButton(title: "Create Region",
-                                            target: self,
-                                            action: #selector(button(_:)))) {
+                                                  target: self,
+                                                  action: #selector(button(_:)))) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.bezelColor = .systemPurple
@@ -30,8 +30,8 @@ internal class RegionActionsInspector: InspectorStackView {
     }
     
     private lazy var editButton = with(NSButton(title: "Edit Region",
-                                            target: self,
-                                            action: #selector(button(_:)))) {
+                                                target: self,
+                                                action: #selector(button(_:)))) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.bezelColor = .systemBlue
@@ -40,8 +40,8 @@ internal class RegionActionsInspector: InspectorStackView {
     }
     
     private lazy var deleteButton = with(NSButton(title: "Delete Region",
-                                            target: self,
-                                            action: #selector(button(_:)))) {
+                                                  target: self,
+                                                  action: #selector(button(_:)))) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.hasDestructiveAction = true

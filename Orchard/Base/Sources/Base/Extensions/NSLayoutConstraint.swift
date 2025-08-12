@@ -11,5 +11,4 @@ extension NSLayoutConstraint.Priority {
     
     public static let low = NSLayoutConstraint.Priority(rawValue: 1)
     public static let high = NSLayoutConstraint.Priority(rawValue: 1000)
-    public static let required = NSLayoutConstraint.Priority(rawValue: 250)
 }

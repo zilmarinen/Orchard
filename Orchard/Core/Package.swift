@@ -18,6 +18,7 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../Base"),
+        .package(path: "../../../Harvest")
     ],
     targets: [
         .target(name: "Container",
@@ -26,7 +27,8 @@ let package = Package(
         .target(name: "Editor",
                 dependencies: [.product(name: "Base",
                                         package: "Base"),
-                               "Container"]),
+                               "Container",
+                               "Harvest"]),
         .target(name: "Inspector",
                 dependencies: [.product(name: "Base",
                                         package: "Base")]),
