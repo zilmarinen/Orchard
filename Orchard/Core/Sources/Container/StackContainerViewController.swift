@@ -51,8 +51,7 @@ open class StackContainerViewController: NSViewController {
 extension StackContainerViewController {
     
     public func insert(viewController: NSViewController,
-                       at position: Position = .end,
-                       edgeInsets: NSEdgeInsets? = nil) {
+                       at position: Position = .end) {
         
         let insertionIndex: Int
         
@@ -88,13 +87,11 @@ extension StackContainerViewController {
         }
         
         insert(viewController: viewController,
-               at: insertionIndex,
-               edgeInsets: edgeInsets)
+               at: insertionIndex)
     }
     
     public func insert(viewController: NSViewController,
-                       at index: Int,
-                       edgeInsets: NSEdgeInsets? = nil) {
+                       at index: Int) {
         
         addChild(viewController)
         
@@ -125,26 +122,4 @@ extension StackContainerViewController {
         
         return children.first { $0.view.superview == containerView }
     }
-}
-
-open class VerticalStackContainerViewController: StackContainerViewController {
-    
-    public init() {
-        
-        super.init(orientation: .vertical)
-    }
-    
-    @available(*, unavailable)
-    required public init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-}
-
-open class HorizontalStackContainerViewController: StackContainerViewController {
-    
-    public init() {
-        
-        super.init(orientation: .horizontal)
-    }
-    
-    @available(*, unavailable)
-    required public init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
