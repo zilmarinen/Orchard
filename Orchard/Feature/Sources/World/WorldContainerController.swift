@@ -129,6 +129,7 @@ extension WorldContainerController {
             // - select appropriate inspector view
             
             self.sidebarContainer.reload()
+            self.editorContainer.reload()
             self.inspectorContainer.reload()
         }
     }

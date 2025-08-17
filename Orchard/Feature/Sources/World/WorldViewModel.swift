@@ -66,6 +66,11 @@ extension WorldViewModel {
     
     // MARK: Regions
     
+    internal var regions: [RegionIntermediate] {
+        
+        document.regionIntermediates
+    }
+    
     internal func region(for coordinate: Coordinate) -> RegionIntermediate? {
         
         document.region(for: coordinate)

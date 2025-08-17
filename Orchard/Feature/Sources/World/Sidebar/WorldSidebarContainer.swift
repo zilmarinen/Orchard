@@ -193,7 +193,7 @@ extension WorldSidebarContainer: @preconcurrency OutlineViewControllerDelegate {
             
             delegate?.worldSidebarContainer(self,
                                             //didSelect: .none)
-                                            didSelect: .region(coordinate: .unitZ))
+                                            didSelect: .region(coordinate: .init(0, 0, -1)))
         }
     }
     

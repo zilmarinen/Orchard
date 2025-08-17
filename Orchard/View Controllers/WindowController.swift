@@ -36,19 +36,21 @@ public class WindowController: NSWindowController {
     
     private func set(content: NSViewController) {
         
-        window?.subtitle = content.title ?? ""
-        window?.toolbarStyle = .unifiedCompact
+        guard let window else { return }
+        
+        window.subtitle = content.title ?? ""
+        window.toolbarStyle = .unifiedCompact
         
         contentViewController = content
         
         guard let content = content as? HasToolbar else {
             
-            window?.toolbar = nil
+            window.toolbar = nil
             
             return
         }
         
-        window?.toolbar = content.toolbar
+        window.toolbar = content.toolbar
     }
 }
 

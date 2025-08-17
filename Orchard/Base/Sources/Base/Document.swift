@@ -34,8 +34,7 @@ public class Document: NSDocument {
     
     override init() {
         
-        self.regions = [.zero : .init(coordinate: .zero),
-                        .unitX : .init(coordinate: .unitX)]
+        self.regions = [.zero : .init(coordinate: .zero)]
         self.zones = [.zero : .init(coordinate: .zero)]
         
         super.init()

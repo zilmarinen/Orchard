@@ -40,11 +40,17 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
         insert(viewController: overlayController)
         
         reload()
+        focus()
     }
     
     internal func reload() {
         
-        //
+        editorView.clear()
+        
+        for region in viewModel.regions {
+            
+            editorView.add(region: region.coordinate)
+        }
     }
     
     internal func focus() {
@@ -55,12 +61,60 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
             
             print("Focusing: \(coordinate.id)")
             
+            editorView.camera.focus(on: SIMD3<Float>(coordinate.convert(to: .region)))
+            
         default: break
         }
     }
     
-    override func cursor(hover: CGPoint) {
+    override func cursor(hover event: CursorEvent) {
         
-        overlayController.update(cursor: hover)
+        switch event {
+            
+        case .hover(let location):
+             
+            overlayController.update(cursor: location)
+            
+        default: break
+        }
+    }
+    
+    override func cursor(up event: CursorEvent) {
+        
+        guard case .up(let start,
+                       let location,
+                       let delta,
+                       let button) = event else { return }
+        
+        print("Up: [\(start)] - [\(location)] - [\(delta)] - [\(button)]")
+    }
+    
+    override func cursor(down event: CursorEvent) {
+        
+        guard case .down(let location,
+                         let button) = event else { return }
+        
+        print("Down: [\(location)] - [\(button)]")
+    }
+    
+    override func cursor(drag event: CursorEvent) {
+        
+        super.cursor(drag: event)
+        
+        guard case .drag(_,
+                         let location,
+                         let delta,
+                         let button) = event else { return }
+        
+        overlayController.update(cursor: location)
+        
+        guard button == .right else { return }
+        
+        print("Moving: [\(delta)]")
+    }
+    
+    override func scroll(delta: CGPoint) {
+        
+        editorView.camera.zoom(delta: Float(delta.y))
     }
 }
