@@ -158,13 +158,13 @@ public class CoordinateView: NSControl {
         $0.addArrangedSubview(zLabel)
     }
     
-    public var coordinate: Coordinate {
+    public var coordinate: Grid.Coordinate {
         
         get {
             
-            Coordinate(xField.integerValue,
-                       yField.integerValue,
-                       zField.integerValue)
+            .init(xField.integerValue,
+                  yField.integerValue,
+                  zField.integerValue)
         }
         set {
             

@@ -8,6 +8,7 @@
 import AppKit
 import Base
 import Deltille
+import Euclid
 
 internal class WorldEditorOverlayController: NSViewController {
     
@@ -19,16 +20,22 @@ internal class WorldEditorOverlayController: NSViewController {
     
     // MARK: Labels
     
-    private lazy var cursorLabel = with(NSButton()) {
+    private lazy var mouseLabel = with(NSButton()) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.bezelColor = .systemRed
     }
     
-    private lazy var coordinateLabel = with(NSButton()) {
+    private lazy var cursorLabel = with(NSButton()) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.bezelColor = .systemGreen
+    }
+    
+    private lazy var coordinateLabel = with(NSButton()) {
+        
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.bezelColor = .systemBlue
     }
     
     // MARK: Stack views
@@ -40,6 +47,7 @@ internal class WorldEditorOverlayController: NSViewController {
         $0.distribution = .fill
         $0.alignment = .leading
         $0.spacing = Constant.spacing
+        $0.addArrangedSubview(mouseLabel)
         $0.addArrangedSubview(cursorLabel)
         $0.addArrangedSubview(coordinateLabel)
     }
@@ -64,12 +72,17 @@ internal class WorldEditorOverlayController: NSViewController {
 
 extension WorldEditorOverlayController {
     
-    internal func update(cursor: CGPoint) {
+    internal func update(mouse: CGPoint) {
         
-        cursorLabel.title = "[\(String(format: "%.0f, %.0f", cursor.x, cursor.y))]"
+        mouseLabel.title = "[\(String(format: "%.0f, %.0f", mouse.x, mouse.y))]"
     }
     
-    internal func update(coordinate: Coordinate) {
+    internal func update(cursor: Vector) {
+        
+        cursorLabel.title = "[\(String(format: "%.2f, %.2f, %.2f", cursor.x, cursor.y, cursor.z))]"
+    }
+    
+    internal func update(coordinate: Grid.Coordinate) {
         
         coordinateLabel.title = coordinate.id
     }

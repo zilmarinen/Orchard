@@ -8,7 +8,9 @@
 import AppKit
 import Base
 import Container
+import Deltille
 import Editor
+import Euclid
 import Harvest
 
 internal protocol WorldEditorContainerDelegate: AnyObject {
@@ -59,9 +61,9 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
             
         case .region(let coordinate):
             
-            print("Focusing: \(coordinate.id)")
+            let vertex = Grid.Triangle.Vertex(coordinate)
             
-            editorView.camera.focus(on: SIMD3<Float>(coordinate.convert(to: .region)))
+            editorView.camera.focus(on: vertex.position(.region))
             
         default: break
         }
@@ -72,8 +74,15 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
         switch event {
             
         case .hover(let location):
-             
-            overlayController.update(cursor: location)
+            
+            guard let hit = editorView.hitTest(point: location) else { return }
+            
+            overlayController.update(mouse: location)
+            overlayController.update(cursor: hit.pointInWorld)
+            
+            overlayController.update(coordinate: hit.triangle.vertex.position)
+            
+            editorView.cursor.focus(on: hit.pointInWorld)
             
         default: break
         }
@@ -92,9 +101,14 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
     override func cursor(down event: CursorEvent) {
         
         guard case .down(let location,
-                         let button) = event else { return }
+                         _) = event,
+              let hit = editorView.hitTest(point: location) else { return }
         
-        print("Down: [\(location)] - [\(button)]")
+        let vertex = Grid.Triangle.Vertex(hit.pointInWorld,
+                                          .region)
+        
+        delegate?.worldEditorContainer(self,
+                                       didSelect: .region(coordinate: vertex.position))
     }
     
     override func cursor(drag event: CursorEvent) {
@@ -106,7 +120,7 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
                          let delta,
                          let button) = event else { return }
         
-        overlayController.update(cursor: location)
+        overlayController.update(mouse: location)
         
         guard button == .right else { return }
         

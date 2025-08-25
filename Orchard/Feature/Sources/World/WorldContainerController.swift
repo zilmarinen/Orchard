@@ -106,7 +106,7 @@ extension WorldContainerController {
         }
     }
     
-    private func presentDeleteRegionAlert(coordinate: Coordinate) {
+    private func presentDeleteRegionAlert(coordinate: Grid.Coordinate) {
         
         guard let window = delegate?.window,
               let intermediate = viewModel.region(for: coordinate) else { return }
@@ -134,7 +134,7 @@ extension WorldContainerController {
         }
     }
     
-    private func presentDeleteZoneAlert(coordinate: Coordinate) {
+    private func presentDeleteZoneAlert(coordinate: Grid.Coordinate) {
         
         guard let window = delegate?.window,
               let intermediate = viewModel.zone(for: coordinate) else { return }
@@ -196,6 +196,7 @@ extension WorldContainerController: @preconcurrency WorldEditorContainerDelegate
     
     // When item is selected from editor;
     // - select appropriate item in sidebar
+    // - focus editor view
     // - select appropriate inspector view
     
     internal func worldEditorContainer(_ container: WorldEditorContainer,
@@ -204,6 +205,7 @@ extension WorldContainerController: @preconcurrency WorldEditorContainerDelegate
         viewModel.update(selection: selection)
         
         sidebarContainer.reload()
+        editorContainer.focus()
         inspectorContainer.reload()
     }
 }

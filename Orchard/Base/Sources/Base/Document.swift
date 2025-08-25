@@ -14,8 +14,8 @@ public class Document: NSDocument {
     public enum Selection {
         
         case none
-        case region(coordinate: Coordinate)
-        case zone(coordinate: Coordinate)
+        case region(coordinate: Grid.Coordinate)
+        case zone(coordinate: Grid.Coordinate)
     }
     
     public override class var autosavesInPlace: Bool { true }
@@ -26,8 +26,8 @@ public class Document: NSDocument {
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
     
-    nonisolated(unsafe) private var regions: [Coordinate : RegionIntermediate]
-    nonisolated(unsafe) private var zones: [Coordinate : ZoneIntermediate]
+    nonisolated(unsafe) private var regions: [Grid.Coordinate : RegionIntermediate]
+    nonisolated(unsafe) private var zones: [Grid.Coordinate : ZoneIntermediate]
     
     public var regionIntermediates: [RegionIntermediate] { Array(regions.values) }
     public var zoneIntermediates: [ZoneIntermediate] { Array(zones.values) }
@@ -130,12 +130,12 @@ extension Document {
     
     // MARK: Regions
     
-    public func region(for coordinate: Coordinate) -> RegionIntermediate? {
+    public func region(for coordinate: Grid.Coordinate) -> RegionIntermediate? {
         
         regions[coordinate]
     }
     
-    public func create(region coordinate: Coordinate) -> RegionIntermediate {
+    public func create(region coordinate: Grid.Coordinate) -> RegionIntermediate {
         
         let region = RegionIntermediate(coordinate: coordinate)
         
@@ -144,19 +144,19 @@ extension Document {
         return region
     }
     
-    public func delete(region coordinate: Coordinate) {
+    public func delete(region coordinate: Grid.Coordinate) {
         
         regions[coordinate] = nil
     }
     
     // MARK: Zones
     
-    public func zone(for coordinate: Coordinate) -> ZoneIntermediate? {
+    public func zone(for coordinate: Grid.Coordinate) -> ZoneIntermediate? {
         
         zones[coordinate]
     }
     
-    public func create(zone coordinate: Coordinate) -> ZoneIntermediate {
+    public func create(zone coordinate: Grid.Coordinate) -> ZoneIntermediate {
         
         let zone = ZoneIntermediate(coordinate: coordinate)
         
@@ -165,7 +165,7 @@ extension Document {
         return zone
     }
     
-    public func delete(zone coordinate: Coordinate) {
+    public func delete(zone coordinate: Grid.Coordinate) {
         
         zones[coordinate] = nil
     }

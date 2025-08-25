@@ -1,15 +1,6 @@
 {
-  "originHash" : "ce33a3134f9df7489cf27074d11439152ce5d2e30e8f5a4629ad914884fd620e",
+  "originHash" : "4521e4fd987ede4e399d19ab2fd37e11fe2b7e1bfcaf46045b8574ee463e0eaf",
   "pins" : [
-    {
-      "identity" : "deltille",
-      "kind" : "remoteSourceControl",
-      "location" : "git@github.com:zilmarinen/Deltille.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "96ca32c77fa9b7de78b975a329b7daba26d7daae"
-      }
-    },
     {
       "identity" : "euclid",
       "kind" : "remoteSourceControl",

@@ -56,7 +56,7 @@ public class WindowController: NSWindowController {
 
 extension WindowController {
     
-    private func showRegion(coordinate: Coordinate) {
+    private func showRegion(coordinate: Grid.Coordinate) {
         
         guard !presentingRegion,
               let document = self.document as? Document else { return }
@@ -82,7 +82,7 @@ extension WindowController {
                                               delegate: self))
     }
     
-    private func showZone(coordinate: Coordinate) {
+    private func showZone(coordinate: Grid.Coordinate) {
         
         //
     }

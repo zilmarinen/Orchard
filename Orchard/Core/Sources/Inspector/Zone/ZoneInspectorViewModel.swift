@@ -11,10 +11,10 @@ import Deltille
 @MainActor
 internal class ZoneInspectorViewModel {
     
-    internal let coordinate: Coordinate
+    internal let coordinate: Grid.Coordinate
     private unowned(unsafe) var document: Document
     
-    init(coordinate: Coordinate,
+    init(coordinate: Grid.Coordinate,
          document: Document) {
      
         self.coordinate = coordinate

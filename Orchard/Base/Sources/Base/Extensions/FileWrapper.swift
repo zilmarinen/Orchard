@@ -12,9 +12,9 @@ extension FileWrapper {
     
     internal enum Key {
         
-        case region(coordinate: Coordinate)
+        case region(coordinate: Grid.Coordinate)
         case regions
-        case zone(coordinate: Coordinate)
+        case zone(coordinate: Grid.Coordinate)
         case zones
         
         case world

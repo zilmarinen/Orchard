@@ -192,8 +192,7 @@ extension WorldSidebarContainer: @preconcurrency OutlineViewControllerDelegate {
         default:
             
             delegate?.worldSidebarContainer(self,
-                                            //didSelect: .none)
-                                            didSelect: .region(coordinate: .init(0, 0, -1)))
+                                            didSelect: .none)
         }
     }
     

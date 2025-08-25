@@ -10,6 +10,6 @@ import Deltille
 
 internal struct WorldIntermediate: Codable {
     
-    internal let regions: [Coordinate]
-    internal let zones: [Coordinate]
+    internal let regions: [Grid.Coordinate]
+    internal let zones: [Grid.Coordinate]
 }
