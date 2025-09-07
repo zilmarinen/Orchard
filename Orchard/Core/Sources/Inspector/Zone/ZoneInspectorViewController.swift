@@ -32,7 +32,7 @@ public class ZoneInspectorViewController: InspectorViewController {
     private let viewModel: ZoneInspectorViewModel
     private weak var delegate: ZoneInspectorDelegate?
     
-    public init(coordinate: Grid.Coordinate,
+    public init(coordinate: Coordinate,
                 document: Document,
                 delegate: ZoneInspectorDelegate) {
         

@@ -7,10 +7,8 @@
 
 import AppKit
 import Base
-import Container
 import Deltille
 import Editor
-import Euclid
 import Harvest
 
 internal protocol WorldEditorContainerDelegate: AnyObject {
@@ -47,8 +45,6 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
     
     internal func reload() {
         
-        editorView.clear()
-        
         for region in viewModel.regions {
             
             editorView.add(region: region.coordinate)
@@ -61,7 +57,7 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
             
         case .region(let coordinate):
             
-            let vertex = Grid.Triangle.Vertex(coordinate)
+            let vertex = Triangle.Vertex(coordinate)
             
             editorView.camera.focus(on: vertex.position(.region))
             
@@ -77,10 +73,12 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
             
             guard let hit = editorView.hitTest(point: location) else { return }
             
-            overlayController.update(mouse: location)
-            overlayController.update(cursor: hit.pointInWorld)
+            let hexagon = Hexagon(hit.pointInWorld,
+                                  .chunk)
             
-            overlayController.update(coordinate: hit.triangle.vertex.position)
+            overlayController.update(triangle: hit.triangle)
+            overlayController.update(vertex: hit.vertex)
+            overlayController.update(hexagon: hexagon)
             
             editorView.cursor.focus(on: hit.pointInWorld)
             
@@ -104,11 +102,11 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
                          _) = event,
               let hit = editorView.hitTest(point: location) else { return }
         
-        let vertex = Grid.Triangle.Vertex(hit.pointInWorld,
-                                          .region)
+        let triangle = Triangle(hit.pointInWorld,
+                                .region)
         
         delegate?.worldEditorContainer(self,
-                                       didSelect: .region(coordinate: vertex.position))
+                                       didSelect: .region(coordinate: triangle.vertex.position))
     }
     
     override func cursor(drag event: CursorEvent) {
@@ -116,11 +114,9 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
         super.cursor(drag: event)
         
         guard case .drag(_,
-                         let location,
+                         _,
                          let delta,
                          let button) = event else { return }
-        
-        overlayController.update(mouse: location)
         
         guard button == .right else { return }
         

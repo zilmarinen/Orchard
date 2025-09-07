@@ -158,7 +158,7 @@ public class CoordinateView: NSControl {
         $0.addArrangedSubview(zLabel)
     }
     
-    public var coordinate: Grid.Coordinate {
+    public var coordinate: Coordinate {
         
         get {
             

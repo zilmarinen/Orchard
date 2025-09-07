@@ -14,7 +14,7 @@ internal class RegionViewModel {
     internal let region: RegionIntermediate
     internal unowned(unsafe) var document: Document
     
-    internal init(coordinate: Grid.Coordinate,
+    internal init(coordinate: Coordinate,
                   document: Document) {
      
         self.region = document.region(for: coordinate) ?? document.create(region: coordinate)

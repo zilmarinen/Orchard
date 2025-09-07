@@ -51,7 +51,7 @@ public class RegionContainerController: NSSplitViewController,
     private let viewModel: RegionViewModel
     private weak var delegate: RegionContainerDelegate?
     
-    public init(coordinate: Grid.Coordinate,
+    public init(coordinate: Coordinate,
                 document: Document,
                 delegate: RegionContainerDelegate) {
         

@@ -1,8 +1,8 @@
 //
-//  WorldEditorOverlayController.swift
+//  RegionEditorOverlayController.swift
 //  Feature
 //
-//  Created by Zack Brown on 12/08/2025.
+//  Created by Zack Brown on 04/09/2025.
 //
 
 import AppKit
@@ -10,7 +10,7 @@ import Base
 import Deltille
 import Euclid
 
-internal class WorldEditorOverlayController: NSViewController {
+internal class RegionEditorOverlayController: NSViewController {
     
     internal enum Constant {
         
@@ -70,7 +70,7 @@ internal class WorldEditorOverlayController: NSViewController {
     }
 }
 
-extension WorldEditorOverlayController {
+extension RegionEditorOverlayController {
 
     internal func update(triangle: Triangle) {
         

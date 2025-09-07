@@ -71,34 +71,34 @@ extension WorldViewModel {
         document.regionIntermediates
     }
     
-    internal func region(for coordinate: Grid.Coordinate) -> RegionIntermediate? {
+    internal func region(for coordinate: Coordinate) -> RegionIntermediate? {
         
         document.region(for: coordinate)
     }
     
-    internal func create(region coordinate: Grid.Coordinate) -> RegionIntermediate {
+    internal func create(region coordinate: Coordinate) -> RegionIntermediate {
         
         document.create(region: coordinate)
     }
     
-    internal func delete(region coordinate: Grid.Coordinate) {
+    internal func delete(region coordinate: Coordinate) {
         
         document.delete(region: coordinate)
     }
     
     // MARK: Zones
     
-    internal func zone(for coordinate: Grid.Coordinate) -> ZoneIntermediate? {
+    internal func zone(for coordinate: Coordinate) -> ZoneIntermediate? {
         
         document.zone(for: coordinate)
     }
     
-    internal func create(zone coordinate: Grid.Coordinate) -> ZoneIntermediate {
+    internal func create(zone coordinate: Coordinate) -> ZoneIntermediate {
         
         document.create(zone: coordinate)
     }
     
-    internal func delete(zone coordinate: Grid.Coordinate) {
+    internal func delete(zone coordinate: Coordinate) {
         
         document.delete(zone: coordinate)
     }

@@ -106,7 +106,7 @@ extension WorldContainerController {
         }
     }
     
-    private func presentDeleteRegionAlert(coordinate: Grid.Coordinate) {
+    private func presentDeleteRegionAlert(coordinate: Coordinate) {
         
         guard let window = delegate?.window,
               let intermediate = viewModel.region(for: coordinate) else { return }
@@ -134,7 +134,7 @@ extension WorldContainerController {
         }
     }
     
-    private func presentDeleteZoneAlert(coordinate: Grid.Coordinate) {
+    private func presentDeleteZoneAlert(coordinate: Coordinate) {
         
         guard let window = delegate?.window,
               let intermediate = viewModel.zone(for: coordinate) else { return }

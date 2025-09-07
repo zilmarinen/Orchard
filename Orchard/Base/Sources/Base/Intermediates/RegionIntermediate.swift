@@ -13,10 +13,10 @@ public class RegionIntermediate: NSObject,
                                  Codable,
                                  TreeNode {
     
-    public let coordinate: Grid.Coordinate
+    public let coordinate: Coordinate
     public var identifier: String?
     
-    public init(coordinate: Grid.Coordinate) {
+    public init(coordinate: Coordinate) {
      
         self.coordinate = coordinate
     }
