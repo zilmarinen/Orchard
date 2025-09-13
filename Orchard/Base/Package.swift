@@ -13,10 +13,12 @@ let package = Package(
     dependencies: [
 //        .package(url: "git@github.com:zilmarinen/Deltille.git",
 //                 branch: "develop")
-        .package(path: "../../../Deltille")
+        .package(path: "../../../Deltille"),
+        .package(path: "../../../Harvest")
     ],
     targets: [
         .target(name: "Base",
-               dependencies: ["Deltille"])
+                dependencies: ["Deltille",
+                              "Harvest"])
     ]
 )

@@ -8,6 +8,7 @@
 import AppKit
 import Base
 import Container
+import Harvest
 import OutlineView
 
 internal protocol WorldSidebarContainerDelegate: AnyObject {
@@ -114,7 +115,7 @@ extension WorldSidebarContainer {
         case deleteRegionAction,
              editRegionAction:
             
-            guard let item = sender.representedObject as? RegionIntermediate else { return }
+            guard let item = sender.representedObject as? Region else { return }
             
             guard sender == deleteRegionAction else {
                 
@@ -179,7 +180,7 @@ extension WorldSidebarContainer: @preconcurrency OutlineViewControllerDelegate {
         
         switch item {
             
-        case let item as RegionIntermediate:
+        case let item as Region:
             
             delegate?.worldSidebarContainer(self,
                                             didSelect: .region(coordinate: item.coordinate))
@@ -201,7 +202,7 @@ extension WorldSidebarContainer: @preconcurrency OutlineViewControllerDelegate {
         
         switch item {
             
-        case let item as RegionIntermediate:
+        case let item as Region:
             
             regionMenu.title = item.displayName
             

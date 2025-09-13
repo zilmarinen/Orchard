@@ -7,6 +7,7 @@
 
 import Base
 import Deltille
+import Harvest
 
 @MainActor
 internal class RegionInspectorViewModel {
@@ -36,7 +37,7 @@ extension RegionInspectorViewModel {
     
     internal var hasIntermediate: Bool { intermediate != nil }
     
-    internal var intermediate: RegionIntermediate? { document.region(for: coordinate) }
+    internal var intermediate: Region? { document.region(for: coordinate) }
     
     internal var identifier: String {
         

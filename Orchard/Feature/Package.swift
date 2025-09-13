@@ -16,13 +16,15 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../Core"),
+        .package(path: "../../../Harvest")
     ],
     targets: [
         .target(name: "Region",
                 dependencies: [.product(name: "Container",
                                         package: "Core"),
                                .product(name: "Editor",
-                                        package: "Core")]),
+                                        package: "Core"),
+                               "Harvest"]),
         .target(name: "Splash",
                 dependencies: [.product(name: "Container",
                                         package: "Core")]),
@@ -34,6 +36,7 @@ let package = Package(
                                .product(name: "Inspector",
                                         package: "Core"),
                                .product(name: "OutlineView",
-                                        package: "Core")]),
+                                        package: "Core"),
+                               "Harvest"]),
     ]
 )

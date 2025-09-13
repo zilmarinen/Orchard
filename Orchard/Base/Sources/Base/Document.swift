@@ -7,6 +7,7 @@
 
 import Cocoa
 import Deltille
+import Harvest
 import UniformTypeIdentifiers
 
 public class Document: NSDocument {
@@ -26,16 +27,16 @@ public class Document: NSDocument {
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
     
-    nonisolated(unsafe) private var regions: [Coordinate : RegionIntermediate]
+    nonisolated(unsafe) private var regions: [Coordinate : Region]
     nonisolated(unsafe) private var zones: [Coordinate : ZoneIntermediate]
     
-    public var regionIntermediates: [RegionIntermediate] { Array(regions.values) }
+    public var regionIntermediates: [Region] { Array(regions.values) }
     public var zoneIntermediates: [ZoneIntermediate] { Array(zones.values) }
     
     override init() {
         
-        self.regions = [.zero : .init(coordinate: .zero)]
-        self.zones = [.zero : .init(coordinate: .zero)]
+        self.regions = [:]
+        self.zones = [:]
         
         super.init()
     }
@@ -59,8 +60,8 @@ public class Document: NSDocument {
         
         // MARK: World
         
-        package.write(value: FileWrapper(regularFileWithContents: try encoder.encode(world)),
-                           forKey: .world)
+        package.write(value: .init(regularFileWithContents: try encoder.encode(world)),
+                      forKey: .world)
         
         // MARK: Regions
         
@@ -110,7 +111,7 @@ public class Document: NSDocument {
             
             guard let regionData = regionsFileWrapper.regularFileContents(forKey: .region(coordinate: coordinate)) else { throw CocoaError(.fileReadNoSuchFile) }
             
-            result[coordinate] = try decoder.decode(RegionIntermediate.self,
+            result[coordinate] = try decoder.decode(Region.self,
                                                     from: regionData)
         }
         
@@ -130,18 +131,23 @@ extension Document {
     
     // MARK: Regions
     
-    public func region(for coordinate: Coordinate) -> RegionIntermediate? {
+    public func region(for coordinate: Coordinate) -> Region? {
         
         regions[coordinate]
     }
     
-    public func create(region coordinate: Coordinate) -> RegionIntermediate {
+    public func create(region coordinate: Coordinate) -> Region {
         
-        let region = RegionIntermediate(coordinate: coordinate)
+        let region = Region(coordinate: coordinate)
         
         regions[coordinate] = region
         
         return region
+    }
+    
+    public func save(region: Region) {
+        
+        regions[region.coordinate] = region
     }
     
     public func delete(region coordinate: Coordinate) {

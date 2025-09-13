@@ -35,6 +35,8 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
         super.viewDidLoad()
         
         insert(viewController: overlayController)
+        
+        viewModel.load(editor: editorView)
     }
     
     override func cursor(hover event: CursorEvent) {

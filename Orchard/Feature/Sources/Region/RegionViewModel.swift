@@ -7,11 +7,13 @@
 
 import Base
 import Deltille
+import Foundation
+import Harvest
 
 @MainActor
 internal class RegionViewModel {
     
-    internal let region: RegionIntermediate
+    internal let region: Region
     internal unowned(unsafe) var document: Document
     
     internal init(coordinate: Coordinate,
@@ -27,5 +29,30 @@ extension RegionViewModel {
     internal var identifier: String {
         
         region.displayName
+    }
+}
+
+extension RegionViewModel {
+    
+    internal func load(editor: RegionView) {
+        
+        let triangle = Triangle(region.coordinate)
+        
+        let regions = triangle.perimeter.compactMap {
+            
+            document.region(for: $0.vertex.position)
+        }
+        
+        editor.load(regions: regions + [region])
+    }
+    
+    internal func save(editor: RegionView) {
+        
+        let regions = editor.save()
+        
+        for region in regions {
+            
+            document.save(region: region)
+        }
     }
 }

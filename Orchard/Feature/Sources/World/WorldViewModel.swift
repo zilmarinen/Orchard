@@ -8,6 +8,7 @@
 import AppKit
 import Base
 import Deltille
+import Harvest
 import OutlineView
 
 @MainActor
@@ -66,17 +67,17 @@ extension WorldViewModel {
     
     // MARK: Regions
     
-    internal var regions: [RegionIntermediate] {
+    internal var regions: [Region] {
         
         document.regionIntermediates
     }
     
-    internal func region(for coordinate: Coordinate) -> RegionIntermediate? {
+    internal func region(for coordinate: Coordinate) -> Region? {
         
         document.region(for: coordinate)
     }
     
-    internal func create(region coordinate: Coordinate) -> RegionIntermediate {
+    internal func create(region coordinate: Coordinate) -> Region {
         
         document.create(region: coordinate)
     }
