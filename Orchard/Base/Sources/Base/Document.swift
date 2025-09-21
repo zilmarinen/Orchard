@@ -10,7 +10,8 @@ import Deltille
 import Harvest
 import UniformTypeIdentifiers
 
-public class Document: NSDocument {
+@MainActor
+public final class Document: NSDocument {
     
     public enum Selection {
         
@@ -35,7 +36,7 @@ public class Document: NSDocument {
     
     override init() {
         
-        self.regions = [:]
+        self.regions = [.zero : .init(empty: .zero)]
         self.zones = [:]
         
         super.init()
@@ -138,7 +139,7 @@ extension Document {
     
     public func create(region coordinate: Coordinate) -> Region {
         
-        let region = Region(coordinate: coordinate)
+        let region = Region(empty: coordinate)
         
         regions[coordinate] = region
         
