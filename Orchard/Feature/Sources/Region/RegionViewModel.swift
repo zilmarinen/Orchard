@@ -34,6 +34,25 @@ extension RegionViewModel {
 
 extension RegionViewModel {
     
+    internal func canEdit(vertex: Triangle.Vertex) -> Bool {
+        
+        for tile in vertex.tiles {
+            
+            let triangle = tile.transpose(.tile,
+                                          .region)
+            
+            if triangle.vertex.position == region.coordinate {
+                
+                return true
+            }
+        }
+        
+        return false
+    }
+}
+
+extension RegionViewModel {
+    
     internal func load(editor: RegionView) {
         
         let triangle = Triangle(region.coordinate)
@@ -44,6 +63,8 @@ extension RegionViewModel {
         }
         
         editor.load(regions: regions + [region])
+        
+        editor.camera.focus(on: triangle.vertex.position(.region))
     }
     
     internal func save(editor: RegionView) {

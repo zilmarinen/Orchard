@@ -45,6 +45,8 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
     
     internal func reload() {
         
+        editorView.clear()
+        
         for region in viewModel.regions {
             
             editorView.add(region: region.coordinate)

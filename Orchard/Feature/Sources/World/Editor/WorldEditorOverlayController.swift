@@ -24,18 +24,21 @@ internal class WorldEditorOverlayController: NSViewController {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.bezelColor = .systemBlue
+        $0.title = ""
     }
     
     private lazy var vertexLabel = with(NSButton()) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.bezelColor = .systemMint
+        $0.title = ""
     }
     
     private lazy var hexagonLabel = with(NSButton()) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.bezelColor = .systemPurple
+        $0.title = ""
     }
     
     // MARK: Stack views

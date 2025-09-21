@@ -64,7 +64,8 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
         
         guard case .down(let location,
                          let button) = event,
-              let hit = editorView.hitTest(point: location) else { return }
+              let hit = editorView.hitTest(point: location),
+              viewModel.canEdit(vertex: hit.vertex) else { return }
         
         let height = editorView.terrain.get(value: hit.vertex)?.height ?? 0
         
