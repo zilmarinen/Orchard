@@ -5,7 +5,7 @@
 //  Created by Zack Brown on 30/07/2025.
 //
 
-import AppKit
+import Base
 import Container
 
 internal protocol RegionInspectorContainerDelegate: AnyObject {}

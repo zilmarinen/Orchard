@@ -15,8 +15,8 @@ internal class RegionInspectorViewModel {
     internal let coordinate: Coordinate
     private unowned(unsafe) var document: Document
     
-    init(coordinate: Coordinate,
-         document: Document) {
+    internal init(coordinate: Coordinate,
+                  document: Document) {
      
         self.coordinate = coordinate
         self.document = document
