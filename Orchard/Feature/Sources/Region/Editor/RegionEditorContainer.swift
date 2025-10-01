@@ -67,20 +67,22 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
               let hit = editorView.hitTest(point: location),
               viewModel.canEdit(vertex: hit.vertex) else { return }
         
-        let height = editorView.terrain.get(value: hit.vertex)?.height ?? 0
+        let heightMap = editorView.terrain.get(value: hit.vertex)
+        let height = heightMap?.height ?? 0
+        let material = heightMap?.material ?? .boreal
         
         switch button {
             
         case .left:
             
             editorView.terrain.set(height + 1,
-                                   0,
+                                   material,
                                    for: hit.vertex)
             
         case .right:
             
             editorView.terrain.set(max(0, height - 1),
-                                   0,
+                                   material,
                                    for: hit.vertex)
         }
     }

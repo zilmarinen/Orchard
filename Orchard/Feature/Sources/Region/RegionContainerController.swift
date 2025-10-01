@@ -11,7 +11,8 @@ import Deltille
 
 public protocol RegionContainerDelegate: AnyObject {
     
-    func regionContainerDidFinish(_ container: RegionContainerController)
+    func regionContainer(_ container: RegionContainerController,
+                         didFinishEditingFor coordinate: Coordinate)
 }
 
 public class RegionContainerController: NSSplitViewController,
@@ -91,7 +92,8 @@ extension RegionContainerController: @preconcurrency ToolbarDelegate {
                              to: nil,
                              from: self)
             
-            delegate?.regionContainerDidFinish(self)
+            delegate?.regionContainer(self,
+                                      didFinishEditingFor: viewModel.region.coordinate)
             
         default: fatalError("Invalid sender for toolbar item")
         }

@@ -20,11 +20,19 @@ internal class WorldViewModel {
     
     private(set) unowned(unsafe) var document: Document
     
-    internal init(document: Document) {
+    internal init(coordinate: Coordinate,
+                  document: Document) {
      
         self.document = document
         
-        updateDefaultSelection()
+        guard let region = document.region(for: coordinate) else {
+            
+            updateDefaultSelection()
+            
+            return
+        }
+        
+        selection = .region(coordinate: region.coordinate)
     }
 }
 

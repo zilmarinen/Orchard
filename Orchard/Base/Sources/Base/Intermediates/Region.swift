@@ -12,7 +12,7 @@ import Harvest
 
 extension Region: TreeNode {
     
-    public var displayName: String { identifier ?? coordinate.id }
+    public var displayName: String { identifier }
     public var image: NSImage? { NSImage(image: .triangle) }
     
     public var children: [any TreeNode]? { nil }

@@ -52,10 +52,12 @@ public class WorldContainerController: NSSplitViewController,
     private let viewModel: WorldViewModel
     private weak var delegate: WorldContainerDelegate?
     
-    public init(document: Document,
+    public init(coordinate: Coordinate,
+                document: Document,
                 delegate: WorldContainerDelegate) {
         
-        self.viewModel = .init(document: document)
+        self.viewModel = .init(coordinate: coordinate,
+                               document: document)
         self.delegate = delegate
         
         super.init(nibName: nil,

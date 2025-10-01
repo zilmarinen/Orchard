@@ -73,12 +73,13 @@ extension WindowController {
         set(content: SplashContainerController(delegate: self))
     }
     
-    private func showWorld() {
+    private func showWorld(coordinate: Coordinate? = nil) {
         
         guard !presentingWorld,
               let document = self.document as? Document else { return }
         
-        set(content: WorldContainerController(document: document,
+        set(content: WorldContainerController(coordinate: coordinate ?? .zero,
+                                              document: document,
                                               delegate: self))
     }
     
@@ -88,15 +89,16 @@ extension WindowController {
     }
 }
 
-extension WindowController: RegionContainerDelegate {
+extension WindowController: @preconcurrency RegionContainerDelegate {
     
-    public func regionContainerDidFinish(_ container: RegionContainerController) {
+    public func regionContainer(_ container: RegionContainerController,
+                                didFinishEditingFor coordinate: Coordinate) {
         
-        showWorld()
+        showWorld(coordinate: coordinate)
     }
 }
 
-extension WindowController: SplashContainerDelegate {
+extension WindowController: @preconcurrency SplashContainerDelegate {
     
     public func splashContainerDidFinish(_ container: SplashContainerController) {
         

@@ -139,7 +139,7 @@ extension Document {
     
     public func create(region coordinate: Coordinate) -> Region {
         
-        let region = Region(empty: coordinate)
+        let region = Region(empty: .init(coordinate))
         
         regions[coordinate] = region
         
