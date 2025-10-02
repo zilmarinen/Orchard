@@ -9,9 +9,12 @@ import Base
 import Deltille
 import Foundation
 import Harvest
+import Inspector
 
 @MainActor
 internal class RegionViewModel {
+    
+    private(set) var selectedTool: Tool = .terrain
     
     internal let region: Region
     internal unowned(unsafe) var document: Document
@@ -75,5 +78,23 @@ extension RegionViewModel {
             
             document.save(region: region)
         }
+    }
+}
+
+extension RegionViewModel: @preconcurrency ToolSelectionInspectorDataSource {
+    
+    internal var tools: [Tool] {
+        
+        Tool.allCases
+    }
+    
+    internal func tool(at index: Int) -> Tool {
+        
+        tools[index]
+    }
+    
+    internal func select(tool value: Tool) {
+        
+        selectedTool = value
     }
 }

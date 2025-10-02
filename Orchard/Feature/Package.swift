@@ -24,6 +24,8 @@ let package = Package(
                                         package: "Core"),
                                .product(name: "Editor",
                                         package: "Core"),
+                               .product(name: "Inspector",
+                                        package: "Core"),
                                "Harvest"]),
         .target(name: "Splash",
                 dependencies: [.product(name: "Container",

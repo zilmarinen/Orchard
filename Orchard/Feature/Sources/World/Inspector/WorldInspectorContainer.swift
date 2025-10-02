@@ -41,8 +41,6 @@ internal class WorldInspectorContainer: ContainerViewController {
         
         super.viewDidLoad()
         
-        set(content: EmptyViewController.noSelection)
-        
         reload()
     }
     
