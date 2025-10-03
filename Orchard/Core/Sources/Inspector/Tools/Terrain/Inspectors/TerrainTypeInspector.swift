@@ -8,16 +8,34 @@
 import AppKit
 import Base
 
-internal class TerrainTypeInspector: InspectorStackView {
+internal class TerrainTypeInspector: InspectorGridView {
+    
+    private enum Constant {
+        
+        static let materialViewHeightMultiplier = 0.5
+        static let borderWidth = 1.0
+        static let cornerRadius = 4.0
+    }
     
     private lazy var terrainTypePopUp = with(NSPopUpButton(title: "Tool",
                                                            target: self,
                                                            action: #selector(popUpButton(_:)))) {
         
+        $0.translatesAutoresizingMaskIntoConstraints = false
         $0.addItems(withTitles: viewModel.terrainTypes.map { $0.id })
         $0.selectItem(withTitle: viewModel.terrainType.id)
         $0.setContentHuggingPriority(.low,
                                      for: .horizontal)
+    }
+    
+    private lazy var materialView = with(NSView()) {
+        
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.wantsLayer = true
+        $0.layer?.backgroundColor = NSColor.controlBackgroundColor.cgColor
+        $0.layer?.borderColor = NSColor.controlColor.cgColor
+        $0.layer?.borderWidth = Constant.borderWidth
+        $0.layer?.cornerRadius = Constant.cornerRadius
     }
     
     private let viewModel: TerrainInspectorViewModel
@@ -28,7 +46,15 @@ internal class TerrainTypeInspector: InspectorStackView {
         
         super.init(title: "Material")
         
-        addArrangedSubview(terrainTypePopUp)
+        addRow(label: "Biome",
+               detail: terrainTypePopUp)
+        addArrangedSubview(materialView)
+        
+        NSLayoutConstraint.activate([
+
+            materialView.heightAnchor.constraint(equalTo: materialView.widthAnchor,
+                                                 multiplier: Constant.materialViewHeightMultiplier)
+        ])
     }
     
     @available(*, unavailable)

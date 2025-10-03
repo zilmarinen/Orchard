@@ -27,6 +27,10 @@ open class InspectorStackView: InspectorView {
     
     public func addArrangedSubview(_ view: NSView) {
         
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.setContentHuggingPriority(.defaultLow,
+                                       for: .vertical)
+        
         stackView.addArrangedSubview(view)
     }
 }

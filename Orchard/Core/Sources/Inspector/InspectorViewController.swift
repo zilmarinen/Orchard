@@ -32,20 +32,16 @@ public class InspectorViewController: NSViewController {
         view.addSubview(scrollView)
         
         scrollView.pinEdges(to: view)
-        
-        NSLayoutConstraint.activate([
-            
-            stackView.topAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.topAnchor),
-            stackView.leftAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.leftAnchor),
-            stackView.bottomAnchor.constraint(greaterThanOrEqualTo: scrollView.safeAreaLayoutGuide.bottomAnchor),
-            stackView.rightAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.rightAnchor)
-        ])
+        stackView.pinEdges(to: scrollView)
     }
     
     internal func addArrangedSubview(_ view: NSView) {
         
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.setContentHuggingPriority(.defaultLow,
                                        for: .horizontal)
+        view.setContentHuggingPriority(.defaultLow,
+                                       for: .vertical)
         
         stackView.addArrangedSubview(view)
     }

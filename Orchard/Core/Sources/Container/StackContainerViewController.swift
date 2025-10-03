@@ -23,6 +23,7 @@ open class StackContainerViewController: NSViewController {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.spacing = 0
+        $0.distribution = .equalSpacing
     }
     
     private var childContainerViews: [ObjectIdentifier: NSView] = [:]
@@ -44,7 +45,14 @@ open class StackContainerViewController: NSViewController {
         
         view.addSubview(stackView)
         
-        stackView.pinEdges(to: view)
+        //stackView.pinEdges(to: view)
+        NSLayoutConstraint.activate([
+            
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            stackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            stackView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor),
+            stackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
+        ])
     }
 }
 

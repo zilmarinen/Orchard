@@ -7,7 +7,7 @@
 
 import AppKit
 
-open class InspectorGridView: InspectorView {
+open class InspectorGridView: InspectorStackView {
     
     private let gridView = with(NSGridView()) {
         
@@ -22,7 +22,8 @@ open class InspectorGridView: InspectorView {
         
         super.init(title: title)
         
-        set(content: gridView)
+        //set(content: gridView)
+        addArrangedSubview(gridView)
     }
     
     public func addRow(label: String,

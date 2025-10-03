@@ -14,6 +14,7 @@ internal class TerrainToolInspector: InspectorStackView {
                                                            target: self,
                                                            action: #selector(popUpButton(_:)))) {
         
+        $0.translatesAutoresizingMaskIntoConstraints = false
         $0.addItems(withTitles: viewModel.terrainTypes.map { $0.id })
         $0.selectItem(withTitle: viewModel.terrainType.id)
         $0.setContentHuggingPriority(.low,
