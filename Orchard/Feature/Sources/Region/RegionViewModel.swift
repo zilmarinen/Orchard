@@ -14,7 +14,7 @@ import Inspector
 @MainActor
 internal class RegionViewModel {
     
-    internal let toolSelectionViewModel = ToolSelectionViewModel(selectedTool: .terrain)
+    internal let toolSelectionViewModel = ToolSelectionViewModel()
     
     internal let region: Region
     internal unowned(unsafe) var document: Document

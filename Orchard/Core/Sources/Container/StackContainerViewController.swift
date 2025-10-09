@@ -45,6 +45,7 @@ open class StackContainerViewController: NSViewController {
         
         view.addSubview(stackView)
         
+        //TODO: Fix stack view positioning
         //stackView.pinEdges(to: view)
         NSLayoutConstraint.activate([
             

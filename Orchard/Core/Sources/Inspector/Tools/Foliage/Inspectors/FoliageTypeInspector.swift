@@ -1,14 +1,14 @@
 //
-//  TerrainTypeInspector.swift
+//  FoliageTypeInspector.swift
 //  Core
 //
-//  Created by Zack Brown on 02/10/2025.
+//  Created by Zack Brown on 09/10/2025.
 //
 
 import AppKit
 import Base
 
-internal class TerrainTypeInspector: InspectorGridView {
+internal class FoliageTypeInspector: InspectorGridView {
     
     private enum Constant {
         
@@ -17,18 +17,18 @@ internal class TerrainTypeInspector: InspectorGridView {
         static let cornerRadius = 4.0
     }
     
-    private lazy var terrainTypePopUp = with(NSPopUpButton(title: "Terrain Type",
-                                                           target: self,
-                                                           action: #selector(popUpButton(_:)))) {
+    private lazy var septominoPopUp = with(NSPopUpButton(title: "Foliage Type",
+                                                         target: self,
+                                                         action: #selector(popUpButton(_:)))) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.addItems(withTitles: viewModel.terrainTypes.map { $0.id })
-        $0.selectItem(withTitle: viewModel.terrainType.id)
+        $0.addItems(withTitles: viewModel.septominos.map { $0.id })
+        $0.selectItem(withTitle: viewModel.septomino.id)
         $0.setContentHuggingPriority(.low,
                                      for: .horizontal)
     }
     
-    private lazy var colorPaletteView = with(ColorPaletteView(colorPalette: viewModel.terrainType.colorPalette)) {
+    private lazy var footprintView = with(FootprintView(footprint: viewModel.septomino.footprint(origin: .zero))) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.wantsLayer = true
@@ -38,21 +38,21 @@ internal class TerrainTypeInspector: InspectorGridView {
         $0.layer?.cornerRadius = Constant.cornerRadius
     }
     
-    private let viewModel: TerrainInspectorViewModel
+    private let viewModel: FoliageInspectorViewModel
     
-    internal required init(viewModel: TerrainInspectorViewModel) {
+    internal required init(viewModel: FoliageInspectorViewModel) {
         
         self.viewModel = viewModel
         
         super.init(title: "Material")
         
-        addRow(label: "Biome",
-               detail: terrainTypePopUp)
-        addArrangedSubview(colorPaletteView)
+        addRow(label: "Shape",
+               detail: septominoPopUp)
+        addArrangedSubview(footprintView)
         
         NSLayoutConstraint.activate([
 
-            colorPaletteView.heightAnchor.constraint(equalTo: colorPaletteView.widthAnchor,
+            footprintView.heightAnchor.constraint(equalTo: footprintView.widthAnchor,
                                                  multiplier: Constant.heightMultiplier)
         ])
     }
@@ -61,20 +61,20 @@ internal class TerrainTypeInspector: InspectorGridView {
     required internal init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 
-extension TerrainTypeInspector {
+extension FoliageTypeInspector {
     
     @objc
     internal func popUpButton(_ sender: NSPopUpButton) {
         
         switch sender {
             
-        case terrainTypePopUp:
+        case septominoPopUp:
             
-            let terrainType = viewModel.terrainType(at: sender.indexOfSelectedItem)
+            let septomino = viewModel.septomino(at: sender.indexOfSelectedItem)
             
-            viewModel.select(terrainType: terrainType)
+            viewModel.select(septomino: septomino)
             
-            colorPaletteView.colorPalette = terrainType.colorPalette
+            footprintView.footprint = septomino.footprint(origin: .zero)
             
         default: break
         }

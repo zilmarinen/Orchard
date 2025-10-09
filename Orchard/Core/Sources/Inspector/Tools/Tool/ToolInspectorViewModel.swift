@@ -10,12 +10,7 @@ import Base
 @MainActor
 internal class ToolInspectorViewModel {
     
-    private(set) var selectedTool: Tool
-    
-    internal init(selectedTool: Tool) {
-        
-        self.selectedTool = selectedTool
-    }
+    private(set) var selectedTool: Tool = .terrain
 }
 
 extension ToolInspectorViewModel {

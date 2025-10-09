@@ -30,6 +30,10 @@ internal class ToolContainerController: ContainerViewController {
      
         switch viewModel.selectedTool {
             
+        case .foliage:
+            
+            set(content: FoliageInspectorViewController(viewModel: viewModel.foliageInspectorViewModel))
+            
         case .terrain:
             
             set(content: TerrainInspectorViewController(viewModel: viewModel.terrainInspectorViewModel))

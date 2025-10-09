@@ -1,5 +1,5 @@
 //
-//  TerrainMaterialView.swift
+//  ColorPaletteView.swift
 //  Core
 //
 //  Created by Zack Brown on 04/10/2025.
@@ -10,27 +10,24 @@ import Deltille
 import Euclid
 import Harvest
 
-extension CGPoint {
-    
-    internal init(_ vector: Vector) {
-        
-        self.init(x: vector.x,
-                  y: vector.z)
-    }
-}
-
-internal class TerrainMaterialView: NSView {
+public class ColorPaletteView: NSView {
     
     internal enum Constant {
         
         static let scale = 1.7
     }
     
-    internal let viewModel: TerrainInspectorViewModel
-    
-    internal init(viewModel: TerrainInspectorViewModel) {
+    public var colorPalette: ColorPalette {
         
-        self.viewModel = viewModel
+        didSet {
+            
+            setNeedsDisplay(bounds)
+        }
+    }
+    
+    public init(colorPalette: ColorPalette) {
+        
+        self.colorPalette = colorPalette
         
         super.init(frame: .zero)
     }
@@ -38,7 +35,7 @@ internal class TerrainMaterialView: NSView {
     @available(*, unavailable)
     required internal init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
-    override func draw(_ dirtyRect: NSRect) {
+    public override func draw(_ dirtyRect: NSRect) {
         
         super.draw(dirtyRect)
         
@@ -50,28 +47,23 @@ internal class TerrainMaterialView: NSView {
         
         draw(h0.vertices.position(.region).map { $0 * Constant.scale },
              origin,
-             .init(viewModel.terrainType.baseColor))
+             .init(colorPalette.secondary))
         draw(h1.vertices.position(.region).map { $0 * Constant.scale },
              origin,
-             .init(viewModel.terrainType.apexColor))
+             .init(colorPalette.tertiary))
         draw(h2.vertices.position(.region).map { $0 * Constant.scale },
              origin,
-             .init(viewModel.terrainType.apexColor))
+             .init(colorPalette.quaternary))
         
         draw([h0.position(.region) * Constant.scale,
               h1.position(.region) * Constant.scale,
               h2.position(.region) * Constant.scale],
              origin,
-             .init(viewModel.terrainType.apexColor))
+             .init(colorPalette.primary))
     }
 }
 
-extension TerrainMaterialView {
-    
-    public func setNeedsDisplay() {
-        
-        setNeedsDisplay(bounds)
-    }
+extension ColorPaletteView {
     
     private func draw(_ vertices: [Vector],
                       _ origin: Vector,

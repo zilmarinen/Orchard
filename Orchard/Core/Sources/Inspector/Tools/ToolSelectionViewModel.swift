@@ -12,26 +12,29 @@ import Harvest
 
 @MainActor
 public class ToolSelectionViewModel {
-    
-    public private(set) var selectedTool: Tool
  
-    internal let toolInspectorViewModel = ToolInspectorViewModel(selectedTool: .terrain)
-    internal let terrainInspectorViewModel = TerrainInspectorViewModel(terrainType: .boreal)
+    internal let toolInspectorViewModel = ToolInspectorViewModel()
+    internal let foliageInspectorViewModel = FoliageInspectorViewModel()
+    internal let terrainInspectorViewModel = TerrainInspectorViewModel()
     
-    public init(selectedTool: Tool) {
-        
-        self.selectedTool = selectedTool
-    }
+    public init() {}
 }
 
 // MARK: Tool
 
 extension ToolSelectionViewModel {
     
-    internal func select(tool value: Tool) {
+    public var selectedTool: Tool {
         
-        selectedTool = value
+        toolInspectorViewModel.selectedTool
     }
+}
+
+// MARK: Foliage
+
+extension ToolSelectionViewModel {
+    
+    //
 }
 
 // MARK: Terrain
@@ -41,10 +44,5 @@ extension ToolSelectionViewModel {
     public var terrainType: TerrainType {
         
         terrainInspectorViewModel.terrainType
-    }
-    
-    internal func select(terrainType value: TerrainType) {
-        
-        terrainInspectorViewModel.select(terrainType: value)
     }
 }

@@ -11,11 +11,6 @@ import Harvest
 public class TerrainInspectorViewModel {
     
     public private(set) var terrainType: TerrainType = .boreal
-    
-    public init(terrainType: TerrainType) {
-        
-        self.terrainType = terrainType
-    }
 }
 
 extension TerrainInspectorViewModel {
