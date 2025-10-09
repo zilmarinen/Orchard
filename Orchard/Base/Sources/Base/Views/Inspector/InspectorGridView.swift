@@ -18,7 +18,7 @@ open class InspectorGridView: InspectorStackView {
         $0.rowSpacing = Constant.padding
     }
     
-    override public init(title: String? = nil) {
+    public override init(title: String? = nil) {
         
         super.init(title: title)
         

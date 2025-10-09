@@ -1,5 +1,5 @@
 //
-//  ToolSelectionInspectorDataSource.swift
+//  ToolInspectorViewModel.swift
 //  Core
 //
 //  Created by Zack Brown on 01/10/2025.
@@ -7,21 +7,12 @@
 
 import Base
 
-public protocol ToolSelectionInspectorDataSource: AnyObject {
-    
-    var selectedTool: Tool { get }
-    
-    var tools: [Tool] { get }
-    
-    func tool(at index: Int) -> Tool
-}
-
 @MainActor
-open class ToolInspectorViewModel {
+internal class ToolInspectorViewModel {
     
     private(set) var selectedTool: Tool
     
-    public init(selectedTool: Tool) {
+    internal init(selectedTool: Tool) {
         
         self.selectedTool = selectedTool
     }
@@ -36,6 +27,11 @@ extension ToolInspectorViewModel {
     
     internal func tool(at index: Int) -> Tool {
         
-        .allCases[index]
+        tools[index]
+    }
+    
+    internal func select(tool value: Tool) {
+        
+        selectedTool = value
     }
 }

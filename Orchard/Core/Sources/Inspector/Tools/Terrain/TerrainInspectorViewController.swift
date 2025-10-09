@@ -8,16 +8,16 @@
 import AppKit
 import Base
 
-internal class TerrainInspectorViewController: InspectorViewController {
+public class TerrainInspectorViewController: InspectorViewController {
     
-    private lazy var terrainTypePanel = TerrainTypeInspector(viewModel: viewModel)
-    private lazy var toolPanel = TerrainToolInspector(viewModel: viewModel)
+    private lazy var typeInspector = TerrainTypeInspector(viewModel: viewModel)
+    private lazy var toolInspector = TerrainToolInspector(viewModel: viewModel)
     
     private let viewModel: TerrainInspectorViewModel
     
-    internal init() {
+    public init(viewModel: TerrainInspectorViewModel) {
         
-        self.viewModel = .init()
+        self.viewModel = viewModel
         
         super.init(nibName: nil,
                    bundle: nil)
@@ -30,7 +30,7 @@ internal class TerrainInspectorViewController: InspectorViewController {
         
         super.viewDidLoad()
         
-        addArrangedSubview(terrainTypePanel)
-        addArrangedSubview(toolPanel)
+        addArrangedSubview(typeInspector)
+        addArrangedSubview(toolInspector)
     }
 }

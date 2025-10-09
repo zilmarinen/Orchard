@@ -10,13 +10,13 @@ import Base
 
 internal class TerrainToolInspector: InspectorStackView {
     
-    private lazy var terrainTypePopUp = with(NSPopUpButton(title: "Tool",
-                                                           target: self,
-                                                           action: #selector(popUpButton(_:)))) {
+    private lazy var toolTypePopUp = with(NSPopUpButton(title: "Tool",
+                                                        target: self,
+                                                        action: #selector(popUpButton(_:)))) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.addItems(withTitles: viewModel.terrainTypes.map { $0.id })
-        $0.selectItem(withTitle: viewModel.terrainType.id)
+        //$0.addItems(withTitles: viewModel.terrainTypes.map { $0.id })
+        //$0.selectItem(withTitle: viewModel.terrainType.id)
         $0.setContentHuggingPriority(.low,
                                      for: .horizontal)
     }
@@ -29,7 +29,7 @@ internal class TerrainToolInspector: InspectorStackView {
         
         super.init(title: "Tool")
         
-        addArrangedSubview(terrainTypePopUp)
+        addArrangedSubview(toolTypePopUp)
     }
     
     @available(*, unavailable)

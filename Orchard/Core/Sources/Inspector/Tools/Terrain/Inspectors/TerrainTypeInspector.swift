@@ -17,7 +17,7 @@ internal class TerrainTypeInspector: InspectorGridView {
         static let cornerRadius = 4.0
     }
     
-    private lazy var terrainTypePopUp = with(NSPopUpButton(title: "Tool",
+    private lazy var terrainTypePopUp = with(NSPopUpButton(title: "Terrain Type",
                                                            target: self,
                                                            action: #selector(popUpButton(_:)))) {
         
@@ -28,7 +28,7 @@ internal class TerrainTypeInspector: InspectorGridView {
                                      for: .horizontal)
     }
     
-    private lazy var materialView = with(NSView()) {
+    private lazy var materialView = with(TerrainMaterialView(viewModel: viewModel)) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.wantsLayer = true
@@ -67,6 +67,14 @@ extension TerrainTypeInspector {
     internal func popUpButton(_ sender: NSPopUpButton) {
         
         switch sender {
+            
+        case terrainTypePopUp:
+            
+            let terrainType = viewModel.terrainType(at: sender.indexOfSelectedItem)
+            
+            viewModel.select(terrainType: terrainType)
+            
+            materialView.setNeedsDisplay()
             
         default: break
         }

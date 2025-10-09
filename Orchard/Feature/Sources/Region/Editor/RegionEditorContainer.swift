@@ -67,28 +67,46 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
               let hit = editorView.hitTest(point: location),
               viewModel.canEdit(vertex: hit.vertex) else { return }
         
-        let heightMap = editorView.terrain.get(value: hit.vertex)
-        let height = heightMap?.height ?? 0
-        let material = heightMap?.material ?? .boreal
+        switch viewModel.selectedTool {
         
-        switch button {
+        case .terrain:
             
-        case .left:
+            update(terrain: hit,
+                   button: button)
             
-            editorView.terrain.set(height + 1,
-                                   material,
-                                   for: hit.vertex)
-            
-        case .right:
-            
-            editorView.terrain.set(max(0, height - 1),
-                                   material,
-                                   for: hit.vertex)
+        default: break
         }
     }
     
     override func scroll(delta: CGPoint) {
         
         editorView.camera.zoom(delta: Float(delta.y))
+    }
+}
+
+// MARK: Terrain
+
+extension RegionEditorContainer {
+    
+    private func update(terrain hit: HitTest,
+                        button: CursorEvent.Button) {
+        
+        let heightMap = editorView.terrain.get(value: hit.vertex)
+        let height = heightMap?.height ?? 0
+        
+        switch button {
+            
+        case .left:
+            
+            editorView.terrain.set(height + 1,
+                                   viewModel.terrainType,
+                                   for: hit.vertex)
+            
+        case .right:
+            
+            editorView.terrain.set(max(0, height - 1),
+                                   viewModel.terrainType,
+                                   for: hit.vertex)
+        }
     }
 }

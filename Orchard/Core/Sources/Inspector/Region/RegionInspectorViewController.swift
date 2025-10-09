@@ -23,11 +23,11 @@ public protocol RegionInspectorDelegate: AnyObject {
 
 public class RegionInspectorViewController: InspectorViewController {
     
-    private lazy var intermediatePanel = RegionIntermediateInspector(viewModel: viewModel,
-                                                                     delegate: self)
+    private lazy var intermediateInspector = RegionIntermediateInspector(viewModel: viewModel,
+                                                                         delegate: self)
     
-    private lazy var actionsPanel = RegionActionsInspector(viewModel: viewModel,
-                                                           delegate: self)
+    private lazy var actionsInspector = RegionActionsInspector(viewModel: viewModel,
+                                                               delegate: self)
     
     private let viewModel: RegionInspectorViewModel
     private weak var delegate: RegionInspectorDelegate?
@@ -51,15 +51,15 @@ public class RegionInspectorViewController: InspectorViewController {
         
         super.viewDidLoad()
         
-        addArrangedSubview(intermediatePanel)
-        addArrangedSubview(actionsPanel)
+        addArrangedSubview(intermediateInspector)
+        addArrangedSubview(actionsInspector)
     }
 }
 
 extension RegionInspectorViewController: @preconcurrency RegionIntermediateInspectorDelegate {
     
-    func regionIntermediateInspector(_ inspector: RegionIntermediateInspector,
-                                     didUpdate selection: Document.Selection) {
+    internal func regionIntermediateInspector(_ inspector: RegionIntermediateInspector,
+                                              didUpdate selection: Document.Selection) {
         
         delegate?.regionInsepectorViewController(self,
                                                  didUpdate: selection)
@@ -68,15 +68,15 @@ extension RegionInspectorViewController: @preconcurrency RegionIntermediateInspe
 
 extension RegionInspectorViewController: @preconcurrency RegionActionsInspectorDelegate {
     
-    func regionActionsInspector(_ inspector: RegionActionsInspector,
-                                didRequestDeletionFor selection: Document.Selection) {
+    internal func regionActionsInspector(_ inspector: RegionActionsInspector,
+                                         didRequestDeletionFor selection: Document.Selection) {
         
         delegate?.regionInsepectorViewController(self,
                                                  didRequestDeletionFor: selection)
     }
     
-    func regionActionsInspector(_ inspector: RegionActionsInspector,
-                                didRequestEditingFor selection: Document.Selection) {
+    internal func regionActionsInspector(_ inspector: RegionActionsInspector,
+                                        didRequestEditingFor selection: Document.Selection) {
         
         delegate?.regionInsepectorViewController(self,
                                                  didRequestEditingFor: selection)

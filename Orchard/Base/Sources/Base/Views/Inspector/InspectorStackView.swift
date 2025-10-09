@@ -18,7 +18,7 @@ open class InspectorStackView: InspectorView {
         $0.spacing = Constant.spacing
     }
     
-    override public init(title: String? = nil) {
+    public override init(title: String? = nil) {
         
         super.init(title: title)
         

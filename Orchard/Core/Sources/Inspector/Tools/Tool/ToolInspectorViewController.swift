@@ -8,24 +8,24 @@
 import AppKit
 import Base
 
-public protocol ToolInspectorDelegate: AnyObject {
+internal protocol ToolInspectorDelegate: AnyObject {
     
     func toolInspectorViewController(_ inspector: ToolInspectorViewController,
                                      didSelect tool: Tool)
 }
 
-public class ToolInspectorViewController: InspectorViewController {
+internal class ToolInspectorViewController: InspectorViewController {
     
-    private lazy var toolPanel = ToolSelectionInspector(dataSource: dataSource,
-                                                        delegate: self)
+    private lazy var toolInspector = ToolSelectionInspector(viewModel: viewModel,
+                                                            delegate: self)
     
-    private let dataSource: ToolSelectionInspectorDataSource
+    private let viewModel: ToolInspectorViewModel
     private weak var delegate: ToolInspectorDelegate?
     
-    public init(dataSource: ToolSelectionInspectorDataSource,
-                delegate: ToolInspectorDelegate) {
+    internal init(viewModel: ToolInspectorViewModel,
+                  delegate: ToolInspectorDelegate) {
         
-        self.dataSource = dataSource
+        self.viewModel = viewModel
         self.delegate = delegate
         
         super.init(nibName: nil,
@@ -35,18 +35,18 @@ public class ToolInspectorViewController: InspectorViewController {
     @available(*, unavailable)
     required public init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
-    public override func viewDidLoad() {
+    internal override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        addArrangedSubview(toolPanel)
+        addArrangedSubview(toolInspector)
     }
 }
 
 extension ToolInspectorViewController: @preconcurrency ToolSelectionInspectorDelegate {
     
-    func toolSelectionInspector(_ inspector: ToolSelectionInspector,
-                                didSelect tool: Tool) {
+    internal func toolSelectionInspector(_ inspector: ToolSelectionInspector,
+                                         didSelect tool: Tool) {
         
         delegate?.toolInspectorViewController(self,
                                               didSelect: tool)

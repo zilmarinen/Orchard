@@ -20,19 +20,19 @@ internal class ToolSelectionInspector: InspectorStackView {
                                                     target: self,
                                                     action: #selector(popUpButton(_:)))) {
         
-        $0.addItems(withTitles: dataSource.tools.map { $0.id })
-        $0.selectItem(withTitle: dataSource.selectedTool.id)
+        $0.addItems(withTitles: viewModel.tools.map { $0.id })
+        $0.selectItem(withTitle: viewModel.selectedTool.id)
         $0.setContentHuggingPriority(.low,
                                      for: .horizontal)
     }
     
-    private let dataSource: ToolSelectionInspectorDataSource
+    private let viewModel: ToolInspectorViewModel
     private weak var delegate: ToolSelectionInspectorDelegate?
     
-    internal required init(dataSource: ToolSelectionInspectorDataSource,
+    internal required init(viewModel: ToolInspectorViewModel,
                            delegate: ToolSelectionInspectorDelegate) {
         
-        self.dataSource = dataSource
+        self.viewModel = viewModel
         self.delegate = delegate
         
         super.init(title: "Tools")
@@ -53,8 +53,12 @@ extension ToolSelectionInspector {
             
         case toolPopUp:
             
+            let tool = viewModel.tool(at: sender.indexOfSelectedItem)
+            
+            viewModel.select(tool: tool)
+            
             delegate?.toolSelectionInspector(self,
-                                             didSelect: dataSource.tool(at: sender.indexOfSelectedItem))
+                                             didSelect: viewModel.selectedTool)
             
         default: fatalError("Invalid sender for button action")
         }

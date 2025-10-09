@@ -31,7 +31,8 @@ let package = Package(
                                "Harvest"]),
         .target(name: "Inspector",
                 dependencies: [.product(name: "Base",
-                                        package: "Base")]),
+                                        package: "Base"),
+                               "Container"]),
         .target(name: "OutlineView",
                 dependencies: [.product(name: "Base",
                                         package: "Base")])

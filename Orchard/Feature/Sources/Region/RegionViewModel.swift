@@ -14,7 +14,7 @@ import Inspector
 @MainActor
 internal class RegionViewModel {
     
-    private(set) var selectedTool: Tool = .terrain
+    internal let toolSelectionViewModel = ToolSelectionViewModel(selectedTool: .terrain)
     
     internal let region: Region
     internal unowned(unsafe) var document: Document
@@ -81,20 +81,22 @@ extension RegionViewModel {
     }
 }
 
-extension RegionViewModel: @preconcurrency ToolSelectionInspectorDataSource {
+// MARK: Tool
+
+extension RegionViewModel {
     
-    internal var tools: [Tool] {
+    internal var selectedTool: Tool {
         
-        Tool.allCases
+        toolSelectionViewModel.selectedTool
     }
+}
+
+// MARK: Terrain
+
+extension RegionViewModel {
     
-    internal func tool(at index: Int) -> Tool {
+    internal var terrainType: TerrainType {
         
-        tools[index]
-    }
-    
-    internal func select(tool value: Tool) {
-        
-        selectedTool = value
+        toolSelectionViewModel.terrainType
     }
 }

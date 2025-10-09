@@ -11,13 +11,9 @@ import Inspector
 
 internal protocol RegionInspectorContainerDelegate: AnyObject {}
 
-internal class RegionInspectorContainer: StackContainerViewController {
+internal class RegionInspectorContainer: ContainerViewController {
     
-    private lazy var toolSelectionController = ToolInspectorViewController(dataSource: viewModel,
-                                                                           delegate: self)
-    
-    private lazy var toolSelectionContainer = ToolSelectionContainer(dataSource: viewModel,
-                                                                     delegate: self)
+    private lazy var toolSelectionContainer = ToolSelectionContainer(viewModel: viewModel.toolSelectionViewModel)
     
     private let viewModel: RegionViewModel
     private weak var delegate: RegionInspectorContainerDelegate?
@@ -35,20 +31,6 @@ internal class RegionInspectorContainer: StackContainerViewController {
         
         super.viewDidLoad()
         
-        insert(viewController: toolSelectionController)
-        insert(viewController: toolSelectionContainer)
+        set(content: toolSelectionContainer)
     }
 }
-
-extension RegionInspectorContainer: @preconcurrency ToolInspectorDelegate {
-    
-    func toolInspectorViewController(_ inspector: ToolInspectorViewController,
-                                     didSelect tool: Tool) {
-        
-        viewModel.select(tool: tool)
-        
-        toolSelectionContainer.reload()
-    }
-}
-
-extension RegionInspectorContainer: @preconcurrency ToolSelectionContainerDelegate {}

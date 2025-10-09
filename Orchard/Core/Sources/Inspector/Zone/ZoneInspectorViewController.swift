@@ -23,11 +23,11 @@ public protocol ZoneInspectorDelegate: AnyObject {
 
 public class ZoneInspectorViewController: InspectorViewController {
     
-    private lazy var intermediatePanel = ZoneIntermediateInspector(viewModel: viewModel,
-                                                                   delegate: self)
+    private lazy var intermediateInspector = ZoneIntermediateInspector(viewModel: viewModel,
+                                                                       delegate: self)
     
-    private lazy var actionsPanel = ZoneActionsInspector(viewModel: viewModel,
-                                                         delegate: self)
+    private lazy var actionsInspector = ZoneActionsInspector(viewModel: viewModel,
+                                                             delegate: self)
     
     private let viewModel: ZoneInspectorViewModel
     private weak var delegate: ZoneInspectorDelegate?
@@ -51,15 +51,15 @@ public class ZoneInspectorViewController: InspectorViewController {
         
         super.viewDidLoad()
         
-        addArrangedSubview(intermediatePanel)
-        addArrangedSubview(actionsPanel)
+        addArrangedSubview(intermediateInspector)
+        addArrangedSubview(actionsInspector)
     }
 }
 
 extension ZoneInspectorViewController: @preconcurrency ZoneIntermediateInspectorDelegate {
     
-    func zoneIntermediateInspector(_ inspector: ZoneIntermediateInspector,
-                                   didUpdate selection: Document.Selection) {
+    internal func zoneIntermediateInspector(_ inspector: ZoneIntermediateInspector,
+                                            didUpdate selection: Document.Selection) {
         
         delegate?.zoneInsepectorViewController(self,
                                                didUpdate: selection)
@@ -68,15 +68,15 @@ extension ZoneInspectorViewController: @preconcurrency ZoneIntermediateInspector
 
 extension ZoneInspectorViewController: @preconcurrency ZoneActionsInspectorDelegate {
     
-    func zoneActionsInspector(_ inspector: ZoneActionsInspector,
-                              didRequestDeletionFor selection: Document.Selection) {
+    internal func zoneActionsInspector(_ inspector: ZoneActionsInspector,
+                                       didRequestDeletionFor selection: Document.Selection) {
         
         delegate?.zoneInsepectorViewController(self,
                                                didRequestDeletionFor: selection)
     }
     
-    func zoneActionsInspector(_ inspector: ZoneActionsInspector,
-                              didRequestEditingFor selection: Document.Selection) {
+    internal func zoneActionsInspector(_ inspector: ZoneActionsInspector,
+                                       didRequestEditingFor selection: Document.Selection) {
         
         delegate?.zoneInsepectorViewController(self,
                                                didRequestEditingFor: selection)

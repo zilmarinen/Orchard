@@ -7,9 +7,15 @@
 
 import Harvest
 
-internal class TerrainInspectorViewModel {
+@MainActor
+public class TerrainInspectorViewModel {
     
-    private(set) var terrainType: TerrainType = .boreal
+    public private(set) var terrainType: TerrainType = .boreal
+    
+    public init(terrainType: TerrainType) {
+        
+        self.terrainType = terrainType
+    }
 }
 
 extension TerrainInspectorViewModel {
@@ -24,6 +30,11 @@ extension TerrainInspectorViewModel {
     
     internal func select(terrainType value: TerrainType) {
         
-        self.terrainType = value
+        terrainType = value
+    }
+    
+    internal func terrainType(at index: Int) -> TerrainType {
+        
+        terrainTypes[index]
     }
 }

@@ -214,14 +214,14 @@ extension WorldContainerController: @preconcurrency WorldEditorContainerDelegate
 
 extension WorldContainerController: @preconcurrency WorldInspectorContainerDelegate {
     
-    func worldInspectorContainer(_ container: WorldInspectorContainer,
-                                 didRequestDeletionFor selection: Document.Selection) {
+    internal func worldInspectorContainer(_ container: WorldInspectorContainer,
+                                          didRequestDeletionFor selection: Document.Selection) {
         
         presentDeletionAlert(selection: selection)
     }
     
-    func worldInspectorContainer(_ container: WorldInspectorContainer,
-                                 didRequestEditingFor selection: Document.Selection) {
+    internal func worldInspectorContainer(_ container: WorldInspectorContainer,
+                                          didRequestEditingFor selection: Document.Selection) {
         
         delegate?.worldContainerController(self,
                                            didRequestEditingFor: selection)
@@ -231,8 +231,8 @@ extension WorldContainerController: @preconcurrency WorldInspectorContainerDeleg
     // - select appropriate item in sidebar
     // - focus editor view
     
-    func worldInspectorContainer(_ container: WorldInspectorContainer,
-                                 didUpdate selection: Document.Selection) {
+    internal func worldInspectorContainer(_ container: WorldInspectorContainer,
+                                          didUpdate selection: Document.Selection) {
         
         sidebarContainer.reload()
         editorContainer.focus()

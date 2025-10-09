@@ -66,22 +66,22 @@ internal class WorldInspectorContainer: ContainerViewController {
 
 extension WorldInspectorContainer: @preconcurrency RegionInspectorDelegate {
     
-    func regionInsepectorViewController(_ viewController: RegionInspectorViewController,
-                                        didRequestDeletionFor selection: Document.Selection) {
+    internal func regionInsepectorViewController(_ viewController: RegionInspectorViewController,
+                                                 didRequestDeletionFor selection: Document.Selection) {
         
         delegate?.worldInspectorContainer(self,
                                           didRequestDeletionFor: selection)
     }
     
-    func regionInsepectorViewController(_ viewController: RegionInspectorViewController,
-                                        didRequestEditingFor selection: Document.Selection) {
+    internal func regionInsepectorViewController(_ viewController: RegionInspectorViewController,
+                                                 didRequestEditingFor selection: Document.Selection) {
         
         delegate?.worldInspectorContainer(self,
                                           didRequestEditingFor: selection)
     }
     
-    func regionInsepectorViewController(_ viewController: RegionInspectorViewController,
-                                        didUpdate selection: Document.Selection) {
+    internal func regionInsepectorViewController(_ viewController: RegionInspectorViewController,
+                                                 didUpdate selection: Document.Selection) {
         
         delegate?.worldInspectorContainer(self,
                                           didUpdate: selection)
@@ -90,22 +90,22 @@ extension WorldInspectorContainer: @preconcurrency RegionInspectorDelegate {
 
 extension WorldInspectorContainer: @preconcurrency ZoneInspectorDelegate {
     
-    func zoneInsepectorViewController(_ viewController: ZoneInspectorViewController,
-                                      didRequestDeletionFor selection: Document.Selection) {
+    internal func zoneInsepectorViewController(_ viewController: ZoneInspectorViewController,
+                                               didRequestDeletionFor selection: Document.Selection) {
         
         delegate?.worldInspectorContainer(self,
                                           didRequestDeletionFor: selection)
     }
     
-    func zoneInsepectorViewController(_ viewController: ZoneInspectorViewController,
-                                      didRequestEditingFor selection: Document.Selection) {
+    internal func zoneInsepectorViewController(_ viewController: ZoneInspectorViewController,
+                                               didRequestEditingFor selection: Document.Selection) {
         
         delegate?.worldInspectorContainer(self,
                                           didRequestEditingFor: selection)
     }
     
-    func zoneInsepectorViewController(_ viewController: ZoneInspectorViewController,
-                                      didUpdate selection: Document.Selection) {
+    internal func zoneInsepectorViewController(_ viewController: ZoneInspectorViewController,
+                                               didUpdate selection: Document.Selection) {
         
         delegate?.worldInspectorContainer(self,
                                           didUpdate: selection)

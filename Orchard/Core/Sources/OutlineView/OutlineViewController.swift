@@ -213,8 +213,8 @@ extension OutlineViewController {
 
 extension OutlineViewController: @preconcurrency OutlineViewMenuDelegate {
     
-    func outlineView(_ outlineView: OutlineView,
-                     menuFor row: Int) -> NSMenu? {
+    internal func outlineView(_ outlineView: OutlineView,
+                              menuFor row: Int) -> NSMenu? {
         
         guard let item = outlineView.item(atRow: row) as? any TreeNode else { return nil }
         
