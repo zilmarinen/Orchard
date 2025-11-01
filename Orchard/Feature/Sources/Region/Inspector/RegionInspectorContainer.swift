@@ -31,6 +31,11 @@ internal class RegionInspectorContainer: ContainerViewController {
         
         super.viewDidLoad()
         
+        reload()
+    }
+    
+    private func reload() {
+        
         set(content: toolSelectionContainer)
     }
 }

@@ -123,7 +123,7 @@ extension InspectorView {
         
         content.setContentHuggingPriority(.low,
                                           for: .horizontal)
-        content.setContentHuggingPriority(.high,
+        content.setContentHuggingPriority(.low,
                                           for: .vertical)
         
         contentView.addSubview(content)

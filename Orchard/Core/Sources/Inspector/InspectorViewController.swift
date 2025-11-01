@@ -21,6 +21,7 @@ public class InspectorViewController: NSViewController {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.orientation = .vertical
+        $0.distribution = .gravityAreas
         $0.alignment = .centerX
         $0.spacing = 0
     }

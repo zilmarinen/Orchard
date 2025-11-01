@@ -25,8 +25,6 @@ internal class RegionActionsInspector: InspectorStackView {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.bezelColor = .systemPurple
-        $0.setContentHuggingPriority(.low,
-                                     for: .horizontal)
     }
     
     private lazy var editButton = with(NSButton(title: "Edit Region",
@@ -35,8 +33,6 @@ internal class RegionActionsInspector: InspectorStackView {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.bezelColor = .systemBlue
-        $0.setContentHuggingPriority(.low,
-                                     for: .horizontal)
     }
     
     private lazy var deleteButton = with(NSButton(title: "Delete Region",
@@ -46,8 +42,6 @@ internal class RegionActionsInspector: InspectorStackView {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.hasDestructiveAction = true
         $0.bezelColor = .systemRed
-        $0.setContentHuggingPriority(.low,
-                                     for: .horizontal)
     }
     
     private let viewModel: RegionInspectorViewModel

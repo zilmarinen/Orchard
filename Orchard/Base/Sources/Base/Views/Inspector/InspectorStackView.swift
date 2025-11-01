@@ -25,6 +25,9 @@ open class InspectorStackView: InspectorView {
                    accentColor: accentColor)
         
         set(content: stackView)
+        
+        wantsLayer = true
+        layer?.backgroundColor = accentColor.cgColor
     }
     
     public func addArrangedSubview(_ view: NSView) {
@@ -32,7 +35,7 @@ open class InspectorStackView: InspectorView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setContentHuggingPriority(.low,
                                        for: .horizontal)
-        view.setContentHuggingPriority(.defaultLow,
+        view.setContentHuggingPriority(.high,
                                        for: .vertical)
         
         stackView.addArrangedSubview(view)
