@@ -16,22 +16,26 @@ open class InspectorView: NSView {
         static let spacing = 8.0
     }
     
-    private let inspectorView = with(NSView()) {
+    private let inspectorView = with(BackgroundView(.windowBackgroundColor)) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.wantsLayer = true
-        $0.layer?.backgroundColor = NSColor.windowBackgroundColor.cgColor
         $0.layer?.cornerRadius = Constant.cornerRadius
     }
     
-    private let contentView = with(NSView()) {
+    private let contentView = with(BackgroundView(.controlBackgroundColor)) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.wantsLayer = true
-        $0.layer?.backgroundColor = NSColor.controlBackgroundColor.cgColor
         $0.layer?.cornerRadius = Constant.cornerRadius
         $0.setContentHuggingPriority(.high,
                                      for: .horizontal)
+    }
+    
+    private lazy var circleView = with(NSView()) {
+        
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.wantsLayer = true
+        $0.layer?.backgroundColor = accentColor.cgColor
+        $0.layer?.cornerRadius = Constant.cornerRadius
     }
     
     private let titleLabel = with(NSTextField()) {
@@ -52,7 +56,15 @@ open class InspectorView: NSView {
         set { titleLabel.stringValue = newValue ?? "" }
     }
     
-    public init(title: String? = nil) {
+    public var accentColor: NSColor {
+        
+        didSet { circleView.layer?.backgroundColor = accentColor.cgColor }
+    }
+    
+    public init(title: String? = nil,
+                accentColor: NSColor = .controlBackgroundColor) {
+        
+        self.accentColor = accentColor
         
         super.init(frame: .zero)
         
@@ -62,6 +74,7 @@ open class InspectorView: NSView {
         
         addSubview(inspectorView)
         
+        inspectorView.addSubview(circleView)
         inspectorView.addSubview(titleLabel)
         inspectorView.addSubview(contentView)
         
@@ -76,7 +89,14 @@ open class InspectorView: NSView {
             inspectorView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor,
                                                  constant: -Constant.padding),
             
-            titleLabel.leftAnchor.constraint(equalTo: inspectorView.safeAreaLayoutGuide.leftAnchor,
+            circleView.widthAnchor.constraint(equalTo: circleView.heightAnchor),
+            circleView.widthAnchor.constraint(equalToConstant: Constant.cornerRadius * 2.0),
+            
+            circleView.leftAnchor.constraint(equalTo: inspectorView.safeAreaLayoutGuide.leftAnchor,
+                                             constant: Constant.padding),
+            circleView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            
+            titleLabel.leftAnchor.constraint(equalTo: circleView.rightAnchor,
                                              constant: Constant.padding),
             titleLabel.rightAnchor.constraint(lessThanOrEqualTo: inspectorView.safeAreaLayoutGuide.rightAnchor),
             titleLabel.topAnchor.constraint(equalTo: inspectorView.safeAreaLayoutGuide.topAnchor,

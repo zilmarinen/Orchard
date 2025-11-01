@@ -23,6 +23,9 @@ public class SplashContainerController: ContainerViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    private let gradient = GradientView(primaryColor: .systemBlue,
+                                        secondaryColor: .systemPurple)
+    
     private weak var delegate: SplashContainerDelegate?
     
     public init(delegate: SplashContainerDelegate) {
@@ -38,6 +41,7 @@ public class SplashContainerController: ContainerViewController {
         
         super.viewDidLoad()
         
+        view.addSubview(gradient)
         view.addSubview(loadButton)
         
         loadButton.center(in: view)

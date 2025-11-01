@@ -28,7 +28,7 @@ internal class ToolContainerController: ContainerViewController {
     
     internal func reload() {
      
-        switch viewModel.selectedTool {
+        switch viewModel.tool {
             
         case .foliage:
             

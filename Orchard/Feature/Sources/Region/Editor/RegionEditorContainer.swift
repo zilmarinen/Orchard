@@ -54,7 +54,8 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
             overlayController.update(vertex: hit.vertex)
             overlayController.update(hexagon: hexagon)
             
-            editorView.cursor.focus(on: hit.pointInWorld)
+            editorView.set(cursor: viewModel.cursorStyle)
+            editorView.set(cursor: hit.pointInWorld)
             
         default: break
         }
@@ -67,11 +68,26 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
               let hit = editorView.hitTest(point: location),
               viewModel.canEdit(vertex: hit.vertex) else { return }
         
-        switch viewModel.selectedTool {
+        let chunk = hit.triangle.transpose(.tile,
+                                           .chunk)
+        
+        editorView.set(camera: chunk.position(.chunk))
+        
+        switch viewModel.tool {
+            
+        case .foliage:
+            
+            update(foliage: hit,
+                   button: button)
         
         case .terrain:
             
             update(terrain: hit,
+                   button: button)
+            
+        case .water:
+            
+            update(water: hit,
                    button: button)
             
         default: break
@@ -80,7 +96,18 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
     
     override func scroll(delta: CGPoint) {
         
-        editorView.camera.zoom(delta: Float(delta.y))
+        editorView.set(zoom: Float(delta.y))
+    }
+}
+
+// MARK: Foliage
+
+extension RegionEditorContainer {
+    
+    private func update(foliage hit: HitTest,
+                        button: CursorEvent.Button) {
+     
+        editorView.set(foliage: hit.triangle)
     }
 }
 
@@ -91,22 +118,43 @@ extension RegionEditorContainer {
     private func update(terrain hit: HitTest,
                         button: CursorEvent.Button) {
         
-        let heightMap = editorView.terrain.get(value: hit.vertex)
-        let height = heightMap?.height ?? 0
+        let sculpt = viewModel.sculpt
+        let paint = viewModel.paint
         
-        switch button {
+        let tile = editorView.get(biome: hit.vertex)
+        
+        let biome = paint ? viewModel.biome : (tile?.biome ?? viewModel.biome)
+        
+        let elevation = tile?.elevation ?? 0
+        let adjustment = button == .left ? 1 : -1
+        let adjusted = sculpt ? max(0, elevation + adjustment) : elevation
+        
+        viewModel.vertices(for: hit).forEach {
             
-        case .left:
+            editorView.set(biome,
+                           adjusted,
+                           for: $0)
+        }
+    }
+}
+
+// MARK: Water
+
+extension RegionEditorContainer {
+    
+    private func update(water hit: HitTest,
+                        button: CursorEvent.Button) {
+        
+        let biome = editorView.get(biome: hit.vertex)
+        let tile = editorView.get(water: hit.triangle)
+        let elevation = tile?.elevation ?? biome?.elevation ?? 0
+        let adjusted = max(0, button == .left ? elevation + 1 : elevation - 1)
+        
+        viewModel.tiles(for: hit).forEach {
             
-            editorView.terrain.set(height + 1,
-                                   viewModel.terrainType,
-                                   for: hit.vertex)
-            
-        case .right:
-            
-            editorView.terrain.set(max(0, height - 1),
-                                   viewModel.terrainType,
-                                   for: hit.vertex)
+            editorView.set(.ocean,
+                           adjusted,
+                           for: $0)
         }
     }
 }

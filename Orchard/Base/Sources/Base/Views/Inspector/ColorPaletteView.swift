@@ -5,12 +5,13 @@
 //  Created by Zack Brown on 04/10/2025.
 //
 
+import Alluvium
 import AppKit
 import Deltille
 import Euclid
 import Harvest
 
-public class ColorPaletteView: NSView {
+public class ColorPaletteView: BackgroundView {
     
     internal enum Constant {
         
@@ -29,7 +30,7 @@ public class ColorPaletteView: NSView {
         
         self.colorPalette = colorPalette
         
-        super.init(frame: .zero)
+        super.init(.controlBackgroundColor)
     }
     
     @available(*, unavailable)

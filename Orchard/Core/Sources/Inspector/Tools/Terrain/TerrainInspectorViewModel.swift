@@ -10,26 +10,41 @@ import Harvest
 @MainActor
 public class TerrainInspectorViewModel {
     
-    public private(set) var terrainType: TerrainType = .boreal
+    public private(set) var biome: Biome = .boreal
+    public private(set) var sculpt: Bool = true
+    public private(set) var paint: Bool = false
 }
 
 extension TerrainInspectorViewModel {
     
-    internal var terrainTypes: [TerrainType] {
-        
-        TerrainType.allCases
-    }
-}
-
-extension TerrainInspectorViewModel {
+    // MARK: Biome
     
-    internal func select(terrainType value: TerrainType) {
+    internal var biomes: [Biome] {
         
-        terrainType = value
+        Biome.allCases
     }
     
-    internal func terrainType(at index: Int) -> TerrainType {
+    internal func biome(at index: Int) -> Biome {
         
-        terrainTypes[index]
+        biomes[index]
+    }
+    
+    internal func select(biome value: Biome) {
+        
+        biome = value
+    }
+    
+    // MARK: Sculpt
+    
+    internal func toggle(sculpt value: Bool) {
+        
+        sculpt = value
+    }
+    
+    // MARK: Paint
+    
+    internal func toggle(paint value: Bool) {
+        
+        paint = value
     }
 }

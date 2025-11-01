@@ -13,6 +13,7 @@ extension NSImage {
         
         case chevronBackward = "chevron.backward"
         case circle
+        case circlebadge
         case hexagon
         case share = "square.and.arrow.up"
         case square

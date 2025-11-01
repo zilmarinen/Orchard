@@ -18,9 +18,11 @@ open class InspectorStackView: InspectorView {
         $0.spacing = Constant.spacing
     }
     
-    public override init(title: String? = nil) {
+    public override init(title: String? = nil,
+                         accentColor: NSColor) {
         
-        super.init(title: title)
+        super.init(title: title,
+                   accentColor: accentColor)
         
         set(content: stackView)
     }
@@ -28,6 +30,8 @@ open class InspectorStackView: InspectorView {
     public func addArrangedSubview(_ view: NSView) {
         
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.setContentHuggingPriority(.low,
+                                       for: .horizontal)
         view.setContentHuggingPriority(.defaultLow,
                                        for: .vertical)
         

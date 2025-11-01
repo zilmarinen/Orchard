@@ -24,15 +24,11 @@ internal class FoliageTypeInspector: InspectorGridView {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.addItems(withTitles: viewModel.septominos.map { $0.id })
         $0.selectItem(withTitle: viewModel.septomino.id)
-        $0.setContentHuggingPriority(.low,
-                                     for: .horizontal)
     }
     
-    private lazy var footprintView = with(FootprintView(footprint: viewModel.septomino.footprint(origin: .zero))) {
+    private lazy var footprintView = with(FootprintView(footprint: viewModel.footprint)) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.wantsLayer = true
-        $0.layer?.backgroundColor = NSColor.controlBackgroundColor.cgColor
         $0.layer?.borderColor = NSColor.controlColor.cgColor
         $0.layer?.borderWidth = Constant.borderWidth
         $0.layer?.cornerRadius = Constant.cornerRadius
@@ -44,7 +40,8 @@ internal class FoliageTypeInspector: InspectorGridView {
         
         self.viewModel = viewModel
         
-        super.init(title: "Material")
+        super.init(title: "Material",
+                   accentColor: .systemGreen)
         
         addRow(label: "Shape",
                detail: septominoPopUp)
@@ -74,7 +71,7 @@ extension FoliageTypeInspector {
             
             viewModel.select(septomino: septomino)
             
-            footprintView.footprint = septomino.footprint(origin: .zero)
+            footprintView.footprint = viewModel.footprint
             
         default: break
         }

@@ -24,9 +24,14 @@ public class ToolSelectionViewModel {
 
 extension ToolSelectionViewModel {
     
-    public var selectedTool: Tool {
+    public var tool: Tool {
         
-        toolInspectorViewModel.selectedTool
+        toolInspectorViewModel.tool
+    }
+    
+    public var cursorStyle: CursorStyle {
+        
+        toolInspectorViewModel.cursorStyle
     }
 }
 
@@ -41,8 +46,18 @@ extension ToolSelectionViewModel {
 
 extension ToolSelectionViewModel {
     
-    public var terrainType: TerrainType {
+    public var biome: Biome {
         
-        terrainInspectorViewModel.terrainType
+        terrainInspectorViewModel.biome
+    }
+    
+    public var sculpt: Bool {
+        
+        terrainInspectorViewModel.sculpt
+    }
+    
+    public var paint: Bool {
+        
+        terrainInspectorViewModel.paint
     }
 }

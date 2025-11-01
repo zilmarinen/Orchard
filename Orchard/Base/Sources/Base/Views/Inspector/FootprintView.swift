@@ -1,6 +1,5 @@
 //
 //  FootprintView.swift
-//  Base
 //
 //  Created by Zack Brown on 09/10/2025.
 //
@@ -9,7 +8,7 @@ import AppKit
 import Deltille
 import Euclid
 
-public class FootprintView: NSView {
+public class FootprintView: BackgroundView {
     
     internal enum Constant {
         
@@ -28,7 +27,7 @@ public class FootprintView: NSView {
         
         self.footprint = footprint
         
-        super.init(frame: .zero)
+        super.init(.controlBackgroundColor)
     }
     
     @available(*, unavailable)

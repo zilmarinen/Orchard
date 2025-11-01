@@ -49,7 +49,8 @@ internal class ZoneActionsInspector: InspectorStackView {
         self.viewModel = viewModel
         self.delegate = delegate
         
-        super.init(title: "Actions")
+        super.init(title: "Actions",
+                   accentColor: .systemGray)
         
         addArrangedSubview(editButton)
         addArrangedSubview(deleteButton)

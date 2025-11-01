@@ -20,6 +20,12 @@ extension FoliageInspectorViewModel {
         
         Triangle.Septomino.allCases
     }
+    
+    internal var footprint: Triangle.Footprint {
+        
+        .init(.zero,
+              septomino.coordinates)
+    }
 }
 
 extension FoliageInspectorViewModel {

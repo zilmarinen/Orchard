@@ -18,16 +18,20 @@ open class InspectorGridView: InspectorStackView {
         $0.rowSpacing = Constant.padding
     }
     
-    public override init(title: String? = nil) {
+    public override init(title: String? = nil,
+                         accentColor: NSColor) {
         
-        super.init(title: title)
+        super.init(title: title,
+                   accentColor: accentColor)
         
-        //set(content: gridView)
         addArrangedSubview(gridView)
     }
     
-    public func addRow(label: String,
+    public func addRow(label: String? = nil,
                        detail: NSControl) {
+        
+        detail.setContentHuggingPriority(.low,
+                                         for: .horizontal)
         
         let field = with(NSTextField()) {
             
@@ -38,7 +42,7 @@ open class InspectorGridView: InspectorStackView {
             $0.maximumNumberOfLines = 1
             $0.backgroundColor = .clear
             $0.alignment = .right
-            $0.stringValue = label
+            $0.stringValue = label ?? ""
         }
         
         gridView.addRow(with: [field,

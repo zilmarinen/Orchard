@@ -43,7 +43,8 @@ internal class ZoneIntermediateInspector: InspectorGridView {
         self.delegate = delegate
         self.viewModel = viewModel
         
-        super.init(title: "Zone")
+        super.init(title: "Zone",
+                   accentColor: .systemGray)
         
         addRow(label: "Coordinate",
                detail: coordinateField)

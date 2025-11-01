@@ -61,7 +61,7 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
             
             let vertex = Triangle.Vertex(coordinate)
             
-            editorView.camera.focus(on: vertex.position(.region))
+            editorView.set(camera: vertex.position(.region))
             
         default: break
         }
@@ -75,14 +75,17 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
             
             guard let hit = editorView.hitTest(point: location) else { return }
             
+            let region = hit.triangle.transpose(.tile,
+                                                .region)
+            
             let hexagon = Hexagon(hit.pointInWorld,
                                   .chunk)
             
-            overlayController.update(triangle: hit.triangle)
+            overlayController.update(triangle: region)
             overlayController.update(vertex: hit.vertex)
             overlayController.update(hexagon: hexagon)
             
-            editorView.cursor.focus(on: hit.pointInWorld)
+            editorView.set(cursor: hit.pointInWorld)
             
         default: break
         }
@@ -127,6 +130,6 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
     
     override func scroll(delta: CGPoint) {
         
-        editorView.camera.zoom(delta: Float(delta.y))
+        editorView.set(zoom: Float(delta.y))
     }
 }

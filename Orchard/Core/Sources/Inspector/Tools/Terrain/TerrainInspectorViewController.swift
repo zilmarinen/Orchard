@@ -10,7 +10,6 @@ import Base
 
 public class TerrainInspectorViewController: InspectorViewController {
     
-    private lazy var typeInspector = TerrainTypeInspector(viewModel: viewModel)
     private lazy var toolInspector = TerrainToolInspector(viewModel: viewModel)
     
     private let viewModel: TerrainInspectorViewModel
@@ -30,7 +29,6 @@ public class TerrainInspectorViewController: InspectorViewController {
         
         super.viewDidLoad()
         
-        addArrangedSubview(typeInspector)
         addArrangedSubview(toolInspector)
     }
 }

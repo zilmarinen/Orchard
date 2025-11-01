@@ -9,11 +9,6 @@ import AppKit
 
 extension NSToolbarItem {
     
-    private enum Constant {
-        
-        static let toolbarItemSize = 24.0
-    }
-    
     public convenience init(item: Item) {
         
         self.init(itemIdentifier: item.identifier)

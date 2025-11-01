@@ -67,7 +67,7 @@ extension RegionViewModel {
         
         editor.load(regions: regions + [region])
         
-        editor.camera.focus(on: triangle.vertex.position(.region))
+        editor.set(camera: triangle.vertex.position(.region))
     }
     
     internal func save(editor: RegionView) {
@@ -85,9 +85,34 @@ extension RegionViewModel {
 
 extension RegionViewModel {
     
-    internal var selectedTool: Tool {
+    internal var tool: Tool {
         
-        toolSelectionViewModel.selectedTool
+        toolSelectionViewModel.tool
+    }
+    
+    internal var cursorStyle: CursorStyle {
+        
+        toolSelectionViewModel.cursorStyle
+    }
+    
+    internal func tiles(for hit: HitTest) -> [Triangle] {
+        
+        switch cursorStyle {
+            
+        case .hexagonal: hit.vertex.tiles
+        case .triangle: [hit.triangle]
+        case .vertex: []
+        }
+    }
+    
+    internal func vertices(for hit: HitTest) -> [Triangle.Vertex] {
+        
+        switch cursorStyle {
+            
+        case .hexagonal: hit.vertex.vertices + [hit.vertex]
+        case .triangle: hit.triangle.vertices
+        case .vertex: [hit.vertex]
+        }
     }
 }
 
@@ -95,8 +120,18 @@ extension RegionViewModel {
 
 extension RegionViewModel {
     
-    internal var terrainType: TerrainType {
+    internal var biome: Biome {
         
-        toolSelectionViewModel.terrainType
+        toolSelectionViewModel.biome
+    }
+    
+    public var sculpt: Bool {
+        
+        toolSelectionViewModel.sculpt
+    }
+    
+    public var paint: Bool {
+        
+        toolSelectionViewModel.paint
     }
 }
