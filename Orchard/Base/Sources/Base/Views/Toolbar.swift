@@ -1,6 +1,5 @@
 //
 //  Toolbar.swift
-//  Base
 //
 //  Created by Zack Brown on 11/07/2025.
 //

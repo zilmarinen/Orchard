@@ -1,6 +1,5 @@
 //
 //  InspectorStackView.swift
-//  Base
 //
 //  Created by Zack Brown on 07/08/2025.
 //
@@ -25,9 +24,6 @@ open class InspectorStackView: InspectorView {
                    accentColor: accentColor)
         
         set(content: stackView)
-        
-        wantsLayer = true
-        layer?.backgroundColor = accentColor.cgColor
     }
     
     public func addArrangedSubview(_ view: NSView) {

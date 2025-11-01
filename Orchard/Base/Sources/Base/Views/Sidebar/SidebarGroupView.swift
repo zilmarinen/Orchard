@@ -1,6 +1,5 @@
 //
 //  SidebarGroupView.swift
-//  Base
 //
 //  Created by Zack Brown on 24/07/2025.
 //

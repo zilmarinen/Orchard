@@ -1,6 +1,5 @@
 //
 //  LayeredContainerViewController.swift
-//  Core
 //
 //  Created by Zack Brown on 11/08/2025.
 //

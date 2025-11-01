@@ -1,6 +1,5 @@
 //
 //  ZoneActionsInspector.swift
-//  Core
 //
 //  Created by Zack Brown on 08/08/2025.
 //

@@ -1,6 +1,5 @@
 //
 //  CGPoint.swift
-//  Base
 //
 //  Created by Zack Brown on 09/10/2025.
 //

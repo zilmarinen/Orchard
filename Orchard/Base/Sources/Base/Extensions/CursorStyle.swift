@@ -1,6 +1,5 @@
 //
 //  CursorStyle.swift
-//  Base
 //
 //  Created by Zack Brown on 28/10/2025.
 //

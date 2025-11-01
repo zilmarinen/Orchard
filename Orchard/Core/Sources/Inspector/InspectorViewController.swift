@@ -1,6 +1,5 @@
 //
 //  InspectorViewController.swift
-//  Core
 //
 //  Created by Zack Brown on 25/07/2025.
 //
@@ -8,7 +7,7 @@
 import AppKit
 import Base
 
-public class InspectorViewController: NSViewController {
+open class InspectorViewController: NSViewController {
     
     private lazy var scrollView = with(NSScrollView()) {
         
@@ -26,7 +25,7 @@ public class InspectorViewController: NSViewController {
         $0.spacing = 0
     }
     
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         
         super.viewDidLoad()
         
@@ -35,8 +34,11 @@ public class InspectorViewController: NSViewController {
         scrollView.pinEdges(to: view)
         stackView.pinEdges(to: scrollView)
     }
+}
+
+extension InspectorViewController {
     
-    internal func addArrangedSubview(_ view: NSView) {
+    public func addArrangedSubview(_ view: NSView) {
         
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setContentHuggingPriority(.defaultLow,
@@ -45,5 +47,10 @@ public class InspectorViewController: NSViewController {
                                        for: .vertical)
         
         stackView.addArrangedSubview(view)
+    }
+    
+    public func removeAllArrangedSubviews() {
+        
+        stackView.subviews.forEach { $0.removeFromSuperview() }
     }
 }

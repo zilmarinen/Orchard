@@ -1,6 +1,5 @@
 //
 //  WorldIntermediate.swift
-//  Base
 //
 //  Created by Zack Brown on 14/07/2025.
 //

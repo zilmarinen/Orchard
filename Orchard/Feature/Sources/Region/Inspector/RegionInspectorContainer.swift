@@ -1,19 +1,23 @@
 //
 //  RegionInspectorContainer.swift
-//  Feature
 //
 //  Created by Zack Brown on 30/07/2025.
 //
 
+import AppKit
 import Base
-import Container
 import Inspector
 
 internal protocol RegionInspectorContainerDelegate: AnyObject {}
 
-internal class RegionInspectorContainer: ContainerViewController {
+internal class RegionInspectorContainer: InspectorViewController {
     
-    private lazy var toolSelectionContainer = ToolSelectionContainer(viewModel: viewModel.toolSelectionViewModel)
+    private lazy var toolInspector = ToolSelectionInspector(viewModel: viewModel.toolInspectorViewModel,
+                                                            delegate: self)
+    
+    private lazy var foliageInspector = FoliageInspector(viewModel: viewModel.foliageInspectorViewModel)
+    
+    private lazy var terrainInspector = TerrainInspector(viewModel: viewModel.terrainInspectorViewModel)
     
     private let viewModel: RegionViewModel
     private weak var delegate: RegionInspectorContainerDelegate?
@@ -24,8 +28,12 @@ internal class RegionInspectorContainer: ContainerViewController {
         self.viewModel = viewModel
         self.delegate = delegate
         
-        super.init()
+        super.init(nibName: nil,
+                   bundle: nil)
     }
+    
+    @available(*, unavailable)
+    required public init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     override func viewDidLoad() {
         
@@ -36,6 +44,25 @@ internal class RegionInspectorContainer: ContainerViewController {
     
     private func reload() {
         
-        set(content: toolSelectionContainer)
+        removeAllArrangedSubviews()
+        
+        addArrangedSubview(toolInspector)
+        
+        switch viewModel.tool {
+            
+        case .foliage: addArrangedSubview(foliageInspector)
+        case .terrain: addArrangedSubview(terrainInspector)
+            
+        default: break
+        }
+    }
+}
+
+extension RegionInspectorContainer: @preconcurrency ToolSelectionInspectorDelegate {
+    
+    func toolSelectionInspector(_ inspector: ToolSelectionInspector,
+                                didSelect tool: Tool) {
+        
+        reload()
     }
 }

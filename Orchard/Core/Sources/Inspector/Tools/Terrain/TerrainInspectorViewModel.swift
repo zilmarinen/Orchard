@@ -1,6 +1,5 @@
 //
 //  TerrainInspectorViewModel.swift
-//  Core
 //
 //  Created by Zack Brown on 02/10/2025.
 //
@@ -13,6 +12,8 @@ public class TerrainInspectorViewModel {
     public private(set) var biome: Biome = .boreal
     public private(set) var sculpt: Bool = true
     public private(set) var paint: Bool = false
+    
+    public init() {}
 }
 
 extension TerrainInspectorViewModel {

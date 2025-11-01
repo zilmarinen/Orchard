@@ -1,6 +1,5 @@
 //
 //  FoliageInspectorViewModel.swift
-//  Core
 //
 //  Created by Zack Brown on 09/10/2025.
 //
@@ -12,6 +11,8 @@ import Lattice
 public class FoliageInspectorViewModel {
     
     public private(set) var septomino: Triangle.Septomino = .antlia
+    
+    public init() {}
 }
 
 extension FoliageInspectorViewModel {

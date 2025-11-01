@@ -1,6 +1,5 @@
 //
 //  RegionViewModel.swift
-//  Feature
 //
 //  Created by Zack Brown on 30/07/2025.
 //
@@ -14,7 +13,9 @@ import Inspector
 @MainActor
 internal class RegionViewModel {
     
-    internal let toolSelectionViewModel = ToolSelectionViewModel()
+    internal let toolInspectorViewModel = ToolInspectorViewModel()
+    internal let foliageInspectorViewModel = FoliageInspectorViewModel()
+    internal let terrainInspectorViewModel = TerrainInspectorViewModel()
     
     internal let region: Region
     internal unowned(unsafe) var document: Document
@@ -87,12 +88,12 @@ extension RegionViewModel {
     
     internal var tool: Tool {
         
-        toolSelectionViewModel.tool
+        toolInspectorViewModel.tool
     }
     
     internal var cursorStyle: CursorStyle {
         
-        toolSelectionViewModel.cursorStyle
+        toolInspectorViewModel.cursorStyle
     }
     
     internal func tiles(for hit: HitTest) -> [Triangle] {
@@ -122,16 +123,16 @@ extension RegionViewModel {
     
     internal var biome: Biome {
         
-        toolSelectionViewModel.biome
+        terrainInspectorViewModel.biome
     }
     
     public var sculpt: Bool {
         
-        toolSelectionViewModel.sculpt
+        terrainInspectorViewModel.sculpt
     }
     
     public var paint: Bool {
         
-        toolSelectionViewModel.paint
+        terrainInspectorViewModel.paint
     }
 }

@@ -1,6 +1,5 @@
 //
 //  WorldEditorOverlayController.swift
-//  Feature
 //
 //  Created by Zack Brown on 12/08/2025.
 //

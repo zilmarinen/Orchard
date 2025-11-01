@@ -1,6 +1,5 @@
 //
 //  ZoneInspectorViewController.swift
-//  Core
 //
 //  Created by Zack Brown on 28/07/2025.
 //

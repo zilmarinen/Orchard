@@ -1,6 +1,5 @@
 //
-//  FoliageTypeInspector.swift
-//  Core
+//  FoliageInspector.swift
 //
 //  Created by Zack Brown on 09/10/2025.
 //
@@ -8,7 +7,7 @@
 import AppKit
 import Base
 
-internal class FoliageTypeInspector: InspectorGridView {
+public class FoliageInspector: InspectorGridView {
     
     private enum Constant {
         
@@ -36,7 +35,7 @@ internal class FoliageTypeInspector: InspectorGridView {
     
     private let viewModel: FoliageInspectorViewModel
     
-    internal required init(viewModel: FoliageInspectorViewModel) {
+    public required init(viewModel: FoliageInspectorViewModel) {
         
         self.viewModel = viewModel
         
@@ -58,7 +57,7 @@ internal class FoliageTypeInspector: InspectorGridView {
     required internal init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 
-extension FoliageTypeInspector {
+extension FoliageInspector {
     
     @objc
     internal func popUpButton(_ sender: NSPopUpButton) {

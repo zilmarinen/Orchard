@@ -1,6 +1,5 @@
 //
 //  NSAlert.swift
-//  Base
 //
 //  Created by Zack Brown on 05/08/2025.
 //

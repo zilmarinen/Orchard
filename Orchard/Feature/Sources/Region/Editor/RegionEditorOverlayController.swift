@@ -1,6 +1,5 @@
 //
 //  RegionEditorOverlayController.swift
-//  Feature
 //
 //  Created by Zack Brown on 04/09/2025.
 //

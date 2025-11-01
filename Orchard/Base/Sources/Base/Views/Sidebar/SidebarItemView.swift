@@ -1,6 +1,5 @@
 //
 //  SidebarItemView.swift
-//  Base
 //
 //  Created by Zack Brown on 21/07/2025.
 //

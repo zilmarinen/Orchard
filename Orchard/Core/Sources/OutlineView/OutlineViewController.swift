@@ -1,6 +1,5 @@
 //
 //  OutlineViewController.swift
-//  Core
 //
 //  Created by Zack Brown on 15/07/2025.
 //

@@ -1,6 +1,5 @@
 //
 //  SplashContainerController.swift
-//  Feature
 //
 //  Created by Zack Brown on 09/07/2025.
 //
@@ -16,15 +15,18 @@ public protocol SplashContainerDelegate: AnyObject {
 
 public class SplashContainerController: ContainerViewController {
     
+    private lazy var imageView = with(NSImageView()) {
+        
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.image = .splashIcon
+    }
+    
     private lazy var loadButton = with(NSButton(title: "Splash",
                                                 target: self,
                                                 action: #selector(button(_:)))) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
-    
-    private let gradient = GradientView(primaryColor: .systemBlue,
-                                        secondaryColor: .systemPurple)
     
     private weak var delegate: SplashContainerDelegate?
     
@@ -41,10 +43,21 @@ public class SplashContainerController: ContainerViewController {
         
         super.viewDidLoad()
         
-        view.addSubview(gradient)
-        view.addSubview(loadButton)
+        view.wantsLayer = true
+        view.layer?.backgroundColor = NSColor.splashBackground.cgColor
         
-        loadButton.center(in: view)
+        view.addSubview(loadButton)
+        view.addSubview(imageView)
+        
+        imageView.center(in: view)
+        
+        //TODO: remove splash button
+        NSLayoutConstraint.activate([
+            
+            loadButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                                               constant: -16.0),
+            loadButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
+        ])
     }
 }
 

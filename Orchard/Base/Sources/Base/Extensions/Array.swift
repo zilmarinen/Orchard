@@ -1,6 +1,5 @@
 //
 //  Array.swift
-//  Base
 //
 //  Created by Zack Brown on 06/08/2025.
 //

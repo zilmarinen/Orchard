@@ -1,6 +1,5 @@
 //
 //  ToolInspectorViewModel.swift
-//  Core
 //
 //  Created by Zack Brown on 01/10/2025.
 //
@@ -9,11 +8,13 @@ import Base
 import Harvest
 
 @MainActor
-internal class ToolInspectorViewModel {
+public class ToolInspectorViewModel {
     
-    private(set) var tool: Tool = .terrain
+    public private(set) var tool: Tool = .terrain
     
-    private(set) var cursorStyle: CursorStyle = .vertex
+    public private(set) var cursorStyle: CursorStyle = .vertex
+    
+    public init() {}
 }
 
 extension ToolInspectorViewModel {

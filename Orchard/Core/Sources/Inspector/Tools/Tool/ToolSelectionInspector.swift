@@ -1,6 +1,5 @@
 //
 //  ToolSelectionInspector.swift
-//  Core
 //
 //  Created by Zack Brown on 01/10/2025.
 //
@@ -8,13 +7,13 @@
 import AppKit
 import Base
 
-internal protocol ToolSelectionInspectorDelegate: AnyObject {
+public protocol ToolSelectionInspectorDelegate: AnyObject {
     
     func toolSelectionInspector(_ inspector: ToolSelectionInspector,
                                 didSelect tool: Tool)
 }
 
-internal class ToolSelectionInspector: InspectorStackView {
+public class ToolSelectionInspector: InspectorStackView {
     
     private lazy var toolPopUp = with(NSPopUpButton(title: "Tool",
                                                     target: self,
@@ -40,8 +39,8 @@ internal class ToolSelectionInspector: InspectorStackView {
     private let viewModel: ToolInspectorViewModel
     private weak var delegate: ToolSelectionInspectorDelegate?
     
-    internal required init(viewModel: ToolInspectorViewModel,
-                           delegate: ToolSelectionInspectorDelegate) {
+    public required init(viewModel: ToolInspectorViewModel,
+                         delegate: ToolSelectionInspectorDelegate) {
         
         self.viewModel = viewModel
         self.delegate = delegate

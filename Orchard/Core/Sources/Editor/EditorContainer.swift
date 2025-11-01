@@ -1,6 +1,5 @@
 //
 //  EditorContainer.swift
-//  Core
 //
 //  Created by Zack Brown on 12/07/2025.
 //

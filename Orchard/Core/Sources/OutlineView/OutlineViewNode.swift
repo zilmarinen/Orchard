@@ -1,6 +1,5 @@
 //
 //  OutlineViewNode.swift
-//  Core
 //
 //  Created by Zack Brown on 23/07/2025.
 //

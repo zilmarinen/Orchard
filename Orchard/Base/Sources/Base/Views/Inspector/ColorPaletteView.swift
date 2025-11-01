@@ -1,6 +1,5 @@
 //
 //  ColorPaletteView.swift
-//  Core
 //
 //  Created by Zack Brown on 04/10/2025.
 //

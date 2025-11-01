@@ -1,6 +1,5 @@
 //
 //  RegionSidebarContainer.swift
-//  Feature
 //
 //  Created by Zack Brown on 30/07/2025.
 //

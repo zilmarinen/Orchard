@@ -1,6 +1,5 @@
 //
 //  EmptyViewController.swift
-//  Base
 //
 //  Created by Zack Brown on 22/07/2025.
 //

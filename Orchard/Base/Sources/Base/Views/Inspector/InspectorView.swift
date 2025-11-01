@@ -1,6 +1,5 @@
 //
 //  InspectorView.swift
-//  Base
 //
 //  Created by Zack Brown on 07/08/2025.
 //

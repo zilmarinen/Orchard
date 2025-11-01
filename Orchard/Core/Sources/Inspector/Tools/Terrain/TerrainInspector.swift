@@ -1,6 +1,5 @@
 //
-//  TerrainToolInspector.swift
-//  Core
+//  TerrainInspector.swift
 //
 //  Created by Zack Brown on 02/10/2025.
 //
@@ -8,7 +7,7 @@
 import AppKit
 import Base
 
-internal class TerrainToolInspector: InspectorGridView {
+public class TerrainInspector: InspectorGridView {
     
     private enum Constant {
         
@@ -54,7 +53,7 @@ internal class TerrainToolInspector: InspectorGridView {
     
     private let viewModel: TerrainInspectorViewModel
     
-    internal required init(viewModel: TerrainInspectorViewModel) {
+    public required init(viewModel: TerrainInspectorViewModel) {
         
         self.viewModel = viewModel
         
@@ -78,7 +77,7 @@ internal class TerrainToolInspector: InspectorGridView {
     required internal init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 
-extension TerrainToolInspector {
+extension TerrainInspector {
     
     @objc
     internal func button(_ sender: NSButton) {

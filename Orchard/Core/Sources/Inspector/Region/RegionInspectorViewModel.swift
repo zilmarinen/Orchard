@@ -1,6 +1,5 @@
 //
 //  RegionInspectorViewModel.swift
-//  Core
 //
 //  Created by Zack Brown on 25/07/2025.
 //

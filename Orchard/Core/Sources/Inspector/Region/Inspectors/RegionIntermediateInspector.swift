@@ -1,6 +1,5 @@
 //
 //  RegionIntermediateInspector.swift
-//  Core
 //
 //  Created by Zack Brown on 07/08/2025.
 //
