@@ -153,6 +153,15 @@ extension Document {
     public func delete(region coordinate: Coordinate) {
         
         regions[coordinate] = nil
+        
+        let triangle = Triangle(coordinate)
+        
+        for adjacent in triangle.perimeter {
+            
+            guard let region = region(for: adjacent.vertex.position) else { continue }
+            
+            region.remove(tiles: triangle)
+        }
     }
     
     // MARK: Zones

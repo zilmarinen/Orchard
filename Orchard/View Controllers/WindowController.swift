@@ -46,11 +46,13 @@ public class WindowController: NSWindowController {
         guard let content = content as? HasToolbar else {
             
             window.toolbar = nil
+            window.titleVisibility = .hidden
             
             return
         }
         
         window.toolbar = content.toolbar
+        window.titleVisibility = .visible
     }
 }
 

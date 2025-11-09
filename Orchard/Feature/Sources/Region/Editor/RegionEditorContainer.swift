@@ -106,6 +106,11 @@ extension RegionEditorContainer {
     private func update(foliage hit: HitTest,
                         button: CursorEvent.Button) {
      
+        guard button == .left else {
+            
+            return editorView.remove(foliage: hit.triangle)
+        }
+        
         editorView.set(foliage: hit.triangle)
     }
 }
@@ -120,15 +125,15 @@ extension RegionEditorContainer {
         let sculpt = viewModel.sculpt
         let paint = viewModel.paint
         
-        let tile = editorView.get(biome: hit.vertex)
-        
-        let biome = paint ? viewModel.biome : (tile?.biome ?? viewModel.biome)
-        
-        let elevation = tile?.elevation ?? 0
-        let adjustment = button == .left ? 1 : -1
-        let adjusted = sculpt ? max(0, elevation + adjustment) : elevation
-        
         viewModel.vertices(for: hit).forEach {
+            
+            let tile = editorView.get(biome: $0)
+            
+            let biome = paint ? viewModel.biome : (tile?.biome ?? viewModel.biome)
+            
+            let elevation = tile?.elevation ?? 0
+            let adjustment = button == .left ? 1 : -1
+            let adjusted = sculpt ? max(0, elevation + adjustment) : elevation
             
             editorView.set(biome,
                            adjusted,
