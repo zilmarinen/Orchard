@@ -29,6 +29,8 @@ extension RegionInspectorViewModel {
         guard let intermediate else { return }
         
         intermediate.identifier = value
+        
+        document.save(region: intermediate)
     }
 }
 

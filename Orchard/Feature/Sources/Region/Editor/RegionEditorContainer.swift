@@ -135,7 +135,7 @@ extension RegionEditorContainer {
             let adjustment = button == .left ? 1 : -1
             let adjusted = sculpt ? max(0, elevation + adjustment) : elevation
             
-            editorView.set(biome,
+            editorView.set(adjusted > 0 ? biome : nil,
                            adjusted,
                            for: $0)
         }

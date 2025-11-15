@@ -11,7 +11,7 @@ import Harvest
 
 open class EditorContainer<V: EditorView>: LayeredContainerViewController {
     
-    public let editorView = with(V()) {
+    public let editorView = with(V(frame: .zero)) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
