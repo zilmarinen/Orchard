@@ -9,11 +9,29 @@ import Carbon
 
 extension NSEvent {
     
-    public struct KeyCode {
+    public enum KeyCode: Int,
+                         Identifiable {
         
-        public static let a = UInt16(kVK_ANSI_A)
-        public static let d = UInt16(kVK_ANSI_D)
-        public static let s = UInt16(kVK_ANSI_S)
-        public static let w = UInt16(kVK_ANSI_W)
+        case a = 0
+        case d = 2
+        case e = 14
+        case q = 12
+        case r = 15
+        case s = 1
+        case w = 13
+        
+        public var id: String {
+            
+            switch self {
+                
+            case .a: "A"
+            case .d: "D"
+            case .e: "E"
+            case .q: "Q"
+            case .r: "R"
+            case .s: "S"
+            case .w: "W"
+            }
+        }
     }
 }

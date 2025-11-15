@@ -17,6 +17,7 @@ open class EditorContainer<V: EditorView>: LayeredContainerViewController {
     }
     
     private var cursorEvent: CursorEvent?
+    private var keyEvents: Set<NSEvent.KeyCode> = []
     
     open override func viewDidLoad() {
         
@@ -39,6 +40,43 @@ open class EditorContainer<V: EditorView>: LayeredContainerViewController {
                                          owner: self))
     }
     
+    // MARK: Key Pressed
+    
+    public override func keyDown(with event: NSEvent) {
+        
+        super.keyDown(with: event)
+        
+        guard let keyCode = NSEvent.KeyCode(rawValue: Int(event.keyCode)) else {
+            
+            return key(held: keyEvents)
+        }
+        
+        guard keyEvents.contains(keyCode) else {
+            
+            keyEvents.insert(keyCode)
+            
+            return key(down: keyCode)
+        }
+        
+        key(held: keyEvents)
+    }
+    
+    // MARK: Key Released
+    
+    public override func keyUp(with event: NSEvent) {
+        
+        super.keyUp(with: event)
+        
+        guard let keyCode = NSEvent.KeyCode(rawValue: Int(event.keyCode)) else {
+            
+            return key(held: keyEvents)
+        }
+        
+        keyEvents.remove(keyCode)
+        
+        key(up: keyCode)
+    }
+    
     // MARK: Mouse Down
     
     public override func mouseDown(with event: NSEvent) {
@@ -47,7 +85,7 @@ open class EditorContainer<V: EditorView>: LayeredContainerViewController {
                   button: .left)
     }
     
-    open override func rightMouseDown(with event: NSEvent) {
+    public override func rightMouseDown(with event: NSEvent) {
         
         mouseDown(locationInWindow: event.locationInWindow,
                   button: .right)
@@ -155,6 +193,9 @@ open class EditorContainer<V: EditorView>: LayeredContainerViewController {
                             y: event.scrollingDeltaY))
     }
     
+    open func key(down keyCode: NSEvent.KeyCode) {}
+    open func key(held keyCodes: Set<NSEvent.KeyCode>) {}
+    open func key(up keyCode: NSEvent.KeyCode) {}
     open func cursor(hover event: CursorEvent) {}
     open func cursor(down event: CursorEvent) {}
     open func cursor(drag event: CursorEvent) {}

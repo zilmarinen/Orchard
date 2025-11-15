@@ -38,6 +38,21 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
         viewModel.load(editor: editorView)
     }
     
+    override func key(down keyCode: NSEvent.KeyCode) {
+        
+        print("Key down: \(keyCode.id)")
+    }
+    
+    override func key(held keyCodes: Set<NSEvent.KeyCode>) {
+        
+        print("Key held: \(keyCodes.map{ $0.id })")
+    }
+    
+    override func key(up keyCode: NSEvent.KeyCode) {
+        
+        print("Key up: \(keyCode.id)")
+    }
+    
     override func cursor(hover event: CursorEvent) {
         
         switch event {
