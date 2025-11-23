@@ -54,7 +54,8 @@ extension ToolInspectorViewModel {
             
         case .terrain: CursorStyle.allCases
             
-        case .foliage: [.triangle]
+        case .foliage,
+             .staircases: [.triangle]
     
         case .water: [.hexagonal,
                       .triangle]

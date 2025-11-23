@@ -12,6 +12,7 @@ public enum Tool: String,
     case buildings
     case foliage
     case footpaths
+    case staircases
     case terrain
     case water
     

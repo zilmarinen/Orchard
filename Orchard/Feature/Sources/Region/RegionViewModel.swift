@@ -9,6 +9,7 @@ import Deltille
 import Foundation
 import Harvest
 import Inspector
+import Newel
 
 @MainActor
 internal class RegionViewModel {
@@ -114,6 +115,16 @@ extension RegionViewModel {
         case .triangle: hit.triangle.vertices
         case .vertex: [hit.vertex]
         }
+    }
+}
+
+// MARK: Staircases
+
+extension RegionViewModel {
+    
+    internal var stoop: Stoop {
+        
+        .small
     }
 }
 

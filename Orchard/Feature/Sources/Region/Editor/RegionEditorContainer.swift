@@ -9,6 +9,7 @@ import Base
 import Container
 import Deltille
 import Editor
+import Euclid
 import Harvest
 
 internal protocol RegionEditorContainerDelegate: AnyObject {}
@@ -45,7 +46,21 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
     
     override func key(held keyCodes: Set<NSEvent.KeyCode>) {
         
-        print("Key held: \(keyCodes.map{ $0.id })")
+        var offset = Vector.zero
+        
+        for keyCode in keyCodes {
+            
+            switch keyCode {
+                
+            case .a: offset.x -= 1
+            case .d: offset.x += 1
+            case .s: offset.z += 1
+            case .w: offset.z -= 1
+            default: break
+            }
+        }
+        
+        editorView.translate(x: offset.x, z: offset.z)
     }
     
     override func key(up keyCode: NSEvent.KeyCode) {
@@ -82,27 +97,22 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
               let hit = editorView.hitTest(point: location),
               viewModel.canEdit(vertex: hit.vertex) else { return }
         
-        let chunk = hit.triangle.transpose(.tile,
-                                           .chunk)
-        
-        editorView.set(camera: chunk.position(.chunk))
-        
         switch viewModel.tool {
             
-        case .foliage:
+        case .foliage: update(foliage: hit,
+                              button: button)
             
-            update(foliage: hit,
-                   button: button)
+        case .footpaths: update(footpath: hit,
+                                button: button)
+            
+        case .staircases: update(staircases: hit,
+                                 button: button)
         
-        case .terrain:
-            
-            update(terrain: hit,
-                   button: button)
-            
-        case .water:
-            
-            update(water: hit,
-                   button: button)
+        case .terrain: update(terrain: hit,
+                              button: button)
+        
+        case .water: update(water: hit,
+                            button: button)
             
         default: break
         }
@@ -127,6 +137,40 @@ extension RegionEditorContainer {
         }
         
         editorView.set(foliage: hit.triangle)
+    }
+}
+
+// MARK: Footpaths
+
+extension RegionEditorContainer {
+    
+    private func update(footpath hit: HitTest,
+                        button: CursorEvent.Button) {
+     
+        guard button == .left else {
+            
+            return editorView.remove(footpath: hit.vertex)
+        }
+        
+        editorView.set(FootpathType.mud,
+                       for: hit.vertex)
+    }
+}
+
+// MARK: Staircases
+
+extension RegionEditorContainer {
+    
+    private func update(staircases hit: HitTest,
+                        button: CursorEvent.Button) {
+        
+        guard button == .left else {
+            
+            return editorView.remove(staircase: hit.triangle)
+        }
+        
+        editorView.set(viewModel.stoop,
+                       for: hit.triangle)
     }
 }
 
