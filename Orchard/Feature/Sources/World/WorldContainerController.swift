@@ -51,11 +51,11 @@ public class WorldContainerController: NSSplitViewController,
     private let viewModel: WorldViewModel
     private weak var delegate: WorldContainerDelegate?
     
-    public init(coordinate: Coordinate,
+    public init(triangle: Triangle,
                 document: Document,
                 delegate: WorldContainerDelegate) {
         
-        self.viewModel = .init(coordinate: coordinate,
+        self.viewModel = .init(triangle: triangle,
                                document: document)
         self.delegate = delegate
         
@@ -101,16 +101,16 @@ extension WorldContainerController {
         
         switch selection {
             
-        case .region(let coordinate): presentDeleteRegionAlert(coordinate: coordinate)
-        case .zone(let coordinate): presentDeleteZoneAlert(coordinate: coordinate)
+        case .region(let triangle): presentDeleteRegionAlert(triangle: triangle)
+        case .zone(let triangle): presentDeleteZoneAlert(triangle: triangle)
         default: fatalError("Invalid selection for deletion \(selection)")
         }
     }
     
-    private func presentDeleteRegionAlert(coordinate: Coordinate) {
+    private func presentDeleteRegionAlert(triangle: Triangle) {
         
         guard let window = delegate?.window,
-              let intermediate = viewModel.region(for: coordinate) else { return }
+              let intermediate = viewModel.region(for: triangle) else { return }
         
         let alert = NSAlert(type: .deleteRegion(identifier: intermediate.displayName),
                             buttons: [.cancel,
@@ -121,7 +121,7 @@ extension WorldContainerController {
             guard let self,
                   response != .alertFirstButtonReturn else { return }
             
-            self.viewModel.delete(region: coordinate)
+            self.viewModel.delete(region: triangle)
             self.viewModel.updateDefaultSelection()
             
             // When item is deleted;
@@ -135,10 +135,10 @@ extension WorldContainerController {
         }
     }
     
-    private func presentDeleteZoneAlert(coordinate: Coordinate) {
+    private func presentDeleteZoneAlert(triangle: Triangle) {
         
         guard let window = delegate?.window,
-              let intermediate = viewModel.zone(for: coordinate) else { return }
+              let intermediate = viewModel.zone(for: triangle) else { return }
         
         let alert = NSAlert(type: .deleteZone(identifier: intermediate.displayName),
                             buttons: [.cancel,
@@ -149,7 +149,7 @@ extension WorldContainerController {
             guard let self,
                   response != .alertFirstButtonReturn else { return }
             
-            self.viewModel.delete(zone: coordinate)
+            self.viewModel.delete(zone: triangle)
             self.viewModel.updateDefaultSelection()
             
             // When item is deleted;

@@ -48,7 +48,7 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
         
         for region in viewModel.regions {
             
-            editorView.add(region: region.coordinate)
+            editorView.add(region: region.triangle)
         }
     }
     
@@ -56,11 +56,9 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
         
         switch viewModel.selection {
             
-        case .region(let coordinate):
+        case .region(let triangle):
             
-            let vertex = Triangle.Vertex(coordinate)
-            
-            editorView.set(camera: vertex.position(.region))
+            editorView.set(camera: triangle.position(.region))
             
         default: break
         }
@@ -110,7 +108,7 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
                                 .region)
         
         delegate?.worldEditorContainer(self,
-                                       didSelect: .region(coordinate: triangle.vertex.position))
+                                       didSelect: .region(triangle: triangle))
     }
     
     override func cursor(drag event: CursorEvent) {

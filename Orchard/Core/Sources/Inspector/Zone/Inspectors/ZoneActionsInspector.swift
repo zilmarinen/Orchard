@@ -69,12 +69,12 @@ extension ZoneActionsInspector {
         case editButton:
             
             delegate?.zoneActionsInspector(self,
-                                           didRequestEditingFor: .zone(coordinate: viewModel.coordinate))
+                                           didRequestEditingFor: .zone(triangle: viewModel.triangle))
             
         case deleteButton:
             
             delegate?.zoneActionsInspector(self,
-                                           didRequestDeletionFor: .zone(coordinate: viewModel.coordinate))
+                                           didRequestDeletionFor: .zone(triangle: viewModel.triangle))
             
         default: fatalError("Invalid sender for button action")
         }

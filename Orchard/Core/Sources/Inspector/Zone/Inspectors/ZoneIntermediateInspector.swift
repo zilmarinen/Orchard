@@ -17,7 +17,7 @@ internal class ZoneIntermediateInspector: InspectorGridView {
     
     private lazy var coordinateField = with(CoordinateView()) {
         
-        $0.coordinate = viewModel.coordinate
+        $0.coordinate = viewModel.triangle.vertex.position
     }
     
     private lazy var identifierField = with(NSTextField()) {
@@ -69,6 +69,6 @@ extension ZoneIntermediateInspector: NSTextFieldDelegate {
         viewModel.update(identifier: identifierField.stringValue)
         
         delegate?.zoneIntermediateInspector(self,
-                                            didUpdate: .zone(coordinate: viewModel.coordinate))
+                                            didUpdate: .zone(triangle: viewModel.triangle))
     }
 }

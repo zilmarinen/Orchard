@@ -10,13 +10,13 @@ import Deltille
 @MainActor
 internal class ZoneInspectorViewModel {
     
-    internal let coordinate: Coordinate
+    internal let triangle: Triangle
     private unowned(unsafe) var document: Document
     
-    init(coordinate: Coordinate,
+    init(triangle: Triangle,
          document: Document) {
      
-        self.coordinate = coordinate
+        self.triangle = triangle
         self.document = document
     }
 }
@@ -35,7 +35,7 @@ extension ZoneInspectorViewModel {
     
     internal var hasIntermediate: Bool { intermediate != nil }
     
-    internal var intermediate: ZoneIntermediate? { document.zone(for: coordinate) }
+    internal var intermediate: ZoneIntermediate? { document.zone(for: triangle) }
     
     internal var identifier: String {
         

@@ -21,10 +21,10 @@ internal class RegionViewModel {
     internal let region: Region
     internal unowned(unsafe) var document: Document
     
-    internal init(coordinate: Coordinate,
+    internal init(triangle: Triangle,
                   document: Document) {
      
-        self.region = document.region(for: coordinate) ?? document.create(region: coordinate)
+        self.region = document.region(for: triangle) ?? document.create(region: triangle)
         self.document = document
     }
 }
@@ -46,7 +46,7 @@ extension RegionViewModel {
             let triangle = tile.transpose(.tile,
                                           .region)
             
-            if triangle.vertex.position == region.coordinate {
+            if triangle == region.triangle {
                 
                 return true
             }
@@ -60,16 +60,14 @@ extension RegionViewModel {
     
     internal func load(editor: RegionView) {
         
-        let triangle = Triangle(region.coordinate)
-        
-        let regions = triangle.perimeter.compactMap {
+        let regions = region.triangle.perimeter.compactMap {
             
-            document.region(for: $0.vertex.position)
+            document.region(for: $0)
         }
         
         editor.load(regions: regions + [region])
         
-        editor.set(camera: triangle.vertex.position(.region))
+        editor.set(camera: region.triangle.vertex.position(.region))
     }
     
     internal func save(editor: RegionView) {

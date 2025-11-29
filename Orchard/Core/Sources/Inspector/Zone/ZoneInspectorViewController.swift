@@ -31,11 +31,11 @@ public class ZoneInspectorViewController: InspectorViewController {
     private let viewModel: ZoneInspectorViewModel
     private weak var delegate: ZoneInspectorDelegate?
     
-    public init(coordinate: Coordinate,
+    public init(triangle: Triangle,
                 document: Document,
                 delegate: ZoneInspectorDelegate) {
         
-        self.viewModel = .init(coordinate: coordinate,
+        self.viewModel = .init(triangle: triangle,
                                document: document)
         self.delegate = delegate
         

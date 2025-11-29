@@ -12,7 +12,7 @@ import Inspector
 public protocol RegionContainerDelegate: AnyObject {
     
     func regionContainer(_ container: RegionContainerController,
-                         didFinishEditingFor coordinate: Coordinate)
+                         didFinishEditingRegion triangle: Triangle)
 }
 
 public class RegionContainerController: NSSplitViewController,
@@ -52,11 +52,11 @@ public class RegionContainerController: NSSplitViewController,
     private let viewModel: RegionViewModel
     private weak var delegate: RegionContainerDelegate?
     
-    public init(coordinate: Coordinate,
+    public init(triangle: Triangle,
                 document: Document,
                 delegate: RegionContainerDelegate) {
         
-        self.viewModel = .init(coordinate: coordinate,
+        self.viewModel = .init(triangle: triangle,
                                document: document)
         self.delegate = delegate
         
@@ -93,7 +93,7 @@ extension RegionContainerController: @preconcurrency ToolbarDelegate {
                              from: self)
             
             delegate?.regionContainer(self,
-                                      didFinishEditingFor: viewModel.region.coordinate)
+                                      didFinishEditingRegion: viewModel.region.triangle)
             
         default: fatalError("Invalid sender for toolbar item")
         }

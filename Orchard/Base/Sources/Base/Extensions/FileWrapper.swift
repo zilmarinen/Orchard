@@ -11,9 +11,9 @@ extension FileWrapper {
     
     internal enum Key {
         
-        case region(coordinate: Coordinate)
+        case region(triangle: Triangle)
         case regions
-        case zone(coordinate: Coordinate)
+        case zone(triangle: Triangle)
         case zones
         
         case world
@@ -29,10 +29,10 @@ extension FileWrapper {
             
             switch self {
                 
-            case .region(let coordiante): coordiante.id
+            case .region(let triangle): triangle.id
             case .regions: "regions"
             case .world: "world"
-            case .zone(let coordinate): coordinate.id
+            case .zone(let triangle): triangle.id
             case .zones: "zones"
             }
         }

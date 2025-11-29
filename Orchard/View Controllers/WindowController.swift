@@ -58,12 +58,12 @@ public class WindowController: NSWindowController {
 
 extension WindowController {
     
-    private func showRegion(coordinate: Coordinate) {
+    private func showRegion(triangle: Triangle) {
         
         guard !presentingRegion,
               let document = self.document as? Document else { return }
         
-        set(content: RegionContainerController(coordinate: coordinate,
+        set(content: RegionContainerController(triangle: triangle,
                                                document: document,
                                                delegate: self))
     }
@@ -75,17 +75,17 @@ extension WindowController {
         set(content: SplashContainerController(delegate: self))
     }
     
-    private func showWorld(coordinate: Coordinate? = nil) {
+    private func showWorld(triangle: Triangle? = nil) {
         
         guard !presentingWorld,
               let document = self.document as? Document else { return }
         
-        set(content: WorldContainerController(coordinate: coordinate ?? .zero,
+        set(content: WorldContainerController(triangle: triangle ?? .zero,
                                               document: document,
                                               delegate: self))
     }
     
-    private func showZone(coordinate: Coordinate) {
+    private func showZone(triangle: Triangle) {
         
         //
     }
@@ -94,9 +94,9 @@ extension WindowController {
 extension WindowController: @preconcurrency RegionContainerDelegate {
     
     public func regionContainer(_ container: RegionContainerController,
-                                didFinishEditingFor coordinate: Coordinate) {
+                                didFinishEditingRegion triangle: Triangle) {
         
-        showWorld(coordinate: coordinate)
+        showWorld(triangle: triangle)
     }
 }
 
@@ -115,8 +115,8 @@ extension WindowController: WorldContainerDelegate {
         
         switch selection {
             
-        case .region(let coordinate): showRegion(coordinate: coordinate)
-        case .zone(let coordinate): showZone(coordinate: coordinate)
+        case .region(let triangle): showRegion(triangle: triangle)
+        case .zone(let triangle): showZone(triangle: triangle)
         default: break
         }
     }

@@ -48,15 +48,15 @@ internal class WorldInspectorContainer: ContainerViewController {
         switch viewModel.selection {
             
         case .none: set(content: emptyViewController)
-        case .region(let coordinate):
+        case .region(let triangle):
             
-            set(content: RegionInspectorViewController(coordinate: coordinate,
+            set(content: RegionInspectorViewController(triangle: triangle,
                                                        document: viewModel.document,
                                                        delegate: self))
             
-        case .zone(let coordinate):
+        case .zone(let triangle):
             
-            set(content: ZoneInspectorViewController(coordinate: coordinate,
+            set(content: ZoneInspectorViewController(triangle: triangle,
                                                      document: viewModel.document,
                                                      delegate: self))
         }

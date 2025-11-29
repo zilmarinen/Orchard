@@ -31,11 +31,11 @@ public class RegionInspectorViewController: InspectorViewController {
     private let viewModel: RegionInspectorViewModel
     private weak var delegate: RegionInspectorDelegate?
     
-    public init(coordinate: Coordinate,
+    public init(triangle: Triangle,
                 document: Document,
                 delegate: RegionInspectorDelegate) {
         
-        self.viewModel = .init(coordinate: coordinate,
+        self.viewModel = .init(triangle: triangle,
                                document: document)
         self.delegate = delegate
         

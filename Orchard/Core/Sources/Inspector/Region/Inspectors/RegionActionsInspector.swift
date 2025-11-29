@@ -81,12 +81,12 @@ extension RegionActionsInspector {
              createButton:
             
             delegate?.regionActionsInspector(self,
-                                             didRequestEditingFor: .region(coordinate: viewModel.coordinate))
+                                             didRequestEditingFor: .region(triangle: viewModel.triangle))
             
         case deleteButton:
             
             delegate?.regionActionsInspector(self,
-                                             didRequestDeletionFor: .region(coordinate: viewModel.coordinate))
+                                             didRequestDeletionFor: .region(triangle: viewModel.triangle))
             
         default: fatalError("Invalid sender for button action")
         }

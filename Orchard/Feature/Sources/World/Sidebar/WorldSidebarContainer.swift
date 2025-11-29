@@ -87,15 +87,15 @@ internal class WorldSidebarContainer: ContainerViewController {
         
         switch viewModel.selection {
             
-        case .region(let coordinate):
+        case .region(let triangle):
             
-            guard let intermediate = viewModel.region(for: coordinate) else { return }
+            guard let intermediate = viewModel.region(for: triangle) else { return }
             
             outlineViewController.select(item: intermediate)
             
-        case .zone(let coordinate):
+        case .zone(let triangle):
             
-            guard let intermediate = viewModel.zone(for: coordinate) else { return }
+            guard let intermediate = viewModel.zone(for: triangle) else { return }
             
             outlineViewController.select(item: intermediate)
             
@@ -119,13 +119,13 @@ extension WorldSidebarContainer {
             guard sender == deleteRegionAction else {
                 
                 delegate?.worldSidebarContainer(self,
-                                                didRequestEditingFor: .region(coordinate: item.coordinate))
+                                                didRequestEditingFor: .region(triangle: item.triangle))
                 
                 return
             }
             
             delegate?.worldSidebarContainer(self,
-                                            didRequestDeletionFor: .region(coordinate: item.coordinate))
+                                            didRequestDeletionFor: .region(triangle: item.triangle))
             
         case deleteZoneAction,
              editZoneAction:
@@ -135,13 +135,13 @@ extension WorldSidebarContainer {
             guard sender == deleteZoneAction else {
                 
                 delegate?.worldSidebarContainer(self,
-                                                didRequestEditingFor: .zone(coordinate: item.coordinate))
+                                                didRequestEditingFor: .zone(triangle: item.triangle))
                 
                 return
             }
             
             delegate?.worldSidebarContainer(self,
-                                            didRequestDeletionFor: .zone(coordinate: item.coordinate))
+                                            didRequestDeletionFor: .zone(triangle: item.triangle))
             
         default: fatalError("Invalid sender for menu item")
         }
@@ -182,12 +182,12 @@ extension WorldSidebarContainer: @preconcurrency OutlineViewControllerDelegate {
         case let item as Region:
             
             delegate?.worldSidebarContainer(self,
-                                            didSelect: .region(coordinate: item.coordinate))
+                                            didSelect: .region(triangle: item.triangle))
             
         case let item as ZoneIntermediate:
             
             delegate?.worldSidebarContainer(self,
-                                            didSelect: .zone(coordinate: item.coordinate))
+                                            didSelect: .zone(triangle: item.triangle))
             
         default:
             

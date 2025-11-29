@@ -15,8 +15,8 @@ public final class Document: NSDocument {
     public enum Selection {
         
         case none
-        case region(coordinate: Coordinate)
-        case zone(coordinate: Coordinate)
+        case region(triangle: Triangle)
+        case zone(triangle: Triangle)
     }
     
     public override class var autosavesInPlace: Bool { true }
@@ -27,8 +27,8 @@ public final class Document: NSDocument {
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
     
-    nonisolated(unsafe) private var regions: [Coordinate : Region]
-    nonisolated(unsafe) private var zones: [Coordinate : ZoneIntermediate]
+    nonisolated(unsafe) private var regions: [Triangle : Region]
+    nonisolated(unsafe) private var zones: [Triangle : ZoneIntermediate]
     
     public var regionIntermediates: [Region] { Array(regions.values) }
     public var zoneIntermediates: [ZoneIntermediate] { Array(zones.values) }
@@ -70,7 +70,7 @@ public final class Document: NSDocument {
             let data = try encoder.encode(region.value)
             
             result.write(value: .init(regularFileWithContents: data),
-                         forKey: .region(coordinate: region.key))
+                         forKey: .region(triangle: region.key))
         }
         
         package.write(value: .init(directoryWithFileWrappers: regionsFileWrappers),
@@ -84,7 +84,7 @@ public final class Document: NSDocument {
             let data = try encoder.encode(zone.value)
             
             result.write(value: .init(regularFileWithContents: data),
-                         forKey: .zone(coordinate: zone.key))
+                         forKey: .zone(triangle: zone.key))
         }
         
         package.write(value: .init(directoryWithFileWrappers: zonesFileWrappers),
@@ -107,22 +107,22 @@ public final class Document: NSDocument {
         
         // MARK: Regions
         
-        self.regions = try world.regions.reduce(into: [:]) { result, coordinate in
+        self.regions = try world.regions.reduce(into: [:]) { result, triangle in
             
-            guard let regionData = regionsFileWrapper.regularFileContents(forKey: .region(coordinate: coordinate)) else { throw CocoaError(.fileReadNoSuchFile) }
+            guard let regionData = regionsFileWrapper.regularFileContents(forKey: .region(triangle: triangle)) else { throw CocoaError(.fileReadNoSuchFile) }
             
-            result[coordinate] = try decoder.decode(Region.self,
-                                                    from: regionData)
+            result[triangle] = try decoder.decode(Region.self,
+                                                  from: regionData)
         }
         
         // MARK: Zones
         
-        self.zones = try world.zones.reduce(into: [:]) { result, coordinate in
+        self.zones = try world.zones.reduce(into: [:]) { result, triangle in
         
-            guard let zoneData = zonesFileWrapper.regularFileContents(forKey: .zone(coordinate: coordinate)) else { throw CocoaError(.fileReadNoSuchFile) }
+            guard let zoneData = zonesFileWrapper.regularFileContents(forKey: .zone(triangle: triangle)) else { throw CocoaError(.fileReadNoSuchFile) }
             
-            result[coordinate] = try decoder.decode(ZoneIntermediate.self,
-                                                    from: zoneData)
+            result[triangle] = try decoder.decode(ZoneIntermediate.self,
+                                                  from: zoneData)
         }
     }
 }
@@ -131,57 +131,56 @@ extension Document {
     
     // MARK: Regions
     
-    public func region(for coordinate: Coordinate) -> Region? {
+    public func region(for triangle: Triangle) -> Region? {
         
-        regions[coordinate]
+        regions[triangle]
     }
     
-    public func create(region coordinate: Coordinate) -> Region {
+    public func create(region triangle: Triangle) -> Region {
         
-        let region = Region(empty: .init(coordinate))
+        let region = Region(empty: triangle)
         
-        regions[coordinate] = region
+        regions[triangle] = region
         
         return region
     }
     
     public func save(region: Region) {
         
-        regions[region.coordinate] = region
+        regions[region.triangle] = region
     }
     
-    public func delete(region coordinate: Coordinate) {
+    public func delete(region triangle: Triangle) {
         
-        regions[coordinate] = nil
-        
-        let triangle = Triangle(coordinate)
+        regions[triangle] = nil
         
         for adjacent in triangle.perimeter {
             
-            guard let region = region(for: adjacent.vertex.position) else { continue }
+            guard let region = region(for: adjacent) else { continue }
             
-            region.remove(tiles: triangle)
+            //TODO: Remove tiles from adjacent regions
+            //region.remove(tiles: triangle)
         }
     }
     
     // MARK: Zones
     
-    public func zone(for coordinate: Coordinate) -> ZoneIntermediate? {
+    public func zone(for triangle: Triangle) -> ZoneIntermediate? {
         
-        zones[coordinate]
+        zones[triangle]
     }
     
-    public func create(zone coordinate: Coordinate) -> ZoneIntermediate {
+    public func create(zone triangle: Triangle) -> ZoneIntermediate {
         
-        let zone = ZoneIntermediate(coordinate: coordinate)
+        let zone = ZoneIntermediate(triangle: triangle)
         
-        zones[coordinate] = zone
+        zones[triangle] = zone
         
         return zone
     }
     
-    public func delete(zone coordinate: Coordinate) {
+    public func delete(zone triangle: Triangle) {
         
-        zones[coordinate] = nil
+        zones[triangle] = nil
     }
 }
