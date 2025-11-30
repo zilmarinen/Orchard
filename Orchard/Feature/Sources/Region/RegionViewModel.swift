@@ -72,7 +72,7 @@ extension RegionViewModel {
     
     internal func save(editor: RegionView) {
         
-        let regions = editor.save()
+        let regions = editor.save(regions: region.triangle)
         
         for region in regions {
             

@@ -147,6 +147,11 @@ extension Document {
     
     public func save(region: Region) {
         
+        guard !region.isEmpty else {
+            
+            return delete(region: region.triangle)
+        }
+        
         regions[region.triangle] = region
     }
     
