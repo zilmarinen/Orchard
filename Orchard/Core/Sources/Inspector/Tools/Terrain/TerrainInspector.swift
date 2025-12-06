@@ -43,7 +43,7 @@ public class TerrainInspector: InspectorGridView {
         $0.selectItem(withTitle: viewModel.biome.id)
     }
     
-    private lazy var colorPaletteView = with(ColorPaletteView(colorPalette: viewModel.biome.colorPalette)) {
+    private lazy var colorPaletteView = with(ColorPaletteView(colorPalette: viewModel.biome.terrain)) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.layer?.borderColor = NSColor.controlColor.cgColor
@@ -107,7 +107,7 @@ extension TerrainInspector {
             
             viewModel.select(biome: biome)
             
-            colorPaletteView.colorPalette = biome.colorPalette
+            colorPaletteView.colorPalette = biome.terrain
             
         default: break
         }

@@ -47,19 +47,19 @@ public class ColorPaletteView: BackgroundView {
         
         draw(h0.vertices.position(.region).map { $0 * Constant.scale },
              origin,
-             .init(colorPalette.secondary))
+             .init(colorPalette.primary))
         draw(h1.vertices.position(.region).map { $0 * Constant.scale },
              origin,
-             .init(colorPalette.tertiary))
+             .init(colorPalette.secondary))
         draw(h2.vertices.position(.region).map { $0 * Constant.scale },
              origin,
-             .init(colorPalette.quaternary))
+             .init(colorPalette.tertiary))
         
         draw([h0.position(.region) * Constant.scale,
               h1.position(.region) * Constant.scale,
               h2.position(.region) * Constant.scale],
              origin,
-             .init(colorPalette.primary))
+             .init(colorPalette.quaternary))
     }
 }
 

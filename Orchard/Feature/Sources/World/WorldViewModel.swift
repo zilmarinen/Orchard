@@ -27,11 +27,11 @@ internal class WorldViewModel {
         guard let region = document.region(for: triangle) else {
             
             updateDefaultSelection()
-            
+             
             return
         }
         
-        selection = .region(triangle: triangle)
+        selection = .region(triangle: region.triangle)
     }
 }
 
