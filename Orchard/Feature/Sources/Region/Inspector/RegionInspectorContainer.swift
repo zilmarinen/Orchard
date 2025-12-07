@@ -15,9 +15,11 @@ internal class RegionInspectorContainer: InspectorViewController {
     private lazy var toolInspector = ToolSelectionInspector(viewModel: viewModel.toolInspectorViewModel,
                                                             delegate: self)
     
+    private lazy var footpathInspector = FootpathInspector(viewModel: viewModel.footpathInspectorViewModel)
     private lazy var foliageInspector = FoliageInspector(viewModel: viewModel.foliageInspectorViewModel)
     
     private lazy var terrainInspector = TerrainInspector(viewModel: viewModel.terrainInspectorViewModel)
+    private lazy var waterInspector = WaterInspector(viewModel: viewModel.waterInspectorViewModel)
     
     private let viewModel: RegionViewModel
     private weak var delegate: RegionInspectorContainerDelegate?
@@ -51,7 +53,9 @@ internal class RegionInspectorContainer: InspectorViewController {
         switch viewModel.tool {
             
         case .foliage: addArrangedSubview(foliageInspector)
+        case .footpaths: addArrangedSubview(footpathInspector)
         case .terrain: addArrangedSubview(terrainInspector)
+        case .water: addArrangedSubview(waterInspector)
             
         default: break
         }

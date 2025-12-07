@@ -16,7 +16,9 @@ internal class RegionViewModel {
     
     internal let toolInspectorViewModel = ToolInspectorViewModel()
     internal let foliageInspectorViewModel = FoliageInspectorViewModel()
+    internal let footpathInspectorViewModel = FootpathInspectorViewModel()
     internal let terrainInspectorViewModel = TerrainInspectorViewModel()
+    internal let waterInspectorViewModel = WaterInspectorViewModel()
     
     internal let region: Region
     internal unowned(unsafe) var document: Document
@@ -116,6 +118,16 @@ extension RegionViewModel {
     }
 }
 
+// MARK: Footpaths
+
+extension RegionViewModel {
+    
+    internal var footpathType: FootpathType {
+        
+        footpathInspectorViewModel.footpathType
+    }
+}
+
 // MARK: Staircases
 
 extension RegionViewModel {
@@ -143,5 +155,15 @@ extension RegionViewModel {
     public var paint: Bool {
         
         terrainInspectorViewModel.paint
+    }
+}
+
+// MARK: Water
+
+extension RegionViewModel {
+    
+    internal var waterType: WaterType {
+        
+        waterInspectorViewModel.waterType
     }
 }

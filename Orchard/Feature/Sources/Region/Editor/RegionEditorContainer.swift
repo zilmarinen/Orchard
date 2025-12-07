@@ -152,7 +152,7 @@ extension RegionEditorContainer {
             return editorView.remove(footpath: hit.vertex)
         }
         
-        editorView.set(FootpathType.mud,
+        editorView.set(viewModel.footpathType,
                        for: hit.vertex)
     }
 }
@@ -215,7 +215,7 @@ extension RegionEditorContainer {
         
         viewModel.tiles(for: hit).forEach {
             
-            editorView.set(.ocean,
+            editorView.set(viewModel.waterType,
                            adjusted,
                            for: $0)
         }
