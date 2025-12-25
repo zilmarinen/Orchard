@@ -15,6 +15,7 @@ import Newel
 internal class RegionViewModel {
     
     internal let toolInspectorViewModel = ToolInspectorViewModel()
+    internal let edificeInspectorViewModel = EdificeInspectorViewModel()
     internal let foliageInspectorViewModel = FoliageInspectorViewModel()
     internal let footpathInspectorViewModel = FootpathInspectorViewModel()
     internal let terrainInspectorViewModel = TerrainInspectorViewModel()

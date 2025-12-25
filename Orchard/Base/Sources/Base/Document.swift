@@ -163,8 +163,7 @@ extension Document {
             
             guard let region = region(for: adjacent) else { continue }
             
-            //TODO: Remove tiles from adjacent regions
-            //region.remove(tiles: triangle)
+            region.remove(tiles: triangle)
         }
     }
     

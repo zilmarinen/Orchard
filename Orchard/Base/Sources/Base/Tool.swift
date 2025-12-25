@@ -9,7 +9,7 @@ public enum Tool: String,
                     Identifiable {
     
     case bridges
-    case buildings
+    case edifices
     case foliage
     case footpaths
     case staircases
