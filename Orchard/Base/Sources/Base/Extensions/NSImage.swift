@@ -14,6 +14,7 @@ extension NSImage {
         case circle
         case circlebadge
         case hexagon
+        case footprint = "grid"
         case share = "square.and.arrow.up"
         case square
         case rhombus

@@ -48,7 +48,7 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
         
         for region in viewModel.regions {
             
-            editorView.add(region: region.triangle)
+            editorView.add(region: region)
         }
     }
     

@@ -99,6 +99,9 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
         
         switch viewModel.tool {
             
+        case .edifices: update(edifice: hit,
+                               button: button)
+            
         case .foliage: update(foliage: hit,
                               button: button)
             
@@ -121,6 +124,23 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
     override func scroll(delta: CGPoint) {
         
         editorView.set(zoom: Float(delta.y))
+    }
+}
+
+// MARK: Edifices
+
+extension RegionEditorContainer {
+    
+    private func update(edifice hit: HitTest,
+                        button: CursorEvent.Button) {
+     
+        guard button == .left else {
+            
+            return editorView.remove(edifice: hit.triangle)
+        }
+        
+        editorView.set(viewModel.septomino,
+                       for: hit.triangle)
     }
 }
 

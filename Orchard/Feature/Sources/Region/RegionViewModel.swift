@@ -102,6 +102,7 @@ extension RegionViewModel {
         
         switch cursorStyle {
             
+        case .footprint: [hit.triangle]
         case .hexagonal: hit.vertex.tiles
         case .triangle: [hit.triangle]
         case .vertex: []
@@ -112,10 +113,21 @@ extension RegionViewModel {
         
         switch cursorStyle {
             
+        case .footprint: hit.triangle.vertices
         case .hexagonal: hit.vertex.vertices + [hit.vertex]
         case .triangle: hit.triangle.vertices
         case .vertex: [hit.vertex]
         }
+    }
+}
+
+// MARK: Edifices
+
+extension RegionViewModel {
+    
+    internal var septomino: Triangle.Septomino {
+        
+        edificeInspectorViewModel.septomino
     }
 }
 

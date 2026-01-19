@@ -45,14 +45,18 @@ extension ToolInspectorViewModel {
     
     internal var cursorStyles: [CursorStyle] {
         
-        CursorStyle.allCases
+        [.hexagonal,
+         .triangle,
+         .vertex]
     }
     
     internal var allowedCursorStyles: [CursorStyle] {
         
         switch tool {
             
-        case .terrain: CursorStyle.allCases
+        case .terrain: [.hexagonal,
+                        .triangle,
+                        .vertex]
             
         case .edifices,
              .foliage,
