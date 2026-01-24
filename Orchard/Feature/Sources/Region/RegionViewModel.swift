@@ -70,7 +70,7 @@ extension RegionViewModel {
         
         editor.load(regions: regions + [region])
         
-        editor.set(camera: region.triangle.vertex.position(.region))
+        editor.camera(focus: region.triangle.vertex.position(.region))
     }
     
     internal func save(editor: RegionView) {

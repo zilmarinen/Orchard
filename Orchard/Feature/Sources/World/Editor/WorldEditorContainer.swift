@@ -58,51 +58,16 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
             
         case .region(let triangle):
             
-            editorView.set(camera: triangle.position(.region))
+            editorView.camera(focus: triangle.position(.region))
             
         default: break
         }
     }
     
-    override func cursor(hover event: CursorEvent) {
+    override func cursor(click button: MouseButton,
+                         location: CGPoint) {
         
-        switch event {
-            
-        case .hover(let location):
-            
-            guard let hit = editorView.hitTest(point: location) else { return }
-            
-            let region = hit.triangle.transpose(.tile,
-                                                .region)
-            
-            let hexagon = Hexagon(hit.pointInWorld,
-                                  .chunk)
-            
-            overlayController.update(triangle: region)
-            overlayController.update(vertex: hit.vertex)
-            overlayController.update(hexagon: hexagon)
-            
-            editorView.set(cursor: hit.pointInWorld)
-            
-        default: break
-        }
-    }
-    
-    override func cursor(up event: CursorEvent) {
-        
-        guard case .up(let start,
-                       let location,
-                       let delta,
-                       let button) = event else { return }
-        
-        print("Up: [\(start)] - [\(location)] - [\(delta)] - [\(button)]")
-    }
-    
-    override func cursor(down event: CursorEvent) {
-        
-        guard case .down(let location,
-                         _) = event,
-              let hit = editorView.hitTest(point: location) else { return }
+        guard let hit = editorView.hitTest(point: location) else { return }
         
         let triangle = Triangle(hit.pointInWorld,
                                 .region)
@@ -111,22 +76,34 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
                                        didSelect: .region(triangle: triangle))
     }
     
-    override func cursor(drag event: CursorEvent) {
+    override func cursor(hover location: CGPoint) {
         
-        super.cursor(drag: event)
+        guard let hit = editorView.hitTest(point: location) else { return }
         
-        guard case .drag(_,
-                         _,
-                         let delta,
-                         let button) = event else { return }
+        let region = hit.triangle.transpose(.tile,
+                                            .region)
         
-        guard button == .right else { return }
+        let hexagon = Hexagon(hit.pointInWorld,
+                              .chunk)
         
-        print("Moving: [\(delta)]")
+        overlayController.update(triangle: region)
+        overlayController.update(vertex: hit.vertex)
+        overlayController.update(hexagon: hexagon)
+        
+        editorView.cursor(focus: hit.pointInWorld)
     }
     
-    override func scroll(delta: CGPoint) {
+    override func cursor(magnify magnification: Double) {
         
-        editorView.set(zoom: Float(delta.y))
+        editorView.camera(zoom: magnification)
+    }
+    
+    override func cursor(pan button: MouseButton,
+                         location: CGPoint,
+                         translation: CGPoint) {
+        
+        editorView.camera(translate: .init(translation.x,
+                                           0.0,
+                                           translation.y))
     }
 }

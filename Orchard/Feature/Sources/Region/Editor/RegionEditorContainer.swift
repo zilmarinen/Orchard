@@ -41,60 +41,18 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
     
     override func key(down keyCode: NSEvent.KeyCode) {
         
-        print("Key down: \(keyCode.id)")
-    }
-    
-    override func key(held keyCodes: Set<NSEvent.KeyCode>) {
-        
-        var offset = Vector.zero
-        
-        for keyCode in keyCodes {
+        switch keyCode {
             
-            switch keyCode {
-                
-            case .a: offset.x -= 1
-            case .d: offset.x += 1
-            case .s: offset.z += 1
-            case .w: offset.z -= 1
-            default: break
-            }
-        }
-        
-        editorView.translate(x: offset.x, z: offset.z)
-    }
-    
-    override func key(up keyCode: NSEvent.KeyCode) {
-        
-        print("Key up: \(keyCode.id)")
-    }
-    
-    override func cursor(hover event: CursorEvent) {
-        
-        switch event {
-            
-        case .hover(let location):
-            
-            guard let hit = editorView.hitTest(point: location) else { return }
-            
-            let hexagon = Hexagon(hit.pointInWorld,
-                                  .chunk)
-            
-            overlayController.update(triangle: hit.triangle)
-            overlayController.update(vertex: hit.vertex)
-            overlayController.update(hexagon: hexagon)
-            
-            editorView.set(cursor: viewModel.cursorStyle)
-            editorView.set(cursor: hit.pointInWorld)
-            
+        case .q: editorView.camera(rotate: .clockwise)
+        case .e: editorView.camera(rotate: .counterClockwise)
         default: break
         }
     }
     
-    override func cursor(down event: CursorEvent) {
+    override func cursor(click button: MouseButton,
+                         location: CGPoint) {
         
-        guard case .down(let location,
-                         let button) = event,
-              let hit = editorView.hitTest(point: location),
+        guard let hit = editorView.hitTest(point: location),
               viewModel.canEdit(vertex: hit.vertex) else { return }
         
         switch viewModel.tool {
@@ -121,9 +79,33 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
         }
     }
     
-    override func scroll(delta: CGPoint) {
+    override func cursor(hover location: CGPoint) {
         
-        editorView.set(zoom: Float(delta.y))
+        guard let hit = editorView.hitTest(point: location) else { return }
+        
+        let hexagon = Hexagon(hit.pointInWorld,
+                              .chunk)
+        
+        overlayController.update(triangle: hit.triangle)
+        overlayController.update(vertex: hit.vertex)
+        overlayController.update(hexagon: hexagon)
+        
+        editorView.cursor(style: viewModel.cursorStyle)
+        editorView.cursor(focus: hit.pointInWorld)
+    }
+    
+    override func cursor(magnify magnification: Double) {
+        
+        editorView.camera(zoom: magnification)
+    }
+    
+    override func cursor(pan button: MouseButton,
+                         location: CGPoint,
+                         translation: CGPoint) {
+        
+        editorView.camera(translate: .init(translation.x,
+                                           0.0,
+                                           translation.y))
     }
 }
 
@@ -132,7 +114,7 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
 extension RegionEditorContainer {
     
     private func update(edifice hit: HitTest,
-                        button: CursorEvent.Button) {
+                        button: MouseButton) {
      
         guard button == .left else {
             
@@ -149,7 +131,7 @@ extension RegionEditorContainer {
 extension RegionEditorContainer {
     
     private func update(foliage hit: HitTest,
-                        button: CursorEvent.Button) {
+                        button: MouseButton) {
      
         guard button == .left else {
             
@@ -165,7 +147,7 @@ extension RegionEditorContainer {
 extension RegionEditorContainer {
     
     private func update(footpath hit: HitTest,
-                        button: CursorEvent.Button) {
+                        button: MouseButton) {
      
         guard button == .left else {
             
@@ -182,7 +164,7 @@ extension RegionEditorContainer {
 extension RegionEditorContainer {
     
     private func update(staircases hit: HitTest,
-                        button: CursorEvent.Button) {
+                        button: MouseButton) {
         
         guard button == .left else {
             
@@ -199,7 +181,7 @@ extension RegionEditorContainer {
 extension RegionEditorContainer {
     
     private func update(terrain hit: HitTest,
-                        button: CursorEvent.Button) {
+                        button: MouseButton) {
         
         let sculpt = viewModel.sculpt
         let paint = viewModel.paint
@@ -226,7 +208,7 @@ extension RegionEditorContainer {
 extension RegionEditorContainer {
     
     private func update(water hit: HitTest,
-                        button: CursorEvent.Button) {
+                        button: MouseButton) {
         
         let biome = editorView.get(biome: hit.vertex)
         let tile = editorView.get(water: hit.triangle)
