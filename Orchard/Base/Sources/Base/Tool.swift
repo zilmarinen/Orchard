@@ -5,8 +5,8 @@
 //
 
 public enum Tool: String,
-                    CaseIterable,
-                    Identifiable {
+                  CaseIterable,
+                  Identifiable {
     
     case bridges
     case edifices

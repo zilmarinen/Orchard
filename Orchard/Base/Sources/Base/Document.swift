@@ -27,8 +27,8 @@ public final class Document: NSDocument {
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
     
-    nonisolated(unsafe) private var regions: [Triangle : Region]
-    nonisolated(unsafe) private var zones: [Triangle : ZoneIntermediate]
+    nonisolated(unsafe) private(set) var regions: [Triangle : Region]
+    nonisolated(unsafe) private(set) var zones: [Triangle : ZoneIntermediate]
     
     public var regionIntermediates: [Region] { Array(regions.values) }
     public var zoneIntermediates: [ZoneIntermediate] { Array(zones.values) }

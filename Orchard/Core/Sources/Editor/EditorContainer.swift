@@ -11,10 +11,7 @@ import Harvest
 
 open class EditorContainer<V: EditorView>: LayeredContainerViewController {
     
-    public let editorView = with(V(frame: .zero)) {
-        
-        $0.translatesAutoresizingMaskIntoConstraints = false
-    }
+    // MARK: Gesture Recognisers
     
     private lazy var leftClickGestureRecognizer = with(NSClickGestureRecognizer(target: self,
                                                                                 action: #selector(clickGestureRecognizer(_:)))) {
@@ -30,6 +27,13 @@ open class EditorContainer<V: EditorView>: LayeredContainerViewController {
     
     private lazy var panGestureRecognizer = NSPanGestureRecognizer(target: self,
                                                                    action: #selector(panGestureRecognizer(_:)))
+    
+    // MARK: Editor View
+    
+    public let editorView = with(V(frame: .zero)) {
+        
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
     
     open override func viewDidLoad() {
         

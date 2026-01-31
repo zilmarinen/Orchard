@@ -45,6 +45,7 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
             
         case .q: editorView.camera(rotate: .clockwise)
         case .e: editorView.camera(rotate: .counterClockwise)
+        case .r: editorView.cursor(rotate: .clockwise)
         default: break
         }
     }
@@ -90,7 +91,6 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
         overlayController.update(vertex: hit.vertex)
         overlayController.update(hexagon: hexagon)
         
-        editorView.cursor(style: viewModel.cursorStyle)
         editorView.cursor(focus: hit.pointInWorld)
     }
     
