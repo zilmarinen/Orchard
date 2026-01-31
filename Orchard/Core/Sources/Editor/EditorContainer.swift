@@ -25,8 +25,11 @@ open class EditorContainer<V: EditorView>: LayeredContainerViewController {
         $0.buttonMask = MouseButton.right.rawValue
     }
     
-    private lazy var panGestureRecognizer = NSPanGestureRecognizer(target: self,
-                                                                   action: #selector(panGestureRecognizer(_:)))
+    private lazy var panGestureRecognizer = with(NSPanGestureRecognizer(target: self,
+                                                                        action: #selector(panGestureRecognizer(_:)))) {
+        
+        $0.buttonMask = MouseButton.right.rawValue
+    }
     
     // MARK: Editor View
     
