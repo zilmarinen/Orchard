@@ -7,7 +7,6 @@
 import AppKit
 import Base
 import Deltille
-import Inspector
 
 public protocol RegionContainerDelegate: AnyObject {
     

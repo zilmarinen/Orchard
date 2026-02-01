@@ -7,6 +7,8 @@
 import AppKit
 import Base
 import Container
+import Deltille
+import Design
 import Harvest
 import OutlineView
 

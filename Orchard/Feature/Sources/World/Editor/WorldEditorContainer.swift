@@ -18,8 +18,6 @@ internal protocol WorldEditorContainerDelegate: AnyObject {
 
 internal class WorldEditorContainer: EditorContainer<WorldView> {
     
-    private let overlayController = WorldEditorOverlayController()
-    
     private let viewModel: WorldViewModel
     private weak var delegate: WorldEditorContainerDelegate?
     
@@ -29,16 +27,19 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
         self.viewModel = viewModel
         self.delegate = delegate
         
-        super.init()
+        super.init(nibName: nil,
+                   bundle: nil)
     }
+    
+    @available(*, unavailable)
+    required public init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     internal override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        insert(viewController: overlayController)
-        
         reload()
+        
         focus()
     }
     
@@ -82,13 +83,6 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
         
         let region = hit.triangle.transpose(.tile,
                                             .region)
-        
-        let hexagon = Hexagon(hit.pointInWorld,
-                              .chunk)
-        
-        overlayController.update(triangle: region)
-        overlayController.update(vertex: hit.vertex)
-        overlayController.update(hexagon: hexagon)
         
         editorView.cursor(focus: hit.pointInWorld)
     }

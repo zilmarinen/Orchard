@@ -5,19 +5,11 @@
 //
 
 import AppKit
+import Base
 
 public class EmptyViewController: NSViewController {
     
     public static let noSelection = EmptyViewController(text: "No Selection")
-    
-    private lazy var stackView = with(NSStackView()) {
-        
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.orientation = .vertical
-        $0.alignment = .centerY
-        $0.distribution = .fill
-        $0.addArrangedSubview(textLabel)
-    }
     
     private lazy var textLabel = with(NSTextField()) {
         
@@ -46,8 +38,14 @@ public class EmptyViewController: NSViewController {
         
         super.viewDidLoad()
         
-        view.addSubview(stackView)
+        view.addSubview(textLabel)
         
-        stackView.pinEdges(to: view)
+        NSLayoutConstraint.activate([
+            
+            textLabel.topAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.topAnchor),
+            textLabel.leftAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.leftAnchor),
+            textLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            textLabel.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
+        ])
     }
 }

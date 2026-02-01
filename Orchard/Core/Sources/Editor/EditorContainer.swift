@@ -9,7 +9,7 @@ import Base
 import Container
 import Harvest
 
-open class EditorContainer<V: EditorView>: LayeredContainerViewController {
+open class EditorContainer<V: EditorView>: NSViewController {
     
     // MARK: Gesture Recognisers
     

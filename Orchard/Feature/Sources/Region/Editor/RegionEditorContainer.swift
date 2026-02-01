@@ -16,8 +16,6 @@ internal protocol RegionEditorContainerDelegate: AnyObject {}
 
 internal class RegionEditorContainer: EditorContainer<RegionView> {
     
-    private let overlayController = RegionEditorOverlayController()
-    
     private let viewModel: RegionViewModel
     private weak var delegate: RegionEditorContainerDelegate?
     
@@ -27,17 +25,12 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
         self.viewModel = viewModel
         self.delegate = delegate
         
-        super.init()
+        super.init(nibName: nil,
+                   bundle: nil)
     }
     
-    internal override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        
-        insert(viewController: overlayController)
-        
-        viewModel.load(editor: editorView)
-    }
+    @available(*, unavailable)
+    required public init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     override func key(down keyCode: NSEvent.KeyCode) {
         
@@ -56,40 +49,33 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
         guard let hit = editorView.hitTest(point: location),
               viewModel.canEdit(vertex: hit.vertex) else { return }
         
-        switch viewModel.tool {
-            
-        case .edifices: update(edifice: hit,
-                               button: button)
-            
-        case .foliage: update(foliage: hit,
-                              button: button)
-            
-        case .footpaths: update(footpath: hit,
-                                button: button)
-            
-        case .staircases: update(staircases: hit,
-                                 button: button)
-        
-        case .terrain: update(terrain: hit,
-                              button: button)
-        
-        case .water: update(water: hit,
-                            button: button)
-            
-        default: break
-        }
+//        switch viewModel.tool {
+//            
+//        case .edifices: update(edifice: hit,
+//                               button: button)
+//            
+//        case .foliage: update(foliage: hit,
+//                              button: button)
+//            
+//        case .footpaths: update(footpath: hit,
+//                                button: button)
+//            
+//        case .staircases: update(staircases: hit,
+//                                 button: button)
+//        
+//        case .terrain: update(terrain: hit,
+//                              button: button)
+//        
+//        case .water: update(water: hit,
+//                            button: button)
+//            
+//        default: break
+//        }
     }
     
     override func cursor(hover location: CGPoint) {
         
         guard let hit = editorView.hitTest(point: location) else { return }
-        
-        let hexagon = Hexagon(hit.pointInWorld,
-                              .chunk)
-        
-        overlayController.update(triangle: hit.triangle)
-        overlayController.update(vertex: hit.vertex)
-        overlayController.update(hexagon: hexagon)
         
         editorView.cursor(focus: hit.pointInWorld)
     }
@@ -116,13 +102,13 @@ extension RegionEditorContainer {
     private func update(edifice hit: HitTest,
                         button: MouseButton) {
      
-        guard button == .left else {
-            
-            return editorView.remove(edifice: hit.triangle)
-        }
-        
-        editorView.set(viewModel.septomino,
-                       for: hit.triangle)
+//        guard button == .left else {
+//            
+//            return editorView.remove(edifice: hit.triangle)
+//        }
+//        
+//        editorView.set(viewModel.septomino,
+//                       for: hit.triangle)
     }
 }
 
@@ -133,12 +119,12 @@ extension RegionEditorContainer {
     private func update(foliage hit: HitTest,
                         button: MouseButton) {
      
-        guard button == .left else {
-            
-            return editorView.remove(foliage: hit.triangle)
-        }
-        
-        editorView.set(foliage: hit.triangle)
+//        guard button == .left else {
+//            
+//            return editorView.remove(foliage: hit.triangle)
+//        }
+//        
+//        editorView.set(foliage: hit.triangle)
     }
 }
 
@@ -149,13 +135,13 @@ extension RegionEditorContainer {
     private func update(footpath hit: HitTest,
                         button: MouseButton) {
      
-        guard button == .left else {
-            
-            return editorView.remove(footpath: hit.vertex)
-        }
-        
-        editorView.set(viewModel.footpathType,
-                       for: hit.vertex)
+//        guard button == .left else {
+//            
+//            return editorView.remove(footpath: hit.vertex)
+//        }
+//        
+//        editorView.set(viewModel.footpathType,
+//                       for: hit.vertex)
     }
 }
 
@@ -166,13 +152,13 @@ extension RegionEditorContainer {
     private func update(staircases hit: HitTest,
                         button: MouseButton) {
         
-        guard button == .left else {
-            
-            return editorView.remove(staircase: hit.triangle)
-        }
-        
-        editorView.set(viewModel.stoop,
-                       for: hit.triangle)
+//        guard button == .left else {
+//            
+//            return editorView.remove(staircase: hit.triangle)
+//        }
+//        
+//        editorView.set(viewModel.stoop,
+//                       for: hit.triangle)
     }
 }
 
@@ -183,23 +169,23 @@ extension RegionEditorContainer {
     private func update(terrain hit: HitTest,
                         button: MouseButton) {
         
-        let sculpt = viewModel.sculpt
-        let paint = viewModel.paint
-        
-        viewModel.vertices(for: hit).forEach {
-            
-            let tile = editorView.get(biome: $0)
-            
-            let biome = paint ? viewModel.biome : (tile?.biome ?? viewModel.biome)
-            
-            let elevation = tile?.elevation ?? 0
-            let adjustment = button == .left ? 1 : -1
-            let adjusted = sculpt ? max(0, elevation + adjustment) : elevation
-            
-            editorView.set(adjusted > 0 ? biome : nil,
-                           adjusted,
-                           for: $0)
-        }
+//        let sculpt = viewModel.sculpt
+//        let paint = viewModel.paint
+//        
+//        viewModel.vertices(for: hit).forEach {
+//            
+//            let tile = editorView.get(biome: $0)
+//            
+//            let biome = paint ? viewModel.biome : (tile?.biome ?? viewModel.biome)
+//            
+//            let elevation = tile?.elevation ?? 0
+//            let adjustment = button == .left ? 1 : -1
+//            let adjusted = sculpt ? max(0, elevation + adjustment) : elevation
+//            
+//            editorView.set(adjusted > 0 ? biome : nil,
+//                           adjusted,
+//                           for: $0)
+//        }
     }
 }
 
@@ -210,16 +196,16 @@ extension RegionEditorContainer {
     private func update(water hit: HitTest,
                         button: MouseButton) {
         
-        let biome = editorView.get(biome: hit.vertex)
-        let tile = editorView.get(water: hit.triangle)
-        let elevation = tile?.elevation ?? biome?.elevation ?? 0
-        let adjusted = max(0, button == .left ? elevation + 1 : elevation - 1)
-        
-        viewModel.tiles(for: hit).forEach {
-            
-            editorView.set(viewModel.waterType,
-                           adjusted,
-                           for: $0)
-        }
+//        let biome = editorView.get(biome: hit.vertex)
+//        let tile = editorView.get(water: hit.triangle)
+//        let elevation = tile?.elevation ?? biome?.elevation ?? 0
+//        let adjusted = max(0, button == .left ? elevation + 1 : elevation - 1)
+//        
+//        viewModel.tiles(for: hit).forEach {
+//            
+//            editorView.set(viewModel.waterType,
+//                           adjusted,
+//                           for: $0)
+//        }
     }
 }

@@ -5,6 +5,7 @@
 //
 
 import AppKit
+import Base
 
 public class SidebarItemView: NSTableRowView {
     
