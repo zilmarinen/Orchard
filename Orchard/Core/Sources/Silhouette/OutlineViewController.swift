@@ -50,6 +50,8 @@ public class OutlineViewController: NSViewController,
         $0.rowSizeStyle = .small
         $0.floatsGroupRows = false
         $0.headerView = nil
+        $0.doubleAction = #selector(doubleClicked(_:))
+        $0.target = self
     }
     
     private lazy var column = with(NSTableColumn()) {
@@ -82,6 +84,22 @@ public class OutlineViewController: NSViewController,
 }
 
 extension OutlineViewController {
+    
+    @objc
+    private func doubleClicked(_ sender: OutlineView) {
+        
+        guard let item = sender.item(atRow: sender.clickedRow) as? any TreeNode,
+              !item.isLeaf else { return }
+        
+        if sender.isItemExpanded(item) {
+            
+            sender.collapseItem(item)
+        }
+        else {
+            
+            sender.expandItem(item)
+        }
+    }
     
     public func reload() {
         

@@ -38,6 +38,10 @@ open class EditorContainer<V: EditorView>: NSViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    // MARK: Children
+    
+    private var containerViews: [ObjectIdentifier : NSView] = [:]
+    
     open override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -46,9 +50,9 @@ open class EditorContainer<V: EditorView>: NSViewController {
         
         editorView.pinEdges(to: view)
         
-        view.gestureRecognizers = [leftClickGestureRecognizer,
-                                   rightClickGestureRecognizer,
-                                   panGestureRecognizer]
+        editorView.gestureRecognizers = [leftClickGestureRecognizer,
+                                         rightClickGestureRecognizer,
+                                         panGestureRecognizer]
     }
     
     public override func viewDidLayout() {
@@ -61,6 +65,23 @@ open class EditorContainer<V: EditorView>: NSViewController {
                                          options: [.activeInKeyWindow,
                                                    .mouseMoved],
                                          owner: self))
+    }
+    
+    // MARK: Containment
+    
+    public func insert(viewController: NSViewController) {
+            
+        addChild(viewController)
+        
+        viewController.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        let objectIdentifier = ObjectIdentifier(viewController)
+        
+        containerViews[objectIdentifier] = viewController.view
+        
+        view.addSubview(viewController.view)
+        
+        viewController.view.pinEdges(to: view)
     }
     
     // MARK: Mouse Click Events

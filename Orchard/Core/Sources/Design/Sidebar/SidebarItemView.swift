@@ -9,11 +9,6 @@ import Base
 
 public class SidebarItemView: NSTableRowView {
     
-    private enum Constant {
-        
-        static let padding = 2.0
-    }
-    
     private lazy var imageView = with(NSImageView()) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -73,17 +68,17 @@ public class SidebarItemView: NSTableRowView {
         NSLayoutConstraint.activate([
             
             imageView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor,
-                                            constant: Constant.padding),
+                                            constant: .margin),
             imageView.topAnchor.constraint(equalTo: textLabel.topAnchor),
             imageView.bottomAnchor.constraint(equalTo: textLabel.bottomAnchor),
             imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
             
             textLabel.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
             textLabel.leftAnchor.constraint(equalTo: imageView.rightAnchor,
-                                            constant: Constant.padding),
+                                            constant: .margin),
             
             badgeLabel.leftAnchor.constraint(equalTo: textLabel.rightAnchor,
-                                             constant: Constant.padding),
+                                             constant: .margin),
             badgeLabel.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
             badgeLabel.centerYAnchor.constraint(equalTo: textLabel.centerYAnchor),
             badgeLabel.widthAnchor.constraint(greaterThanOrEqualTo: badgeLabel.heightAnchor),

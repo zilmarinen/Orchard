@@ -9,11 +9,6 @@ import Base
 
 public class SidebarGroupView: NSTableRowView {
     
-    private enum Constant {
-        
-        static let padding = 2.0
-    }
-    
     private lazy var textLabel = with(NSTextField()) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +35,7 @@ public class SidebarGroupView: NSTableRowView {
         NSLayoutConstraint.activate([
             
             textLabel.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor,
-                                            constant: Constant.padding),
+                                            constant: .margin),
             textLabel.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
             textLabel.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
         ])
