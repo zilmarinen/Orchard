@@ -73,32 +73,28 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
         guard let hit = editorView.hitTest(point: location),
               viewModel.canEdit(vertex: hit.vertex) else { return }
         
-        //TODO: REMOVE ME
-        update(terrain: hit,
-               button: button)
+        switch viewModel.tool {
+            
+        case .buildings: update(buildings: hit,
+                                button: button)
+
+        case .foliage: update(foliage: hit,
+                              button: button)
+            
+        case .footpaths: update(footpath: hit,
+                                button: button)
+            
+        case .staircases: update(staircases: hit,
+                                 button: button)
         
-//        switch viewModel.tool {
-//            
-//        case .buildings: update(buildings: hit,
-//                                button: button)
-//
-//        case .foliage: update(foliage: hit,
-//                              button: button)
-//            
-//        case .footpaths: update(footpath: hit,
-//                                button: button)
-//            
-//        case .staircases: update(staircases: hit,
-//                                 button: button)
-//        
-//        case .terrain: update(terrain: hit,
-//                              button: button)
-//        
-//        case .water: update(water: hit,
-//                            button: button)
-//            
-//        default: break
-//        }
+        case .terrain: update(terrain: hit,
+                              button: button)
+        
+        case .water: update(water: hit,
+                            button: button)
+            
+        default: break
+        }
     }
     
     override func cursor(hover location: CGPoint) {
@@ -137,28 +133,48 @@ extension RegionEditorContainer: @preconcurrency EditorToolOverlayDelegate {
     func editorToolOverlay(_ overlay: EditorToolOverlay,
                            didTapTool button: NSButton) {
         
-        let popover = NSPopover()
+        let viewController = ToolSelectionContainer(delegate: self)
         
-        popover.behavior = .transient
-        popover.contentViewController = EmptyViewController(text: "Tools")
-        
-        popover.show(relativeTo: button.bounds,
-                     of: button,
-                     preferredEdge: .maxY)
+        present(viewController,
+                asPopoverRelativeTo: button.bounds,
+                of: button,
+                preferredEdge: .maxY,
+                behavior: .transient,
+                hasFullSizeContent: true)
     }
     
     func editorToolOverlay(_ overlay: EditorToolOverlay,
                            didTapOptions button: NSButton) {
         
-        let popover = NSPopover()
+        let viewController = ToolOptionsContainer(delegate: self)
         
-        popover.behavior = .transient
-        popover.contentViewController = EmptyViewController(text: "Options")
-        
-        popover.show(relativeTo: button.bounds,
-                     of: button,
-                     preferredEdge: .maxY)
+        present(viewController,
+                asPopoverRelativeTo: button.bounds,
+                of: button,
+                preferredEdge: .maxY,
+                behavior: .transient,
+                hasFullSizeContent: true)
     }
+}
+
+// MARK: Tool Selection
+
+extension RegionEditorContainer: @preconcurrency ToolSelectionContainerDelegate {
+    
+    func toolSelectionContainer(_ container: ToolSelectionContainer,
+                                didSelect tool: Tool) {
+        
+        viewModel.select(tool: tool)
+        
+        editorToolOverlay.reload()
+    }
+}
+
+// MARK: Tool Options
+
+extension RegionEditorContainer: @preconcurrency ToolOptionsContainerDelegate {
+    
+    
 }
 
 // MARK: Buildings
@@ -185,12 +201,12 @@ extension RegionEditorContainer {
     private func update(foliage hit: HitTest,
                         button: MouseButton) {
      
-//        guard button == .left else {
-//            
-//            return editorView.remove(foliage: hit.triangle)
-//        }
-//        
-//        editorView.set(foliage: hit.triangle)
+        guard button == .left else {
+            
+            return editorView.remove(foliage: hit.triangle)
+        }
+        
+        editorView.set(foliage: hit.triangle)
     }
 }
 
