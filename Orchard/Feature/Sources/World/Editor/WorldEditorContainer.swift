@@ -7,8 +7,8 @@
 import AppKit
 import Base
 import Deltille
-import Editor
 import Harvest
+import Proscenium
 
 internal protocol WorldEditorContainerDelegate: AnyObject {
     
@@ -81,13 +81,11 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
         
         guard let hit = editorView.hitTest(point: location) else { return }
         
-        let region = hit.triangle.transpose(.tile,
-                                            .region)
-        
         editorView.cursor(focus: hit.pointInWorld)
     }
     
     override func cursor(magnify magnification: Double) {
+        
         
         editorView.camera(zoom: magnification)
     }

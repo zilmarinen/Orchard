@@ -7,6 +7,7 @@
 import AppKit
 import Base
 import Deltille
+import Design
 
 public protocol WorldContainerDelegate: NSWindowController {
     
@@ -16,11 +17,6 @@ public protocol WorldContainerDelegate: NSWindowController {
 
 public class WorldContainerController: NSSplitViewController,
                                        @preconcurrency HasToolbar {
-    
-    private enum Constant {
-        
-        static let defaultSidebarThickness = 256.0
-    }
     
     public lazy var toolbar = Toolbar(eventHandler: self)
     
@@ -34,18 +30,24 @@ public class WorldContainerController: NSSplitViewController,
     private lazy var sidebarItem = with(NSSplitViewItem(sidebarWithViewController: sidebarContainer)) {
         
         $0.allowsFullHeightLayout = true
-        $0.maximumThickness = Constant.defaultSidebarThickness
-        $0.minimumThickness = Constant.defaultSidebarThickness
+        $0.maximumThickness = .defaultSidebarThickness
+        $0.minimumThickness = .defaultSidebarThickness
         $0.titlebarSeparatorStyle = .line
     }
     
-    private lazy var editorItem = NSSplitViewItem(viewController: editorContainer)
+    private lazy var editorItem = with(NSSplitViewItem(viewController: editorContainer)) {
+    
+        $0.canCollapse = false
+        $0.canCollapseFromWindowResize = false
+    }
+    
     private lazy var inspectorItem = with(NSSplitViewItem(inspectorWithViewController: inspectorContainer)) {
         
         $0.allowsFullHeightLayout = true
-        $0.maximumThickness = Constant.defaultSidebarThickness
-        $0.minimumThickness = Constant.defaultSidebarThickness
+        $0.maximumThickness = .defaultSidebarThickness
+        $0.minimumThickness = .defaultSidebarThickness
         $0.titlebarSeparatorStyle = .line
+        $0.isCollapsed = true
     }
     
     private let viewModel: WorldViewModel
@@ -182,6 +184,7 @@ extension WorldContainerController: @preconcurrency WorldSidebarContainerDelegat
     // When item is selected from sidebar;
     // - focus editor view
     // - select appropriate inspector view
+    //   - show inspector view if hidden
     
     internal func worldSidebarContainer(_ container: WorldSidebarContainer,
                                         didSelect selection: Document.Selection) {
@@ -190,6 +193,8 @@ extension WorldContainerController: @preconcurrency WorldSidebarContainerDelegat
         
         editorContainer.focus()
         inspectorContainer.reload()
+        
+        inspectorItem.isCollapsed = false
     }
 }
 
@@ -199,6 +204,7 @@ extension WorldContainerController: @preconcurrency WorldEditorContainerDelegate
     // - select appropriate item in sidebar
     // - focus editor view
     // - select appropriate inspector view
+    //   - show inspector view if hidden
     
     internal func worldEditorContainer(_ container: WorldEditorContainer,
                                        didSelect selection: Document.Selection) {
@@ -208,6 +214,8 @@ extension WorldContainerController: @preconcurrency WorldEditorContainerDelegate
         sidebarContainer.reload()
         editorContainer.focus()
         inspectorContainer.reload()
+        
+        inspectorItem.isCollapsed = false
     }
 }
 

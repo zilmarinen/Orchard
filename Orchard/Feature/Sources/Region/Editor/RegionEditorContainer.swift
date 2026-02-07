@@ -8,13 +8,21 @@ import AppKit
 import Base
 import Container
 import Deltille
-import Editor
+import Design
 import Euclid
 import Harvest
+import Proscenium
+import Toolbox
 
 internal protocol RegionEditorContainerDelegate: AnyObject {}
 
 internal class RegionEditorContainer: EditorContainer<RegionView> {
+    
+    private lazy var editorToolOverlay = with(EditorToolOverlay(dataSource: self,
+                                                                delegate: self)) {
+        
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
     
     private let viewModel: RegionViewModel
     private weak var delegate: RegionEditorContainerDelegate?
@@ -31,6 +39,22 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
     
     @available(*, unavailable)
     required public init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        view.addSubview(editorToolOverlay)
+        
+        NSLayoutConstraint.activate([
+            
+            editorToolOverlay.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            editorToolOverlay.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor)
+        ])
+        
+        //TODO: Refactor scene loading
+        viewModel.load(editor: editorView)
+    }
     
     override func key(down keyCode: NSEvent.KeyCode) {
         
@@ -49,11 +73,15 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
         guard let hit = editorView.hitTest(point: location),
               viewModel.canEdit(vertex: hit.vertex) else { return }
         
+        //TODO: REMOVE ME
+        update(terrain: hit,
+               button: button)
+        
 //        switch viewModel.tool {
 //            
-//        case .edifices: update(edifice: hit,
-//                               button: button)
-//            
+//        case .buildings: update(buildings: hit,
+//                                button: button)
+//
 //        case .foliage: update(foliage: hit,
 //                              button: button)
 //            
@@ -95,16 +123,54 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
     }
 }
 
-// MARK: Edifices
+// MARK: Tool Overlay
+
+extension RegionEditorContainer: @preconcurrency EditorToolOverlayDataSource {
+    
+    func editorToolOverlay(color overlay: EditorToolOverlay) -> NSColor? { viewModel.tool.color }
+    
+    func editorToolOverlay(icon overlay: EditorToolOverlay) -> NSImage? { viewModel.tool.image }
+}
+
+extension RegionEditorContainer: @preconcurrency EditorToolOverlayDelegate {
+    
+    func editorToolOverlay(_ overlay: EditorToolOverlay,
+                           didTapTool button: NSButton) {
+        
+        let popover = NSPopover()
+        
+        popover.behavior = .transient
+        popover.contentViewController = EmptyViewController(text: "Tools")
+        
+        popover.show(relativeTo: button.bounds,
+                     of: button,
+                     preferredEdge: .maxY)
+    }
+    
+    func editorToolOverlay(_ overlay: EditorToolOverlay,
+                           didTapOptions button: NSButton) {
+        
+        let popover = NSPopover()
+        
+        popover.behavior = .transient
+        popover.contentViewController = EmptyViewController(text: "Options")
+        
+        popover.show(relativeTo: button.bounds,
+                     of: button,
+                     preferredEdge: .maxY)
+    }
+}
+
+// MARK: Buildings
 
 extension RegionEditorContainer {
     
-    private func update(edifice hit: HitTest,
+    private func update(buildings hit: HitTest,
                         button: MouseButton) {
      
 //        guard button == .left else {
 //            
-//            return editorView.remove(edifice: hit.triangle)
+//            return editorView.remove(buildings: hit.triangle)
 //        }
 //        
 //        editorView.set(viewModel.septomino,
@@ -168,6 +234,19 @@ extension RegionEditorContainer {
     
     private func update(terrain hit: HitTest,
                         button: MouseButton) {
+        
+        //TODO: REMOVE ME
+        guard button == .left else {
+            
+            return editorView.set(nil,
+                                  0,
+                                  for: hit.vertex)
+        }
+        
+        //TODO: REMOVE ME
+        editorView.set(.deciduous,
+                       1,
+                       for: hit.vertex)
         
 //        let sculpt = viewModel.sculpt
 //        let paint = viewModel.paint

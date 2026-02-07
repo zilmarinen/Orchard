@@ -21,7 +21,7 @@ public class ZoneIntermediate: NSObject,
     }
     
     public var displayName: String { identifier ?? triangle.id }
-    public var image: NSImage? { NSImage(image: .triangle) }
+    public var image: NSImage? { NSImage(icon: .triangle) }
     
     public var children: [any TreeNode]? { nil }
 }

@@ -44,8 +44,8 @@ extension NSToolbarItem {
             
             switch self {
                 
-            case .chevronBackward: .init(image: .chevronBackward)
-            case .share: .init(image: .share)
+            case .chevronBackward: .init(icon: .chevronBackward)
+            case .share: .init(icon: .share)
             }
         }
     }

@@ -9,9 +9,12 @@ import Deltille
 import Foundation
 import Harvest
 import Newel
+import Toolbox
 
 @MainActor
 internal class RegionViewModel {
+    
+    private(set) var tool: Tool = .terrain
     
     internal let region: Region
     internal unowned(unsafe) var document: Document
@@ -73,5 +76,13 @@ extension RegionViewModel {
             
             document.save(region: region)
         }
+    }
+}
+
+extension RegionViewModel {
+ 
+    internal func select(tool value: Tool) {
+        
+        self.tool = value
     }
 }

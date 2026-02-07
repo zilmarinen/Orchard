@@ -10,7 +10,7 @@ import Container
 import Deltille
 import Design
 import Harvest
-import OutlineView
+import Silhouette
 
 internal protocol WorldSidebarContainerDelegate: AnyObject {
     

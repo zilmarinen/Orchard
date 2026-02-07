@@ -75,12 +75,12 @@ extension WindowController {
         set(content: SplashContainerController(delegate: self))
     }
     
-    private func showWorld(triangle: Triangle? = nil) {
+    private func showWorld(focus: Triangle? = nil) {
         
         guard !presentingWorld,
               let document = self.document as? Document else { return }
         
-        set(content: WorldContainerController(triangle: triangle ?? .zero,
+        set(content: WorldContainerController(triangle: focus ?? .zero,
                                               document: document,
                                               delegate: self))
     }
@@ -96,7 +96,7 @@ extension WindowController: @preconcurrency RegionContainerDelegate {
     public func regionContainer(_ container: RegionContainerController,
                                 didFinishEditingRegion triangle: Triangle) {
         
-        showWorld(triangle: triangle)
+        showWorld(focus: triangle)
     }
 }
 

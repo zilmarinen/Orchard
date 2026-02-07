@@ -7,6 +7,7 @@
 import AppKit
 import Base
 import Deltille
+import Design
 
 public protocol RegionContainerDelegate: AnyObject {
     
@@ -16,11 +17,6 @@ public protocol RegionContainerDelegate: AnyObject {
 
 public class RegionContainerController: NSSplitViewController,
                                         @preconcurrency HasToolbar {
-     
-    private enum Constant {
-         
-        static let defaultSidebarThickness = 256.0
-    }
      
     public lazy var toolbar = Toolbar(eventHandler: self)
     
@@ -34,18 +30,24 @@ public class RegionContainerController: NSSplitViewController,
     private lazy var sidebarItem = with(NSSplitViewItem(sidebarWithViewController: sidebarContainer)) {
         
         $0.allowsFullHeightLayout = true
-        $0.maximumThickness = Constant.defaultSidebarThickness
-        $0.minimumThickness = Constant.defaultSidebarThickness
+        $0.maximumThickness = .defaultSidebarThickness
+        $0.minimumThickness = .defaultSidebarThickness
         $0.titlebarSeparatorStyle = .line
     }
     
-    private lazy var editorItem = NSSplitViewItem(viewController: editorContainer)
+    private lazy var editorItem = with(NSSplitViewItem(viewController: editorContainer)) {
+        
+        $0.canCollapse = false
+        $0.canCollapseFromWindowResize = false
+    }
+    
     private lazy var inspectorItem = with(NSSplitViewItem(inspectorWithViewController: inspectorContainer)) {
         
         $0.allowsFullHeightLayout = true
-        $0.maximumThickness = Constant.defaultSidebarThickness
-        $0.minimumThickness = Constant.defaultSidebarThickness
+        $0.maximumThickness = .defaultSidebarThickness
+        $0.minimumThickness = .defaultSidebarThickness
         $0.titlebarSeparatorStyle = .line
+        $0.isCollapsed = true
     }
     
     private let viewModel: RegionViewModel
