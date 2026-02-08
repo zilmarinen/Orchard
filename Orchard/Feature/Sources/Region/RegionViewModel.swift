@@ -8,13 +8,12 @@ import Base
 import Deltille
 import Foundation
 import Harvest
-import Newel
 import Toolbox
 
 @MainActor
 internal class RegionViewModel {
     
-    private(set) var tool: Tool = .terrain
+    public let toolOptionsViewModel = ToolOptionsViewModel(tool: .terrain)
     
     internal let region: Region
     internal unowned(unsafe) var document: Document
@@ -80,9 +79,41 @@ extension RegionViewModel {
 }
 
 extension RegionViewModel {
+    
+    // MARK: Tool
+    
+    internal var tool: Tool { toolOptionsViewModel.tool }
  
     internal func select(tool value: Tool) {
         
-        self.tool = value
+        toolOptionsViewModel.select(tool: value)
     }
+    
+    // MARK: Cursor
+    
+    internal func tiles(for hit: HitTest) -> [Triangle] {
+            
+        switch toolOptionsViewModel.cursorStyle {
+            
+        case .footprint: [hit.triangle]
+        case .hexagonal: hit.vertex.tiles
+        case .triangle: [hit.triangle]
+        case .vertex: []
+        }
+    }
+    
+    internal func vertices(for hit: HitTest) -> [Triangle.Vertex] {
+        
+        switch toolOptionsViewModel.cursorStyle {
+            
+        case .footprint: hit.triangle.vertices
+        case .hexagonal: hit.vertex.vertices + [hit.vertex]
+        case .triangle: hit.triangle.vertices
+        case .vertex: [hit.vertex]
+        }
+    }
+    
+    // MARK: Terrain
+    
+    internal var biome: Biome { toolOptionsViewModel.biome }
 }

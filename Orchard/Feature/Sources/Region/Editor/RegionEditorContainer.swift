@@ -18,8 +18,7 @@ internal protocol RegionEditorContainerDelegate: AnyObject {}
 
 internal class RegionEditorContainer: EditorContainer<RegionView> {
     
-    private lazy var editorToolOverlay = with(EditorToolOverlay(dataSource: self,
-                                                                delegate: self)) {
+    private lazy var editorToolOverlay = with(EditorToolOverlay(delegate: self)) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -121,13 +120,6 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
 
 // MARK: Tool Overlay
 
-extension RegionEditorContainer: @preconcurrency EditorToolOverlayDataSource {
-    
-    func editorToolOverlay(color overlay: EditorToolOverlay) -> NSColor? { viewModel.tool.color }
-    
-    func editorToolOverlay(icon overlay: EditorToolOverlay) -> NSImage? { viewModel.tool.image }
-}
-
 extension RegionEditorContainer: @preconcurrency EditorToolOverlayDelegate {
     
     func editorToolOverlay(_ overlay: EditorToolOverlay,
@@ -146,7 +138,8 @@ extension RegionEditorContainer: @preconcurrency EditorToolOverlayDelegate {
     func editorToolOverlay(_ overlay: EditorToolOverlay,
                            didTapOptions button: NSButton) {
         
-        let viewController = ToolOptionsContainer(delegate: self)
+        let viewController = ToolOptionsContainer(viewModel: viewModel.toolOptionsViewModel,
+                                                  delegate: self)
         
         present(viewController,
                 asPopoverRelativeTo: button.bounds,
@@ -165,17 +158,12 @@ extension RegionEditorContainer: @preconcurrency ToolSelectionContainerDelegate 
                                 didSelect tool: Tool) {
         
         viewModel.select(tool: tool)
-        
-        editorToolOverlay.reload()
     }
 }
 
 // MARK: Tool Options
 
-extension RegionEditorContainer: @preconcurrency ToolOptionsContainerDelegate {
-    
-    
-}
+extension RegionEditorContainer: @preconcurrency ToolOptionsContainerDelegate {}
 
 // MARK: Buildings
 
@@ -251,36 +239,23 @@ extension RegionEditorContainer {
     private func update(terrain hit: HitTest,
                         button: MouseButton) {
         
-        //TODO: REMOVE ME
-        guard button == .left else {
+        let sculpt = true//viewModel.sculpt
+        let paint = true//viewModel.paint
+        
+        viewModel.vertices(for: hit).forEach {
             
-            return editorView.set(nil,
-                                  0,
-                                  for: hit.vertex)
+            let tile = editorView.get(biome: $0)
+            
+            let biome = paint ? viewModel.biome : (tile?.biome ?? viewModel.biome)
+            
+            let elevation = tile?.elevation ?? 0
+            let adjustment = button == .left ? 1 : -1
+            let adjusted = sculpt ? max(0, elevation + adjustment) : elevation
+            
+            editorView.set(adjusted > 0 ? biome : nil,
+                           adjusted,
+                           for: $0)
         }
-        
-        //TODO: REMOVE ME
-        editorView.set(.deciduous,
-                       1,
-                       for: hit.vertex)
-        
-//        let sculpt = viewModel.sculpt
-//        let paint = viewModel.paint
-//        
-//        viewModel.vertices(for: hit).forEach {
-//            
-//            let tile = editorView.get(biome: $0)
-//            
-//            let biome = paint ? viewModel.biome : (tile?.biome ?? viewModel.biome)
-//            
-//            let elevation = tile?.elevation ?? 0
-//            let adjustment = button == .left ? 1 : -1
-//            let adjusted = sculpt ? max(0, elevation + adjustment) : elevation
-//            
-//            editorView.set(adjusted > 0 ? biome : nil,
-//                           adjusted,
-//                           for: $0)
-//        }
     }
 }
 
