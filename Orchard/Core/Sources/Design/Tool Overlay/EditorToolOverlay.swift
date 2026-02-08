@@ -8,12 +8,6 @@
 import AppKit
 import Base
 
-public protocol EditorToolOverlayDataSource: AnyObject {
-    
-    func editorToolOverlay(color overlay: EditorToolOverlay) -> NSColor?
-    func editorToolOverlay(icon overlay: EditorToolOverlay) -> NSImage?
-}
-
 public protocol EditorToolOverlayDelegate: AnyObject {
     
     func editorToolOverlay(_ overlay: EditorToolOverlay,
@@ -53,15 +47,13 @@ public class EditorToolOverlay: NSView {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.imagePosition = .imageLeading
+        $0.image = NSImage(icon: .hammer)
     }
-    
-    private weak var dataSource: EditorToolOverlayDataSource?
+
     private weak var delegate: EditorToolOverlayDelegate?
     
-    public init(dataSource: EditorToolOverlayDataSource,
-                delegate: EditorToolOverlayDelegate) {
+    public init(delegate: EditorToolOverlayDelegate) {
         
-        self.dataSource = dataSource
         self.delegate = delegate
         
         super.init(frame: .zero)
@@ -77,8 +69,6 @@ public class EditorToolOverlay: NSView {
             stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             stackView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor)
         ])
-        
-        reload()
     }
     
     @available(*, unavailable)
@@ -104,11 +94,5 @@ extension EditorToolOverlay {
             
         default: fatalError("Invalid sender for button")
         }
-    }
-    
-    public func reload() {
-        
-        optionsButton.bezelColor = dataSource?.editorToolOverlay(color: self)
-        optionsButton.image = dataSource?.editorToolOverlay(icon: self)
     }
 }
