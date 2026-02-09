@@ -1,8 +1,8 @@
 //
-//  TerrainToolOptionsContainer.swift
+//  WaterToolOptionsContainer.swift
 //  Core
 //
-//  Created by Zack Brown on 08/02/2026.
+//  Created by Zack Brown on 09/02/2026.
 //
 
 import AppKit
@@ -10,11 +10,11 @@ import Base
 import Design
 import Harvest
 
-internal class TerrainToolOptionsContainer: ToolOptionsStackContainer {
+internal class WaterToolOptionsContainer: ToolOptionsStackContainer {
     
-    private lazy var material = with(PopUpControl(title: "Biome",
-                                                  values: Biome.allCases,
-                                                  selected: viewModel.biome)) {
+    private lazy var material = with(PopUpControl(title: "Fluid",
+                                                  values: WaterType.allCases,
+                                                  selected: viewModel.waterType)) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         
@@ -22,7 +22,7 @@ internal class TerrainToolOptionsContainer: ToolOptionsStackContainer {
             
             guard let self else { return }
             
-            self.viewModel.select(biome: value)
+            self.viewModel.select(waterType: value)
         }
     }
     

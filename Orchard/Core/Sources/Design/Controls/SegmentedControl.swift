@@ -67,7 +67,7 @@ public class SegmentedControl<V: HasIcon>: NSView {
                                            constant: .padding),
             textLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             
-            segmentedControl.leadingAnchor.constraint(equalTo: textLabel.trailingAnchor,
+            segmentedControl.leadingAnchor.constraint(greaterThanOrEqualTo: textLabel.trailingAnchor,
                                                       constant: .padding),
             segmentedControl.centerYAnchor.constraint(equalTo: textLabel.centerYAnchor),
             segmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor,

@@ -16,14 +16,14 @@ internal class ToolOptionsStackContainer: NSViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.spacing = .margin
         $0.orientation = .vertical
-        $0.alignment = .centerX
-        $0.distribution = .fill
+        $0.alignment = .leading
+        $0.distribution = .equalSpacing
         
         $0.addArrangedSubview(toolLabel)
         $0.addArrangedSubview(SeparatorView())
     }
     
-    private lazy var toolLabel = with(ToolLabel(tool: .terrain)) {
+    private lazy var toolLabel = with(ToolLabel(tool: viewModel.tool)) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
     }

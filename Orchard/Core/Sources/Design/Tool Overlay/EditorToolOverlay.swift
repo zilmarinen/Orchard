@@ -39,15 +39,14 @@ public class EditorToolOverlay: NSView {
                                                 action: #selector(button(_:)))) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.bezelColor = .controlAccentColor
     }
     
-    private lazy var optionsButton = with(NSButton(title: "Options",
+    private lazy var optionsButton = with(NSButton(image: NSImage(icon: .slider)!,
                                                    target: self,
                                                    action: #selector(button(_:)))) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.imagePosition = .imageLeading
-        $0.image = NSImage(icon: .hammer)
     }
 
     private weak var delegate: EditorToolOverlayDelegate?

@@ -72,6 +72,8 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
         guard let hit = editorView.hitTest(point: location),
               viewModel.canEdit(vertex: hit.vertex) else { return }
         
+        guard presentedViewControllers?.isEmpty ?? true else { return }
+        
         switch viewModel.tool {
             
         case .buildings: update(buildings: hit,
@@ -172,13 +174,13 @@ extension RegionEditorContainer {
     private func update(buildings hit: HitTest,
                         button: MouseButton) {
      
-//        guard button == .left else {
-//            
-//            return editorView.remove(buildings: hit.triangle)
-//        }
-//        
-//        editorView.set(viewModel.septomino,
-//                       for: hit.triangle)
+        guard button == .left else {
+            
+            return editorView.remove(building: hit.triangle)
+        }
+        
+        editorView.set(viewModel.septomino,
+                       for: hit.triangle)
     }
 }
 
@@ -205,13 +207,13 @@ extension RegionEditorContainer {
     private func update(footpath hit: HitTest,
                         button: MouseButton) {
      
-//        guard button == .left else {
-//            
-//            return editorView.remove(footpath: hit.vertex)
-//        }
-//        
-//        editorView.set(viewModel.footpathType,
-//                       for: hit.vertex)
+        guard button == .left else {
+            
+            return editorView.remove(footpath: hit.vertex)
+        }
+        
+        editorView.set(viewModel.footpathType,
+                       for: hit.vertex)
     }
 }
 
@@ -222,13 +224,13 @@ extension RegionEditorContainer {
     private func update(staircases hit: HitTest,
                         button: MouseButton) {
         
-//        guard button == .left else {
-//            
-//            return editorView.remove(staircase: hit.triangle)
-//        }
-//        
-//        editorView.set(viewModel.stoop,
-//                       for: hit.triangle)
+        guard button == .left else {
+            
+            return editorView.remove(staircase: hit.triangle)
+        }
+        
+        editorView.set(viewModel.staircaseType,
+                       for: hit.triangle)
     }
 }
 
@@ -266,16 +268,16 @@ extension RegionEditorContainer {
     private func update(water hit: HitTest,
                         button: MouseButton) {
         
-//        let biome = editorView.get(biome: hit.vertex)
-//        let tile = editorView.get(water: hit.triangle)
-//        let elevation = tile?.elevation ?? biome?.elevation ?? 0
-//        let adjusted = max(0, button == .left ? elevation + 1 : elevation - 1)
-//        
-//        viewModel.tiles(for: hit).forEach {
-//            
-//            editorView.set(viewModel.waterType,
-//                           adjusted,
-//                           for: $0)
-//        }
+        let biome = editorView.get(biome: hit.vertex)
+        let tile = editorView.get(water: hit.triangle)
+        let elevation = tile?.elevation ?? biome?.elevation ?? 0
+        let adjusted = max(0, button == .left ? elevation + 1 : elevation - 1)
+        
+        viewModel.tiles(for: hit).forEach {
+            
+            editorView.set(viewModel.waterType,
+                           adjusted,
+                           for: $0)
+        }
     }
 }

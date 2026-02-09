@@ -8,6 +8,8 @@ import Base
 import Deltille
 import Foundation
 import Harvest
+import Lattice
+import Newel
 import Toolbox
 
 @MainActor
@@ -113,7 +115,23 @@ extension RegionViewModel {
         }
     }
     
+    // MARK: Buildings
+    
+    internal var septomino: Triangle.Septomino { toolOptionsViewModel.septomino }
+    
+    // MARK: Footpaths
+    
+    internal var footpathType: FootpathType { toolOptionsViewModel.footpathType }
+    
+    // MARK: Staircases
+    
+    internal var staircaseType: StaircaseType { toolOptionsViewModel.staircaseType }
+    
     // MARK: Terrain
     
     internal var biome: Biome { toolOptionsViewModel.biome }
+    
+    // MARK: Water
+    
+    internal var waterType: WaterType { toolOptionsViewModel.waterType }
 }
