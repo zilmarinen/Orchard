@@ -12,10 +12,12 @@ public class PopUpControl<V: Identifiable>: NSView where V.ID == String {
     
     public typealias ValueDidChange = ((V) -> Void)
     
+    // MARK: Label
+    
     private lazy var textLabel = with(NSTextField()) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.font = .boldSystemFont(ofSize: NSFont.systemFontSize)
+        $0.font = .systemFont(ofSize: NSFont.systemFontSize)
         $0.textColor = .lightGray
         $0.isEditable = false
         $0.isBordered = false
@@ -24,6 +26,8 @@ public class PopUpControl<V: Identifiable>: NSView where V.ID == String {
         $0.alignment = .left
         $0.stringValue = title
     }
+    
+    // MARK: Control
     
     private lazy var popUp = with(NSPopUpButton(title: title,
                                                 target: self,
@@ -60,15 +64,20 @@ public class PopUpControl<V: Identifiable>: NSView where V.ID == String {
             
             textLabel.leadingAnchor.constraint(equalTo: leadingAnchor,
                                                constant: .padding),
+            textLabel.trailingAnchor.constraint(equalTo: trailingAnchor,
+                                                constant: -.padding),
             textLabel.topAnchor.constraint(equalTo: topAnchor,
                                            constant: .padding),
-            textLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             
-            popUp.leadingAnchor.constraint(equalTo: textLabel.trailingAnchor,
+            popUp.topAnchor.constraint(equalTo: textLabel.bottomAnchor,
+                                       constant: .margin),
+            
+            popUp.leadingAnchor.constraint(equalTo: leadingAnchor,
                                            constant: .padding),
-            popUp.centerYAnchor.constraint(equalTo: textLabel.centerYAnchor),
             popUp.trailingAnchor.constraint(equalTo: trailingAnchor,
-                                            constant: -.padding)
+                                            constant: -.padding),
+            popUp.bottomAnchor.constraint(equalTo: bottomAnchor,
+                                          constant: -.padding)
         ])
     }
     

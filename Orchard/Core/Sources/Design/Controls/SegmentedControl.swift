@@ -12,10 +12,12 @@ public class SegmentedControl<V: HasIcon>: NSView {
     
     public typealias ValueDidChange = ((V) -> Void)
     
+    // MARK: Label
+    
     private lazy var textLabel = with(NSTextField()) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.font = .boldSystemFont(ofSize: NSFont.systemFontSize)
+        $0.font = .systemFont(ofSize: NSFont.systemFontSize)
         $0.textColor = .lightGray
         $0.isEditable = false
         $0.isBordered = false
@@ -24,6 +26,8 @@ public class SegmentedControl<V: HasIcon>: NSView {
         $0.alignment = .left
         $0.stringValue = title
     }
+    
+    // MARK: Control
     
     private lazy var segmentedControl = with(NSSegmentedControl(images: values.map { $0.image },
                                                                 trackingMode: .selectOne,
@@ -63,15 +67,20 @@ public class SegmentedControl<V: HasIcon>: NSView {
             
             textLabel.leadingAnchor.constraint(equalTo: leadingAnchor,
                                                constant: .padding),
+            textLabel.trailingAnchor.constraint(equalTo: trailingAnchor,
+                                                constant: -.padding),
             textLabel.topAnchor.constraint(equalTo: topAnchor,
                                            constant: .padding),
-            textLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             
-            segmentedControl.leadingAnchor.constraint(greaterThanOrEqualTo: textLabel.trailingAnchor,
+            segmentedControl.topAnchor.constraint(equalTo: textLabel.bottomAnchor,
+                                                  constant: .margin),
+            
+            segmentedControl.leadingAnchor.constraint(equalTo: leadingAnchor,
                                                       constant: .padding),
-            segmentedControl.centerYAnchor.constraint(equalTo: textLabel.centerYAnchor),
             segmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor,
-                                                       constant: -.padding)
+                                                       constant: -.padding),
+            segmentedControl.bottomAnchor.constraint(equalTo: bottomAnchor,
+                                                     constant: -.padding)
         ])
     }
     
