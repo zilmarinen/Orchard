@@ -1,5 +1,5 @@
 //
-//  RegionContainerController.swift
+//  RegionContainer.swift
 //
 //  Created by Zack Brown on 09/07/2025.
 //
@@ -11,12 +11,12 @@ import Design
 
 public protocol RegionContainerDelegate: AnyObject {
     
-    func regionContainer(_ container: RegionContainerController,
+    func regionContainer(_ container: RegionContainer,
                          didFinishEditingRegion triangle: Triangle)
 }
 
-public class RegionContainerController: NSSplitViewController,
-                                        @preconcurrency HasToolbar {
+public class RegionContainer: NSSplitViewController,
+                              @preconcurrency HasToolbar {
      
     public lazy var toolbar = Toolbar(eventHandler: self)
     
@@ -78,7 +78,7 @@ public class RegionContainerController: NSSplitViewController,
     required public init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 
-extension RegionContainerController: @preconcurrency ToolbarDelegate {
+extension RegionContainer: @preconcurrency ToolbarDelegate {
     
     public func toolbar(_ toolbar: Toolbar,
                         didTap toolbarItem: NSToolbarItem.Item) {
@@ -111,6 +111,6 @@ extension RegionContainerController: @preconcurrency ToolbarDelegate {
     }
 }
 
-extension RegionContainerController: @preconcurrency RegionSidebarContainerDelegate {}
-extension RegionContainerController: @preconcurrency RegionEditorContainerDelegate {}
-extension RegionContainerController: @preconcurrency RegionInspectorContainerDelegate {}
+extension RegionContainer: @preconcurrency RegionSidebarContainerDelegate {}
+extension RegionContainer: @preconcurrency RegionEditorContainerDelegate {}
+extension RegionContainer: @preconcurrency RegionInspectorContainerDelegate {}

@@ -16,8 +16,12 @@ internal class ToolOptionsStackContainer: NSViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.spacing = .margin
         $0.orientation = .vertical
-        $0.alignment = .leading
+        $0.alignment = .width
         $0.distribution = .equalSpacing
+        $0.setHuggingPriority(.defaultHigh,
+                              for: .horizontal)
+        $0.setHuggingPriority(.defaultHigh,
+                              for: .vertical)
         
         $0.addArrangedSubview(toolLabel)
         $0.addArrangedSubview(SeparatorView())
@@ -67,6 +71,11 @@ internal class ToolOptionsStackContainer: NSViewController {
 extension ToolOptionsStackContainer {
     
     internal func addArrangedSubview(_ subview: NSView) {
+        
+        subview.setContentHuggingPriority(.defaultLow,
+                                          for: .horizontal)
+        subview.setContentHuggingPriority(.defaultHigh,
+                                          for: .vertical)
         
         stackView.addArrangedSubview(subview)
     }

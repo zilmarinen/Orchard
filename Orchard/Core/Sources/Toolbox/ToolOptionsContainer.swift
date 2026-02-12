@@ -27,13 +27,13 @@ public class ToolOptionsContainer: ContainerViewController {
         
         switch viewModel.tool {
             
-        case .buildings: self.content = BuildingToolOptionsContainer(viewModel: viewModel)
-        case .foliage: self.content = FoliageToolOptionsContainer(viewModel: viewModel)
-        case .footpaths: self.content = FootpathToolOptionsContainer(viewModel: viewModel)
-        case .staircases: self.content = StaircaseToolOptionsContainer(viewModel: viewModel)
-        case .terrain: self.content = TerrainToolOptionsContainer(viewModel: viewModel)
-        case .water: self.content = WaterToolOptionsContainer(viewModel: viewModel)
-        default: self.content = EmptyViewController(text: viewModel.tool.id)
+        case .buildings: set(content: BuildingToolOptionsContainer(viewModel: viewModel))
+        case .foliage: set(content: FoliageToolOptionsContainer(viewModel: viewModel))
+        case .footpaths: set(content: FootpathToolOptionsContainer(viewModel: viewModel))
+        case .staircases: set(content: StaircaseToolOptionsContainer(viewModel: viewModel))
+        case .terrain: set(content: TerrainToolOptionsContainer(viewModel: viewModel))
+        case .water: set(content: WaterToolOptionsContainer(viewModel: viewModel))
+        default: set(content: EmptyViewController(text: viewModel.tool.id))
         }
     }
     

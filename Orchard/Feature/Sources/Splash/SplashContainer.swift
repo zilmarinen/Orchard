@@ -1,5 +1,5 @@
 //
-//  SplashContainerController.swift
+//  SplashContainer.swift
 //
 //  Created by Zack Brown on 09/07/2025.
 //
@@ -10,10 +10,10 @@ import Container
 
 public protocol SplashContainerDelegate: AnyObject {
     
-    func splashContainerDidFinish(_ container: SplashContainerController)
+    func splashContainerDidFinish(_ container: SplashContainer)
 }
 
-public class SplashContainerController: ContainerViewController {
+public class SplashContainer: ContainerViewController {
     
     private lazy var imageView = with(NSImageView()) {
         
@@ -61,7 +61,7 @@ public class SplashContainerController: ContainerViewController {
     }
 }
 
-extension SplashContainerController {
+extension SplashContainer {
     
     @objc
     private func button(_ sender: NSButton) {

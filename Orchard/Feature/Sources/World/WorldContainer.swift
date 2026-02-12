@@ -1,5 +1,5 @@
 //
-//  WorldContainerController.swift
+//  WorldContainer.swift
 //
 //  Created by Zack Brown on 09/07/2025.
 //
@@ -11,11 +11,11 @@ import Design
 
 public protocol WorldContainerDelegate: NSWindowController {
     
-    func worldContainerController(_ container: WorldContainerController,
-                                  didRequestEditingFor selection: Document.Selection)
+    func worldContainer(_ container: WorldContainer,
+                        didRequestEditingFor selection: Document.Selection)
 }
 
-public class WorldContainerController: NSSplitViewController,
+public class WorldContainer: NSSplitViewController,
                                        @preconcurrency HasToolbar {
     
     public lazy var toolbar = Toolbar(eventHandler: self)
@@ -78,7 +78,7 @@ public class WorldContainerController: NSSplitViewController,
     required public init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 
-extension WorldContainerController: @preconcurrency ToolbarDelegate {
+extension WorldContainer: @preconcurrency ToolbarDelegate {
     
     public func toolbar(_ toolbar: Toolbar,
                         didTap toolbarItem: NSToolbarItem.Item) {
@@ -97,7 +97,7 @@ extension WorldContainerController: @preconcurrency ToolbarDelegate {
     }
 }
 
-extension WorldContainerController {
+extension WorldContainer {
     
     private func presentDeletionAlert(selection: Document.Selection) {
         
@@ -166,7 +166,7 @@ extension WorldContainerController {
     }
 }
 
-extension WorldContainerController: @preconcurrency WorldSidebarContainerDelegate {
+extension WorldContainer: @preconcurrency WorldSidebarContainerDelegate {
     
     func worldSidebarContainer(_ container: WorldSidebarContainer,
                                didRequestDeletionFor selection: Document.Selection) {
@@ -177,8 +177,8 @@ extension WorldContainerController: @preconcurrency WorldSidebarContainerDelegat
     func worldSidebarContainer(_ container: WorldSidebarContainer,
                                didRequestEditingFor selection: Document.Selection) {
         
-        delegate?.worldContainerController(self,
-                                           didRequestEditingFor: selection)
+        delegate?.worldContainer(self,
+                                 didRequestEditingFor: selection)
     }
     
     // When item is selected from sidebar;
@@ -198,7 +198,7 @@ extension WorldContainerController: @preconcurrency WorldSidebarContainerDelegat
     }
 }
 
-extension WorldContainerController: @preconcurrency WorldEditorContainerDelegate {
+extension WorldContainer: @preconcurrency WorldEditorContainerDelegate {
     
     // When item is selected from editor;
     // - select appropriate item in sidebar
@@ -219,7 +219,7 @@ extension WorldContainerController: @preconcurrency WorldEditorContainerDelegate
     }
 }
 
-extension WorldContainerController: @preconcurrency WorldInspectorContainerDelegate {
+extension WorldContainer: @preconcurrency WorldInspectorContainerDelegate {
     
     internal func worldInspectorContainer(_ container: WorldInspectorContainer,
                                           didRequestDeletionFor selection: Document.Selection) {
@@ -230,8 +230,8 @@ extension WorldContainerController: @preconcurrency WorldInspectorContainerDeleg
     internal func worldInspectorContainer(_ container: WorldInspectorContainer,
                                           didRequestEditingFor selection: Document.Selection) {
         
-        delegate?.worldContainerController(self,
-                                           didRequestEditingFor: selection)
+        delegate?.worldContainer(self,
+                                 didRequestEditingFor: selection)
     }
     
     // When item properties are modified from inspector;

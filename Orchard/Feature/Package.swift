@@ -41,6 +41,8 @@ let package = Package(
                                         package: "Core"),
                                .product(name: "Proscenium",
                                         package: "Core"),
+                               .product(name: "Scrutinator",
+                                        package: "Core"),
                                .product(name: "Silhouette",
                                         package: "Core"),
                                "Harvest"]),

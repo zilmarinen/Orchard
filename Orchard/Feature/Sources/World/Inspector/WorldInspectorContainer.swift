@@ -7,6 +7,7 @@
 import Base
 import Container
 import Design
+import Scrutinator
 
 internal protocol WorldInspectorContainerDelegate: AnyObject {
     
@@ -48,8 +49,10 @@ internal class WorldInspectorContainer: ContainerViewController {
         switch viewModel.selection {
             
         case .none: set(content: emptyViewController)
-        case .region(let triangle): set(content: emptyViewController)
+        case .region(let triangle): set(content: RegionInspectorController(delegate: self))
         case .zone(let triangle): set(content: emptyViewController)
         }
     }
 }
+
+extension WorldInspectorContainer: @preconcurrency RegionInspectorControllerDelegate {}
