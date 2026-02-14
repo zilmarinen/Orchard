@@ -14,7 +14,11 @@ import Harvest
 import Proscenium
 import Toolbox
 
-internal protocol RegionEditorContainerDelegate: AnyObject {}
+internal protocol RegionEditorContainerDelegate: AnyObject {
+    
+    func regionEditorContainer(_ container: RegionEditorContainer,
+                               didSelect selection: RegionViewModel.Selection)
+}
 
 internal class RegionEditorContainer: EditorContainer<RegionView> {
     

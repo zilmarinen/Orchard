@@ -15,7 +15,15 @@ import Toolbox
 @MainActor
 internal class RegionViewModel {
     
+    internal enum Selection {
+        
+        case none
+        case portal(triangle: Triangle)
+    }
+    
     public let toolOptionsViewModel = ToolOptionsViewModel(tool: .terrain)
+    
+    private(set) var selection: Selection = .none
     
     internal let region: Region
     internal unowned(unsafe) var document: Document
@@ -81,6 +89,10 @@ extension RegionViewModel {
 }
 
 extension RegionViewModel {
+    
+    // MARK: Selection
+    
+    internal func update(selection value: Selection) { selection = value }
     
     // MARK: Tool
     

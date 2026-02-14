@@ -6,10 +6,14 @@
 
 import AppKit
 import Base
+import Container
+import Design
 
 internal protocol RegionInspectorContainerDelegate: AnyObject {}
 
-internal class RegionInspectorContainer: NSViewController {
+internal class RegionInspectorContainer: ContainerViewController {
+    
+    private let emptyViewController = EmptyViewController.noSelection
     
     private let viewModel: RegionViewModel
     private weak var delegate: RegionInspectorContainerDelegate?
@@ -20,8 +24,7 @@ internal class RegionInspectorContainer: NSViewController {
         self.viewModel = viewModel
         self.delegate = delegate
         
-        super.init(nibName: nil,
-                   bundle: nil)
+        super.init()
     }
     
     @available(*, unavailable)
@@ -31,6 +34,17 @@ internal class RegionInspectorContainer: NSViewController {
         
         super.viewDidLoad()
         
-        //
+        reload()
+    }
+    
+    internal func reload() {
+        
+        switch viewModel.selection {
+         
+        case .none: set(content: emptyViewController)
+        case .portal(let triangle):
+            
+            set(content: emptyViewController)
+        }
     }
 }

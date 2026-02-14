@@ -112,5 +112,20 @@ extension RegionContainer: @preconcurrency ToolbarDelegate {
 }
 
 extension RegionContainer: @preconcurrency RegionSidebarContainerDelegate {}
-extension RegionContainer: @preconcurrency RegionEditorContainerDelegate {}
+
+extension RegionContainer: @preconcurrency RegionEditorContainerDelegate {
+    
+    // When item is selected from editor;
+    // - select appropriate item in sidebar
+    // - focus editor view
+    // - select appropriate inspector view
+    //   - show inspector view if hidden
+    
+    internal func regionEditorContainer(_ container: RegionEditorContainer,
+                                        didSelect selection: RegionViewModel.Selection) {
+        
+        //
+    }
+}
+
 extension RegionContainer: @preconcurrency RegionInspectorContainerDelegate {}
