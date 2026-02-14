@@ -10,6 +10,7 @@ import Foundation
 public extension CGFloat {
     
     static let defaultSidebarThickness = 256.0
+    static let defaultControlHeight = 24.0
     
     static let borderWidth = 1.0
     static let cornerRadius = 4.0

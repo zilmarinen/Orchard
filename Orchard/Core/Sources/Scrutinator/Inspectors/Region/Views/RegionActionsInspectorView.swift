@@ -1,5 +1,5 @@
 //
-//  ActionsInspectorView.swift
+//  RegionActionsInspectorView.swift
 //  Core
 //
 //  Created by Zack Brown on 11/02/2026.
@@ -7,12 +7,19 @@
 
 import AppKit
 import Base
+import Design
 
-public class ActionsInspectorView: InspectorGroupView {
+internal protocol RegionActionsInspectorViewDelegate: AnyObject {
     
-    public enum Action: String,
-                        CaseIterable,
-                        Identifiable {
+    func regionActionsInspectorView(_ view: RegionActionsInspectorView,
+                                    didSelect action: RegionActionsInspectorView.Action)
+}
+
+internal class RegionActionsInspectorView: InspectorGroupView {
+    
+    internal enum Action: String,
+                          CaseIterable,
+                          Identifiable {
     
         case create
         case delete
@@ -26,7 +33,7 @@ public class ActionsInspectorView: InspectorGroupView {
                                                       action: #selector(button(_:)))) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.bezelColor = .systemMint
+        $0.bezelColor = .systemIndigo
         $0.toolTip = "Create a new region"
     }
     
@@ -49,24 +56,50 @@ public class ActionsInspectorView: InspectorGroupView {
         $0.toolTip = "Delete this region"
     }
     
-    required public init(actions: [Action]) {
+    private let viewModel: RegionInspectorViewModel
+    private weak var delegate: RegionActionsInspectorViewDelegate?
+    
+    internal init(viewModel: RegionInspectorViewModel,
+                  delegate: RegionActionsInspectorViewDelegate) {
+        
+        self.viewModel = viewModel
+        self.delegate = delegate
         
         super.init(frame: .zero)
         
-        addArrangedSubview(createButton)
-        addArrangedSubview(deleteButton)
+        title = "Actions"
+        
+        guard viewModel.hasIntermediate else {
+            
+            addArrangedSubview(createButton)
+            
+            return
+        }
+        
         addArrangedSubview(editButton)
+        addArrangedSubview(deleteButton)
     }
     
     @available(*, unavailable)
     required public init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 
-extension ActionsInspectorView {
+extension RegionActionsInspectorView {
     
     @objc
     private func button(_ sender: NSButton) {
         
+        let action: Action = {
+            
+            switch sender {
+                
+            case createButton: .create
+            case deleteButton: .delete
+            default: .edit
+            }
+        }()
         
+        delegate?.regionActionsInspectorView(self,
+                                             didSelect: action)
     }
 }

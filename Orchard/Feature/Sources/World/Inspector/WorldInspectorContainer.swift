@@ -49,10 +49,39 @@ internal class WorldInspectorContainer: ContainerViewController {
         switch viewModel.selection {
             
         case .none: set(content: emptyViewController)
-        case .region(let triangle): set(content: RegionInspectorController(delegate: self))
-        case .zone(let triangle): set(content: emptyViewController)
+        case .region(let triangle):
+            
+            set(content: RegionInspectorController(triangle: triangle,
+                                                   document: viewModel.document,
+                                                   delegate: self))
+            
+        case .zone(let triangle):
+            
+            set(content: emptyViewController)
         }
     }
 }
 
-extension WorldInspectorContainer: @preconcurrency RegionInspectorControllerDelegate {}
+extension WorldInspectorContainer: @preconcurrency RegionInspectorControllerDelegate {
+    
+    public func regionInspectorController(_ controller: RegionInspectorController,
+                                          didRequestDeletionFor selection: Document.Selection) {
+        
+        delegate?.worldInspectorContainer(self,
+                                          didRequestDeletionFor: selection)
+    }
+    
+    public func regionInspectorController(_ controller: RegionInspectorController,
+                                          didRequestEditingFor selection: Document.Selection) {
+        
+        delegate?.worldInspectorContainer(self,
+                                          didRequestEditingFor: selection)
+    }
+    
+    func regionInspectorController(_ controller: RegionInspectorController,
+                                   didUpdate identifier: String) {
+        
+        delegate?.worldInspectorContainer(self,
+                                          didUpdate: viewModel.selection)
+    }
+}

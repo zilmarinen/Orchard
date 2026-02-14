@@ -8,7 +8,7 @@
 import AppKit
 import Base
 
-public class InspectorGroupView: NSView {
+open class InspectorGroupView: NSView {
     
     private lazy var textLabel = with(NSTextField()) {
         

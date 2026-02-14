@@ -109,14 +109,6 @@ extension OutlineViewController {
     public func select(item: any TreeNode) {
         
         expandParent(for: item)
-        
-        let index = outlineView.row(forItem: item)
-        
-        guard index != -1 else { return }
-        
-        //TODO: Renable this - NSTextField loses focus when editing
-//        outlineView.selectRowIndexes([index],
-//                                     byExtendingSelection: false)
     }
     
     private func expandParent(for item: any TreeNode) {
