@@ -1,22 +1,23 @@
 //
 //  CursorStyle.swift
+//  Base
 //
-//  Created by Zack Brown on 28/10/2025.
+//  Created by Zack Brown on 08/02/2026.
 //
 
 import AppKit
 import Harvest
 
-extension CursorStyle {
+extension CursorStyle: HasIcon {
     
-    public var image: NSImage? {
+    public var icon: NSImage.Icon {
         
         switch self {
             
-        case .footprint: .init(image: .footprint)
-        case .hexagonal: .init(image: .hexagon)
-        case .triangle: .init(image: .triangle)
-        case .vertex: .init(image: .circlebadge)
+        case .footprint: .footprint
+        case .hexagonal: .hexagon
+        case .triangle: .triangle
+        case .vertex: .circle
         }
     }
 }

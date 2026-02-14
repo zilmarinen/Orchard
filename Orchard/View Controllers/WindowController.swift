@@ -14,13 +14,13 @@ import World
 
 public class WindowController: NSWindowController {
     
-    private var regionContainerController: RegionContainerController? { contentViewController as? RegionContainerController }
-    private var splashContainerController: SplashContainerController? { contentViewController as? SplashContainerController }
-    private var worldContainerController: WorldContainerController? { contentViewController as? WorldContainerController }
+    private var regionContainer: RegionContainer? { contentViewController as? RegionContainer }
+    private var splashContainer: SplashContainer? { contentViewController as? SplashContainer }
+    private var worldContainer: WorldContainer? { contentViewController as? WorldContainer }
     
-    private var presentingRegion: Bool { regionContainerController != nil }
-    private var presentingSplash: Bool { splashContainerController != nil }
-    private var presentingWorld: Bool { worldContainerController != nil }
+    private var presentingRegion: Bool { regionContainer != nil }
+    private var presentingSplash: Bool { splashContainer != nil }
+    private var presentingWorld: Bool { worldContainer != nil }
     
     required public init?(coder: NSCoder) {
         
@@ -63,26 +63,26 @@ extension WindowController {
         guard !presentingRegion,
               let document = self.document as? Document else { return }
         
-        set(content: RegionContainerController(triangle: triangle,
-                                               document: document,
-                                               delegate: self))
+        set(content: RegionContainer(triangle: triangle,
+                                     document: document,
+                                     delegate: self))
     }
     
     private func showSplash() {
         
         guard !presentingSplash else { return }
         
-        set(content: SplashContainerController(delegate: self))
+        set(content: SplashContainer(delegate: self))
     }
     
-    private func showWorld(triangle: Triangle? = nil) {
+    private func showWorld(focus: Triangle? = nil) {
         
         guard !presentingWorld,
               let document = self.document as? Document else { return }
         
-        set(content: WorldContainerController(triangle: triangle ?? .zero,
-                                              document: document,
-                                              delegate: self))
+        set(content: WorldContainer(triangle: focus ?? .zero,
+                                    document: document,
+                                    delegate: self))
     }
     
     private func showZone(triangle: Triangle) {
@@ -93,16 +93,16 @@ extension WindowController {
 
 extension WindowController: @preconcurrency RegionContainerDelegate {
     
-    public func regionContainer(_ container: RegionContainerController,
+    public func regionContainer(_ container: RegionContainer,
                                 didFinishEditingRegion triangle: Triangle) {
         
-        showWorld(triangle: triangle)
+        showWorld(focus: triangle)
     }
 }
 
 extension WindowController: @preconcurrency SplashContainerDelegate {
     
-    public func splashContainerDidFinish(_ container: SplashContainerController) {
+    public func splashContainerDidFinish(_ container: SplashContainer) {
         
         showWorld()
     }
@@ -110,8 +110,8 @@ extension WindowController: @preconcurrency SplashContainerDelegate {
 
 extension WindowController: WorldContainerDelegate {
     
-    public func worldContainerController(_ container: WorldContainerController,
-                                         didRequestEditingFor selection: Document.Selection) {
+    public func worldContainer(_ container: WorldContainer,
+                               didRequestEditingFor selection: Document.Selection) {
         
         switch selection {
             

@@ -8,7 +8,7 @@ import AppKit
 import Base
 import Deltille
 import Harvest
-import OutlineView
+import Silhouette
 
 @MainActor
 internal class WorldViewModel {
@@ -40,11 +40,11 @@ extension WorldViewModel {
     internal func reload() {
         
         let regions = OutlineViewNode(displayName: "Regions",
-                                      image: NSImage(image: .hexagon),
+                                      image: NSImage(icon: .hexagon),
                                       children: document.regionIntermediates)
         
         let zones = OutlineViewNode(displayName: "Zones",
-                                    image: NSImage(image: .rhombus),
+                                    image: NSImage(icon: .rhombus),
                                     children: document.zoneIntermediates)
         
         contents = [OutlineViewNode(displayName: "World",

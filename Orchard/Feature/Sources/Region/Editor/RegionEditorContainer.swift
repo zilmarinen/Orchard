@@ -8,15 +8,20 @@ import AppKit
 import Base
 import Container
 import Deltille
-import Editor
+import Design
 import Euclid
 import Harvest
+import Proscenium
+import Toolbox
 
 internal protocol RegionEditorContainerDelegate: AnyObject {}
 
 internal class RegionEditorContainer: EditorContainer<RegionView> {
     
-    private let overlayController = RegionEditorOverlayController()
+    private lazy var editorToolOverlay = with(EditorToolOverlay(delegate: self)) {
+        
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
     
     private let viewModel: RegionViewModel
     private weak var delegate: RegionEditorContainerDelegate?
@@ -27,15 +32,26 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
         self.viewModel = viewModel
         self.delegate = delegate
         
-        super.init()
+        super.init(nibName: nil,
+                   bundle: nil)
     }
     
-    internal override func viewDidLoad() {
+    @available(*, unavailable)
+    required public init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
+    override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        insert(viewController: overlayController)
+        view.addSubview(editorToolOverlay)
         
+        NSLayoutConstraint.activate([
+            
+            editorToolOverlay.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            editorToolOverlay.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor)
+        ])
+        
+        //TODO: Refactor scene loading
         viewModel.load(editor: editorView)
     }
     
@@ -56,11 +72,13 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
         guard let hit = editorView.hitTest(point: location),
               viewModel.canEdit(vertex: hit.vertex) else { return }
         
+        guard presentedViewControllers?.isEmpty ?? true else { return }
+        
         switch viewModel.tool {
             
-        case .edifices: update(edifice: hit,
-                               button: button)
-            
+        case .buildings: update(buildings: hit,
+                                button: button)
+
         case .foliage: update(foliage: hit,
                               button: button)
             
@@ -84,13 +102,6 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
         
         guard let hit = editorView.hitTest(point: location) else { return }
         
-        let hexagon = Hexagon(hit.pointInWorld,
-                              .chunk)
-        
-        overlayController.update(triangle: hit.triangle)
-        overlayController.update(vertex: hit.vertex)
-        overlayController.update(hexagon: hexagon)
-        
         editorView.cursor(focus: hit.pointInWorld)
     }
     
@@ -109,16 +120,63 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
     }
 }
 
-// MARK: Edifices
+// MARK: Tool Overlay
+
+extension RegionEditorContainer: @preconcurrency EditorToolOverlayDelegate {
+    
+    func editorToolOverlay(_ overlay: EditorToolOverlay,
+                           didTapTool button: NSButton) {
+        
+        let viewController = ToolSelectionContainer(delegate: self)
+        
+        present(viewController,
+                asPopoverRelativeTo: button.bounds,
+                of: button,
+                preferredEdge: .maxY,
+                behavior: .transient,
+                hasFullSizeContent: true)
+    }
+    
+    func editorToolOverlay(_ overlay: EditorToolOverlay,
+                           didTapOptions button: NSButton) {
+        
+        let viewController = ToolOptionsContainer(viewModel: viewModel.toolOptionsViewModel,
+                                                  delegate: self)
+        
+        present(viewController,
+                asPopoverRelativeTo: button.bounds,
+                of: button,
+                preferredEdge: .maxY,
+                behavior: .transient,
+                hasFullSizeContent: true)
+    }
+}
+
+// MARK: Tool Selection
+
+extension RegionEditorContainer: @preconcurrency ToolSelectionContainerDelegate {
+    
+    func toolSelectionContainer(_ container: ToolSelectionContainer,
+                                didSelect tool: Tool) {
+        
+        viewModel.select(tool: tool)
+    }
+}
+
+// MARK: Tool Options
+
+extension RegionEditorContainer: @preconcurrency ToolOptionsContainerDelegate {}
+
+// MARK: Buildings
 
 extension RegionEditorContainer {
     
-    private func update(edifice hit: HitTest,
+    private func update(buildings hit: HitTest,
                         button: MouseButton) {
      
         guard button == .left else {
             
-            return editorView.remove(edifice: hit.triangle)
+            return editorView.remove(building: hit.triangle)
         }
         
         editorView.set(viewModel.septomino,
@@ -171,7 +229,7 @@ extension RegionEditorContainer {
             return editorView.remove(staircase: hit.triangle)
         }
         
-        editorView.set(viewModel.stoop,
+        editorView.set(viewModel.staircaseType,
                        for: hit.triangle)
     }
 }
@@ -183,8 +241,8 @@ extension RegionEditorContainer {
     private func update(terrain hit: HitTest,
                         button: MouseButton) {
         
-        let sculpt = viewModel.sculpt
-        let paint = viewModel.paint
+        let sculpt = true//viewModel.sculpt
+        let paint = true//viewModel.paint
         
         viewModel.vertices(for: hit).forEach {
             

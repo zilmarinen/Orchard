@@ -6,7 +6,8 @@
 
 import Base
 import Container
-import Inspector
+import Design
+import Scrutinator
 
 internal protocol WorldInspectorContainerDelegate: AnyObject {
     
@@ -50,63 +51,37 @@ internal class WorldInspectorContainer: ContainerViewController {
         case .none: set(content: emptyViewController)
         case .region(let triangle):
             
-            set(content: RegionInspectorViewController(triangle: triangle,
-                                                       document: viewModel.document,
-                                                       delegate: self))
+            set(content: RegionInspectorController(triangle: triangle,
+                                                   document: viewModel.document,
+                                                   delegate: self))
             
         case .zone(let triangle):
             
-            set(content: ZoneInspectorViewController(triangle: triangle,
-                                                     document: viewModel.document,
-                                                     delegate: self))
+            set(content: emptyViewController)
         }
     }
 }
 
-extension WorldInspectorContainer: @preconcurrency RegionInspectorDelegate {
+extension WorldInspectorContainer: @preconcurrency RegionInspectorControllerDelegate {
     
-    internal func regionInsepectorViewController(_ viewController: RegionInspectorViewController,
-                                                 didRequestDeletionFor selection: Document.Selection) {
+    public func regionInspectorController(_ controller: RegionInspectorController,
+                                          didRequestDeletionFor selection: Document.Selection) {
         
         delegate?.worldInspectorContainer(self,
                                           didRequestDeletionFor: selection)
     }
     
-    internal func regionInsepectorViewController(_ viewController: RegionInspectorViewController,
-                                                 didRequestEditingFor selection: Document.Selection) {
+    public func regionInspectorController(_ controller: RegionInspectorController,
+                                          didRequestEditingFor selection: Document.Selection) {
         
         delegate?.worldInspectorContainer(self,
                                           didRequestEditingFor: selection)
     }
     
-    internal func regionInsepectorViewController(_ viewController: RegionInspectorViewController,
-                                                 didUpdate selection: Document.Selection) {
+    func regionInspectorController(_ controller: RegionInspectorController,
+                                   didUpdate identifier: String) {
         
         delegate?.worldInspectorContainer(self,
-                                          didUpdate: selection)
-    }
-}
-
-extension WorldInspectorContainer: @preconcurrency ZoneInspectorDelegate {
-    
-    internal func zoneInsepectorViewController(_ viewController: ZoneInspectorViewController,
-                                               didRequestDeletionFor selection: Document.Selection) {
-        
-        delegate?.worldInspectorContainer(self,
-                                          didRequestDeletionFor: selection)
-    }
-    
-    internal func zoneInsepectorViewController(_ viewController: ZoneInspectorViewController,
-                                               didRequestEditingFor selection: Document.Selection) {
-        
-        delegate?.worldInspectorContainer(self,
-                                          didRequestEditingFor: selection)
-    }
-    
-    internal func zoneInsepectorViewController(_ viewController: ZoneInspectorViewController,
-                                               didUpdate selection: Document.Selection) {
-        
-        delegate?.worldInspectorContainer(self,
-                                          didUpdate: selection)
+                                          didUpdate: viewModel.selection)
     }
 }

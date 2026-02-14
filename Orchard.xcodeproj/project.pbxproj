@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18226D382F339E03009E23E8 /* Design in Frameworks */ = {isa = PBXBuildFile; productRef = 18226D372F339E03009E23E8 /* Design */; };
 		1837A6E52E1EA88000CC554A /* Base in Frameworks */ = {isa = PBXBuildFile; productRef = 1837A6E42E1EA88000CC554A /* Base */; };
 		1846F8112E48E062001C32AE /* Region in Frameworks */ = {isa = PBXBuildFile; productRef = 1846F8102E48E062001C32AE /* Region */; };
 		1846F8132E48E062001C32AE /* Splash in Frameworks */ = {isa = PBXBuildFile; productRef = 1846F8122E48E062001C32AE /* Splash */; };
@@ -43,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18226D382F339E03009E23E8 /* Design in Frameworks */,
 				1846F8152E48E062001C32AE /* World in Frameworks */,
 				1846F8132E48E062001C32AE /* Splash in Frameworks */,
 				1846F8112E48E062001C32AE /* Region in Frameworks */,
@@ -101,6 +103,7 @@
 				1846F8102E48E062001C32AE /* Region */,
 				1846F8122E48E062001C32AE /* Splash */,
 				1846F8142E48E062001C32AE /* World */,
+				18226D372F339E03009E23E8 /* Design */,
 			);
 			productName = Orchard;
 			productReference = 18DBB9F12E1EA498001D1C08 /* Orchard.app */;
@@ -379,6 +382,10 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		18226D372F339E03009E23E8 /* Design */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Design;
+		};
 		1837A6E42E1EA88000CC554A /* Base */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Base;

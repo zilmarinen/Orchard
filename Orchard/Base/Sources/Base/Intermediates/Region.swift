@@ -12,7 +12,7 @@ import Harvest
 extension Region: @preconcurrency TreeNode {
     
     public var displayName: String { identifier }
-    public var image: NSImage? { NSImage(image: .triangle) }
+    public var image: NSImage? { NSImage(icon: .triangle) }
     
     public var children: [any TreeNode]? { nil }
 }

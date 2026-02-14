@@ -8,18 +8,14 @@ import Base
 import Deltille
 import Foundation
 import Harvest
-import Inspector
+import Lattice
 import Newel
+import Toolbox
 
 @MainActor
 internal class RegionViewModel {
     
-    internal let toolInspectorViewModel = ToolInspectorViewModel()
-    internal let edificeInspectorViewModel = EdificeInspectorViewModel()
-    internal let foliageInspectorViewModel = FoliageInspectorViewModel()
-    internal let footpathInspectorViewModel = FootpathInspectorViewModel()
-    internal let terrainInspectorViewModel = TerrainInspectorViewModel()
-    internal let waterInspectorViewModel = WaterInspectorViewModel()
+    public let toolOptionsViewModel = ToolOptionsViewModel(tool: .terrain)
     
     internal let region: Region
     internal unowned(unsafe) var document: Document
@@ -84,23 +80,22 @@ extension RegionViewModel {
     }
 }
 
-// MARK: Tool
-
 extension RegionViewModel {
     
-    internal var tool: Tool {
+    // MARK: Tool
+    
+    internal var tool: Tool { toolOptionsViewModel.tool }
+ 
+    internal func select(tool value: Tool) {
         
-        toolInspectorViewModel.tool
+        toolOptionsViewModel.select(tool: value)
     }
     
-    internal var cursorStyle: CursorStyle {
-        
-        toolInspectorViewModel.cursorStyle
-    }
+    // MARK: Cursor
     
     internal func tiles(for hit: HitTest) -> [Triangle] {
-        
-        switch cursorStyle {
+            
+        switch toolOptionsViewModel.cursorStyle {
             
         case .footprint: [hit.triangle]
         case .hexagonal: hit.vertex.tiles
@@ -111,7 +106,7 @@ extension RegionViewModel {
     
     internal func vertices(for hit: HitTest) -> [Triangle.Vertex] {
         
-        switch cursorStyle {
+        switch toolOptionsViewModel.cursorStyle {
             
         case .footprint: hit.triangle.vertices
         case .hexagonal: hit.vertex.vertices + [hit.vertex]
@@ -119,64 +114,24 @@ extension RegionViewModel {
         case .vertex: [hit.vertex]
         }
     }
-}
-
-// MARK: Edifices
-
-extension RegionViewModel {
     
-    internal var septomino: Triangle.Septomino {
-        
-        edificeInspectorViewModel.septomino
-    }
-}
-
-// MARK: Footpaths
-
-extension RegionViewModel {
+    // MARK: Buildings
     
-    internal var footpathType: FootpathType {
-        
-        footpathInspectorViewModel.footpathType
-    }
-}
-
-// MARK: Staircases
-
-extension RegionViewModel {
+    internal var septomino: Triangle.Septomino { toolOptionsViewModel.septomino }
     
-    internal var stoop: Stoop {
-        
-        .small
-    }
-}
-
-// MARK: Terrain
-
-extension RegionViewModel {
+    // MARK: Footpaths
     
-    internal var biome: Biome {
-        
-        terrainInspectorViewModel.biome
-    }
+    internal var footpathType: FootpathType { toolOptionsViewModel.footpathType }
     
-    public var sculpt: Bool {
-        
-        terrainInspectorViewModel.sculpt
-    }
+    // MARK: Staircases
     
-    public var paint: Bool {
-        
-        terrainInspectorViewModel.paint
-    }
-}
-
-// MARK: Water
-
-extension RegionViewModel {
+    internal var staircaseType: StaircaseType { toolOptionsViewModel.staircaseType }
     
-    internal var waterType: WaterType {
-        
-        waterInspectorViewModel.waterType
-    }
+    // MARK: Terrain
+    
+    internal var biome: Biome { toolOptionsViewModel.biome }
+    
+    // MARK: Water
+    
+    internal var waterType: WaterType { toolOptionsViewModel.waterType }
 }
