@@ -41,7 +41,7 @@ open class InspectorGroupView: NSView {
         $0.distribution = .fill
         $0.setHuggingPriority(.defaultHigh,
                               for: .horizontal)
-        $0.setHuggingPriority(.defaultHigh,
+        $0.setHuggingPriority(.defaultLow,
                               for: .vertical)
     }
     
@@ -100,7 +100,7 @@ extension InspectorGroupView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setContentHuggingPriority(.defaultLow,
                                        for: .horizontal)
-        view.setContentHuggingPriority(.defaultLow,
+        view.setContentHuggingPriority(.defaultHigh,
                                        for: .vertical)
         
         stackView.addArrangedSubview(view)

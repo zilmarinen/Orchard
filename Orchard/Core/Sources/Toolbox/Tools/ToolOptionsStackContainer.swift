@@ -20,7 +20,7 @@ internal class ToolOptionsStackContainer: NSViewController {
         $0.distribution = .equalSpacing
         $0.setHuggingPriority(.defaultHigh,
                               for: .horizontal)
-        $0.setHuggingPriority(.defaultHigh,
+        $0.setHuggingPriority(.defaultLow,
                               for: .vertical)
         
         $0.addArrangedSubview(toolLabel)

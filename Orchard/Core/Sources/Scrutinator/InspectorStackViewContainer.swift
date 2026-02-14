@@ -27,7 +27,7 @@ public class InspectorStackViewContainer: NSViewController {
         $0.spacing = .spacing
         $0.setHuggingPriority(.defaultHigh,
                               for: .horizontal)
-        $0.setHuggingPriority(.defaultHigh,
+        $0.setHuggingPriority(.defaultLow,
                               for: .vertical)
     }
     
@@ -37,14 +37,7 @@ public class InspectorStackViewContainer: NSViewController {
         
         view.addSubview(scrollView)
         
-        NSLayoutConstraint.activate([
-            
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            scrollView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor),
-            scrollView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
-        ])
-        
+        scrollView.pinEdges(to: view)
         stackView.pinEdges(to: scrollView)
     }
 }
@@ -56,7 +49,7 @@ extension InspectorStackViewContainer {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setContentHuggingPriority(.defaultLow,
                                        for: .horizontal)
-        view.setContentHuggingPriority(.defaultLow,
+        view.setContentHuggingPriority(.defaultHigh,
                                        for: .vertical)
         
         stackView.addArrangedSubview(view)
