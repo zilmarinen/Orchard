@@ -23,7 +23,13 @@ internal class TerrainToolOptionsContainer: ToolOptionsStackContainer {
             guard let self else { return }
             
             self.viewModel.select(biome: value)
+            self.colorPalette.value = value.terrain
         }
+    }
+    
+    private lazy var colorPalette = with(ColorPaletteControl(value: viewModel.biome.terrain)) {
+        
+        $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private lazy var cursorStyle = with(SegmentedControl(title: "Cursor",
@@ -45,6 +51,7 @@ internal class TerrainToolOptionsContainer: ToolOptionsStackContainer {
         super.viewDidLoad()
         
         addArrangedSubview(material)
+        addArrangedSubview(colorPalette)
         addArrangedSubview(SeparatorView())
         addArrangedSubview(cursorStyle)
     }

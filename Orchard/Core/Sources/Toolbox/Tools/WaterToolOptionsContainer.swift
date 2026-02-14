@@ -23,7 +23,13 @@ internal class WaterToolOptionsContainer: ToolOptionsStackContainer {
             guard let self else { return }
             
             self.viewModel.select(waterType: value)
+            self.colorPalette.value = value.colorPalette
         }
+    }
+    
+    private lazy var colorPalette = with(ColorPaletteControl(value: viewModel.waterType.colorPalette)) {
+        
+        $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private lazy var cursorStyle = with(SegmentedControl(title: "Cursor",
@@ -45,6 +51,7 @@ internal class WaterToolOptionsContainer: ToolOptionsStackContainer {
         super.viewDidLoad()
         
         addArrangedSubview(material)
+        addArrangedSubview(colorPalette)
         addArrangedSubview(SeparatorView())
         addArrangedSubview(cursorStyle)
     }
