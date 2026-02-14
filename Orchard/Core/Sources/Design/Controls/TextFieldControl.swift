@@ -95,6 +95,12 @@ extension TextFieldControl: NSTextFieldDelegate {
         guard let sender = notification.object as? NSTextField,
               sender == textField else { return }
         
-        valueDidChange?(textField.stringValue)
+        Debouncer.perform(context: String(describing: self),
+                          after: .debounceInterval) { [weak self] in
+            
+            guard let self else { return }
+         
+            self.valueDidChange?(sender.stringValue)
+        }
     }
 }
