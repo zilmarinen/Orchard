@@ -20,6 +20,7 @@ extension NSImage {
         case footprint = "grid"
         case mountain = "mountain.2"
         case path = "point.topleft.down.to.point.bottomright.curvepath"
+        case pin = "mappin.and.ellipse"
         case share = "square.and.arrow.up"
         case slider = "slider.horizontal.3"
         case square

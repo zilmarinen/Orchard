@@ -16,6 +16,7 @@ public enum Tool: String,
     case buildings
     case foliage
     case footpaths
+    case portals
     case staircases
     case terrain
     case water
@@ -32,6 +33,7 @@ public enum Tool: String,
         case .buildings: .systemOrange
         case .foliage: .systemGreen
         case .footpaths: .systemGray
+        case .portals: .systemMint
         case .staircases: .systemCyan
         case .terrain: .systemBrown
         case .water: .systemBlue
@@ -46,6 +48,7 @@ public enum Tool: String,
         case .buildings: .building
         case .foliage: .tree
         case .footpaths: .path
+        case .portals: .pin
         case .staircases: .stairs
         case .terrain: .mountain
         case .water: .waves

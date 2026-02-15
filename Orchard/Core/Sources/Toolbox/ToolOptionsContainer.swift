@@ -30,6 +30,7 @@ public class ToolOptionsContainer: ContainerViewController {
         case .buildings: set(content: BuildingToolOptionsContainer(viewModel: viewModel))
         case .foliage: set(content: FoliageToolOptionsContainer(viewModel: viewModel))
         case .footpaths: set(content: FootpathToolOptionsContainer(viewModel: viewModel))
+        case .portals: set(content: PortalToolOptionsContainer(viewModel: viewModel))
         case .staircases: set(content: StaircaseToolOptionsContainer(viewModel: viewModel))
         case .terrain: set(content: TerrainToolOptionsContainer(viewModel: viewModel))
         case .water: set(content: WaterToolOptionsContainer(viewModel: viewModel))

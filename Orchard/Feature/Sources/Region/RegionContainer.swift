@@ -124,7 +124,13 @@ extension RegionContainer: @preconcurrency RegionEditorContainerDelegate {
     internal func regionEditorContainer(_ container: RegionEditorContainer,
                                         didSelect selection: RegionViewModel.Selection) {
         
-        //
+        viewModel.update(selection: selection)
+        
+        //sidebarContainer.reload()
+        //editorContainer.reload()
+        inspectorContainer.reload()
+        
+        inspectorItem.isCollapsed = selection == .none
     }
 }
 

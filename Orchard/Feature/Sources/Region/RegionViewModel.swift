@@ -15,7 +15,7 @@ import Toolbox
 @MainActor
 internal class RegionViewModel {
     
-    internal enum Selection {
+    internal enum Selection: Hashable {
         
         case none
         case portal(triangle: Triangle)

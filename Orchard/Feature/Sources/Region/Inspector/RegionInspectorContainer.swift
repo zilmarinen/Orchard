@@ -8,6 +8,7 @@ import AppKit
 import Base
 import Container
 import Design
+import Scrutinator
 
 internal protocol RegionInspectorContainerDelegate: AnyObject {}
 
@@ -44,7 +45,10 @@ internal class RegionInspectorContainer: ContainerViewController {
         case .none: set(content: emptyViewController)
         case .portal(let triangle):
             
-            set(content: emptyViewController)
+            set(content: PortalInspectorController(triangle: triangle,
+                                                   delegate: self))
         }
     }
 }
+
+extension RegionInspectorContainer: @preconcurrency PortalInspectorControllerDelegate {}

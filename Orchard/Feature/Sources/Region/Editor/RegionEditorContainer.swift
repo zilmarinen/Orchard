@@ -89,6 +89,9 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
         case .footpaths: update(footpath: hit,
                                 button: button)
             
+        case .portals: update(portal: hit,
+                              button: button)
+            
         case .staircases: update(staircases: hit,
                                  button: button)
         
@@ -218,6 +221,28 @@ extension RegionEditorContainer {
         
         editorView.set(viewModel.footpathType,
                        for: hit.vertex)
+    }
+}
+
+// MARK: Portals
+
+extension RegionEditorContainer {
+    
+    private func update(portal hit: HitTest,
+                        button: MouseButton) {
+        
+        guard button == .left else {
+            
+            delegate?.regionEditorContainer(self,
+                                            didSelect: .none)
+            
+            return editorView.remove(portal: hit.triangle)
+        }
+        
+        editorView.add(portal: hit.triangle)
+        
+        delegate?.regionEditorContainer(self,
+                                        didSelect: .portal(triangle: hit.triangle))
     }
 }
 

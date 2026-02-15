@@ -57,6 +57,8 @@ extension ToolOptionsViewModel {
             
         case .footpaths: [.vertex]
             
+        case .portals: [.triangle]
+            
         case .staircases: [.footprint(.init(.zero,
                                             staircaseType.footprint.tiles))]
             
