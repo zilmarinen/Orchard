@@ -4,12 +4,14 @@
 //  Created by Zack Brown on 30/07/2025.
 //
 
+import AppKit
 import Base
 import Deltille
 import Foundation
 import Harvest
 import Lattice
 import Newel
+import Silhouette
 import Toolbox
 
 @MainActor
@@ -22,6 +24,8 @@ internal class RegionViewModel {
     }
     
     public let toolOptionsViewModel = ToolOptionsViewModel(tool: .terrain)
+    
+    private(set) var contents: [any TreeNode] = []
     
     private(set) var selection: Selection = .none
     
@@ -60,6 +64,52 @@ extension RegionViewModel {
         }
         
         return false
+    }
+    
+    internal func reload() {
+        
+        let children = Tool.allCases.map {
+            
+            OutlineViewNode(displayName: $0.id,
+                            image: $0.image,
+                            children: self.children(for: $0))
+        }
+        
+        contents = [OutlineViewNode(displayName: region.displayName,
+                                    children: children,
+                                    isGroup: true)]
+    }
+    
+    internal func children(for tool: Tool) -> [OutlineViewNode] {
+        
+        switch tool {
+            
+        case .buildings:
+            
+            guard let grid = region.buildings?.grid else { return [] }
+            
+            return grid.chunks.map { OutlineViewNode(displayName: $0.triangle.id,
+                                                     image: NSImage(icon: .triangle),
+                                                     children: []) }
+            
+        case .terrain:
+            
+            guard let grid = region.terrain?.grid else { return [] }
+            
+            return grid.chunks.map { OutlineViewNode(displayName: $0.triangle.id,
+                                                     image: NSImage(icon: .triangle),
+                                                     children: []) }
+            
+        case .water:
+            
+            guard let grid = region.water?.grid else { return [] }
+            
+            return grid.chunks.map { OutlineViewNode(displayName: $0.triangle.id,
+                                                     image: NSImage(icon: .triangle),
+                                                     children: []) }
+            
+        default: return []
+        }
     }
 }
 
@@ -106,7 +156,7 @@ extension RegionViewModel {
     // MARK: Cursor
     
     internal func tiles(for hit: HitTest) -> [Triangle] {
-            
+        
         switch toolOptionsViewModel.cursorStyle {
             
         case .footprint: [hit.triangle]

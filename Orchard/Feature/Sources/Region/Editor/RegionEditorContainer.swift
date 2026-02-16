@@ -59,6 +59,20 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
         viewModel.load(editor: editorView)
     }
     
+    internal func focus() {
+        
+        switch viewModel.selection {
+            
+        case .portal(let triangle):
+            
+            editorView.camera(focus: triangle.position(.tile))
+            
+        default: break
+        }
+    }
+    
+    // MARK: Keyboard Events
+    
     override func key(down keyCode: NSEvent.KeyCode) {
         
         switch keyCode {
@@ -70,12 +84,16 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
         }
     }
     
+    // MARK: Cursor Events
+    
     override func cursor(click button: MouseButton,
                          location: CGPoint) {
         
+        // ignore events outside of active region
         guard let hit = editorView.hitTest(point: location),
               viewModel.canEdit(vertex: hit.vertex) else { return }
         
+        // ignore events when popover controller is active / dismissed
         guard presentedViewControllers?.isEmpty ?? true else { return }
         
         switch viewModel.tool {
@@ -233,6 +251,7 @@ extension RegionEditorContainer {
         
         guard button == .left else {
             
+            //TODO: tidy up delegation of deselection
             delegate?.regionEditorContainer(self,
                                             didSelect: .none)
             
@@ -241,6 +260,7 @@ extension RegionEditorContainer {
         
         editorView.add(portal: hit.triangle)
         
+        //TODO: tidy up delegation of selection / creation
         delegate?.regionEditorContainer(self,
                                         didSelect: .portal(triangle: hit.triangle))
     }

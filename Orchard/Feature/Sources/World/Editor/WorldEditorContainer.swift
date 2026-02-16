@@ -65,6 +65,8 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
         }
     }
     
+    // MARK: Cursor Events
+    
     override func cursor(click button: MouseButton,
                          location: CGPoint) {
         

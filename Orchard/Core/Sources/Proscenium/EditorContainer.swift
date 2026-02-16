@@ -137,7 +137,7 @@ open class EditorContainer<V: EditorView>: NSViewController {
         cursor(magnify: event.scrollingDeltaY)
     }
     
-    // MARK:
+    // MARK: Open Methods
     
     open func key(down keyCode: NSEvent.KeyCode) {}
     open func cursor(click button: MouseButton,

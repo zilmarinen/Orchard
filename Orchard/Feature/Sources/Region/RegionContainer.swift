@@ -126,11 +126,11 @@ extension RegionContainer: @preconcurrency RegionEditorContainerDelegate {
         
         viewModel.update(selection: selection)
         
-        //sidebarContainer.reload()
-        //editorContainer.reload()
+        sidebarContainer.reload()
+        editorContainer.focus()
         inspectorContainer.reload()
         
-        inspectorItem.isCollapsed = selection == .none
+        inspectorItem.isCollapsed = false
     }
 }
 
