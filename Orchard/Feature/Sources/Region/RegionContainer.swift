@@ -29,10 +29,8 @@ public class RegionContainer: NSSplitViewController,
     
     private lazy var sidebarItem = with(NSSplitViewItem(sidebarWithViewController: sidebarContainer)) {
         
-        $0.allowsFullHeightLayout = true
         $0.maximumThickness = .defaultSidebarThickness
         $0.minimumThickness = .defaultSidebarThickness
-        $0.titlebarSeparatorStyle = .line
     }
     
     private lazy var editorItem = with(NSSplitViewItem(viewController: editorContainer)) {
@@ -43,10 +41,8 @@ public class RegionContainer: NSSplitViewController,
     
     private lazy var inspectorItem = with(NSSplitViewItem(inspectorWithViewController: inspectorContainer)) {
         
-        $0.allowsFullHeightLayout = true
         $0.maximumThickness = .defaultSidebarThickness
         $0.minimumThickness = .defaultSidebarThickness
-        $0.titlebarSeparatorStyle = .line
         $0.isCollapsed = true
     }
     

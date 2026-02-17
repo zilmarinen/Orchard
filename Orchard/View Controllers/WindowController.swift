@@ -39,7 +39,7 @@ public class WindowController: NSWindowController {
         guard let window else { return }
         
         window.subtitle = content.title ?? ""
-        window.toolbarStyle = .unifiedCompact
+        window.titlebarAppearsTransparent = true
         
         contentViewController = content
         

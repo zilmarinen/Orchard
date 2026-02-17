@@ -36,7 +36,6 @@ public class OutlineViewController: NSViewController,
     private lazy var scrollView = with(NSScrollView()) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.hasVerticalScroller = false
         $0.documentView = outlineView
     }
     

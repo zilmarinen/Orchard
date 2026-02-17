@@ -35,6 +35,9 @@ open class ContainerViewController: NSViewController {
         view.translatesAutoresizingMaskIntoConstraints = true
         view.autoresizingMask = [.maxXMargin, .maxYMargin]
         
+        view.wantsLayer = true
+        view.layer?.backgroundColor = NSColor.quinarySystemFill.cgColor
+        
         guard let content else { return }
             
         swap(from: nil,
