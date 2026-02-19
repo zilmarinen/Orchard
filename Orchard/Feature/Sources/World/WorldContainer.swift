@@ -85,7 +85,6 @@ extension WorldContainer: @preconcurrency ToolbarDelegate {
         
         [.toggleSidebar,
          .sidebarTrackingSeparator,
-         .share,
          .inspectorTrackingSeparator,
          .flexibleSpace,
          .toggleInspector]

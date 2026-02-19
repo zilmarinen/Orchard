@@ -23,12 +23,6 @@ public class Toolbar: NSToolbar,
         $0.action = #selector(toolbarItem(_:))
     }
     
-    private lazy var share = with(NSToolbarItem(item: .share)) {
-        
-        $0.target = self
-        $0.action = #selector(toolbarItem(_:))
-    }
-    
     private weak var eventHandler: ToolbarDelegate?
     
     public init(eventHandler: ToolbarDelegate) {
@@ -68,7 +62,6 @@ extension Toolbar {
         switch itemIdentifier {
             
         case .chevronBackward: back
-        case .share: share
         default: fatalError("Invalid toolbar item [\(itemIdentifier.rawValue)]")
         }
     }
@@ -82,7 +75,6 @@ extension Toolbar {
     
     public func toolbarSelectableItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
         
-        [.chevronBackward,
-         .share]
+        [.chevronBackward]
     }
 }

@@ -25,7 +25,6 @@ extension NSToolbarItem {
                       Identifiable {
         
         case chevronBackward = "Back"
-        case share = "Share"
         
         public var id: String { rawValue }
         
@@ -36,7 +35,6 @@ extension NSToolbarItem {
             switch self {
                 
             case .chevronBackward: .chevronBackward
-            case .share: .share
             }
         }
         
@@ -45,7 +43,6 @@ extension NSToolbarItem {
             switch self {
                 
             case .chevronBackward: .init(icon: .chevronBackward)
-            case .share: .init(icon: .share)
             }
         }
     }
@@ -54,5 +51,4 @@ extension NSToolbarItem {
 extension NSToolbarItem.Identifier {
     
     public static let chevronBackward = NSToolbarItem.Identifier("chevronBackward")
-    public static let share = NSToolbarItem.Identifier("share")
 }

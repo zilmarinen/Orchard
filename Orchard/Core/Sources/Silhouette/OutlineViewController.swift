@@ -6,6 +6,7 @@
 
 import AppKit
 import Base
+import Design
 
 public protocol OutlineViewControllerDelegate: AnyObject {
     
@@ -30,12 +31,12 @@ public class OutlineViewController: NSViewController,
         
         static let headerHeight = 35.0
         static let rowHeight = 21.0
-        static let indentation = 8.0
     }
     
     private lazy var scrollView = with(NSScrollView()) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.drawsBackground = false
         $0.documentView = outlineView
     }
     
@@ -44,7 +45,7 @@ public class OutlineViewController: NSViewController,
         $0.dataSource = self
         $0.delegate = self
         $0.addTableColumn(column)
-        $0.indentationPerLevel = Constant.indentation
+        $0.indentationPerLevel = .indentation
         $0.style = .sourceList
         $0.rowSizeStyle = .small
         $0.floatsGroupRows = false
