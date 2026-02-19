@@ -192,6 +192,7 @@ extension RegionViewModel {
     // MARK: Terrain
     
     internal var biome: Biome { toolOptionsViewModel.biome }
+    internal var sculpt: Bool { toolOptionsViewModel.sculpt }
     
     // MARK: Water
     

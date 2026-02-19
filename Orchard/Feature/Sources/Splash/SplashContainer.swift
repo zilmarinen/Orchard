@@ -28,6 +28,9 @@ public class SplashContainer: ContainerViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    //TODO: Remove Timer
+    private var timer: Timer?
+    
     private weak var delegate: SplashContainerDelegate?
     
     public init(delegate: SplashContainerDelegate) {
@@ -37,6 +40,12 @@ public class SplashContainer: ContainerViewController {
         super.init()
         
         title = "Orchard"
+        
+        self.timer = Timer.scheduledTimer(timeInterval: 2.0,
+                                          target: self,
+                                          selector: #selector(timer(_:)),
+                                          userInfo: nil,
+                                          repeats: false)
     }
     
     public override func viewDidLoad() {
@@ -66,6 +75,12 @@ extension SplashContainer {
     @objc
     private func button(_ sender: NSButton) {
         
+        delegate?.splashContainerDidFinish(self)
+    }
+    
+    @objc
+    private func timer(_ sender: Timer) {
+     
         delegate?.splashContainerDidFinish(self)
     }
 }

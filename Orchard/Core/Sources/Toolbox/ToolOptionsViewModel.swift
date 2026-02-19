@@ -17,6 +17,7 @@ public class ToolOptionsViewModel {
     private(set) public var biome: Biome = .boreal
     private(set) public var footpathType: FootpathType = .dirt
     private(set) public var septomino: Triangle.Septomino = .antlia
+    private(set) public var sculpt: Bool = true
     private(set) public var staircaseType: StaircaseType = .large
     private(set) public var waterType: WaterType = .ocean
     
@@ -104,6 +105,11 @@ extension ToolOptionsViewModel {
     internal func select(biome value: Biome) {
         
         self.biome = value
+    }
+    
+    internal func select(sculpt value: Bool) {
+        
+        self.sculpt = value
     }
     
     // MARK: Water

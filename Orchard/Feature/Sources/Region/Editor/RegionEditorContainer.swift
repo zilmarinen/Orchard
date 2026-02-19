@@ -290,18 +290,16 @@ extension RegionEditorContainer {
     private func update(terrain hit: HitTest,
                         button: MouseButton) {
         
-        let sculpt = true//viewModel.sculpt
-        let paint = true//viewModel.paint
         
         viewModel.vertices(for: hit).forEach {
             
             let tile = editorView.get(biome: $0)
             
-            let biome = paint ? viewModel.biome : (tile?.biome ?? viewModel.biome)
+            let biome = viewModel.sculpt ? (tile?.biome ?? viewModel.biome) : viewModel.biome
             
             let elevation = tile?.elevation ?? 0
             let adjustment = button == .left ? 1 : -1
-            let adjusted = sculpt ? max(0, elevation + adjustment) : elevation
+            let adjusted = viewModel.sculpt ? max(0, elevation + adjustment) : elevation
             
             editorView.set(adjusted > 0 ? biome : nil,
                            adjusted,

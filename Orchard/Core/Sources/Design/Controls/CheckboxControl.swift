@@ -10,6 +10,8 @@ import Base
 
 public class CheckboxControl: NSView {
     
+    public typealias ValueDidChange = ((Bool) -> Void)
+    
     // MARK: Label
     
     private lazy var textLabel = with(NSTextField()) {
@@ -52,6 +54,8 @@ public class CheckboxControl: NSView {
         set { checkbox.state = newValue ? .on : .off }
     }
     
+    public var valueDidChange: ValueDidChange?
+    
     required public init() {
         
         super.init(frame: .zero)
@@ -83,5 +87,6 @@ public class CheckboxControl: NSView {
     @objc
     private func button(_ sender: NSButton) {
         
+        valueDidChange?(sender.state == .on)
     }
 }

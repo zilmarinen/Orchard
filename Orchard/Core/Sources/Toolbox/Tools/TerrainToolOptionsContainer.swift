@@ -32,6 +32,20 @@ internal class TerrainToolOptionsContainer: ToolOptionsStackContainer {
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    private lazy var sculpt = with(CheckboxControl()) {
+        
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.title = "Sculpt"
+        $0.value = viewModel.sculpt
+        
+        $0.valueDidChange = { [weak self] value in
+            
+            guard let self else { return }
+            
+            self.viewModel.select(sculpt: value)
+        }
+    }
+    
     private lazy var cursorStyle = with(SegmentedControl(title: "Cursor",
                                                          values: viewModel.cursorStyles,
                                                          selected: viewModel.cursorStyle)) {
@@ -52,6 +66,7 @@ internal class TerrainToolOptionsContainer: ToolOptionsStackContainer {
         
         addArrangedSubview(material)
         addArrangedSubview(colorPalette)
+        addArrangedSubview(sculpt)
         addArrangedSubview(SeparatorView())
         addArrangedSubview(cursorStyle)
     }
