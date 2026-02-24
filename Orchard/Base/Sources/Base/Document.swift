@@ -35,7 +35,8 @@ public final class Document: NSDocument {
     
     override init() {
         
-        self.regions = [.zero : .init(empty: .zero)]
+        self.regions = [.zero : .init(empty: .zero,
+                                     identifier: "Origin")]
         self.zones = [:]
         
         super.init()

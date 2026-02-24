@@ -33,7 +33,6 @@ internal class ToolOptionsStackContainer: NSViewController {
     }
  
     internal let viewModel: ToolOptionsViewModel
-    internal weak var delegate: ToolOptionsContainerDelegate?
     
     internal init(viewModel: ToolOptionsViewModel) {
         

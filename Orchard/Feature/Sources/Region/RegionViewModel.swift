@@ -146,6 +146,8 @@ extension RegionViewModel {
     
     // MARK: Tool
     
+    internal var tools: [Tool] { Tool.allCases }
+    
     internal var tool: Tool { toolOptionsViewModel.tool }
  
     internal func select(tool value: Tool) {

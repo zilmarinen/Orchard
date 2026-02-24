@@ -10,18 +10,13 @@ import Base
 import Container
 import Design
 
-public protocol ToolOptionsContainerDelegate: AnyObject {}
-
 public class ToolOptionsContainer: ContainerViewController {
  
     internal let viewModel: ToolOptionsViewModel
-    internal weak var delegate: ToolOptionsContainerDelegate?
     
-    public init(viewModel: ToolOptionsViewModel,
-                delegate: ToolOptionsContainerDelegate) {
+    public init(viewModel: ToolOptionsViewModel) {
         
         self.viewModel = viewModel
-        self.delegate = delegate
         
         super.init()
         

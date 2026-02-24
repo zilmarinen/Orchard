@@ -22,6 +22,7 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../Base"),
+        .package(path: "../../../Deltille"),
         .package(path: "../../../Harvest")
     ],
     targets: [
@@ -32,6 +33,7 @@ let package = Package(
                 dependencies: [.product(name: "Base",
                                         package: "Base"),
                                "Container",
+                               "Deltille",
                                "Harvest"]),
         .target(name: "Proscenium",
                 dependencies: [.product(name: "Base",

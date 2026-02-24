@@ -22,10 +22,18 @@ internal protocol RegionEditorContainerDelegate: AnyObject {
 
 internal class RegionEditorContainer: EditorContainer<RegionView> {
     
-    private lazy var editorToolOverlay = with(EditorToolOverlay(delegate: self)) {
+    private lazy var toolOverlay = with(EditorToolOverlay(delegate: self)) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
+    
+    private lazy var cursorOverlay = with(EditorCursorOverlay()) {
+        
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private lazy var toolsMenu = RegionToolsMenu(target: self,
+                                                 action: #selector(menuItem(_:)))
     
     private let viewModel: RegionViewModel
     private weak var delegate: RegionEditorContainerDelegate?
@@ -47,12 +55,16 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
         
         super.viewDidLoad()
         
-        view.addSubview(editorToolOverlay)
+        view.addSubview(toolOverlay)
+        view.addSubview(cursorOverlay)
         
         NSLayoutConstraint.activate([
             
-            editorToolOverlay.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            editorToolOverlay.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor)
+            toolOverlay.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            toolOverlay.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            
+            cursorOverlay.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            cursorOverlay.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor)
         ])
         
         //TODO: Refactor scene loading
@@ -128,6 +140,8 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
         guard let hit = editorView.hitTest(point: location) else { return }
         
         editorView.cursor(focus: hit.pointInWorld)
+        
+        cursorOverlay.update(hit: hit)
     }
     
     override func cursor(magnify magnification: Double) {
@@ -145,6 +159,17 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
     }
 }
 
+extension RegionEditorContainer {
+
+    @objc
+    private func menuItem(_ sender: NSMenuItem) {
+        
+        guard let tool = Tool(rawValue: sender.title.lowercased()) else { return }
+        
+        viewModel.select(tool: tool)
+    }
+}
+
 // MARK: Tool Overlay
 
 extension RegionEditorContainer: @preconcurrency EditorToolOverlayDelegate {
@@ -152,21 +177,13 @@ extension RegionEditorContainer: @preconcurrency EditorToolOverlayDelegate {
     func editorToolOverlay(_ overlay: EditorToolOverlay,
                            didTapTool button: NSButton) {
         
-        let viewController = ToolSelectionContainer(delegate: self)
-        
-        present(viewController,
-                asPopoverRelativeTo: button.bounds,
-                of: button,
-                preferredEdge: .maxY,
-                behavior: .transient,
-                hasFullSizeContent: true)
+        toolsMenu.popUp(button)
     }
     
     func editorToolOverlay(_ overlay: EditorToolOverlay,
                            didTapOptions button: NSButton) {
         
-        let viewController = ToolOptionsContainer(viewModel: viewModel.toolOptionsViewModel,
-                                                  delegate: self)
+        let viewController = ToolOptionsContainer(viewModel: viewModel.toolOptionsViewModel)
         
         present(viewController,
                 asPopoverRelativeTo: button.bounds,
@@ -176,21 +193,6 @@ extension RegionEditorContainer: @preconcurrency EditorToolOverlayDelegate {
                 hasFullSizeContent: true)
     }
 }
-
-// MARK: Tool Selection
-
-extension RegionEditorContainer: @preconcurrency ToolSelectionContainerDelegate {
-    
-    func toolSelectionContainer(_ container: ToolSelectionContainer,
-                                didSelect tool: Tool) {
-        
-        viewModel.select(tool: tool)
-    }
-}
-
-// MARK: Tool Options
-
-extension RegionEditorContainer: @preconcurrency ToolOptionsContainerDelegate {}
 
 // MARK: Buildings
 
