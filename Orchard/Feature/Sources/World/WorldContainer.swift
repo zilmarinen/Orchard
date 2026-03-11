@@ -48,11 +48,11 @@ public class WorldContainer: NSSplitViewController,
     private let viewModel: WorldViewModel
     private weak var delegate: WorldContainerDelegate?
     
-    public init(triangle: Triangle,
+    public init(vertex: Triangle.Vertex,
                 document: Document,
                 delegate: WorldContainerDelegate) {
         
-        self.viewModel = .init(triangle: triangle,
+        self.viewModel = .init(vertex: vertex,
                                document: document)
         self.delegate = delegate
         
@@ -97,16 +97,16 @@ extension WorldContainer {
         
         switch selection {
             
-        case .region(let triangle): presentDeleteRegionAlert(triangle: triangle)
-        case .zone(let triangle): presentDeleteZoneAlert(triangle: triangle)
+        case .region(let vertex): presentDeleteRegionAlert(vertex: vertex)
+        case .zone(let vertex): presentDeleteZoneAlert(vertex: vertex)
         default: fatalError("Invalid selection for deletion \(selection)")
         }
     }
     
-    private func presentDeleteRegionAlert(triangle: Triangle) {
+    private func presentDeleteRegionAlert(vertex: Triangle.Vertex) {
         
         guard let window = delegate?.window,
-              let intermediate = viewModel.region(for: triangle) else { return }
+              let intermediate = viewModel.region(for: vertex) else { return }
         
         let alert = NSAlert(type: .deleteRegion(identifier: intermediate.displayName),
                             buttons: [.cancel,
@@ -117,7 +117,7 @@ extension WorldContainer {
             guard let self,
                   response != .alertFirstButtonReturn else { return }
             
-            self.viewModel.delete(region: triangle)
+            self.viewModel.delete(region: vertex)
             self.viewModel.updateDefaultSelection()
             
             // When item is deleted;
@@ -131,10 +131,10 @@ extension WorldContainer {
         }
     }
     
-    private func presentDeleteZoneAlert(triangle: Triangle) {
+    private func presentDeleteZoneAlert(vertex: Triangle.Vertex) {
         
         guard let window = delegate?.window,
-              let intermediate = viewModel.zone(for: triangle) else { return }
+              let intermediate = viewModel.zone(for: vertex) else { return }
         
         let alert = NSAlert(type: .deleteZone(identifier: intermediate.displayName),
                             buttons: [.cancel,
@@ -145,7 +145,7 @@ extension WorldContainer {
             guard let self,
                   response != .alertFirstButtonReturn else { return }
             
-            self.viewModel.delete(zone: triangle)
+            self.viewModel.delete(zone: vertex)
             self.viewModel.updateDefaultSelection()
             
             // When item is deleted;

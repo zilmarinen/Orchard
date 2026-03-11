@@ -19,19 +19,19 @@ internal class WorldViewModel {
     
     private(set) unowned(unsafe) var document: Document
     
-    internal init(triangle: Triangle,
+    internal init(vertex: Triangle.Vertex,
                   document: Document) {
      
         self.document = document
         
-        guard let region = document.region(for: triangle) else {
+        guard let region = document.region(for: vertex) else {
             
             updateDefaultSelection()
              
             return
         }
         
-        selection = .region(triangle: region.triangle)
+        selection = .region(vertex: region.origin)
     }
 }
 
@@ -69,7 +69,7 @@ extension WorldViewModel {
             return
         }
         
-        selection = .region(triangle: region.triangle)
+        selection = .region(vertex: region.origin)
     }
     
     // MARK: Regions
@@ -79,35 +79,35 @@ extension WorldViewModel {
         document.regionIntermediates
     }
     
-    internal func region(for triangle: Triangle) -> Region? {
+    internal func region(for vertex: Triangle.Vertex) -> Region? {
         
-        document.region(for: triangle)
+        document.region(for: vertex)
     }
     
-    internal func create(region triangle: Triangle) -> Region {
+    internal func create(region vertex: Triangle.Vertex) -> Region {
         
-        document.create(region: triangle)
+        document.create(region: vertex)
     }
     
-    internal func delete(region triangle: Triangle) {
+    internal func delete(region vertex: Triangle.Vertex) {
         
-        document.delete(region: triangle)
+        document.delete(region: vertex)
     }
     
     // MARK: Zones
     
-    internal func zone(for triangle: Triangle) -> ZoneIntermediate? {
+    internal func zone(for vertex: Triangle.Vertex) -> ZoneIntermediate? {
         
-        document.zone(for: triangle)
+        document.zone(for: vertex)
     }
     
-    internal func create(zone triangle: Triangle) -> ZoneIntermediate {
+    internal func create(zone vertex: Triangle.Vertex) -> ZoneIntermediate {
         
-        document.create(zone: triangle)
+        document.create(zone: vertex)
     }
     
-    internal func delete(zone triangle: Triangle) {
+    internal func delete(zone vertex: Triangle.Vertex) {
         
-        document.delete(zone: triangle)
+        document.delete(zone: vertex)
     }
 }

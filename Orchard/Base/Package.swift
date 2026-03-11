@@ -11,8 +11,6 @@ let package = Package(
                  targets: ["Base"]),
     ],
     dependencies: [
-//        .package(url: "git@github.com:zilmarinen/Deltille.git",
-//                 branch: "develop")
         .package(path: "../../../Alluvium"),
         .package(path: "../../../Deltille"),
         .package(path: "../../../Harvest")

@@ -76,7 +76,7 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
                                 .region)
         
         delegate?.worldEditorContainer(self,
-                                       didSelect: .region(triangle: triangle))
+                                       didSelect: .region(vertex: triangle.vertex))
     }
     
     override func cursor(hover location: CGPoint) {

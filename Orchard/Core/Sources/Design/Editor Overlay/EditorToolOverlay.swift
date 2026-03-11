@@ -47,6 +47,7 @@ public class EditorToolOverlay: NSView {
                                                    action: #selector(button(_:)))) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.bezelColor = .systemGray
     }
 
     private weak var delegate: EditorToolOverlayDelegate?

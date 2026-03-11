@@ -58,12 +58,12 @@ public class WindowController: NSWindowController {
 
 extension WindowController {
     
-    private func showRegion(triangle: Triangle) {
+    private func showRegion(vertex: Triangle.Vertex) {
         
         guard !presentingRegion,
               let document = self.document as? Document else { return }
         
-        set(content: RegionContainer(triangle: triangle,
+        set(content: RegionContainer(vertex: vertex,
                                      document: document,
                                      delegate: self))
     }
@@ -75,17 +75,17 @@ extension WindowController {
         set(content: SplashContainer(delegate: self))
     }
     
-    private func showWorld(focus: Triangle? = nil) {
+    private func showWorld(focus: Triangle.Vertex? = nil) {
         
         guard !presentingWorld,
               let document = self.document as? Document else { return }
         
-        set(content: WorldContainer(triangle: focus ?? .zero,
+        set(content: WorldContainer(vertex: focus ?? .zero,
                                     document: document,
                                     delegate: self))
     }
     
-    private func showZone(triangle: Triangle) {
+    private func showZone(vertex: Triangle.Vertex) {
         
         //
     }
@@ -94,9 +94,9 @@ extension WindowController {
 extension WindowController: @preconcurrency RegionContainerDelegate {
     
     public func regionContainer(_ container: RegionContainer,
-                                didFinishEditingRegion triangle: Triangle) {
+                                didFinishEditingRegion vertex: Triangle.Vertex) {
         
-        showWorld(focus: triangle)
+        showWorld(focus: vertex)
     }
 }
 
@@ -115,8 +115,8 @@ extension WindowController: WorldContainerDelegate {
         
         switch selection {
             
-        case .region(let triangle): showRegion(triangle: triangle)
-        case .zone(let triangle): showZone(triangle: triangle)
+        case .region(let vertex): showRegion(vertex: vertex)
+        case .zone(let vertex): showZone(vertex: vertex)
         default: break
         }
     }

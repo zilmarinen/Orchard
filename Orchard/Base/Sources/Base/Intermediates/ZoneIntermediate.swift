@@ -12,15 +12,15 @@ public class ZoneIntermediate: NSObject,
                                Codable,
                                TreeNode {
     
-    public let triangle: Triangle
+    public let origin: Triangle.Vertex
     public var identifier: String?
     
-    public init(triangle: Triangle) {
+    public init(origin: Triangle.Vertex) {
      
-        self.triangle = triangle
+        self.origin = origin
     }
     
-    public var displayName: String { identifier ?? triangle.id }
+    public var displayName: String { identifier ?? origin.id }
     public var image: NSImage? { NSImage(icon: .triangle) }
     
     public var children: [any TreeNode]? { nil }

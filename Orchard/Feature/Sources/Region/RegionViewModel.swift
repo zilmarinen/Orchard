@@ -20,7 +20,7 @@ internal class RegionViewModel {
     internal enum Selection: Hashable {
         
         case none
-        case portal(triangle: Triangle)
+        case portal(vertex: Triangle.Vertex)
     }
     
     public let toolOptionsViewModel = ToolOptionsViewModel(tool: .terrain)
@@ -32,10 +32,10 @@ internal class RegionViewModel {
     internal let region: Region
     internal unowned(unsafe) var document: Document
     
-    internal init(triangle: Triangle,
+    internal init(vertex: Triangle.Vertex,
                   document: Document) {
      
-        self.region = document.region(for: triangle) ?? document.create(region: triangle)
+        self.region = document.region(for: vertex) ?? document.create(region: vertex)
         self.document = document
     }
 }
@@ -57,7 +57,7 @@ extension RegionViewModel {
             let triangle = tile.transpose(.tile,
                                           .region)
             
-            if triangle == region.triangle {
+            if triangle.vertex == region.origin {
                 
                 return true
             }
@@ -86,7 +86,7 @@ extension RegionViewModel {
             
         case .buildings:
             
-            guard let grid = region.buildings?.grid else { return [] }
+            guard let grid = region.buildings?.region else { return [] }
             
             return grid.chunks.map { OutlineViewNode(displayName: $0.triangle.id,
                                                      image: NSImage(icon: .triangle),
@@ -94,7 +94,7 @@ extension RegionViewModel {
             
         case .terrain:
             
-            guard let grid = region.terrain?.grid else { return [] }
+            guard let grid = region.terrain?.region else { return [] }
             
             return grid.chunks.map { OutlineViewNode(displayName: $0.triangle.id,
                                                      image: NSImage(icon: .triangle),
@@ -102,7 +102,7 @@ extension RegionViewModel {
             
         case .water:
             
-            guard let grid = region.water?.grid else { return [] }
+            guard let grid = region.water?.region else { return [] }
             
             return grid.chunks.map { OutlineViewNode(displayName: $0.triangle.id,
                                                      image: NSImage(icon: .triangle),
@@ -117,19 +117,23 @@ extension RegionViewModel {
     
     internal func load(editor: RegionView) {
         
-        let regions = region.triangle.perimeter.compactMap {
+        let triangle = Triangle(region.origin)
+        
+        let regions = triangle.perimeter.compactMap {
             
-            document.region(for: $0)
+            document.region(for: $0.vertex)
         }
         
         editor.load(regions: regions + [region])
         
-        editor.camera(focus: region.triangle.vertex.position(.region))
+        editor.camera(focus: triangle.vertex.position(.region))
     }
     
     internal func save(editor: RegionView) {
         
-        let regions = editor.save(regions: region.triangle)
+        let triangle = Triangle(region.origin)
+        
+        let regions = editor.save(regions: [triangle] + triangle.perimeter)
         
         for region in regions {
             

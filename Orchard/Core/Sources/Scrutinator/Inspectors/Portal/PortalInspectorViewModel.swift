@@ -12,10 +12,10 @@ import Harvest
 @MainActor
 internal class PortalInspectorViewModel {
     
-    public let triangle: Triangle
+    public let vertex: Triangle.Vertex
     
-    internal init(triangle: Triangle) {
+    internal init(vertex: Triangle.Vertex) {
      
-        self.triangle = triangle
+        self.vertex = vertex
     }
 }

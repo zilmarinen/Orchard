@@ -75,9 +75,9 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
         
         switch viewModel.selection {
             
-        case .portal(let triangle):
+        case .portal(let vertex):
             
-            editorView.camera(focus: triangle.position(.tile))
+            editorView.camera(focus: vertex.position(.tile))
             
         default: break
         }
@@ -264,7 +264,7 @@ extension RegionEditorContainer {
         
         //TODO: tidy up delegation of selection / creation
         delegate?.regionEditorContainer(self,
-                                        didSelect: .portal(triangle: hit.triangle))
+                                        didSelect: .portal(vertex: hit.triangle.vertex))
     }
 }
 

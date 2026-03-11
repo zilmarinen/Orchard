@@ -12,22 +12,28 @@ import Harvest
 @MainActor
 internal class RegionInspectorViewModel {
     
-    public let triangle: Triangle
+    public let origin: Triangle.Vertex
     private(set) unowned(unsafe) var document: Document
     
-    internal init(triangle: Triangle,
+    internal init(origin: Triangle.Vertex,
                   document: Document) {
      
-        self.triangle = triangle
+        self.origin = origin
         self.document = document
     }
 }
 
 extension RegionInspectorViewModel {
     
-    internal var hasIntermediate: Bool { intermediate != nil }
+    internal var hasIntermediate: Bool {
+        
+        intermediate != nil
+    }
     
-    internal var intermediate: Region? { document.region(for: triangle) }
+    internal var intermediate: Region? {
+        
+        document.region(for: origin)
+    }
 }
 
 extension RegionInspectorViewModel {

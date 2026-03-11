@@ -23,10 +23,10 @@ public class PortalInspectorController: InspectorStackViewContainer {
     private let viewModel: PortalInspectorViewModel
     private weak var delegate: PortalInspectorControllerDelegate?
     
-    public init(triangle: Triangle,
+    public init(vertex: Triangle.Vertex,
                 delegate: PortalInspectorControllerDelegate? = nil) {
      
-        self.viewModel = .init(triangle: triangle)
+        self.viewModel = .init(vertex: vertex)
         self.delegate = delegate
         
         super.init(nibName: nil,

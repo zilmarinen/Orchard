@@ -11,9 +11,9 @@ extension FileWrapper {
     
     internal enum Key {
         
-        case region(triangle: Triangle)
+        case region(vertex: Triangle.Vertex)
         case regions
-        case zone(triangle: Triangle)
+        case zone(vertex: Triangle.Vertex)
         case zones
         
         case world
@@ -29,10 +29,10 @@ extension FileWrapper {
             
             switch self {
                 
-            case .region(let triangle): triangle.id
+            case .region(let vertex): vertex.id
             case .regions: "regions"
             case .world: "world"
-            case .zone(let triangle): triangle.id
+            case .zone(let vertex): vertex.id
             case .zones: "zones"
             }
         }

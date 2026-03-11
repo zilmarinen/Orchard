@@ -14,6 +14,7 @@ public protocol RegionInspectorControllerDelegate: AnyObject {
     
     func regionInspectorController(_ controller: RegionInspectorController,
                                    didRequestDeletionFor selection: Document.Selection)
+    
     func regionInspectorController(_ controller: RegionInspectorController,
                                    didRequestEditingFor selection: Document.Selection)
     
@@ -38,11 +39,11 @@ public class RegionInspectorController: InspectorStackViewContainer {
     private let viewModel: RegionInspectorViewModel
     private weak var delegate: RegionInspectorControllerDelegate?
     
-    public init(triangle: Triangle,
+    public init(origin: Triangle.Vertex,
                 document: Document,
                 delegate: RegionInspectorControllerDelegate? = nil) {
      
-        self.viewModel = .init(triangle: triangle,
+        self.viewModel = .init(origin: origin,
                                document: document)
         self.delegate = delegate
         
@@ -81,12 +82,12 @@ extension RegionInspectorController: @preconcurrency RegionActionsInspectorViewD
              .edit:
             
             delegate?.regionInspectorController(self,
-                                                didRequestEditingFor: .region(triangle: viewModel.triangle))
+                                                didRequestEditingFor: .region(vertex: viewModel.origin))
             
         case .delete:
             
             delegate?.regionInspectorController(self,
-                                                didRequestDeletionFor: .region(triangle: viewModel.triangle))
+                                                didRequestDeletionFor: .region(vertex: viewModel.origin))
         }
     }
 }

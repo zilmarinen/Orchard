@@ -45,7 +45,7 @@ internal class RegionSidebarContainer: ContainerViewController {
         
         switch viewModel.selection {
             
-        case .portal(let triangle):
+        case .portal(let vertex):
             
             //TODO: implement selection (see world sidebar container)
             break

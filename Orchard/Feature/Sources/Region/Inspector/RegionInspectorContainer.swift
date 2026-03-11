@@ -43,9 +43,9 @@ internal class RegionInspectorContainer: ContainerViewController {
         switch viewModel.selection {
          
         case .none: set(content: emptyViewController)
-        case .portal(let triangle):
+        case .portal(let vertex):
             
-            set(content: PortalInspectorController(triangle: triangle,
+            set(content: PortalInspectorController(vertex: vertex,
                                                    delegate: self))
         }
     }

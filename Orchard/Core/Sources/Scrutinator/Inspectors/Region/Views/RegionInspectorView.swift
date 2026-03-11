@@ -21,7 +21,7 @@ internal class RegionInspectorView: InspectorGroupView {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.title = "Coordinate"
-        $0.value = viewModel.triangle.vertex.position
+        $0.value = viewModel.origin.position
     }
     
     private lazy var textLabel = with(TextFieldControl()) {
