@@ -27,7 +27,7 @@ extension TreeNode {
     
     public var isGroup: Bool { false }
     
-    public var isLeaf: Bool { children?.isEmpty ?? true }
+    public var isLeaf: Bool { childCount == 0 }
     
     public var childCount: Int { children?.count ?? 0 }
     

@@ -55,7 +55,7 @@ internal class WorldInspectorContainer: ContainerViewController {
                                                    document: viewModel.document,
                                                    delegate: self))
             
-        case .zone(let vertex):
+        case .zone:
             
             set(content: emptyViewController)
         }

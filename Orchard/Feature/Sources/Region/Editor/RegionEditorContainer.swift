@@ -292,7 +292,6 @@ extension RegionEditorContainer {
     private func update(terrain hit: HitTest,
                         button: MouseButton) {
         
-        
         viewModel.vertices(for: hit).forEach {
             
             let tile = editorView.get(biome: $0)
@@ -323,6 +322,10 @@ extension RegionEditorContainer {
         let adjusted = max(0, button == .left ? elevation + 1 : elevation - 1)
         
         viewModel.tiles(for: hit).forEach {
+            
+            editorView.remove(water: $0)
+            
+            guard adjusted > 0 else { return }
             
             editorView.set(viewModel.waterType,
                            adjusted,
