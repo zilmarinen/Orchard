@@ -122,8 +122,8 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
         case .portals: update(portal: hit,
                               button: button)
             
-        case .staircases: update(staircases: hit,
-                                 button: button)
+        case .slopes: update(slopes: hit,
+                             button: button)
         
         case .terrain: update(terrain: hit,
                               button: button)
@@ -268,19 +268,21 @@ extension RegionEditorContainer {
     }
 }
 
-// MARK: Staircases
+// MARK: Slopes
 
 extension RegionEditorContainer {
     
-    private func update(staircases hit: HitTest,
+    private func update(slopes hit: HitTest,
                         button: MouseButton) {
         
         guard button == .left else {
             
-            return editorView.remove(staircase: hit.triangle)
+            return editorView.remove(slope: hit.triangle)
         }
         
-        editorView.set(viewModel.staircaseType,
+        editorView.set(viewModel.slope,
+                       viewModel.rise,
+                       viewModel.cast,
                        for: hit.triangle)
     }
 }

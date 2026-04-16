@@ -26,7 +26,7 @@ public class ToolOptionsContainer: ContainerViewController {
         case .foliage: set(content: FoliageToolOptionsContainer(viewModel: viewModel))
         case .footpaths: set(content: FootpathToolOptionsContainer(viewModel: viewModel))
         case .portals: set(content: PortalToolOptionsContainer(viewModel: viewModel))
-        case .staircases: set(content: StaircaseToolOptionsContainer(viewModel: viewModel))
+        case .slopes: set(content: SlopeToolOptionsContainer(viewModel: viewModel))
         case .terrain: set(content: TerrainToolOptionsContainer(viewModel: viewModel))
         case .water: set(content: WaterToolOptionsContainer(viewModel: viewModel))
         default: set(content: EmptyViewController(text: viewModel.tool.id))

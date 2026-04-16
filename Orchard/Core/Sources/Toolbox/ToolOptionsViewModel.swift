@@ -18,7 +18,9 @@ public class ToolOptionsViewModel {
     private(set) public var footpathType: FootpathType = .dirt
     private(set) public var septomino: Triangle.Septomino = .antlia
     private(set) public var sculpt: Bool = true
-    private(set) public var staircaseType: StaircaseType = .large
+    private(set) public var slope: Slope = .narrow
+    private(set) public var rise: Rise = .ascending
+    private(set) public var cast: Cast = .terraced
     private(set) public var waterType: WaterType = .ocean
     
     private(set) public var tool: Tool
@@ -60,8 +62,8 @@ extension ToolOptionsViewModel {
             
         case .portals: [.triangle]
             
-        case .staircases: [.footprint(.init(.zero,
-                                            staircaseType.footprint.tiles))]
+        case .slopes: [.footprint(.init(.zero,
+                                        slope.coordinates))]
             
         case .terrain: [.vertex,
                         .triangle,
@@ -93,11 +95,21 @@ extension ToolOptionsViewModel {
         self.footpathType = value
     }
     
-    // MARK: Staircases
+    // MARK: Slopes
     
-    internal func select(staircaseType value: StaircaseType) {
+    internal func select(slope value: Slope) {
         
-        self.staircaseType = value
+        self.slope = value
+    }
+    
+    internal func select(rise value: Rise) {
+        
+        self.rise = value
+    }
+    
+    internal func select(cast value: Cast) {
+        
+        self.cast = value
     }
     
     // MARK: Terrain

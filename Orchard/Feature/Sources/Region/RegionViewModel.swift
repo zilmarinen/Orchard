@@ -191,9 +191,11 @@ extension RegionViewModel {
     
     internal var footpathType: FootpathType { toolOptionsViewModel.footpathType }
     
-    // MARK: Staircases
+    // MARK: Slopes
     
-    internal var staircaseType: StaircaseType { toolOptionsViewModel.staircaseType }
+    internal var slope: Slope { toolOptionsViewModel.slope }
+    internal var rise: Rise { toolOptionsViewModel.rise }
+    internal var cast: Cast { toolOptionsViewModel.cast }
     
     // MARK: Terrain
     
