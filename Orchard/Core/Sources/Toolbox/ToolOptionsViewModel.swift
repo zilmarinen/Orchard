@@ -7,6 +7,7 @@
 
 import Base
 import Bivouac
+import Cobble
 import Deltille
 import Harvest
 import Newel
@@ -15,7 +16,7 @@ import Newel
 public class ToolOptionsViewModel {
     
     private(set) public var biome: Biome = .boreal
-    private(set) public var footpathType: FootpathType = .dirt
+    private(set) public var design: Design = .dirt
     private(set) public var septomino: Triangle.Septomino = .antlia
     private(set) public var sculpt: Bool = true
     private(set) public var slope: Slope = .narrow
@@ -90,9 +91,9 @@ extension ToolOptionsViewModel {
     
     // MARK: Footpaths
     
-    internal func select(footpathType value: FootpathType) {
+    internal func select(design value: Design) {
         
-        self.footpathType = value
+        self.design = value
     }
     
     // MARK: Slopes

@@ -239,7 +239,7 @@ extension RegionEditorContainer {
             return editorView.remove(footpath: hit.vertex)
         }
         
-        editorView.set(viewModel.footpathType,
+        editorView.set(viewModel.design,
                        for: hit.vertex)
     }
 }

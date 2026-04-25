@@ -7,14 +7,15 @@
 
 import AppKit
 import Base
+import Cobble
 import Design
 import Harvest
 
 internal class FootpathToolOptionsContainer: ToolOptionsStackContainer {
     
-    private lazy var material = with(PopUpControl(title: "Material",
-                                                  values: FootpathType.allCases,
-                                                  selected: viewModel.footpathType)) {
+    private lazy var design = with(PopUpControl(title: "Design",
+                                                values: Design.allCases,
+                                                selected: viewModel.design)) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         
@@ -22,7 +23,7 @@ internal class FootpathToolOptionsContainer: ToolOptionsStackContainer {
             
             guard let self else { return }
             
-            self.viewModel.select(footpathType: value)
+            self.viewModel.select(design: value)
         }
     }
     
@@ -30,6 +31,6 @@ internal class FootpathToolOptionsContainer: ToolOptionsStackContainer {
         
         super.viewDidLoad()
         
-        addArrangedSubview(material)
+        addArrangedSubview(design)
     }
 }

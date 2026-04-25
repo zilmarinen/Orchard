@@ -6,6 +6,7 @@
 
 import AppKit
 import Base
+import Cobble
 import Deltille
 import Foundation
 import Harvest
@@ -189,7 +190,7 @@ extension RegionViewModel {
     
     // MARK: Footpaths
     
-    internal var footpathType: FootpathType { toolOptionsViewModel.footpathType }
+    internal var design: Design { toolOptionsViewModel.design }
     
     // MARK: Slopes
     
