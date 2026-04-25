@@ -11,6 +11,7 @@ public enum MouseButton: Int,
     
     case left = 1
     case right = 2
+    case both = 3
     
     public var id: String {
         
@@ -18,6 +19,7 @@ public enum MouseButton: Int,
             
         case .left: "Left"
         case .right: "Right"
+        case .both: "Both"
         }
     }
 }

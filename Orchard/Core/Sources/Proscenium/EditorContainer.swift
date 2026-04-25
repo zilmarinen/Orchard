@@ -28,7 +28,7 @@ open class EditorContainer<V: EditorView>: NSViewController {
     private lazy var panGestureRecognizer = with(NSPanGestureRecognizer(target: self,
                                                                         action: #selector(panGestureRecognizer(_:)))) {
         
-        $0.buttonMask = MouseButton.right.rawValue
+        $0.buttonMask = MouseButton.both.rawValue
     }
     
     // MARK: Editor View
