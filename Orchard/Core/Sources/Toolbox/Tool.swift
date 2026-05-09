@@ -14,6 +14,7 @@ public enum Tool: String,
     
     case bridges
     case buildings
+    case fences
     case foliage
     case footpaths
     case portals
@@ -31,6 +32,7 @@ public enum Tool: String,
             
         case .bridges: .systemPurple
         case .buildings: .systemOrange
+        case .fences: .systemYellow
         case .foliage: .systemGreen
         case .footpaths: .systemGray
         case .portals: .systemMint
@@ -46,6 +48,7 @@ public enum Tool: String,
             
         case .bridges: .bridge
         case .buildings: .building
+        case .fences: .ruler
         case .foliage: .tree
         case .footpaths: .path
         case .portals: .pin

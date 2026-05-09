@@ -21,6 +21,7 @@ extension NSImage {
         case mountain = "mountain.2"
         case path = "point.topleft.down.to.point.bottomright.curvepath"
         case pin = "mappin.and.ellipse"
+        case ruler
         case slider = "slider.horizontal.3"
         case square
         case stairs

@@ -23,6 +23,7 @@ public class ToolOptionsContainer: ContainerViewController {
         switch viewModel.tool {
             
         case .buildings: set(content: BuildingToolOptionsContainer(viewModel: viewModel))
+        case .fences: set(content: FenceToolOptionsContainer(viewModel: viewModel))
         case .foliage: set(content: FoliageToolOptionsContainer(viewModel: viewModel))
         case .footpaths: set(content: FootpathToolOptionsContainer(viewModel: viewModel))
         case .portals: set(content: PortalToolOptionsContainer(viewModel: viewModel))

@@ -11,17 +11,20 @@ import Cobble
 import Deltille
 import Harvest
 import Newel
+import Palisade
 
 @MainActor
 public class ToolOptionsViewModel {
     
     private(set) public var biome: Biome = .boreal
-    private(set) public var design: Design = .dirt
-    private(set) public var septomino: Triangle.Septomino = .antlia
-    private(set) public var sculpt: Bool = true
-    private(set) public var slope: Slope = .narrow
-    private(set) public var rise: Rise = .ascending
     private(set) public var cast: Cast = .terraced
+    private(set) public var design: Design = .wedge
+    private(set) public var rampart: Rampart = .hedge
+    private(set) public var rise: Rise = .ascending
+    private(set) public var sculpt: Bool = true
+    private(set) public var segment: FenceSegment = .fence
+    private(set) public var septomino: Triangle.Septomino = .antlia
+    private(set) public var slope: Slope = .narrow
     private(set) public var waterType: WaterType = .ocean
     
     private(set) public var tool: Tool
@@ -87,6 +90,18 @@ extension ToolOptionsViewModel {
     internal func select(septomino value: Triangle.Septomino) {
         
         self.septomino = value
+    }
+    
+    // MARK: Fences
+    
+    internal func select(rampart value: Rampart) {
+        
+        self.rampart = value
+    }
+    
+    internal func select(segment value: FenceSegment) {
+        
+        self.segment = value
     }
     
     // MARK: Footpaths
