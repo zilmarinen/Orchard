@@ -12,6 +12,7 @@ import Foundation
 import Harvest
 import Lattice
 import Newel
+import Palisade
 import Silhouette
 import Toolbox
 
@@ -116,7 +117,7 @@ extension RegionViewModel {
 
 extension RegionViewModel {
     
-    internal func load(editor: RegionView) {
+    internal func load(editor: EditorView) {
         
         let triangle = Triangle(region.origin)
         
@@ -130,7 +131,7 @@ extension RegionViewModel {
         editor.camera(focus: triangle.vertex.position(.region))
     }
     
-    internal func save(editor: RegionView) {
+    internal func save(editor: EditorView) {
         
         let triangle = Triangle(region.origin)
         
@@ -187,6 +188,11 @@ extension RegionViewModel {
     // MARK: Buildings
     
     internal var septomino: Triangle.Septomino { toolOptionsViewModel.septomino }
+    
+    // MARK: Fences
+    
+    internal var rampart: Rampart { toolOptionsViewModel.rampart }
+    internal var segment: FenceSegment { toolOptionsViewModel.segment }
     
     // MARK: Footpaths
     

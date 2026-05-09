@@ -20,7 +20,7 @@ internal protocol RegionEditorContainerDelegate: AnyObject {
                                didSelect selection: RegionViewModel.Selection)
 }
 
-internal class RegionEditorContainer: EditorContainer<RegionView> {
+internal class RegionEditorContainer: EditorContainer<EditorView> {
     
     private lazy var toolOverlay = with(EditorToolOverlay(delegate: self)) {
         
@@ -112,6 +112,9 @@ internal class RegionEditorContainer: EditorContainer<RegionView> {
             
         case .buildings: update(buildings: hit,
                                 button: button)
+            
+        case .fences: update(fence: hit,
+                             button: button)
 
         case .foliage: update(foliage: hit,
                               button: button)
@@ -208,6 +211,24 @@ extension RegionEditorContainer {
         
         editorView.set(viewModel.septomino,
                        for: hit.triangle)
+    }
+}
+
+// MARK: Fences
+
+extension RegionEditorContainer {
+    
+    private func update(fence hit: HitTest,
+                        button: MouseButton) {
+     
+        guard button == .left else {
+            
+            return editorView.remove(fence: hit.vertex)
+        }
+        
+        editorView.set(viewModel.rampart,
+                       viewModel.segment,
+                       for: hit.vertex)
     }
 }
 

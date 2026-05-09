@@ -7,8 +7,6 @@
 import AppKit
 import Base
 import Deltille
-import Harvest
-import Proscenium
 
 internal protocol WorldEditorContainerDelegate: AnyObject {
     
@@ -16,7 +14,7 @@ internal protocol WorldEditorContainerDelegate: AnyObject {
                               didSelect selection: Document.Selection)
 }
 
-internal class WorldEditorContainer: EditorContainer<WorldView> {
+internal class WorldEditorContainer: NSViewController {
     
     private let viewModel: WorldViewModel
     private weak var delegate: WorldEditorContainerDelegate?
@@ -38,66 +36,16 @@ internal class WorldEditorContainer: EditorContainer<WorldView> {
         
         super.viewDidLoad()
         
-        reload()
-        
-        focus()
+        //
     }
     
     internal func reload() {
-        
-        editorView.clear()
-        
-        for region in viewModel.regions {
-            
-            editorView.add(region: region)
-        }
+     
+        //TODO: Reload scene
     }
     
     internal func focus() {
-        
-        switch viewModel.selection {
-            
-        case .region(let triangle):
-            
-            editorView.camera(focus: triangle.position(.region))
-            
-        default: break
-        }
-    }
-    
-    // MARK: Cursor Events
-    
-    override func cursor(click button: MouseButton,
-                         location: CGPoint) {
-        
-        guard let hit = editorView.hitTest(point: location) else { return }
-        
-        let triangle = Triangle(hit.pointInWorld,
-                                .region)
-        
-        delegate?.worldEditorContainer(self,
-                                       didSelect: .region(vertex: triangle.vertex))
-    }
-    
-    override func cursor(hover location: CGPoint) {
-        
-        guard let hit = editorView.hitTest(point: location) else { return }
-        
-        editorView.cursor(focus: hit.pointInWorld)
-    }
-    
-    override func cursor(magnify magnification: Double) {
-        
-        
-        editorView.camera(zoom: magnification)
-    }
-    
-    override func cursor(pan button: MouseButton,
-                         location: CGPoint,
-                         translation: CGPoint) {
-        
-        editorView.camera(translate: .init(translation.x,
-                                           0.0,
-                                           translation.y))
+     
+        //TODO: Focus on selection
     }
 }
