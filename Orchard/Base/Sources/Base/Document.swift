@@ -158,15 +158,17 @@ extension Document {
     
     public func delete(region vertex: Triangle.Vertex) {
         
+        guard regions[vertex] != nil else { return }
+        
         regions[vertex] = nil
         
-        let triangle = Triangle(vertex)
+        let region = Triangle(vertex)
         
-        for adjacent in triangle.perimeter {
+        for adjacent in region.perimeter {
             
-            guard let region = region(for: adjacent.vertex) else { continue }
+            guard let neighbour = self.region(for: adjacent.vertex) else { continue }
             
-            region.remove(tiles: triangle)
+            neighbour.remove(tiles: region)
         }
     }
     
