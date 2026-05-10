@@ -59,7 +59,7 @@ extension RegionViewModel {
             let triangle = tile.transpose(.tile,
                                           .region)
             
-            if triangle.vertex == region.origin {
+            if triangle.vertex == region.vertex {
                 
                 return true
             }
@@ -119,7 +119,7 @@ extension RegionViewModel {
     
     internal func load(editor: EditorView) {
         
-        let triangle = Triangle(region.origin)
+        let triangle = Triangle(region.vertex)
         
         let regions = triangle.perimeter.compactMap {
             
@@ -133,7 +133,7 @@ extension RegionViewModel {
     
     internal func save(editor: EditorView) {
         
-        let triangle = Triangle(region.origin)
+        let triangle = Triangle(region.vertex)
         
         let regions = editor.save(regions: [triangle] + triangle.perimeter)
         

@@ -121,13 +121,13 @@ extension WorldSidebarContainer {
             guard sender == deleteRegionAction else {
                 
                 delegate?.worldSidebarContainer(self,
-                                                didRequestEditingFor: .region(vertex: item.origin))
+                                                didRequestEditingFor: .region(vertex: item.vertex))
                 
                 return
             }
             
             delegate?.worldSidebarContainer(self,
-                                            didRequestDeletionFor: .region(vertex: item.origin))
+                                            didRequestDeletionFor: .region(vertex: item.vertex))
             
         case deleteZoneAction,
              editZoneAction:
@@ -137,13 +137,13 @@ extension WorldSidebarContainer {
             guard sender == deleteZoneAction else {
                 
                 delegate?.worldSidebarContainer(self,
-                                                didRequestEditingFor: .zone(vertex: item.origin))
+                                                didRequestEditingFor: .zone(vertex: item.vertex))
                 
                 return
             }
             
             delegate?.worldSidebarContainer(self,
-                                            didRequestDeletionFor: .zone(vertex: item.origin))
+                                            didRequestDeletionFor: .zone(vertex: item.vertex))
             
         default: fatalError("Invalid sender for menu item")
         }
@@ -184,12 +184,12 @@ extension WorldSidebarContainer: @preconcurrency OutlineViewControllerDelegate {
         case let item as Region:
             
             delegate?.worldSidebarContainer(self,
-                                            didSelect: .region(vertex: item.origin))
+                                            didSelect: .region(vertex: item.vertex))
             
         case let item as ZoneIntermediate:
             
             delegate?.worldSidebarContainer(self,
-                                            didSelect: .zone(vertex: item.origin))
+                                            didSelect: .zone(vertex: item.vertex))
             
         default:
             

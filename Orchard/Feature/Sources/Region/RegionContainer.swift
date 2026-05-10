@@ -90,7 +90,7 @@ extension RegionContainer: @preconcurrency ToolbarDelegate {
                              from: self)
             
             delegate?.regionContainer(self,
-                                      didFinishEditingRegion: viewModel.region.origin)
+                                      didFinishEditingRegion: viewModel.region.vertex)
             
         default: fatalError("Invalid sender for toolbar item")
         }

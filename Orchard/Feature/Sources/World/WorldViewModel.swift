@@ -31,7 +31,7 @@ internal class WorldViewModel {
             return
         }
         
-        selection = .region(vertex: region.origin)
+        selection = .region(vertex: region.vertex)
     }
 }
 
@@ -69,7 +69,7 @@ extension WorldViewModel {
             return
         }
         
-        selection = .region(vertex: region.origin)
+        selection = .region(vertex: region.vertex)
     }
     
     // MARK: Regions

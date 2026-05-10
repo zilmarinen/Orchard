@@ -36,7 +36,7 @@ public final class Document: NSDocument {
     override init() {
         
         self.regions = [.zero : .init(empty: .zero,
-                                     identifier: "Origin")]
+                                      identifier: "Origin")]
         self.zones = [:]
         
         super.init()
@@ -150,10 +150,10 @@ extension Document {
         
         guard !region.isEmpty else {
             
-            return delete(region: region.origin)
+            return delete(region: region.vertex)
         }
         
-        regions[region.origin] = region
+        regions[region.vertex] = region
     }
     
     public func delete(region vertex: Triangle.Vertex) {
@@ -179,7 +179,7 @@ extension Document {
     
     public func create(zone vertex: Triangle.Vertex) -> ZoneIntermediate {
         
-        let zone = ZoneIntermediate(origin: vertex)
+        let zone = ZoneIntermediate(vertex: vertex)
         
         zones[vertex] = zone
         
