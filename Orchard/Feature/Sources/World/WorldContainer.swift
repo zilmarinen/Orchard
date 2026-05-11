@@ -106,7 +106,7 @@ extension WorldContainer {
     private func presentDeleteRegionAlert(vertex: Triangle.Vertex) {
         
         guard let window = delegate?.window,
-              let intermediate = viewModel.region(for: vertex) else { return }
+              let intermediate = viewModel.region(intermediate: vertex) else { return }
         
         let alert = NSAlert(type: .deleteRegion(identifier: intermediate.displayName),
                             buttons: [.cancel,
@@ -134,7 +134,7 @@ extension WorldContainer {
     private func presentDeleteZoneAlert(vertex: Triangle.Vertex) {
         
         guard let window = delegate?.window,
-              let intermediate = viewModel.zone(for: vertex) else { return }
+              let intermediate = viewModel.zone(intermediate: vertex) else { return }
         
         let alert = NSAlert(type: .deleteZone(identifier: intermediate.displayName),
                             buttons: [.cancel,

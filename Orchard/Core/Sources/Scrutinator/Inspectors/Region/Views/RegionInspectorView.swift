@@ -21,14 +21,14 @@ internal class RegionInspectorView: InspectorGroupView {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.title = "Coordinate"
-        $0.value = viewModel.origin.position
+        $0.value = viewModel.vertex.position
     }
     
     private lazy var textLabel = with(TextFieldControl()) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.title = "Identifier"
-        $0.value = viewModel.intermediate?.identifier ?? ""
+        $0.value = viewModel.identifier
         
         $0.valueDidChange = { [weak self] value in
         

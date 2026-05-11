@@ -1,16 +1,16 @@
 //
-//  ZoneIntermediate.swift
+//  RegionIntermediate.swift
 //
-//  Created by Zack Brown on 26/07/2025.
+//  Created by Zack Brown on 21/07/2025.
 //
 
 import AppKit
 import Deltille
 import Foundation
 
-public class ZoneIntermediate: NSObject,
-                               Codable,
-                               TreeNode {
+public class RegionIntermediate: NSObject,
+                                 Codable,
+                                 TreeNode {
     
     public let vertex: Triangle.Vertex
     public var identifier: String

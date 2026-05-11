@@ -39,11 +39,11 @@ public class RegionInspectorController: InspectorStackViewContainer {
     private let viewModel: RegionInspectorViewModel
     private weak var delegate: RegionInspectorControllerDelegate?
     
-    public init(origin: Triangle.Vertex,
+    public init(vertex: Triangle.Vertex,
                 document: Document,
                 delegate: RegionInspectorControllerDelegate? = nil) {
      
-        self.viewModel = .init(origin: origin,
+        self.viewModel = .init(vertex: vertex,
                                document: document)
         self.delegate = delegate
         
@@ -82,12 +82,12 @@ extension RegionInspectorController: @preconcurrency RegionActionsInspectorViewD
              .edit:
             
             delegate?.regionInspectorController(self,
-                                                didRequestEditingFor: .region(vertex: viewModel.origin))
+                                                didRequestEditingFor: .region(vertex: viewModel.vertex))
             
         case .delete:
             
             delegate?.regionInspectorController(self,
-                                                didRequestDeletionFor: .region(vertex: viewModel.origin))
+                                                didRequestDeletionFor: .region(vertex: viewModel.vertex))
         }
     }
 }

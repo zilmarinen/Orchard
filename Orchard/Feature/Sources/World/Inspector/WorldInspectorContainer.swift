@@ -51,7 +51,7 @@ internal class WorldInspectorContainer: ContainerViewController {
         case .none: set(content: emptyViewController)
         case .region(let vertex):
             
-            set(content: RegionInspectorController(origin: vertex,
+            set(content: RegionInspectorController(vertex: vertex,
                                                    document: viewModel.document,
                                                    delegate: self))
             

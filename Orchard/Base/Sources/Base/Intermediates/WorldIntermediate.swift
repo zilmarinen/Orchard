@@ -9,6 +9,6 @@ import Deltille
 
 internal struct WorldIntermediate: Codable {
     
-    internal let regions: [Triangle.Vertex]
-    internal let zones: [Triangle.Vertex]
+    internal let regions: [RegionIntermediate]
+    internal let zones: [ZoneIntermediate]
 }

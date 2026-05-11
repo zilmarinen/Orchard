@@ -41,11 +41,11 @@ extension WorldViewModel {
         
         let regions = OutlineViewNode(displayName: "Regions",
                                       image: NSImage(icon: .hexagon),
-                                      children: document.regionIntermediates)
+                                      children: Array(document.regionIntermediates.values))
         
         let zones = OutlineViewNode(displayName: "Zones",
                                     image: NSImage(icon: .rhombus),
-                                    children: document.zoneIntermediates)
+                                    children: Array(document.zoneIntermediates.values))
         
         contents = [OutlineViewNode(displayName: "World",
                                     children: [regions,
@@ -62,7 +62,7 @@ extension WorldViewModel {
     
     internal func updateDefaultSelection() {
         
-        guard let region = document.regionIntermediates.first else {
+        guard let region = document.regionIntermediates.values.first else {
         
             selection = .none
             
@@ -72,22 +72,21 @@ extension WorldViewModel {
         selection = .region(vertex: region.vertex)
     }
     
+    // MARK: Region Intermediate
+    
+    public func region(intermediate vertex: Triangle.Vertex) -> RegionIntermediate? {
+        
+        document.region(intermediate: vertex)
+    }
+    
+    // MARK: Zone Intermediate
+    
+    public func zone(intermediate vertex: Triangle.Vertex) -> ZoneIntermediate? {
+        
+        document.zone(intermediate: vertex)
+    }
+    
     // MARK: Regions
-    
-    internal var regions: [Region] {
-        
-        document.regionIntermediates
-    }
-    
-    internal func region(for vertex: Triangle.Vertex) -> Region? {
-        
-        document.region(for: vertex)
-    }
-    
-    internal func create(region vertex: Triangle.Vertex) -> Region {
-        
-        document.create(region: vertex)
-    }
     
     internal func delete(region vertex: Triangle.Vertex) {
         
@@ -95,16 +94,6 @@ extension WorldViewModel {
     }
     
     // MARK: Zones
-    
-    internal func zone(for vertex: Triangle.Vertex) -> ZoneIntermediate? {
-        
-        document.zone(for: vertex)
-    }
-    
-    internal func create(zone vertex: Triangle.Vertex) -> ZoneIntermediate {
-        
-        document.create(zone: vertex)
-    }
     
     internal func delete(zone vertex: Triangle.Vertex) {
         

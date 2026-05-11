@@ -27,20 +27,11 @@ public final class Document: NSDocument {
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
     
-    nonisolated(unsafe) private(set) var regions: [Triangle.Vertex : Region]
-    nonisolated(unsafe) private(set) var zones: [Triangle.Vertex : ZoneIntermediate]
+    nonisolated(unsafe) private(set) public var regionIntermediates: [Triangle.Vertex : RegionIntermediate] = [:]
+    nonisolated(unsafe) private(set) public var zoneIntermediates: [Triangle.Vertex : ZoneIntermediate] = [:]
     
-    public var regionIntermediates: [Region] { Array(regions.values) }
-    public var zoneIntermediates: [ZoneIntermediate] { Array(zones.values) }
-    
-    override init() {
-        
-        self.regions = [.zero : .init(empty: .zero,
-                                      identifier: "Origin")]
-        self.zones = [:]
-        
-        super.init()
-    }
+    nonisolated(unsafe) private(set) var regions: [Triangle.Vertex : Region] = [:]
+    nonisolated(unsafe) private(set) var zones: [Triangle.Vertex : Region] = [:]
     
     public override func makeWindowControllers() {
         
@@ -50,12 +41,18 @@ public final class Document: NSDocument {
         guard let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.scene) as? NSWindowController else { fatalError("Invalid window controller") }
         
         addWindowController(windowController)
+        
+        guard regionIntermediates.isEmpty else { return }
+        
+        let region = Region(empty: .zero)
+        
+        save(region: region)
     }
 
     public override func fileWrapper(ofType typeName: String) throws -> FileWrapper {
         
-        let world = WorldIntermediate(regions: Array(regions.keys),
-                                      zones: Array(zones.keys))
+        let world = WorldIntermediate(regions: Array(regionIntermediates.values),
+                                      zones: Array(zoneIntermediates.values))
         
         var package: [String : FileWrapper] = [:]
         
@@ -66,7 +63,7 @@ public final class Document: NSDocument {
         
         // MARK: Regions
         
-        let regionsFileWrappers = try regions.reduce(into: [String : FileWrapper]()) { result, region in
+        let regionFileWrappers = try regions.reduce(into: [String : FileWrapper]()) { result, region in
             
             let data = try encoder.encode(region.value)
             
@@ -74,12 +71,12 @@ public final class Document: NSDocument {
                          forKey: .region(vertex: region.key))
         }
         
-        package.write(value: .init(directoryWithFileWrappers: regionsFileWrappers),
+        package.write(value: .init(directoryWithFileWrappers: regionFileWrappers),
                            forKey: .regions)
         
         // MARK: Zones
         
-        let zonesFileWrappers = try zones.reduce(into: [String : FileWrapper]()) { result, zone in
+        let zoneFileWrappers = try zones.reduce(into: [String : FileWrapper]()) { result, zone in
             
             
             let data = try encoder.encode(zone.value)
@@ -88,7 +85,7 @@ public final class Document: NSDocument {
                          forKey: .zone(vertex: zone.key))
         }
         
-        package.write(value: .init(directoryWithFileWrappers: zonesFileWrappers),
+        package.write(value: .init(directoryWithFileWrappers: zoneFileWrappers),
                       forKey: .zones)
         
         return FileWrapper(directoryWithFileWrappers: package)
@@ -98,37 +95,73 @@ public final class Document: NSDocument {
                               ofType typeName: String) throws {
         
         guard let worldData = fileWrapper.regularFileContents(forKey: .world),
-              let regionsFileWrapper = fileWrapper.fileWrapper(forKey: .regions),
-              let zonesFileWrapper = fileWrapper.fileWrapper(forKey: .zones) else { throw CocoaError(.fileReadNoSuchFile) }
+              let regionFileWrapper = fileWrapper.fileWrapper(forKey: .regions),
+              let zoneFileWrapper = fileWrapper.fileWrapper(forKey: .zones) else { throw CocoaError(.fileReadNoSuchFile) }
         
         // MARK: World
         
         let world = try decoder.decode(WorldIntermediate.self,
                                        from: worldData)
         
+        self.regionIntermediates = world.regions.reduce(into: [:]) { result, intermediate in
+         
+            result[intermediate.vertex] = intermediate
+        }
+        
+        self.zoneIntermediates = world.zones.reduce(into: [:]) { result, intermediate in
+         
+            result[intermediate.vertex] = intermediate
+        }
+        
         // MARK: Regions
         
-        self.regions = try world.regions.reduce(into: [:]) { result, vertex in
+        self.regions = try world.regions.reduce(into: [:]) { result, intermediate in
             
-            guard let regionData = regionsFileWrapper.regularFileContents(forKey: .region(vertex: vertex)) else { throw CocoaError(.fileReadNoSuchFile) }
+            guard let regionData = regionFileWrapper.regularFileContents(forKey: .region(vertex: intermediate.vertex)) else { throw CocoaError(.fileReadNoSuchFile) }
             
-            result[vertex] = try decoder.decode(Region.self,
-                                                from: regionData)
+            result[intermediate.vertex] = try decoder.decode(Region.self,
+                                                             from: regionData)
         }
         
         // MARK: Zones
         
-        self.zones = try world.zones.reduce(into: [:]) { result, vertex in
+        self.zones = try world.zones.reduce(into: [:]) { result, intermediate in
         
-            guard let zoneData = zonesFileWrapper.regularFileContents(forKey: .zone(vertex: vertex)) else { throw CocoaError(.fileReadNoSuchFile) }
+            guard let zoneData = zoneFileWrapper.regularFileContents(forKey: .zone(vertex: intermediate.vertex)) else { throw CocoaError(.fileReadNoSuchFile) }
             
-            result[vertex] = try decoder.decode(ZoneIntermediate.self,
-                                                from: zoneData)
+            result[intermediate.vertex] = try decoder.decode(Region.self,
+                                                             from: zoneData)
         }
     }
 }
 
 extension Document {
+    
+    // MARK: Region Intermediate
+    
+    public func region(intermediate vertex: Triangle.Vertex) -> RegionIntermediate? {
+        
+        regionIntermediates[vertex]
+    }
+    
+    public func update(region vertex: Triangle.Vertex,
+                       identifier: String) {
+        
+        regionIntermediates[vertex]?.identifier = identifier
+    }
+    
+    // MARK: Zone Intermediate
+    
+    public func zone(intermediate vertex: Triangle.Vertex) -> ZoneIntermediate? {
+        
+        zoneIntermediates[vertex]
+    }
+    
+    public func update(zone vertex: Triangle.Vertex,
+                       identifier: String) {
+        
+        zoneIntermediates[vertex]?.identifier = identifier
+    }
     
     // MARK: Regions
     
@@ -139,27 +172,20 @@ extension Document {
     
     public func create(region vertex: Triangle.Vertex) -> Region {
         
+        let intermediate = RegionIntermediate(vertex)
         let region = Region(empty: .init(vertex))
         
+        regionIntermediates[vertex] = intermediate
         regions[vertex] = region
         
         return region
     }
     
-    public func save(region: Region) {
-        
-        guard !region.isEmpty else {
-            
-            return delete(region: region.vertex)
-        }
-        
-        regions[region.vertex] = region
-    }
-    
     public func delete(region vertex: Triangle.Vertex) {
         
-        guard regions[vertex] != nil else { return }
+        guard regions[vertex] != nil || regionIntermediates[vertex] != nil else { return }
         
+        regionIntermediates[vertex] = nil
         regions[vertex] = nil
         
         let region = Triangle(vertex)
@@ -172,17 +198,33 @@ extension Document {
         }
     }
     
+    public func save(region: Region) {
+        
+        guard !region.isEmpty else {
+            
+            return delete(region: region.vertex)
+        }
+        
+        regions[region.vertex] = region
+        
+        guard regionIntermediates[region.vertex] == nil else { return }
+        
+        regionIntermediates[region.vertex] = .init(region.vertex)
+    }
+    
     // MARK: Zones
     
-    public func zone(for vertex: Triangle.Vertex) -> ZoneIntermediate? {
+    public func zone(for vertex: Triangle.Vertex) -> Region? {
         
         zones[vertex]
     }
     
-    public func create(zone vertex: Triangle.Vertex) -> ZoneIntermediate {
+    public func create(zone vertex: Triangle.Vertex) -> Region {
         
-        let zone = ZoneIntermediate(vertex: vertex)
+        let intermediate = ZoneIntermediate(vertex)
+        let zone = Region(empty: .init(vertex))
         
+        zoneIntermediates[vertex] = intermediate
         zones[vertex] = zone
         
         return zone
@@ -190,6 +232,32 @@ extension Document {
     
     public func delete(zone vertex: Triangle.Vertex) {
         
+        guard zones[vertex] != nil || zoneIntermediates[vertex] != nil else { return }
+        
+        zoneIntermediates[vertex] = nil
         zones[vertex] = nil
+        
+        let region = Triangle(vertex)
+        
+        for adjacent in region.perimeter {
+            
+            guard let neighbour = self.zone(for: adjacent.vertex) else { continue }
+            
+            neighbour.remove(tiles: region)
+        }
+    }
+    
+    public func save(zone: Region) {
+        
+        guard !zone.isEmpty else {
+            
+            return delete(zone: zone.vertex)
+        }
+        
+        zones[zone.vertex] = zone
+        
+        guard zoneIntermediates[zone.vertex] == nil else { return }
+        
+        zoneIntermediates[zone.vertex] = .init(zone.vertex)
     }
 }

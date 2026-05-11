@@ -91,13 +91,13 @@ internal class WorldSidebarContainer: ContainerViewController {
             
         case .region(let vertex):
             
-            guard let intermediate = viewModel.region(for: vertex) else { return }
+            guard let intermediate = viewModel.region(intermediate: vertex) else { return }
             
             outlineViewController.select(item: intermediate)
             
         case .zone(let vertex):
             
-            guard let intermediate = viewModel.zone(for: vertex) else { return }
+            guard let intermediate = viewModel.zone(intermediate: vertex) else { return }
             
             outlineViewController.select(item: intermediate)
             
@@ -116,7 +116,7 @@ extension WorldSidebarContainer {
         case deleteRegionAction,
              editRegionAction:
             
-            guard let item = sender.representedObject as? Region else { return }
+            guard let item = sender.representedObject as? RegionIntermediate else { return }
             
             guard sender == deleteRegionAction else {
                 
@@ -181,7 +181,7 @@ extension WorldSidebarContainer: @preconcurrency OutlineViewControllerDelegate {
         
         switch item {
             
-        case let item as Region:
+        case let item as RegionIntermediate:
             
             delegate?.worldSidebarContainer(self,
                                             didSelect: .region(vertex: item.vertex))
@@ -203,7 +203,7 @@ extension WorldSidebarContainer: @preconcurrency OutlineViewControllerDelegate {
         
         switch item {
             
-        case let item as Region:
+        case let item as RegionIntermediate:
             
             regionMenu.title = item.displayName
             

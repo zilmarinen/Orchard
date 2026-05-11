@@ -46,7 +46,7 @@ extension RegionViewModel {
     
     internal var identifier: String {
         
-        region.displayName
+        document.region(intermediate: region.vertex)?.identifier ?? ""
     }
 }
 
@@ -77,7 +77,7 @@ extension RegionViewModel {
                             children: self.children(for: $0))
         }
         
-        contents = [OutlineViewNode(displayName: region.displayName,
+        contents = [OutlineViewNode(displayName: identifier,
                                     children: children,
                                     isGroup: true)]
     }
