@@ -83,7 +83,7 @@ extension RegionContainer: @preconcurrency ToolbarDelegate {
             
         case .chevronBackward:
             
-            viewModel.save(editor: editorContainer.editorView)
+            viewModel.save()
             
             NSApp.sendAction(#selector(Document.save(_:)),
                              to: nil,

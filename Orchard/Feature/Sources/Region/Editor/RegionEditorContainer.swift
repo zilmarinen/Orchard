@@ -11,7 +11,6 @@ import Deltille
 import Design
 import Euclid
 import Harvest
-import Proscenium
 import Toolbox
 
 internal protocol RegionEditorContainerDelegate: AnyObject {
@@ -20,7 +19,10 @@ internal protocol RegionEditorContainerDelegate: AnyObject {
                                didSelect selection: RegionViewModel.Selection)
 }
 
-internal class RegionEditorContainer: EditorContainer<EditorView> {
+internal class RegionEditorContainer: ContainerViewController {
+    
+    private lazy var editorController = RegionEditorViewController(viewModel: viewModel,
+                                                                   delegate: self)
     
     private lazy var toolOverlay = with(EditorToolOverlay(delegate: self)) {
         
@@ -44,8 +46,9 @@ internal class RegionEditorContainer: EditorContainer<EditorView> {
         self.viewModel = viewModel
         self.delegate = delegate
         
-        super.init(nibName: nil,
-                   bundle: nil)
+        super.init()
+        
+        set(content: editorController)
     }
     
     @available(*, unavailable)
@@ -67,8 +70,7 @@ internal class RegionEditorContainer: EditorContainer<EditorView> {
             cursorOverlay.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor)
         ])
         
-        //TODO: Refactor scene loading
-        viewModel.load(editor: editorView)
+        viewModel.load()
     }
     
     internal func focus() {
@@ -77,88 +79,10 @@ internal class RegionEditorContainer: EditorContainer<EditorView> {
             
         case .portal(let vertex):
             
-            editorView.camera(focus: vertex.position(.tile))
+            viewModel.camera(focus: vertex.position(.tile))
             
         default: break
         }
-    }
-    
-    // MARK: Keyboard Events
-    
-    override func key(down keyCode: NSEvent.KeyCode) {
-        
-        switch keyCode {
-            
-        case .q: editorView.camera(rotate: .clockwise)
-        case .e: editorView.camera(rotate: .counterClockwise)
-        case .r: editorView.cursor(rotate: .clockwise)
-        default: break
-        }
-    }
-    
-    // MARK: Cursor Events
-    
-    override func cursor(click button: MouseButton,
-                         location: CGPoint) {
-        
-        // ignore events outside of active region
-        guard let hit = editorView.hitTest(point: location),
-              viewModel.canEdit(vertex: hit.vertex) else { return }
-        
-        // ignore events when popover controller is active / dismissed
-        guard presentedViewControllers?.isEmpty ?? true else { return }
-        
-        switch viewModel.tool {
-            
-        case .buildings: update(buildings: hit,
-                                button: button)
-            
-        case .fences: update(fence: hit,
-                             button: button)
-
-        case .foliage: update(foliage: hit,
-                              button: button)
-            
-        case .footpaths: update(footpath: hit,
-                                button: button)
-            
-        case .portals: update(portal: hit,
-                              button: button)
-            
-        case .slopes: update(slopes: hit,
-                             button: button)
-        
-        case .terrain: update(terrain: hit,
-                              button: button)
-        
-        case .water: update(water: hit,
-                            button: button)
-            
-        default: break
-        }
-    }
-    
-    override func cursor(hover location: CGPoint) {
-        
-        guard let hit = editorView.hitTest(point: location) else { return }
-        
-        editorView.cursor(focus: hit.pointInWorld)
-        
-        cursorOverlay.update(hit: hit)
-    }
-    
-    override func cursor(magnify magnification: Double) {
-        
-        editorView.camera(zoom: magnification)
-    }
-    
-    override func cursor(pan button: MouseButton,
-                         location: CGPoint,
-                         translation: CGPoint) {
-        
-        editorView.camera(translate: .init(translation.x,
-                                           0.0,
-                                           translation.y))
     }
 }
 
@@ -170,6 +94,105 @@ extension RegionEditorContainer {
         guard let tool = Tool(rawValue: sender.title.lowercased()) else { return }
         
         viewModel.select(tool: tool)
+    }
+}
+
+// MARK: Region Editor
+
+extension RegionEditorContainer: @preconcurrency RegionEditorViewDelegate {
+    
+    func regionEditorViewController(_ viewController: RegionEditorViewController,
+                                    keyDown keyCode: NSEvent.KeyCode) {
+     
+        switch keyCode {
+            
+        case .q: viewModel.camera(rotate: .clockwise)
+        case .e: viewModel.camera(rotate: .counterClockwise)
+        case .r: viewModel.cursor(rotate: .clockwise)
+        default: break
+        }
+    }
+    
+    func regionEditorViewController(_ viewController: RegionEditorViewController,
+                                    click button: MouseButton,
+                                    location: CGPoint) {
+        
+        // ignore events outside of active region
+        guard let hit = viewModel.hitTest(point: location),
+              viewModel.canEdit(vertex: hit.vertex) else { return }
+        
+        // ignore events when popover controller is active / dismissed
+        guard presentedViewControllers?.isEmpty ?? true else { return }
+        
+        switch viewModel.tool {
+            
+        case .buildings:
+            
+            viewModel.update(buildings: hit,
+                             button: button)
+            
+        case .fences:
+            
+            viewModel.update(fence: hit,
+                             button: button)
+
+        case .foliage:
+            
+            viewModel.update(foliage: hit,
+                             button: button)
+            
+        case .footpaths:
+            
+            viewModel.update(footpath: hit,
+                             button: button)
+            
+        case .portals:
+            
+            viewModel.update(portal: hit,
+                             button: button)
+            
+        case .slopes:
+            
+            viewModel.update(slopes: hit,
+                             button: button)
+        
+        case .terrain:
+            
+            viewModel.update(terrain: hit,
+                             button: button)
+        
+        case .water:
+            
+            viewModel.update(water: hit,
+                             button: button)
+            
+        default: break
+        }
+    }
+    
+    func regionEditorViewController(_ viewController: RegionEditorViewController,
+                                    hover location: CGPoint) {
+        
+        guard let hit = viewModel.hitTest(point: location) else { return }
+        
+        viewModel.cursor(focus: hit.pointInWorld)
+        
+        cursorOverlay.update(hit: hit)
+    }
+    
+    func regionEditorViewController(_ viewController: RegionEditorViewController,
+                                    magnify magnification: Double) {
+        
+        viewModel.camera(zoom: magnification)
+    }
+    
+    func regionEditorViewController(_ viewController: RegionEditorViewController, pan button: MouseButton,
+                                    location: CGPoint,
+                                    translation: CGPoint) {
+        
+        viewModel.camera(translate: .init(translation.x,
+                                          0.0,
+                                          translation.y))
     }
 }
 
@@ -194,165 +217,5 @@ extension RegionEditorContainer: @preconcurrency EditorToolOverlayDelegate {
                 preferredEdge: .maxY,
                 behavior: .transient,
                 hasFullSizeContent: true)
-    }
-}
-
-// MARK: Buildings
-
-extension RegionEditorContainer {
-    
-    private func update(buildings hit: HitTest,
-                        button: MouseButton) {
-     
-        guard button == .left else {
-            
-            return editorView.remove(building: hit.triangle)
-        }
-        
-        editorView.set(viewModel.septomino,
-                       for: hit.triangle)
-    }
-}
-
-// MARK: Fences
-
-extension RegionEditorContainer {
-    
-    private func update(fence hit: HitTest,
-                        button: MouseButton) {
-     
-        guard button == .left else {
-            
-            return editorView.remove(fence: hit.vertex)
-        }
-        
-        editorView.set(viewModel.rampart,
-                       viewModel.segment,
-                       for: hit.vertex)
-    }
-}
-
-// MARK: Foliage
-
-extension RegionEditorContainer {
-    
-    private func update(foliage hit: HitTest,
-                        button: MouseButton) {
-     
-        guard button == .left else {
-            
-            return editorView.remove(foliage: hit.triangle)
-        }
-        
-        editorView.set(foliage: hit.triangle)
-    }
-}
-
-// MARK: Footpaths
-
-extension RegionEditorContainer {
-    
-    private func update(footpath hit: HitTest,
-                        button: MouseButton) {
-     
-        guard button == .left else {
-            
-            return editorView.remove(footpath: hit.vertex)
-        }
-        
-        editorView.set(viewModel.design,
-                       for: hit.vertex)
-    }
-}
-
-// MARK: Portals
-
-extension RegionEditorContainer {
-    
-    private func update(portal hit: HitTest,
-                        button: MouseButton) {
-        
-        guard button == .left else {
-            
-            //TODO: tidy up delegation of deselection
-            delegate?.regionEditorContainer(self,
-                                            didSelect: .none)
-            
-            return editorView.remove(portal: hit.triangle)
-        }
-        
-        editorView.add(portal: hit.triangle)
-        
-        //TODO: tidy up delegation of selection / creation
-        delegate?.regionEditorContainer(self,
-                                        didSelect: .portal(vertex: hit.triangle.vertex))
-    }
-}
-
-// MARK: Slopes
-
-extension RegionEditorContainer {
-    
-    private func update(slopes hit: HitTest,
-                        button: MouseButton) {
-        
-        guard button == .left else {
-            
-            return editorView.remove(slope: hit.triangle)
-        }
-        
-        editorView.set(viewModel.slope,
-                       viewModel.rise,
-                       viewModel.cast,
-                       for: hit.triangle)
-    }
-}
-
-// MARK: Terrain
-
-extension RegionEditorContainer {
-    
-    private func update(terrain hit: HitTest,
-                        button: MouseButton) {
-        
-        viewModel.vertices(for: hit).forEach {
-            
-            let tile = editorView.get(biome: $0)
-            
-            let biome = viewModel.sculpt ? (tile?.biome ?? viewModel.biome) : viewModel.biome
-            
-            let elevation = tile?.elevation ?? 0
-            let adjustment = button == .left ? 1 : -1
-            let adjusted = viewModel.sculpt ? max(0, elevation + adjustment) : elevation
-            
-            editorView.set(adjusted > 0 ? biome : nil,
-                           adjusted,
-                           for: $0)
-        }
-    }
-}
-
-// MARK: Water
-
-extension RegionEditorContainer {
-    
-    private func update(water hit: HitTest,
-                        button: MouseButton) {
-        
-        let biome = editorView.get(biome: hit.vertex)
-        let tile = editorView.get(water: hit.triangle)
-        let elevation = tile?.elevation ?? biome?.elevation ?? 0
-        let adjusted = max(0, button == .left ? elevation + 1 : elevation - 1)
-        
-        viewModel.tiles(for: hit).forEach {
-            
-            editorView.remove(water: $0)
-            
-            guard adjusted > 0 else { return }
-            
-            editorView.set(viewModel.waterType,
-                           adjusted,
-                           for: $0)
-        }
     }
 }
