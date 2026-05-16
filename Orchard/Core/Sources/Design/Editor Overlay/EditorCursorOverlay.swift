@@ -8,6 +8,7 @@
 import AppKit
 import Base
 import Deltille
+import Euclid
 import Harvest
 
 public class EditorCursorOverlay: NSView {
@@ -15,7 +16,6 @@ public class EditorCursorOverlay: NSView {
     public enum Mode: String,
                       Identifiable {
         
-        case hexagon
         case triangle
         case vertex
         
@@ -25,9 +25,8 @@ public class EditorCursorOverlay: NSView {
             
             switch self {
                 
-            case .hexagon: .systemRed
             case .triangle: .systemIndigo
-            case .vertex: .systemBlue
+            case .vertex: .systemPink
             }
         }
     }
@@ -71,13 +70,8 @@ extension EditorCursorOverlay {
     
     @objc
     private func button(_ sender: NSButton) {
-        
-        switch mode {
-            
-        case .hexagon: mode = .triangle
-        case .triangle: mode = .vertex
-        case .vertex: mode = .hexagon
-        }
+
+        mode = mode == .triangle ? .vertex : .triangle
         
         button.bezelColor = mode.color
     }
@@ -85,16 +79,9 @@ extension EditorCursorOverlay {
 
 extension EditorCursorOverlay {
  
-    public func update(hit: HitTest) {
+    public func update(_ hit: Triangle.HitTest) {
         
         switch mode {
-            
-        case .hexagon:
-            
-            let hexagon = Hexagon(hit.pointInWorld,
-                                          .chunk)
-            
-            button.title = "H: \(hexagon.id)"
             
         case .triangle:
             

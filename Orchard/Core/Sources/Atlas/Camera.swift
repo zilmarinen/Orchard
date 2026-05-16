@@ -11,8 +11,9 @@ import SpriteKit
 
 internal class Camera: SKCameraNode {
     
-    internal static let maximumScale = 10.0
+    internal static let maximumScale = 5.0
     internal static let minimumScale = 1.0
+    internal static let translationSpeed = 2.0
     
     internal override init() {
         
@@ -37,7 +38,7 @@ extension Camera {
     
     internal func translate(by delta: CGPoint) {
         
-        self.position += delta
+        self.position += delta * scale * Self.translationSpeed
     }
     
     internal func zoom(delta: Double) {

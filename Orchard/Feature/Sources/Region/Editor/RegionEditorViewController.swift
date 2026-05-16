@@ -7,8 +7,6 @@
 
 import AppKit
 import Base
-import Container
-import Harvest
 
 internal protocol RegionEditorViewDelegate: AnyObject {
     
@@ -69,7 +67,7 @@ internal class RegionEditorViewController: NSViewController {
     @available(*, unavailable)
     required public init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
-    open override func viewDidLoad() {
+    public override func viewDidLoad() {
         
         super.viewDidLoad()
         
@@ -97,37 +95,7 @@ internal class RegionEditorViewController: NSViewController {
                                                    owner: self))
     }
     
-    // MARK: Mouse Click Events
-    
-    @objc
-    private func clickGestureRecognizer(_ sender: NSClickGestureRecognizer) {
-        
-        let button: MouseButton = sender == leftClickGestureRecognizer ? .left : .right
-        
-        delegate?.regionEditorViewController(self,
-                                             click: button,
-                                             location: sender.location(in: view))
-    }
-    
-    // MARK: Mouse Pan Events
-    
-    @objc
-    private func panGestureRecognizer(_ sender: NSPanGestureRecognizer) {
-        
-        guard let button = MouseButton(rawValue: sender.buttonMask) else { return }
-        
-        let translation = sender.translation(in: view)
-        let location = sender.location(in: view)
-        let origin =  CGPoint(x: location.x - translation.x,
-                              y: location.y - translation.y)
-        
-        delegate?.regionEditorViewController(self,
-                                             pan: button,
-                                             location: origin,
-                                             translation: translation)
-    }
-    
-    // MARK: Key Pressed
+    // MARK: Key Down
     
     public override func keyDown(with event: NSEvent) {
         
@@ -144,7 +112,7 @@ internal class RegionEditorViewController: NSViewController {
         super.mouseMoved(with: event)
         
         delegate?.regionEditorViewController(self,
-                                             hover: locationInView(point: event.locationInWindow))
+                                             hover: viewModel.location(event.locationInWindow))
     }
     
     // MARK: Scroll
@@ -160,9 +128,32 @@ internal class RegionEditorViewController: NSViewController {
 
 extension RegionEditorViewController {
     
-    private func locationInView(point: CGPoint) -> CGPoint {
+    // MARK: Click Gesture
+    
+    @objc
+    private func clickGestureRecognizer(_ sender: NSClickGestureRecognizer) {
         
-        viewModel.editorView.convert(point,
-                                     from: nil)
+        let button: MouseButton = sender == leftClickGestureRecognizer ? .left : .right
+        
+        delegate?.regionEditorViewController(self,
+                                             click: button,
+                                             location: sender.location(in: view))
+    }
+    
+    // MARK: Pan Gesture
+    
+    @objc
+    private func panGestureRecognizer(_ sender: NSPanGestureRecognizer) {
+        
+        guard let button = MouseButton(rawValue: sender.buttonMask) else { return }
+        
+        let translation = sender.translation(in: view)
+        let location = sender.location(in: view)
+        let origin = location - translation
+        
+        delegate?.regionEditorViewController(self,
+                                             pan: button,
+                                             location: origin,
+                                             translation: translation)
     }
 }

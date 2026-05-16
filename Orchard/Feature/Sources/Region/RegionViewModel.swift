@@ -60,7 +60,28 @@ extension RegionViewModel {
 
 extension RegionViewModel {
     
-    internal func canEdit(vertex: Triangle.Vertex) -> Bool {
+    internal func location(_ point: CGPoint) -> CGPoint {
+     
+        editorView.convert(point,
+                           from: nil)
+    }
+    
+    internal func hitTest(_ point: CGPoint) -> Triangle.HitTest? {
+        
+        guard let pointInWorld = editorView.hit(point) else { return nil }
+        
+        let triangle = Triangle(pointInWorld,
+                                .tile)
+        
+        let closest = triangle.closest(pointInWorld,
+                                       .tile)
+        
+        return .init(pointInWorld,
+                     triangle,
+                     closest)
+    }
+    
+    internal func canEdit(_ vertex: Triangle.Vertex) -> Bool {
         
         for tile in vertex.tiles {
             
@@ -202,7 +223,9 @@ extension RegionViewModel {
         
         editorView.cursor(rotate: value)
     }
-//    
+    
+    //TODO: Check cursor rotation and style implementation
+//
 //    internal func cursor(toggle style: CursorStyle) {
 //        
 //        cursor.toggle(style: style)
@@ -213,7 +236,7 @@ extension RegionViewModel {
 //        cursor.rotation
 //    }
     
-    internal func tiles(for hit: HitTest) -> [Triangle] {
+    internal func tiles(for hit: Triangle.HitTest) -> [Triangle] {
         
         switch toolOptionsViewModel.cursorStyle {
             
@@ -224,7 +247,7 @@ extension RegionViewModel {
         }
     }
     
-    internal func vertices(for hit: HitTest) -> [Triangle.Vertex] {
+    internal func vertices(for hit: Triangle.HitTest) -> [Triangle.Vertex] {
         
         switch toolOptionsViewModel.cursorStyle {
             
@@ -235,18 +258,11 @@ extension RegionViewModel {
         }
     }
     
-    // MARK: Hit Test
-    
-    internal func hitTest(point: CGPoint) -> HitTest? {
-        
-        editorView.hitTest(point: point)
-    }
-    
     // MARK: Buildings
     
     internal var septomino: Triangle.Septomino { toolOptionsViewModel.septomino }
     
-    internal func update(buildings hit: HitTest,
+    internal func update(buildings hit: Triangle.HitTest,
                          button: MouseButton) {
      
         guard button == .left else {
@@ -263,7 +279,7 @@ extension RegionViewModel {
     internal var rampart: Rampart { toolOptionsViewModel.rampart }
     internal var segment: FenceSegment { toolOptionsViewModel.segment }
     
-    internal func update(fence hit: HitTest,
+    internal func update(fence hit: Triangle.HitTest,
                          button: MouseButton) {
         
         guard button == .left else {
@@ -278,7 +294,7 @@ extension RegionViewModel {
     
     // MARK: Foliage
     
-    internal func update(foliage hit: HitTest,
+    internal func update(foliage hit: Triangle.HitTest,
                          button: MouseButton) {
      
         guard button == .left else {
@@ -293,7 +309,7 @@ extension RegionViewModel {
     
     internal var design: Design { toolOptionsViewModel.design }
     
-    internal func update(footpath hit: HitTest,
+    internal func update(footpath hit: Triangle.HitTest,
                          button: MouseButton) {
         
         guard button == .left else {
@@ -307,7 +323,7 @@ extension RegionViewModel {
     
     // MARK: Portals
     
-    internal func update(portal hit: HitTest,
+    internal func update(portal hit: Triangle.HitTest,
                          button: MouseButton) {
         
         guard button == .left else {
@@ -324,7 +340,7 @@ extension RegionViewModel {
     internal var rise: Rise { toolOptionsViewModel.rise }
     internal var cast: Cast { toolOptionsViewModel.cast }
     
-    internal func update(slopes hit: HitTest,
+    internal func update(slopes hit: Triangle.HitTest,
                          button: MouseButton) {
         
         guard button == .left else {
@@ -343,7 +359,7 @@ extension RegionViewModel {
     internal var biome: Biome { toolOptionsViewModel.biome }
     internal var sculpt: Bool { toolOptionsViewModel.sculpt }
     
-    internal func update(terrain hit: HitTest,
+    internal func update(terrain hit: Triangle.HitTest,
                          button: MouseButton) {
         
         vertices(for: hit).forEach {
@@ -366,7 +382,7 @@ extension RegionViewModel {
     
     internal var waterType: WaterType { toolOptionsViewModel.waterType }
     
-    internal func update(water hit: HitTest,
+    internal func update(water hit: Triangle.HitTest,
                          button: MouseButton) {
         
         let biome = editorView.get(biome: hit.vertex)

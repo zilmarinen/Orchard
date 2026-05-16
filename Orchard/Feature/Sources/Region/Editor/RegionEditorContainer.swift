@@ -118,8 +118,8 @@ extension RegionEditorContainer: @preconcurrency RegionEditorViewDelegate {
                                     location: CGPoint) {
         
         // ignore events outside of active region
-        guard let hit = viewModel.hitTest(point: location),
-              viewModel.canEdit(vertex: hit.vertex) else { return }
+        guard let hit = viewModel.hitTest(location),
+              viewModel.canEdit(hit.vertex) else { return }
         
         // ignore events when popover controller is active / dismissed
         guard presentedViewControllers?.isEmpty ?? true else { return }
@@ -173,11 +173,11 @@ extension RegionEditorContainer: @preconcurrency RegionEditorViewDelegate {
     func regionEditorViewController(_ viewController: RegionEditorViewController,
                                     hover location: CGPoint) {
         
-        guard let hit = viewModel.hitTest(point: location) else { return }
+        guard let hit = viewModel.hitTest(location) else { return }
         
         viewModel.cursor(focus: hit.pointInWorld)
         
-        cursorOverlay.update(hit: hit)
+        cursorOverlay.update(hit)
     }
     
     func regionEditorViewController(_ viewController: RegionEditorViewController,
@@ -186,7 +186,8 @@ extension RegionEditorContainer: @preconcurrency RegionEditorViewDelegate {
         viewModel.camera(zoom: magnification)
     }
     
-    func regionEditorViewController(_ viewController: RegionEditorViewController, pan button: MouseButton,
+    func regionEditorViewController(_ viewController: RegionEditorViewController,
+                                    pan button: MouseButton,
                                     location: CGPoint,
                                     translation: CGPoint) {
         
