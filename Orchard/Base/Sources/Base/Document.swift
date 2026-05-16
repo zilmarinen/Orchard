@@ -44,9 +44,8 @@ public final class Document: NSDocument {
         
         guard regionIntermediates.isEmpty else { return }
         
-        let region = Region(empty: .zero)
-        
-        save(region: region)
+        create(empty: .zero,
+               identifier: "Origin")
     }
 
     public override func fileWrapper(ofType typeName: String) throws -> FileWrapper {
@@ -168,6 +167,14 @@ extension Document {
     public func region(for vertex: Triangle.Vertex) -> Region? {
         
         regions[vertex]
+    }
+    
+    private func create(empty region: Triangle,
+                        identifier: String? = nil) {
+        
+        regionIntermediates[region.vertex] = RegionIntermediate(region.vertex,
+                                                                identifier)
+        regions[region.vertex] = Region(empty: region)
     }
     
     public func create(region vertex: Triangle.Vertex) -> Region {

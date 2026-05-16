@@ -5,13 +5,22 @@
 //
 
 import AppKit
+import Atlas
 import Base
 import Deltille
 import Harvest
+import SpriteKit
 import Silhouette
 
 @MainActor
 internal class WorldViewModel {
+    
+    // MARK: Editor View
+    
+    internal let editorView = with(AtlasView()) {
+        
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
     
     private(set) var contents: [any TreeNode] = []
     
@@ -37,6 +46,27 @@ internal class WorldViewModel {
 
 extension WorldViewModel {
     
+    internal func location(_ point: CGPoint) -> CGPoint {
+        
+        editorView.convert(point,
+                           from: nil)
+    }
+    
+    internal func hitTest(_ point: CGPoint) -> Triangle.HitTest? {
+        
+        guard let pointInWorld = editorView.hit(point) else { return nil }
+        
+        let triangle = Triangle(pointInWorld,
+                                .region)
+        
+        let closest = triangle.closest(pointInWorld,
+                                       .region)
+        
+        return .init(pointInWorld,
+                     triangle,
+                     closest)
+    }
+    
     internal func reload() {
         
         let regions = OutlineViewNode(displayName: "Regions",
@@ -56,6 +86,15 @@ extension WorldViewModel {
 
 extension WorldViewModel {
     
+    internal func load() {
+        
+        //TODO: Tidy up editor view loading
+        editorView.load(regions: Array(document.regionIntermediates.keys))
+    }
+}
+
+extension WorldViewModel {
+    
     // MARK: Selection
     
     internal func update(selection value: Document.Selection) { selection = value }
@@ -70,6 +109,30 @@ extension WorldViewModel {
         }
         
         selection = .region(vertex: region.vertex)
+    }
+    
+    // MARK: Camera
+    
+    internal func camera(focus value: CGPoint) {
+        
+        editorView.camera(focus: value)
+    }
+    
+    internal func camera(translate value: CGPoint) {
+        
+        editorView.camera(translate: value.normalized())
+    }
+    
+    internal func camera(zoom value: Double) {
+        
+        editorView.camera(zoom: value)
+    }
+    
+    // MARK: Cursor
+    
+    internal func cursor(focus value: Triangle.HitTest) {
+        
+        editorView.cursor(focus: value)
     }
     
     // MARK: Region Intermediate

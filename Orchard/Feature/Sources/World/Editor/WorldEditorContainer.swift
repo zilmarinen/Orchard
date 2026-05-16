@@ -6,7 +6,9 @@
 
 import AppKit
 import Base
+import Container
 import Deltille
+import Design
 
 internal protocol WorldEditorContainerDelegate: AnyObject {
     
@@ -14,7 +16,15 @@ internal protocol WorldEditorContainerDelegate: AnyObject {
                               didSelect selection: Document.Selection)
 }
 
-internal class WorldEditorContainer: NSViewController {
+internal class WorldEditorContainer: ContainerViewController {
+    
+    private lazy var editorController = WorldEditorViewController(viewModel: viewModel,
+                                                                  delegate: self)
+    
+    private lazy var cursorOverlay = with(EditorCursorOverlay()) {
+        
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
     
     private let viewModel: WorldViewModel
     private weak var delegate: WorldEditorContainerDelegate?
@@ -25,8 +35,9 @@ internal class WorldEditorContainer: NSViewController {
         self.viewModel = viewModel
         self.delegate = delegate
         
-        super.init(nibName: nil,
-                   bundle: nil)
+        super.init()
+        
+        set(content: editorController)
     }
     
     @available(*, unavailable)
@@ -36,16 +47,71 @@ internal class WorldEditorContainer: NSViewController {
         
         super.viewDidLoad()
         
-        //
+        view.addSubview(cursorOverlay)
+        
+        NSLayoutConstraint.activate([
+            
+            cursorOverlay.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            cursorOverlay.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor)
+        ])
+        
+        viewModel.load()
     }
     
     internal func reload() {
      
         //TODO: Reload scene
+        viewModel.load()
     }
     
     internal func focus() {
      
-        //TODO: Focus on selection
+        switch viewModel.selection {
+            
+        case .region(let vertex):
+            
+            let focus = vertex.position(.region)
+            
+            viewModel.camera(focus: .init(focus))
+            
+        default: break
+        }
+    }
+}
+
+extension WorldEditorContainer: @preconcurrency WorldEditorViewDelegate {
+    
+    func worldEditorViewController(_ viewController: WorldEditorViewController,
+                                   click button: MouseButton,
+                                   location: CGPoint) {
+        
+        guard let hit = viewModel.hitTest(location) else { return }
+        
+        delegate?.worldEditorContainer(self,
+                                       didSelect: .region(vertex: hit.triangle.vertex))
+    }
+    
+    func worldEditorViewController(_ viewController: WorldEditorViewController,
+                                   hover location: CGPoint) {
+        
+        guard let hit = viewModel.hitTest(location) else { return }
+        
+        viewModel.cursor(focus: hit)
+        
+        cursorOverlay.update(hit)
+    }
+    
+    func worldEditorViewController(_ viewController: WorldEditorViewController,
+                                   magnify magnification: Double) {
+        
+        viewModel.camera(zoom: magnification)
+    }
+    
+    func worldEditorViewController(_ viewController: WorldEditorViewController,
+                                   pan button: MouseButton,
+                                   location: CGPoint,
+                                   translation: CGPoint) {
+        
+        viewModel.camera(translate: translation)
     }
 }

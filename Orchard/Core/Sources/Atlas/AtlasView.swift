@@ -47,32 +47,13 @@ public class AtlasView: SKView {
         cursor.fillColor = .systemPink
         cursor.strokeColor = .white
         cursor.lineWidth = 1.0
-        
-        let origin = SKShapeNode(path: path)
-        let xSprite = SKShapeNode(rectOf: .init(width: 10, height: 10))
-        let ySprite = SKShapeNode(rectOf: .init(width: 10, height: 10))
-        
-        xSprite.position = .init(x: 100.0, y: 0.0)
-        xSprite.fillColor = .systemRed
-        xSprite.strokeColor = .systemRed
-        
-        ySprite.position = .init(x: 0.0, y: 100.0)
-        ySprite.fillColor = .systemGreen
-        ySprite.strokeColor = .systemGreen
-        
-        origin.fillColor = .systemBlue
-        origin.strokeColor = .white
-        origin.lineWidth = 1.0
-        origin.zRotation = triangle.orientation
+        cursor.zPosition = 1.0
         
         scene.backgroundColor = .windowBackgroundColor
         scene.camera = camera
         scene.scaleMode = .resizeFill
         
         scene.addChild(camera)
-        scene.addChild(origin)
-        scene.addChild(xSprite)
-        scene.addChild(ySprite)
         scene.addChild(cursor)
         
         presentScene(scene)
@@ -86,7 +67,41 @@ public class AtlasView: SKView {
 
 extension AtlasView {
     
+    public func load(regions: [Triangle.Vertex]) {
+        
+        guard let scene else { return }
+        
+        scene.removeAllChildren()
+        
+        scene.addChild(camera)
+        scene.addChild(cursor)
+        
+        for region in regions {
+            
+            load(region: region)
+        }
+    }
     
+    private func load(region: Triangle.Vertex) {
+        
+        guard let scene,
+              let path = cursor.path else { return }
+        
+        let triangle = Triangle(region)
+        let position = triangle.position(.region)
+        
+        let node = SKShapeNode(path: path)
+        
+        node.position = .init(x: position.x,
+                              y: -position.z)
+        node.path = path
+        node.fillColor = .systemTeal
+        node.strokeColor = .white
+        node.lineWidth = 1.0
+        node.zRotation = triangle.orientation
+        
+        scene.addChild(node)
+    }
 }
 
 // MARK: Hit Test
@@ -114,7 +129,8 @@ extension AtlasView {
     
     public func camera(translate value: CGPoint) {
         
-        camera.translate(by: value)
+        camera.translate(by: .init(x: value.y,
+                                   y: -value.x))
     }
     
     public func camera(zoom value: Double) {
