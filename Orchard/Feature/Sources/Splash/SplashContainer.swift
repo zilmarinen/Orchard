@@ -21,16 +21,6 @@ public class SplashContainer: ContainerViewController {
         $0.image = .splashIcon
     }
     
-    private lazy var loadButton = with(NSButton(title: "Splash",
-                                                target: self,
-                                                action: #selector(button(_:)))) {
-        
-        $0.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    //TODO: Remove Timer
-    private var timer: Timer?
-    
     private weak var delegate: SplashContainerDelegate?
     
     public init(delegate: SplashContainerDelegate) {
@@ -40,12 +30,6 @@ public class SplashContainer: ContainerViewController {
         super.init()
         
         title = "Orchard"
-        
-        self.timer = Timer.scheduledTimer(timeInterval: 2.0,
-                                          target: self,
-                                          selector: #selector(timer(_:)),
-                                          userInfo: nil,
-                                          repeats: false)
     }
     
     public override func viewDidLoad() {
@@ -55,32 +39,21 @@ public class SplashContainer: ContainerViewController {
         view.wantsLayer = true
         view.layer?.backgroundColor = NSColor.splashBackground.cgColor
         
-        view.addSubview(loadButton)
         view.addSubview(imageView)
         
         imageView.center(in: view)
+    }
+    
+    public override func viewDidAppear() {
         
-        //TODO: remove splash button
-        NSLayoutConstraint.activate([
+        super.viewDidAppear()
+        
+        Debouncer.perform(context: "Splash",
+                          after: .debounceInterval) { [weak self] in
             
-            loadButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                                               constant: -16.0),
-            loadButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
-        ])
-    }
-}
-
-extension SplashContainer {
-    
-    @objc
-    private func button(_ sender: NSButton) {
-        
-        delegate?.splashContainerDidFinish(self)
-    }
-    
-    @objc
-    private func timer(_ sender: Timer) {
-     
-        delegate?.splashContainerDidFinish(self)
+            guard let self else { return}
+            
+            self.delegate?.splashContainerDidFinish(self)
+        }
     }
 }

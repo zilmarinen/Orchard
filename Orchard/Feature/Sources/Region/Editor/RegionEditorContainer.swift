@@ -70,7 +70,20 @@ internal class RegionEditorContainer: ContainerViewController {
             cursorOverlay.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor)
         ])
         
-        viewModel.load()
+        reload()
+    }
+    
+    internal func reload() {
+        
+        do {
+            
+            try viewModel.load()
+        }
+        catch {
+            
+            //TODO: Handle error
+            presentError(error)
+        }
     }
     
     internal func focus() {
@@ -118,7 +131,7 @@ extension RegionEditorContainer: @preconcurrency RegionEditorViewDelegate {
                                     location: CGPoint) {
         
         // ignore events outside of active region
-        guard let hit = viewModel.hitTest(location),
+        guard let hit = viewModel.hit(location),
               viewModel.canEdit(hit.vertex) else { return }
         
         // ignore events when popover controller is active / dismissed
@@ -173,7 +186,7 @@ extension RegionEditorContainer: @preconcurrency RegionEditorViewDelegate {
     func regionEditorViewController(_ viewController: RegionEditorViewController,
                                     hover location: CGPoint) {
         
-        guard let hit = viewModel.hitTest(location) else { return }
+        guard let hit = viewModel.hit(location) else { return }
         
         viewModel.cursor(focus: hit.pointInWorld)
         

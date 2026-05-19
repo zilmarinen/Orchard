@@ -9,7 +9,7 @@ import Base
 import Deltille
 import Design
 
-public protocol RegionContainerDelegate: AnyObject {
+public protocol RegionContainerDelegate: NSWindowController {
     
     func regionContainer(_ container: RegionContainer,
                          didFinishEditingRegion vertex: Triangle.Vertex)
@@ -83,16 +83,21 @@ extension RegionContainer: @preconcurrency ToolbarDelegate {
             
         case .chevronBackward:
             
-            viewModel.save()
-            
-            NSApp.sendAction(#selector(Document.save(_:)),
-                             to: nil,
-                             from: self)
-            
-            delegate?.regionContainer(self,
-                                      didFinishEditingRegion: viewModel.region.vertex)
-            
-        default: fatalError("Invalid sender for toolbar item")
+            do {
+                
+                try viewModel.save()
+                
+                NSApp.sendAction(#selector(Document.save(_:)),
+                                 to: nil,
+                                 from: self)
+                
+                delegate?.regionContainer(self,
+                                          didFinishEditingRegion: viewModel.region.vertex)
+            }
+            catch {
+                
+                delegate?.present(error: error)
+            }
         }
     }
     

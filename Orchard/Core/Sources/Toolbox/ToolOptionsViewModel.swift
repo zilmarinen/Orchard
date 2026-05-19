@@ -13,6 +13,12 @@ import Harvest
 import Newel
 import Palisade
 
+public protocol ToolOptionsDelegate: AnyObject {
+    
+    func toolOptionsViewModel(_ viewModel: ToolOptionsViewModel,
+                              didSelect cursorStyle: CursorStyle)
+}
+
 @MainActor
 public class ToolOptionsViewModel {
     
@@ -30,9 +36,13 @@ public class ToolOptionsViewModel {
     private(set) public var tool: Tool
     private(set) public var cursorStyle: CursorStyle = .vertex
     
-    public init(tool: Tool) {
+    private weak var delegate: ToolOptionsDelegate?
+    
+    public init(tool: Tool,
+                delegate: ToolOptionsDelegate) {
         
         self.tool = tool
+        self.delegate = delegate
     }
 }
 
@@ -56,8 +66,7 @@ extension ToolOptionsViewModel {
         
         switch tool {
             
-        case .buildings: [.footprint(.init(.zero,
-                                           septomino.coordinates))]
+        case .buildings: [.footprint(asset: .building(septomino))]
             
         case .foliage: [.triangle,
                         .hexagonal]
@@ -66,8 +75,9 @@ extension ToolOptionsViewModel {
             
         case .portals: [.triangle]
             
-        case .slopes: [.footprint(.init(.zero,
-                                        slope.coordinates))]
+        case .slopes: [.footprint(asset: .slope(slope,
+                                                rise,
+                                                cast))]
             
         case .terrain: [.vertex,
                         .triangle,
@@ -83,6 +93,9 @@ extension ToolOptionsViewModel {
     public func select(cursorStyle value: CursorStyle) {
         
         self.cursorStyle = value
+        
+        delegate?.toolOptionsViewModel(self,
+                                       didSelect: value)
     }
     
     // MARK: Buildings

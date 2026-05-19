@@ -33,14 +33,14 @@ internal class WorldViewModel {
      
         self.document = document
         
-        guard let region = document.region(for: vertex) else {
+        guard let intermediate = document.region(intermediate: vertex) else {
             
             updateDefaultSelection()
              
             return
         }
         
-        selection = .region(vertex: region.vertex)
+        selection = .region(vertex: intermediate.vertex)
     }
 }
 
@@ -52,19 +52,21 @@ extension WorldViewModel {
                            from: nil)
     }
     
-    internal func hitTest(_ point: CGPoint) -> Triangle.HitTest? {
+    internal func hit(_ point: CGPoint) -> Triangle.HitTest? {
         
         guard let pointInWorld = editorView.hit(point) else { return nil }
         
-        let triangle = Triangle(pointInWorld,
-                                .region)
-        
-        let closest = triangle.closest(pointInWorld,
-                                       .region)
-        
         return .init(pointInWorld,
-                     triangle,
-                     closest)
+                     .region)
+    }
+}
+
+extension WorldViewModel {
+    
+    internal func load() {
+        
+        //TODO: Tidy up editor view loading
+        editorView.load(regions: Array(document.regionIntermediates.keys))
     }
     
     internal func reload() {
@@ -81,15 +83,6 @@ extension WorldViewModel {
                                     children: [regions,
                                                zones],
                                     isGroup: true)]
-    }
-}
-
-extension WorldViewModel {
-    
-    internal func load() {
-        
-        //TODO: Tidy up editor view loading
-        editorView.load(regions: Array(document.regionIntermediates.keys))
     }
 }
 
@@ -151,15 +144,15 @@ extension WorldViewModel {
     
     // MARK: Regions
     
-    internal func delete(region vertex: Triangle.Vertex) {
+    internal func delete(region vertex: Triangle.Vertex) throws {
         
-        document.delete(region: vertex)
+        try document.delete(region: vertex)
     }
     
     // MARK: Zones
     
-    internal func delete(zone vertex: Triangle.Vertex) {
+    internal func delete(zone vertex: Triangle.Vertex) throws {
         
-        document.delete(zone: vertex)
+        try document.delete(zone: vertex)
     }
 }

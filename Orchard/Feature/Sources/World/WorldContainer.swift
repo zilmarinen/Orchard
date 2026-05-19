@@ -117,7 +117,15 @@ extension WorldContainer {
             guard let self,
                   response != .alertFirstButtonReturn else { return }
             
-            self.viewModel.delete(region: vertex)
+            do {
+                
+                try self.viewModel.delete(region: vertex)
+            }
+            catch {
+                
+                self.delegate?.present(error: error)
+            }
+            
             self.viewModel.updateDefaultSelection()
             
             // When item is deleted;
@@ -145,7 +153,15 @@ extension WorldContainer {
             guard let self,
                   response != .alertFirstButtonReturn else { return }
             
-            self.viewModel.delete(zone: vertex)
+            do {
+                
+                try self.viewModel.delete(zone: vertex)
+            }
+            catch {
+                
+                self.delegate?.present(error: error)
+            }
+            
             self.viewModel.updateDefaultSelection()
             
             // When item is deleted;

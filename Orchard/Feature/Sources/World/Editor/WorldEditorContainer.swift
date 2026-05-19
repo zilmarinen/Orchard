@@ -55,13 +55,14 @@ internal class WorldEditorContainer: ContainerViewController {
             cursorOverlay.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor)
         ])
         
-        viewModel.load()
+        reload()
     }
     
     internal func reload() {
      
-        //TODO: Reload scene
         viewModel.load()
+        
+        focus()
     }
     
     internal func focus() {
@@ -72,7 +73,8 @@ internal class WorldEditorContainer: ContainerViewController {
             
             let focus = vertex.position(.region)
             
-            viewModel.camera(focus: .init(focus))
+            viewModel.camera(focus: .init(x: focus.x,
+                                          y: focus.z))
             
         default: break
         }
@@ -85,7 +87,7 @@ extension WorldEditorContainer: @preconcurrency WorldEditorViewDelegate {
                                    click button: MouseButton,
                                    location: CGPoint) {
         
-        guard let hit = viewModel.hitTest(location) else { return }
+        guard let hit = viewModel.hit(location) else { return }
         
         delegate?.worldEditorContainer(self,
                                        didSelect: .region(vertex: hit.triangle.vertex))
@@ -94,7 +96,7 @@ extension WorldEditorContainer: @preconcurrency WorldEditorViewDelegate {
     func worldEditorViewController(_ viewController: WorldEditorViewController,
                                    hover location: CGPoint) {
         
-        guard let hit = viewModel.hitTest(location) else { return }
+        guard let hit = viewModel.hit(location) else { return }
         
         viewModel.cursor(focus: hit)
         

@@ -9,15 +9,6 @@ import Foundation
 
 extension CGPoint {
     
-    internal init(_ vector: Vector) {
-        
-        self.init(x: vector.x,
-                  y: vector.z)
-    }
-}
-
-extension CGPoint {
-    
     public static func +(lhs: Self,
                          rhs: Self) -> Self {
         

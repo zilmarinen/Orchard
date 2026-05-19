@@ -8,7 +8,6 @@
 import Base
 import Deltille
 import Euclid
-import Harvest
 import SpriteKit
 
 public class AtlasView: SKView {
@@ -124,7 +123,8 @@ extension AtlasView {
     
     public func camera(focus value: CGPoint) {
         
-        camera.focus(on: value)
+        camera.focus(on: .init(x: value.x,
+                               y: -value.y))
     }
     
     public func camera(translate value: CGPoint) {

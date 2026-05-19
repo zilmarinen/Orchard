@@ -33,7 +33,8 @@ internal class RegionViewModel {
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    public let toolOptionsViewModel = ToolOptionsViewModel(tool: .terrain)
+    internal lazy var toolOptionsViewModel = ToolOptionsViewModel(tool: .terrain,
+                                                                  delegate: self)
     
     private(set) var contents: [any TreeNode] = []
     
@@ -44,9 +45,16 @@ internal class RegionViewModel {
     
     internal init(vertex: Triangle.Vertex,
                   document: Document) {
-     
-        self.region = document.region(for: vertex) ?? document.create(region: vertex)
-        self.document = document
+        
+        do {
+            
+            self.region = try document.region(for: vertex) ?? document.create(region: vertex)
+            self.document = document
+        }
+        catch {
+            
+            fatalError(error.localizedDescription)
+        }
     }
 }
 
@@ -66,19 +74,34 @@ extension RegionViewModel {
                            from: nil)
     }
     
-    internal func hitTest(_ point: CGPoint) -> Triangle.HitTest? {
+    internal func hit(_ point: CGPoint) -> Triangle.HitTest? {
         
         guard let pointInWorld = editorView.hit(point) else { return nil }
         
-        let triangle = Triangle(pointInWorld,
-                                .tile)
-        
-        let closest = triangle.closest(pointInWorld,
-                                       .tile)
-        
         return .init(pointInWorld,
-                     triangle,
-                     closest)
+                     .tile)
+    }
+    
+    internal func triangles(for hit: Triangle.HitTest) -> [Triangle] {
+        
+        switch toolOptionsViewModel.cursorStyle {
+            
+        case .footprint: [hit.triangle]
+        case .hexagonal: hit.vertex.tiles
+        case .triangle: [hit.triangle]
+        case .vertex: []
+        }
+    }
+    
+    internal func vertices(for hit: Triangle.HitTest) -> [Triangle.Vertex] {
+        
+        switch toolOptionsViewModel.cursorStyle {
+            
+        case .footprint: hit.triangle.vertices
+        case .hexagonal: hit.vertex.vertices + [hit.vertex]
+        case .triangle: hit.triangle.vertices
+        case .vertex: [hit.vertex]
+        }
     }
     
     internal func canEdit(_ vertex: Triangle.Vertex) -> Bool {
@@ -96,63 +119,17 @@ extension RegionViewModel {
         
         return false
     }
-    
-    internal func reload() {
-        
-        let children = Tool.allCases.map {
-            
-            OutlineViewNode(displayName: $0.id,
-                            image: $0.image,
-                            children: self.children(for: $0))
-        }
-        
-        contents = [OutlineViewNode(displayName: identifier,
-                                    children: children,
-                                    isGroup: true)]
-    }
-    
-    internal func children(for tool: Tool) -> [OutlineViewNode] {
-        
-        switch tool {
-            
-        case .buildings:
-            
-            guard let grid = region.buildings?.region else { return [] }
-            
-            return grid.chunks.map { OutlineViewNode(displayName: $0.triangle.id,
-                                                     image: NSImage(icon: .triangle),
-                                                     children: []) }
-            
-        case .terrain:
-            
-            guard let grid = region.terrain?.region else { return [] }
-            
-            return grid.chunks.map { OutlineViewNode(displayName: $0.triangle.id,
-                                                     image: NSImage(icon: .triangle),
-                                                     children: []) }
-            
-        case .water:
-            
-            guard let grid = region.water?.region else { return [] }
-            
-            return grid.chunks.map { OutlineViewNode(displayName: $0.triangle.id,
-                                                     image: NSImage(icon: .triangle),
-                                                     children: []) }
-            
-        default: return []
-        }
-    }
 }
 
 extension RegionViewModel {
     
-    internal func load() {
+    internal func load() throws {
         
         let triangle = Triangle(region.vertex)
         
-        let regions = triangle.perimeter.compactMap {
+        let regions = try triangle.perimeter.compactMap {
             
-            document.region(for: $0.vertex)
+            try document.region(for: $0.vertex)
         }
         
         editorView.load(regions: regions + [region])
@@ -160,7 +137,7 @@ extension RegionViewModel {
         editorView.camera(focus: triangle.vertex.position(.region))
     }
     
-    internal func save() {
+    internal func save() throws {
         
         let triangle = Triangle(region.vertex)
         
@@ -168,8 +145,20 @@ extension RegionViewModel {
         
         for region in regions {
             
-            document.save(region: region)
+            try document.save(region: region)
         }
+    }
+    
+    internal func reload() {
+        
+        contents = [OutlineViewNode(displayName: identifier,
+                                    children: [],
+                                    isGroup: true)]
+    }
+    
+    internal func children(for tool: Tool) -> [OutlineViewNode] {
+        
+        []
     }
 }
 
@@ -224,38 +213,9 @@ extension RegionViewModel {
         editorView.cursor(rotate: value)
     }
     
-    //TODO: Check cursor rotation and style implementation
-//
-//    internal func cursor(toggle style: CursorStyle) {
-//        
-//        cursor.toggle(style: style)
-//    }
-//    
-//    internal var cursorRotation: Triangle.Rotation {
-//        
-//        cursor.rotation
-//    }
-    
-    internal func tiles(for hit: Triangle.HitTest) -> [Triangle] {
+    internal func cursor(toggle value: CursorStyle) {
         
-        switch toolOptionsViewModel.cursorStyle {
-            
-        case .footprint: [hit.triangle]
-        case .hexagonal: hit.vertex.tiles
-        case .triangle: [hit.triangle]
-        case .vertex: []
-        }
-    }
-    
-    internal func vertices(for hit: Triangle.HitTest) -> [Triangle.Vertex] {
-        
-        switch toolOptionsViewModel.cursorStyle {
-            
-        case .footprint: hit.triangle.vertices
-        case .hexagonal: hit.vertex.vertices + [hit.vertex]
-        case .triangle: hit.triangle.vertices
-        case .vertex: [hit.vertex]
-        }
+        editorView.cursor(toggle: value)
     }
     
     // MARK: Buildings
@@ -390,7 +350,7 @@ extension RegionViewModel {
         let elevation = tile?.elevation ?? biome?.elevation ?? 0
         let adjusted = max(0, button == .left ? elevation + 1 : elevation - 1)
         
-        tiles(for: hit).forEach {
+        triangles(for: hit).forEach {
             
             editorView.remove(water: $0)
             
@@ -400,5 +360,14 @@ extension RegionViewModel {
                            adjusted,
                            for: $0)
         }
+    }
+}
+
+extension RegionViewModel: @preconcurrency ToolOptionsDelegate {
+    
+    func toolOptionsViewModel(_ viewModel: ToolOptionsViewModel,
+                              didSelect cursorStyle: CursorStyle) {
+        
+        editorView.cursor(toggle: cursorStyle)
     }
 }
