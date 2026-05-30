@@ -28,6 +28,8 @@ internal class RegionActionsInspectorView: InspectorGroupView {
         public var id: String { rawValue.capitalized }
     }
     
+    // MARK: Actions
+    
     private lazy var createButton = with(NSButton(title: "Create Region",
                                                       target: self,
                                                       action: #selector(button(_:)))) {

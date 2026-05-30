@@ -57,6 +57,8 @@ public class PopUpControl<V: Identifiable>: NSView where V.ID == String {
         
         super.init(frame: .zero)
         
+        self.toolTip = title
+        
         addSubview(textLabel)
         addSubview(popUp)
         

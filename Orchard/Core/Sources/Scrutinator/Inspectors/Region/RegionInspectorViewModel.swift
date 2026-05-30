@@ -32,14 +32,16 @@ extension RegionInspectorViewModel {
         
         intermediate != nil
     }
+}
+
+extension RegionInspectorViewModel {
+    
+    // MARK: Identifier
     
     internal var identifier: String {
         
         intermediate?.identifier ?? vertex.id
     }
-}
-
-extension RegionInspectorViewModel {
     
     internal func update(identifier value: String) {
             

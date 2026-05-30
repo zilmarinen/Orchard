@@ -11,16 +11,16 @@ import Design
 
 internal class PortalToolOptionsContainer: ToolOptionsStackContainer {
     
-    private lazy var coordinate = with(CoordinateControl()) {
+    private lazy var coordinate = with(CoordinateControl(title: "Coordinate",
+                                                         value: .zero)) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.title = "Coordinate"
     }
     
-    private lazy var textLabel = with(TextFieldControl()) {
+    private lazy var textLabel = with(TextFieldControl(title: "Identifier",
+                                                       value: "portal identifier goes here")) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.title = "Identifier"
         
         $0.valueDidChange = { [weak self] value in
         

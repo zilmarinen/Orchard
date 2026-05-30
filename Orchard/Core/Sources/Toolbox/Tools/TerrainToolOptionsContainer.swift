@@ -32,11 +32,10 @@ internal class TerrainToolOptionsContainer: ToolOptionsStackContainer {
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private lazy var sculpt = with(CheckboxControl()) {
+    private lazy var sculpt = with(CheckboxControl(title: "Sculpt",
+                                                   value: viewModel.sculpt)) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.title = "Sculpt"
-        $0.value = viewModel.sculpt
         
         $0.valueDidChange = { [weak self] value in
             

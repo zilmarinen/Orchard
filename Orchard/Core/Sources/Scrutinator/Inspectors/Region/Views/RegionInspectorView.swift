@@ -17,18 +17,18 @@ internal protocol RegionInspectorViewDelegate: AnyObject {
 
 internal class RegionInspectorView: InspectorGroupView {
     
-    private lazy var coordinate = with(CoordinateControl()) {
+    private lazy var coordinate = with(CoordinateControl(title: "Coordinate",
+                                                         value: viewModel.vertex.position)) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.title = "Coordinate"
-        $0.value = viewModel.vertex.position
+        $0.toolTip = "Region Coordinate"
     }
     
-    private lazy var textLabel = with(TextFieldControl()) {
+    private lazy var textLabel = with(TextFieldControl(title: "Identifier",
+                                                       value: viewModel.identifier)) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.title = "Identifier"
-        $0.value = viewModel.identifier
+        $0.toolTip = "Region Identifier"
         
         $0.valueDidChange = { [weak self] value in
         

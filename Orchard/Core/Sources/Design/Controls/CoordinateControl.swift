@@ -46,34 +46,31 @@ public class CoordinateControl: NSView {
     
     // MARK: Fields
     
-    private lazy var xLabel = with(LabelControl()) {
+    private lazy var xLabel = with(LabelControl(title: "X")) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setContentHuggingPriority(.defaultLow,
                                      for: .horizontal)
         $0.setContentHuggingPriority(.defaultLow,
                                      for: .vertical)
-        $0.title = "X"
     }
     
-    private lazy var yLabel = with(LabelControl()) {
+    private lazy var yLabel = with(LabelControl(title: "Y")) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setContentHuggingPriority(.defaultLow,
                                      for: .horizontal)
         $0.setContentHuggingPriority(.defaultLow,
                                      for: .vertical)
-        $0.title = "Y"
     }
     
-    private lazy var zLabel = with(LabelControl()) {
+    private lazy var zLabel = with(LabelControl(title: "Z")) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setContentHuggingPriority(.defaultLow,
                                      for: .horizontal)
         $0.setContentHuggingPriority(.defaultLow,
                                      for: .vertical)
-        $0.title = "Z"
     }
     
     public var title: String {
@@ -98,9 +95,15 @@ public class CoordinateControl: NSView {
         }
     }
     
-    required public init() {
+    required public init(title: String,
+                         value: Coordinate) {
         
         super.init(frame: .zero)
+        
+        self.title = title
+        self.toolTip = title
+        
+        self.value = value
         
         addSubview(textLabel)
         addSubview(stackView)

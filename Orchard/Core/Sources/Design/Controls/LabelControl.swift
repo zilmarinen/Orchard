@@ -50,9 +50,15 @@ public class LabelControl: NSView {
         set { textField.stringValue = newValue }
     }
     
-    required public init() {
+    required public init(title: String,
+                         value: String? = "") {
         
         super.init(frame: .zero)
+        
+        self.title = title
+        self.toolTip = title
+        
+        self.value = value ?? ""
         
         addSubview(textField)
         addSubview(textLabel)

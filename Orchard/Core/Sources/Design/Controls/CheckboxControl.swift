@@ -56,9 +56,15 @@ public class CheckboxControl: NSView {
     
     public var valueDidChange: ValueDidChange?
     
-    required public init() {
+    required public init(title: String,
+                         value: Bool) {
         
         super.init(frame: .zero)
+        
+        self.title = title
+        self.toolTip = toolTip
+        
+        self.value = value
         
         addSubview(checkbox)
         addSubview(textLabel)
