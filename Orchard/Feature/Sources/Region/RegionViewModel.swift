@@ -259,10 +259,10 @@ extension RegionViewModel {
      
         guard button == .left else {
             
-            return editorView.remove(foliage: hit.triangle)
+            return editorView.remove(foliage: hit.vertex)
         }
         
-        editorView.set(foliage: hit.triangle)
+        editorView.set(foliage: hit.vertex)
     }
     
     // MARK: Footpaths
@@ -352,9 +352,10 @@ extension RegionViewModel {
         
         triangles(for: hit).forEach {
             
-            editorView.remove(water: $0)
-            
-            guard adjusted > 0 else { return }
+            guard adjusted > 0 else {
+                
+                return editorView.remove(water: $0)
+            }
             
             editorView.set(waterType,
                            adjusted,

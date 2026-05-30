@@ -19,7 +19,7 @@ internal class Camera: SKCameraNode {
         
         super.init()
         
-        setScale(Self.minimumScale)
+        setScale(Self.maximumScale / 2.0)
         zRotation = .pi / 2.0
     }
     

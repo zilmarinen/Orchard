@@ -182,11 +182,15 @@ extension Document {
         
         let triangle = Triangle(vertex)
         
+        let sieve = triangle.sieve(for: .region)
+        
         for adjacent in triangle.perimeter {
             
             guard let neighbour = try region(for: adjacent.vertex) else { continue }
             
-            neighbour.remove(tiles: triangle)
+            neighbour.remove(values: sieve)
+            
+            try save(region: neighbour)
         }
     }
     
@@ -236,11 +240,15 @@ extension Document {
         
         let triangle = Triangle(vertex)
         
+        let sieve = triangle.sieve(for: .region)
+        
         for adjacent in triangle.perimeter {
             
             guard let neighbour = try zone(for: adjacent.vertex) else { continue }
             
-            neighbour.remove(tiles: triangle)
+            neighbour.remove(values: sieve)
+            
+            try save(zone: neighbour)
         }
     }
     
