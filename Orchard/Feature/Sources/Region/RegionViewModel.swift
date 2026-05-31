@@ -64,6 +64,11 @@ extension RegionViewModel {
         
         document.region(intermediate: region.vertex)?.identifier ?? ""
     }
+    
+    internal var isEmpty: Bool {
+        
+        region.isEmpty
+    }
 }
 
 extension RegionViewModel {
@@ -123,6 +128,25 @@ extension RegionViewModel {
 
 extension RegionViewModel {
     
+    internal func template(_ scale: Triangle.Scale,
+                           _ biome: Biome,
+                           _ elevation: Int) {
+        
+        let triangle = Triangle(region.vertex)
+        
+        let template = triangle.transpose(.region,
+                                          scale)
+        
+        let sieve = template.sieve(for: scale)
+        
+        for vertex in sieve.vertices {
+            
+            editorView.set(biome,
+                           elevation,
+                           for: vertex)
+        }
+    }
+    
     internal func load() throws {
         
         let triangle = Triangle(region.vertex)
@@ -154,11 +178,6 @@ extension RegionViewModel {
         contents = [OutlineViewNode(displayName: identifier,
                                     children: [],
                                     isGroup: true)]
-    }
-    
-    internal func children(for tool: Tool) -> [OutlineViewNode] {
-        
-        []
     }
 }
 

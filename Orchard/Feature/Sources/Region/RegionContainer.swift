@@ -8,6 +8,7 @@ import AppKit
 import Base
 import Deltille
 import Design
+import Harvest
 
 public protocol RegionContainerDelegate: NSWindowController {
     
@@ -72,6 +73,25 @@ public class RegionContainer: NSSplitViewController,
     
     @available(*, unavailable)
     required public init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
+    public override func viewDidAppear() {
+        
+        super.viewDidAppear()
+        
+        guard viewModel.isEmpty else { return }
+        
+        presentRegionTemplate()
+    }
+}
+
+extension RegionContainer {
+    
+    private func presentRegionTemplate() {
+        
+        let viewController = RegionTemplateViewController(delegate: self)
+        
+        presentAsSheet(viewController)
+    }
 }
 
 extension RegionContainer: @preconcurrency ToolbarDelegate {
@@ -136,3 +156,20 @@ extension RegionContainer: @preconcurrency RegionEditorContainerDelegate {
 }
 
 extension RegionContainer: @preconcurrency RegionInspectorContainerDelegate {}
+
+extension RegionContainer: RegionTemplateDelegate {
+    
+    func regionTemplateViewController(_ viewController: RegionTemplateViewController,
+                                      didConfigure scale: Triangle.Scale,
+                                      biome: Biome,
+                                      elevation: Int) {
+        
+        viewModel.template(scale,
+                           biome,
+                           elevation)
+        
+        sidebarContainer.reload()
+        editorContainer.focus()
+        inspectorContainer.reload()
+    }
+}
