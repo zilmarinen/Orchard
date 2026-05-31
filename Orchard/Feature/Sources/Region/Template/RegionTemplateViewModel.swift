@@ -45,15 +45,9 @@ extension RegionTemplateViewModel {
     
     // MARK: Elevation
     
-    internal var maximumElevation: Int {
-        
-        10
-    }
+    internal var maximumElevation: Int { 10 }
     
-    internal var minimumElevation: Int {
-        
-        1
-    }
+    internal var minimumElevation: Int { 1 }
     
     internal func select(elevation value: Int) {
         

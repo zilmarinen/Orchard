@@ -21,6 +21,18 @@ internal protocol RegionTemplateDelegate: NSViewController {
 
 internal class RegionTemplateViewController: NSViewController {
     
+    // MARK: Wrapper Views
+    
+    private lazy var templateView = with(InspectorGroupView()) {
+        
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.title = "Region Template"
+        
+        $0.addArrangedSubview(scalePopUp)
+        $0.addArrangedSubview(biomePopUp)
+        $0.addArrangedSubview(elevationStepper)
+    }
+    
     // MARK: Controls
     
     private lazy var scalePopUp = with(PopUpControl(title: "Scale",
@@ -73,7 +85,7 @@ internal class RegionTemplateViewController: NSViewController {
                                                       action: #selector(button(_:)))) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.bezelColor = .systemIndigo
+        $0.bezelColor = .controlAccentColor
         $0.toolTip = "Create a new region from this template"
     }
     
@@ -83,7 +95,7 @@ internal class RegionTemplateViewController: NSViewController {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.hasDestructiveAction = true
-        $0.toolTip = "Dismiss region template creation"
+        $0.toolTip = "Create an empty region"
     }
     
     private let viewModel: RegionTemplateViewModel
@@ -107,27 +119,24 @@ internal class RegionTemplateViewController: NSViewController {
         
         super.viewDidLoad()
         
-        let stackView = NSStackView(views: [scalePopUp,
-                                           biomePopUp,
-                                           elevationStepper])
-        
-        stackView.orientation = .vertical
-        
-        view.addSubview(stackView)
-        
-        stackView.center(in: view)
-        
+        view.addSubview(templateView)
         view.addSubview(createButton)
         view.addSubview(dismissButton)
         
         NSLayoutConstraint.activate([
             
-            createButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            createButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            templateView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            templateView.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor),
+            templateView.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor),
+            
+            createButton.topAnchor.constraint(equalTo: templateView.bottomAnchor,
+                                              constant: .padding),
+            createButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
+            createButton.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor),
             createButton.leftAnchor.constraint(greaterThanOrEqualTo: dismissButton.leftAnchor),
         
-            dismissButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            dismissButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor)
+            dismissButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
+            dismissButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor)
         ])
     }
 }
@@ -146,9 +155,13 @@ extension RegionTemplateViewController {
                                                    biome: viewModel.biome,
                                                    elevation: viewModel.elevation)
             
+            fallthrough
+            
+        case dismissButton:
+            
+            dismiss(self)
+            
         default: fatalError("Invalid sender for button")
         }
-        
-        dismiss(self)
     }
 }
