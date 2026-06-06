@@ -8,7 +8,7 @@ import AppKit
 import Base
 import Container
 
-public protocol SplashContainerDelegate: AnyObject {
+public protocol SplashContainerDelegate: NSWindowController {
     
     func splashContainerDidFinish(_ container: SplashContainer)
 }

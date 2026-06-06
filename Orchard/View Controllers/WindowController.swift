@@ -91,7 +91,7 @@ extension WindowController {
     }
 }
 
-extension WindowController: @preconcurrency RegionContainerDelegate {
+extension WindowController: RegionContainerDelegate {
     
     public func regionContainer(_ container: RegionContainer,
                                 didFinishEditingRegion vertex: Triangle.Vertex) {
@@ -100,11 +100,18 @@ extension WindowController: @preconcurrency RegionContainerDelegate {
     }
 }
 
-extension WindowController: @preconcurrency SplashContainerDelegate {
+extension WindowController: SplashContainerDelegate {
     
     public func splashContainerDidFinish(_ container: SplashContainer) {
         
-        showWorld()
+        guard let document = self.document as? Document else { fatalError("Invalid document") }
+        
+        guard document.regionIntermediates.isEmpty else {
+            
+            return showWorld()
+        }
+        
+        showRegion(vertex: .zero)
     }
 }
 
