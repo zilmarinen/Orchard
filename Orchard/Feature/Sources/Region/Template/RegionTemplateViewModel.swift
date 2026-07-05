@@ -12,8 +12,8 @@ import Harvest
 internal class RegionTemplateViewModel {
     
     private(set) var scale: Triangle.Scale = .chunk
-    private(set) var biome: Biome = .boreal
-    private(set) var elevation: Int = 3
+    private(set) var biome: Biome = .rainforest
+    private(set) var elevation: Int = 5
 }
 
 extension RegionTemplateViewModel {

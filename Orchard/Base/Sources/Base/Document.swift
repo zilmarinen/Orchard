@@ -152,20 +152,20 @@ extension Document {
     
     // MARK: Regions
     
-    public func region(for vertex: Triangle.Vertex) throws -> Region? {
+    public func region(for vertex: Triangle.Vertex) throws -> RegionSlice? {
         
         guard let data = regions[vertex] else { return nil }
         
-        return try decoder.decode(Region.self,
+        return try decoder.decode(RegionSlice.self,
                                   from: data)
     }
     
     public func create(region vertex: Triangle.Vertex,
-                       identifier: String? = nil) throws -> Region {
+                       identifier: String? = nil) throws -> RegionSlice {
         
         let intermediate = RegionIntermediate(vertex,
                                               identifier)
-        let region = Region(empty: .init(vertex))
+        let region = RegionSlice(empty: .init(vertex))
         
         regionIntermediates[vertex] = intermediate
         regions[vertex] = try encoder.encode(region)
@@ -194,7 +194,7 @@ extension Document {
         }
     }
     
-    public func save(region: Region) throws {
+    public func save(region: RegionSlice) throws {
         
         guard !region.isEmpty else {
             
@@ -210,20 +210,20 @@ extension Document {
     
     // MARK: Zones
     
-    public func zone(for vertex: Triangle.Vertex) throws -> Region? {
+    public func zone(for vertex: Triangle.Vertex) throws -> RegionSlice? {
         
         guard let data = zones[vertex] else { return nil }
         
-        return try decoder.decode(Region.self,
+        return try decoder.decode(RegionSlice.self,
                                   from: data)
     }
     
     public func create(zone vertex: Triangle.Vertex,
-                       identifier: String? = nil) throws -> Region {
+                       identifier: String? = nil) throws -> RegionSlice {
         
         let intermediate = ZoneIntermediate(vertex,
                                             identifier)
-        let region = Region(empty: .init(vertex))
+        let region = RegionSlice(empty: .init(vertex))
         
         zoneIntermediates[vertex] = intermediate
         zones[vertex] = try encoder.encode(region)
@@ -252,7 +252,7 @@ extension Document {
         }
     }
     
-    public func save(zone: Region) throws {
+    public func save(zone: RegionSlice) throws {
         
         guard !zone.isEmpty else {
             

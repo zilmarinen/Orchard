@@ -68,7 +68,8 @@ extension ToolOptionsViewModel {
             
         case .buildings: [.footprint(asset: .building(septomino))]
             
-        case .foliage: [.triangle,
+        case .foliage: [.vertex,
+                        .triangle,
                         .hexagonal]
             
         case .footpaths: [.vertex]

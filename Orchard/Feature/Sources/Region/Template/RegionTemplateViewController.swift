@@ -89,7 +89,7 @@ internal class RegionTemplateViewController: NSViewController {
         $0.toolTip = "Create a new region from this template"
     }
     
-    private lazy var dismissButton = with(NSButton(title: "Dismiss",
+    private lazy var dismissButton = with(NSButton(title: "Create Empty Region",
                                                    target: self,
                                                    action: #selector(button(_:)))) {
         

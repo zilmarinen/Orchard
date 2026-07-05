@@ -40,7 +40,7 @@ internal class RegionViewModel {
     
     private(set) var selection: Selection = .none
     
-    internal let region: Region
+    internal let region: RegionSlice
     internal unowned(unsafe) var document: Document
     
     internal init(vertex: Triangle.Vertex,
