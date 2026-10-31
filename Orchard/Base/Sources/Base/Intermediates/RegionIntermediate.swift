@@ -12,14 +12,14 @@ public class RegionIntermediate: NSObject,
                                  Codable,
                                  TreeNode {
     
-    public let vertex: Triangle.Vertex
+    public let triangle: Triangle
     public var identifier: String
     
-    public init(_ vertex: Triangle.Vertex,
+    public init(_ triangle: Triangle,
                 _ identifier: String? = nil) {
      
-        self.vertex = vertex
-        self.identifier = identifier ?? vertex.id
+        self.triangle = triangle
+        self.identifier = identifier ?? triangle.id
     }
     
     public var displayName: String { identifier }

@@ -14,47 +14,26 @@ import Silhouette
 
 @MainActor
 internal class WorldViewModel {
-    
-    // MARK: Editor View
-    
-    internal let editorView = with(NSView()) {
-        
-        $0.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
+
     private(set) var contents: [any TreeNode] = []
     
     private(set) var selection: Document.Selection = .none
     
     private(set) unowned(unsafe) var document: Document
     
-    internal init(vertex: Triangle.Vertex,
+    internal init(triangle: Triangle,
                   document: Document) {
      
         self.document = document
         
-        guard let intermediate = document.region(intermediate: vertex) else {
+        guard let intermediate = document.region(intermediate: triangle) else {
             
             updateDefaultSelection()
              
             return
         }
         
-        selection = .region(vertex: intermediate.vertex)
-    }
-}
-
-extension WorldViewModel {
-    
-    internal func location(_ point: CGPoint) -> CGPoint {
-        
-        editorView.convert(point,
-                           from: nil)
-    }
-    
-    internal func hit(_ point: CGPoint) -> Triangle.HitTest? {
-        
-        nil
+        selection = .region(triangle: intermediate.triangle)
     }
 }
 
@@ -97,58 +76,34 @@ extension WorldViewModel {
             return
         }
         
-        selection = .region(vertex: region.vertex)
-    }
-    
-    // MARK: Camera
-    
-    internal func camera(focus value: CGPoint) {
-        
-        //editorView.camera(focus: value)
-    }
-    
-    internal func camera(translate value: CGPoint) {
-        
-        //editorView.camera(translate: value.normalized())
-    }
-    
-    internal func camera(zoom value: Double) {
-        
-        //editorView.camera(zoom: value)
-    }
-    
-    // MARK: Cursor
-    
-    internal func cursor(focus value: Triangle.HitTest) {
-        
-        //editorView.cursor(focus: value)
+        selection = .region(triangle: region.triangle)
     }
     
     // MARK: Region Intermediate
     
-    public func region(intermediate vertex: Triangle.Vertex) -> RegionIntermediate? {
+    public func region(intermediate triangle: Triangle) -> RegionIntermediate? {
         
-        document.region(intermediate: vertex)
+        document.region(intermediate: triangle)
     }
     
     // MARK: Zone Intermediate
     
-    public func zone(intermediate vertex: Triangle.Vertex) -> ZoneIntermediate? {
+    public func zone(intermediate triangle: Triangle) -> ZoneIntermediate? {
         
-        document.zone(intermediate: vertex)
+        document.zone(intermediate: triangle)
     }
     
     // MARK: Regions
     
-    internal func delete(region vertex: Triangle.Vertex) throws {
+    internal func delete(region triangle: Triangle) throws {
         
-        //try document.delete(region: vertex)
+        //try document.delete(region: triangle)
     }
     
     // MARK: Zones
     
-    internal func delete(zone vertex: Triangle.Vertex) throws {
+    internal func delete(zone triangle: Triangle) throws {
         
-        //try document.delete(zone: vertex)
+        //try document.delete(zone: triangle)
     }
 }

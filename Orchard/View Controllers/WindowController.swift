@@ -62,17 +62,17 @@ extension WindowController {
         set(content: SplashContainer(delegate: self))
     }
     
-    private func showWorld(focus: Triangle.Vertex? = nil) {
+    private func showWorld(focus: Triangle? = nil) {
         
         guard !presentingWorld,
               let document = self.document as? Document else { return }
         
-        set(content: WorldContainer(vertex: focus ?? .zero,
+        set(content: WorldContainer(triangle: focus ?? .zero,
                                     document: document,
                                     delegate: self))
     }
     
-    private func showZone(vertex: Triangle.Vertex) {
+    private func showZone(triangle: Triangle) {
         
         //
     }
@@ -82,7 +82,7 @@ extension WindowController: SplashContainerDelegate {
     
     public func splashContainerDidFinish(_ container: SplashContainer) {
         
-        guard let document = self.document as? Document else { fatalError("Invalid document") }
+        guard document != nil else { fatalError("Invalid document") }
         
         showWorld()
     }
@@ -95,7 +95,7 @@ extension WindowController: WorldContainerDelegate {
         
         switch selection {
             
-        case .zone(let vertex): showZone(vertex: vertex)
+        case .zone(let triangle): showZone(triangle: triangle)
         default: break
         }
     }
