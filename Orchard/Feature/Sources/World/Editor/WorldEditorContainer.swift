@@ -4,6 +4,7 @@
 //  Created by Zack Brown on 10/07/2025.
 //
 
+import Alluvium
 import AppKit
 import Base
 import Container
@@ -67,17 +68,7 @@ internal class WorldEditorContainer: ContainerViewController {
     
     internal func focus() {
      
-        switch viewModel.selection {
-            
-        case .region(let vertex):
-            
-            let focus = vertex.position(.region)
-            
-            viewModel.camera(focus: .init(x: focus.x,
-                                          y: focus.z))
-            
-        default: break
-        }
+        //
     }
 }
 

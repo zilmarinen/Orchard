@@ -7,7 +7,6 @@
 import Base
 import Container
 import Design
-import Scrutinator
 
 internal protocol WorldInspectorContainerDelegate: AnyObject {
     
@@ -48,40 +47,17 @@ internal class WorldInspectorContainer: ContainerViewController {
         
         switch viewModel.selection {
             
-        case .none: set(content: emptyViewController)
-        case .region(let vertex):
+        case .none:
             
-            set(content: RegionInspectorController(vertex: vertex,
-                                                   document: viewModel.document,
-                                                   delegate: self))
+            set(content: emptyViewController)
+            
+        case .region:
+            
+            set(content: emptyViewController)
             
         case .zone:
             
             set(content: emptyViewController)
         }
-    }
-}
-
-extension WorldInspectorContainer: @preconcurrency RegionInspectorControllerDelegate {
-    
-    public func regionInspectorController(_ controller: RegionInspectorController,
-                                          didRequestDeletionFor selection: Document.Selection) {
-        
-        delegate?.worldInspectorContainer(self,
-                                          didRequestDeletionFor: selection)
-    }
-    
-    public func regionInspectorController(_ controller: RegionInspectorController,
-                                          didRequestEditingFor selection: Document.Selection) {
-        
-        delegate?.worldInspectorContainer(self,
-                                          didRequestEditingFor: selection)
-    }
-    
-    func regionInspectorController(_ controller: RegionInspectorController,
-                                   didUpdate identifier: String) {
-        
-        delegate?.worldInspectorContainer(self,
-                                          didUpdate: viewModel.selection)
     }
 }

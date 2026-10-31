@@ -4,6 +4,7 @@
 //  Created by Zack Brown on 15/07/2025.
 //
 
+import Alluvium
 import AppKit
 import Base
 import Design

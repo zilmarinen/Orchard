@@ -1,15 +1,6 @@
 {
-  "originHash" : "4dadfbabb42241e92d8f7e23f99530e656d4a5e84d43a8ba8d351b44862f7cce",
+  "originHash" : "e13f9accc9e474fc0c21355add0cf121722ace2659a8bb7f4df57ce11b92c2be",
   "pins" : [
-    {
-      "identity" : "deltille",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/zilmarinen/Deltille.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "1e2dfe7b1517ede73c8109c6a40815a2ea436322"
-      }
-    },
     {
       "identity" : "euclid",
       "kind" : "remoteSourceControl",
@@ -17,6 +8,15 @@
       "state" : {
         "branch" : "main",
         "revision" : "0409eab36ce4e726e5c66f8885500fb97b030994"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "f96b909e1a9e469620bc5037c1e24e00153f376f"
       }
     }
   ],

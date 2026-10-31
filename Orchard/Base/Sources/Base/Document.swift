@@ -150,119 +150,119 @@ extension Document {
         zoneIntermediates[vertex]?.identifier = identifier
     }
     
-    // MARK: Regions
-    
-    public func region(for vertex: Triangle.Vertex) throws -> RegionSlice? {
-        
-        guard let data = regions[vertex] else { return nil }
-        
-        return try decoder.decode(RegionSlice.self,
-                                  from: data)
-    }
-    
-    public func create(region vertex: Triangle.Vertex,
-                       identifier: String? = nil) throws -> RegionSlice {
-        
-        let intermediate = RegionIntermediate(vertex,
-                                              identifier)
-        let region = RegionSlice(empty: .init(vertex))
-        
-        regionIntermediates[vertex] = intermediate
-        regions[vertex] = try encoder.encode(region)
-        
-        return region
-    }
-    
-    public func delete(region vertex: Triangle.Vertex) throws {
-        
-        guard regions[vertex] != nil || regionIntermediates[vertex] != nil else { return }
-        
-        regionIntermediates[vertex] = nil
-        regions[vertex] = nil
-        
-        let triangle = Triangle(vertex)
-        
-        let sieve = triangle.sieve(for: .region)
-        
-        for adjacent in triangle.perimeter {
-            
-            guard let neighbour = try region(for: adjacent.vertex) else { continue }
-            
-            neighbour.remove(values: sieve)
-            
-            try save(region: neighbour)
-        }
-    }
-    
-    public func save(region: RegionSlice) throws {
-        
-        guard !region.isEmpty else {
-            
-            return try delete(region: region.vertex)
-        }
-        
-        regions[region.vertex] = try encoder.encode(region)
-        
-        guard regionIntermediates[region.vertex] == nil else { return }
-        
-        regionIntermediates[region.vertex] = .init(region.vertex)
-    }
-    
-    // MARK: Zones
-    
-    public func zone(for vertex: Triangle.Vertex) throws -> RegionSlice? {
-        
-        guard let data = zones[vertex] else { return nil }
-        
-        return try decoder.decode(RegionSlice.self,
-                                  from: data)
-    }
-    
-    public func create(zone vertex: Triangle.Vertex,
-                       identifier: String? = nil) throws -> RegionSlice {
-        
-        let intermediate = ZoneIntermediate(vertex,
-                                            identifier)
-        let region = RegionSlice(empty: .init(vertex))
-        
-        zoneIntermediates[vertex] = intermediate
-        zones[vertex] = try encoder.encode(region)
-        
-        return region
-    }
-    
-    public func delete(zone vertex: Triangle.Vertex) throws {
-        
-        guard zones[vertex] != nil || zoneIntermediates[vertex] != nil else { return }
-        
-        zoneIntermediates[vertex] = nil
-        zones[vertex] = nil
-        
-        let triangle = Triangle(vertex)
-        
-        let sieve = triangle.sieve(for: .region)
-        
-        for adjacent in triangle.perimeter {
-            
-            guard let neighbour = try zone(for: adjacent.vertex) else { continue }
-            
-            neighbour.remove(values: sieve)
-            
-            try save(zone: neighbour)
-        }
-    }
-    
-    public func save(zone: RegionSlice) throws {
-        
-        guard !zone.isEmpty else {
-            
-            return try delete(zone: zone.vertex)
-        }
-        
-        zones[zone.vertex] = try encoder.encode(zone)
-        
-        guard zoneIntermediates[zone.vertex] == nil else { return }
-        
-        zoneIntermediates[zone.vertex] = .init(zone.vertex)
-    }
+//    // MARK: Regions
+//    
+//    public func region(for vertex: Triangle.Vertex) throws -> RegionSlice? {
+//        
+//        guard let data = regions[vertex] else { return nil }
+//        
+//        return try decoder.decode(RegionSlice.self,
+//                                  from: data)
+//    }
+//    
+//    public func create(region vertex: Triangle.Vertex,
+//                       identifier: String? = nil) throws -> RegionSlice {
+//        
+//        let intermediate = RegionIntermediate(vertex,
+//                                              identifier)
+//        let region = RegionSlice(empty: .init(vertex))
+//        
+//        regionIntermediates[vertex] = intermediate
+//        regions[vertex] = try encoder.encode(region)
+//        
+//        return region
+//    }
+//    
+//    public func delete(region vertex: Triangle.Vertex) throws {
+//        
+//        guard regions[vertex] != nil || regionIntermediates[vertex] != nil else { return }
+//        
+//        regionIntermediates[vertex] = nil
+//        regions[vertex] = nil
+//        
+//        let triangle = Triangle(vertex)
+//        
+//        let sieve = triangle.sieve(for: .region)
+//        
+//        for adjacent in triangle.perimeter {
+//            
+//            guard let neighbour = try region(for: adjacent.vertex) else { continue }
+//            
+//            neighbour.remove(values: sieve)
+//            
+//            try save(region: neighbour)
+//        }
+//    }
+//    
+//    public func save(region: RegionSlice) throws {
+//        
+//        guard !region.isEmpty else {
+//            
+//            return try delete(region: region.vertex)
+//        }
+//        
+//        regions[region.vertex] = try encoder.encode(region)
+//        
+//        guard regionIntermediates[region.vertex] == nil else { return }
+//        
+//        regionIntermediates[region.vertex] = .init(region.vertex)
+//    }
+//    
+//    // MARK: Zones
+//    
+//    public func zone(for vertex: Triangle.Vertex) throws -> RegionSlice? {
+//        
+//        guard let data = zones[vertex] else { return nil }
+//        
+//        return try decoder.decode(RegionSlice.self,
+//                                  from: data)
+//    }
+//    
+//    public func create(zone vertex: Triangle.Vertex,
+//                       identifier: String? = nil) throws -> RegionSlice {
+//        
+//        let intermediate = ZoneIntermediate(vertex,
+//                                            identifier)
+//        let region = RegionSlice(empty: .init(vertex))
+//        
+//        zoneIntermediates[vertex] = intermediate
+//        zones[vertex] = try encoder.encode(region)
+//        
+//        return region
+//    }
+//    
+//    public func delete(zone vertex: Triangle.Vertex) throws {
+//        
+//        guard zones[vertex] != nil || zoneIntermediates[vertex] != nil else { return }
+//        
+//        zoneIntermediates[vertex] = nil
+//        zones[vertex] = nil
+//        
+//        let triangle = Triangle(vertex)
+//        
+//        let sieve = triangle.sieve(for: .region)
+//        
+//        for adjacent in triangle.perimeter {
+//            
+//            guard let neighbour = try zone(for: adjacent.vertex) else { continue }
+//            
+//            neighbour.remove(values: sieve)
+//            
+//            try save(zone: neighbour)
+//        }
+//    }
+//    
+//    public func save(zone: RegionSlice) throws {
+//        
+//        guard !zone.isEmpty else {
+//            
+//            return try delete(zone: zone.vertex)
+//        }
+//        
+//        zones[zone.vertex] = try encoder.encode(zone)
+//        
+//        guard zoneIntermediates[zone.vertex] == nil else { return }
+//        
+//        zoneIntermediates[zone.vertex] = .init(zone.vertex)
+//    }
 }

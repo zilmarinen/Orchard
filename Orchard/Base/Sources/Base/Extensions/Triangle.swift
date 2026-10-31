@@ -16,16 +16,13 @@ extension Triangle {
         public let triangle: Triangle
         public let vertex: Triangle.Vertex
         
-        public init(_ pointInWorld: Vector,
-                    _ scale: Triangle.Scale) {
+        public init(_ pointInWorld: Vector) {
             
-            let triangle = Triangle(pointInWorld,
-                                    scale)
+            let triangle = Triangle(pointInWorld)
             
             self.pointInWorld = pointInWorld
             self.triangle = triangle
-            self.vertex = triangle.closest(pointInWorld,
-                                           scale)
+            self.vertex = triangle.closest(vertex: pointInWorld)
         }
     }
 }

@@ -4,8 +4,8 @@
 //  Created by Zack Brown on 24/07/2025.
 //
 
+import Alluvium
 import AppKit
-import Atlas
 import Base
 import Deltille
 import Harvest
@@ -17,7 +17,7 @@ internal class WorldViewModel {
     
     // MARK: Editor View
     
-    internal let editorView = with(AtlasView()) {
+    internal let editorView = with(NSView()) {
         
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -54,10 +54,7 @@ extension WorldViewModel {
     
     internal func hit(_ point: CGPoint) -> Triangle.HitTest? {
         
-        guard let pointInWorld = editorView.hit(point) else { return nil }
-        
-        return .init(pointInWorld,
-                     .region)
+        nil
     }
 }
 
@@ -65,8 +62,7 @@ extension WorldViewModel {
     
     internal func load() {
         
-        //TODO: Tidy up editor view loading
-        editorView.load(regions: Array(document.regionIntermediates.keys))
+        //TODO:
     }
     
     internal func reload() {
@@ -108,24 +104,24 @@ extension WorldViewModel {
     
     internal func camera(focus value: CGPoint) {
         
-        editorView.camera(focus: value)
+        //editorView.camera(focus: value)
     }
     
     internal func camera(translate value: CGPoint) {
         
-        editorView.camera(translate: value.normalized())
+        //editorView.camera(translate: value.normalized())
     }
     
     internal func camera(zoom value: Double) {
         
-        editorView.camera(zoom: value)
+        //editorView.camera(zoom: value)
     }
     
     // MARK: Cursor
     
     internal func cursor(focus value: Triangle.HitTest) {
         
-        editorView.cursor(focus: value)
+        //editorView.cursor(focus: value)
     }
     
     // MARK: Region Intermediate
@@ -146,13 +142,13 @@ extension WorldViewModel {
     
     internal func delete(region vertex: Triangle.Vertex) throws {
         
-        try document.delete(region: vertex)
+        //try document.delete(region: vertex)
     }
     
     // MARK: Zones
     
     internal func delete(zone vertex: Triangle.Vertex) throws {
         
-        try document.delete(zone: vertex)
+        //try document.delete(zone: vertex)
     }
 }
