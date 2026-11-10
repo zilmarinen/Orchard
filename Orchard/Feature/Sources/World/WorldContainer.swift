@@ -192,15 +192,15 @@ extension WorldContainer: @preconcurrency WorldSidebarContainerDelegate {
                                  didRequestEditingFor: selection)
     }
     
-    // When item is selected from sidebar;
-    // - focus editor view
-    // - select appropriate inspector view
-    //   - show inspector view if hidden
-    
     internal func worldSidebarContainer(_ container: WorldSidebarContainer,
                                         didSelect selection: Document.Selection) {
         
         viewModel.update(selection: selection)
+        
+        // When item is selected from sidebar;
+        // - focus editor view
+        // - select appropriate inspector view
+        //   - show inspector view if hidden
         
         editorContainer.focus()
         inspectorContainer.reload()
@@ -211,16 +211,16 @@ extension WorldContainer: @preconcurrency WorldSidebarContainerDelegate {
 
 extension WorldContainer: @preconcurrency WorldEditorContainerDelegate {
     
-    // When item is selected from editor;
-    // - select appropriate item in sidebar
-    // - focus editor view
-    // - select appropriate inspector view
-    //   - show inspector view if hidden
-    
     internal func worldEditorContainer(_ container: WorldEditorContainer,
                                        didSelect selection: Document.Selection) {
         
         viewModel.update(selection: selection)
+        
+        // When item is selected from editor;
+        // - select appropriate item in sidebar
+        // - focus editor view
+        // - select appropriate inspector view
+        //   - show inspector view if hidden
         
         sidebarContainer.reload()
         editorContainer.focus()
@@ -245,12 +245,12 @@ extension WorldContainer: @preconcurrency WorldInspectorContainerDelegate {
                                  didRequestEditingFor: selection)
     }
     
-    // When item properties are modified from inspector;
-    // - select appropriate item in sidebar
-    // - focus editor view
-    
     internal func worldInspectorContainer(_ container: WorldInspectorContainer,
                                           didUpdate selection: Document.Selection) {
+        
+        // When item properties are modified from inspector;
+        // - select appropriate item in sidebar
+        // - focus editor view
         
         sidebarContainer.reload()
         editorContainer.focus()

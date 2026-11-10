@@ -65,7 +65,10 @@ extension WorldViewModel {
     
     // MARK: Selection
     
-    internal func update(selection value: Document.Selection) { selection = value }
+    internal func update(selection value: Document.Selection) {
+        
+        selection = value
+    }
     
     internal func updateDefaultSelection() {
         
@@ -97,7 +100,7 @@ extension WorldViewModel {
     
     internal func delete(region triangle: Triangle) throws {
         
-        //try document.delete(region: triangle)
+        try document.delete(region: triangle)
     }
     
     // MARK: Zones

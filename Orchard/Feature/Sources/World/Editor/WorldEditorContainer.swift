@@ -20,7 +20,8 @@ internal protocol WorldEditorContainerDelegate: AnyObject {
 
 internal class WorldEditorContainer: ContainerViewController {
     
-    private lazy var editorController = EditorViewController(delegate: self)
+    private lazy var editorController = EditorViewController(dataSource: self,
+                                                             delegate: self)
     
     private let viewModel: WorldViewModel
     private weak var delegate: WorldEditorContainerDelegate?
@@ -58,5 +59,7 @@ internal class WorldEditorContainer: ContainerViewController {
         //
     }
 }
+
+extension WorldEditorContainer: EditorViewDataSource {}
 
 extension WorldEditorContainer: EditorViewDelegate {}
