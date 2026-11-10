@@ -8,17 +8,14 @@
 import AppKit
 import Base
 import Deltille
-import Region
 import Splash
 import World
 
 public class WindowController: NSWindowController {
     
-    private var regionContainer: RegionContainer? { contentViewController as? RegionContainer }
     private var splashContainer: SplashContainer? { contentViewController as? SplashContainer }
     private var worldContainer: WorldContainer? { contentViewController as? WorldContainer }
     
-    private var presentingRegion: Bool { regionContainer != nil }
     private var presentingSplash: Bool { splashContainer != nil }
     private var presentingWorld: Bool { worldContainer != nil }
     
@@ -58,16 +55,6 @@ public class WindowController: NSWindowController {
 
 extension WindowController {
     
-    private func showRegion(vertex: Triangle.Vertex) {
-        
-        guard !presentingRegion,
-              let document = self.document as? Document else { return }
-        
-        set(content: RegionContainer(vertex: vertex,
-                                     document: document,
-                                     delegate: self))
-    }
-    
     private func showSplash() {
         
         guard !presentingSplash else { return }
@@ -75,28 +62,19 @@ extension WindowController {
         set(content: SplashContainer(delegate: self))
     }
     
-    private func showWorld(focus: Triangle.Vertex? = nil) {
+    private func showWorld(focus: Triangle? = nil) {
         
         guard !presentingWorld,
               let document = self.document as? Document else { return }
         
-        set(content: WorldContainer(vertex: focus ?? .zero,
+        set(content: WorldContainer(triangle: focus ?? .zero,
                                     document: document,
                                     delegate: self))
     }
     
-    private func showZone(vertex: Triangle.Vertex) {
+    private func showZone(triangle: Triangle) {
         
         //
-    }
-}
-
-extension WindowController: RegionContainerDelegate {
-    
-    public func regionContainer(_ container: RegionContainer,
-                                didFinishEditingRegion vertex: Triangle.Vertex) {
-        
-        showWorld(focus: vertex)
     }
 }
 
@@ -104,14 +82,9 @@ extension WindowController: SplashContainerDelegate {
     
     public func splashContainerDidFinish(_ container: SplashContainer) {
         
-        guard let document = self.document as? Document else { fatalError("Invalid document") }
+        guard document != nil else { fatalError("Invalid document") }
         
-        guard document.regionIntermediates.isEmpty else {
-            
-            return showWorld()
-        }
-        
-        showRegion(vertex: .zero)
+        showWorld()
     }
 }
 
@@ -122,8 +95,7 @@ extension WindowController: WorldContainerDelegate {
         
         switch selection {
             
-        case .region(let vertex): showRegion(vertex: vertex)
-        case .zone(let vertex): showZone(vertex: vertex)
+        case .zone(let triangle): showZone(triangle: triangle)
         default: break
         }
     }

@@ -4,6 +4,7 @@
 //  Created by Zack Brown on 15/07/2025.
 //
 
+import Alluvium
 import AppKit
 import Base
 import Design
@@ -40,7 +41,7 @@ public class OutlineViewController: NSViewController,
         $0.documentView = outlineView
     }
     
-    private lazy var outlineView = with(OutlineView(menuDelegate: self)) {
+    private lazy var outlineView = with(OutlineView(eventHandler: self)) {
         
         $0.dataSource = self
         $0.delegate = self

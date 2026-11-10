@@ -5,15 +5,14 @@ import PackageDescription
 
 let package = Package(
     name: "Base",
-    platforms: [.macOS(.v15)],
+    platforms: [.macOS(.v26)],
     products: [
         .library(name: "Base",
                  targets: ["Base"]),
     ],
     dependencies: [
         .package(path: "../../../Alluvium"),
-        .package(url: "https://github.com/zilmarinen/Deltille.git",
-                 branch: "main"),
+        .package(path: "../../../Deltille"),
         .package(path: "../../../Harvest")
     ],
     targets: [

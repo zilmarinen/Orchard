@@ -4,6 +4,7 @@
 //  Created by Zack Brown on 09/07/2025.
 //
 
+import Alluvium
 import AppKit
 import Base
 import Deltille
@@ -48,11 +49,11 @@ public class WorldContainer: NSSplitViewController,
     private let viewModel: WorldViewModel
     private weak var delegate: WorldContainerDelegate?
     
-    public init(vertex: Triangle.Vertex,
+    public init(triangle: Triangle,
                 document: Document,
                 delegate: WorldContainerDelegate) {
         
-        self.viewModel = .init(vertex: vertex,
+        self.viewModel = .init(triangle: triangle,
                                document: document)
         self.delegate = delegate
         
@@ -97,16 +98,16 @@ extension WorldContainer {
         
         switch selection {
             
-        case .region(let vertex): presentDeleteRegionAlert(vertex: vertex)
-        case .zone(let vertex): presentDeleteZoneAlert(vertex: vertex)
+        case .region(let triangle): presentDeleteRegionAlert(triangle: triangle)
+        case .zone(let triangle): presentDeleteZoneAlert(triangle: triangle)
         default: fatalError("Invalid selection for deletion \(selection)")
         }
     }
     
-    private func presentDeleteRegionAlert(vertex: Triangle.Vertex) {
+    private func presentDeleteRegionAlert(triangle: Triangle) {
         
         guard let window = delegate?.window,
-              let intermediate = viewModel.region(intermediate: vertex) else { return }
+              let intermediate = viewModel.region(intermediate: triangle) else { return }
         
         let alert = NSAlert(type: .deleteRegion(identifier: intermediate.displayName),
                             buttons: [.cancel,
@@ -119,7 +120,7 @@ extension WorldContainer {
             
             do {
                 
-                try self.viewModel.delete(region: vertex)
+                try self.viewModel.delete(region: triangle)
             }
             catch {
                 
@@ -139,10 +140,10 @@ extension WorldContainer {
         }
     }
     
-    private func presentDeleteZoneAlert(vertex: Triangle.Vertex) {
+    private func presentDeleteZoneAlert(triangle: Triangle) {
         
         guard let window = delegate?.window,
-              let intermediate = viewModel.zone(intermediate: vertex) else { return }
+              let intermediate = viewModel.zone(intermediate: triangle) else { return }
         
         let alert = NSAlert(type: .deleteZone(identifier: intermediate.displayName),
                             buttons: [.cancel,
@@ -155,7 +156,7 @@ extension WorldContainer {
             
             do {
                 
-                try self.viewModel.delete(zone: vertex)
+                try self.viewModel.delete(zone: triangle)
             }
             catch {
                 
@@ -191,15 +192,15 @@ extension WorldContainer: @preconcurrency WorldSidebarContainerDelegate {
                                  didRequestEditingFor: selection)
     }
     
-    // When item is selected from sidebar;
-    // - focus editor view
-    // - select appropriate inspector view
-    //   - show inspector view if hidden
-    
     internal func worldSidebarContainer(_ container: WorldSidebarContainer,
                                         didSelect selection: Document.Selection) {
         
         viewModel.update(selection: selection)
+        
+        // When item is selected from sidebar;
+        // - focus editor view
+        // - select appropriate inspector view
+        //   - show inspector view if hidden
         
         editorContainer.focus()
         inspectorContainer.reload()
@@ -210,16 +211,16 @@ extension WorldContainer: @preconcurrency WorldSidebarContainerDelegate {
 
 extension WorldContainer: @preconcurrency WorldEditorContainerDelegate {
     
-    // When item is selected from editor;
-    // - select appropriate item in sidebar
-    // - focus editor view
-    // - select appropriate inspector view
-    //   - show inspector view if hidden
-    
     internal func worldEditorContainer(_ container: WorldEditorContainer,
                                        didSelect selection: Document.Selection) {
         
         viewModel.update(selection: selection)
+        
+        // When item is selected from editor;
+        // - select appropriate item in sidebar
+        // - focus editor view
+        // - select appropriate inspector view
+        //   - show inspector view if hidden
         
         sidebarContainer.reload()
         editorContainer.focus()
@@ -244,12 +245,12 @@ extension WorldContainer: @preconcurrency WorldInspectorContainerDelegate {
                                  didRequestEditingFor: selection)
     }
     
-    // When item properties are modified from inspector;
-    // - select appropriate item in sidebar
-    // - focus editor view
-    
     internal func worldInspectorContainer(_ container: WorldInspectorContainer,
                                           didUpdate selection: Document.Selection) {
+        
+        // When item properties are modified from inspector;
+        // - select appropriate item in sidebar
+        // - focus editor view
         
         sidebarContainer.reload()
         editorContainer.focus()

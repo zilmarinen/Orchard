@@ -16,11 +16,11 @@ internal class OutlineView: NSOutlineView {
     
     private var contextualRect = NSRect.zero
     
-    private weak var menuDelegate: OutlineViewMenuDelegate?
+    private weak var eventHandler: OutlineViewMenuDelegate?
     
-    init(menuDelegate: OutlineViewMenuDelegate) {
+    init(eventHandler: OutlineViewMenuDelegate) {
         
-        self.menuDelegate = menuDelegate
+        self.eventHandler = eventHandler
         
         super.init(frame: .zero)
     }
@@ -90,11 +90,11 @@ internal class OutlineView: NSOutlineView {
         
         guard !contextualRect.isEmpty else {
             
-            return menuDelegate?.outlineView(self,
+            return eventHandler?.outlineView(self,
                                              menuFor: selectedRow)
         }
         
-        return menuDelegate?.outlineView(self,
+        return eventHandler?.outlineView(self,
                                          menuFor: row)
     }
 }

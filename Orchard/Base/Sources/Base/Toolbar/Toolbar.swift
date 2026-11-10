@@ -4,6 +4,7 @@
 //  Created by Zack Brown on 11/07/2025.
 //
 
+import Alluvium
 import AppKit
 
 public protocol ToolbarDelegate: AnyObject {
